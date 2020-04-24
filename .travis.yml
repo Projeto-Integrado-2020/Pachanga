@@ -1,3 +1,8 @@
+language: node_js
+rvm:
+  - 10.16.2
+  - jest
+
 notifications:  
   email:  
     recipients:  
