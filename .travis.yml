@@ -1,11 +1,16 @@
 matrix:
   include:
     - language: java
-      rvm:
-
     - language: node_js
-      rvm:
-        - 10.16.2
-        - jest
-notifications:
-    email: true
+
+notifications:  
+  email:  
+    recipients:  
+    - andrey-lacerda@hotmail.com
+    - luis.antonio@aluno.ifsp.edu.br
+    - tiagostaurenghi@gmail.com
+    - guiladriero@gmail.com
+    - opedrofreitas@gmail.com
+    - guga.72@hotmail.com
+    on_success: always  
+    on_failure: always
