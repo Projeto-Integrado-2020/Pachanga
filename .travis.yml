@@ -1,7 +1,7 @@
 language: node_js
 rvm:
   - 10.16.2
-  - jest
+  - ng test
 
 notifications:  
   email:  
