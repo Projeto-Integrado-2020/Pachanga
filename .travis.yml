@@ -1,7 +1,5 @@
-matrix:
-  include:
-    - language: java
-    - language: node_js
+language: java
+language: node_js
 
 notifications:  
   email:  
