@@ -4,6 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "node server.js",
+    "publishheroku": "cd ../ && git subtree push --prefix front-end pachanga master || true",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
