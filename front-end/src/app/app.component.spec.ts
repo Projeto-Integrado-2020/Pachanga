@@ -26,6 +26,6 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain('front-end app is running!');
+    expect(compiled.querySelector('.hello-world h1').textContent).toContain('Hello world');
   });
 });
