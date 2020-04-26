@@ -6,7 +6,7 @@
     "start": "node server.js",
     "publishheroku": "cd ../ && git subtree push --prefix front-end pachanga master || true",
     "build": "ng build",
-    "test": "ng test",
+    "test": "ng test --watch=false",
     "lint": "ng lint",
     "e2e": "ng e2e",
     "heroku-postbuild": "ng build --prod"

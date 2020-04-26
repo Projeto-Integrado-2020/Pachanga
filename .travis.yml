@@ -3,12 +3,17 @@ matrix:
     - language: node_js
       node_js:
         - "stable"
+      addons:
+        apt:
+          packages:
+            - dpkg
+        chrome: stable
       before_script: "cd front-end && npm install"
       script: "npm test"
     - language: java
       jdk:
         - openjdk8
-      script: "cd back-end && mvnw clean install"
+      script: "cd back-end && mvn clean install"
 
 notifications:  
   email:  
