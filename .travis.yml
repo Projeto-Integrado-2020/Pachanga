@@ -4,9 +4,6 @@ matrix:
       node_js:
         - "stable"
       addons:
-        apt:
-          packages:
-            - dpkg
         chrome: stable
       before_script: "cd front-end && npm install"
       script: "npm test"
