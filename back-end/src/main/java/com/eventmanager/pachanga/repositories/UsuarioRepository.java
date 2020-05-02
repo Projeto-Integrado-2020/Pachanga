@@ -1,4 +1,4 @@
 package com.eventmanager.pachanga.repositories;
 
-public class testerpo {
+public interface UsuarioRepository {
 }

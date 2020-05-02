@@ -1,4 +1,4 @@
 package com.eventmanager.pachanga.services;
 
-public class testserv {
+public class UsuarioService {
 }
