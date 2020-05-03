@@ -11,11 +11,13 @@ import {
   MatGridListModule
 } from '@angular/material';
 import { NavbarComponent } from './navbar/navbar.component';
+import { IndexComponent } from './index/index.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavbarComponent
+    NavbarComponent,
+    IndexComponent
   ],
   imports: [
     BrowserModule,
