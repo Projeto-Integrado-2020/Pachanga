@@ -77,6 +77,16 @@
 			<artifactId>commons-dbcp2</artifactId>
 			<version>2.7.0</version>
 		</dependency>
+		<dependency>
+    		<groupId>org.glassfish.jersey.bundles</groupId>
+    		<artifactId>jaxrs-ri</artifactId>
+    		<version>2.26</version>
+		</dependency>
+		<dependency>
+    		<groupId>org.glassfish.jersey.core</groupId>
+    		<artifactId>jersey-server</artifactId>
+    		<version>2.26</version>
+		</dependency>
 	</dependencies>
 
 	<build>
