@@ -24,6 +24,8 @@ export class SelectOverviewExample {
   ];
 }
 
+import {FormsModule} from '@angular/forms';
+
 
 @NgModule({
   declarations: [
@@ -36,7 +38,8 @@ export class SelectOverviewExample {
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    CustomMaterialModule
+    CustomMaterialModule,
+    FormsModule
   ],
   bootstrap: [AppComponent]
 })
