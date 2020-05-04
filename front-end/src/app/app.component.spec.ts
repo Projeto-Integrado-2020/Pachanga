@@ -6,7 +6,7 @@ import { CustomMaterialModule } from './views/material/material.module'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { LoginComponent } from './views/login/login.component';
-
+import { CadastroComponent } from './views/cadastro/cadastro.component';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -15,7 +15,8 @@ describe('AppComponent', () => {
         AppComponent,
         NavbarComponent,
         IndexComponent,
-        LoginComponent
+        LoginComponent,
+        CadastroComponent
       ],
       imports: [
         BrowserModule,

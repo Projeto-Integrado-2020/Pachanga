@@ -2,12 +2,6 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { NavbarComponent } from './navbar.component';
 
-import {
-  MatToolbarModule, 
-  MatIconModule, 
-  MatButtonModule,
-  MatGridListModule
-} from '@angular/material';
 import { CustomMaterialModule } from '../material/material.module';
 
 describe('NavbarComponent', () => {
@@ -18,7 +12,6 @@ describe('NavbarComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         NavbarComponent,
-        
        ],
       imports: [
         CustomMaterialModule

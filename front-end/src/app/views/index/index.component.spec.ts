@@ -2,9 +2,6 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { IndexComponent } from './index.component';
 
-import {
-  MatGridListModule
-} from '@angular/material';
 import { CustomMaterialModule } from '../material/material.module';
 
 describe('IndexComponent', () => {

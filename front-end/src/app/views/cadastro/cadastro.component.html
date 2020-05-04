@@ -1,0 +1,56 @@
+<div class="index">
+    <mat-grid-list cols="3" rowHeight="873px">
+        <mat-grid-tile></mat-grid-tile>
+        <mat-grid-tile id="title">
+            <mat-card class="example-card">
+                <mat-card-header>
+                  <mat-card-title>Cadastro</mat-card-title>
+                  <mat-card-subtitle>Preencha as informações a seguir:</mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content>
+                    <form class="example-form" onSubmit="return checkPassword(this)">
+                        <mat-form-field class="example-full-width">
+                          <mat-label>Nome</mat-label>
+                          <input matInput required id="nome">
+                        </mat-form-field>
+                        <mat-form-field class="example-full-width">
+                          <mat-label>Data de Nascimento</mat-label>
+                          <input matInput required id="dtnasc">
+                        </mat-form-field>
+                        <mat-form-field>
+                          <mat-label>Sexo</mat-label>
+                          <mat-select required id="sexo">
+                            <mat-option *ngFor="let sexo of sexo" [value]="sexo.value">
+                              {{sexo.viewValue}}
+                            </mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                        <mat-form-field class="example-full-width">
+                          <mat-label>E-mail</mat-label>
+                          <input matInput required placeholder="Ex. pachanga@exemplo.com">
+                          <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+                            Please enter a valid email address
+                          </mat-error>
+                        </mat-form-field>
+                        <mat-form-field class="example-full-width">
+                          <mat-label>Senha</mat-label>
+                          <input matInput required type="password" id="senha">
+                        </mat-form-field>
+                        <mat-form-field class="example-full-width">
+                          <mat-label>Confirmar senha</mat-label>
+                          <input matInput required type="password" id="conf_senha">
+                        </mat-form-field>
+                        <label>Cadastrar com Facebook</label><p></p>
+                        <label>Cadastrar com Gmail</label>
+                        <section class="example-section"><p></p>
+                        <mat-checkbox class="termos">Eu aceito os Termos de Uso</mat-checkbox>
+                        </section>
+                    </form>
+                </mat-card-content>
+                <mat-card-actions>
+                  <button class="butao" mat-raised-button color="accent">Cadastrar</button>
+                </mat-card-actions>
+              </mat-card>
+        </mat-grid-tile>
+    </mat-grid-list>
+</div>

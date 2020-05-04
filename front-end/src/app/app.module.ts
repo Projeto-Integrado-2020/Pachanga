@@ -9,6 +9,20 @@ import { CustomMaterialModule } from './views/material/material.module'
 import { NavbarComponent } from './views/navbar/navbar.component';
 import { IndexComponent } from './views/index/index.component';
 import { LoginComponent } from './views/login/login.component';
+import { CadastroComponent } from './views/cadastro/cadastro.component';
+
+interface Food {
+  value: string;
+  viewValue: string;
+}
+
+export class SelectOverviewExample {
+  foods: Food[] = [
+    {value: 'steak-0', viewValue: 'Steak'},
+    {value: 'pizza-1', viewValue: 'Pizza'},
+    {value: 'tacos-2', viewValue: 'Tacos'}
+  ];
+}
 
 
 @NgModule({
@@ -16,7 +30,8 @@ import { LoginComponent } from './views/login/login.component';
     AppComponent,
     NavbarComponent,
     IndexComponent,
-    LoginComponent
+    LoginComponent,
+    CadastroComponent
   ],
   imports: [
     BrowserModule,
