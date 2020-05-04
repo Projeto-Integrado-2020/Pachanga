@@ -1,7 +1,7 @@
 import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
-import { NavbarComponent } from './navbar/navbar.component';
-import { IndexComponent } from './index/index.component';
+import { NavbarComponent } from './views/navbar/navbar.component';
+import { IndexComponent } from './views/index/index.component';
 
 import {
   MatToolbarModule, 

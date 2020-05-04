@@ -10,8 +10,8 @@ import {
   MatButtonModule,
   MatGridListModule
 } from '@angular/material';
-import { NavbarComponent } from './navbar/navbar.component';
-import { IndexComponent } from './index/index.component';
+import { NavbarComponent } from './views/navbar/navbar.component';
+import { IndexComponent } from './views/index/index.component';
 
 @NgModule({
   declarations: [
