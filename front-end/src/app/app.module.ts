@@ -10,6 +10,8 @@ import { NavbarComponent } from './views/navbar/navbar.component';
 import { IndexComponent } from './views/index/index.component';
 import { LoginComponent } from './views/login/login.component';
 
+import {FormsModule} from '@angular/forms';
+
 
 @NgModule({
   declarations: [
@@ -21,7 +23,8 @@ import { LoginComponent } from './views/login/login.component';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    CustomMaterialModule
+    CustomMaterialModule,
+    FormsModule
   ],
   bootstrap: [AppComponent]
 })

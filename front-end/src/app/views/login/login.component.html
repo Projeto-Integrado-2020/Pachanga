@@ -1,9 +1,27 @@
-
-<mat-grid-list cols="3" rowHeight="100vh">
+<app-navbar></app-navbar>
+<mat-grid-list cols="1" rowHeight="100vh">
     <mat-grid-tile id="title">
         <mat-card>
             <mat-card-title>Login</mat-card-title>
-            <input matInput placeholder="Ex. Pizza" value="Sushi">
+            <mat-card-content>
+                <form class="example-form">
+                    <mat-form-field class="example-full-width">
+                      <mat-label>Usuário</mat-label>
+                      <input matInput >
+                    </mat-form-field>
+                  
+                    <mat-form-field class="example-full-width">
+                      <mat-label>Senha</mat-label>
+                      <input matInput type="password">
+                    </mat-form-field>
+                    <button class="button-index" mat-raised-button color="accent">Entrar</button>
+                    <mat-divider [inset]="true"></mat-divider>
+                    <button class="button-index" mat-raised-button color="warn">Criar conta</button>
+                    <mat-divider [inset]="true"></mat-divider>
+                    <a href="#">Continuar com Facebook</a>
+                    <a href="#">Continuar com Google</a>
+                  </form>
+            </mat-card-content>
         </mat-card>
     </mat-grid-tile>
 </mat-grid-list>
