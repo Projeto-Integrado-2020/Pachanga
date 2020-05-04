@@ -23,7 +23,6 @@ import { LoginComponent } from './views/login/login.component';
     BrowserAnimationsModule,
     CustomMaterialModule
   ],
-  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { };

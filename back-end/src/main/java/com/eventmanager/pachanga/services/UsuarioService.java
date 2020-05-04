@@ -1,25 +1,33 @@
 package com.eventmanager.pachanga.services;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.eventmanager.pachanga.domains.Usuario;
 import com.eventmanager.pachanga.repositories.UsuarioRepository;
 import com.eventmanager.pachanga.utils.HashBuilder;
 
+@Service
 public class UsuarioService {
 
-	public Boolean cadastro(Usuario user, UsuarioRepository repository) {
-		Usuario usuarioExistente = repository.findByEmailAndTipConta(user.getEmail(), user.getTipConta());
+	@Autowired
+	private UsuarioRepository userRepository;
+	
+	public Boolean cadastro(Usuario user) {
+		Usuario usuarioExistente = userRepository.findByEmailAndTipConta(user.getEmail(), user.getTipConta());
 		if(usuarioExistente == null) {
 			if(user.getSenha() != null) {
 				user.setSenha(HashBuilder.gerarSenha(user.getSenha()));
 			}
-			repository.save(user);
+			user.setCodUsuario(userRepository.getNextValMySequence());
+			userRepository.save(user);
 			return true;
 		}
 		return false;
 	}
 
-	public Usuario login(Usuario user, UsuarioRepository repository){
-		Usuario usuarioExistente = repository.findByEmail(user.getEmail());
+	public Usuario login(Usuario user){
+		Usuario usuarioExistente = userRepository.findByEmail(user.getEmail());
 		if(validacaoLogin(usuarioExistente, user)) {
 			return usuarioExistente;
 		}
