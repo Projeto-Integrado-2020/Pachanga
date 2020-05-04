@@ -2,13 +2,11 @@ import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './views/navbar/navbar.component';
 import { IndexComponent } from './views/index/index.component';
+import { CustomMaterialModule } from './views/material/material.module'
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BrowserModule } from '@angular/platform-browser';
+import { LoginComponent } from './views/login/login.component';
 
-import {
-  MatToolbarModule, 
-  MatIconModule, 
-  MatButtonModule,
-  MatGridListModule
-} from '@angular/material';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -16,13 +14,13 @@ describe('AppComponent', () => {
       declarations: [
         AppComponent,
         NavbarComponent,
-        IndexComponent
+        IndexComponent,
+        LoginComponent
       ],
       imports: [
-        MatToolbarModule,
-        MatButtonModule,
-        MatIconModule,
-        MatGridListModule
+        BrowserModule,
+        BrowserAnimationsModule,
+        CustomMaterialModule
       ],
     }).compileComponents();
   }));
@@ -43,6 +41,6 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('#title').textContent).toContain('Hello World');
+    expect(compiled.querySelector('#helloworld').textContent).toContain('Hello World');
   });
 });

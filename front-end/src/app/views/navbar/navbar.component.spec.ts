@@ -8,6 +8,7 @@ import {
   MatButtonModule,
   MatGridListModule
 } from '@angular/material';
+import { CustomMaterialModule } from '../material/material.module';
 
 describe('NavbarComponent', () => {
   let component: NavbarComponent;
@@ -15,12 +16,12 @@ describe('NavbarComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ NavbarComponent ],
+      declarations: [
+        NavbarComponent,
+        
+       ],
       imports: [
-        MatToolbarModule,
-        MatButtonModule,
-        MatIconModule,
-        MatGridListModule
+        CustomMaterialModule
       ],
     })
     .compileComponents();

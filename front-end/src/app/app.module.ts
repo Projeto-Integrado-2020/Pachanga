@@ -4,28 +4,24 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import {
-  MatToolbarModule, 
-  MatIconModule, 
-  MatButtonModule,
-  MatGridListModule
-} from '@angular/material';
+import { CustomMaterialModule } from './views/material/material.module'
+
 import { NavbarComponent } from './views/navbar/navbar.component';
 import { IndexComponent } from './views/index/index.component';
+import { LoginComponent } from './views/login/login.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
-    IndexComponent
+    IndexComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    MatToolbarModule,
-    MatButtonModule,
-    MatIconModule,
-    MatGridListModule
+    CustomMaterialModule
   ],
   providers: [],
   bootstrap: [AppComponent]
