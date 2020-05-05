@@ -7,20 +7,20 @@
             <mat-card-content>
                 <form class="example-form">
                     <mat-form-field class="example-full-width">
-                      <mat-label>Usuário</mat-label>
+                      <mat-label>{{'CADASTRO.USUARIO' | translate}}</mat-label>
                       <input matInput >
                     </mat-form-field>
                   
                     <mat-form-field class="example-full-width">
-                      <mat-label>Senha</mat-label>
+                      <mat-label>{{'CADASTRO.SENHA' | translate}}</mat-label>
                       <input matInput type="password">
                     </mat-form-field>
-                    <button class="button-index" mat-raised-button color="accent">Entrar</button>
+                    <button class="button-index" mat-raised-button color="accent">{{'CADASTRO.ENTRAR' | translate}}</button>
                     <mat-divider [inset]="true"></mat-divider>
-                    <button class="button-index" mat-raised-button color="warn">Criar conta</button>
+                    <button class="button-index" mat-raised-button color="warn">{{'CADASTRO.CONTA' | translate}}</button>
                     <mat-divider [inset]="true"></mat-divider>
-                    <a href="#">Continuar com Facebook</a>
-                    <a href="#">Continuar com Google</a>
+                    <a href="#">{{'CADASTRO.FACE' | translate}}</a>
+                    <a href="#">{{'CADASTRO.GMAIL' | translate}}</a>
                   </form>
             </mat-card-content>
         </mat-card>

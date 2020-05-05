@@ -1,0 +1,34 @@
+{
+    "NAV": {
+        "ENTRAR": "Login",
+        "CONTA": "Register now"
+    },
+
+    "INDEX": {
+        "OLA": "HelLo World, Pachanga"
+    },
+
+    "LOGIN": {
+        "USUARIO": "User",
+        "SENHA": "Password",
+        "ENTRAR": "Login",
+        "CONTA": "Register now",
+        "FACE": "Continue with Facebook",
+        "GMAIL": "Continue with Gmail"
+    },
+
+    "CADASTRO": {
+        "CADASTRO": "Register",
+        "PREENCHER": "Fill in the following information:",
+        "NOME": "Name",
+        "DATANASC": "Birth date",
+        "SEXO": "Gender",
+        "EMAILERRO": "Please enter a valid email address.",
+        "SENHA": "Password",
+        "SENHA2": "Confirm password",
+        "FACE": "Register with Facebook",
+        "GMAIL": "Register with Gmail",
+        "TERMOS": "I accept the Terms of Use",
+        "CADASTRAR": "Register"
+    }
+}

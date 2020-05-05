@@ -1,0 +1,34 @@
+{
+    "NAV": {
+        "ENTRAR": "Entrar",
+        "CONTA": "Cria conta"
+    },
+
+    "INDEX": {
+        "OLA": "Olá Mundo, Pachanga"
+    },
+
+    "LOGIN": {
+        "USUARIO": "User",
+        "SENHA": "Senha",
+        "ENTRAR": "Entrar",
+        "CONTA": "Cria conta",
+        "FACE": "Continuar com Facebook",
+        "GMAIL": "Continuar com Google"
+    },
+
+    "CADASTRO": {
+        "CADASTRO": "Cadastro",
+        "PREENCHER": "Preencha as informações a seguir:",
+        "NOME": "Nome",
+        "DATANASC": "Data de Nascimento",
+        "SEXO": "Sexo",
+        "EMAILERRO": "Por favor digite um e-mail válido.",
+        "SENHA": "Senha",
+        "SENHA2": "Confirmar senha",
+        "FACE": "Cadastrar com Facebook",
+        "GMAIL": "Cadastrar com Gmail",
+        "TERMOS": "Eu aceito os Termos de Uso",
+        "CADASTRAR": "Cadastrar"
+    }
+}

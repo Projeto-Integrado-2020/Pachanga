@@ -5,6 +5,9 @@
       <div class="example-button-row">
         <button class="button-index" mat-raised-button color="accent"><a href="../login/login.component.html">Entrar</a></button>
         <button class="button-index" mat-raised-button color="warn"><a href="#">Criar conta</a></button>
+        <select #langselect (change)="translate.use(langselect.value)">
+          <option *ngFor="let lang of translate.getLangs()" [value]="lang">{{lang}}</option>
+        </select>
       </div>
     </mat-toolbar-row>
   </mat-toolbar>

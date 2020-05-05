@@ -25,6 +25,8 @@
     "@angular/platform-browser": "~8.2.14",
     "@angular/platform-browser-dynamic": "~8.2.14",
     "@angular/router": "~8.2.14",
+    "@ngx-translate/core": "^12.1.2",
+    "@ngx-translate/http-loader": "^4.0.0",
     "angularx-social-login": "^1.2.7",
     "bulma": "^0.8.2",
     "express": "^4.17.1",
