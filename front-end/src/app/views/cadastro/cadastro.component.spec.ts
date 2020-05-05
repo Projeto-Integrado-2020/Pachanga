@@ -8,6 +8,9 @@ import {NavbarComponent} from '../navbar/navbar.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
+import { AppRoutingModule } from '../../app-routing.module';
+import { LoginComponent } from '../login/login.component';
+import { IndexComponent } from '../index/index.component';
 
 describe('CadastroComponent', () => {
   let component: CadastroComponent;
@@ -15,11 +18,17 @@ describe('CadastroComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CadastroComponent, NavbarComponent ],
+      declarations: [ 
+        CadastroComponent,
+        NavbarComponent,
+        LoginComponent,
+        IndexComponent
+      ],
       imports: [
         CustomMaterialModule,
         BrowserAnimationsModule,
-        BrowserModule
+        BrowserModule,
+        AppRoutingModule
       ],
     })
     .compileComponents();

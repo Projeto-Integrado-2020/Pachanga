@@ -5,6 +5,9 @@ import { CustomMaterialModule } from '../material/material.module';
 import { NavbarComponent } from '../navbar/navbar.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AppRoutingModule } from '../../app-routing.module';
+import { CadastroComponent } from '../cadastro/cadastro.component';
+import { IndexComponent } from '../index/index.component';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -14,11 +17,14 @@ describe('LoginComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         LoginComponent,
-        NavbarComponent  
+        NavbarComponent,
+        CadastroComponent,
+        IndexComponent
       ],
       imports: [
         CustomMaterialModule,
-        BrowserAnimationsModule
+        BrowserAnimationsModule,
+        AppRoutingModule
       ]
     })
     .compileComponents();
