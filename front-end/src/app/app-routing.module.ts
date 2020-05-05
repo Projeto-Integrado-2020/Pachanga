@@ -7,17 +7,17 @@ import { IndexComponent } from './views/index/index.component';
 const routes: Routes = [
 
     {
-      path: "login",
+      path: 'login',
       component: LoginComponent
     },
 
     {
-      path: "cadastro",
+      path: 'cadastro',
       component: CadastroComponent
     },
 
     {
-      path: "",
+      path: '',
       component: IndexComponent
     }
 ];
@@ -31,4 +31,5 @@ const routes: Routes = [
     ],
     declarations: []
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+}

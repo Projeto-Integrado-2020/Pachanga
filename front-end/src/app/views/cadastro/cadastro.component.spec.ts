@@ -18,7 +18,7 @@ describe('CadastroComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ 
+      declarations: [
         CadastroComponent,
         NavbarComponent,
         LoginComponent,

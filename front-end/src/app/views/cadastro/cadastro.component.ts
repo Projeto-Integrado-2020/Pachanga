@@ -5,7 +5,7 @@ import {FormControl, Validators} from '@angular/forms';
 interface Sexo {
   value: string;
   viewValue: string;
-} 
+}
 
 @Component({
   selector: 'app-cadastro',
@@ -24,11 +24,9 @@ export class CadastroComponent implements OnInit {
     Validators.required,
     Validators.email,
   ]);
-  
+
   constructor() { }
 
   ngOnInit() {
   }
-
-  
 }
