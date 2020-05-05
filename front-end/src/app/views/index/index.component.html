@@ -1,5 +1,8 @@
 <mat-grid-list cols="3" rowHeight="80vh">
-    <mat-grid-tile id="title">
-        <h1>Bem Vindo à Pachanga</h1>
+    <mat-grid-tile *ngFor="let tile of tiles"
+    [colspan] = "tile.cols"
+    [rowspan] = "tile.rows"
+    >
+        <h1>{{tile.text}}</h1>
     </mat-grid-tile>
 </mat-grid-list>
