@@ -14,7 +14,6 @@ export interface Tile {
 })
 export class IndexComponent implements OnInit {
 
-
   tiles: Tile[] = [
     {text: 'Bem Vindo à Pachanga', cols: 2, rows: 1, },
     {text: '', cols: 1, rows: 1}

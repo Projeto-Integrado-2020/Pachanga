@@ -19,8 +19,8 @@
                     <mat-divider [inset]="true"></mat-divider>
                     <button class="button-index" mat-raised-button color="warn">{{'LOGIN.CONTA' | translate}}</button>
                     <mat-divider [inset]="true"></mat-divider>
-                    <a href="#">{{'LOGIN.FACE' | translate}}</a>
-                    <a href="#">{{'LOGIN.GMAIL' | translate}}</a>
+                    <button mat-raised-button color="primary" (click)="signInWithFB()"><i class="fa fa-facebook-official"></i> {{'LOGIN.FACE' | translate}}</button>
+                    <button mat-raised-button color="warn" (click)="signInWithGoogle()"><i class="fa fa-google"></i> {{'LOGIN.GMAIL' | translate}}</button>
                   </form>
             </mat-card-content>
         </mat-card>

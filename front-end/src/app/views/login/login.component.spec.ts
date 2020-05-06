@@ -9,6 +9,32 @@ import { AppRoutingModule } from '../../app-routing.module';
 import { CadastroComponent } from '../cadastro/cadastro.component';
 import { IndexComponent } from '../index/index.component';
 
+import { SocialLoginModule, AuthServiceConfig } from 'angularx-social-login';
+import { GoogleLoginProvider, FacebookLoginProvider } from 'angularx-social-login';
+
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
+
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}
+
+const config = new AuthServiceConfig([
+  {
+    id: GoogleLoginProvider.PROVIDER_ID,
+    provider: new GoogleLoginProvider('215875672881-jp0n01npv48op3j0c67mm0jlauoov3hb.apps.googleusercontent.com')
+  },
+  {
+    id: FacebookLoginProvider.PROVIDER_ID,
+    provider: new FacebookLoginProvider('620215655237701')
+  }
+]);
+
+export function provideConfig() {
+  return config;
+}
+
 describe('LoginComponent', () => {
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
@@ -24,7 +50,22 @@ describe('LoginComponent', () => {
       imports: [
         CustomMaterialModule,
         BrowserAnimationsModule,
-        AppRoutingModule
+        AppRoutingModule,
+        SocialLoginModule,
+        HttpClientModule,
+        TranslateModule.forRoot({
+          loader: {
+            provide: TranslateLoader,
+            useFactory: HttpLoaderFactory,
+            deps: [HttpClient]
+          }
+        }),
+      ],
+      providers: [
+        {
+          provide: AuthServiceConfig,
+          useFactory: provideConfig
+        }
       ]
     })
     .compileComponents();

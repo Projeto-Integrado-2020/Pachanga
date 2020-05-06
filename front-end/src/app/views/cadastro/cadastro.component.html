@@ -8,6 +8,9 @@
                   <mat-card-subtitle>{{'CADASTRO.PREENCHER' | translate}}</mat-card-subtitle>
                 </mat-card-header>
                 <mat-card-content>
+                    <button mat-raised-button color="primary" (click)="signInWithFB()"><i class="fa fa-facebook-official"></i> {{'CADASTRO.FACE' | translate}}</button>
+                    <button mat-raised-button color="warn" (click)="signInWithGoogle()"><i class="fa fa-google"></i> {{'CADASTRO.GMAIL' | translate}}</button>
+                    <mat-divider></mat-divider>
                     <form class="example-form" onSubmit="return checkPassword(this)">
                         <mat-form-field class="example-full-width">
                           <mat-label>{{'CADASTRO.NOME' | translate}}</mat-label>
@@ -40,8 +43,6 @@
                           <mat-label>{{'CADASTRO.SENHA2' | translate}}</mat-label>
                           <input matInput required type="password" id="conf_senha">
                         </mat-form-field>
-                        <label>{{'CADASTRO.FACE' | translate}}</label><p></p>
-                        <label>{{'CADASTRO.GMAIL' | translate}}</label>
                         <section class="example-section"><p></p>
                         <mat-checkbox class="termos">{{'CADASTRO.TERMOS' | translate}}</mat-checkbox>
                         </section>
