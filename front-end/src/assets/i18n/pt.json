@@ -30,5 +30,12 @@
         "GMAIL": "Cadastrar com Gmail",
         "TERMOS": "Eu aceito os Termos de Uso",
         "CADASTRAR": "Cadastrar"
+    },
+
+    "SEXO": {
+        "MASC": "Masculino",
+        "FEM": "Feminino",
+        "TRANS": "Transgênero",
+        "OUTRO": "Outro(s)"
     }
 }
