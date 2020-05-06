@@ -17,6 +17,15 @@ export class NavbarComponent implements OnInit {
     const browserLang = translate.getBrowserLang();
     translate.use(browserLang.match(/pt|en/) ? browserLang : 'pt');
   }
+
+  langPt(){
+    this.translate.use('pt');
+  }
+
+  langEn(){
+    this.translate.use('en');
+  }
+
 // método para abrir modal de login
   openDialogLogin(){
     this.login.open(LoginComponent, {

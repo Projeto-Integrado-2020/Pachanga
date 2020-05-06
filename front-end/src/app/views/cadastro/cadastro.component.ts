@@ -5,7 +5,7 @@ import {FormControl, Validators} from '@angular/forms';
 import { SocialLoginBaseComponent } from '../social-login-base/social-login-base.component';
 
 @Component({
-  selector: 'app-cadastro', 
+  selector: 'app-cadastro',
   templateUrl: './cadastro.component.html',
   styleUrls: [
     './cadastro.component.scss',
