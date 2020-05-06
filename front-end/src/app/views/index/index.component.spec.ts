@@ -7,6 +7,14 @@ import { AppRoutingModule } from '../../app-routing.module';
 import { LoginComponent } from '../login/login.component';
 import { CadastroComponent } from '../cadastro/cadastro.component';
 
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
+
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}
+
 describe('IndexComponent', () => {
   let component: IndexComponent;
   let fixture: ComponentFixture<IndexComponent>;
@@ -16,11 +24,19 @@ describe('IndexComponent', () => {
       declarations: [
         IndexComponent,
         LoginComponent,
-        CadastroComponent
+        CadastroComponent,
       ],
       imports: [
         CustomMaterialModule,
-        AppRoutingModule
+        AppRoutingModule,
+        HttpClientModule,
+        TranslateModule.forRoot({
+          loader: {
+            provide: TranslateLoader,
+            useFactory: HttpLoaderFactory,
+            deps: [HttpClient]
+          }
+        }),
       ],
     })
     .compileComponents();

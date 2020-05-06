@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 
-
-
 export interface Tile {
   cols: number;
   rows: number;

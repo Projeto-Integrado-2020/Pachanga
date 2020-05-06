@@ -6,26 +6,21 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { CustomMaterialModule } from './views/material/material.module';
 
+// Imports para a ttradução da página
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { AppRoutingModule } from './app-routing.module';
+
 import { NavbarComponent } from './views/navbar/navbar.component';
 import { IndexComponent } from './views/index/index.component';
 import { LoginComponent } from './views/login/login.component';
 import { CadastroComponent } from './views/cadastro/cadastro.component';
+import { FormsModule } from '@angular/forms';
 
-interface Food {
-  value: string;
-  viewValue: string;
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
 }
-
-export class SelectOverviewExample {
-  foods: Food[] = [
-    {value: 'steak-0', viewValue: 'Steak'},
-    {value: 'pizza-1', viewValue: 'Pizza'},
-    {value: 'tacos-2', viewValue: 'Tacos'}
-  ];
-}
-
-import {FormsModule} from '@angular/forms';
-import { AppRoutingModule } from './app-routing.module';
 
 // Imports  para login via Facebook e Gmail
 import { SocialLoginModule, AuthServiceConfig } from 'angularx-social-login';
@@ -62,7 +57,15 @@ export function provideConfig() {
     BrowserAnimationsModule,
     CustomMaterialModule,
     FormsModule,
+    HttpClientModule,
     AppRoutingModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    }),
     SocialLoginModule
   ],
   providers: [
