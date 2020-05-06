@@ -15,8 +15,8 @@ export interface Tile {
 export class IndexComponent implements OnInit {
 
   tiles: Tile[] = [
-    {text: ({{'INDEX.OLA' | translate}}), cols: 2, rows: 1, },
-    {text: '', cols: 1, rows: 1}
+    {text: 'Bem Vindo à Pachanga', cols: 2, rows: 1, },
+    {text: null, cols: 1, rows: 1}
   ];
 
   constructor() { }
