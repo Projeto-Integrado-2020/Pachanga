@@ -23,9 +23,10 @@
                         <mat-form-field>
                           <mat-label>{{'CADASTRO.SEXO' | translate}}</mat-label>
                           <mat-select required id="sexo">
-                            <mat-option *ngFor="let sexo of sexo" [value]="sexo.value">
-                              {{sexo.viewValue}}
-                            </mat-option>
+                            <mat-option value="m">{{"SEXO.MASC" | translate}}</mat-option>
+                            <mat-option value="f">{{"SEXO.FEM" | translate}}</mat-option>
+                            <mat-option value="t">{{"SEXO.TRANS" | translate}}</mat-option>
+                            <mat-option value="o">{{"SEXO.OUTRO" | translate}}</mat-option>
                           </mat-select>
                         </mat-form-field>
                         <mat-form-field class="example-full-width">

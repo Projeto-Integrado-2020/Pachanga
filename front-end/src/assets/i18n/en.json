@@ -30,5 +30,12 @@
         "GMAIL": "Register with Gmail",
         "TERMOS": "I accept the Terms of Use",
         "CADASTRAR": "Register"
+    },
+
+    "SEXO": {
+        "MASC": "Male",
+        "FEM": "Female",
+        "TRANS": "Transgender",
+        "OUTRO": "Other(s)"
     }
 }
