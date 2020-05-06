@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.eventmanager.pachanga.domains.Usuario;
+import com.eventmanager.pachanga.errors.ValidacaoException;
 import com.eventmanager.pachanga.repositories.UsuarioRepository;
 import com.eventmanager.pachanga.utils.HashBuilder;
 
@@ -13,27 +14,27 @@ public class UsuarioService {
 	@Autowired
 	private UsuarioRepository userRepository;
 
-	public void cadastro(Usuario user) throws Exception{
-			validacaoCadastro(user);
-			if(user.getTipConta() == "P") {
-				user.setSenha(HashBuilder.gerarSenha(user.getSenha()));
-			}
-			user.setCodUsuario(userRepository.getNextValMySequence());
-			userRepository.save(user);
+	public void cadastro(Usuario user) throws ValidacaoException{
+		validacaoCadastro(user);
+		if(user.getTipConta() == "P") {
+			user.setSenha(HashBuilder.gerarSenha(user.getSenha()));
+		}
+		user.setCodUsuario(userRepository.getNextValMySequence());
+		userRepository.save(user);
 	}
 
-	public void validacaoCadastro(Usuario user) throws Exception{
+	public void validacaoCadastro(Usuario user) throws ValidacaoException{
 		Usuario usuarioExistente = userRepository.findByEmailAndTipConta(user.getEmail(), user.getTipConta());
 		if(usuarioExistente != null) {
-			throw new Exception("Outra conta está usando esse e-mail");
+			throw new ValidacaoException("Outra conta está usando esse e-mail");
 		}
 		usuarioExistente = userRepository.findByNomeUser(user.getNomeUser());
 		if(usuarioExistente != null) {
-			throw new Exception("Nome já utilizado por um outro usuário");
+			throw new ValidacaoException("Nome já utilizado por um outro usuário");
 		}
 	}
 
-	public Usuario login(Usuario user) throws Exception{
+	public Usuario login(Usuario user) throws ValidacaoException{
 		Usuario usuarioExistente = userRepository.findByEmail(user.getEmail());
 		if(validacaoLogin(usuarioExistente, user)) {
 			return usuarioExistente;
@@ -41,14 +42,18 @@ public class UsuarioService {
 		return null;
 	}
 
-	public Boolean validacaoLogin(Usuario usuarioExistente, Usuario userLogin) throws Exception{
+	public Boolean validacaoLogin(Usuario usuarioExistente, Usuario userLogin) throws ValidacaoException{
 		if(usuarioExistente != null) {
-			Boolean senhasIguais = HashBuilder.compararSenha(userLogin.getSenha(), usuarioExistente.getSenha());
-			if(senhasIguais) {
+			if(usuarioExistente.getTipConta() == "P") {
+				Boolean senhasIguais = HashBuilder.compararSenha(userLogin.getSenha(), usuarioExistente.getSenha());
+				if(senhasIguais) {
+					return true;
+				}
+			} else {
 				return true;
 			}
 		}
-		throw new Exception("Usuário ou senha incorretos");
+		throw new ValidacaoException("Usuário ou senha incorretos");
 	}
 
 }
