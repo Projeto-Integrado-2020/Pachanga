@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.eventmanager.pachanga.domains.Usuario;
 import com.eventmanager.pachanga.dtos.UsuarioTO;
+import com.eventmanager.pachanga.errors.ValidacaoException;
 import com.eventmanager.pachanga.services.UsuarioService;
 
 @Controller
@@ -26,7 +27,7 @@ public class UsuarioController{
 			userService.cadastro(user);
 			UsuarioTO userto = criadorUserDto(user);
 			return ResponseEntity.ok(userto);
-		} catch (Exception e) {
+		} catch (ValidacaoException e) {
 			return ResponseEntity.status(400).body(e.getMessage());	
 		}
 	}
@@ -37,7 +38,7 @@ public class UsuarioController{
 			Usuario usarioLogin = userService.login(user);
 			UsuarioTO userto = criadorUserDto(usarioLogin);
 			return ResponseEntity.ok(userto);			
-		} catch (Exception e) {
+		} catch (ValidacaoException e) {
 			return ResponseEntity.status(400).body("Usuário ou senha incorretos");
 		}
 	}
