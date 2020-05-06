@@ -8,6 +8,9 @@
                   <mat-card-subtitle>Preencha as informações a seguir:</mat-card-subtitle>
                 </mat-card-header>
                 <mat-card-content>
+                    <button mat-raised-button color="primary" (click)="signInWithFB()"><i class="fa fa-facebook-official"></i> Continuar com Facebook</button>
+                    <button mat-raised-button color="warn" (click)="signInWithGoogle()"><i class="fa fa-google"></i> Continuar com Google</button>
+                    <mat-divider></mat-divider>
                     <form class="example-form" onSubmit="return checkPassword(this)">
                         <mat-form-field class="example-full-width">
                           <mat-label>Nome</mat-label>
@@ -40,8 +43,6 @@
                           <mat-label>Confirmar senha</mat-label>
                           <input matInput required type="password" id="conf_senha">
                         </mat-form-field>
-                        <label>Cadastrar com Facebook</label><p></p>
-                        <label>Cadastrar com Gmail</label>
                         <section class="example-section"><p></p>
                         <mat-checkbox class="termos">Eu aceito os Termos de Uso</mat-checkbox>
                         </section>

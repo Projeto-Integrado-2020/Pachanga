@@ -19,8 +19,8 @@
                     <mat-divider [inset]="true"></mat-divider>
                     <button class="button-index" mat-raised-button color="warn">Criar conta</button>
                     <mat-divider [inset]="true"></mat-divider>
-                    <a href="#">Continuar com Facebook</a>
-                    <a href="#">Continuar com Google</a>
+                    <button mat-raised-button color="primary" (click)="signInWithFB()"><i class="fa fa-facebook-official"></i> Continuar com Facebook</button>
+                    <button mat-raised-button color="warn" (click)="signInWithGoogle()"><i class="fa fa-google"></i> Continuar com Google</button>
                   </form>
             </mat-card-content>
         </mat-card>

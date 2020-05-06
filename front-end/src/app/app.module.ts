@@ -27,6 +27,26 @@ export class SelectOverviewExample {
 import {FormsModule} from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 
+// Imports  para login via Facebook e Gmail
+import { SocialLoginModule, AuthServiceConfig } from 'angularx-social-login';
+import { GoogleLoginProvider, FacebookLoginProvider } from 'angularx-social-login';
+import { SocialLoginBaseComponent } from './views/social-login-base/social-login-base.component';
+
+const config = new AuthServiceConfig([
+  {
+    id: GoogleLoginProvider.PROVIDER_ID,
+    provider: new GoogleLoginProvider('215875672881-jp0n01npv48op3j0c67mm0jlauoov3hb.apps.googleusercontent.com')
+  },
+  {
+    id: FacebookLoginProvider.PROVIDER_ID,
+    provider: new FacebookLoginProvider('620215655237701')
+  }
+]);
+
+export function provideConfig() {
+  return config;
+}
+
 
 @NgModule({
   declarations: [
@@ -34,14 +54,22 @@ import { AppRoutingModule } from './app-routing.module';
     NavbarComponent,
     IndexComponent,
     LoginComponent,
-    CadastroComponent
+    CadastroComponent,
+    SocialLoginBaseComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     CustomMaterialModule,
     FormsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    SocialLoginModule
+  ],
+  providers: [
+    {
+      provide: AuthServiceConfig,
+      useFactory: provideConfig
+    }
   ],
   bootstrap: [AppComponent]
 })
