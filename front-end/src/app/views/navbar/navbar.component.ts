@@ -18,22 +18,22 @@ export class NavbarComponent implements OnInit {
     translate.use(browserLang.match(/pt|en/) ? browserLang : 'pt');
   }
 
-  langPt(){
+  langPt() {
     this.translate.use('pt');
   }
 
-  langEn(){
+  langEn() {
     this.translate.use('en');
   }
 
 // método para abrir modal de login
-  openDialogLogin(){
+  openDialogLogin() {
     this.login.open(LoginComponent, {
       width: '20rem',
     });
   }
 // método para abrir modal de cadastro
-  openDialogCadastro(){
+  openDialogCadastro() {
     this.cadastro.open(CadastroComponent, {
       width: '20rem'
     });
