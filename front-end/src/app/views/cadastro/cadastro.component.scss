@@ -25,10 +25,8 @@
     transform: translateX(-50%);
   }
 
-  button{
+  button {
     display: block;
-    position: relative;
-    left: 50%;
-    transform: translateX(-50%);
-    margin: 10px;
+    width: 100%;
+    margin-bottom: 15px;
   }

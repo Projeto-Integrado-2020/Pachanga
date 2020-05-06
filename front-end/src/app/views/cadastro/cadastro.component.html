@@ -1,57 +1,44 @@
-<div class="index">
-    <mat-grid-list cols="3" rowHeight="873px">
-        <mat-grid-tile></mat-grid-tile>
-        <mat-grid-tile id="title">
-            <mat-card class="example-card">
-                <mat-card-header>
-                  <mat-card-title>{{'CADASTRO.CADASTRO' | translate}}</mat-card-title>
-                  <mat-card-subtitle>{{'CADASTRO.PREENCHER' | translate}}</mat-card-subtitle>
-                </mat-card-header>
-                <mat-card-content>
-                    <button mat-raised-button color="primary" (click)="signInWithFB()"><i class="fa fa-facebook-official"></i> {{'CADASTRO.FACE' | translate}}</button>
-                    <button mat-raised-button color="warn" (click)="signInWithGoogle()"><i class="fa fa-google"></i> {{'CADASTRO.GMAIL' | translate}}</button>
-                    <mat-divider></mat-divider>
-                    <form class="example-form" onSubmit="return checkPassword(this)">
-                        <mat-form-field class="example-full-width">
-                          <mat-label>{{'CADASTRO.NOME' | translate}}</mat-label>
-                          <input matInput required id="nome">
-                        </mat-form-field>
-                        <mat-form-field class="example-full-width">
-                          <mat-label>{{'CADASTRO.DATANASC' | translate}}</mat-label>
-                          <input matInput required id="dtnasc">
-                        </mat-form-field>
-                        <mat-form-field>
-                          <mat-label>{{'CADASTRO.SEXO' | translate}}</mat-label>
-                          <mat-select required id="sexo">
-                            <mat-option *ngFor="let sexo of sexo" [value]="sexo.value">
-                              {{sexo.viewValue}}
-                            </mat-option>
-                          </mat-select>
-                        </mat-form-field>
-                        <mat-form-field class="example-full-width">
-                          <mat-label>E-mail</mat-label>
-                          <input matInput required placeholder="Ex. pachanga@exemplo.com">
-                          <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
-                            {{'CADASTRO.EMAILERRO' | translate}}
-                          </mat-error>
-                        </mat-form-field>
-                        <mat-form-field class="example-full-width">
-                          <mat-label>{{'CADASTRO.SENHA' | translate}}</mat-label>
-                          <input matInput required type="password" id="senha">
-                        </mat-form-field>
-                        <mat-form-field class="example-full-width">
+<h1 mat-dialog-title>{{'CADASTRO.CADASTRO' | translate}}</h1>
+                  <!--<mat-card-subtitle>{{'CADASTRO.PREENCHER' | translate}}</mat-card-subtitle>-->
+    <div mat-dialog-content>
+        <button mat-raised-button color="primary" (click)="signInWithFB()"><i class="fa fa-facebook-official"></i> {{'CADASTRO.FACE' | translate}}</button>
+        <button mat-raised-button color="warn" (click)="signInWithGoogle()"><i class="fa fa-google"></i> {{'CADASTRO.GMAIL' | translate}}</button>
+        <mat-divider></mat-divider>
+        <form class="example-form" onSubmit="return checkPassword(this)">
+            <mat-form-field class="example-full-width">
+                <mat-label>{{'CADASTRO.NOME' | translate}}</mat-label>
+                <input matInput required id="nome">
+            </mat-form-field>
+            <mat-form-field class="example-full-width">
+                <mat-label>{{'CADASTRO.DATANASC' | translate}}</mat-label>
+                <input matInput required id="dtnasc">
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>{{'CADASTRO.SEXO' | translate}}</mat-label>
+                <mat-select required id="sexo">
+                    <mat-option *ngFor="let sexo of sexo" [value]="sexo.value">
+                        {{sexo.viewValue}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field class="example-full-width">
+                <mat-label>E-mail</mat-label>
+                <input matInput required placeholder="Ex. pachanga@exemplo.com">
+                <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+                    {{'CADASTRO.EMAILERRO' | translate}}
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="example-full-width">
+                <mat-label>{{'CADASTRO.SENHA' | translate}}</mat-label>
+                <input matInput required type="password" id="senha">
+            </mat-form-field>
+            <mat-form-field class="example-full-width">
                           <mat-label>{{'CADASTRO.SENHA2' | translate}}</mat-label>
                           <input matInput required type="password" id="conf_senha">
-                        </mat-form-field>
-                        <section class="example-section"><p></p>
-                        <mat-checkbox class="termos">{{'CADASTRO.TERMOS' | translate}}</mat-checkbox>
-                        </section>
-                    </form>
-                </mat-card-content>
-                <mat-card-actions>
-                  <button class="butao cadastro-btn" mat-raised-button color="accent">{{'CADASTRO.CADASTRAR' | translate}}</button>
-                </mat-card-actions>
-              </mat-card>
-        </mat-grid-tile>
-    </mat-grid-list>
-</div>
+            </mat-form-field>
+            <section class="example-section"><p></p>
+                <mat-checkbox class="termos">{{'CADASTRO.TERMOS' | translate}}</mat-checkbox>
+            </section>
+        </form>
+        <button class="butao cadastro-btn" mat-raised-button color="accent">{{'CADASTRO.CADASTRAR' | translate}}</button>
+    </div>

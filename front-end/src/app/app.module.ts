@@ -52,6 +52,10 @@ export function provideConfig() {
     CadastroComponent,
     SocialLoginBaseComponent
   ],
+  entryComponents: [
+    LoginComponent,
+    CadastroComponent
+  ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,

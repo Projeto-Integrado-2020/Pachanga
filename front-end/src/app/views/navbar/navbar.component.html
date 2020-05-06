@@ -3,8 +3,8 @@
       <span><a [routerLink] = "['']">Pachanga</a></span>
       <span class="example-spacer"></span>
       <div class="example-button-row">
-        <button class="button-index" mat-raised-button color="accent"><a [routerLink] = "['./login']">{{'NAV.ENTRAR' | translate}}</a></button>
-        <button class="button-index cadastro-btn" mat-raised-button color="warn"><a [routerLink] = "['./cadastro']">{{'NAV.CONTA' | translate}}</a></button>
+        <button class="button-index" mat-raised-button color="accent" (click)="openDialogLogin()">{{'NAV.ENTRAR' | translate}}</button>
+        <button class="button-index cadastro-btn" mat-raised-button color="warn" (click)="openDialogCadastro()">{{'NAV.CONTA' | translate}}</button>
         <select #langselect (change)="translate.use(langselect.value)">
           <option *ngFor="let lang of translate.getLangs()" [value]="lang">{{lang}}</option>
         </select>

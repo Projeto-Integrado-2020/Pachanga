@@ -1,28 +1,20 @@
-<mat-grid-list cols="3" rowHeight="100vh">
-    <mat-grid-tile></mat-grid-tile>
-    <mat-grid-tile id="title">
-        <mat-card>
-            
-            <mat-card-title>Login</mat-card-title>
-            <mat-card-content>
-                <form class="example-form">
-                    <mat-form-field class="example-full-width">
-                      <mat-label>{{'LOGIN.USUARIO' | translate}}</mat-label>
-                      <input matInput >
-                    </mat-form-field>
+<h1 mat-dialog-title>Login</h1>
+    <div mat-dialog-content>
+        <form class="example-form">
+            <mat-form-field class="example-full-width">
+                <mat-label>{{'LOGIN.USUARIO' | translate}}</mat-label>
+                <input matInput >
+            </mat-form-field>
                   
-                    <mat-form-field class="example-full-width">
-                      <mat-label>{{'LOGIN.SENHA' | translate}}</mat-label>
-                      <input matInput type="password">
-                    </mat-form-field>
-                    <button class="button-index" mat-raised-button color="accent">{{'LOGIN.ENTRAR' | translate}}</button>
-                    <mat-divider [inset]="true"></mat-divider>
-                    <button class="button-index cadastro-btn" mat-raised-button color="warn">{{'LOGIN.CONTA' | translate}}</button>
-                    <mat-divider [inset]="true"></mat-divider>
-                    <button mat-raised-button color="primary" (click)="signInWithFB()"><i class="fa fa-facebook-official"></i> {{'LOGIN.FACE' | translate}}</button>
-                    <button mat-raised-button color="warn" (click)="signInWithGoogle()"><i class="fa fa-google"></i> {{'LOGIN.GMAIL' | translate}}</button>
-                  </form>
-            </mat-card-content>
-        </mat-card>
-    </mat-grid-tile>
-</mat-grid-list>
+            <mat-form-field class="example-full-width">
+                <mat-label>{{'LOGIN.SENHA' | translate}}</mat-label>
+                <input matInput type="password">
+            </mat-form-field>
+            <button class="button-index" mat-raised-button color="accent">{{'LOGIN.ENTRAR' | translate}}</button>
+            <mat-divider [inset]="true"></mat-divider>
+            <!--<button class="button-index cadastro-btn" mat-raised-button color="warn">{{'LOGIN.CONTA' | translate}}</button>-->
+            <mat-divider [inset]="true"></mat-divider>
+            <button mat-raised-button color="primary" (click)="signInWithFB()"><i class="fa fa-facebook-official"></i> {{'LOGIN.FACE' | translate}}</button>
+            <button mat-raised-button color="warn" (click)="signInWithGoogle()"><i class="fa fa-google"></i> {{'LOGIN.GMAIL' | translate}}</button>
+        </form>
+    </div>

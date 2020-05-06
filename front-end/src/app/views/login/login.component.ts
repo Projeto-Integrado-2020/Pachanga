@@ -11,5 +11,4 @@ import { SocialLoginBaseComponent } from '../social-login-base/social-login-base
 })
 
 export class LoginComponent extends SocialLoginBaseComponent implements OnInit {
-
 }
