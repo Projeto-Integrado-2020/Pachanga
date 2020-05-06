@@ -16,4 +16,6 @@ public interface UsuarioRepository extends CrudRepository<Usuario, Integer>{
 	
 	Usuario findByEmailAndTipConta(String email, String tipConta);
 	
+	Usuario findByNomeUser(String nomeUser);
+	
 }

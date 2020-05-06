@@ -12,41 +12,43 @@ public class UsuarioService {
 
 	@Autowired
 	private UsuarioRepository userRepository;
-	
-	public Boolean cadastro(Usuario user) {
-		Usuario usuarioExistente = userRepository.findByEmailAndTipConta(user.getEmail(), user.getTipConta());
-		if(usuarioExistente == null) {
-			if(user.getSenha() != null) {
+
+	public void cadastro(Usuario user) throws Exception{
+			validacaoCadastro(user);
+			if(user.getTipConta() == "P") {
 				user.setSenha(HashBuilder.gerarSenha(user.getSenha()));
 			}
 			user.setCodUsuario(userRepository.getNextValMySequence());
 			userRepository.save(user);
-			return true;
-		}
-		return false;
 	}
 
-	public Usuario login(Usuario user){
+	public void validacaoCadastro(Usuario user) throws Exception{
+		Usuario usuarioExistente = userRepository.findByEmailAndTipConta(user.getEmail(), user.getTipConta());
+		if(usuarioExistente != null) {
+			throw new Exception("Outra conta está usando esse e-mail");
+		}
+		usuarioExistente = userRepository.findByNomeUser(user.getNomeUser());
+		if(usuarioExistente != null) {
+			throw new Exception("Nome já utilizado por um outro usuário");
+		}
+	}
+
+	public Usuario login(Usuario user) throws Exception{
 		Usuario usuarioExistente = userRepository.findByEmail(user.getEmail());
 		if(validacaoLogin(usuarioExistente, user)) {
 			return usuarioExistente;
 		}
 		return null;
 	}
-	
-	public Boolean validacaoLogin(Usuario userExistente, Usuario userLogin) {
-		if(userExistente != null) {
-			if(userExistente.getTipConta().equals("P")) {
-				Boolean senhasIguais = HashBuilder.compararSenha(userLogin.getSenha(), userExistente.getSenha());
-				if(senhasIguais) {
-					return true;
-				}
-			}
-			else {
+
+	public Boolean validacaoLogin(Usuario usuarioExistente, Usuario userLogin) throws Exception{
+		if(usuarioExistente != null) {
+			Boolean senhasIguais = HashBuilder.compararSenha(userLogin.getSenha(), usuarioExistente.getSenha());
+			if(senhasIguais) {
 				return true;
 			}
 		}
-		return false;
+		throw new Exception("Usuário ou senha incorretos");
 	}
 
 }
