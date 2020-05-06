@@ -3,6 +3,10 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { NavbarComponent } from './navbar.component';
 
 import { CustomMaterialModule } from '../material/material.module';
+import { AppRoutingModule } from '../../app-routing.module';
+import { LoginComponent } from '../login/login.component';
+import { CadastroComponent } from '../cadastro/cadastro.component';
+import { IndexComponent } from '../index/index.component';
 
 describe('NavbarComponent', () => {
   let component: NavbarComponent;
@@ -12,9 +16,13 @@ describe('NavbarComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         NavbarComponent,
+        LoginComponent,
+        CadastroComponent,
+        IndexComponent
        ],
       imports: [
-        CustomMaterialModule
+        CustomMaterialModule,
+        AppRoutingModule
       ],
     })
     .compileComponents();

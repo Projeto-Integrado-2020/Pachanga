@@ -1,4 +1,8 @@
-<mat-grid-list cols="3" rowHeight="100px">
-    <mat-grid-tile></mat-grid-tile>
-    <mat-grid-tile id="title">{{'INDEX.OLA' | translate}}</mat-grid-tile>
+<mat-grid-list cols="3" rowHeight="80vh">
+    <mat-grid-tile *ngFor="let tile of tiles"
+    [colspan] = "tile.cols"
+    [rowspan] = "tile.rows"
+    >
+        <h1>{{tile.text | translate}}</h1>
+    </mat-grid-tile>
 </mat-grid-list>

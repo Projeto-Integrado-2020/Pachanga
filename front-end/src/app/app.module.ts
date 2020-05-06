@@ -5,14 +5,15 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { CustomMaterialModule } from './views/material/material.module';
-import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
-import {TranslateHttpLoader} from '@ngx-translate/http-loader';
-import {HttpClientModule, HttpClient} from '@angular/common/http';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { NavbarComponent } from './views/navbar/navbar.component';
 import { IndexComponent } from './views/index/index.component';
 import { LoginComponent } from './views/login/login.component';
 import { CadastroComponent } from './views/cadastro/cadastro.component';
-import {FormsModule} from '@angular/forms';
+import { FormsModule } from '@angular/forms';
+import { AppRoutingModule } from './app-routing.module';
 
 export function HttpLoaderFactory(http: HttpClient){
   return new TranslateHttpLoader(http);
@@ -32,6 +33,7 @@ export function HttpLoaderFactory(http: HttpClient){
     CustomMaterialModule,
     FormsModule,
     HttpClientModule,
+    AppRoutingModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
