@@ -4,18 +4,18 @@
         <button mat-raised-button color="primary" (click)="signInWithFB()"><i class="fa fa-facebook-official"></i> {{'CADASTRO.FACE' | translate}}</button>
         <button mat-raised-button color="warn" (click)="signInWithGoogle()"><i class="fa fa-google"></i> {{'CADASTRO.GMAIL' | translate}}</button>
         <mat-divider></mat-divider>
-        <form class="example-form" onSubmit="return checkPassword(this)">
+        <form class="example-form" (submit)="signUpWithPachanga(nomeCadastro, dtnascCadastro, sexoCadastro, emailCadastro, senhaCadastro)">
             <mat-form-field class="example-full-width">
                 <mat-label>{{'CADASTRO.NOME' | translate}}</mat-label>
-                <input matInput required id="nome">
+                <input id="nomeCadastro" matInput required>
             </mat-form-field>
             <mat-form-field class="example-full-width">
                 <mat-label>{{'CADASTRO.DATANASC' | translate}}</mat-label>
-                <input matInput required id="dtnasc">
+                <input matInput required id="dtnascCadastro">
             </mat-form-field>
             <mat-form-field>
                 <mat-label>{{'CADASTRO.SEXO' | translate}}</mat-label>
-                <mat-select required id="sexo">
+                <mat-select id="sexoCadastro" required>
                   <mat-option value="m">{{"SEXO.MASC" | translate}}</mat-option>
                   <mat-option value="f">{{"SEXO.FEM" | translate}}</mat-option>
                   <mat-option value="t">{{"SEXO.TRANS" | translate}}</mat-option>
@@ -24,22 +24,22 @@
             </mat-form-field>
             <mat-form-field class="example-full-width">
                 <mat-label>E-mail</mat-label>
-                <input matInput required placeholder="Ex. pachanga@exemplo.com">
+                <input id="emailCadastro" matInput required placeholder="Ex. pachanga@exemplo.com">
                 <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
                     {{'CADASTRO.EMAILERRO' | translate}}
                 </mat-error>
             </mat-form-field>
             <mat-form-field class="example-full-width">
                 <mat-label>{{'CADASTRO.SENHA' | translate}}</mat-label>
-                <input matInput required type="password" id="senha">
+                <input id="senhaCadastro" matInput required type="password">
             </mat-form-field>
             <mat-form-field class="example-full-width">
                           <mat-label>{{'CADASTRO.SENHA2' | translate}}</mat-label>
-                          <input matInput required type="password" id="conf_senha">
+                          <input id="conf_senhaCadastro" matInput required type="password">
             </mat-form-field>
             <section class="example-section"><p></p>
                 <mat-checkbox class="termos">{{'CADASTRO.TERMOS' | translate}}</mat-checkbox>
             </section>
+            <button class="butao cadastro-btn" mat-raised-button color="accent">{{'CADASTRO.CADASTRAR' | translate}}</button>
         </form>
-        <button class="butao cadastro-btn" mat-raised-button color="accent">{{'CADASTRO.CADASTRAR' | translate}}</button>
     </div>

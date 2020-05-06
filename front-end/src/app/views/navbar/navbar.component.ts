@@ -18,13 +18,13 @@ export class NavbarComponent implements OnInit {
     translate.use(browserLang.match(/pt|en/) ? browserLang : 'pt');
   }
 // método para abrir modal de login
-  openDialogLogin(){
+  openDialogLogin() {
     this.login.open(LoginComponent, {
       width: '20rem',
     });
   }
 // método para abrir modal de cadastro
-  openDialogCadastro(){
+  openDialogCadastro() {
     this.cadastro.open(CadastroComponent, {
       width: '20rem'
     });

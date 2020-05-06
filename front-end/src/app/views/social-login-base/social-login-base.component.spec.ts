@@ -5,6 +5,8 @@ import { SocialLoginBaseComponent } from './social-login-base.component';
 import { SocialLoginModule, AuthServiceConfig } from 'angularx-social-login';
 import { GoogleLoginProvider, FacebookLoginProvider } from 'angularx-social-login';
 
+import { HttpClientModule } from '@angular/common/http';
+
 const config = new AuthServiceConfig([
   {
     id: GoogleLoginProvider.PROVIDER_ID,
@@ -28,7 +30,8 @@ describe('SocialLoginBaseComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ SocialLoginBaseComponent ],
       imports: [
-        SocialLoginModule
+        SocialLoginModule,
+        HttpClientModule
       ],
       providers: [
         {

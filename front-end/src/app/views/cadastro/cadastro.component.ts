@@ -5,7 +5,7 @@ import {FormControl, Validators} from '@angular/forms';
 import { SocialLoginBaseComponent } from '../social-login-base/social-login-base.component';
 
 @Component({
-  selector: 'app-cadastro', 
+  selector: 'app-cadastro',
   templateUrl: './cadastro.component.html',
   styleUrls: [
     './cadastro.component.scss',
@@ -18,5 +18,18 @@ export class CadastroComponent extends SocialLoginBaseComponent implements OnIni
     Validators.required,
     Validators.email,
   ]);
+
+  signUpWithPachanga(nome, dtNasc, sexo, email, senha): void {
+    const userJson = {
+      tipConta: 'P',
+      email,
+      senha,
+      nomeUser: nome,
+      dtNasc,
+      sexo
+    };
+    console.log(JSON.stringify(userJson));
+    this.loginService.cadastrar(userJson).subscribe();
+  }
 
 }
