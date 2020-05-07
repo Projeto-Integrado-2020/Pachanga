@@ -12,6 +12,9 @@ import { SocialLoginBaseComponent } from '../social-login-base/social-login-base
 
 export class LoginComponent extends SocialLoginBaseComponent implements OnInit {
 
+  userLogin;
+  senhaLogin;
+
   signInWithPachanga(email, senha): void {
     const userJson = {
       tipConta: 'P',

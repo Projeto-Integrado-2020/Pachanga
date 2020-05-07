@@ -14,6 +14,12 @@ import { SocialLoginBaseComponent } from '../social-login-base/social-login-base
 })
 export class CadastroComponent extends SocialLoginBaseComponent implements OnInit {
 
+  nomeCadastro;
+  dtnascCadastro;
+  sexoCadastro;
+  emailCadastro;
+  senhaCadastro;
+
   emailFormControl = new FormControl('', [
     Validators.required,
     Validators.email,
