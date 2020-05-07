@@ -11,7 +11,6 @@ import { LoginService } from 'src/app/services/loginService/login.service';
 export class SocialLoginBaseComponent implements OnInit {
 
   public user: SocialUser;
-  public loggedIn: boolean;
 
   constructor(public authService: AuthService, public loginService: LoginService) { }
 
@@ -20,11 +19,7 @@ export class SocialLoginBaseComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.authService.authState.subscribe((user) => {
-      this.user = user;
-      console.log(this.user);
-      this.loggedIn = (user != null);
-    });
+
   }
 
 }

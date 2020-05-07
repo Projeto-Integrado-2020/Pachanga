@@ -17,21 +17,25 @@ export class LoginComponent extends SocialLoginBaseComponent implements OnInit {
   senhaLogin;
 
   signInWithGoogle(): void {
-    this.authService.signIn(FacebookLoginProvider.PROVIDER_ID);
-    const userJson = {
-      tipConta: 'G',
-      email: this.user.email
-    };
-    this.loginService.logar(userJson).subscribe();
+    this.authService.signIn(GoogleLoginProvider.PROVIDER_ID).then((user) => {
+      this.user = user;
+      const userJson = {
+        tipConta: 'G',
+        email: this.user.email
+      };
+      this.loginService.logar(userJson).subscribe();
+    });
   }
 
   signInWithFB(): void {
-    this.authService.signIn(FacebookLoginProvider.PROVIDER_ID);
-    const userJson = {
-      tipConta: 'F',
-      email: this.user.email
-    };
-    this.loginService.logar(userJson).subscribe();
+    this.authService.signIn(FacebookLoginProvider.PROVIDER_ID).then((user) => {
+      this.user = user;
+      const userJson = {
+        tipConta: 'F',
+        email: this.user.email
+      };
+      this.loginService.logar(userJson).subscribe();
+    });
   }
 
   signInWithPachanga(email, senha): void {

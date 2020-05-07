@@ -9,7 +9,7 @@
     },
 
     "LOGIN": {
-        "USUARIO": "User",
+        "EMAIL": "E-mail",
         "SENHA": "Password",
         "ENTRAR": "Login",
         "CONTA": "Register now",

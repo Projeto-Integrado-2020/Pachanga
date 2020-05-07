@@ -15,10 +15,12 @@ export class LoginService {
   constructor(private http: HttpClient) { }
 
   logar(usuario) {
+    console.log(JSON.stringify(usuario));
     return this.http.post(this.urlLogin, usuario).pipe(take(1));
   }
 
   cadastrar(usuario) {
+    console.log(JSON.stringify(usuario));
     return this.http.post(this.urlCadastro, usuario).pipe(take(1));
   }
 

@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { Router, CanActivate, ActivatedRouteSnapshot } from '@angular/router';
 import { AuthService } from 'angularx-social-login/src/auth.service';
 
-//@Injectable()
-//export class RoleGuardService implements CanActivate {
+// @Injectable()
+// export class RoleGuardService implements CanActivate {
  // constructor(public auth: AuthService, public router: Router) {}
   // canActivate(route: ActivatedRouteSnapshot): //boolean {
     // this will be passed from the route config
@@ -13,12 +13,12 @@ import { AuthService } from 'angularx-social-login/src/auth.service';
     // decode the token to get its payload
   //  const tokenPayload = decode(token);
   //  if (
-  //    !this.auth.isAuthenticated() || 
+  //    !this.auth.isAuthenticated() ||
   //    tokenPayload.role !== expectedRole
   //  ) {
   //    this.router.navigate(['login']);
   //    return false;
   //  }
   //  return true;
-  //}
-//}
+  // }
+// }

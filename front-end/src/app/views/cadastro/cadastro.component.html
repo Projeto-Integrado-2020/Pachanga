@@ -4,38 +4,38 @@
         <button mat-raised-button color="primary" (click)="signUpWithFB()"><i class="fa fa-facebook-official"></i> {{'CADASTRO.FACE' | translate}}</button>
         <button mat-raised-button color="warn" (click)="signUpWithGoogle()"><i class="fa fa-google"></i> {{'CADASTRO.GMAIL' | translate}}</button>
         <mat-divider></mat-divider>
-        <form class="example-form" (submit)="signUpWithPachanga(nomeCadastro, dtnascCadastro, sexoCadastro, emailCadastro, senhaCadastro)">
+        <form class="example-form" (submit)="signUpWithPachanga(nomeCadastro.value, dtnascCadastro.value, sexoCadastro.value, emailCadastro.value, senhaCadastro.value)">
             <mat-form-field class="example-full-width">
                 <mat-label>{{'CADASTRO.NOME' | translate}}</mat-label>
-                <input id="nomeCadastro" matInput required>
+                <input #nomeCadastro matInput required>
             </mat-form-field>
             <mat-form-field class="example-full-width">
                 <mat-label>{{'CADASTRO.DATANASC' | translate}}</mat-label>
-                <input matInput required id="dtnascCadastro">
+                <input matInput required #dtnascCadastro>
             </mat-form-field>
             <mat-form-field>
                 <mat-label>{{'CADASTRO.SEXO' | translate}}</mat-label>
-                <mat-select id="sexoCadastro" required>
-                  <mat-option value="m">{{"SEXO.MASC" | translate}}</mat-option>
-                  <mat-option value="f">{{"SEXO.FEM" | translate}}</mat-option>
-                  <mat-option value="t">{{"SEXO.TRANS" | translate}}</mat-option>
-                  <mat-option value="o">{{"SEXO.OUTRO" | translate}}</mat-option>
+                <mat-select #sexoCadastro required>
+                  <mat-option value="M">{{"SEXO.MASC" | translate}}</mat-option>
+                  <mat-option value="F">{{"SEXO.FEM" | translate}}</mat-option>
+                  <mat-option value="T">{{"SEXO.TRANS" | translate}}</mat-option>
+                  <mat-option value="O">{{"SEXO.OUTRO" | translate}}</mat-option>
                 </mat-select>
             </mat-form-field>
             <mat-form-field class="example-full-width">
                 <mat-label>E-mail</mat-label>
-                <input id="emailCadastro" matInput required placeholder="Ex. pachanga@exemplo.com">
+                <input #emailCadastro matInput required placeholder="Ex. pachanga@exemplo.com">
                 <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
                     {{'CADASTRO.EMAILERRO' | translate}}
                 </mat-error>
             </mat-form-field>
             <mat-form-field class="example-full-width">
                 <mat-label>{{'CADASTRO.SENHA' | translate}}</mat-label>
-                <input id="senhaCadastro" matInput required type="password">
+                <input #senhaCadastro matInput required type="password">
             </mat-form-field>
             <mat-form-field class="example-full-width">
-                          <mat-label>{{'CADASTRO.SENHA2' | translate}}</mat-label>
-                          <input id="conf_senhaCadastro" matInput required type="password">
+                <mat-label>{{'CADASTRO.SENHA2' | translate}}</mat-label>
+                <input #conf_senhaCadastro matInput required type="password">
             </mat-form-field>
             <section class="example-section"><p></p>
                 <mat-checkbox class="termos">{{'CADASTRO.TERMOS' | translate}}</mat-checkbox>

@@ -34,6 +34,7 @@ public class UsuarioController{
 
 	@RequestMapping(path ="/login", method = RequestMethod.POST)
 	public ResponseEntity<Object> login(@RequestBody Usuario user) {
+		System.out.println(user.getEmail());
 		try {
 			Usuario usarioLogin = userService.login(user);
 			UsuarioTO userto = criadorUserDto(usarioLogin);
