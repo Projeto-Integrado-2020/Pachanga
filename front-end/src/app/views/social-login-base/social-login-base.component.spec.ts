@@ -7,6 +7,8 @@ import { GoogleLoginProvider, FacebookLoginProvider } from 'angularx-social-logi
 
 import { HttpClientModule } from '@angular/common/http';
 
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 const config = new AuthServiceConfig([
   {
     id: GoogleLoginProvider.PROVIDER_ID,
@@ -31,7 +33,9 @@ describe('SocialLoginBaseComponent', () => {
       declarations: [ SocialLoginBaseComponent ],
       imports: [
         SocialLoginModule,
-        HttpClientModule
+        HttpClientModule,
+        FormsModule,
+        ReactiveFormsModule
       ],
       providers: [
         {

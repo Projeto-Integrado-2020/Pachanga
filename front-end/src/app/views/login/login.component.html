@@ -3,12 +3,13 @@
         <form class="example-form" (submit)="signInWithPachanga(emailLogin.value, senhaLogin.value)">
             <mat-form-field class="example-full-width">
                 <mat-label>{{'LOGIN.EMAIL' | translate}}</mat-label>
-                <input required #emailLogin matInput >
+                <input required #emailLogin matInput required placeholder="Ex. pachanga@exemplo.com" [formControl]="email">
+                <mat-error *ngIf="email.invalid">{{getErroEmail()}}</mat-error>
             </mat-form-field>
-                  
             <mat-form-field class="example-full-width">
                 <mat-label>{{'LOGIN.SENHA' | translate}}</mat-label>
-                <input required #senhaLogin matInput type="password">
+                <input required #senhaLogin matInput required type="password" [formControl]="senha">
+                <mat-error *ngIf="senha.invalid">{{getErroSenha()}}</mat-error>
             </mat-form-field>
             <button class="button-index" mat-raised-button color="accent" >{{'LOGIN.ENTRAR' | translate}}</button>
             <mat-divider [inset]="true"></mat-divider>

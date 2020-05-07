@@ -7,35 +7,37 @@
         <form class="example-form" (submit)="signUpWithPachanga(nomeCadastro.value, dtnascCadastro.value, sexoCadastro.value, emailCadastro.value, senhaCadastro.value)">
             <mat-form-field class="example-full-width">
                 <mat-label>{{'CADASTRO.NOME' | translate}}</mat-label>
-                <input #nomeCadastro matInput required>
+                <input matInput required [formControl]="nome">
+                <mat-error *ngIf="nome.invalid">{{getErroNome()}}</mat-error>
             </mat-form-field>
             <mat-form-field class="example-full-width">
                 <mat-label>{{'CADASTRO.DATANASC' | translate}}</mat-label>
-                <input matInput required #dtnascCadastro>
+                <input #dtnascCadastro matInput required [formControl]="dtnasc" maxlength="10">
+                <mat-error *ngIf="dtnasc.invalid">{{getErroDtnasc()}}</mat-error>
             </mat-form-field>
             <mat-form-field>
                 <mat-label>{{'CADASTRO.SEXO' | translate}}</mat-label>
                 <mat-select #sexoCadastro required>
-                  <mat-option value="M">{{"SEXO.MASC" | translate}}</mat-option>
-                  <mat-option value="F">{{"SEXO.FEM" | translate}}</mat-option>
-                  <mat-option value="T">{{"SEXO.TRANS" | translate}}</mat-option>
-                  <mat-option value="O">{{"SEXO.OUTRO" | translate}}</mat-option>
+                    <mat-option value="M">{{"SEXO.MASC" | translate}}</mat-option>
+                    <mat-option value="F">{{"SEXO.FEM" | translate}}</mat-option>
+                    <mat-option value="T">{{"SEXO.TRANS" | translate}}</mat-option>
+                    <mat-option value="O">{{"SEXO.OUTRO" | translate}}</mat-option>
                 </mat-select>
             </mat-form-field>
             <mat-form-field class="example-full-width">
                 <mat-label>E-mail</mat-label>
-                <input #emailCadastro matInput required placeholder="Ex. pachanga@exemplo.com">
-                <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
-                    {{'CADASTRO.EMAILERRO' | translate}}
-                </mat-error>
+                <input #emailCadastro matInput required placeholder="Ex. pachanga@exemplo.com" [formControl]="email">
+                <mat-error *ngIf="email.invalid">{{getErroEmail()}}</mat-error>
             </mat-form-field>
             <mat-form-field class="example-full-width">
                 <mat-label>{{'CADASTRO.SENHA' | translate}}</mat-label>
-                <input #senhaCadastro matInput required type="password">
+                <input #senhaCadastro matInput required type="password" [formControl]="senha">
+                <mat-error *ngIf="senha.invalid">{{getErroSenha()}}</mat-error>
             </mat-form-field>
             <mat-form-field class="example-full-width">
                 <mat-label>{{'CADASTRO.SENHA2' | translate}}</mat-label>
-                <input #conf_senhaCadastro matInput required type="password">
+                <input #conf_senhaCadastro matInput required type="password" [formControl]="senha2">
+                <mat-error *ngIf="senha2.invalid">{{getErroSenha()}}</mat-error>
             </mat-form-field>
             <section class="example-section"><p></p>
                 <mat-checkbox class="termos">{{'CADASTRO.TERMOS' | translate}}</mat-checkbox>

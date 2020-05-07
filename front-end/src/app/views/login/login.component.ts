@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { SocialLoginBaseComponent } from '../social-login-base/social-login-base.component';
 import { FacebookLoginProvider, GoogleLoginProvider } from 'angularx-social-login';
 
+import {FormControl, Validators} from '@angular/forms';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -15,6 +17,18 @@ export class LoginComponent extends SocialLoginBaseComponent implements OnInit {
 
   userLogin;
   senhaLogin;
+
+  email = new FormControl('', Validators.required);
+
+  senha = new FormControl('', Validators.required);
+
+  getErroEmail() {
+    return this.email.hasError('required') ? 'Este campo é obrigatório.' : '';
+  }
+
+  getErroSenha() {
+    return this.senha.hasError('required') ? 'Este campo é obrigatório.' : '';
+  }
 
   signInWithGoogle(): void {
     this.authService.signIn(GoogleLoginProvider.PROVIDER_ID).then((user) => {

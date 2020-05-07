@@ -16,7 +16,7 @@ import { NavbarComponent } from './views/navbar/navbar.component';
 import { IndexComponent } from './views/index/index.component';
 import { LoginComponent } from './views/login/login.component';
 import { CadastroComponent } from './views/cadastro/cadastro.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -42,7 +42,6 @@ export function provideConfig() {
   return config;
 }
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -50,7 +49,7 @@ export function provideConfig() {
     IndexComponent,
     LoginComponent,
     CadastroComponent,
-    SocialLoginBaseComponent
+    SocialLoginBaseComponent,
   ],
   entryComponents: [
     LoginComponent,
@@ -61,6 +60,7 @@ export function provideConfig() {
     BrowserAnimationsModule,
     CustomMaterialModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
     AppRoutingModule,
     TranslateModule.forRoot({

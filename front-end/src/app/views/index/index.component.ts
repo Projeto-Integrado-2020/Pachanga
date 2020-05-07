@@ -19,7 +19,7 @@ export class IndexComponent implements OnInit {
 
   constructor(private translate: TranslateService) {
   }
-  
+
   tiles: Tile[] = [
     {text: this.title, cols: 2, rows: 1, },
     {text: null, cols: 1, rows: 1}
