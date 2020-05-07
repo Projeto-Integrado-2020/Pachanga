@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {TranslateService} from '@ngx-translate/core';
 
 export interface Tile {
   cols: number;
@@ -14,12 +15,15 @@ export interface Tile {
 })
 export class IndexComponent implements OnInit {
 
+  title: string = this.translate.instant('INDEX.OLA');
+
+  constructor(private translate: TranslateService) {
+  }
+  
   tiles: Tile[] = [
-    {text: 'Bem Vindo à Pachanga', cols: 2, rows: 1, },
+    {text: this.title, cols: 2, rows: 1, },
     {text: null, cols: 1, rows: 1}
   ];
-
-  constructor() { }
 
   ngOnInit() {
   }
