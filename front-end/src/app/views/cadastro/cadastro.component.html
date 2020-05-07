@@ -1,8 +1,8 @@
 <h1 mat-dialog-title>{{'CADASTRO.CADASTRO' | translate}}</h1>
                   <!--<mat-card-subtitle>{{'CADASTRO.PREENCHER' | translate}}</mat-card-subtitle>-->
     <div mat-dialog-content>
-        <button mat-raised-button color="primary" (click)="signInWithFB()"><i class="fa fa-facebook-official"></i> {{'CADASTRO.FACE' | translate}}</button>
-        <button mat-raised-button color="warn" (click)="signInWithGoogle()"><i class="fa fa-google"></i> {{'CADASTRO.GMAIL' | translate}}</button>
+        <button mat-raised-button color="primary" (click)="signUpWithFB()"><i class="fa fa-facebook-official"></i> {{'CADASTRO.FACE' | translate}}</button>
+        <button mat-raised-button color="warn" (click)="signUpWithGoogle()"><i class="fa fa-google"></i> {{'CADASTRO.GMAIL' | translate}}</button>
         <mat-divider></mat-divider>
         <form class="example-form" (submit)="signUpWithPachanga(nomeCadastro, dtnascCadastro, sexoCadastro, emailCadastro, senhaCadastro)">
             <mat-form-field class="example-full-width">

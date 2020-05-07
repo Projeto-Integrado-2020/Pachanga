@@ -4,6 +4,8 @@ import {FormControl, Validators} from '@angular/forms';
 
 import { SocialLoginBaseComponent } from '../social-login-base/social-login-base.component';
 
+import { FacebookLoginProvider, GoogleLoginProvider } from 'angularx-social-login';
+
 @Component({
   selector: 'app-cadastro',
   templateUrl: './cadastro.component.html',
@@ -35,6 +37,30 @@ export class CadastroComponent extends SocialLoginBaseComponent implements OnIni
       sexo
     };
     console.log(JSON.stringify(userJson));
+    this.loginService.cadastrar(userJson).subscribe();
+  }
+
+  signUpWithGoogle(): void {
+    this.authService.signIn(FacebookLoginProvider.PROVIDER_ID);
+    const userJson = {
+      tipConta: 'G',
+      nomeUser: this.user.name,
+      email: this.user.email,
+      dtNasc: '',
+      sexo: ''
+    };
+    this.loginService.cadastrar(userJson).subscribe();
+  }
+
+  signUpWithFB(): void {
+    this.authService.signIn(FacebookLoginProvider.PROVIDER_ID);
+    const userJson = {
+      tipConta: 'F',
+      email: this.user.email,
+      nomeUser: this.user.name,
+      dtNasc: '',
+      sexo: ''
+    };
     this.loginService.cadastrar(userJson).subscribe();
   }
 
