@@ -34,7 +34,7 @@ public class UsuarioController{
 	}
 
 	@PostMapping(path ="/login")
-	public ResponseEntity<Object> login(@RequestBody Usuario user) {
+	public ResponseEntity<Object> login(@RequestBody Usuario user) throws Exception {
 		try {
 			Usuario usarioLogin = userService.login(user);
 			UsuarioTO userto = criadorUserDto(usarioLogin);

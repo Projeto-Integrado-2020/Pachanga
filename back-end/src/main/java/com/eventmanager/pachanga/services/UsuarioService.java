@@ -34,7 +34,7 @@ public class UsuarioService {
 		}
 	}
 
-	public Usuario login(Usuario user) throws ValidacaoException{
+	public Usuario login(Usuario user) throws Exception{
 		Usuario usuarioExistente = userRepository.findByEmail(user.getEmail());
 		if(validacaoLogin(usuarioExistente, user)) {
 			return usuarioExistente;
@@ -42,10 +42,10 @@ public class UsuarioService {
 		return null;
 	}
 
-	public Boolean validacaoLogin(Usuario usuarioExistente, Usuario userLogin) throws ValidacaoException{
+	public boolean validacaoLogin(Usuario usuarioExistente, Usuario userLogin) throws Exception{
 		if(usuarioExistente != null) {
 			if(usuarioExistente.getTipConta() == "P") {
-				Boolean senhasIguais = HashBuilder.compararSenha(userLogin.getSenha(), usuarioExistente.getSenha());
+				boolean senhasIguais = HashBuilder.compararSenha(userLogin.getSenha(), usuarioExistente.getSenha());
 				if(senhasIguais) {
 					return true;
 				}

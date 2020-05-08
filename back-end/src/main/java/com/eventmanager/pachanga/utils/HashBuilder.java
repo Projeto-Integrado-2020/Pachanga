@@ -16,7 +16,7 @@ public class HashBuilder {
 		return hash;
 	}
 	
-	public static Boolean compararSenha(String senhaLogin, String senhaBanco) {
+	public static Boolean compararSenha(String senhaLogin, String senhaBanco) throws Exception{
 		String salt = senhaBanco.substring(0,32);
 		senhaLogin = gerarHash(senhaLogin, hexStringToByteArray(salt));
 		return senhaLogin.equals(senhaBanco);

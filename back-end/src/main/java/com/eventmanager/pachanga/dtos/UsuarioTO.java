@@ -4,8 +4,8 @@ package com.eventmanager.pachanga.dtos;
 import java.util.Date;
 
 public class UsuarioTO {
-    public String nomeUser;
-    public Date dtNasc;
+    private String nomeUser;
+    private Date dtNasc;
     
     public UsuarioTO(String nomeUser, Date dtNasc) {
     	this.nomeUser = nomeUser;
