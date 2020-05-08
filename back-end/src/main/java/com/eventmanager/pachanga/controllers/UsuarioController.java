@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,7 +22,7 @@ public class UsuarioController{
 	@Autowired
 	private UsuarioService userService;
 
-	@RequestMapping(path ="/cadastro", method = RequestMethod.POST)
+	@PostMapping(path ="/cadastro")
 	public ResponseEntity<Object> cadastro(@RequestBody Usuario user) {
 		try {
 			userService.cadastro(user);
@@ -32,7 +33,7 @@ public class UsuarioController{
 		}
 	}
 
-	@RequestMapping(path ="/login", method = RequestMethod.POST)
+	@PostMapping(path ="/login")
 	public ResponseEntity<Object> login(@RequestBody Usuario user) {
 		try {
 			Usuario usarioLogin = userService.login(user);
