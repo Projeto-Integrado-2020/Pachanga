@@ -32,7 +32,9 @@ export class LoginComponent extends SocialLoginBaseComponent implements OnInit {
         tipConta: 'G',
         email: this.user.email
       };
-      this.loginService.logar(userJson).subscribe();
+      this.loginService.logar(userJson).subscribe(resp => {
+        alert(JSON.stringify(resp));
+      });
     });
   }
 
@@ -43,7 +45,9 @@ export class LoginComponent extends SocialLoginBaseComponent implements OnInit {
         tipConta: 'F',
         email: this.user.email
       };
-      this.loginService.logar(userJson).subscribe();
+      this.loginService.logar(userJson).subscribe(resp => {
+        alert(JSON.stringify(resp));
+      });
     });
   }
 
@@ -53,7 +57,9 @@ export class LoginComponent extends SocialLoginBaseComponent implements OnInit {
       email,
       senha
     };
-    this.loginService.logar(userJson).subscribe();
+    this.loginService.logar(userJson).subscribe(resp => {
+      alert(JSON.stringify(resp));
+    });
   }
 
 }
