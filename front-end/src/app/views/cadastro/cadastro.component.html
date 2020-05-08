@@ -7,7 +7,7 @@
         <form class="example-form" (submit)="signUpWithPachanga(nomeCadastro.value, dtnascCadastro.value, sexoCadastro.value, emailCadastro.value, senhaCadastro.value)">
             <mat-form-field class="example-full-width">
                 <mat-label>{{'CADASTRO.NOME' | translate}}</mat-label>
-                <input matInput required [formControl]="nome">
+                <input #nomeCadastro matInput required [formControl]="nome">
                 <mat-error *ngIf="nome.invalid">{{getErroNome()}}</mat-error>
             </mat-form-field>
             <mat-form-field class="example-full-width">
@@ -36,12 +36,13 @@
             </mat-form-field>
             <mat-form-field class="example-full-width">
                 <mat-label>{{'CADASTRO.SENHA2' | translate}}</mat-label>
-                <input #conf_senhaCadastro matInput required type="password" [formControl]="senha2">
-                <mat-error *ngIf="senha2.invalid">{{getErroSenha()}}</mat-error>
+                <input #conf_senhaCadastro matInput required type="password" [formControl]="confirmacaoSenha">
+                <mat-error *ngIf="confirmacaoSenha.invalid">{{getErroConfirmacaoSenha()}}</mat-error>
             </mat-form-field>
             <section class="example-section"><p></p>
-                <mat-checkbox class="termos">{{'CADASTRO.TERMOS' | translate}}</mat-checkbox>
+                <mat-checkbox [formControl]="termos" class="termos">{{'CADASTRO.TERMOS' | translate}}</mat-checkbox>
             </section>
+            <mat-error *ngIf="termos.invalid">{{getErroTermos()}}</mat-error>
             <button class="butao cadastro-btn" mat-raised-button color="accent">{{'CADASTRO.CADASTRAR' | translate}}</button>
         </form>
     </div>
