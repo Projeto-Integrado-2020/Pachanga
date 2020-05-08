@@ -16,7 +16,7 @@ public class UsuarioService {
 
 	public void cadastro(Usuario user) throws ValidacaoException{
 		validacaoCadastro(user);
-		if(user.getTipConta() == "P") {
+		if("P".equals(user.getTipConta())) {
 			user.setSenha(HashBuilder.gerarSenha(user.getSenha()));
 		}
 		user.setCodUsuario(userRepository.getNextValMySequence());
@@ -28,14 +28,15 @@ public class UsuarioService {
 		if(usuarioExistente != null) {
 			throw new ValidacaoException("Outra conta está usando esse e-mail");
 		}
-		usuarioExistente = userRepository.findByNomeUser(user.getNomeUser());
-		if(usuarioExistente != null) {
-			throw new ValidacaoException("Nome já utilizado por um outro usuário");
-		}
 	}
 
+<<<<<<< HEAD
 	public Usuario login(Usuario user) throws Exception{
 		Usuario usuarioExistente = userRepository.findByEmail(user.getEmail());
+=======
+	public Usuario login(Usuario user) throws ValidacaoException{
+		Usuario usuarioExistente = userRepository.findByEmailAndTipConta(user.getEmail(), user.getTipConta());
+>>>>>>> be8b730ae01576d0f6e680fc7095bcda8030d5f6
 		if(validacaoLogin(usuarioExistente, user)) {
 			return usuarioExistente;
 		}
@@ -44,8 +45,13 @@ public class UsuarioService {
 
 	public boolean validacaoLogin(Usuario usuarioExistente, Usuario userLogin) throws Exception{
 		if(usuarioExistente != null) {
+<<<<<<< HEAD
 			if(usuarioExistente.getTipConta() == "P") {
 				boolean senhasIguais = HashBuilder.compararSenha(userLogin.getSenha(), usuarioExistente.getSenha());
+=======
+			if("P".equals(usuarioExistente.getTipConta())) {
+				Boolean senhasIguais = HashBuilder.compararSenha(userLogin.getSenha(), usuarioExistente.getSenha());
+>>>>>>> be8b730ae01576d0f6e680fc7095bcda8030d5f6
 				if(senhasIguais) {
 					return true;
 				}

@@ -11,6 +11,8 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
 }
@@ -30,6 +32,8 @@ describe('IndexComponent', () => {
         CustomMaterialModule,
         AppRoutingModule,
         HttpClientModule,
+        ReactiveFormsModule,
+        FormsModule,
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,

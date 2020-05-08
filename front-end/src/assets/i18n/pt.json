@@ -5,11 +5,11 @@
     },
 
     "INDEX": {
-        "OLA": "Olá Mundo, Pachanga"
+        "OLA": "Bem Vindo à Pachanga"
     },
 
     "LOGIN": {
-        "USUARIO": "Usuário",
+        "EMAIL": "E-mail",
         "SENHA": "Senha",
         "ENTRAR": "Entrar",
         "CONTA": "Cria conta",
@@ -37,5 +37,12 @@
         "FEM": "Feminino",
         "TRANS": "Transgênero",
         "OUTRO": "Outro(s)"
+    },
+
+    "FORMERRORS":{
+        "REQUIRED": "Campo obrigatório",
+        "PASSPATTERN": "A senha deve ter pelo menos 8 caracteres, contendo letras maiúsculas e minúsculas, números e caracteres especiais",
+        "EMAIL": "E-mail inválido",
+        "TERMOS": "Aceitar os Termos de Uso é obrigatório"
     }
 }

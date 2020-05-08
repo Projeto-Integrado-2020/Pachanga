@@ -1,20 +1,22 @@
 <h1 mat-dialog-title>Login</h1>
     <div mat-dialog-content>
-        <form class="example-form" (submit)="signInWithPachanga(userLogin, senhaLogin)">
+        <form [formGroup]="form" class="example-form" (submit)="signInWithPachanga(emailLogin.value, senhaLogin.value)">
             <mat-form-field class="example-full-width">
-                <mat-label>{{'LOGIN.USUARIO' | translate}}</mat-label>
-                <input id="userLogin" matInput >
+                <mat-label>{{'LOGIN.EMAIL' | translate}}</mat-label>
+                <input ng-class="{ f.email.errors }" required #emailLogin matInput required placeholder="Ex. pachanga@exemplo.com" formControlName="email">
+                <mat-error *ngIf="f.email.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
+                <mat-error *ngIf="f.email.errors?.email">{{'FORMERRORS.EMAIL' | translate}}</mat-error>
             </mat-form-field>
-                  
             <mat-form-field class="example-full-width">
                 <mat-label>{{'LOGIN.SENHA' | translate}}</mat-label>
-                <input id="senhaLogin" matInput type="password">
+                <input ng-class="{ f.senha.errors }" required #senhaLogin matInput required type="password" formControlName="senha">
+                <mat-error *ngIf="f.senha.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
             </mat-form-field>
-            <button class="button-index" mat-raised-button color="accent" >{{'LOGIN.ENTRAR' | translate}}</button>
+            <button [disabled]="!form.valid" class="button-index" mat-raised-button color="accent" >{{'LOGIN.ENTRAR' | translate}}</button>
             <mat-divider [inset]="true"></mat-divider>
             <!--<button class="button-index cadastro-btn" mat-raised-button color="warn">{{'LOGIN.CONTA' | translate}}</button>-->
             <mat-divider [inset]="true"></mat-divider>
-            <button mat-raised-button color="primary" (click)="signInWithFB()"><i class="fa fa-facebook-official"></i> {{'LOGIN.FACE' | translate}}</button>
-            <button mat-raised-button color="warn" (click)="signInWithGoogle()"><i class="fa fa-google"></i> {{'LOGIN.GMAIL' | translate}}</button>
         </form>
+        <button mat-raised-button color="primary" (click)="signInWithFB()"><i class="fa fa-facebook-official"></i> {{'LOGIN.FACE' | translate}}</button>
+        <button mat-raised-button color="warn" (click)="signInWithGoogle()"><i class="fa fa-google"></i> {{'LOGIN.GMAIL' | translate}}</button>
     </div>

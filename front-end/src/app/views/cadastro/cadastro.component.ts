@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 
-import {FormControl, Validators} from '@angular/forms';
+import { FormGroup, FormControl, Validators} from '@angular/forms';
 
 import { SocialLoginBaseComponent } from '../social-login-base/social-login-base.component';
 
 import { FacebookLoginProvider, GoogleLoginProvider } from 'angularx-social-login';
+
 
 @Component({
   selector: 'app-cadastro',
@@ -22,10 +23,17 @@ export class CadastroComponent extends SocialLoginBaseComponent implements OnIni
   emailCadastro;
   senhaCadastro;
 
-  emailFormControl = new FormControl('', [
-    Validators.required,
-    Validators.email,
-  ]);
+  ngOnInit() {
+    this.form = new FormGroup({
+      email: new FormControl('', [Validators.required, Validators.email]),
+      senha: new FormControl('', [Validators.required, Validators.pattern('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$')]),
+      confirmacaoSenha: new FormControl('', Validators.required),
+      sexo: new FormControl('', Validators.required),
+      dtnasc: new FormControl('', Validators.required),
+      nome: new FormControl('', Validators.required),
+      termos: new FormControl(false, Validators.requiredTrue)
+    });
+  }
 
   signUpWithPachanga(nome, dtNasc, sexo, email, senha): void {
     const userJson = {
@@ -36,32 +44,35 @@ export class CadastroComponent extends SocialLoginBaseComponent implements OnIni
       dtNasc,
       sexo
     };
-    console.log(JSON.stringify(userJson));
     this.loginService.cadastrar(userJson).subscribe();
   }
 
   signUpWithGoogle(): void {
-    this.authService.signIn(FacebookLoginProvider.PROVIDER_ID);
-    const userJson = {
-      tipConta: 'G',
-      nomeUser: this.user.name,
-      email: this.user.email,
-      dtNasc: '',
-      sexo: ''
-    };
-    this.loginService.cadastrar(userJson).subscribe();
+    this.authService.signIn(GoogleLoginProvider.PROVIDER_ID).then((user) => {
+      this.user = user;
+      const userJson = {
+        tipConta: 'G',
+        nomeUser: this.user.name,
+        email: this.user.email,
+        dtNasc: '',
+        sexo: ''
+      };
+      this.loginService.cadastrar(userJson).subscribe();
+    });
   }
 
   signUpWithFB(): void {
-    this.authService.signIn(FacebookLoginProvider.PROVIDER_ID);
-    const userJson = {
-      tipConta: 'F',
-      email: this.user.email,
-      nomeUser: this.user.name,
-      dtNasc: '',
-      sexo: ''
-    };
-    this.loginService.cadastrar(userJson).subscribe();
+    this.authService.signIn(FacebookLoginProvider.PROVIDER_ID).then((user) => {
+      this.user = user;
+      const userJson = {
+        tipConta: 'F',
+        email: this.user.email,
+        nomeUser: this.user.name,
+        dtNasc: '',
+        sexo: ''
+      };
+      this.loginService.cadastrar(userJson).subscribe();
+    });
   }
 
 }

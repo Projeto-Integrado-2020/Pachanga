@@ -5,11 +5,11 @@
     },
 
     "INDEX": {
-        "OLA": "HelLo World, Pachanga"
+        "OLA": "Welcome to Pachanga"
     },
 
     "LOGIN": {
-        "USUARIO": "User",
+        "EMAIL": "E-mail",
         "SENHA": "Password",
         "ENTRAR": "Login",
         "CONTA": "Register now",
@@ -37,5 +37,12 @@
         "FEM": "Female",
         "TRANS": "Transgender",
         "OUTRO": "Other(s)"
+    },
+
+    "FORMERRORS":{
+        "REQUIRED": "Required Field",
+        "PASSPATTERN": "The password must have at least 8 characters, containing upperCase, lowerCase, number/specialChar",
+        "EMAIL": "Invalid e-mail",
+        "TERMOS": "Accept the Terms of Use is required"
     }
 }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'angularx-social-login';
 import { SocialUser } from 'angularx-social-login';
 import { LoginService } from 'src/app/services/loginService/login.service';
+import { FormGroup, FormControl, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-social-login-base',
@@ -11,20 +12,19 @@ import { LoginService } from 'src/app/services/loginService/login.service';
 export class SocialLoginBaseComponent implements OnInit {
 
   public user: SocialUser;
-  public loggedIn: boolean;
+
+  public form: FormGroup;
 
   constructor(public authService: AuthService, public loginService: LoginService) { }
+
+  get f() { return this.form.controls; }
 
   signOut(): void {
     this.authService.signOut();
   }
 
   ngOnInit() {
-    this.authService.authState.subscribe((user) => {
-      this.user = user;
-      console.log(this.user);
-      this.loggedIn = (user != null);
-    });
+
   }
 
 }
