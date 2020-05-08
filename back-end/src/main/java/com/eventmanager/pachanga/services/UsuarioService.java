@@ -30,13 +30,9 @@ public class UsuarioService {
 		}
 	}
 
-<<<<<<< HEAD
+
 	public Usuario login(Usuario user) throws Exception{
-		Usuario usuarioExistente = userRepository.findByEmail(user.getEmail());
-=======
-	public Usuario login(Usuario user) throws ValidacaoException{
 		Usuario usuarioExistente = userRepository.findByEmailAndTipConta(user.getEmail(), user.getTipConta());
->>>>>>> be8b730ae01576d0f6e680fc7095bcda8030d5f6
 		if(validacaoLogin(usuarioExistente, user)) {
 			return usuarioExistente;
 		}
@@ -45,13 +41,9 @@ public class UsuarioService {
 
 	public boolean validacaoLogin(Usuario usuarioExistente, Usuario userLogin) throws Exception{
 		if(usuarioExistente != null) {
-<<<<<<< HEAD
-			if(usuarioExistente.getTipConta() == "P") {
-				boolean senhasIguais = HashBuilder.compararSenha(userLogin.getSenha(), usuarioExistente.getSenha());
-=======
+
 			if("P".equals(usuarioExistente.getTipConta())) {
 				Boolean senhasIguais = HashBuilder.compararSenha(userLogin.getSenha(), usuarioExistente.getSenha());
->>>>>>> be8b730ae01576d0f6e680fc7095bcda8030d5f6
 				if(senhasIguais) {
 					return true;
 				}
