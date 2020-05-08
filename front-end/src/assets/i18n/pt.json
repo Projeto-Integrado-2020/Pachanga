@@ -37,5 +37,12 @@
         "FEM": "Feminino",
         "TRANS": "Transgênero",
         "OUTRO": "Outro(s)"
+    },
+
+    "FORMERRORS":{
+        "REQUIRED": "Campo obrigatório",
+        "PASSLENGTH": "A senha deve conter pelo menos 8 caracteres",
+        "EMAIL": "E-mail inválido",
+        "TERMOS": "Aceitar os Termos de Uso é obrigatório"
     }
 }

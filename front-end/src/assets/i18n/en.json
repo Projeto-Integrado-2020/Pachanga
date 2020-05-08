@@ -37,5 +37,12 @@
         "FEM": "Female",
         "TRANS": "Transgender",
         "OUTRO": "Other(s)"
+    },
+
+    "FORMERRORS":{
+        "REQUIRED": "Required Field",
+        "PASSLENGTH": "The password must contain at least 8 characters",
+        "EMAIL": "Invalid e-mail",
+        "TERMOS": "Accept the Terms of Use is required"
     }
 }

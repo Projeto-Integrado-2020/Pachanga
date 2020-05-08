@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { FormControl, Validators} from '@angular/forms';
+import { FormGroup, FormControl, Validators} from '@angular/forms';
 
 import { SocialLoginBaseComponent } from '../social-login-base/social-login-base.component';
 
@@ -23,41 +23,16 @@ export class CadastroComponent extends SocialLoginBaseComponent implements OnIni
   emailCadastro;
   senhaCadastro;
 
-  email = new FormControl('', [Validators.required, Validators.email]);
-  senha = new FormControl('', [Validators.required, Validators.minLength(8)]);
-  confirmacaoSenha = new FormControl('', Validators.required);
-  sexo = new FormControl('', Validators.required);
-  dtnasc = new FormControl('', Validators.required);
-  nome = new FormControl('', Validators.required);
-  termos = new FormControl(false, Validators.requiredTrue);
-
-  getErroEmail() {
-    return this.email.hasError('required') ? 'Este campo é obrigatório.' : '';
-  }
-
-  getErroSenha() {
-    return this.senha.hasError('required') ? 'Este campo é obrigatório.' : 
-      this.senha.hasError('minlength') ? 'Senha deve ter pelo menos 8 caracteres.' : '';
-  }
-
-  getErroConfirmacaoSenha() {
-    return this.confirmacaoSenha.hasError('required') ? 'Este campo é obrigatório.' : '';
-  }
-
-  getErroSexo() {
-    return this.sexo.hasError('required') ? 'Este campo é obrigatório.' : '';
-  }
-
-  getErroDtnasc() {
-    return this.dtnasc.hasError('required') ? 'Este campo é obrigatório.' : '';
-  }
-
-  getErroNome() {
-    return this.nome.hasError('required') ? 'Este campo é obrigatório.' : '';
-  }
-
-  getErroTermos() {
-    return this.termos.hasError('required') ? 'Você deve aceitar os Termos de Uso.' : '';
+  ngOnInit() {
+    this.form = new FormGroup({
+      email: new FormControl('', [Validators.required, Validators.email]),
+      senha: new FormControl('', [Validators.required, Validators.minLength(8)]),
+      confirmacaoSenha: new FormControl('', Validators.required),
+      sexo: new FormControl('', Validators.required),
+      dtnasc: new FormControl('', Validators.required),
+      nome: new FormControl('', Validators.required),
+      termos: new FormControl(false, Validators.requiredTrue)
+    });
   }
 
   signUpWithPachanga(nome, dtNasc, sexo, email, senha): void {
