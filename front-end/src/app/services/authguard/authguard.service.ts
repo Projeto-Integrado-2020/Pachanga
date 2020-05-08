@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
-import { Router, CanActivate, ActivatedRouteSnapshot } from '@angular/router';
-import { AuthService } from 'angularx-social-login/src/auth.service';
+//import { Injectable } from '@angular/core';
+//import { Router, CanActivate, ActivatedRouteSnapshot } from '@angular/router';
+//import { AuthService } from 'angularx-social-login/src/auth.service';
 
 //@Injectable()
 //export class RoleGuardService implements CanActivate {
