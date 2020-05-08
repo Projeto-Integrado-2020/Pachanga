@@ -41,7 +41,7 @@
 
     "FORMERRORS":{
         "REQUIRED": "Campo obrigatório",
-        "PASSLENGTH": "A senha deve conter pelo menos 8 caracteres",
+        "PASSPATTERN": "A senha deve ter pelo menos 8 caracteres, contendo letras maiúsculas e minúsculas, números e caracteres especiais",
         "EMAIL": "E-mail inválido",
         "TERMOS": "Aceitar os Termos de Uso é obrigatório"
     }

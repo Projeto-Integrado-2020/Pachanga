@@ -26,7 +26,7 @@ export class CadastroComponent extends SocialLoginBaseComponent implements OnIni
   ngOnInit() {
     this.form = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.email]),
-      senha: new FormControl('', [Validators.required, Validators.minLength(8)]),
+      senha: new FormControl('', [Validators.required, Validators.pattern('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$')]),
       confirmacaoSenha: new FormControl('', Validators.required),
       sexo: new FormControl('', Validators.required),
       dtnasc: new FormControl('', Validators.required),

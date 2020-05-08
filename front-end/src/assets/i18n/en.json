@@ -41,7 +41,7 @@
 
     "FORMERRORS":{
         "REQUIRED": "Required Field",
-        "PASSLENGTH": "The password must contain at least 8 characters",
+        "PASSPATTERN": "The password must have at least 8 characters, containing upperCase, lowerCase, number/specialChar",
         "EMAIL": "Invalid e-mail",
         "TERMOS": "Accept the Terms of Use is required"
     }

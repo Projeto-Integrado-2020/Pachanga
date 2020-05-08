@@ -37,7 +37,7 @@
                 <mat-label>{{'CADASTRO.SENHA' | translate}}</mat-label>
                 <input ng-class="{ f.senha.errors }" #senhaCadastro matInput required type="password" formControlName="senha">
                 <mat-error *ngIf="f.senha.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
-                <mat-error *ngIf="f.senha.errors?.minlength">{{'FORMERRORS.PASSLENGTH' | translate}}</mat-error>
+                <mat-error *ngIf="f.senha.errors?.pattern">{{'FORMERRORS.PASSPATTERN' | translate}}</mat-error>
             </mat-form-field>
             <mat-form-field class="example-full-width">
                 <mat-label>{{'CADASTRO.SENHA2' | translate}}</mat-label>
