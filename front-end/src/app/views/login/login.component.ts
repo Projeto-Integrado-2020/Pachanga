@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SocialLoginBaseComponent } from '../social-login-base/social-login-base.component';
 import { FacebookLoginProvider, GoogleLoginProvider } from 'angularx-social-login';
 
-import { FormGroup, FormControl, Validators} from '@angular/forms';
+import { FormControl, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +19,7 @@ export class LoginComponent extends SocialLoginBaseComponent implements OnInit {
   senhaLogin;
 
   ngOnInit() {
-    this.form = new FormGroup({
+    this.form = this.formBuilder.group({
       email: new FormControl('', [Validators.required, Validators.email]),
       senha: new FormControl('', Validators.required)
     });

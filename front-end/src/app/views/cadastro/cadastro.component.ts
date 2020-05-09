@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 
-import { FormGroup, FormControl, Validators} from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
 
 import { SocialLoginBaseComponent } from '../social-login-base/social-login-base.component';
 
 import { FacebookLoginProvider, GoogleLoginProvider } from 'angularx-social-login';
+
+import { MustMatch } from './matchPassword';
 
 
 @Component({
@@ -24,15 +26,18 @@ export class CadastroComponent extends SocialLoginBaseComponent implements OnIni
   senhaCadastro;
 
   ngOnInit() {
-    this.form = new FormGroup({
+    this.form = this.formBuilder.group({
       email: new FormControl('', [Validators.required, Validators.email]),
-      senha: new FormControl('', [Validators.required, Validators.pattern('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$')]),
+      senha: new FormControl('', [Validators.required,
+        Validators.pattern('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$')]),
       confirmacaoSenha: new FormControl('', Validators.required),
       sexo: new FormControl('', Validators.required),
       dtnasc: new FormControl('', Validators.required),
       nome: new FormControl('', Validators.required),
       termos: new FormControl(false, Validators.requiredTrue)
-    });
+    }, {
+      validator: MustMatch('senha', 'confirmacaoSenha')
+      });
   }
 
   signUpWithPachanga(nome, dtNasc, sexo, email, senha): void {

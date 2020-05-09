@@ -43,6 +43,7 @@
         "REQUIRED": "Campo obrigatório",
         "PASSPATTERN": "A senha deve ter pelo menos 8 caracteres, contendo letras maiúsculas e minúsculas, números e caracteres especiais",
         "EMAIL": "E-mail inválido",
-        "TERMOS": "Aceitar os Termos de Uso é obrigatório"
+        "TERMOS": "Aceitar os Termos de Uso é obrigatório",
+        "MATCH": "Senhas devem coincidir"
     }
 }
