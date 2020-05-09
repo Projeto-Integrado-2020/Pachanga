@@ -46,7 +46,7 @@ export class CadastroComponent extends SocialLoginBaseComponent implements OnIni
       email,
       senha,
       nomeUser: nome,
-      dtNasc,
+      dtNasc: dtNasc.slice(6, 10) + '-' + dtNasc.slice(3, 5) + '-' + dtNasc.slice(0, 2),
       sexo
     };
     this.loginService.cadastrar(userJson).subscribe(resp => {
