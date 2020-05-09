@@ -18,10 +18,10 @@ public class UsuarioTO {
     private String sexo;
     
 	public UsuarioTO(Usuario usuario) {
-		this.dtNasc = usuario.getDtNasc();
 		this.codUsuario = usuario.getCodUsuario();
 		this.nomeUser = usuario.getNomeUser();
 		this.tipConta = usuario.getTipConta();
+		this.dtNasc = usuario.getDtNasc();
 		this.email = usuario.getEmail();
 		this.senha = usuario.getSenha();
 		this.sexo = usuario.getSexo();

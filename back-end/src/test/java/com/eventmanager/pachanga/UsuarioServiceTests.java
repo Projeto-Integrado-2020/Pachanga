@@ -41,6 +41,7 @@ public class UsuarioServiceTests {
 		String usuarioLoginJson = "{\"email\":\"gustavinhoTPD@fodasse.com.br\",\"senha\":\"1234\",\"tipConta\": \"P\"}";
 
 		Usuario usuarioTest = new Usuario();
+		usuarioTest.setCodUsuario(100);
 		usuarioTest.setEmail("gustavinhoTPD@fodasse.com.br");
 		usuarioTest.setSenha("1234");
 		usuarioTest.setDtNasc(new Date(2000, 8, 27));
@@ -62,10 +63,10 @@ public class UsuarioServiceTests {
 
 		MockHttpServletResponse response = result.getResponse();
 
-		String expected = "{nomeUser:\"Gustavo Barbosa\",dtNasc:\"3900-09-27T03:00:00.000+0000\"}";
+		String expected = "{\"dtNasc\":\"3900-09-27T03:00:00.000+0000\",\"codUsuario\":100,\"nomeUser\":\"Gustavo Barbosa\",\"tipConta\":\"P\",\"email\":\"gustavinhoTPD@fodasse.com.br\",\"senha\":\"1234\",\"sexo\":\"M\"}";
 
 		assertEquals(HttpStatus.OK.value(), response.getStatus());
 
-		JSONAssert.assertEquals(expected, result.getResponse().getContentAsString(), false);
+		JSONAssert.assertEquals(expected, result.getResponse().getContentAsString(), true);
 	}
 }
