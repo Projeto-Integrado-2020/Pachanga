@@ -14,16 +14,17 @@ public class UsuarioService {
 	@Autowired
 	private UsuarioRepository userRepository;
 
-	public void cadastro(Usuario user) throws ValidacaoException{
+	public Usuario cadastro(Usuario user){
 		validacaoCadastro(user);
 		if("P".equals(user.getTipConta())) {
 			user.setSenha(HashBuilder.gerarSenha(user.getSenha()));
+			user.setCodUsuario(userRepository.getNextValMySequence());
 		}
-		user.setCodUsuario(userRepository.getNextValMySequence());
 		userRepository.save(user);
+		return user;
 	}
 
-	public void validacaoCadastro(Usuario user) throws ValidacaoException{
+	public void validacaoCadastro(Usuario user){
 		Usuario usuarioExistente = userRepository.findByEmailAndTipConta(user.getEmail(), user.getTipConta());
 		if(usuarioExistente != null) {
 			throw new ValidacaoException("Outra conta está usando esse e-mail");
@@ -31,27 +32,25 @@ public class UsuarioService {
 	}
 
 
-	public Usuario login(Usuario user) throws Exception{
+	public Usuario login(Usuario user){
 		Usuario usuarioExistente = userRepository.findByEmailAndTipConta(user.getEmail(), user.getTipConta());
 		if(validacaoLogin(usuarioExistente, user)) {
 			return usuarioExistente;
 		}
-		return null;
+		throw new ValidacaoException("Usuário ou senha incorretos");
 	}
 
-	public boolean validacaoLogin(Usuario usuarioExistente, Usuario userLogin) throws Exception{
+	public boolean validacaoLogin(Usuario usuarioExistente, Usuario userLogin){
 		if(usuarioExistente != null) {
-
 			if("P".equals(usuarioExistente.getTipConta())) {
-				Boolean senhasIguais = HashBuilder.compararSenha(userLogin.getSenha(), usuarioExistente.getSenha());
-				if(senhasIguais) {
-					return true;
+				boolean senhasIguais = HashBuilder.compararSenha(userLogin.getSenha(), usuarioExistente.getSenha());
+				if(!senhasIguais) {
+					throw new ValidacaoException("Usuário ou senha incorretos");
 				}
-			} else {
-				return true;
-			}
+			} 
+			return true;
 		}
-		throw new ValidacaoException("Usuário ou senha incorretos");
+		throw new ValidacaoException("Usuário não cadastrado");
 	}
 
 }

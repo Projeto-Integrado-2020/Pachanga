@@ -25,8 +25,8 @@ public class UsuarioController{
 	@PostMapping(path ="/cadastro")
 	public ResponseEntity<Object> cadastro(@RequestBody Usuario user) {
 		try {
-			userService.cadastro(user);
-			UsuarioTO userto = criadorUserDto(user);
+			Usuario userCadastrado = userService.cadastro(user);
+			UsuarioTO userto = criadorUserDto(userCadastrado);
 			return ResponseEntity.ok(userto);
 		} catch (ValidacaoException e) {
 			return ResponseEntity.status(400).body(e.getMessage());	
@@ -35,19 +35,18 @@ public class UsuarioController{
 
 
 	@PostMapping(path ="/login")
-	public ResponseEntity<Object> login(@RequestBody Usuario user) throws Exception {
-		System.out.println(user.getEmail());
+	public ResponseEntity<Object> login(@RequestBody Usuario user){
 		try {
 			Usuario usarioLogin = userService.login(user);
 			UsuarioTO userto = criadorUserDto(usarioLogin);
-			return ResponseEntity.ok(userto);			
+			return ResponseEntity.ok(userto);
 		} catch (ValidacaoException e) {
-			return ResponseEntity.status(400).body("Usuário ou senha incorretos");
+			return ResponseEntity.status(400).body(e.getMessage());
 		}
 	}
 	
 	private UsuarioTO criadorUserDto(Usuario user) {
-		return new UsuarioTO(user.getNomeUser(), user.getDtNasc());
+		return new UsuarioTO(user);
 	}
 
 }

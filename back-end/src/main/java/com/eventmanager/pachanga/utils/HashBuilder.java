@@ -4,7 +4,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 
-public class HashBuilder {
+public class HashBuilder { 
 
 	public static String gerarSenha(String senha) {
 		String hash = ""; 
@@ -16,10 +16,10 @@ public class HashBuilder {
 		return hash;
 	}
 	
-	public static Boolean compararSenha(String senhaLogin, String senhaBanco) throws Exception{
+	public static Boolean compararSenha(String senhaLogin, String senhaBanco){
 		String salt = senhaBanco.substring(0,32);
 		senhaLogin = gerarHash(senhaLogin, hexStringToByteArray(salt));
-		return senhaLogin.equals(senhaBanco);
+		return senhaBanco.equals(senhaLogin);
 	}
 
 	private static String gerarHash(String passwordToHash, byte[] salt)
@@ -59,7 +59,7 @@ public class HashBuilder {
 		return salt;
 	}
 
-	public static byte[] hexStringToByteArray(String s) {
+	private static byte[] hexStringToByteArray(String s) {
 		int len = s.length();
 		byte[] data = new byte[len / 2];
 		for (int i = 0; i < len; i += 2) {

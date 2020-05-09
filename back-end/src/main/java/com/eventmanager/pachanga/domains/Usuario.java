@@ -6,6 +6,9 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
+import lombok.Data;
+
+@Data
 @Entity(name = "usuario")
 public class Usuario {
 	@Id
@@ -21,61 +24,14 @@ public class Usuario {
     @Column(name = "dt_nasc")
     private Date dtNasc;
     private String sexo;
-
-	public int getCodUsuario() {
-		return codUsuario;
-	}
-
-	public void setCodUsuario(int codUsuario) {
-		this.codUsuario = codUsuario;
-	}
-
-	public String getNomeUser() {
-		return nomeUser;
-	}
-
-	public void setNomeUser(String nomeUser) {
-		this.nomeUser = nomeUser;
-	}
-
-	public String getTipConta() {
-		return tipConta;
-	}
-
-	public void setTipConta(String tipConta) {
-		this.tipConta = tipConta;
-	}
-
-	public String getSenha() {
-		return senha;
-	}
-
-	public void setSenha(String senha) {
-		this.senha = senha;
-	}
-
-	public Date getDtNasc() {
-		return dtNasc;
-	}
-
-	public void setDtNasc(Date dtNasc) {
-		this.dtNasc = dtNasc;
-	}
-
-	public String getSexo() {
-		return sexo;
-	}
-
-	public void setSexo(String sexo) {
-		this.sexo = sexo;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
+	
+//	public Usuario(String nomeUser, String tipConta, String email, String senha, Date dtNasc, String sexo) {
+//		this.nomeUser = nomeUser;
+//		this.tipConta = tipConta;
+//		this.email = email;
+//		this.senha = senha;
+//		this.dtNasc = dtNasc;
+//		this.sexo = sexo;
+//	}
     
 }
