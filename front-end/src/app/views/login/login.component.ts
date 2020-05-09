@@ -33,7 +33,7 @@ export class LoginComponent extends SocialLoginBaseComponent implements OnInit {
         email: this.user.email
       };
       this.loginService.logar(userJson).subscribe(resp => {
-        alert(JSON.stringify(resp));
+        alert('Resultado: ' + JSON.stringify(resp));
       });
     });
   }
@@ -46,7 +46,7 @@ export class LoginComponent extends SocialLoginBaseComponent implements OnInit {
         email: this.user.email
       };
       this.loginService.logar(userJson).subscribe(resp => {
-        alert(JSON.stringify(resp));
+        alert('Resultado: ' + JSON.stringify(resp));
       });
     });
   }
@@ -58,7 +58,7 @@ export class LoginComponent extends SocialLoginBaseComponent implements OnInit {
       senha
     };
     this.loginService.logar(userJson).subscribe(resp => {
-      alert(JSON.stringify(resp));
+      alert('Resultado: ' + JSON.stringify(resp));
     });
   }
 

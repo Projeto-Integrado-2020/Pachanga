@@ -50,7 +50,7 @@ export class CadastroComponent extends SocialLoginBaseComponent implements OnIni
       sexo
     };
     this.loginService.cadastrar(userJson).subscribe(resp => {
-      alert(JSON.stringify(resp));
+      alert('Resultado: ' + JSON.stringify(resp));
     });
   }
 
@@ -65,7 +65,7 @@ export class CadastroComponent extends SocialLoginBaseComponent implements OnIni
         sexo: 'N'
       };
       this.loginService.cadastrar(userJson).subscribe(resp => {
-        alert(JSON.stringify(resp));
+        alert('Resultado: ' + JSON.stringify(resp));
       });
     });
   }
@@ -81,7 +81,7 @@ export class CadastroComponent extends SocialLoginBaseComponent implements OnIni
         sexo: 'N'
       };
       this.loginService.cadastrar(userJson).subscribe(resp => {
-        alert(JSON.stringify(resp));
+        alert('Resultado: ' + JSON.stringify(resp));
       });
     });
   }
