@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import {MAT_DATE_LOCALE} from '@angular/material/core';
 
 import {
   MatToolbarModule,
@@ -112,7 +113,10 @@ import {
     MatSortModule,
     MatPaginatorModule,
     MatNativeDateModule
-  ]
+  ],
+  providers: [
+    {provide: MAT_DATE_LOCALE, useValue: 'pt-br'},
+  ],
 })
 
 export class CustomMaterialModule { }

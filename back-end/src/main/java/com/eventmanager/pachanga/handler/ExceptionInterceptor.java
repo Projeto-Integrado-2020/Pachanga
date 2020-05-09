@@ -6,10 +6,8 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 import com.eventmanager.pachanga.errors.ValidacaoException;
 
-import lombok.extern.slf4j.Slf4j;
-
 @ControllerAdvice
-@Slf4j
+//@Slf4j
 public class ExceptionInterceptor extends ResponseEntityExceptionHandler{
 
 	@ExceptionHandler(ValidacaoException.class)

@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 
-import { FormGroup, FormControl, Validators} from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
 
 import { SocialLoginBaseComponent } from '../social-login-base/social-login-base.component';
 
 import { FacebookLoginProvider, GoogleLoginProvider } from 'angularx-social-login';
+
+import { MustMatch } from './matchPassword';
 
 
 @Component({
@@ -24,15 +26,18 @@ export class CadastroComponent extends SocialLoginBaseComponent implements OnIni
   senhaCadastro;
 
   ngOnInit() {
-    this.form = new FormGroup({
+    this.form = this.formBuilder.group({
       email: new FormControl('', [Validators.required, Validators.email]),
-      senha: new FormControl('', [Validators.required, Validators.minLength(8)]),
+      senha: new FormControl('', [Validators.required,
+        Validators.pattern('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$')]),
       confirmacaoSenha: new FormControl('', Validators.required),
       sexo: new FormControl('', Validators.required),
       dtnasc: new FormControl('', Validators.required),
       nome: new FormControl('', Validators.required),
       termos: new FormControl(false, Validators.requiredTrue)
-    });
+    }, {
+      validator: MustMatch('senha', 'confirmacaoSenha')
+      });
   }
 
   signUpWithPachanga(nome, dtNasc, sexo, email, senha): void {
@@ -41,10 +46,12 @@ export class CadastroComponent extends SocialLoginBaseComponent implements OnIni
       email,
       senha,
       nomeUser: nome,
-      dtNasc,
+      dtNasc: dtNasc.slice(6, 10) + '-' + dtNasc.slice(3, 5) + '-' + dtNasc.slice(0, 2),
       sexo
     };
-    this.loginService.cadastrar(userJson).subscribe();
+    this.loginService.cadastrar(userJson).subscribe(resp => {
+      alert('Resultado: ' + JSON.stringify(resp));
+    });
   }
 
   signUpWithGoogle(): void {
@@ -55,9 +62,11 @@ export class CadastroComponent extends SocialLoginBaseComponent implements OnIni
         nomeUser: this.user.name,
         email: this.user.email,
         dtNasc: '',
-        sexo: ''
+        sexo: 'N'
       };
-      this.loginService.cadastrar(userJson).subscribe();
+      this.loginService.cadastrar(userJson).subscribe(resp => {
+        alert('Resultado: ' + JSON.stringify(resp));
+      });
     });
   }
 
@@ -69,9 +78,11 @@ export class CadastroComponent extends SocialLoginBaseComponent implements OnIni
         email: this.user.email,
         nomeUser: this.user.name,
         dtNasc: '',
-        sexo: ''
+        sexo: 'N'
       };
-      this.loginService.cadastrar(userJson).subscribe();
+      this.loginService.cadastrar(userJson).subscribe(resp => {
+        alert('Resultado: ' + JSON.stringify(resp));
+      });
     });
   }
 

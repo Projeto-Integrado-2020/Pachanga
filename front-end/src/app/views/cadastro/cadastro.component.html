@@ -10,9 +10,11 @@
                 <input ng-class="{ f.nome.errors }" #nomeCadastro matInput required formControlName="nome">
                 <mat-error *ngIf="f.nome.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
             </mat-form-field>
-            <mat-form-field class="example-full-width">
+            <mat-form-field>
                 <mat-label>{{'CADASTRO.DATANASC' | translate}}</mat-label>
-                <input ng-class="{ f.dtnasc.errors }" #dtnascCadastro matInput required formControlName="dtnasc" maxlength="10">
+                <input ng-class="{ f.dtnasc.errors }" (click)="picker.open()" #dtnascCadastro matInput required formControlName="dtnasc" maxlength="10" [matDatepicker]="picker">
+                <mat-datepicker-toggle matSuffix [for]="picker" ></mat-datepicker-toggle>
+                <mat-datepicker #picker ></mat-datepicker>
                 <mat-error *ngIf="f.dtnasc.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
             </mat-form-field>
             <mat-form-field>
@@ -35,13 +37,17 @@
                 <mat-label>{{'CADASTRO.SENHA' | translate}}</mat-label>
                 <input ng-class="{ f.senha.errors }" #senhaCadastro matInput required type="password" formControlName="senha">
                 <mat-error *ngIf="f.senha.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
-                <mat-error *ngIf="f.senha.errors?.minlength">{{'FORMERRORS.PASSLENGTH' | translate}}</mat-error>
+                <mat-error *ngIf="f.senha.errors?.pattern">{{'FORMERRORS.PASSPATTERN' | translate}}</mat-error>
             </mat-form-field>
             <mat-form-field class="example-full-width">
                 <mat-label>{{'CADASTRO.SENHA2' | translate}}</mat-label>
                 <input ng-class="{ f.confirmacaoSenha.errors }" #conf_senhaCadastro matInput required type="password" formControlName="confirmacaoSenha">
                 <mat-error *ngIf="f.confirmacaoSenha.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
+<<<<<<< HEAD
                 <mat-error *ngIf="f.confirmacaoSenha.errors.mustMatch">Não confirma</mat-error>
+=======
+                <mat-error *ngIf="f.confirmacaoSenha.errors?.mustMatch">{{'FORMERRORS.MATCH' | translate}}</mat-error>
+>>>>>>> 0e439855bd2a3388d42d382f28169338d4b62856
             </mat-form-field>
             <section class="example-section"><p></p>
                 <mat-checkbox ng-class="{ f.termos.errors }" formControlName="termos" class="termos">{{'CADASTRO.TERMOS' | translate}}</mat-checkbox>
