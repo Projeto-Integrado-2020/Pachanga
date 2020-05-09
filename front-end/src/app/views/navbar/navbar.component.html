@@ -1,14 +1,38 @@
 <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
 
-<mat-toolbar color="primary">
-    <mat-toolbar-row>
-      <span id="logo"><a [routerLink] = "['']">Pachanga</a></span>
-      <span class="example-spacer"></span>
-      <div class="example-button-row">
-        <button class="button-index" mat-raised-button color="accent" (click)="openDialogLogin()">{{'NAV.ENTRAR' | translate}}</button>
-        <button class="button-index cadastro-btn" mat-raised-button color="warn" (click)="openDialogCadastro()">{{'NAV.CONTA' | translate}}</button>
-        <button id="pt-btn" class="button-index" mat-mini-fab color="accent" (click)="langPt()" [value]="'pt'">.</button>
-        <button id="en-btn" class="button-index" mat-mini-fab color="warn" (click)="langEn()" [value]="'en'">.</button>
-      </div>
-    </mat-toolbar-row>
-  </mat-toolbar>
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport
+      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+      [mode]="(isHandset$ | async) ? 'over' : 'side'"
+      [opened]="(isHandset$ | async) === false">
+    <mat-toolbar color="primary">Menu</mat-toolbar>
+    <mat-nav-list>
+      <a mat-list-item href="#">{{'NAV.ENTRAR' | translate}}</a>
+      <a mat-list-item href="#">{{'NAV.CONTA' | translate}}</a>
+      <a mat-list-item href="#" (click)="drawer.toggle()">{{'NAV.VOLTAR' | translate}}</a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <mat-toolbar-row>
+        <button
+          type="button"
+          aria-label="Toggle sidenav"
+          mat-icon-button
+          (click)="drawer.toggle()"
+          *ngIf="isHandset$ | async">
+          <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+        </button>
+        <span id="logo"><a [routerLink] = "['']">Pachanga</a></span>
+        <span class="example-spacer"></span>
+        <div class="example-button-row">
+          <button class="button-index btn-navbar" mat-raised-button color="accent" (click)="openDialogLogin()">{{'NAV.ENTRAR' | translate}}</button>
+          <button class="button-index cadastro-btn btn-navbar" mat-raised-button color="warn" (click)="openDialogCadastro()">{{'NAV.CONTA' | translate}}</button>
+          <button id="pt-btn" class="button-index" mat-mini-fab color="accent" (click)="langPt()" [value]="'pt'">.</button>
+          <button id="en-btn" class="button-index" mat-mini-fab color="warn" (click)="langEn()" [value]="'en'">.</button>
+        </div>
+      </mat-toolbar-row>
+    </mat-toolbar>
+    <ng-content></ng-content>
+  </mat-sidenav-content>
+</mat-sidenav-container>

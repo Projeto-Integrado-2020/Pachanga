@@ -26,6 +26,12 @@ export function HttpLoaderFactory(http: HttpClient) {
 import { SocialLoginModule, AuthServiceConfig } from 'angularx-social-login';
 import { GoogleLoginProvider, FacebookLoginProvider } from 'angularx-social-login';
 import { SocialLoginBaseComponent } from './views/social-login-base/social-login-base.component';
+import { LayoutModule } from '@angular/cdk/layout';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
 
 const config = new AuthServiceConfig([
   {
@@ -70,7 +76,13 @@ export function provideConfig() {
         deps: [HttpClient]
       }
     }),
-    SocialLoginModule
+    SocialLoginModule,
+    LayoutModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatSidenavModule,
+    MatIconModule,
+    MatListModule
   ],
   providers: [
     {

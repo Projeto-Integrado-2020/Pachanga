@@ -17,3 +17,17 @@ button{
     margin-top: 15px;
     width: 100%;
 }
+
+
+@media screen and (min-width: 748px) {
+    mat-card {
+      font-size: 20rem;
+    }
+  }
+  
+  /* If the screen size is 600px wide or less, set the font-size of <div> to 30px */
+  @media screen and (max-width: 748px) {
+    div.example {
+      font-size: 10rem;
+    }
+  }

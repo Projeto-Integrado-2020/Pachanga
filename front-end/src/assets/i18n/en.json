@@ -1,7 +1,8 @@
 {
     "NAV": {
         "ENTRAR": "Login",
-        "CONTA": "Register now"
+        "CONTA": "Register now",
+        "VOLTAR": "Back"
     },
 
     "INDEX": {

@@ -2,6 +2,7 @@
   font-family: 'Pacifico', cursive;
   font-size: 2rem;
 }
+
 .button-index {
     margin-right: 15px;
 }
@@ -34,4 +35,38 @@ mat-toolbar{
  background-image: url("https://upload.wikimedia.org/wikipedia/commons/0/05/Flag_of_Brazil.svg");
  background-size: cover;
  background-position: center;
+}
+
+@media (max-width: 600px){
+  .btn-navbar {
+    display: none;
+  }
+}
+
+@media (min-width: 600px){
+  .sidenav {
+    display: none;
+  }
+}
+
+.sidenav-container {
+  height: 100%;
+}
+
+.sidenav {
+  width: 100%;
+}
+
+.sidenav .mat-toolbar {
+  background: inherit;
+}
+
+.mat-toolbar.mat-primary {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.mat-toolbar{
+  background-color: #3f51b5 !important;
 }

@@ -1,12 +1,13 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { NavbarComponent } from './navbar.component';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CustomMaterialModule } from '../material/material.module';
 import { AppRoutingModule } from '../../app-routing.module';
 import { LoginComponent } from '../login/login.component';
 import { CadastroComponent } from '../cadastro/cadastro.component';
 import { IndexComponent } from '../index/index.component';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -36,6 +37,7 @@ describe('NavbarComponent', () => {
         HttpClientModule,
         FormsModule,
         ReactiveFormsModule,
+        BrowserAnimationsModule,
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
