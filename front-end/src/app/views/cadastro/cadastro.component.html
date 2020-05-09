@@ -12,9 +12,9 @@
             </mat-form-field>
             <mat-form-field>
                 <mat-label>{{'CADASTRO.DATANASC' | translate}}</mat-label>
-                <input ng-class="{ f.dtnasc.errors }" #dtnascCadastro matInput required formControlName="dtnasc" maxlength="10" [matDatepicker]="picker">
-                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                <mat-datepicker #picker></mat-datepicker>
+                <input ng-class="{ f.dtnasc.errors }" (click)="picker.open()" #dtnascCadastro matInput required formControlName="dtnasc" maxlength="10" [matDatepicker]="picker">
+                <mat-datepicker-toggle matSuffix [for]="picker" ></mat-datepicker-toggle>
+                <mat-datepicker #picker ></mat-datepicker>
                 <mat-error *ngIf="f.dtnasc.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
             </mat-form-field>
             <mat-form-field>
