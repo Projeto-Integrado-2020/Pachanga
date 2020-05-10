@@ -33,14 +33,11 @@ public class UsuarioServiceTests {
 
 	@MockBean
 	private UsuarioService userService;
-
-	@SuppressWarnings("deprecation")
-	@Test
-	public void loginTest() throws Exception{
-
-		String usuarioLoginJson = "{\"email\":\"gustavinhoTPD@fodasse.com.br\",\"senha\":\"1234\",\"tipConta\": \"P\"}";
-
+	
+	
+	public Usuario usuarioTest() throws Exception{
 		Usuario usuarioTest = new Usuario();
+		
 		usuarioTest.setCodUsuario(100);
 		usuarioTest.setEmail("gustavinhoTPD@fodasse.com.br");
 		usuarioTest.setSenha("1234");
@@ -49,9 +46,20 @@ public class UsuarioServiceTests {
 		usuarioTest.setNomeUser("Gustavo Barbosa");
 		usuarioTest.setTipConta("P");
 		
+		return usuarioTest;
+	}
+
+	@SuppressWarnings("deprecation")
+	@Test
+	public void loginSucessoTest() throws Exception{
+
+		String usuarioLoginJson = "{\"email\":\"gustavinhoTPD@fodasse.com.br\",\"senha\":\"1234\",\"tipConta\": \"P\"}";
+
+		Usuario usuarioTest = usuarioTest();
+		
 		String uri = "/usuario/login";
 
-		Mockito.when(userService.login(Mockito.any(Usuario.class))).thenReturn(usuarioTest);
+		Mockito.when(userService.logar(Mockito.any(Usuario.class))).thenReturn(usuarioTest);
 
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.post(uri)
@@ -68,5 +76,71 @@ public class UsuarioServiceTests {
 		assertEquals(HttpStatus.OK.value(), response.getStatus());
 
 		JSONAssert.assertEquals(expected, result.getResponse().getContentAsString(), true);
+	}
+	/*
+	@SuppressWarnings("deprecation")
+	@Test
+	public void loginSenhaIncorretaTest() throws Exception{
+
+		String usuarioLoginJson = "{\"email\":\"gustavinhoTPD@fodasse.com.br\",\"senha\":\"12345vsdfvsef\",\"tipConta\": \"P\"}";
+
+		Usuario usuarioTest = usuarioTest();
+		
+		String uri = "/usuario/login";
+
+		Mockito.when(userService.logar(Mockito.eq(usuarioTest))).thenReturn(usuarioTest);
+
+		RequestBuilder requestBuilder = MockMvcRequestBuilders
+				.post(uri)
+				.accept(MediaType.APPLICATION_JSON)
+				.content(usuarioLoginJson)
+				.contentType(MediaType.APPLICATION_JSON);
+		
+		System.out.println(usuarioTest.toString());
+
+		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+
+		MockHttpServletResponse response = result.getResponse();
+
+		String expected = "Usuário ou senha incorretos";
+
+		System.out.println("tataaaa");
+		
+		System.out.println(result.getResponse().getContentAsString());
+		
+		//assertEquals(HttpStatus.OK.value(), response.getStatus());
+
+		//JSONAssert.assertEquals(expected, result.getResponse().getContentAsString(), true);
+	}
+	
+	*/
+	
+	@SuppressWarnings("deprecation")
+	@Test
+	public void CadastroSucessoTest() throws Exception{
+		String usuarioCadastroJson = "{\"dtNasc\":\"3900-09-27T03:00:00.000+0000\",\"codUsuario\":100,\"nomeUser\":\"Gustavo Barbosa\",\"tipConta\":\"P\",\"email\":\"gustavinhoTPD@fodasse.com.br\",\"senha\":\"1234\",\"sexo\":\"M\"}";
+
+		Usuario usuarioTest = usuarioTest();
+		
+		String uri = "/usuario/cadastro";
+		
+		Mockito.when(userService.cadastrar(Mockito.any(Usuario.class))).thenReturn(usuarioTest);
+		
+		RequestBuilder requestBuilder = MockMvcRequestBuilders
+				.post(uri)
+				.accept(MediaType.APPLICATION_JSON)
+				.content(usuarioCadastroJson )
+				.contentType(MediaType.APPLICATION_JSON);
+
+		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+		
+		MockHttpServletResponse response = result.getResponse();
+
+		String expected = "{\"dtNasc\":\"3900-09-27T03:00:00.000+0000\",\"codUsuario\":100,\"nomeUser\":\"Gustavo Barbosa\",\"tipConta\":\"P\",\"email\":\"gustavinhoTPD@fodasse.com.br\",\"senha\":\"1234\",\"sexo\":\"M\"}";
+
+		assertEquals(HttpStatus.OK.value(), response.getStatus());
+
+		JSONAssert.assertEquals(expected, result.getResponse().getContentAsString(), true);
+		
 	}
 }

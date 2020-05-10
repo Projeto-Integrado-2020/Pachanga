@@ -14,8 +14,8 @@ public class UsuarioService {
 	@Autowired
 	private UsuarioRepository userRepository;
 
-	public Usuario cadastro(Usuario user){
-		validacaoCadastro(user);
+	public Usuario cadastrar(Usuario user){
+		validarCadastro(user);
 		if("P".equals(user.getTipConta())) {
 			user.setSenha(HashBuilder.gerarSenha(user.getSenha()));
 		}
@@ -24,7 +24,7 @@ public class UsuarioService {
 		return user;
 	}
 
-	public void validacaoCadastro(Usuario user){
+	public void validarCadastro(Usuario user){
 		Usuario usuarioExistente = userRepository.findByEmailAndTipConta(user.getEmail(), user.getTipConta());
 		if(usuarioExistente != null) {
 			throw new ValidacaoException("Outra conta está usando esse e-mail");
@@ -32,15 +32,15 @@ public class UsuarioService {
 	}
 
 
-	public Usuario login(Usuario user){
+	public Usuario logar(Usuario user){
 		Usuario usuarioExistente = userRepository.findByEmailAndTipConta(user.getEmail(), user.getTipConta());
-		if(validacaoLogin(usuarioExistente, user)) {
+		if(validarLogin(usuarioExistente, user)) {
 			return usuarioExistente;
 		}
 		throw new ValidacaoException("Usuário ou senha incorretos");
 	}
 
-	public boolean validacaoLogin(Usuario usuarioExistente, Usuario userLogin){
+	public boolean validarLogin(Usuario usuarioExistente, Usuario userLogin){
 		if(usuarioExistente != null) {
 			if("P".equals(usuarioExistente.getTipConta())) {
 				boolean senhasIguais = HashBuilder.compararSenha(userLogin.getSenha(), usuarioExistente.getSenha());

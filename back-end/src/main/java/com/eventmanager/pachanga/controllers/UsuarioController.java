@@ -25,7 +25,7 @@ public class UsuarioController{
 	@PostMapping(path ="/cadastro")
 	public ResponseEntity<Object> cadastro(@RequestBody Usuario user) {
 		try {
-			Usuario userCadastrado = userService.cadastro(user);
+			Usuario userCadastrado = userService.cadastrar(user);
 			UsuarioTO userto = criadorUserDto(userCadastrado);
 			return ResponseEntity.ok(userto);
 		} catch (ValidacaoException e) {
@@ -37,7 +37,7 @@ public class UsuarioController{
 	@PostMapping(path ="/login")
 	public ResponseEntity<Object> login(@RequestBody Usuario user){
 		try {
-			Usuario usarioLogin = userService.login(user);
+			Usuario usarioLogin = userService.logar(user);
 			UsuarioTO userto = criadorUserDto(usarioLogin);
 			return ResponseEntity.ok(userto);
 		} catch (ValidacaoException e) {
