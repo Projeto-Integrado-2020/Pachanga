@@ -91,4 +91,26 @@ describe('CadastroComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('form invalid when empty', () => {
+    expect(component.form.valid).toBeFalsy();
+  });
+
+  it('match password validity false', () => {
+    const field1 = 'senha';
+    const field2 = 'confirmacaoSenha';
+    const senha = component.form.controls[field1];
+    const confirmacaoSenha = component.form.controls[field2];
+
+    senha.setValue('123123Aa!');
+    confirmacaoSenha.setValue('123123A!');
+
+    let errors = {};
+    errors = confirmacaoSenha.errors || {};
+
+    const errorName = 'mustMatch';
+
+    expect(errors[errorName]).toBeTruthy();
+  });
+
 });

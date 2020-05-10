@@ -9,8 +9,6 @@ import { AppRoutingModule } from '../../app-routing.module';
 import { CadastroComponent } from '../cadastro/cadastro.component';
 import { IndexComponent } from '../index/index.component';
 
-import { MatDialog } from '@angular/material';
-
 import { SocialLoginModule, AuthServiceConfig } from 'angularx-social-login';
 import { GoogleLoginProvider, FacebookLoginProvider } from 'angularx-social-login';
 
