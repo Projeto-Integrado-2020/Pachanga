@@ -18,8 +18,8 @@ public class UsuarioService {
 		validacaoCadastro(user);
 		if("P".equals(user.getTipConta())) {
 			user.setSenha(HashBuilder.gerarSenha(user.getSenha()));
-			user.setCodUsuario(userRepository.getNextValMySequence());
 		}
+		user.setCodUsuario(userRepository.getNextValMySequence());
 		userRepository.save(user);
 		return user;
 	}

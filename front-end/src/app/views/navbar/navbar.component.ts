@@ -21,7 +21,8 @@ export class NavbarComponent implements OnInit {
       shareReplay()
     );
 
-  constructor(public translate: TranslateService, public login: MatDialog, public cadastro: MatDialog, private breakpointObserver: BreakpointObserver) {
+  constructor(public translate: TranslateService, public login: MatDialog,
+              public cadastro: MatDialog, private breakpointObserver: BreakpointObserver) {
     translate.addLangs(['pt', 'en']);
     translate.setDefaultLang('pt');
     const browserLang = translate.getBrowserLang();
