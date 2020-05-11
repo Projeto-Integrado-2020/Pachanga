@@ -14,6 +14,10 @@ public class UsuarioService {
 	@Autowired
 	private UsuarioRepository userRepository;
 
+	public UsuarioService(UsuarioRepository usuarioRepository) {
+		userRepository=usuarioRepository;
+	}
+
 	public Usuario cadastrar(Usuario user){
 		validarCadastro(user);
 		if("P".equals(user.getTipConta())) {
@@ -36,16 +40,18 @@ public class UsuarioService {
 		Usuario usuarioExistente = userRepository.findByEmailAndTipConta(user.getEmail(), user.getTipConta());
 		if(validarLogin(usuarioExistente, user)) {
 			return usuarioExistente;
+		}else {
+			throw new ValidacaoException("Usuário ou senha incorretos");
 		}
-		throw new ValidacaoException("Usuário ou senha incorretos");
 	}
 
 	public boolean validarLogin(Usuario usuarioExistente, Usuario userLogin){
 		if(usuarioExistente != null) {
 			if("P".equals(usuarioExistente.getTipConta())) {
+
 				boolean senhasIguais = HashBuilder.compararSenha(userLogin.getSenha(), usuarioExistente.getSenha());
 				if(!senhasIguais) {
-					throw new ValidacaoException("Usuário ou senha incorretos");
+					return false;
 				}
 			} 
 			return true;

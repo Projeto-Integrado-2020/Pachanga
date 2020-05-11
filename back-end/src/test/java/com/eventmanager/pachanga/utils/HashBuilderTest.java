@@ -1,11 +1,9 @@
-package com.eventmanager.pachanga;
+package com.eventmanager.pachanga.utils;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import org.junit.jupiter.api.Test;
-
-import com.eventmanager.pachanga.utils.HashBuilder;
 
 public class HashBuilderTest {
 	

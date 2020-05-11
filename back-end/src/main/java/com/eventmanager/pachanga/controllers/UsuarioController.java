@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.eventmanager.pachanga.domains.Usuario;
 import com.eventmanager.pachanga.dtos.UsuarioTO;
 import com.eventmanager.pachanga.errors.ValidacaoException;
+import com.eventmanager.pachanga.repositories.UsuarioRepository;
 import com.eventmanager.pachanga.services.UsuarioService;
 
 @Controller
@@ -19,8 +20,10 @@ import com.eventmanager.pachanga.services.UsuarioService;
 @CrossOrigin
 public class UsuarioController{
 
+	private UsuarioRepository usuarioRepository;
+	
 	@Autowired
-	private UsuarioService userService;
+	private UsuarioService userService = new UsuarioService(usuarioRepository);
 
 	@PostMapping(path ="/cadastro")
 	public ResponseEntity<Object> cadastro(@RequestBody Usuario user) {
