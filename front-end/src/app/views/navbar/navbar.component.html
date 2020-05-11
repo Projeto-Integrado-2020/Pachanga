@@ -16,11 +16,11 @@
     <mat-toolbar color="primary">
       <mat-toolbar-row>
         <button
+          id="tog-btn"
           type="button"
           aria-label="Toggle sidenav"
           mat-icon-button
-          (click)="drawer.toggle()"
-          *ngIf="isHandset$ | async">
+          (click)="drawer.toggle()">
           <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
         </button>
         <span id="logo"><a [routerLink] = "['']">Pachanga</a></span>
