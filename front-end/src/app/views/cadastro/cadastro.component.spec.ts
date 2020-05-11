@@ -96,6 +96,189 @@ describe('CadastroComponent', () => {
     expect(component.form.valid).toBeFalsy();
   });
 
+  it('form valid when correctly filled', () => {
+    const field1 = 'nome';
+    const field2 = 'dtnasc';
+    const field3 = 'sexo';
+    const field4 = 'email';
+    const field5 = 'senha';
+    const field6 = 'confirmacaoSenha';
+    const field7 = 'termos';
+
+    const nome = component.form.controls[field1];
+    const dtnasc = component.form.controls[field2];
+    const sexo = component.form.controls[field3];
+    const email = component.form.controls[field4];
+    const senha = component.form.controls[field5];
+    const confirmacaoSenha = component.form.controls[field6];
+    const termos = component.form.controls[field7];
+
+    nome.setValue('Teste de Form');
+    dtnasc.setValue(new Date());
+    sexo.setValue('M');
+    email.setValue('teste@teste.com');
+    senha.setValue('123123Aa!');
+    confirmacaoSenha.setValue('123123Aa!');
+    termos.setValue(true);
+
+    expect(component.form.valid).toBeTruthy();
+  });
+
+  it('email required', () => {
+    const field = 'email';
+
+    const email = component.form.controls[field];
+
+
+    let errors = {};
+    errors = email.errors || {};
+
+    const errorName = 'required';
+
+    expect(errors[errorName]).toBeTruthy();
+
+    email.setValue('teste@teste.com');
+
+    errors = {};
+    errors = email.errors || {};
+
+    expect(errors[errorName]).toBeFalsy();
+  });
+
+  it('email format', () => {
+    const field = 'email';
+
+    const email = component.form.controls[field];
+
+    email.setValue('teste@teste.com');
+
+    let errors = {};
+    errors = email.errors || {};
+
+    const errorName = 'email';
+
+    expect(errors[errorName]).toBeFalsy();
+
+    email.setValue('teste');
+
+    errors = {};
+    errors = email.errors || {};
+
+    expect(errors[errorName]).toBeTruthy();
+
+  });
+
+  it('nome valid', () => {
+    const field = 'nome';
+
+    const nome = component.form.controls[field];
+
+    expect(nome.valid).toBeFalsy();
+
+    nome.setValue('Teste');
+
+    expect(nome.valid).toBeTruthy();
+  });
+
+  it('sexo valid', () => {
+    const field = 'sexo';
+
+    const sexo = component.form.controls[field];
+
+    expect(sexo.valid).toBeFalsy();
+
+    sexo.setValue('M');
+
+    expect(sexo.valid).toBeTruthy();
+  });
+
+  it('dtnasc valid', () => {
+    const field = 'dtnasc';
+
+    const dtnasc = component.form.controls[field];
+
+    expect(dtnasc.valid).toBeFalsy();
+
+    dtnasc.setValue(new Date());
+
+    expect(dtnasc.valid).toBeTruthy();
+  });
+
+  it('termos valid', () => {
+    const field = 'termos';
+
+    const termos = component.form.controls[field];
+
+    expect(termos.valid).toBeFalsy();
+
+    termos.setValue(true);
+
+    expect(termos.valid).toBeTruthy();
+  });
+
+  it('senha required', () => {
+    const field = 'senha';
+
+    const senha = component.form.controls[field];
+
+
+    let errors = {};
+    errors = senha.errors || {};
+
+    const errorName = 'required';
+
+    expect(errors[errorName]).toBeTruthy();
+
+    senha.setValue('123');
+
+    errors = {};
+    errors = senha.errors || {};
+
+    expect(errors[errorName]).toBeFalsy();
+  });
+
+  it('senha pattern', () => {
+    const field = 'senha';
+
+    const senha = component.form.controls[field];
+    senha.setValue('123');
+
+    let errors = {};
+    errors = senha.errors || {};
+
+    const errorName = 'pattern';
+
+    expect(errors[errorName]).toBeTruthy();
+
+    senha.setValue('123123Aa!');
+
+    errors = {};
+    errors = senha.errors || {};
+
+    expect(errors[errorName]).toBeFalsy();
+  });
+
+  it('confirmacao senha required', () => {
+    const field = 'senha';
+
+    const confirmacaoSenha = component.form.controls[field];
+
+
+    let errors = {};
+    errors = confirmacaoSenha.errors || {};
+
+    const errorName = 'required';
+
+    expect(errors[errorName]).toBeTruthy();
+
+    confirmacaoSenha.setValue('123');
+
+    errors = {};
+    errors = confirmacaoSenha.errors || {};
+
+    expect(errors[errorName]).toBeFalsy();
+  });
+
   it('match password validity false', () => {
     const field1 = 'senha';
     const field2 = 'confirmacaoSenha';

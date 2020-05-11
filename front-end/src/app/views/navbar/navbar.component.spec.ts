@@ -7,7 +7,6 @@ import { AppRoutingModule } from '../../app-routing.module';
 import { LoginComponent } from '../login/login.component';
 import { CadastroComponent } from '../cadastro/cadastro.component';
 import { IndexComponent } from '../index/index.component';
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -59,4 +58,5 @@ describe('NavbarComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
 });

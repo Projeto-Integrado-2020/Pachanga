@@ -85,4 +85,87 @@ describe('LoginComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('form invalid when empty', () => {
+    expect(component.form.valid).toBeFalsy();
+  });
+
+  it('form valid when correctly filled', () => {
+    const field1 = 'email';
+    const field2 = 'senha';
+
+    const email = component.form.controls[field1];
+    const senha = component.form.controls[field2];
+
+    email.setValue('teste@teste.com');
+    senha.setValue('123123Aa!');
+
+    expect(component.form.valid).toBeTruthy();
+  });
+
+  it('email required', () => {
+    const field = 'email';
+
+    const email = component.form.controls[field];
+
+
+    let errors = {};
+    errors = email.errors || {};
+
+    const errorName = 'required';
+
+    expect(errors[errorName]).toBeTruthy();
+
+    email.setValue('teste@teste.com');
+
+    errors = {};
+    errors = email.errors || {};
+
+    expect(errors[errorName]).toBeFalsy();
+  });
+
+  it('email format', () => {
+    const field = 'email';
+
+    const email = component.form.controls[field];
+
+    email.setValue('teste@teste.com');
+
+    let errors = {};
+    errors = email.errors || {};
+
+    const errorName = 'email';
+
+    expect(errors[errorName]).toBeFalsy();
+
+    email.setValue('teste');
+
+    errors = {};
+    errors = email.errors || {};
+
+    expect(errors[errorName]).toBeTruthy();
+
+  });
+
+  it('senha required', () => {
+    const field = 'senha';
+
+    const senha = component.form.controls[field];
+
+
+    let errors = {};
+    errors = senha.errors || {};
+
+    const errorName = 'required';
+
+    expect(errors[errorName]).toBeTruthy();
+
+    senha.setValue('123');
+
+    errors = {};
+    errors = senha.errors || {};
+
+    expect(errors[errorName]).toBeFalsy();
+  });
+
 });
