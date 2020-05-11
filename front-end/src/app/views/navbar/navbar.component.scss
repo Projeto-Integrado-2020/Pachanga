@@ -37,14 +37,14 @@ mat-toolbar{
  background-position: center;
 }
 
-@media (max-width: 600px){
+@media (max-width: 748px){
   .btn-navbar {
     display: none;
   }
 }
 
-@media (min-width: 600px){
-  .sidenav {
+@media (min-width: 748px){
+  .sidenav, #tog-btn {
     display: none;
   }
 }
