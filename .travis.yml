@@ -26,6 +26,7 @@ matrix:
 
 notifications:  
   email:  
+    recipients:  
     - andrey-lacerda@hotmail.com
     - luis.antonio@aluno.ifsp.edu.br
     - tiagostaurenghi@gmail.com
