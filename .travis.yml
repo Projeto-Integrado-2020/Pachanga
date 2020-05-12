@@ -13,7 +13,7 @@ matrix:
           secure: 0ea0ac36-e0d9-48f3-a446-c43a4aeac0b8
         app: pachanga
         on:
-          repo: Projeto-Integrado-2020/Pachanga/tree/master/front-end
+          repo: Projeto-Integrado-2020/Pachanga
     - language: java
       jdk:
         - openjdk8
@@ -24,7 +24,7 @@ matrix:
           secure: 0ea0ac36-e0d9-48f3-a446-c43a4aeac0b8
         app: pachanga-back-end
         on:
-          repo: Projeto-Integrado-2020/Pachanga/tree/master/back-end
+          repo: Projeto-Integrado-2020/Pachanga
 
 notifications:  
   email:  
