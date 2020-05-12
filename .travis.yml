@@ -10,7 +10,7 @@ matrix:
       deploy:
         provider: heroku
         api_key:
-          secure: 0ea0ac36-e0d9-48f3-a446-c43a4aeac0b8
+          secure: 0cd95df3-390a-44d1-a07f-41309bc89c6c
         app: pachanga
         on:
           repo: Projeto-Integrado-2020/Pachanga
@@ -21,7 +21,7 @@ matrix:
       deploy:
         provider: heroku
         api_key:
-          secure: 0ea0ac36-e0d9-48f3-a446-c43a4aeac0b8
+          secure: 0cd95df3-390a-44d1-a07f-41309bc89c6c
         app: pachanga-back-end
         on:
           repo: Projeto-Integrado-2020/Pachanga
