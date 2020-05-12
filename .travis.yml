@@ -26,12 +26,11 @@ matrix:
 
 notifications:  
   email:  
-    recipients:  
     - andrey-lacerda@hotmail.com
     - luis.antonio@aluno.ifsp.edu.br
     - tiagostaurenghi@gmail.com
     - guiladriero@gmail.com
     - opedrofreitas@gmail.com
     - guga.72@hotmail.com
-  on_success: always 
-  on_failure: always
+    on_success: always 
+    on_failure: always
