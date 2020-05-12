@@ -7,10 +7,24 @@ matrix:
         chrome: stable
       before_script: "cd front-end && npm install"
       script: "npm test"
+      deploy:
+        provider: heroku
+        api_key:
+          secure: 0ea0ac36-e0d9-48f3-a446-c43a4aeac0b8
+        app: pachanga
+        on:
+          repo: Projeto-Integrado-2020/Pachanga/tree/master/front-end
     - language: java
       jdk:
         - openjdk8
       script: "cd back-end && mvn clean install"
+      deploy:
+        provider: heroku
+        api_key:
+          secure: 0ea0ac36-e0d9-48f3-a446-c43a4aeac0b8
+        app: pachanga
+        on:
+          repo: Projeto-Integrado-2020/Pachanga/tree/master/back-end
 
 notifications:  
   email:  
@@ -21,5 +35,5 @@ notifications:
     - guiladriero@gmail.com
     - opedrofreitas@gmail.com
     - guga.72@hotmail.com
-    on_success: always 
-    on_failure: always
+  on_success: always 
+  on_failure: always
