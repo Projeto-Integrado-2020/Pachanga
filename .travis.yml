@@ -22,7 +22,7 @@ matrix:
         provider: heroku
         api_key:
           secure: 0ea0ac36-e0d9-48f3-a446-c43a4aeac0b8
-        app: pachanga
+        app: pachanga-back-end
         on:
           repo: Projeto-Integrado-2020/Pachanga/tree/master/back-end
 
