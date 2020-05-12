@@ -33,3 +33,5 @@ notifications:
     - guiladriero@gmail.com
     - opedrofreitas@gmail.com
     - guga.72@hotmail.com
+    on_success: always 
+    on_failure: always
