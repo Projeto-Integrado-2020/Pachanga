@@ -25,7 +25,7 @@ matrix:
           repo: Projeto-Integrado-2020/Pachanga
 
 notifications:  
-  email: true
+  email:
     recipients:  
     - andrey-lacerda@hotmail.com
     - luis.antonio@aluno.ifsp.edu.br
@@ -33,5 +33,3 @@ notifications:
     - guiladriero@gmail.com
     - opedrofreitas@gmail.com
     - guga.72@hotmail.com
-    on_success: always 
-    on_failure: always
