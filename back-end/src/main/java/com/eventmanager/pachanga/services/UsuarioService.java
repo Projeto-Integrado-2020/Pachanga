@@ -41,6 +41,9 @@ public class UsuarioService {
 
 	public Usuario logar(UsuarioTO user){
 		Usuario usuarioExistente = userRepository.findByEmailAndTipConta(user.getEmail(), user.getTipConta());
+		if(usuarioExistente == null && ("G".equals(user.getTipConta()) || "F".equals(user.getTipConta()))) {
+			return cadastrar(user);
+		}
 		if(validarLogin(usuarioExistente, user)) {
 			return usuarioExistente;
 		}else {
