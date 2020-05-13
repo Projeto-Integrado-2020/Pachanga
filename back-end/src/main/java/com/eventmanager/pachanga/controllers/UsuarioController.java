@@ -26,7 +26,7 @@ public class UsuarioController{
 	private UsuarioService userService = new UsuarioService(usuarioRepository);
 
 	@PostMapping(path ="/cadastro")
-	public ResponseEntity<Object> cadastro(@RequestBody Usuario user) {
+	public ResponseEntity<Object> cadastro(@RequestBody UsuarioTO user) {
 		try {
 			Usuario userCadastrado = userService.cadastrar(user);
 			UsuarioTO userto = criadorUserDto(userCadastrado);
@@ -38,7 +38,7 @@ public class UsuarioController{
 
 
 	@PostMapping(path ="/login")
-	public ResponseEntity<Object> login(@RequestBody Usuario user){
+	public ResponseEntity<Object> login(@RequestBody UsuarioTO user){
 		try {
 			Usuario usarioLogin = userService.logar(user);
 			UsuarioTO userto = criadorUserDto(usarioLogin);

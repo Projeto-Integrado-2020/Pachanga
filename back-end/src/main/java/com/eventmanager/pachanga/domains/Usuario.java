@@ -63,14 +63,5 @@ public class Usuario {
 	public void setSexo(String sexo) {
 		this.sexo = sexo;
 	}
-	
-//	public Usuario(String nomeUser, String tipConta, String email, String senha, Date dtNasc, String sexo) {
-//		this.nomeUser = nomeUser;
-//		this.tipConta = tipConta;
-//		this.email = email;
-//		this.senha = senha;
-//		this.dtNasc = dtNasc;
-//		this.sexo = sexo;
-//	}
      
 }

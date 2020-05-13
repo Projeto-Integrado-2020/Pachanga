@@ -22,6 +22,7 @@ import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import com.eventmanager.pachanga.domains.Usuario;
+import com.eventmanager.pachanga.dtos.UsuarioTO;
 import com.eventmanager.pachanga.errors.ValidacaoException;
 import com.eventmanager.pachanga.services.UsuarioService;
 
@@ -61,7 +62,7 @@ public class UsuarioControllerTest {
 		
 		String uri = "/usuario/login";
 
-		Mockito.when(userService.logar(Mockito.any(Usuario.class))).thenReturn(usuarioTest);
+		Mockito.when(userService.logar(Mockito.any(UsuarioTO.class))).thenReturn(usuarioTest);
 
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.post(uri)
@@ -90,7 +91,7 @@ public class UsuarioControllerTest {
 		
 		String uri = "/usuario/login";
 
-		Mockito.when(userService.logar(Mockito.any(Usuario.class))).thenThrow(new ValidacaoException("erro"));
+		Mockito.when(userService.logar(Mockito.any(UsuarioTO.class))).thenThrow(new ValidacaoException("erro"));
 
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.post(uri)
@@ -117,7 +118,7 @@ public class UsuarioControllerTest {
 		
 		String uri = "/usuario/login";
 		
-		Mockito.when(userService.logar(Mockito.any(Usuario.class))).thenThrow(new ValidacaoException("erro"));
+		Mockito.when(userService.logar(Mockito.any(UsuarioTO.class))).thenThrow(new ValidacaoException("erro"));
 
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.post(uri)
@@ -145,7 +146,7 @@ public class UsuarioControllerTest {
 		
 		String uri = "/usuario/cadastro";
 		
-		Mockito.when(userService.cadastrar(Mockito.any(Usuario.class))).thenReturn(usuarioTest);
+		Mockito.when(userService.cadastrar(Mockito.any(UsuarioTO.class))).thenReturn(usuarioTest);
 		
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.post(uri)
@@ -173,7 +174,7 @@ public class UsuarioControllerTest {
 		
 		String uri = "/usuario/cadastro";
 		
-		Mockito.when(userService.cadastrar(Mockito.any(Usuario.class))).thenReturn(usuarioTest);
+		Mockito.when(userService.cadastrar(Mockito.any(UsuarioTO.class))).thenReturn(usuarioTest);
 		
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.post(uri)
@@ -199,7 +200,7 @@ public class UsuarioControllerTest {
 		
 		String uri = "/usuario/cadastro";
 		
-		Mockito.when(userService.cadastrar(Mockito.any(Usuario.class))).thenThrow(new ValidacaoException("erro"));
+		Mockito.when(userService.cadastrar(Mockito.any(UsuarioTO.class))).thenThrow(new ValidacaoException("erro"));
 		
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.post(uri)

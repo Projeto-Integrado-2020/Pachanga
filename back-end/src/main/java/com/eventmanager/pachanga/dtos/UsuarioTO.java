@@ -14,6 +14,9 @@ public class UsuarioTO {
     private String senha;
     private String sexo;
     
+    public UsuarioTO() {
+    }
+    
 	public UsuarioTO(Usuario usuario) {
 		this.codUsuario = usuario.getCodUsuario();
 		this.nomeUser = usuario.getNomeUser();

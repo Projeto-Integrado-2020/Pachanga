@@ -3,7 +3,9 @@ package com.eventmanager.pachanga.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.eventmanager.pachanga.builder.UsuarioBuilder;
 import com.eventmanager.pachanga.domains.Usuario;
+import com.eventmanager.pachanga.dtos.UsuarioTO;
 import com.eventmanager.pachanga.errors.ValidacaoException;
 import com.eventmanager.pachanga.repositories.UsuarioRepository;
 import com.eventmanager.pachanga.utils.HashBuilder;
@@ -18,17 +20,18 @@ public class UsuarioService {
 		userRepository=usuarioRepository;
 	}
 
-	public Usuario cadastrar(Usuario user){
+	public Usuario cadastrar(UsuarioTO user){
 		validarCadastro(user);
 		if("P".equals(user.getTipConta())) {
 			user.setSenha(HashBuilder.gerarSenha(user.getSenha()));
 		}
 		user.setCodUsuario(userRepository.getNextValMySequence());
-		userRepository.save(user);
-		return user;
+		Usuario usuario = criacaoUsuario(user);
+		userRepository.save(usuario);
+		return usuario;
 	}
 
-	public void validarCadastro(Usuario user){
+	public void validarCadastro(UsuarioTO user){
 		Usuario usuarioExistente = userRepository.findByEmailAndTipConta(user.getEmail(), user.getTipConta());
 		if(usuarioExistente != null) {
 			throw new ValidacaoException("Outra conta está usando esse e-mail");
@@ -36,7 +39,7 @@ public class UsuarioService {
 	}
 
 
-	public Usuario logar(Usuario user){
+	public Usuario logar(UsuarioTO user){
 		Usuario usuarioExistente = userRepository.findByEmailAndTipConta(user.getEmail(), user.getTipConta());
 		if(validarLogin(usuarioExistente, user)) {
 			return usuarioExistente;
@@ -45,7 +48,7 @@ public class UsuarioService {
 		}
 	}
 
-	public boolean validarLogin(Usuario usuarioExistente, Usuario userLogin){
+	public boolean validarLogin(Usuario usuarioExistente, UsuarioTO userLogin){
 		if(usuarioExistente != null) {
 			if("P".equals(usuarioExistente.getTipConta())) {
 
@@ -57,6 +60,12 @@ public class UsuarioService {
 			return true;
 		}
 		throw new ValidacaoException("Usuário não cadastrado");
+	}
+	
+	private Usuario criacaoUsuario(UsuarioTO userto) {
+		return UsuarioBuilder.getInstance().CodUsuario(userto.getCodUsuario()).DtNasc(userto.getDtNasc())
+				   .Email(userto.getEmail()).NomeUser(userto.getNomeUser()).Senha(userto.getSenha())
+				   .Sexo(userto.getSexo()).TipConta(userto.getTipConta()).build();
 	}
 
 }
