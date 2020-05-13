@@ -1,4 +1,4 @@
-<h1 mat-dialog-title>{{'CADASTRO.CADASTRO' | translate}}</h1>
+<h1 mat-dialog-title class="dialog">{{'CADASTRO.CADASTRO' | translate}}</h1>
                   <!--<mat-card-subtitle>{{'CADASTRO.PREENCHER' | translate}}</mat-card-subtitle>-->
     <div mat-dialog-content>
         <button mat-raised-button color="primary" (click)="signUpWithFB()"><i class="fa fa-facebook-official"></i> {{'CADASTRO.FACE' | translate}}</button>
@@ -33,7 +33,7 @@
                 <mat-error *ngIf="f.email.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
                 <mat-error *ngIf="f.email.errors?.email">{{'FORMERRORS.EMAIL' | translate}}</mat-error>
             </mat-form-field>
-            <mat-form-field class="example-full-width">
+            <mat-form-field class="example-full-width senha-fld">
                 <mat-label>{{'CADASTRO.SENHA' | translate}}</mat-label>
                 <input ng-class="{ f.senha.errors }" #senhaCadastro matInput required type="password" formControlName="senha">
                 <mat-error *ngIf="f.senha.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>

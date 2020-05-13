@@ -7,8 +7,8 @@
       [opened]="(isHandset$ | async) === false">
     <mat-toolbar color="primary">Menu</mat-toolbar>
     <mat-nav-list>
-      <a mat-list-item href="#">{{'NAV.ENTRAR' | translate}}</a>
-      <a mat-list-item href="#">{{'NAV.CONTA' | translate}}</a>
+      <a mat-list-item href="#" (click)="drawer.toggle(); openDialogLogin()">{{'NAV.ENTRAR' | translate}}</a>
+      <a mat-list-item href="#" (click)="drawer.toggle(); openDialogCadastro()">{{'NAV.CONTA' | translate}}</a>
       <a mat-list-item href="#" (click)="drawer.toggle()">{{'NAV.VOLTAR' | translate}}</a>
     </mat-nav-list>
   </mat-sidenav>
