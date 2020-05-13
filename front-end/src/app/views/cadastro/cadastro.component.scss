@@ -4,33 +4,40 @@
     width: 100%;
   }
   
-  .example-full-width {
+.example-full-width {
     width: 100%;
   }
   
-  .example-h2 {
+.example-h2 {
     margin: 10px;
   }
   
-  .example-section {
+.example-section {
     display: flex;
     align-content: center;
     align-items: center;
     height: 60px;
   }
   
-  .termos {
+.termos {
     position: relative;
     left: 50%;
     transform: translateX(-50%);
   }
 
-  button {
+button {
     display: block;
     width: 100%;
     margin-bottom: 15px;
   }
 
-  .senha-fld {
-    margin-bottom: 27px;
-  }
+.mat-form-field {
+  width: 100%;
+}
+
+::ng-deep .mat-form-field-subscript-wrapper {
+  position: static !important;
+}
+::ng-deep .mat-form-field-underline {
+  position: static !important;
+}
