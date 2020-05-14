@@ -123,16 +123,9 @@ public class UsuarioServiceTest {
 		UsuarioTO usuarioTestLogin = usuarioToTest();
 		usuarioTestLogin.setTipConta("G");
 		Usuario usuarioRetorno;
-		boolean caiuException = false;
-		try {
-			usuarioRetorno = userService.logar(usuarioTestLogin);
-		}catch(ValidacaoException e){
-			usuarioRetorno = null;
-			caiuException = true;
-		};
+		usuarioRetorno = userService.logar(usuarioTestLogin);
        
-		assertEquals(usuarioRetorno == null, true); 
-		assertEquals(caiuException == true, true); 
+		assertEquals(usuarioRetorno != null, true); 
 	}
 	
 	@Test
