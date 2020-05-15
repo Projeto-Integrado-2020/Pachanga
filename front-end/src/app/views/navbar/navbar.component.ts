@@ -24,7 +24,7 @@ export class NavbarComponent implements OnInit {
 
   constructor(public translate: TranslateService, public login: MatDialog,
               public cadastro: MatDialog, private breakpointObserver: BreakpointObserver,
-              private loginComponent: LoginComponent, private loginService: LoginService) {
+              public loginComponent: LoginComponent, public loginService: LoginService) {
     translate.addLangs(['pt', 'en']);
     translate.setDefaultLang('pt');
     const browserLang = translate.getBrowserLang();

@@ -40,7 +40,7 @@ export function provideConfig() {
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
-    jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
+    jasmine.DEFAULT_TIMEOUT_INTERVAL = 100000;
     TestBed.configureTestingModule({
       declarations: [
         AppComponent,
