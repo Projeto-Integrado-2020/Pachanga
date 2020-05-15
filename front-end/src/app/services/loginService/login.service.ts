@@ -10,7 +10,7 @@ import { throwError } from 'rxjs';
 })
 export class LoginService {
 
-  private usuarioAutenticado = false;
+  public usuarioAutenticado = false;
 
   private readonly urlLogin = `${environment.URL_BACK}usuario/login`;
   private readonly urlCadastro = `${environment.URL_BACK}usuario/cadastro`;
