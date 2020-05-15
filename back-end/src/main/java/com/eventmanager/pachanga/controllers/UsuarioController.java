@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-
+import com.eventmanager.pachanga.builder.UsuarioTOBuilder;
 import com.eventmanager.pachanga.domains.Usuario;
 import com.eventmanager.pachanga.dtos.UsuarioTO;
 import com.eventmanager.pachanga.errors.ValidacaoException;
@@ -49,7 +49,8 @@ public class UsuarioController{
 	}
 	
 	private UsuarioTO criadorUserDto(Usuario user) {
-		return new UsuarioTO(user);
+		return UsuarioTOBuilder.getInstance().DtNasc(user.getDtNasc()).Email(user.getEmail())
+				.NomeUser(user.getNomeUser()).Sexo(user.getSexo()).build();
 	}
 
 }

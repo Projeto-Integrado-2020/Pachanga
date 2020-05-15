@@ -74,9 +74,11 @@ public class UsuarioControllerTest {
 
 		MockHttpServletResponse response = result.getResponse();
 
-		String expected = "{\"dtNasc\":\"3900-09-27T00:00:00.000+0000\",\"codUsuario\":100,\"nomeUser\":\"Gustavo Barbosa\",\"tipConta\":\"P\",\"email\":\"gustavinhoTPD@fodasse.com.br\",\"senha\":\"1234\",\"sexo\":\"M\"}";
+		String expected = "{\"dtNasc\":\"3900-09-27T00:00:00.000+0000\",\"codUsuario\":0,\"nomeUser\":\"Gustavo Barbosa\",\"tipConta\":null,\"email\":\"gustavinhoTPD@fodasse.com.br\",\"senha\":null,\"sexo\":\"M\"}";
 
 		assertEquals(HttpStatus.OK.value(), response.getStatus());
+		
+		System.out.println(result.getResponse().getContentAsString());
 
 		JSONAssert.assertEquals(expected, result.getResponse().getContentAsString(), true);
 	}
@@ -158,7 +160,7 @@ public class UsuarioControllerTest {
 		
 		MockHttpServletResponse response = result.getResponse();
 
-		String expected = "{\"dtNasc\":\"3900-09-27T00:00:00.000+0000\",\"codUsuario\":100,\"nomeUser\":\"Gustavo Barbosa\",\"tipConta\":\"P\",\"email\":\"gustavinhoTPD@fodasse.com.br\",\"senha\":\"1234\",\"sexo\":\"M\"}";
+		String expected = "{\"dtNasc\":\"3900-09-27T00:00:00.000+0000\",\"codUsuario\":0,\"nomeUser\":\"Gustavo Barbosa\",\"tipConta\":null,\"email\":\"gustavinhoTPD@fodasse.com.br\",\"senha\":null,\"sexo\":\"M\"}";
 
 		assertEquals(HttpStatus.OK.value(), response.getStatus());
 
@@ -168,7 +170,7 @@ public class UsuarioControllerTest {
 	
 	@Test
 	public void CadastroEmailDuplicadoTest() throws Exception{
-		String usuarioCadastroJson = "{\"dtNasc\":\"3900-09-27T03:00:00.000+0000\",\"codUsuario\":100,\"nomeUser\":\"Gustavo Barbosa\",\"tipConta\":\"P\",\"email\":\"gustavinhoTPD@fodasse.com.br\",\"senha\":\"1234\",\"sexo\":\"M\"}";
+		String usuarioCadastroJson = "{\"email\": \"luisinhofoda1234@fodasse.com.br\",\"nomeUser\": \"luisinho23\",\"tipConta\": \"F\"}";
 
 		Usuario usuarioTest = usuarioTest();
 		
@@ -186,7 +188,7 @@ public class UsuarioControllerTest {
 		
 		MockHttpServletResponse response = result.getResponse();
 
-		String expected = "{\"dtNasc\":\"3900-09-27T00:00:00.000+0000\",\"codUsuario\":100,\"nomeUser\":\"Gustavo Barbosa\",\"tipConta\":\"P\",\"email\":\"gustavinhoTPD@fodasse.com.br\",\"senha\":\"1234\",\"sexo\":\"M\"}";
+		String expected = "{\"dtNasc\":\"3900-09-27T00:00:00.000+0000\",\"codUsuario\":0,\"nomeUser\":\"Gustavo Barbosa\",\"tipConta\":null,\"email\":\"gustavinhoTPD@fodasse.com.br\",\"senha\":null,\"sexo\":\"M\"}";
 
 		assertEquals(HttpStatus.OK.value(), response.getStatus());
 
