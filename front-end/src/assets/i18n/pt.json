@@ -2,7 +2,8 @@
     "NAV": {
         "ENTRAR": "Entrar",
         "CONTA": "Cria conta",
-        "VOLTAR": "Voltar"
+        "VOLTAR": "Voltar",
+        "SAIR": "Sair"
     },
 
     "INDEX": {

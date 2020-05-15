@@ -14,8 +14,26 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+import { SocialLoginModule, AuthServiceConfig } from 'angularx-social-login';
+import { GoogleLoginProvider, FacebookLoginProvider } from 'angularx-social-login';
+
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
+}
+
+const config = new AuthServiceConfig([
+  {
+    id: GoogleLoginProvider.PROVIDER_ID,
+    provider: new GoogleLoginProvider('215875672881-jp0n01npv48op3j0c67mm0jlauoov3hb.apps.googleusercontent.com')
+  },
+  {
+    id: FacebookLoginProvider.PROVIDER_ID,
+    provider: new FacebookLoginProvider('620215655237701')
+  }
+]);
+
+export function provideConfig() {
+  return config;
 }
 
 describe('NavbarComponent', () => {
@@ -44,7 +62,14 @@ describe('NavbarComponent', () => {
             deps: [HttpClient]
           }
         }),
+        SocialLoginModule
       ],
+      providers: [
+        {
+          provide: AuthServiceConfig,
+          useFactory: provideConfig
+        }
+      ]
     })
     .compileComponents();
   }));

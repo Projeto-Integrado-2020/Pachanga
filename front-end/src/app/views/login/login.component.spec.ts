@@ -38,6 +38,7 @@ export function provideConfig() {
 }
 
 describe('LoginComponent', () => {
+  jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
 

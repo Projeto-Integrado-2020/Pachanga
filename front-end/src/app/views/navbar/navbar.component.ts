@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateService } from '@ngx-translate/core';
 import { MatDialog } from '@angular/material';
 import { LoginComponent } from '../login/login.component';
@@ -7,11 +6,13 @@ import { CadastroComponent } from '../cadastro/cadastro.component';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
+import { LoginService } from 'src/app/services/loginService/login.service';
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.scss']
+  styleUrls: ['./navbar.component.scss'],
+  providers: [LoginComponent]
 })
 export class NavbarComponent implements OnInit {
 
@@ -22,7 +23,8 @@ export class NavbarComponent implements OnInit {
     );
 
   constructor(public translate: TranslateService, public login: MatDialog,
-              public cadastro: MatDialog, private breakpointObserver: BreakpointObserver) {
+              public cadastro: MatDialog, private breakpointObserver: BreakpointObserver,
+              private loginComponent: LoginComponent, private loginService: LoginService) {
     translate.addLangs(['pt', 'en']);
     translate.setDefaultLang('pt');
     const browserLang = translate.getBrowserLang();

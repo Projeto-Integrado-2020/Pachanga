@@ -10,6 +10,8 @@ import { throwError } from 'rxjs';
 })
 export class LoginService {
 
+  private usuarioAutenticado = false;
+
   private readonly urlLogin = `${environment.URL_BACK}usuario/login`;
   private readonly urlCadastro = `${environment.URL_BACK}usuario/cadastro`;
 
@@ -34,6 +36,14 @@ export class LoginService {
   handleError(error: HttpErrorResponse) {
     alert('Error: ' + error.error);
     return throwError(error);
+  }
+
+  getUsuarioAutenticado() {
+    return this.usuarioAutenticado;
+  }
+
+  setUsuarioAutenticado(flag: boolean) {
+    this.usuarioAutenticado = flag;
   }
 
 }

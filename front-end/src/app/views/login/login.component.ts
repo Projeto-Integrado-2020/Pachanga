@@ -30,11 +30,10 @@ export class LoginComponent extends SocialLoginBaseComponent implements OnInit {
       this.user = user;
       const userJson = {
         tipConta: 'G',
-        email: this.user.email
+        email: this.user.email,
+        nomeUser: this.user.name
       };
-      this.loginService.logar(userJson).subscribe(resp => {
-        alert('Resultado: ' + JSON.stringify(resp));
-      });
+      this.autenticar(userJson);
     });
   }
 
@@ -43,11 +42,10 @@ export class LoginComponent extends SocialLoginBaseComponent implements OnInit {
       this.user = user;
       const userJson = {
         tipConta: 'F',
-        email: this.user.email
+        email: this.user.email,
+        nomeUser: this.user.name
       };
-      this.loginService.logar(userJson).subscribe(resp => {
-        alert('Resultado: ' + JSON.stringify(resp));
-      });
+      this.autenticar(userJson);
     });
   }
 
@@ -57,9 +55,7 @@ export class LoginComponent extends SocialLoginBaseComponent implements OnInit {
       email,
       senha
     };
-    this.loginService.logar(userJson).subscribe(resp => {
-      alert('Resultado: ' + JSON.stringify(resp));
-    });
+    this.autenticar(userJson);
   }
 
 }

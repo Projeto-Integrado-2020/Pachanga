@@ -49,9 +49,7 @@ export class CadastroComponent extends SocialLoginBaseComponent implements OnIni
       dtNasc: dtNasc.slice(6, 10) + '-' + dtNasc.slice(3, 5) + '-' + dtNasc.slice(0, 2),
       sexo
     };
-    this.loginService.cadastrar(userJson).subscribe(resp => {
-      alert('Resultado: ' + JSON.stringify(resp));
-    });
+    this.cadastrar_se(userJson);
   }
 
   signUpWithGoogle(): void {
@@ -64,9 +62,7 @@ export class CadastroComponent extends SocialLoginBaseComponent implements OnIni
         dtNasc: '',
         sexo: 'N'
       };
-      this.loginService.cadastrar(userJson).subscribe(resp => {
-        alert('Resultado: ' + JSON.stringify(resp));
-      });
+      this.cadastrar_se(userJson);
     });
   }
 
@@ -80,9 +76,7 @@ export class CadastroComponent extends SocialLoginBaseComponent implements OnIni
         dtNasc: '',
         sexo: 'N'
       };
-      this.loginService.cadastrar(userJson).subscribe(resp => {
-        alert('Resultado: ' + JSON.stringify(resp));
-      });
+      this.cadastrar_se(userJson);
     });
   }
 

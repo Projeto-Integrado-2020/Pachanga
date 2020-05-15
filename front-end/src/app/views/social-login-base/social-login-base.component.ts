@@ -20,11 +20,25 @@ export class SocialLoginBaseComponent implements OnInit {
   get f() { return this.form.controls; }
 
   signOut(): void {
-    this.authService.signOut();
+    this.loginService.setUsuarioAutenticado(false);
   }
 
   ngOnInit() {
 
+  }
+
+  autenticar(user) {
+    this.loginService.logar(user).subscribe(resp => {
+      alert('Login: ' + JSON.stringify(resp));
+      this.loginService.setUsuarioAutenticado(true);
+    });
+  }
+
+  cadastrar_se(user) {
+    this.loginService.cadastrar(user).subscribe(resp => {
+      alert('Cadastro: ' + JSON.stringify(resp));
+      this.autenticar(user);
+    });
   }
 
 }
