@@ -35,6 +35,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { AuthGuard } from './guard/auth.guard';
+import { LoginService } from './services/loginService/login.service';
 
 const config = new AuthServiceConfig([
   {
@@ -93,6 +94,7 @@ export function provideConfig() {
       useFactory: provideConfig
     },
     AuthService,
+    LoginService,
     AuthGuard
   ],
   bootstrap: [AppComponent]

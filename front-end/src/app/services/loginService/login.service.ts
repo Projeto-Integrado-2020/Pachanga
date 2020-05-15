@@ -12,6 +12,8 @@ export class LoginService {
 
   public usuarioAutenticado = false;
 
+  public usuarioInfo;
+
   private readonly urlLogin = `${environment.URL_BACK}usuario/login`;
   private readonly urlCadastro = `${environment.URL_BACK}usuario/cadastro`;
 
@@ -44,6 +46,14 @@ export class LoginService {
 
   setUsuarioAutenticado(flag: boolean) {
     this.usuarioAutenticado = flag;
+  }
+
+  getusuarioInfo() {
+    return this.usuarioInfo;
+  }
+
+  setusuarioInfo(json) {
+    this.usuarioInfo = json;
   }
 
 }
