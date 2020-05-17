@@ -4,6 +4,7 @@ import { SocialLoginBaseComponent } from './social-login-base.component';
 
 import { SocialLoginModule, AuthServiceConfig } from 'angularx-social-login';
 import { GoogleLoginProvider, FacebookLoginProvider } from 'angularx-social-login';
+import { CustomMaterialModule } from '../material/material.module';
 
 import { HttpClientModule } from '@angular/common/http';
 
@@ -35,7 +36,8 @@ describe('SocialLoginBaseComponent', () => {
         SocialLoginModule,
         HttpClientModule,
         FormsModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        CustomMaterialModule
       ],
       providers: [
         {
