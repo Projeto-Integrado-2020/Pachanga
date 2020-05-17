@@ -1,5 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { CustomMaterialModule } from '../material/material.module';
+
 import { PerfilComponent } from './perfil.component';
 
 describe('PerfilComponent', () => {
@@ -8,7 +10,8 @@ describe('PerfilComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PerfilComponent ]
+      declarations: [ PerfilComponent ],
+      imports: [ CustomMaterialModule ]
     })
     .compileComponents();
   }));
