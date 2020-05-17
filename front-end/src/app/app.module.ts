@@ -16,6 +16,7 @@ import { NavbarComponent } from './views/navbar/navbar.component';
 import { IndexComponent } from './views/index/index.component';
 import { LoginComponent } from './views/login/login.component';
 import { CadastroComponent } from './views/cadastro/cadastro.component';
+import { PerfilComponent } from './views/perfil/perfil.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { RouterModule } from '@angular/router';
@@ -35,7 +36,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { AuthGuard } from './guard/auth.guard';
-import { PerfilComponent } from './views/perfil/perfil.component';
+import { LoginService } from './services/loginService/login.service';
 
 const config = new AuthServiceConfig([
   {
@@ -95,6 +96,7 @@ export function provideConfig() {
       useFactory: provideConfig
     },
     AuthService,
+    LoginService,
     AuthGuard
   ],
   bootstrap: [AppComponent]
