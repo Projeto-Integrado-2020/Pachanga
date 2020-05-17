@@ -3,7 +3,10 @@
         "ENTRAR": "Entrar",
         "CONTA": "Cria conta",
         "VOLTAR": "Voltar",
-        "SAIR": "Sair"
+        "SAIR": "Sair",
+        "CONTA_L": "Minha conta",
+        "INGRESSOS": "Meus ingressos",
+        "EVENTOS": "Meus eventos"
     },
 
     "INDEX": {

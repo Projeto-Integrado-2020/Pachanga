@@ -3,7 +3,10 @@
         "ENTRAR": "Login",
         "CONTA": "Register now",
         "VOLTAR": "Back",
-        "SAIR": "Logout"
+        "SAIR": "Logout",
+        "CONTA_L": "My account",
+        "INGRESSOS": "My tickets",
+        "EVENTOS": "My events"
     },
 
     "INDEX": {
