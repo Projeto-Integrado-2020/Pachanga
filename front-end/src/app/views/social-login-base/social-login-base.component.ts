@@ -3,6 +3,7 @@ import { AuthService } from 'angularx-social-login';
 import { SocialUser } from 'angularx-social-login';
 import { LoginService } from 'src/app/services/loginService/login.service';
 import { FormGroup, FormBuilder } from '@angular/forms';
+import { MatDialog } from '@angular/material';
 
 @Component({
   selector: 'app-social-login-base',
@@ -15,7 +16,8 @@ export class SocialLoginBaseComponent implements OnInit {
 
   public form: FormGroup;
 
-  constructor(public authService: AuthService, public loginService: LoginService, public formBuilder: FormBuilder) { }
+  constructor(public authService: AuthService, public loginService: LoginService,
+              public formBuilder: FormBuilder, public modal: MatDialog) { }
 
   get f() { return this.form.controls; }
 
@@ -29,15 +31,14 @@ export class SocialLoginBaseComponent implements OnInit {
 
   autenticar(user) {
     this.loginService.logar(user).subscribe(resp => {
-      alert('Login: ' + JSON.stringify(resp));
       this.loginService.setUsuarioAutenticado(true);
       this.loginService.setusuarioInfo(resp);
+      this.modal.closeAll();
     });
   }
 
   cadastrar_se(user) {
     this.loginService.cadastrar(user).subscribe(resp => {
-      alert('Cadastro: ' + JSON.stringify(resp));
       this.autenticar(user);
     });
   }
