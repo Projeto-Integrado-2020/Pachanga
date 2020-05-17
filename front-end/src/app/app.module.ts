@@ -35,6 +35,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { AuthGuard } from './guard/auth.guard';
+import { PerfilComponent } from './views/perfil/perfil.component';
 
 const config = new AuthServiceConfig([
   {
@@ -59,6 +60,7 @@ export function provideConfig() {
     LoginComponent,
     CadastroComponent,
     SocialLoginBaseComponent,
+    PerfilComponent,
   ],
   entryComponents: [
     LoginComponent,
