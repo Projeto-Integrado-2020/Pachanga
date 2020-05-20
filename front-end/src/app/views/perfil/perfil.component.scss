@@ -1,3 +1,9 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 mat-grid-tile {
     background: lightblue;
   }
@@ -10,3 +16,47 @@ mat-grid-tile {
     background-image: url('https://pngimage.net/wp-content/uploads/2018/05/default-user-profile-image-png-7.png');
     background-size: cover;
   }
+
+.minha-conta {
+  height: 30vh;
+  width: 100%;
+  display: block;
+  background-color: cornflowerblue;
+  margin: 0;
+}
+
+.dados-conta {
+  background-color: burlywood;
+
+}
+
+.configuracoes {
+  background-color: pink;
+}
+
+.dados-conta , .configuracoes{
+  display: inline-block;
+  height: 40rem;
+}
+
+@media (min-width: 748px){
+  .dados-conta , .configuracoes{
+    width: 50%;
+  }
+}
+
+@media (max-width: 748px){
+  .dados-conta , .configuracoes{
+    width: 100%;
+  }
+}
+
+.title {
+  background-color: darkcyan;
+  margin: 0;
+  display: block;
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
