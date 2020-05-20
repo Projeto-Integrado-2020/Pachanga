@@ -19,7 +19,7 @@ public class DataBaseConfigLocal {
         dataSource.setDriverClassName("org.postgresql.Driver");
         dataSource.setUrl("jdbc:postgresql://localhost:5432/pachanga"); // urls para conexão no localhost do postgresql do banco pachanga
         dataSource.setUsername("postgres");
-        dataSource.setPassword("Cel994132286"); // sua senha do postgres local
+        dataSource.setPassword("1234"); // sua senha do postgres local
         return dataSource;
     }
 
