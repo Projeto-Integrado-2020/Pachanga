@@ -17,6 +17,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { SocialLoginModule, AuthServiceConfig } from 'angularx-social-login';
 import { GoogleLoginProvider, FacebookLoginProvider } from 'angularx-social-login';
+import { PerfilComponent } from './views/perfil/perfil.component';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -47,7 +48,8 @@ describe('AppComponent', () => {
         NavbarComponent,
         IndexComponent,
         LoginComponent,
-        CadastroComponent
+        CadastroComponent,
+        PerfilComponent
       ],
       imports: [
         BrowserModule,

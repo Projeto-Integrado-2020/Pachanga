@@ -9,6 +9,7 @@ describe('PerfilComponent', () => {
   let fixture: ComponentFixture<PerfilComponent>;
 
   beforeEach(async(() => {
+    jasmine.DEFAULT_TIMEOUT_INTERVAL = 100000;
     TestBed.configureTestingModule({
       declarations: [ PerfilComponent ],
       imports: [ CustomMaterialModule ]
@@ -17,6 +18,7 @@ describe('PerfilComponent', () => {
   }));
 
   beforeEach(() => {
+    jasmine.DEFAULT_TIMEOUT_INTERVAL = 100000;
     fixture = TestBed.createComponent(PerfilComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
