@@ -4,7 +4,7 @@ import { LoginComponent } from './views/login/login.component';
 import { CadastroComponent } from './views/cadastro/cadastro.component';
 import { IndexComponent } from './views/index/index.component';
 import { PerfilComponent } from './views/perfil/perfil.component';
-import { AuthGuard } from './guard/auth.guard'
+import { AuthGuard } from './guard/auth.guard';
 
 const routes: Routes = [
 

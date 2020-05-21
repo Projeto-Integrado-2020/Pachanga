@@ -8,6 +8,8 @@ import { CustomMaterialModule } from '../material/material.module';
 
 import { HttpClientModule } from '@angular/common/http';
 
+import { RouterModule } from '@angular/router';
+
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 const config = new AuthServiceConfig([
@@ -38,7 +40,8 @@ describe('SocialLoginBaseComponent', () => {
         HttpClientModule,
         FormsModule,
         ReactiveFormsModule,
-        CustomMaterialModule
+        CustomMaterialModule,
+        RouterModule.forRoot([])
       ],
       providers: [
         {
