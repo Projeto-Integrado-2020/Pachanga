@@ -8,8 +8,13 @@ import { environment } from '../../../environments/environment';
 })
 export class LogService {
   private logger: Logger;
+  private userId: string;
 
-  constructor(private userId: string) {}
+  constructor() {}
+
+  public setUserId(userId: string) {
+    this.userId = userId;
+  }
 
   public initialize() {
     this.logger = new Logger(environment.appName, environment.endpoints.log);

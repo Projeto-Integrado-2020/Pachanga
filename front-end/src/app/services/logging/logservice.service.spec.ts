@@ -9,7 +9,7 @@ describe('LogService', () => {
     imports: [
       HttpClientModule
     ],
-    providers: [ {provide: String, useValue: 'teste'}],
+    providers: [],
   }));
 
   it('should be created', () => {
