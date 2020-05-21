@@ -2,7 +2,6 @@ package com.eventmanager.pachanga.builder;
 
 import java.util.Date;
 
-import com.eventmanager.pachanga.builder.UsuarioBuilder;
 import com.eventmanager.pachanga.domains.Usuario;
 
 public class UsuarioBuilder{
@@ -19,49 +18,49 @@ public class UsuarioBuilder{
 		return new UsuarioBuilder();
 	}
 	
-	public UsuarioBuilder DtNasc(Date dtNasc) {
+	public UsuarioBuilder dtNasc(Date dtNasc) {
 		this.dtNasc = dtNasc;
 		return this;
 	}
 
 
 
-	public UsuarioBuilder CodUsuario(int codUsuario) {
+	public UsuarioBuilder codUsuario(int codUsuario) {
 		this.codUsuario = codUsuario;
 		return this;
 	}
 
 
 
-	public UsuarioBuilder NomeUser(String nomeUser) {
+	public UsuarioBuilder nomeUser(String nomeUser) {
 		this.nomeUser = nomeUser;
 		return this;
 	}
 
 
 
-	public UsuarioBuilder TipConta(String tipConta) {
+	public UsuarioBuilder tipConta(String tipConta) {
 		this.tipConta = tipConta;
 		return this;
 	}
 
 
 
-	public UsuarioBuilder Email(String email) {
+	public UsuarioBuilder email(String email) {
 		this.email = email;
 		return this;
 	}
 
 
 
-	public UsuarioBuilder Senha(String senha) {
+	public UsuarioBuilder senha(String senha) {
 		this.senha = senha;
 		return this;
 	}
 
 
 
-	public UsuarioBuilder Sexo(String sexo) {
+	public UsuarioBuilder sexo(String sexo) {
 		this.sexo = sexo;
 		return this;
 	}

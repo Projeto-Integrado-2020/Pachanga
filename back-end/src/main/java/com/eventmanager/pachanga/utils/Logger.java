@@ -6,21 +6,23 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class Logger {
-	private static org.slf4j.Logger logger = LoggerFactory.getLogger(Logger.class);
+	private static org.slf4j.Logger logBackEnd = LoggerFactory.getLogger(Logger.class);
+	
+	private Logger() {}
 	
 	public static void logWarning(String warning) {
-		logger.warn(warning);
+		logBackEnd.warn(warning);
 	}
 	
 	public static void logDebug(String warning) {
-		logger.debug(warning);
+		logBackEnd.debug(warning);
 	}
 	
 	public static void logError(String warning) {
-		logger.error(warning);
+		logBackEnd.error(warning);
 	}
 	
 	public static void logInfo(String warning) {
-		logger.info(warning);
+		logBackEnd.info(warning);
 	}
 }

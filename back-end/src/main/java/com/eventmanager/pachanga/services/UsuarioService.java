@@ -9,6 +9,7 @@ import com.eventmanager.pachanga.dtos.UsuarioTO;
 import com.eventmanager.pachanga.errors.ValidacaoException;
 import com.eventmanager.pachanga.repositories.UsuarioRepository;
 import com.eventmanager.pachanga.utils.HashBuilder;
+import com.eventmanager.pachanga.utils.TipoConta;
 
 @Service
 public class UsuarioService {
@@ -16,15 +17,14 @@ public class UsuarioService {
 	@Autowired
 	private UsuarioRepository userRepository;
 
-	public UsuarioService(UsuarioRepository usuarioRepository) {
-		userRepository=usuarioRepository;
-	}
-
 //cadastro_________________________________________________________________________________________________________	
 	
 	public Usuario cadastrar(UsuarioTO user){
-		validarCadastro(user);
-		if("P".equals(user.getTipConta())) {
+		Usuario usuarioValidado = validarCadastro(user);
+		if(usuarioValidado != null) {
+			return usuarioValidado;
+		}
+		if(TipoConta.PACHANGA.getDescricao().equals(user.getTipConta())) {
 			user.setSenha(HashBuilder.gerarSenha(user.getSenha()));
 		}
 		user.setCodUsuario(userRepository.getNextValMySequence());
@@ -33,11 +33,15 @@ public class UsuarioService {
 		return usuario;
 	}
 
-	public void validarCadastro(UsuarioTO user){
+	public Usuario validarCadastro(UsuarioTO user){
 		Usuario usuarioExistente = userRepository.findByEmailAndTipConta(user.getEmail(), user.getTipConta());
-		if(usuarioExistente != null) {
+		if(usuarioExistente != null && TipoConta.PACHANGA.getDescricao().equals(usuarioExistente.getTipConta())) {
 			throw new ValidacaoException("1");
 		}
+		if(usuarioExistente != null && !"P".equals(usuarioExistente.getTipConta())) {
+			return logar(user);
+		}
+		return null;
 	}
 
 
@@ -45,7 +49,7 @@ public class UsuarioService {
 	
 	public Usuario logar(UsuarioTO user){
 		Usuario usuarioExistente = userRepository.findByEmailAndTipConta(user.getEmail(), user.getTipConta());
-		if(usuarioExistente == null && ("G".equals(user.getTipConta()) || "F".equals(user.getTipConta()))) {
+		if(usuarioExistente == null && (TipoConta.GMAIL.getDescricao().equals(user.getTipConta()) || TipoConta.FACEBOOK.getDescricao().equals(user.getTipConta()))) {
 			return cadastrar(user);
 		}
 		if(validarLogin(usuarioExistente, user)) {
@@ -57,7 +61,7 @@ public class UsuarioService {
 
 	public boolean validarLogin(Usuario usuarioExistente, UsuarioTO userLogin){
 		if(usuarioExistente != null) {
-			if("P".equals(usuarioExistente.getTipConta())) {
+			if(TipoConta.PACHANGA.getDescricao().equals(usuarioExistente.getTipConta())) {
 
 				boolean senhasIguais = HashBuilder.compararSenha(userLogin.getSenha(), usuarioExistente.getSenha());
 				if(!senhasIguais) {
@@ -74,7 +78,7 @@ public class UsuarioService {
 	public Usuario atualizar(UsuarioTO user){
 		Usuario usuarioBanco = getUsuarioAtualizacao(user);
 		
-		if("P".equals(usuarioBanco.getTipConta())) {
+		if(TipoConta.PACHANGA.getDescricao().equals(usuarioBanco.getTipConta())) {
 			usuarioBanco.setSenha(HashBuilder.gerarSenha(user.getSenha()));
 		}
 		usuarioBanco.setDtNasc(user.getDtNasc());
@@ -97,9 +101,9 @@ public class UsuarioService {
 //dtos_________________________________________________________________________________________________________		
 	
 	private Usuario criacaoUsuario(UsuarioTO userto) {
-		return UsuarioBuilder.getInstance().CodUsuario(userto.getCodUsuario()).DtNasc(userto.getDtNasc())
-				   .Email(userto.getEmail()).NomeUser(userto.getNomeUser()).Senha(userto.getSenha())
-				   .Sexo(userto.getSexo()).TipConta(userto.getTipConta()).build();
+		return UsuarioBuilder.getInstance().codUsuario(userto.getCodUsuario()).dtNasc(userto.getDtNasc())
+				   .email(userto.getEmail()).nomeUser(userto.getNomeUser()).senha(userto.getSenha())
+				   .sexo(userto.getSexo()).tipConta(userto.getTipConta()).build();
 	}
 
 }

@@ -12,18 +12,15 @@ import com.eventmanager.pachanga.builder.UsuarioTOBuilder;
 import com.eventmanager.pachanga.domains.Usuario;
 import com.eventmanager.pachanga.dtos.UsuarioTO;
 import com.eventmanager.pachanga.errors.ValidacaoException;
-import com.eventmanager.pachanga.repositories.UsuarioRepository;
 import com.eventmanager.pachanga.services.UsuarioService;
 
 @Controller
 @RequestMapping("/usuario")
 @CrossOrigin
 public class UsuarioController{
-
-	private UsuarioRepository usuarioRepository;
 	
 	@Autowired
-	private UsuarioService userService = new UsuarioService(usuarioRepository);
+	private UsuarioService userService;
 
 	@PostMapping(path ="/cadastro")
 	public ResponseEntity<Object> cadastro(@RequestBody UsuarioTO user) {
@@ -60,8 +57,8 @@ public class UsuarioController{
 	}
 	
 	private UsuarioTO criadorUserDto(Usuario user) {
-		return UsuarioTOBuilder.getInstance().DtNasc(user.getDtNasc()).Email(user.getEmail())
-				.NomeUser(user.getNomeUser()).Sexo(user.getSexo()).build();
+		return UsuarioTOBuilder.getInstance().dtNasc(user.getDtNasc()).email(user.getEmail())
+				.nomeUser(user.getNomeUser()).sexo(user.getSexo()).build();
 	}
 
 }

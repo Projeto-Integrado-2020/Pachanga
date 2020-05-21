@@ -109,7 +109,7 @@ public class UsuarioControllerTest {
 
 		String expected = "2";
 
-		assertEquals(response.getStatus(), 400);
+		assertEquals(400, response.getStatus());
 		
 		assertEquals(expected, result.getResponse().getContentAsString());
 		

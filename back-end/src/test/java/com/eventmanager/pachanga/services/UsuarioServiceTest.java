@@ -95,7 +95,7 @@ public class UsuarioServiceTest {
 			usuarioRetorno = null;
 		};
        
-		assertEquals(usuarioRetorno == null, true); 
+		assertEquals(true, usuarioRetorno == null); 
 	}
 	
 	@Test
@@ -146,7 +146,7 @@ public class UsuarioServiceTest {
 		Usuario usuarioRetorno;
 		usuarioRetorno = userService.logar(usuarioTestLogin);
        
-		assertEquals(usuarioRetorno != null, true); 
+		assertEquals(true, usuarioRetorno != null); 
 	}
 	
 	@Test
@@ -165,8 +165,8 @@ public class UsuarioServiceTest {
 			caiuException = true;
 		};
        
-		assertEquals(usuarioRetorno == null, true); 
-		assertEquals(caiuException == true, true); 
+		assertEquals(true, usuarioRetorno == null); 
+		assertEquals(true, caiuException == true); 
 	}
 	
 	
@@ -206,8 +206,8 @@ public class UsuarioServiceTest {
 			caiuException = true;
 		};
 	
-		assertEquals(usuarioRetorno == null, true); 
-		assertEquals(caiuException == true, true); 
+		assertEquals(true, usuarioRetorno == null); 
+		assertEquals(true, caiuException == true); 
    
 	}
 	
@@ -247,8 +247,8 @@ public class UsuarioServiceTest {
 			caiuException = true;
 		};
 	
-		assertEquals(usuarioRetorno == null, true); 
-		assertEquals(caiuException == true, true); 
+		assertEquals(true, usuarioRetorno == null); 
+		assertEquals(true, caiuException == true); 
    
 	}
 	
@@ -277,8 +277,8 @@ public class UsuarioServiceTest {
 			caiuException = true;
 		};
 	
-		assertEquals(usuarioRetorno == null, false); 
-		assertEquals(caiuException == true, false); 
+		assertEquals(false, usuarioRetorno == null); 
+		assertEquals(false, caiuException == true); 
    
 	}
 	
@@ -307,8 +307,8 @@ public class UsuarioServiceTest {
 			caiuException = true;
 		};
 	
-		assertEquals(usuarioRetorno == null, false); 
-		assertEquals(caiuException == true, false); 
+		assertEquals(false, usuarioRetorno == null); 
+		assertEquals(false, caiuException == true); 
    
 	}
 	
@@ -337,8 +337,8 @@ public class UsuarioServiceTest {
 			caiuException = true;
 		};
 	
-		assertEquals(usuarioRetorno == null, true); 
-		assertEquals(caiuException == true, true); 
+		assertEquals(true, usuarioRetorno == null); 
+		assertEquals(true, caiuException == true); 
    
 	}
 	
