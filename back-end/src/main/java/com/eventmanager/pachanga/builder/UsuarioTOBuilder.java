@@ -15,28 +15,28 @@ public class UsuarioTOBuilder {
 		return new UsuarioTOBuilder();
 	}
 	
-	public UsuarioTOBuilder DtNasc(Date dtNasc) {
+	public UsuarioTOBuilder dtNasc(Date dtNasc) {
 		this.dtNasc = dtNasc;
 		return this;
 	}
 
 
 
-	public UsuarioTOBuilder NomeUser(String nomeUser) {
+	public UsuarioTOBuilder nomeUser(String nomeUser) {
 		this.nomeUser = nomeUser;
 		return this;
 	}
 
 
 
-	public UsuarioTOBuilder Email(String email) {
+	public UsuarioTOBuilder email(String email) {
 		this.email = email;
 		return this;
 	}
 
 
 
-	public UsuarioTOBuilder Sexo(String sexo) {
+	public UsuarioTOBuilder sexo(String sexo) {
 		this.sexo = sexo;
 		return this;
 	}

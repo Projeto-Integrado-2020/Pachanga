@@ -1,4 +1,9 @@
 export const environment = {
+  appName: 'pachanga',
   production: true,
-  URL_BACK: 'https://pachanga-back-end.herokuapp.com/'
+  env: 'prod',
+  URL_BACK: 'https://pachanga-back-end.herokuapp.com/',
+  endpoints: {
+    log: ''
+  }
 };

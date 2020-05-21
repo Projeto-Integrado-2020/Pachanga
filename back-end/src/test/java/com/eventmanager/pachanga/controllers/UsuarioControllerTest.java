@@ -53,6 +53,8 @@ public class UsuarioControllerTest {
 		return usuarioTest;
 	}
 
+//login__________________________________________________________________________________________________________	
+	
 	@Test
 	public void loginSucessoTest() throws Exception{
 
@@ -93,7 +95,7 @@ public class UsuarioControllerTest {
 		
 		String uri = "/usuario/login";
 
-		Mockito.when(userService.logar(Mockito.any(UsuarioTO.class))).thenThrow(new ValidacaoException("erro"));
+		Mockito.when(userService.logar(Mockito.any(UsuarioTO.class))).thenThrow(new ValidacaoException("2"));
 
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.post(uri)
@@ -105,9 +107,9 @@ public class UsuarioControllerTest {
 
 		MockHttpServletResponse response = result.getResponse();
 
-		String expected = "erro";
+		String expected = "2";
 
-		assertEquals(response.getStatus(), 400);
+		assertEquals(400, response.getStatus());
 		
 		assertEquals(expected, result.getResponse().getContentAsString());
 		
@@ -120,7 +122,7 @@ public class UsuarioControllerTest {
 		
 		String uri = "/usuario/login";
 		
-		Mockito.when(userService.logar(Mockito.any(UsuarioTO.class))).thenThrow(new ValidacaoException("erro"));
+		Mockito.when(userService.logar(Mockito.any(UsuarioTO.class))).thenThrow(new ValidacaoException("3"));
 
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.post(uri)
@@ -132,13 +134,15 @@ public class UsuarioControllerTest {
 
 		MockHttpServletResponse response = result.getResponse();
 
-		String expected = "erro";
+		String expected = "3";
 
 		assertTrue(400 == response.getStatus());
 		
 		assertEquals(expected, result.getResponse().getContentAsString());
 		
 	}
+	
+//cadastro__________________________________________________________________________________________________________	
 	
 	@Test
 	public void CadastroSucessoTest() throws Exception{
@@ -167,42 +171,14 @@ public class UsuarioControllerTest {
 		JSONAssert.assertEquals(expected, result.getResponse().getContentAsString(), true);
 		
 	}
-	
-	@Test
-	public void CadastroEmailDuplicadoTest() throws Exception{
-		String usuarioCadastroJson = "{\"email\": \"luisinhofoda1234@fodasse.com.br\",\"nomeUser\": \"luisinho23\",\"tipConta\": \"F\"}";
 
-		Usuario usuarioTest = usuarioTest();
-		
-		String uri = "/usuario/cadastro";
-		
-		Mockito.when(userService.cadastrar(Mockito.any(UsuarioTO.class))).thenReturn(usuarioTest);
-		
-		RequestBuilder requestBuilder = MockMvcRequestBuilders
-				.post(uri)
-				.accept(MediaType.APPLICATION_JSON)
-				.content(usuarioCadastroJson )
-				.contentType(MediaType.APPLICATION_JSON);
-
-		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
-		
-		MockHttpServletResponse response = result.getResponse();
-
-		String expected = "{\"dtNasc\":\"3900-09-27T00:00:00.000+0000\",\"codUsuario\":0,\"nomeUser\":\"Gustavo Barbosa\",\"tipConta\":null,\"email\":\"gustavinhoTPD@fodasse.com.br\",\"senha\":null,\"sexo\":\"M\"}";
-
-		assertEquals(HttpStatus.OK.value(), response.getStatus());
-
-		JSONAssert.assertEquals(expected, result.getResponse().getContentAsString(), true);
-		
-	}
-	
 	@Test
 	public void CadastroValidacaoExceptionTest() throws Exception{
 		String usuarioCadastroJson = "{\"dtNasc\":\"3900-09-27T03:00:00.000+0000\",\"codUsuario\":100,\"nomeUser\":\"Gustavo Barbosa\",\"tipConta\":\"P\",\"email\":\"gustavinhoTPD@fodasse.com.br\",\"senha\":\"1234\",\"sexo\":\"M\"}";
 		
 		String uri = "/usuario/cadastro";
 		
-		Mockito.when(userService.cadastrar(Mockito.any(UsuarioTO.class))).thenThrow(new ValidacaoException("erro"));
+		Mockito.when(userService.cadastrar(Mockito.any(UsuarioTO.class))).thenThrow(new ValidacaoException("1"));
 		
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.post(uri)
@@ -214,9 +190,74 @@ public class UsuarioControllerTest {
 		
 		MockHttpServletResponse response = result.getResponse();
 
-		String expected = "erro";
+		String expected = "1";
 	
 		assertTrue(400 == response.getStatus());
+		
+		assertEquals(expected, result.getResponse().getContentAsString());
+		
+	}
+	
+//atualizacao__________________________________________________________________________________________________________	
+	
+	@SuppressWarnings("deprecation")
+	@Test
+	public void AtualizacaoSucessoTest() throws Exception{
+		String usuarioAtualizacaoJson = "{\"dtNasc\":\"3900-09-26T03:00:00.000+0000\",\"codUsuario\":100,\"nomeUser\":\"Gustavo Barbosa\",\"tipConta\":\"P\",\"email\":\"gustavinhoTPD@fodasse.com.br\",\"senha\":\"1234567\",\"sexo\":\"F\"}";
+
+		Usuario usuarioTest = usuarioTest();
+		usuarioTest.setSexo("F");
+		usuarioTest.setDtNasc(new Date(2000, 8, 26));
+		
+		//System.out.println(usuarioTest.getDtNasc().toString());
+		
+		String uri = "/usuario/atualizacao";
+		
+		Mockito.when(userService.atualizar(Mockito.any(UsuarioTO.class))).thenReturn(usuarioTest);
+		
+		RequestBuilder requestBuilder = MockMvcRequestBuilders
+				.post(uri)
+				.accept(MediaType.APPLICATION_JSON)
+				.content(usuarioAtualizacaoJson)
+				.contentType(MediaType.APPLICATION_JSON);
+
+		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+		
+		MockHttpServletResponse response = result.getResponse();
+
+		String expected = "{\"dtNasc\":\"3900-09-26T00:00:00.000+0000\",\"codUsuario\":0,\"nomeUser\":\"Gustavo Barbosa\",\"tipConta\":null,\"email\":\"gustavinhoTPD@fodasse.com.br\",\"senha\":null,\"sexo\":\"F\"}";
+
+		assertEquals(HttpStatus.OK.value(), response.getStatus());
+		
+		System.out.println(result.getResponse().getContentAsString());
+
+		JSONAssert.assertEquals(expected, result.getResponse().getContentAsString(), true);
+		
+	}
+
+	@Test
+	public void AtualizacaoValidacaoExceptionTest() throws Exception{
+		String usuarioAtualizacaoJson = "{\"dtNasc\":\"3900-09-26T03:00:00.000+0000\",\"codUsuario\":100,\"nomeUser\":\"Gustavo Barbosa\",\"tipConta\":\"P\",\"email\":\"luisinhofoda1234@fodasse.com.br\",\"senha\":\"1234567\",\"sexo\":\"F\"}";
+		
+		String uri = "/usuario/atualizacao";
+		
+		Mockito.when(userService.atualizar(Mockito.any(UsuarioTO.class))).thenThrow(new ValidacaoException("3"));
+		
+		RequestBuilder requestBuilder = MockMvcRequestBuilders
+				.post(uri)
+				.accept(MediaType.APPLICATION_JSON)
+				.content(usuarioAtualizacaoJson)
+				.contentType(MediaType.APPLICATION_JSON);
+
+		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+		
+		MockHttpServletResponse response = result.getResponse();
+
+		String expected = "3";
+		
+		assertTrue(400 == response.getStatus());
+		
+		System.out.println(result.getResponse().getContentAsString());
 		
 		assertEquals(expected, result.getResponse().getContentAsString());
 		

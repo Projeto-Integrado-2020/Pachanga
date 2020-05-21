@@ -4,6 +4,7 @@ import { SocialUser } from 'angularx-social-login';
 import { LoginService } from 'src/app/services/loginService/login.service';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { MatDialog } from '@angular/material';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-social-login-base',
@@ -17,11 +18,12 @@ export class SocialLoginBaseComponent implements OnInit {
   public form: FormGroup;
 
   constructor(public authService: AuthService, public loginService: LoginService,
-              public formBuilder: FormBuilder, public modal: MatDialog) { }
+              public formBuilder: FormBuilder, public modal: MatDialog, public router: Router) { }
 
   get f() { return this.form.controls; }
 
   signOut(): void {
+    this.router.navigate(['/']);
     this.loginService.setUsuarioAutenticado(false);
   }
 

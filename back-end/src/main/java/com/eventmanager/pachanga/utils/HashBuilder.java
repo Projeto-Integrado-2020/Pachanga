@@ -4,14 +4,18 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 
-public class HashBuilder { 
+public class HashBuilder {
+	
+	private HashBuilder() {
+		
+	}
 
 	public static String gerarSenha(String senha) {
 		String hash = ""; 
 		try {
 			hash = gerarHash(senha, getSalt());
 		} catch (NoSuchAlgorithmException e) {
-			e.printStackTrace();
+			Logger.logError(e.getMessage());
 		}
 		return hash;
 	}
@@ -45,7 +49,7 @@ public class HashBuilder {
 		} 
 		catch (NoSuchAlgorithmException e) 
 		{
-			e.printStackTrace();
+			Logger.logError(e.getMessage());
 		}
 		return generatedPassword;
 	}

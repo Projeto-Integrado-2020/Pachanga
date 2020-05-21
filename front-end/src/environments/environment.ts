@@ -3,8 +3,13 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
+  appName: 'pachanga',
   production: false,
-  URL_BACK: 'http://localhost:8080/'
+  env: 'local',
+  URL_BACK: 'http://localhost:8080/',
+  endpoints: {
+    log: ''
+  }
 };
 
 /*

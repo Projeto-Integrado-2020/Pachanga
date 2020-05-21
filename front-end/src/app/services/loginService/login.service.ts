@@ -3,6 +3,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { take, catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
+import { LogService } from '../logging/log.service';
 
 
 @Injectable({
@@ -17,13 +18,15 @@ export class LoginService {
   private readonly urlLogin = `${environment.URL_BACK}usuario/login`;
   private readonly urlCadastro = `${environment.URL_BACK}usuario/cadastro`;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, public logService: LogService) { }
 
   logar(usuario) {
     console.log(JSON.stringify(usuario));
     return this.http.post(this.urlLogin, usuario).pipe(
       take(1),
-      catchError(this.handleError)
+      catchError(error => {
+        return this.handleError(error, this.logService);
+      })
     );
   }
 
@@ -31,12 +34,16 @@ export class LoginService {
     console.log(JSON.stringify(usuario));
     return this.http.post(this.urlCadastro, usuario).pipe(
       take(1),
-      catchError(this.handleError)
+      catchError(error => {
+        return this.handleError(error, this.logService);
+      })
     );
   }
 
-  handleError(error: HttpErrorResponse) {
+  handleError(error: HttpErrorResponse, logService: LogService) {
     alert('Error: ' + error.error);
+    logService.initialize();
+    logService.logHttpInfo(error.error, 0, error.url);
     return throwError(error);
   }
 

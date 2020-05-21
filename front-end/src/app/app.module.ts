@@ -19,8 +19,6 @@ import { CadastroComponent } from './views/cadastro/cadastro.component';
 import { PerfilComponent } from './views/perfil/perfil.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { RouterModule } from '@angular/router';
-
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
 }
@@ -37,6 +35,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { AuthGuard } from './guard/auth.guard';
 import { LoginService } from './services/loginService/login.service';
+import { LogService } from './services/logging/log.service';
 
 const config = new AuthServiceConfig([
   {
@@ -97,7 +96,8 @@ export function provideConfig() {
     },
     AuthService,
     LoginService,
-    AuthGuard
+    AuthGuard,
+    LogService
   ],
   bootstrap: [AppComponent]
 })
