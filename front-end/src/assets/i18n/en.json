@@ -50,5 +50,10 @@
         "EMAIL": "Invalid e-mail",
         "TERMOS": "Accept the Terms of Use is required",
         "MATCH": "Passwords must match"
+    },
+
+    "PERFIL":{
+        "NAME": "Name",
+        "PASSWORD": "Password",
     }
 }

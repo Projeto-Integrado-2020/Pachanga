@@ -2,6 +2,15 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  border: 0;
+}
+//centralizar
+.formfield, .title, .formulario {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: block;
+  position: relative;
 }
 
 mat-grid-tile {
@@ -25,18 +34,49 @@ mat-grid-tile {
   margin: 0;
 }
 
-.dados-conta {
-  background-color: burlywood;
 
+.dados-conta-container {
+  height: 50%;
+  display: block;
+  vertical-align: top;
 }
 
+//subtitulos
+
+.mat-subheading-2 {
+  text-align: center;
+}
+
+.subtitulo {
+  width: max-content;
+  transform: translate(-50%, -100%);
+  position: relative;
+  left: 50%;
+  border-top: 3px solid #ffffff;
+  color: #ffffff;
+}
+
+//formularios
+
+.formulario {
+  width: 50%;
+  height: auto;
+}
+
+//seçoes individuais
+
 .configuracoes {
-  background-color: pink;
+  background-color: lightsteelblue;
+}
+
+.dados-conta {
+  background-color: lightgray;
 }
 
 .dados-conta , .configuracoes{
   display: inline-block;
-  height: 40rem;
+  height: 63.2vh;
+  vertical-align: top;
 }
 
 @media (min-width: 748px){
@@ -49,14 +89,23 @@ mat-grid-tile {
   .dados-conta , .configuracoes{
     width: 100%;
   }
+
+  .formulario {
+    font-size: 2rem;
+    width: 100%;
+  }
+
+  .subtitulo{
+    font-size: 10rem;
+  }
 }
 
 .title {
-  background-color: darkcyan;
-  margin: 0;
   display: block;
-  position: relative;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  text-align: center;
+  color: #ffffff;
+}
+
+.formfield{
+  max-width: 50%;
 }

@@ -50,5 +50,10 @@
         "EMAIL": "E-mail inválido",
         "TERMOS": "Aceitar os Termos de Uso é obrigatório",
         "MATCH": "Senhas devem coincidir"
+    },
+
+    "PERFIL":{
+        "NAME": "Nome",
+        "PASSWORD": "Senha"
     }
 }
