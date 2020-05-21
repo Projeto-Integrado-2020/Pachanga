@@ -64,11 +64,11 @@ export class Logger {
           data
         });
     } else {
-      const xobj = new XMLHttpRequest();
+      // const xobj = new XMLHttpRequest();
       // tslint:disable-next-line:no-console
-      xobj.onerror = (err) => console.error(err);
-      xobj.open('POST', this.logEndpoint, true);
-      xobj.send(body);
+      // xobj.onerror = (err) => console.error(err);
+      // xobj.open('POST', this.logEndpoint, true);
+      // xobj.send(body);
     }
   }
 
