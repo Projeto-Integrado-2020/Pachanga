@@ -34,7 +34,7 @@ public class UsuarioService {
 	public void validarCadastro(UsuarioTO user){
 		Usuario usuarioExistente = userRepository.findByEmailAndTipConta(user.getEmail(), user.getTipConta());
 		if(usuarioExistente != null) {
-			throw new ValidacaoException("Outra conta está usando esse e-mail");
+			throw new ValidacaoException("1");
 		}
 	}
 
@@ -47,7 +47,7 @@ public class UsuarioService {
 		if(validarLogin(usuarioExistente, user)) {
 			return usuarioExistente;
 		}else {
-			throw new ValidacaoException("Usuário ou senha incorretos");
+			throw new ValidacaoException("2");
 		}
 	}
 
@@ -62,7 +62,7 @@ public class UsuarioService {
 			} 
 			return true;
 		}
-		throw new ValidacaoException("Usuário não cadastrado");
+		throw new ValidacaoException("3");
 	}
 	
 	private Usuario criacaoUsuario(UsuarioTO userto) {
