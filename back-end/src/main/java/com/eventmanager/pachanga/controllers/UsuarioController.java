@@ -48,6 +48,17 @@ public class UsuarioController{
 		}
 	}
 	
+	@PostMapping(path ="/atualizacao")
+	public ResponseEntity<Object> atualiza(@RequestBody UsuarioTO user) {
+		try {
+			Usuario userAtualizado = userService.atualizar(user);
+			UsuarioTO userto = criadorUserDto(userAtualizado);
+			return ResponseEntity.ok(userto);
+		} catch (ValidacaoException e) {
+			return ResponseEntity.status(400).body(e.getMessage());	
+		}
+	}
+	
 	private UsuarioTO criadorUserDto(Usuario user) {
 		return UsuarioTOBuilder.getInstance().DtNasc(user.getDtNasc()).Email(user.getEmail())
 				.NomeUser(user.getNomeUser()).Sexo(user.getSexo()).build();

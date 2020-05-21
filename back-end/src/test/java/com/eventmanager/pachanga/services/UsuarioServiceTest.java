@@ -57,6 +57,8 @@ public class UsuarioServiceTest {
 		return usuarioTest;
 	}
 
+//login______________________________________________________________________________________________________________	
+	
 	@Test
 	public void loginSucessoTest() throws Exception{
 
@@ -97,7 +99,7 @@ public class UsuarioServiceTest {
 	}
 	
 	@Test
-	public void loginUserTypeNotPSucessTest() throws Exception{
+	public void loginUserTypeGSucessTest() throws Exception{
 
 		Usuario usuarioTestBanco = usuarioTest();
 		usuarioTestBanco.setTipConta("G");
@@ -106,6 +108,25 @@ public class UsuarioServiceTest {
 		
 		UsuarioTO usuarioTestLogin = usuarioToTest();
 		usuarioTestLogin.setTipConta("G");
+        Usuario usuarioRetorno = userService.logar(usuarioTestLogin);
+        
+        assertEquals(usuarioTestLogin.getNomeUser(),usuarioRetorno.getNomeUser());
+        assertEquals(usuarioTestLogin.getDtNasc(),usuarioRetorno.getDtNasc());
+        assertEquals(usuarioTestLogin.getSexo(),usuarioRetorno.getSexo());
+        assertEquals(usuarioTestLogin.getTipConta(),usuarioRetorno.getTipConta());
+        assertEquals(usuarioTestLogin.getEmail(),usuarioRetorno.getEmail()); 
+	}
+	
+	@Test
+	public void loginUserTypeFSucessTest() throws Exception{
+
+		Usuario usuarioTestBanco = usuarioTest();
+		usuarioTestBanco.setTipConta("F");
+		
+		Mockito.when(usuarioRepository.findByEmailAndTipConta("gustavinhoTPD@fodasse.com.br", "F")).thenReturn(usuarioTestBanco);
+		
+		UsuarioTO usuarioTestLogin = usuarioToTest();
+		usuarioTestLogin.setTipConta("F");
         Usuario usuarioRetorno = userService.logar(usuarioTestLogin);
         
         assertEquals(usuarioTestLogin.getNomeUser(),usuarioRetorno.getNomeUser());
@@ -147,6 +168,9 @@ public class UsuarioServiceTest {
 		assertEquals(usuarioRetorno == null, true); 
 		assertEquals(caiuException == true, true); 
 	}
+	
+	
+//cadastro______________________________________________________________________________________________________________	
 	
 	@Test
 	public void CadastroSucessoTest() throws Exception{
@@ -228,5 +252,94 @@ public class UsuarioServiceTest {
    
 	}
 	
+//atualizar______________________________________________________________________________________________________________	
 
+	@SuppressWarnings("deprecation")
+	@Test
+	public void AtualizaTest() throws Exception{
+		Usuario usuarioTestBanco = usuarioTest();
+		
+		Mockito.when(usuarioRepository.findByEmailAndTipConta("gustavinhoTPD@fodasse.com.br", "P")).thenReturn(usuarioTestBanco);
+		
+		UsuarioTO usuarioTestAtualizacao= usuarioToTest();
+		usuarioTestAtualizacao.setDtNasc(new Date(2002, 6, 27));
+		usuarioTestAtualizacao.setSexo("F");
+		
+		Usuario usuarioRetorno;
+		boolean caiuException = false;
+		try {
+				usuarioRetorno = userService.atualizar(usuarioTestAtualizacao);
+				if(usuarioRetorno == null) {
+					caiuException = true;
+				}
+		}catch(ValidacaoException e){
+			usuarioRetorno = null;
+			caiuException = true;
+		};
+	
+		assertEquals(usuarioRetorno == null, false); 
+		assertEquals(caiuException == true, false); 
+   
+	}
+	
+	@SuppressWarnings("deprecation")
+	@Test
+	public void AtualizaUserTypeNotPTest() throws Exception{
+		Usuario usuarioTestBanco = usuarioTest();
+		usuarioTestBanco.setTipConta("G");
+		
+		Mockito.when(usuarioRepository.findByEmailAndTipConta("gustavinhoTPD@fodasse.com.br", "G")).thenReturn(usuarioTestBanco);
+		
+		UsuarioTO usuarioTestAtualizacao= usuarioToTest();
+		usuarioTestAtualizacao.setTipConta("G");
+		usuarioTestAtualizacao.setDtNasc(new Date(2002, 6, 27));
+		usuarioTestAtualizacao.setSexo("F");
+		
+		Usuario usuarioRetorno;
+		boolean caiuException = false;
+		try {
+				usuarioRetorno = userService.atualizar(usuarioTestAtualizacao);
+				if(usuarioRetorno == null) {
+					caiuException = true;
+				}
+		}catch(ValidacaoException e){
+			usuarioRetorno = null;
+			caiuException = true;
+		};
+	
+		assertEquals(usuarioRetorno == null, false); 
+		assertEquals(caiuException == true, false); 
+   
+	}
+	
+	@SuppressWarnings("deprecation")
+	@Test
+	public void AtualizaUserNotExistTest() throws Exception{
+		Usuario usuarioTestBanco = usuarioTest();
+		usuarioTestBanco.setTipConta("G");
+		
+		Mockito.when(usuarioRepository.findByEmailAndTipConta("gustavinhoTPD@fodasse.com.br", "G")).thenReturn(null);
+		
+		UsuarioTO usuarioTestAtualizacao= usuarioToTest();
+		usuarioTestAtualizacao.setTipConta("G");
+		usuarioTestAtualizacao.setDtNasc(new Date(2002, 6, 27));
+		usuarioTestAtualizacao.setSexo("F");
+		
+		Usuario usuarioRetorno;
+		boolean caiuException = false;
+		try {
+				usuarioRetorno = userService.atualizar(usuarioTestAtualizacao);
+				if(usuarioRetorno == null) {
+					caiuException = true;
+				}
+		}catch(ValidacaoException e){
+			usuarioRetorno = null;
+			caiuException = true;
+		};
+	
+		assertEquals(usuarioRetorno == null, true); 
+		assertEquals(caiuException == true, true); 
+   
+	}
+	
 }

@@ -20,6 +20,8 @@ public class UsuarioService {
 		userRepository=usuarioRepository;
 	}
 
+//cadastro_________________________________________________________________________________________________________	
+	
 	public Usuario cadastrar(UsuarioTO user){
 		validarCadastro(user);
 		if("P".equals(user.getTipConta())) {
@@ -39,6 +41,8 @@ public class UsuarioService {
 	}
 
 
+//login_________________________________________________________________________________________________________		
+	
 	public Usuario logar(UsuarioTO user){
 		Usuario usuarioExistente = userRepository.findByEmailAndTipConta(user.getEmail(), user.getTipConta());
 		if(usuarioExistente == null && ("G".equals(user.getTipConta()) || "F".equals(user.getTipConta()))) {
@@ -64,6 +68,33 @@ public class UsuarioService {
 		}
 		throw new ValidacaoException("3");
 	}
+
+//atualizar_________________________________________________________________________________________________________		
+	
+	public Usuario atualizar(UsuarioTO user){
+		Usuario usuarioBanco = getUsuarioAtualizacao(user);
+		
+		if("P".equals(usuarioBanco.getTipConta())) {
+			usuarioBanco.setSenha(HashBuilder.gerarSenha(user.getSenha()));
+		}
+		usuarioBanco.setDtNasc(user.getDtNasc());
+		usuarioBanco.setSexo(user.getSexo());
+
+		userRepository.save(usuarioBanco);
+		return usuarioBanco;
+	}
+	
+	public Usuario getUsuarioAtualizacao(UsuarioTO user){
+		Usuario usuarioExistente = userRepository.findByEmailAndTipConta(user.getEmail(), user.getTipConta());
+		if(usuarioExistente == null) {
+			throw new ValidacaoException("3");
+		}
+		
+		return usuarioExistente;	
+	}
+
+	
+//dtos_________________________________________________________________________________________________________		
 	
 	private Usuario criacaoUsuario(UsuarioTO userto) {
 		return UsuarioBuilder.getInstance().CodUsuario(userto.getCodUsuario()).DtNasc(userto.getDtNasc())
