@@ -20,7 +20,7 @@ public class HashBuilder {
 		return hash;
 	}
 	
-	public static Boolean compararSenha(String senhaLogin, String senhaBanco){
+	public static boolean compararSenha(String senhaLogin, String senhaBanco){
 		String salt = senhaBanco.substring(0,32);
 		senhaLogin = gerarHash(senhaLogin, hexStringToByteArray(salt));
 		return senhaBanco.equals(senhaLogin);

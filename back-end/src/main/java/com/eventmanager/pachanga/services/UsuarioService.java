@@ -34,11 +34,11 @@ public class UsuarioService {
 	}
 
 	public Usuario validarCadastro(UsuarioTO user){
-		Usuario usuarioExistente = userRepository.findByEmailAndTipConta(user.getEmail(), user.getTipConta());
+		Usuario usuarioExistente = getUsuario(user);
 		if(usuarioExistente != null && TipoConta.PACHANGA.getDescricao().equals(usuarioExistente.getTipConta())) {
 			throw new ValidacaoException("1");
 		}
-		if(usuarioExistente != null && !"P".equals(usuarioExistente.getTipConta())) {
+		if(usuarioExistente != null && !TipoConta.PACHANGA.getDescricao().equals(usuarioExistente.getTipConta())) {
 			return logar(user);
 		}
 		return null;
@@ -48,7 +48,7 @@ public class UsuarioService {
 //login_________________________________________________________________________________________________________		
 	
 	public Usuario logar(UsuarioTO user){
-		Usuario usuarioExistente = userRepository.findByEmailAndTipConta(user.getEmail(), user.getTipConta());
+		Usuario usuarioExistente = getUsuario(user);
 		if(usuarioExistente == null && (TipoConta.GMAIL.getDescricao().equals(user.getTipConta()) || TipoConta.FACEBOOK.getDescricao().equals(user.getTipConta()))) {
 			return cadastrar(user);
 		}
@@ -76,25 +76,30 @@ public class UsuarioService {
 //atualizar_________________________________________________________________________________________________________		
 	
 	public Usuario atualizar(UsuarioTO user){
-		Usuario usuarioBanco = getUsuarioAtualizacao(user);
-		
-		if(TipoConta.PACHANGA.getDescricao().equals(usuarioBanco.getTipConta())) {
+		Usuario usuarioValidado = validacaoAtualizar(user);
+		usuarioValidado.setDtNasc(user.getDtNasc());
+		usuarioValidado.setSexo(user.getSexo());
+
+		userRepository.save(usuarioValidado);
+		return usuarioValidado;
+	}
+	
+	private Usuario validacaoAtualizar(UsuarioTO user) {
+		Usuario usuarioBanco = getUsuario(user);
+		if(usuarioBanco == null) {
+			throw new ValidacaoException("5");
+		}
+		if(TipoConta.PACHANGA.getDescricao().equals(usuarioBanco.getTipConta()) && user.getSenha() != null) {
+			if(HashBuilder.compararSenha(user.getSenha(), usuarioBanco.getSenha())) {
+				throw new ValidacaoException("4");
+			}
 			usuarioBanco.setSenha(HashBuilder.gerarSenha(user.getSenha()));
 		}
-		usuarioBanco.setDtNasc(user.getDtNasc());
-		usuarioBanco.setSexo(user.getSexo());
-
-		userRepository.save(usuarioBanco);
 		return usuarioBanco;
 	}
 	
-	public Usuario getUsuarioAtualizacao(UsuarioTO user){
-		Usuario usuarioExistente = userRepository.findByEmailAndTipConta(user.getEmail(), user.getTipConta());
-		if(usuarioExistente == null) {
-			throw new ValidacaoException("3");
-		}
-		
-		return usuarioExistente;	
+	public Usuario getUsuario(UsuarioTO user){
+		return userRepository.findByEmailAndTipConta(user.getEmail(), user.getTipConta());
 	}
 
 	
