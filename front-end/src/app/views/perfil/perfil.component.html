@@ -2,44 +2,50 @@
     <h1 class=".mat-title title">Minha Conta</h1>
 </div>
 <div class="dados-conta">
+
+  <mat-tab-group mat-align-tabs="center">
+    <mat-tab label="Dados da Conta">
+      <div class="formulario">
+        <mat-form-field appearance="legacy" class="formfield">
+          <mat-label>{{'PERFIL.NAME' | translate}}</mat-label>
+          <input matInput placeholder="Placeholder">
+          <mat-icon matSuffix>create</mat-icon>
+          <mat-hint>Hint</mat-hint>
+        </mat-form-field>
+  
+        <mat-form-field appearance="legacy" class="formfield">
+          <mat-label>{{'PERFIL.PASSWORD' | translate}}</mat-label>
+          <input matInput placeholder="Placeholder">
+          <mat-icon matSuffix>create</mat-icon>
+          <mat-hint>Hint</mat-hint>
+        </mat-form-field>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+  <!--
     <div class="subtitulo">
       <h2 class="mat-subheading-2">Dados da Conta</h2>
     </div>
-    <div class="formulario">
-      <mat-form-field appearance="legacy" class="formfield">
-        <mat-label>{{'PERFIL.NAME' | translate}}</mat-label>
-        <input matInput placeholder="Placeholder">
-        <mat-icon matSuffix>create</mat-icon>
-        <mat-hint>Hint</mat-hint>
-      </mat-form-field>
-
-      <mat-form-field appearance="legacy" class="formfield">
-        <mat-label>{{'PERFIL.PASSWORD' | translate}}</mat-label>
-        <input matInput placeholder="Placeholder">
-        <mat-icon matSuffix>create</mat-icon>
-        <mat-hint>Hint</mat-hint>
-      </mat-form-field>
-    </div>
+  -->
 </div>
 <div class="configuracoes">
+    <!--
     <div class="subtitulo">
       <h2 class="mat-subheading-2">Configurações</h2>
     </div>
-    <div class="formulario">
-      <mat-form-field appearance="legacy" class="formfield">
-        <mat-label>{{'PERFIL.NAME' | translate}}</mat-label>
-        <input matInput placeholder="Placeholder">
-        <mat-icon matSuffix>create</mat-icon>
-        <mat-hint>Hint</mat-hint>
-      </mat-form-field>
+    -->
 
-      <mat-form-field appearance="legacy" class="formfield">
-        <mat-label>{{'PERFIL.PASSWORD' | translate}}</mat-label>
-        <input matInput placeholder="Placeholder">
-        <mat-icon matSuffix>create</mat-icon>
-        <mat-hint>Hint</mat-hint>
-      </mat-form-field>
-  </div>  
+    <mat-tab-group mat-align-tabs="center">
+      <mat-tab label="Cavalo">
+        Cavalo (nome científico: Equus ferus caballus) é um mamífero herbívoro da ordem dos ungulados, uma das três subespécies modernas da espécie Equus ferus. A denominação para as fêmeas é égua, para os machos não castrados é garanhão, para os machos castrados é capão, e para os filhotes é potro. Esse grande ungulado é membro da mesma família dos asnos e das zebras, a dos equídeos. Todos os sete membros da família dos equídeos são do mesmo gênero, Equus, e podem relacionar-se e produzir híbridos, não férteis, como as mulas. Pertencem a ordem dos perissodáctilos, sendo por isso parentes dos rinocerontes e dos tapires, ou antas.
+      </mat-tab>
+      <mat-tab label="Hipopótamo">
+        "O hipopótamo-comum (Hippopotamus amphibius) ou hipopótamo-do-nilo é um mamífero ornivóro de grande porte da África subsariana e uma das duas únicas espécies não extintas da família Hippopotamidae, sendo a outra o hipopótamo-pigmeu (Choeropsis liberiensis ou Hexaprotodon liberiensis)."
+      </mat-tab>
+      <mat-tab label="Rinoceronte">
+        "Os Rinocerontes são grandes mamíferos perissodáctilos (ungulados de dedos ímpares) da família Rhinocerontidae, que ocorrem na África e na Ásia.""
+      </mat-tab>
+    </mat-tab-group>
 
 </div>
 
