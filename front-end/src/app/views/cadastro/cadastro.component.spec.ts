@@ -21,13 +21,11 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PerfilComponent } from '../perfil/perfil.component';
+import { InfoCompleteComponent } from '../info-complete/info-complete.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
 }
-
-
-
 
 const config = new AuthServiceConfig([
   {
@@ -56,7 +54,8 @@ describe('CadastroComponent', () => {
         NavbarComponent,
         LoginComponent,
         IndexComponent,
-        PerfilComponent
+        PerfilComponent,
+        InfoCompleteComponent
       ],
       imports: [
         CustomMaterialModule,

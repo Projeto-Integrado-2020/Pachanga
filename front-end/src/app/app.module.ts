@@ -37,6 +37,7 @@ import { AuthGuard } from './guard/auth.guard';
 import { LoginService } from './services/loginService/login.service';
 import { ErroDialogComponent } from './views/erro-dialog/erro-dialog.component';
 import { LogService } from './services/logging/log.service';
+import { InfoCompleteComponent } from './views/info-complete/info-complete.component';
 
 const config = new AuthServiceConfig([
   {
@@ -63,6 +64,7 @@ export function provideConfig() {
     SocialLoginBaseComponent,
     PerfilComponent,
     ErroDialogComponent,
+    InfoCompleteComponent,
   ],
   entryComponents: [
     LoginComponent,

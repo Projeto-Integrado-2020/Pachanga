@@ -19,6 +19,7 @@ import { SocialLoginModule, AuthServiceConfig } from 'angularx-social-login';
 import { GoogleLoginProvider, FacebookLoginProvider } from 'angularx-social-login';
 import { ErroDialogComponent } from './views/erro-dialog/erro-dialog.component';
 import { PerfilComponent } from './views/perfil/perfil.component';
+import { InfoCompleteComponent } from './views/info-complete/info-complete.component';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -51,7 +52,8 @@ describe('AppComponent', () => {
         LoginComponent,
         CadastroComponent,
         ErroDialogComponent,
-        PerfilComponent
+        PerfilComponent,
+        InfoCompleteComponent
       ],
       imports: [
         BrowserModule,

@@ -62,5 +62,10 @@
     "PERFIL": {
         "NAME": "Nome",
         "PASSWORD": "Senha"
+    },
+
+    "INFOCOMPLETE": {
+        "MESSAGE": "Ainda faltam informações para preencher em seu cadastro. Por favor clique ",
+        "HERE": "aqui"
     }
 }

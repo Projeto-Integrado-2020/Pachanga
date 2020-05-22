@@ -1,0 +1,27 @@
+.message {
+    display: block;
+    height: auto;
+    background-color: rgba($color: #ff0000, $alpha: .75);
+    color: #ffffff;
+    text-align: center;
+    padding-bottom: 5.7vh;
+}
+
+.txt {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.pefilLink:hover {
+    text-decoration: underline;
+}
+
+.fechar {
+    margin: 0;
+    float: right;
+}
+
+.closeButton {
+    cursor: pointer; 
+}

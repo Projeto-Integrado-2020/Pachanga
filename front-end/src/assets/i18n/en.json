@@ -62,5 +62,10 @@
     "PERFIL":{
         "NAME": "Name",
         "PASSWORD": "Password"
+    },
+
+    "INFOCOMPLETE": {
+        "MESSAGE": "There's still a lack of information to fill in your registration. Please click ",
+        "HERE": "here"
     }
 }
