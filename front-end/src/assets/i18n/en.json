@@ -57,5 +57,10 @@
         "ERRO1": "Another account is using this email.",
         "ERRO2": "Incorrect username or password.",
         "ERRO3": "User not registered."
+    },
+
+    "PERFIL":{
+        "NAME": "Name",
+        "PASSWORD": "Password"
     }
 }

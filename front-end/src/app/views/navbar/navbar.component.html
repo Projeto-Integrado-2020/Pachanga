@@ -7,9 +7,12 @@
       [opened]="(isHandset$ | async) === false">
     <mat-toolbar color="primary">Menu</mat-toolbar>
     <mat-nav-list>
-      <a mat-list-item href="#" (click)="drawer.toggle(); openDialogLogin()">{{'NAV.ENTRAR' | translate}}</a>
-      <a mat-list-item href="#" (click)="drawer.toggle(); openDialogCadastro()">{{'NAV.CONTA' | translate}}</a>
-      <a mat-list-item href="#" (click)="drawer.toggle()">{{'NAV.VOLTAR' | translate}}</a>
+      <a *ngIf="!loginService.usuarioAutenticado" mat-list-item href="#" (click)="drawer.toggle(); openDialogLogin()">{{'NAV.ENTRAR' | translate}}</a>
+      <a *ngIf="!loginService.usuarioAutenticado" mat-list-item href="#" (click)="drawer.toggle(); openDialogCadastro()">{{'NAV.CONTA' | translate}}</a>
+      <a *ngIf="loginService.usuarioAutenticado" mat-list-item href="#" (click)="drawer.toggle()">{{'NAV.INGRESSOS' | translate}}</a>
+      <a *ngIf="loginService.usuarioAutenticado" mat-list-item href="#" (click)="drawer.toggle()">{{'NAV.EVENTOS' | translate}}</a>
+      <a *ngIf="loginService.usuarioAutenticado" mat-list-item href="#" (click)="drawer.toggle()" routerLink="../perfil">{{'NAV.CONTA_L' | translate}}</a>
+      <a *ngIf="loginService.usuarioAutenticado" mat-list-item href="#" (click)="loginComponent.signOut()">{{'NAV.SAIR' | translate}}</a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
@@ -34,7 +37,7 @@
             <mat-icon>more_vert</mat-icon>
           </button>
           <mat-menu #menu="matMenu">
-            <button mat-menu-item>{{'NAV.CONTA_L' | translate}}</button>
+            <a routerLink="../perfil"><button mat-menu-item>{{'NAV.CONTA_L' | translate}}</button></a>
             <button mat-menu-item (click)="loginComponent.signOut()">{{'NAV.SAIR' | translate}}</button>
           </mat-menu>
           <button id="pt-btn" class="button-index" mat-mini-fab color="accent" (click)="langPt()" [value]="'pt'">.</button>

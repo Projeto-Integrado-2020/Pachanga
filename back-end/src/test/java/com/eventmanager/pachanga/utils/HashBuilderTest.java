@@ -12,7 +12,7 @@ public class HashBuilderTest {
 	@Test
 	public void criacaoSenhaTest(){
 		String senhaHash = HashBuilder.gerarSenha(senha);
-		assertEquals(senhaHash.length(), 160);
+		assertEquals(160, senhaHash.length());
 		assertNotEquals(senhaHash, senha);
 	}
 	
@@ -20,14 +20,14 @@ public class HashBuilderTest {
 	public void compararCertoSenha(){
 		String senhaLogin = HashBuilder.gerarSenha(senha);
 		boolean senhaCorreta = HashBuilder.compararSenha(senha, senhaLogin);
-		assertEquals(senhaCorreta, true);
+		assertEquals(true, senhaCorreta);
 	}
 	
 	@Test
 	public void compararErradaSenha(){
 		String senhaLogin = HashBuilder.gerarSenha("123");
 		boolean senhaCorreta = HashBuilder.compararSenha(senha, senhaLogin);
-		assertEquals(senhaCorreta, false);
+		assertEquals(false, senhaCorreta);
 	}
 
 }

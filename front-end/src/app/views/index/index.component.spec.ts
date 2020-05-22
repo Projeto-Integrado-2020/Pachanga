@@ -12,6 +12,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { PerfilComponent } from '../perfil/perfil.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -22,11 +23,13 @@ describe('IndexComponent', () => {
   let fixture: ComponentFixture<IndexComponent>;
 
   beforeEach(async(() => {
+    jasmine.DEFAULT_TIMEOUT_INTERVAL = 100000;
     TestBed.configureTestingModule({
       declarations: [
         IndexComponent,
         LoginComponent,
         CadastroComponent,
+        PerfilComponent
       ],
       imports: [
         CustomMaterialModule,
@@ -47,6 +50,7 @@ describe('IndexComponent', () => {
   }));
 
   beforeEach(() => {
+    jasmine.DEFAULT_TIMEOUT_INTERVAL = 100000;
     fixture = TestBed.createComponent(IndexComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

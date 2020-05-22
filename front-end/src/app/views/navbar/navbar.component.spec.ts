@@ -16,6 +16,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { SocialLoginModule, AuthServiceConfig } from 'angularx-social-login';
 import { GoogleLoginProvider, FacebookLoginProvider } from 'angularx-social-login';
+import { PerfilComponent } from '../perfil/perfil.component';
+
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 100000;
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -46,7 +49,8 @@ describe('NavbarComponent', () => {
         NavbarComponent,
         LoginComponent,
         CadastroComponent,
-        IndexComponent
+        IndexComponent,
+        PerfilComponent
        ],
       imports: [
         CustomMaterialModule,

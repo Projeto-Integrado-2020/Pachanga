@@ -18,6 +18,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SocialLoginModule, AuthServiceConfig } from 'angularx-social-login';
 import { GoogleLoginProvider, FacebookLoginProvider } from 'angularx-social-login';
 import { ErroDialogComponent } from './views/erro-dialog/erro-dialog.component';
+import { PerfilComponent } from './views/perfil/perfil.component';
+
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -48,7 +50,8 @@ describe('AppComponent', () => {
         IndexComponent,
         LoginComponent,
         CadastroComponent,
-        ErroDialogComponent
+        ErroDialogComponent,
+        PerfilComponent
       ],
       imports: [
         BrowserModule,

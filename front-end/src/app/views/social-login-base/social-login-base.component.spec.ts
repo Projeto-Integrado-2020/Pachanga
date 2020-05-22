@@ -8,6 +8,8 @@ import { CustomMaterialModule } from '../material/material.module';
 
 import { HttpClientModule } from '@angular/common/http';
 
+import { RouterModule } from '@angular/router';
+
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 const config = new AuthServiceConfig([
@@ -30,6 +32,7 @@ describe('SocialLoginBaseComponent', () => {
   let fixture: ComponentFixture<SocialLoginBaseComponent>;
 
   beforeEach(async(() => {
+    jasmine.DEFAULT_TIMEOUT_INTERVAL = 100000;
     TestBed.configureTestingModule({
       declarations: [ SocialLoginBaseComponent ],
       imports: [
@@ -37,7 +40,8 @@ describe('SocialLoginBaseComponent', () => {
         HttpClientModule,
         FormsModule,
         ReactiveFormsModule,
-        CustomMaterialModule
+        CustomMaterialModule,
+        RouterModule.forRoot([])
       ],
       providers: [
         {
@@ -50,6 +54,7 @@ describe('SocialLoginBaseComponent', () => {
   }));
 
   beforeEach(() => {
+    jasmine.DEFAULT_TIMEOUT_INTERVAL = 100000;
     fixture = TestBed.createComponent(SocialLoginBaseComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

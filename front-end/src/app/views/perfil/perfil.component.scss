@@ -1,3 +1,18 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  border: 0;
+}
+//centralizar
+.formfield, .title, .formulario {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: block;
+  position: relative;
+}
+
 mat-grid-tile {
     background: lightblue;
   }
@@ -10,3 +25,87 @@ mat-grid-tile {
     background-image: url('https://pngimage.net/wp-content/uploads/2018/05/default-user-profile-image-png-7.png');
     background-size: cover;
   }
+
+.minha-conta {
+  height: 30vh;
+  width: 100%;
+  display: block;
+  background-color: cornflowerblue;
+  margin: 0;
+}
+
+
+.dados-conta-container {
+  height: 50%;
+  display: block;
+  vertical-align: top;
+}
+
+//subtitulos
+
+.mat-subheading-2 {
+  text-align: center;
+}
+
+.subtitulo {
+  width: max-content;
+  transform: translate(-50%, -100%);
+  position: relative;
+  left: 50%;
+  border-top: 3px solid #ffffff;
+  color: #ffffff;
+}
+
+//formularios
+
+.formulario {
+  width: 50%;
+  height: auto;
+}
+
+//seçoes individuais
+
+.configuracoes {
+  background-color: lightsteelblue;
+}
+
+.dados-conta {
+  background-color: lightgray;
+}
+
+.dados-conta , .configuracoes{
+  display: inline-block;
+  height: 63.2vh;
+  vertical-align: top;
+}
+
+@media (min-width: 748px){
+  .dados-conta , .configuracoes{
+    width: 50%;
+  }
+}
+
+@media (max-width: 748px){
+  .dados-conta , .configuracoes{
+    width: 100%;
+  }
+
+  .formulario {
+    font-size: 2rem;
+    width: 100%;
+  }
+
+  .subtitulo{
+    font-size: 10rem;
+  }
+}
+
+.title {
+  display: block;
+  text-align: center;
+  color: #ffffff;
+}
+
+.formfield{
+  max-width: 50%;
+}
