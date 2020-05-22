@@ -3,6 +3,8 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { take, catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
+import { ErroDialogComponent } from '../../views/erro-dialog/erro-dialog.component';
 import { LogService } from '../logging/log.service';
 
 
@@ -18,7 +20,7 @@ export class LoginService {
   private readonly urlLogin = `${environment.URL_BACK}usuario/login`;
   private readonly urlCadastro = `${environment.URL_BACK}usuario/cadastro`;
 
-  constructor(private http: HttpClient, public logService: LogService) { }
+  constructor(private http: HttpClient, public logService: LogService, public dialog: MatDialog) { }
 
   logar(usuario) {
     console.log(JSON.stringify(usuario));
@@ -40,8 +42,11 @@ export class LoginService {
     );
   }
 
-  handleError(error: HttpErrorResponse, logService: LogService) {
-    alert('Error: ' + error.error);
+  handleError = (error: HttpErrorResponse, logService: LogService) => {
+    const dialogRef = this.dialog.open(ErroDialogComponent, {
+      width: '250px',
+      data: {erro: error.error}
+    });
     logService.initialize();
     logService.logHttpInfo(error.error, 0, error.url);
     return throwError(error);

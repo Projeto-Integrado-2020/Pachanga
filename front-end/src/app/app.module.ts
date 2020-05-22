@@ -35,6 +35,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { AuthGuard } from './guard/auth.guard';
 import { LoginService } from './services/loginService/login.service';
+import { ErroDialogComponent } from './views/erro-dialog/erro-dialog.component';
 import { LogService } from './services/logging/log.service';
 
 const config = new AuthServiceConfig([
@@ -61,10 +62,12 @@ export function provideConfig() {
     CadastroComponent,
     SocialLoginBaseComponent,
     PerfilComponent,
+    ErroDialogComponent,
   ],
   entryComponents: [
     LoginComponent,
-    CadastroComponent
+    CadastroComponent,
+    ErroDialogComponent
   ],
   imports: [
     BrowserModule,

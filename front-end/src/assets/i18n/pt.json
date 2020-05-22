@@ -52,7 +52,14 @@
         "MATCH": "Senhas devem coincidir"
     },
 
-    "PERFIL":{
+    "ERRO": {
+        "TITULO": "Erro",
+        "ERRO1": "Outra conta está usando esse e-mail.",
+        "ERRO2": "Usuário ou senha incorretos.",
+        "ERRO3": "Usuário não cadastrado."
+    },
+    
+    "PERFIL": {
         "NAME": "Nome",
         "PASSWORD": "Senha"
     }

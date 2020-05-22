@@ -44,7 +44,7 @@
         "OUTRO": "Other(s)"
     },
 
-    "FORMERRORS":{
+    "FORMERRORS": {
         "REQUIRED": "Required Field",
         "PASSPATTERN": "The password must have at least 8 characters, containing upperCase, lowerCase, number/specialChar",
         "EMAIL": "Invalid e-mail",
@@ -52,8 +52,15 @@
         "MATCH": "Passwords must match"
     },
 
+    "ERRO": {
+        "TITULO": "Error",
+        "ERRO1": "Another account is using this email.",
+        "ERRO2": "Incorrect username or password.",
+        "ERRO3": "User not registered."
+    },
+
     "PERFIL":{
         "NAME": "Name",
-        "PASSWORD": "Password",
+        "PASSWORD": "Password"
     }
 }
