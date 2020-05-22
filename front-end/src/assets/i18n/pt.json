@@ -50,5 +50,12 @@
         "EMAIL": "E-mail inválido",
         "TERMOS": "Aceitar os Termos de Uso é obrigatório",
         "MATCH": "Senhas devem coincidir"
+    },
+
+    "ERRO": {
+        "TITULO": "Erro",
+        "ERRO1": "Outra conta está usando esse e-mail.",
+        "ERRO2": "Usuário ou senha incorretos.",
+        "ERRO3": "Usuário não cadastrado."
     }
 }

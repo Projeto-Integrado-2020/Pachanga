@@ -17,7 +17,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { SocialLoginModule, AuthServiceConfig } from 'angularx-social-login';
 import { GoogleLoginProvider, FacebookLoginProvider } from 'angularx-social-login';
-
+import { ErroDialogComponent } from './views/erro-dialog/erro-dialog.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -47,7 +47,8 @@ describe('AppComponent', () => {
         NavbarComponent,
         IndexComponent,
         LoginComponent,
-        CadastroComponent
+        CadastroComponent,
+        ErroDialogComponent
       ],
       imports: [
         BrowserModule,

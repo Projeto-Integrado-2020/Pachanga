@@ -3,7 +3,8 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { take, catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
-
+import { MatDialog } from '@angular/material/dialog';
+import { ErroDialogComponent } from '../../views/erro-dialog/erro-dialog.component';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,7 @@ export class LoginService {
   private readonly urlLogin = `${environment.URL_BACK}usuario/login`;
   private readonly urlCadastro = `${environment.URL_BACK}usuario/cadastro`;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, public dialog: MatDialog) { }
 
   logar(usuario) {
     console.log(JSON.stringify(usuario));
@@ -35,8 +36,11 @@ export class LoginService {
     );
   }
 
-  handleError(error: HttpErrorResponse) {
-    alert('Error: ' + error.error);
+  handleError = (error: HttpErrorResponse) => {
+    const dialogRef = this.dialog.open(ErroDialogComponent, {
+      width: '250px',
+      data: {erro: error.error}
+    });
     return throwError(error);
   }
 
