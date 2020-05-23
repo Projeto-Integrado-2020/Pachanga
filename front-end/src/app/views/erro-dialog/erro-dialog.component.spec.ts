@@ -6,6 +6,8 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
+import {MAT_DIALOG_DATA} from '@angular/material';
+
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
 }
@@ -26,6 +28,9 @@ describe('ErroDialogComponent', () => {
           deps: [HttpClient]
         }
       })],
+      providers: [
+        { provide: MAT_DIALOG_DATA, useValue: {erro: '1'} },
+    ]
     })
     .compileComponents();
   }));

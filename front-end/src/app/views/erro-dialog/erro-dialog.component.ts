@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
+import {MAT_DIALOG_DATA} from '@angular/material';
 
 @Component({
   selector: 'app-erro-dialog',
@@ -8,14 +9,18 @@ import {TranslateService} from '@ngx-translate/core';
 })
 export class ErroDialogComponent implements OnInit {
 
-  constructor(private translate: TranslateService) { }
-
   public erro: string;
 
+  constructor(
+      private translate: TranslateService,
+      @Inject(MAT_DIALOG_DATA) data) {
+      this.erro = data.erro;
+    }
+
   ngOnInit() {
-    if (this.erro === '1') {
+    if (this.erro.toString() === '1') {
       this.erro = this.translate.instant('ERRO.ERRO1');
-    } else if (this.erro === '2') {
+    } else if (this.erro.toString() === '2') {
       this.erro = this.translate.instant('ERRO.ERRO2');
     } else {
       this.erro = this.translate.instant('ERRO.ERRO3');
