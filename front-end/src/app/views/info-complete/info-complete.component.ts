@@ -10,7 +10,7 @@ export class InfoCompleteComponent implements OnInit {
 
   constructor(private loginService: LoginService) { }
 
-  private mensagem: boolean;
+  public mensagem: boolean;
 
   ngOnInit() {
     this.mensagem = true;
