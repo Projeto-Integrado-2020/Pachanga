@@ -21,9 +21,7 @@ public class Usuario {
     @Column(name = "dt_nasc")
     private Date dtNasc;
     private String sexo;
-	public int getCodUsuario() {
-		return codUsuario;
-	}
+    
 	public void setCodUsuario(int codUsuario) {
 		this.codUsuario = codUsuario;
 	}

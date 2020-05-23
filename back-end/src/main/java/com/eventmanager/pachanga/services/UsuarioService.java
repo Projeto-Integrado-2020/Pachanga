@@ -89,7 +89,7 @@ public class UsuarioService {
 		if(usuarioBanco == null) {
 			throw new ValidacaoException("5");
 		}
-		if(TipoConta.PACHANGA.getDescricao().equals(usuarioBanco.getTipConta()) && user.getSenha() != null) {
+		if(TipoConta.PACHANGA.getDescricao().equals(usuarioBanco.getTipConta()) && !user.getSenha().isEmpty()) {
 			if(HashBuilder.compararSenha(user.getSenha(), usuarioBanco.getSenha())) {
 				throw new ValidacaoException("4");
 			}

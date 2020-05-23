@@ -47,8 +47,7 @@ public class HashBuilder {
 
 			generatedPassword = sbSalt.toString() + sb.toString();
 		} 
-		catch (NoSuchAlgorithmException e) 
-		{
+		catch (NoSuchAlgorithmException e){
 			Logger.logError(e.getMessage());
 		}
 		return generatedPassword;

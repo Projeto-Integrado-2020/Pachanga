@@ -48,7 +48,7 @@ public class UsuarioServiceTest {
 		
 		usuarioTest.setCodUsuario(100);
 		usuarioTest.setEmail("gustavinhoTPD@fodasse.com.br");
-		usuarioTest.setSenha("1234");
+		usuarioTest.setSenha("fc68b677646b5f018d1762e9a19bf65180d9aab2794794340ade50e0d78a239affd43a613e7136a61b5d63b09f072c0c039dea4281873abe826d6e6285d9cefef0a0d868d3b0b0d4582ec787b473b4e0");
 		usuarioTest.setDtNasc(new Date(2000, 8, 27));
 		usuarioTest.setSexo("M");
 		usuarioTest.setNomeUser("Gustavo Barbosa");
@@ -169,6 +169,24 @@ public class UsuarioServiceTest {
 		assertEquals(true, caiuException == true); 
 	}
 	
+	@Test
+	public void loginPeloCadastro() throws Exception{
+		
+		Usuario usuarioTestBanco = usuarioTest();
+		usuarioTestBanco.setTipConta("F");
+		
+		Mockito.when(usuarioRepository.findByEmailAndTipConta("gustavinhoTPD@fodasse.com.br", "F")).thenReturn(usuarioTestBanco);
+		
+		UsuarioTO usuarioTestLogin = usuarioToTest();
+		usuarioTestLogin.setTipConta("F");
+		
+		Usuario usuarioRetorno;
+		
+			usuarioRetorno = userService.cadastrar(usuarioTestLogin);
+       
+		assertEquals(false, usuarioRetorno == null); 
+	}
+	
 	
 //cadastro______________________________________________________________________________________________________________	
 	
@@ -198,9 +216,6 @@ public class UsuarioServiceTest {
 		boolean caiuException = false;
 		try {
 				usuarioRetorno = userService.cadastrar(usuarioTestCadastro);
-				if(usuarioRetorno == null) {
-					caiuException = true;
-				}
 		}catch(ValidacaoException e){
 			usuarioRetorno = null;
 			caiuException = true;
@@ -256,60 +271,70 @@ public class UsuarioServiceTest {
 
 	@SuppressWarnings("deprecation")
 	@Test
-	public void AtualizaTest() throws Exception{
+	public void AtualizaTestException() throws Exception{ //Atualiza as senhas, mas as senhas são identicas então da erro
 		Usuario usuarioTestBanco = usuarioTest();
-		
+
 		Mockito.when(usuarioRepository.findByEmailAndTipConta("gustavinhoTPD@fodasse.com.br", "P")).thenReturn(usuarioTestBanco);
-		
+
 		UsuarioTO usuarioTestAtualizacao= usuarioToTest();
 		usuarioTestAtualizacao.setDtNasc(new Date(2002, 6, 27));
 		usuarioTestAtualizacao.setSexo("F");
-		
+
 		Usuario usuarioRetorno;
 		boolean caiuException = false;
 		try {
-				usuarioRetorno = userService.atualizar(usuarioTestAtualizacao);
-				if(usuarioRetorno == null) {
-					caiuException = true;
-				}
+			usuarioRetorno = userService.atualizar(usuarioTestAtualizacao);
 		}catch(ValidacaoException e){
 			usuarioRetorno = null;
 			caiuException = true;
 		};
-	
-		assertEquals(false, usuarioRetorno == null); 
-		assertEquals(false, caiuException == true); 
-   
+
+		assertEquals(true, usuarioRetorno == null); 
+		assertEquals(true, caiuException == true); 
+
 	}
 	
+	@SuppressWarnings("deprecation")
+	@Test
+	public void AtualizaTest() throws Exception{
+		Usuario usuarioTestBanco = usuarioTest();
+
+		Mockito.when(usuarioRepository.findByEmailAndTipConta("gustavinhoTPD@fodasse.com.br", "P")).thenReturn(usuarioTestBanco);
+
+		UsuarioTO usuarioTestAtualizacao= usuarioToTest();
+		usuarioTestAtualizacao.setDtNasc(new Date(2002, 6, 27));
+		usuarioTestAtualizacao.setSexo("F");
+		usuarioTestAtualizacao.setSenha("12345");
+
+		Usuario usuarioRetorno;
+		boolean caiuException = false;
+			usuarioRetorno = userService.atualizar(usuarioTestAtualizacao);
+
+		assertEquals(false, usuarioRetorno == null); 
+		assertEquals(false, caiuException == true); 
+
+	}
+
 	@SuppressWarnings("deprecation")
 	@Test
 	public void AtualizaUserTypeNotPTest() throws Exception{
 		Usuario usuarioTestBanco = usuarioTest();
 		usuarioTestBanco.setTipConta("G");
-		
+
 		Mockito.when(usuarioRepository.findByEmailAndTipConta("gustavinhoTPD@fodasse.com.br", "G")).thenReturn(usuarioTestBanco);
-		
+
 		UsuarioTO usuarioTestAtualizacao= usuarioToTest();
 		usuarioTestAtualizacao.setTipConta("G");
 		usuarioTestAtualizacao.setDtNasc(new Date(2002, 6, 27));
 		usuarioTestAtualizacao.setSexo("F");
-		
+
 		Usuario usuarioRetorno;
 		boolean caiuException = false;
-		try {
-				usuarioRetorno = userService.atualizar(usuarioTestAtualizacao);
-				if(usuarioRetorno == null) {
-					caiuException = true;
-				}
-		}catch(ValidacaoException e){
-			usuarioRetorno = null;
-			caiuException = true;
-		};
-	
+		usuarioRetorno = userService.atualizar(usuarioTestAtualizacao);
+
 		assertEquals(false, usuarioRetorno == null); 
 		assertEquals(false, caiuException == true); 
-   
+
 	}
 	
 	@SuppressWarnings("deprecation")

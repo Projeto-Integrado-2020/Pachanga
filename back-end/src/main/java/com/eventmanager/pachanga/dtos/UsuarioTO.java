@@ -3,8 +3,6 @@ package com.eventmanager.pachanga.dtos;
 
 import java.util.Date;
 
-import com.eventmanager.pachanga.domains.Usuario;
-
 public class UsuarioTO {
     private Date dtNasc;
     private int codUsuario;
@@ -16,16 +14,6 @@ public class UsuarioTO {
     
     public UsuarioTO() {
     }
-    
-	public UsuarioTO(Usuario usuario) {
-		this.codUsuario = usuario.getCodUsuario();
-		this.nomeUser = usuario.getNomeUser();
-		this.tipConta = usuario.getTipConta();
-		this.dtNasc = usuario.getDtNasc();
-		this.email = usuario.getEmail();
-		this.senha = usuario.getSenha();
-		this.sexo = usuario.getSexo();
-	}
 
 	public Date getDtNasc() {
 		return dtNasc;
