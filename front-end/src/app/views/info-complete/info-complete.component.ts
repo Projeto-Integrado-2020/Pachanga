@@ -8,7 +8,7 @@ import { LoginService } from '../../services/loginService/login.service';
 })
 export class InfoCompleteComponent implements OnInit {
 
-  constructor(private loginService: LoginService) { }
+  constructor(public loginService: LoginService) { }
 
   public mensagem: boolean;
 
