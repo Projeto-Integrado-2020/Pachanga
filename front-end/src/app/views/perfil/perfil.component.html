@@ -2,7 +2,6 @@
     <h1 class="mat-title title">Minha Conta</h1>
 </div>
 
-
 <div class="dados-conta">
   <mat-tab-group mat-align-tabs="center">
     <mat-tab label="Dados da Conta">
@@ -13,7 +12,7 @@
             <input matInput placeholder="Ex. Pizza" value="Fulano (Hard-coded; Mudar)">
           </mat-form-field>
         </p>
-      
+
         <p>
           <mat-form-field class="example-full-width">
             <mat-label>Senha</mat-label>
@@ -28,6 +27,7 @@
     <mat-tab-group mat-align-tabs="center">
         <mat-tab label="Organizador">
           <div class="container-conf">
+            <h1 class="mat-title margin-tops">Configurações do Organizador</h1>
             <h5 class="margin-tops">Dados Cadastrais</h5>  
             <mat-card class="card-dados-cad margin-tops">
               <div class="card-icon-container">
@@ -120,14 +120,84 @@
                 <mat-checkbox>Notificar-me cada vez que um participante realizar uma compra</mat-checkbox>
                 <mat-checkbox>Quero receber as novidades da Sympla por e-mail.</mat-checkbox>
               </div>
-            
-
-
             </div>
           </div>
         </mat-tab>
         <mat-tab label="Comprador">
-          "O hipopótamo-comum (Hippopotamus amphibius) ou hipopótamo-do-nilo é um mamífero ornivóro de grande porte da África subsariana e uma das duas únicas espécies não extintas da família Hippopotamidae, sendo a outra o hipopótamo-pigmeu (Choeropsis liberiensis ou Hexaprotodon liberiensis)."
+          <h1 class="mat-title margin-tops">Dados de Compra</h1>
+          <button mat-raised-button color="primary" class="margin-tops right-button">Editar Dados</button>
+          <form class="example-form">
+            <p>
+              <mat-form-field class="example-full-width">
+                <mat-label>Nome Impresso no Cartão</mat-label>
+                <input matInput disabled  placeholder="" value="">
+              </mat-form-field>
+            </p>
+    
+            <p>
+              <mat-form-field class="example-full-width">
+                <mat-label>CPF</mat-label>
+                <input matInput disabled  placeholder="" value="">
+              </mat-form-field>
+            </p>
+            <p>
+              <mat-form-field>
+                <mat-label>Data de Nascimento</mat-label>
+                <input (click)="picker.open()" disabled  #dtnascCadastro matInput required formControlName="dtnasc" maxlength="10" [matDatepicker]="picker">
+                <mat-datepicker-toggle matSuffix [for]="picker" ></mat-datepicker-toggle>
+                <mat-datepicker #picker ></mat-datepicker>
+            </mat-form-field>
+            </p>
+            <p>
+              <mat-form-field class="example-full-width">
+                <mat-label>Telefone</mat-label>
+                <input matInput disabled  placeholder="" value="">
+              </mat-form-field>
+            </p>
+            <p>
+              <mat-form-field class="example-full-width">
+                <mat-label>CEP</mat-label>
+                <input matInput disabled  placeholder="" value="">
+              </mat-form-field>
+            </p>
+            <p>
+              <mat-form-field class="example-full-width">
+                <mat-label>Endereço</mat-label>
+                <input matInput disabled  placeholder="" value="">
+              </mat-form-field>
+            </p>
+            <p>
+              <mat-form-field class="example-full-width">
+                <mat-label>Bairro</mat-label>
+                <input matInput disabled  placeholder="" value="">
+              </mat-form-field>
+            </p>
+            <p>
+              <mat-form-field class="example-full-width">
+                <mat-label>Número</mat-label>
+                <input matInput disabled  placeholder="" value="">
+              </mat-form-field>
+            </p>
+            <p>
+              <mat-form-field class="example-full-width">
+                <mat-label>Complemento</mat-label>
+                <input matInput disabled  placeholder="" value="">
+              </mat-form-field>
+            </p>
+            <p>
+              <mat-form-field class="example-full-width">
+                <mat-label>Cidade</mat-label>
+                <input matInput disabled  placeholder="" value="">
+              </mat-form-field>
+            </p>
+            <p>
+              <mat-form-field class="example-full-width">
+                <mat-label>Estado</mat-label>
+                <input matInput disabled  placeholder="" value="">
+              </mat-form-field>
+            </p>
+    
+          </form>
         </mat-tab>
     </mat-tab-group>
 
