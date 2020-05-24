@@ -13,9 +13,9 @@ import { LogService } from '../logging/log.service';
 })
 export class LoginService {
 
-  public usuarioAutenticado = false;
+  public usuarioAutenticado = (localStorage.getItem('usuarioAutenticado') == 'true');
 
-  public usuarioInfo;
+  public usuarioInfo = JSON.parse(localStorage.getItem('usuarioInfo'));
 
   private readonly urlLogin = `${environment.URL_BACK}usuario/login`;
   private readonly urlCadastro = `${environment.URL_BACK}usuario/cadastro`;
@@ -58,6 +58,7 @@ export class LoginService {
 
   setUsuarioAutenticado(flag: boolean) {
     this.usuarioAutenticado = flag;
+    localStorage.setItem('usuarioAutenticado', this.usuarioAutenticado.toString());
   }
 
   getusuarioInfo() {
@@ -66,6 +67,12 @@ export class LoginService {
 
   setusuarioInfo(json) {
     this.usuarioInfo = json;
+    localStorage.setItem('usuarioInfo', JSON.stringify(this.usuarioInfo));
+  }
+
+  finalizarSessao(){
+    localStorage.removeItem('usuarioInfo');
+    localStorage.removeItem('usuarioAutenticado');
   }
 
 }

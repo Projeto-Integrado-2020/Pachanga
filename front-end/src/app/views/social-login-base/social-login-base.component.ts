@@ -24,6 +24,7 @@ export class SocialLoginBaseComponent implements OnInit {
 
   signOut(): void {
     this.router.navigate(['/']);
+    this.loginService.finalizarSessao();
     this.loginService.setUsuarioAutenticado(false);
   }
 
