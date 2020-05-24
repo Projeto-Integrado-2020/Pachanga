@@ -1,5 +1,5 @@
 <div class="minha-conta">
-    <h1 class=".mat-title title">Minha Conta</h1>
+    <h1 class="mat-title title">Minha Conta</h1>
 </div>
 
 
@@ -33,10 +33,12 @@
               <div class="card-icon-container">
                 <mat-icon class="icon-card">assignment</mat-icon>
               </div>
-              <div class="card-text-container centered-vertical">
-                Para publicar eventos pagos, faça seu cadastro. É rápido, basta inserir seus dados.
+              <div class="card-text-container">
+                <p class="card-text">
+                  Para publicar eventos pagos, faça seu cadastro. É rápido, basta inserir seus dados.
+                </p>
               </div>
-              <div class="card-button-container centered-vertical">
+              <div class="card-button-container">
                 <button mat-stroked-button class="conf-button card-button">Cadastrar Dados</button>
               </div>
             </mat-card>
@@ -79,6 +81,48 @@
               </p>
 
               <mat-divider class="margin-tops"></mat-divider>
+
+              <h5 class="margin-tops">Compartilhar Eventos da Minha Contal</h5> 
+
+              <button mat-raised-button color="primary" class="margin-tops conf-button">Convidar Colaborador</button>
+
+              <div class="custom-box custom-box-1 margin-tops">
+                <div class="custom-box-1-de-3">
+                  <h5 class="centered-vertical margin-left">
+                    Colaborador
+                  </h5>
+                </div>
+                <div class="custom-box-1-de-3">
+                  <h5 class="centered-vertical margin-left">
+                    Acesso
+                  </h5>
+                </div>
+                <div class="custom-box-1-de-3">
+                  <h5 class="centered-vertical margin-left">
+                    Status
+                  </h5>
+                </div>
+              </div>
+
+
+              <p class="margin-tops">
+                [Sua conta não possui colaboradores. Hardcoded]
+              </p>
+              <p>
+                [Nenhum acesso foi configurado ainda. Hardcoded]
+              </p>
+
+              <mat-divider class="margin-tops"></mat-divider>
+
+              <h5 class="margin-tops">Preferências de notificação</h5>
+
+              <div class="margin-tops">
+                <mat-checkbox>Notificar-me cada vez que um participante realizar uma compra</mat-checkbox>
+                <mat-checkbox>Quero receber as novidades da Sympla por e-mail.</mat-checkbox>
+              </div>
+            
+
+
             </div>
           </div>
         </mat-tab>

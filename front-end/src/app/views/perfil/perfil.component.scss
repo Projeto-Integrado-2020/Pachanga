@@ -41,13 +41,16 @@
   }
 
 .minha-conta {
-  height: 30vh;
+  height: 10vh;
   width: 100%;
   display: block;
-  background-color: cornflowerblue;
   margin: 0;
 }
 
+.title {
+  text-align: center;
+
+}
 
 .dados-conta-container {
   height: 50%;
@@ -113,12 +116,6 @@
   }
 }
 
-.title {
-  display: block;
-  text-align: center;
-  color: #ffffff;
-}
-
 //altura do conteudo do mat-tab
 .mat-tab-body-content {
   height: 100%;
@@ -136,48 +133,60 @@ form {
 }
 
 .card-dados-cad {
-  background-color: sandybrown;
+  background-color: #ffe6b1;
+    /* make element inline flex-container */
+  /* this will make its children flex-items */
+  display: inline-flex;
+  /* align-items items in column */
+  flex-direction: row;
+  /* center items horizontally */
+  align-items: center;
+  /* center items vertically */
+  justify-content: space-between;
+  padding-left: 2rem;
+  padding-right: 2rem;
 }
 
 .card-text-container, .card-icon-container, .card-button-container {
   display: inline-block;
   height: 100%;
-  margin: 2rem;
-}
-
-.card-text-container {
-  width: 50%;
-  line-height: 1.5;
-  height: 100%
+  top: 50%;
 }
 
 .card-icon-container {
-  height: 100%;
-  width: 5%;
+  width: 10%;
+  right: 0;
+}
+
+.card-text-container {
+  max-width: 50%;
+  text-align: center;
+}
+
+.card-text {
+  text-align: left;
 }
 
 .card-button-container {
-  height: 100%;
-  top: 50%;
+  max-width: 15%;
+}
+
+.card-button {
+  background-color: #ff9023;
+  color: #ffffff
 }
 
 .icon-card {
   font-size: 3rem;
-  color: #ffffff;
+  color: #000000;
   text-align: center;
-  line-height: 1.5;
 }
 
 
 .conf-button {
-  left: 50%;
-  transform: translateX(-50%);  ;
   padding: .4rem;
 }
 
-.card-button {
-  background-color: #ffffff;
-}
 
 .custom-box {
 
@@ -199,6 +208,13 @@ form {
 .custom-box-1-de-2 {
   height: 100%;
   width: 50%;
+  display: inline-block;
+  text-align: left;
+}
+
+.custom-box-1-de-3 {
+  height: 100%;
+  width: 33%;
   display: inline-block;
   text-align: left;
 }
