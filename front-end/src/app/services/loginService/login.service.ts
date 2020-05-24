@@ -13,7 +13,7 @@ import { LogService } from '../logging/log.service';
 })
 export class LoginService {
 
-  public usuarioAutenticado = (localStorage.getItem('usuarioAutenticado') == 'true');
+  public usuarioAutenticado = (localStorage.getItem('usuarioAutenticado') === 'true');
 
   public usuarioInfo = JSON.parse(localStorage.getItem('usuarioInfo'));
 
@@ -70,7 +70,7 @@ export class LoginService {
     localStorage.setItem('usuarioInfo', JSON.stringify(this.usuarioInfo));
   }
 
-  finalizarSessao(){
+  finalizarSessao() {
     localStorage.removeItem('usuarioInfo');
     localStorage.removeItem('usuarioAutenticado');
   }
