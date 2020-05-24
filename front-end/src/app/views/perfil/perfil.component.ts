@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { FormControl, Validators} from '@angular/forms';
+import { LoginService } from 'src/app/services/loginService/login.service';
 
 @Component({
   selector: 'app-perfil',
@@ -9,7 +10,7 @@ import { FormControl, Validators} from '@angular/forms';
 })
 export class PerfilComponent implements OnInit {
 
-  constructor() {
+  constructor(public loginService: LoginService) {
   }
 
   ngOnInit() {

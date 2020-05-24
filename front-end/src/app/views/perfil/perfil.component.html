@@ -1,50 +1,90 @@
 <div class="minha-conta">
     <h1 class=".mat-title title">Minha Conta</h1>
 </div>
-<div class="dados-conta">
 
+
+<div class="dados-conta">
   <mat-tab-group mat-align-tabs="center">
     <mat-tab label="Dados da Conta">
-      <div class="formulario">
-        <mat-form-field appearance="legacy" class="formfield">
-          <mat-label>{{'PERFIL.NAME' | translate}}</mat-label>
-          <input matInput placeholder="Placeholder">
-          <mat-icon matSuffix>create</mat-icon>
-          <mat-hint>Hint</mat-hint>
-        </mat-form-field>
-  
-        <mat-form-field appearance="legacy" class="formfield">
-          <mat-label>{{'PERFIL.PASSWORD' | translate}}</mat-label>
-          <input matInput placeholder="Placeholder">
-          <mat-icon matSuffix>create</mat-icon>
-          <mat-hint>Hint</mat-hint>
-        </mat-form-field>
-      </div>
+      <form class="example-form">
+        <p>
+          <mat-form-field class="example-full-width">
+            <mat-label>Nome</mat-label>
+            <input matInput placeholder="Ex. Pizza" value="Fulano (Hard-coded; Mudar)">
+          </mat-form-field>
+        </p>
+      
+        <p>
+          <mat-form-field class="example-full-width">
+            <mat-label>Senha</mat-label>
+            <input matInput placeholder="" value="">
+          </mat-form-field>
+        </p>
+      </form>
     </mat-tab>
   </mat-tab-group>
-  <!--
-    <div class="subtitulo">
-      <h2 class="mat-subheading-2">Dados da Conta</h2>
-    </div>
-  -->
 </div>
 <div class="configuracoes">
-    <!--
-    <div class="subtitulo">
-      <h2 class="mat-subheading-2">Configurações</h2>
-    </div>
-    -->
-
     <mat-tab-group mat-align-tabs="center">
-      <mat-tab label="Cavalo">
-        Cavalo (nome científico: Equus ferus caballus) é um mamífero herbívoro da ordem dos ungulados, uma das três subespécies modernas da espécie Equus ferus. A denominação para as fêmeas é égua, para os machos não castrados é garanhão, para os machos castrados é capão, e para os filhotes é potro. Esse grande ungulado é membro da mesma família dos asnos e das zebras, a dos equídeos. Todos os sete membros da família dos equídeos são do mesmo gênero, Equus, e podem relacionar-se e produzir híbridos, não férteis, como as mulas. Pertencem a ordem dos perissodáctilos, sendo por isso parentes dos rinocerontes e dos tapires, ou antas.
-      </mat-tab>
-      <mat-tab label="Hipopótamo">
-        "O hipopótamo-comum (Hippopotamus amphibius) ou hipopótamo-do-nilo é um mamífero ornivóro de grande porte da África subsariana e uma das duas únicas espécies não extintas da família Hippopotamidae, sendo a outra o hipopótamo-pigmeu (Choeropsis liberiensis ou Hexaprotodon liberiensis)."
-      </mat-tab>
-      <mat-tab label="Rinoceronte">
-        "Os Rinocerontes são grandes mamíferos perissodáctilos (ungulados de dedos ímpares) da família Rhinocerontidae, que ocorrem na África e na Ásia.""
-      </mat-tab>
+        <mat-tab label="Organizador">
+          <div class="container-conf">
+            <h5 class="margin-tops">Dados Cadastrais</h5>  
+            <mat-card class="card-dados-cad margin-tops">
+              <div class="card-icon-container">
+                <mat-icon class="icon-card">assignment</mat-icon>
+              </div>
+              <div class="card-text-container centered-vertical">
+                Para publicar eventos pagos, faça seu cadastro. É rápido, basta inserir seus dados.
+              </div>
+              <div class="card-button-container centered-vertical">
+                <button mat-stroked-button class="conf-button card-button">Cadastrar Dados</button>
+              </div>
+            </mat-card>
+
+            <h5 class="margin-tops">Conta de Repasse</h5> 
+            
+
+            <div class="custom-box custom-box-1 margin-tops">
+              <h5 class="centered-text">
+                [Contas de Repasse cadastradas; Se não tiver nenhuma, "Nenhuma conta de repasse cadastrada"];
+              </h5>
+            </div>
+
+            <button mat-raised-button color="primary" class="margin-tops conf-button">Cadastrar Conta</button>
+
+            <mat-divider class="margin-tops"></mat-divider>
+
+            <h5 class="margin-tops">Dados da Nota fiscal</h5> 
+
+            <div class="custom-box custom-box-2 margin-tops">
+              <p class="centered-text">
+                Para alterar os dados de nota fiscal, atualize seu cadastro, <a>clicando aqui</a>.
+              </p>
+            </div>
+
+            <div class="custom-box custom-box-1 margin-tops">
+              <div class="custom-box-1-de-2">
+                <h5 class="centered-vertical margin-left">
+                  Nome
+                </h5>
+              </div>
+              <div class="custom-box-1-de-2">
+                <h5 class="centered-vertical margin-left">
+                  Endereço
+                </h5>
+              </div>
+
+              <p class="margin-tops">
+                [Nenhum dado de nota fiscal cadastrado. Hardcoded: Mudar]
+              </p>
+
+              <mat-divider class="margin-tops"></mat-divider>
+            </div>
+          </div>
+        </mat-tab>
+        <mat-tab label="Comprador">
+          "O hipopótamo-comum (Hippopotamus amphibius) ou hipopótamo-do-nilo é um mamífero ornivóro de grande porte da África subsariana e uma das duas únicas espécies não extintas da família Hippopotamidae, sendo a outra o hipopótamo-pigmeu (Choeropsis liberiensis ou Hexaprotodon liberiensis)."
+        </mat-tab>
     </mat-tab-group>
 
 </div>

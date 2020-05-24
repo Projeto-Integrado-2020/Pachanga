@@ -5,7 +5,7 @@
   border: 0;
 }
 //centralizar
-.formfield, .title, .formulario {
+.title, .centered-text {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -13,8 +13,22 @@
   position: relative;
 }
 
-mat-grid-tile {
-    background: lightblue;
+.centered-vertical {
+  top:50%;
+  position:relative;
+  transform: translateY(-50%);
+}
+
+//margin-left
+
+  .margin-left {
+    margin-left: 1rem;
+  }
+
+//margin-top
+
+  .margin-tops {
+    margin-top: 2rem;
   }
 
   .example-card {
@@ -37,7 +51,6 @@ mat-grid-tile {
 
 .dados-conta-container {
   height: 50%;
-  display: block;
   vertical-align: top;
 }
 
@@ -58,13 +71,9 @@ mat-grid-tile {
 
 //formularios
 
-.formulario {
-  width: 50%;
-  height: auto;
-}
 
 //seçoes individuais
-
+/*
 .configuracoes {
   background-color: lightsteelblue;
 }
@@ -72,7 +81,7 @@ mat-grid-tile {
 .dados-conta {
   background-color: lightgray;
 }
-
+*/
 .dados-conta , .configuracoes{
   display: inline-block;
   height: 63.2vh;
@@ -82,6 +91,10 @@ mat-grid-tile {
 @media (min-width: 748px){
   .dados-conta , .configuracoes{
     width: 50%;
+  }
+
+  .dados-conta{
+    border-left: 1px solid lightgrey;
   }
 }
 
@@ -106,16 +119,90 @@ mat-grid-tile {
   color: #ffffff;
 }
 
-.formfield{
-  max-width: 50%;
-}
-
-.formulario {
-  margin-top: 5rem;
-  height: 80%;
-}
-
+//altura do conteudo do mat-tab
 .mat-tab-body-content {
   height: 100%;
-  overflow: auto;
+}
+
+form, mat-form-field, .container-conf {
+  width: 70%;
+  left: 50%;
+  position: relative;
+  transform: translateX(-50%);
+}
+
+form {
+  margin-top: 3rem;
+}
+
+.card-dados-cad {
+  background-color: sandybrown;
+}
+
+.card-text-container, .card-icon-container, .card-button-container {
+  display: inline-block;
+  height: 100%;
+  margin: 2rem;
+}
+
+.card-text-container {
+  width: 50%;
+  line-height: 1.5;
+  height: 100%
+}
+
+.card-icon-container {
+  height: 100%;
+  width: 5%;
+}
+
+.card-button-container {
+  height: 100%;
+  top: 50%;
+}
+
+.icon-card {
+  font-size: 3rem;
+  color: #ffffff;
+  text-align: center;
+  line-height: 1.5;
+}
+
+
+.conf-button {
+  left: 50%;
+  transform: translateX(-50%);  ;
+  padding: .4rem;
+}
+
+.card-button {
+  background-color: #ffffff;
+}
+
+.custom-box {
+
+  height: 3rem;
+  width: 100%;
+  border-radius: 3px;
+
+  &-1 {
+    border: 1px solid #c9c9c9;
+    background-color: #e8e8e8;
+  }
+
+  &-2 {
+    border: 1px solid #96e7ff;
+    background-color: #d4f5ff;
+  }
+}
+
+.custom-box-1-de-2 {
+  height: 100%;
+  width: 50%;
+  display: inline-block;
+  text-align: left;
+}
+
+.centered-text {
+  text-align: center;
 }
