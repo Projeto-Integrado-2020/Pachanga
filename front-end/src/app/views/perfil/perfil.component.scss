@@ -4,6 +4,11 @@
   box-sizing: border-box;
   border: 0;
 }
+
+.main-container {
+  max-width: 1140px;
+  margin: 0 auto;
+}
 //centralizar
 .title, .centered-text {
   top: 50%;
@@ -92,8 +97,12 @@
 }
 
 @media (min-width: 748px){
-  .dados-conta , .configuracoes{
-    width: 50%;
+  .dados-conta {
+    width: 30%;
+  }
+
+  .configuracoes {
+    width: 70%;
   }
 
   .dados-conta{
@@ -143,8 +152,10 @@ form {
   align-items: center;
   /* center items vertically */
   justify-content: space-between;
-  padding-left: 2rem;
-  padding-right: 2rem;
+  padding-left: .5rem;
+  padding-right: .5rem;
+
+  width: 100%;
 }
 
 .card-text-container, .card-icon-container, .card-button-container {
@@ -173,7 +184,8 @@ form {
 
 .card-button {
   background-color: #ff9023;
-  color: #ffffff
+  color: #ffffff;
+  transform: translateX(-50%);
 }
 
 .icon-card {
