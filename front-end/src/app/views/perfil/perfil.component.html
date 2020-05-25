@@ -1,23 +1,23 @@
 <div class="main-container">
 
   <div class="minha-conta">
-      <h1 class="mat-title title">Minha Conta</h1>
+      <h1 class="mat-title title">{{'PERFIL.MYACC' | translate}}</h1>
   </div>
 
   <div class="dados-conta">
     <mat-tab-group mat-align-tabs="center">
-      <mat-tab label="Dados da Conta">
+      <mat-tab label="{{'PERFIL.ACCINFO' | translate}}">
         <form class="example-form">
           <p>
             <mat-form-field class="example-full-width">
-              <mat-label>Nome</mat-label>
+              <mat-label>{{'PERFIL.NAME' | translate}}</mat-label>
               <input matInput placeholder="" value="Fulano (Hard-coded)">
             </mat-form-field>
           </p>
 
           <p>
             <mat-form-field class="example-full-width">
-              <mat-label>Senha</mat-label>
+              <mat-label>{{'PERFIL.PASSWORD' | translate}}</mat-label>
               <input matInput placeholder="" value="">
             </mat-form-field>
           </p>
@@ -27,25 +27,25 @@
   </div>
   <div class="configuracoes">
       <mat-tab-group mat-align-tabs="center">
-          <mat-tab label="Organizador">
+          <mat-tab label="{{'PERFIL.PLANNER' | translate}}">
             <div class="container-conf">
-              <h1 class="mat-title margin-tops">Configurações do Organizador</h1>
-              <h5 class="margin-tops">Dados Cadastrais</h5>  
+              <h1 class="mat-title margin-tops">{{'PERFIL.PLANNERCONF' | translate}}</h1>
+              <h5 class="margin-tops">{{'PERFIL.REGINFO' | translate}}</h5>  
               <mat-card class="card-dados-cad margin-tops">
                 <div class="card-icon-container">
                   <mat-icon class="icon-card">assignment</mat-icon>
                 </div>
                 <div class="card-text-container">
                   <p class="card-text">
-                    Para publicar eventos pagos, faça seu cadastro. É rápido, basta inserir seus dados.
+                    {{'PERFIL.TOPUBLISH' | translate}}
                   </p>
                 </div>
                 <div class="card-button-container">
-                  <button mat-stroked-button class="conf-button card-button">Cadastrar Dados</button>
+                  <button mat-stroked-button class="conf-button card-button">{{'PERFIL.ENTERINFO' | translate}}</button>
                 </div>
               </mat-card>
 
-              <h5 class="margin-tops">Conta de Repasse</h5> 
+              <h5 class="margin-tops">{{'PERFIL.REPASSINGACC' | translate}}</h5> 
               
 
               <div class="custom-box custom-box-1 margin-tops">
@@ -54,27 +54,27 @@
                 </h5>
               </div>
 
-              <button mat-raised-button color="primary" class="margin-tops conf-button">Cadastrar Conta</button>
+              <button mat-raised-button color="primary" class="margin-tops conf-button">{{'PERFIL.ENTERACC' | translate}}</button>
 
               <mat-divider class="margin-tops"></mat-divider>
 
-              <h5 class="margin-tops">Dados da Nota fiscal</h5> 
+              <h5 class="margin-tops">{{'PERFIL.INVOICEINFO' | translate}}</h5> 
 
               <div class="custom-box custom-box-2 margin-tops">
                 <p class="centered-text">
-                  Para alterar os dados de nota fiscal, atualize seu cadastro, <a>clicando aqui</a>.
+                  <a>{{'PERFIL.UPDATEINVOICEINFO' | translate}}</a>
                 </p>
               </div>
 
               <div class="custom-box custom-box-1 margin-tops">
                 <div class="custom-box-1-de-2">
                   <h5 class="centered-vertical margin-left">
-                    Nome
+                    {{'PERFIL.NAME' | translate}}
                   </h5>
                 </div>
                 <div class="custom-box-1-de-2">
                   <h5 class="centered-vertical margin-left">
-                    Endereço
+                    {{'PERFIL.ADDRESS' | translate}}
                   </h5>
                 </div>
 
@@ -84,19 +84,19 @@
 
                 <mat-divider class="margin-tops"></mat-divider>
 
-                <h5 class="margin-tops">Compartilhar Eventos da Minha Contal</h5> 
+                <h5 class="margin-tops">{{'PERFIL.SHAREEVENTS' | translate}}</h5> 
 
-                <button mat-raised-button color="primary" class="margin-tops conf-button">Convidar Colaborador</button>
+                <button mat-raised-button color="primary" class="margin-tops conf-button">{{'PERFIL.INVITECOLLAB' | translate}}</button>
 
                 <div class="custom-box custom-box-1 margin-tops">
                   <div class="custom-box-1-de-3">
                     <h5 class="centered-vertical margin-left">
-                      Colaborador
+                      {{'PERFIL.COLLAB' | translate}}
                     </h5>
                   </div>
                   <div class="custom-box-1-de-3">
                     <h5 class="centered-vertical margin-left">
-                      Acesso
+                      {{'PERFIL.ACCESS' | translate}}
                     </h5>
                   </div>
                   <div class="custom-box-1-de-3">
@@ -116,22 +116,22 @@
 
                 <mat-divider class="margin-tops"></mat-divider>
 
-                <h5 class="margin-tops">Preferências de notificação</h5>
+                <h5 class="margin-tops">{{'PERFIL.NOTIFPREFER' | translate}}</h5>
 
                 <div class="margin-tops">
-                  <mat-checkbox>Notificar-me cada vez que um participante realizar uma compra</mat-checkbox>
-                  <mat-checkbox>Quero receber as novidades da Sympla por e-mail.</mat-checkbox>
+                  <mat-checkbox>{{'PERFIL.NOTIFY' | translate}}</mat-checkbox>
+                  <mat-checkbox>{{'PERFIL.EMAILNEWS' | translate}}</mat-checkbox>
                 </div>
               </div>
             </div>
           </mat-tab>
-          <mat-tab label="Comprador">
-            <h1 class="mat-title margin-tops">Dados de Compra</h1>
-            <button mat-raised-button color="primary" class="margin-tops right-button">Editar Dados</button>
+          <mat-tab label="{{'PERFIL.PURCHASES' | translate}}">
+            <h1 class="mat-title margin-tops">{{'PERFIL.PURCHASINGINFO' | translate}}</h1>
+            <button mat-raised-button color="primary" class="margin-tops right-button">{{'PERFIL.EDITINFO' | translate}}</button>
             <form class="example-form">
               <p>
                 <mat-form-field class="example-full-width">
-                  <mat-label>Nome Impresso no Cartão</mat-label>
+                  <mat-label>{{'PERFIL.NAMEONCARD' | translate}}</mat-label>
                   <input matInput disabled  placeholder="" value="">
                 </mat-form-field>
               </p>
@@ -144,7 +144,7 @@
               </p>
               <p>
                 <mat-form-field>
-                  <mat-label>Data de Nascimento</mat-label>
+                  <mat-label>{{'PERFIL.BIRTHDAY' | translate}}</mat-label>
                   <input (click)="picker.open()" disabled  #dtnascCadastro matInput required formControlName="dtnasc" maxlength="10" [matDatepicker]="picker">
                   <mat-datepicker-toggle matSuffix [for]="picker" ></mat-datepicker-toggle>
                   <mat-datepicker #picker ></mat-datepicker>
@@ -152,49 +152,49 @@
               </p>
               <p>
                 <mat-form-field class="example-full-width">
-                  <mat-label>Telefone</mat-label>
+                  <mat-label>{{'PERFIL.TELEPHONE' | translate}}</mat-label>
                   <input matInput disabled  placeholder="" value="">
                 </mat-form-field>
               </p>
               <p>
                 <mat-form-field class="example-full-width">
-                  <mat-label>CEP</mat-label>
+                  <mat-label>{{'PERFIL.ZIPS' | translate}}</mat-label>
                   <input matInput disabled  placeholder="" value="">
                 </mat-form-field>
               </p>
               <p>
                 <mat-form-field class="example-full-width">
-                  <mat-label>Endereço</mat-label>
+                  <mat-label>{{'PERFIL.ADDRESS' | translate}}</mat-label>
                   <input matInput disabled  placeholder="" value="">
                 </mat-form-field>
               </p>
               <p>
                 <mat-form-field class="example-full-width">
-                  <mat-label>Bairro</mat-label>
+                  <mat-label>{{'PERFIL.DISTRICT' | translate}}</mat-label>
                   <input matInput disabled  placeholder="" value="">
                 </mat-form-field>
               </p>
               <p>
                 <mat-form-field class="example-full-width">
-                  <mat-label>Número</mat-label>
+                  <mat-label>{{'PERFIL.NUMBER' | translate}}</mat-label>
                   <input matInput disabled  placeholder="" value="">
                 </mat-form-field>
               </p>
               <p>
                 <mat-form-field class="example-full-width">
-                  <mat-label>Complemento</mat-label>
+                  <mat-label>{{'PERFIL.ADDRESS2' | translate}}</mat-label>
                   <input matInput disabled  placeholder="" value="">
                 </mat-form-field>
               </p>
               <p>
                 <mat-form-field class="example-full-width">
-                  <mat-label>Cidade</mat-label>
+                  <mat-label>{{'PERFIL.CITY' | translate}}</mat-label>
                   <input matInput disabled  placeholder="" value="">
                 </mat-form-field>
               </p>
               <p>
                 <mat-form-field class="example-full-width">
-                  <mat-label>Estado</mat-label>
+                  <mat-label>{{'PERFIL.STATE' | translate}}</mat-label>
                   <input matInput disabled  placeholder="" value="">
                 </mat-form-field>
               </p>

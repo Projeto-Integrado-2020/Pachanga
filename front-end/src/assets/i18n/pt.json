@@ -59,9 +59,40 @@
         "ERRO3": "Usuário não cadastrado."
     },
     
-    "PERFIL": {
+    "PERFIL":{
+        "MYACC": "Minha Conta",
+        "ACCINFO": "Dados da Conta",
         "NAME": "Nome",
-        "PASSWORD": "Senha"
+        "PASSWORD": "Senha",
+        "PLANNER": "Organizador",
+        "PLANNERCONF": "Configurações do Organizador",
+        "REGINFO": "Dados Cadastrais",
+        "TOPUBLISH": "Para publicar eventos pagos, faça seu cadastro. É rápido, basta inserir seus dados.",
+        "ENTERINFO": "Cadastrar Dados",
+        "REPASSINGACC": "Conta de Repasse",
+        "ENTERACC":"Cadastrar Conta",
+        "INVOICEINFO": "Dados da Nota Fiscal",
+        "UPDATEINVOICEINFO": "Para alterar os dados de nota fiscal, atualize seu cadastro, clicando aqui.",
+        "ADDRESS": "Endereço",
+        "SHAREEVENTS": "Compartilhar Eventos da Minha Conta",
+        "INVITECOLLAB": "Convidar Colaborador",
+        "COLLAB": "Colaborador",
+        "ACCESS": "Acesso",
+        "NOTIFPREFER":"Preferências de Notificação",
+        "NOTIFY":"Notificar-me cada vez que um participante realizar uma compra",
+        "EMAILNEWS":"Quero receber as novidades da Sympla por e-mail.",
+        "PURCHASES": "Comprador",
+        "PURCHASINGINFO": "Informações de Compra",
+        "EDITINFO":"Editar Dados",
+        "NAMEONCARD":"Nome no Cartão",
+        "BIRTHDAY":"Data de Nascimento",
+        "TELEPHONE":"Telefone",
+        "ZIP":"CEP",
+        "DISTRICT":"Bairro",
+        "NUMBER": "Número",
+        "ADDRESS2": "Complemento",
+        "CITY": "Cidade",
+        "STATE": "Estado"
     },
 
     "INFOCOMPLETE": {
