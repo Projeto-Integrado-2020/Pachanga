@@ -12,7 +12,7 @@ import { LoginService } from 'src/app/services/loginService/login.service';
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss'],
-  providers: [LoginComponent]
+  providers: [LoginComponent],
 })
 export class NavbarComponent implements OnInit {
 

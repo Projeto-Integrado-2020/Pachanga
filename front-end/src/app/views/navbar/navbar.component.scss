@@ -1,3 +1,5 @@
+@import "../material/paleta.scss";
+
 #logo {
   font-family: 'Pacifico', cursive;
   font-size: 2rem;
@@ -23,6 +25,10 @@ a{
 mat-toolbar{
   position: fixed;
   z-index: 1001 !important; // Essa gambiarra é o único workaround possível pra resolver o problema dos elementos do mat-tab passando por cima da mat-toolbar. Em qualquer outro contexto essa intervenção seria considerada má-prática.
+}
+
+.mat-toolbar.mat-primary {
+
 }
 
 #en-btn{
@@ -62,15 +68,28 @@ mat-toolbar{
 }
 
 .mat-toolbar.mat-primary {
-  position: sticky;
-  top: 0;
-  z-index: 1;
+  background-color: $color-primary;
 }
 
-.mat-toolbar{
-  background-color: #3f51b5 !important;
+.mat-menu-panel, mat-menu-item, mat-menu, .no-mw {
+  overflow: hidden !important;
+  max-width: none !important;
 }
 
-mat-menu-item  {
-  width: 100%;
+::ng-deep .my-menu, mat-menu-item {
+  width: 10px;
+}
+
+.mat-menu-panel.my-menu {
+  max-width: none !important;
+}
+
+.org-btn{
+  background-color: $color-tertiary;
+  color: #ffffff !important;
+}
+
+.grn-btn {
+  background-color: $color-secondary;
+  color: #ffffff;
 }
