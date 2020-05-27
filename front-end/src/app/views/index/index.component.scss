@@ -1,5 +1,6 @@
 @import "../material/paleta.scss";
 
+
 h1{
     color: $color-primary;
     font-size: 5rem;
@@ -23,3 +24,16 @@ h1{
       font-size: 2rem;
     }
   }
+
+html {
+  background-color: black;
+}
+
+mat-grid-list {
+  opacity: 1;
+}
+
+#video-cover {
+  min-height: 100%;
+  min-width: 100%;
+}
