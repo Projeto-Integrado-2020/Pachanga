@@ -67,9 +67,6 @@ mat-toolbar{
   background: inherit;
 }
 
-.mat-toolbar.mat-primary {
-  background-color: $color-primary;
-}
 
 .mat-menu-panel, mat-menu-item, mat-menu, .no-mw {
   overflow: hidden !important;
@@ -84,12 +81,28 @@ mat-toolbar{
   max-width: none !important;
 }
 
+//CORES DA NAVBAR!
+
+//botao laranja
 .org-btn{
   background-color: $color-tertiary;
-  color: #ffffff !important;
+  color: #ffffff ;
 }
 
+//botao verde
 .grn-btn {
   background-color: $color-secondary;
   color: #ffffff;
+}
+
+//botao roxo
+
+.prp-btn {
+  background-color: $color-primary;
+  color: #ffffff;
+}
+
+//COR DA NAVBAR
+.mat-toolbar.mat-primary {
+  background: linear-gradient(197deg, $color-secondary 0%, $color-tertiary 47%, $color-primary 100%);
 }
