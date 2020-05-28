@@ -1,3 +1,11 @@
+.info-complete{
+    display: block;
+    margin-top: 64px;
+    position: fixed;
+    width: 100%;
+    z-index: 1;
+}
+
 .message {
     display: block;
     height: auto;
