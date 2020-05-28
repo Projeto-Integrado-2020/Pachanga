@@ -26,7 +26,7 @@
             </mat-form-field>
             <mat-form-field class="example-full-width">
                 <mat-label>{{'EDIT.NEWEMAIL' | translate}}</mat-label>
-                <input #nome ng-class="{ f.email.errors }" matInput required formControlName="email">
+                <input #email ng-class="{ f.email.errors }" matInput required formControlName="email">
                 <mat-error *ngIf="f.email.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
                 <mat-error *ngIf="f.email.errors?.email">{{'FORMERRORS.EMAIL' | translate}}</mat-error>
             </mat-form-field>
@@ -47,7 +47,7 @@
             <mat-form-field class="example-full-width">
                 <mat-label>{{'EDIT.OLDDTNASC' | translate}}</mat-label>
                 <input formControlName="dtNascAntiga" *ngIf="!loginService.usuarioInfo.dtNasc" required matInput value="{{'PERFIL.NOTINFORMED' | translate}}">
-                <input formControlName="dtNascAntiga" *ngIf="loginService.usuarioInfo.dtNasc" required matInput value="{{ loginService.usuarioInfo.dtNasc }}">
+                <input formControlName="dtNascAntiga" *ngIf="loginService.usuarioInfo.dtNasc" required matInput value="{{ loginService.usuarioInfo.dtNasc.slice(8, 10) + '/' + loginService.usuarioInfo.dtNasc.slice(5, 7) + '/' + loginService.usuarioInfo.dtNasc.slice(0, 4)}}">
             </mat-form-field>
             <mat-form-field class="example-full-width">
                 <mat-label>{{'EDIT.NEWDTNASC' | translate}}</mat-label>

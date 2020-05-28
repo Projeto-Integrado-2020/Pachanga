@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { EditDialogComponent } from './edit-dialog.component';
+import { SuccessDialogComponent } from './success-dialog.component';
 
 import { CustomMaterialModule } from '../material/material.module';
 
@@ -10,24 +10,20 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 import {MAT_DIALOG_DATA} from '@angular/material';
 
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
 }
 
-describe('EditDialogComponent', () => {
-  let component: EditDialogComponent;
-  let fixture: ComponentFixture<EditDialogComponent>;
+describe('SuccessDialogComponent', () => {
+  let component: SuccessDialogComponent;
+  let fixture: ComponentFixture<SuccessDialogComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ EditDialogComponent ],
+      declarations: [ SuccessDialogComponent ],
       imports: [
       HttpClientModule,
       CustomMaterialModule,
-      FormsModule,
-      ReactiveFormsModule,
       TranslateModule.forRoot({
         loader: {
           provide: TranslateLoader,
@@ -36,14 +32,14 @@ describe('EditDialogComponent', () => {
         }
       })],
       providers: [
-        { provide: MAT_DIALOG_DATA, useValue: {erro: '1'} },
+        { provide: MAT_DIALOG_DATA, useValue: {message: '1'} },
     ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(EditDialogComponent);
+    fixture = TestBed.createComponent(SuccessDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

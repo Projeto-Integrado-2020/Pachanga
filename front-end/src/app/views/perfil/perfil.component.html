@@ -36,7 +36,7 @@
             <mat-form-field class="example-full-width">
               <mat-label>{{'PERFIL.BIRTHDAY' | translate}}</mat-label>
               <input formControlName="dtNasc" *ngIf="!loginService.usuarioInfo.dtNasc" required matInput value="{{'PERFIL.NOTINFORMED' | translate}}">
-              <input formControlName="dtNasc" *ngIf="loginService.usuarioInfo.dtNasc" required matInput value="{{ userDtNasc }}">
+              <input formControlName="dtNasc" *ngIf="loginService.usuarioInfo.dtNasc" required matInput value="{{ loginService.usuarioInfo.dtNasc.slice(8, 10) + '/' + loginService.usuarioInfo.dtNasc.slice(5, 7) + '/' + loginService.usuarioInfo.dtNasc.slice(0, 4)}}">
             </mat-form-field>
           </p>
           <p>

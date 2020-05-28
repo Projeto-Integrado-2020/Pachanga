@@ -5,7 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ErroDialogComponent } from '../../views/erro-dialog/erro-dialog.component';
 import { LogService } from '../logging/log.service';
 import { take, catchError } from 'rxjs/operators';
-import { throwError } from 'rxjs';
+import { throwError, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -15,9 +15,14 @@ export class EditAccountService {
   private readonly urlEdit = `${environment.URL_BACK}usuario/atualizacao`;
 
   constructor(private http: HttpClient, public logService: LogService, public dialog: MatDialog) { }
-  
+
   atualizar(usuarioAtualizado, userInfo) {
-    
+    if (usuarioAtualizado.nomeUser === userInfo.nomeUser && usuarioAtualizado.sexo === userInfo.sexo &&
+        usuarioAtualizado.dtNasc === userInfo.dtNasc && (usuarioAtualizado.emailNovo === null ||
+        usuarioAtualizado.emailNovo === userInfo.email) && usuarioAtualizado.senhaNova === null) {
+        this.openErrorDialog(101);
+        return new Observable<never>();
+    }
     return this.http.post(this.urlEdit, usuarioAtualizado).pipe(
       take(1),
       catchError(error => {

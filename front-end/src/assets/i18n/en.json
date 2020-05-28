@@ -60,7 +60,13 @@
         "ERRO3": "User not registered.",
         "ERRO4": "New password must be different from the current.",
         "ERRO5": "User not found",
+        "ERRO6": "Incorrect password",
         "ERRO101": "Nothing to modify"
+    },
+
+    "SUCCESS": {
+        "TITULO": "Success!",
+        "SUCCESS1": "Your data has been successfully changed"
     },
 
     "PERFIL":{

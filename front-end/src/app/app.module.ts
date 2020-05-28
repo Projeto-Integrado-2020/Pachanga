@@ -40,6 +40,7 @@ import { LogService } from './services/logging/log.service';
 import { InfoCompleteComponent } from './views/info-complete/info-complete.component';
 import { EditAccountService } from './services/editAccountService/edit-account.service';
 import { EditDialogComponent } from './views/edit-dialog/edit-dialog.component';
+import { SuccessDialogComponent } from './views/success-dialog/success-dialog.component';
 
 const config = new AuthServiceConfig([
   {
@@ -68,12 +69,14 @@ export function provideConfig() {
     ErroDialogComponent,
     InfoCompleteComponent,
     EditDialogComponent,
+    SuccessDialogComponent,
   ],
   entryComponents: [
     LoginComponent,
     CadastroComponent,
     ErroDialogComponent,
-    EditDialogComponent
+    EditDialogComponent,
+    SuccessDialogComponent
   ],
   imports: [
     BrowserModule,

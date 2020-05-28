@@ -4,6 +4,7 @@ import { LoginService } from '../../services/loginService/login.service';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { MustMatch } from '../utils/matchPassword';
 import { EditAccountService } from 'src/app/services/editAccountService/edit-account.service';
+import { SuccessDialogComponent } from '../success-dialog/success-dialog.component';
 
 @Component({
   selector: 'app-edit-dialog',
@@ -14,6 +15,7 @@ export class EditDialogComponent implements OnInit {
 
   public campo: string;
   public form: FormGroup;
+  public modJson;
 
   constructor(@Inject(MAT_DIALOG_DATA) data, private loginService: LoginService,
               private formBuilder: FormBuilder, private editService: EditAccountService,
@@ -24,33 +26,36 @@ export class EditDialogComponent implements OnInit {
   get f() { return this.form.controls; }
 
   ngOnInit() {
+
+    this.modJson = JSON.parse(JSON.stringify(this.loginService.usuarioInfo));
+
     switch (this.campo) {
-      case 'nome': 
+      case 'nome':
         this.form = this.formBuilder.group({
           nomeAntigo: new FormControl({value: '', disabled: true}),
           nome: new FormControl('', Validators.required),
-        }); 
+        });
         break;
-      case 'email': 
+      case 'email':
         this.form = this.formBuilder.group({
           emailAntigo: new FormControl({value: '', disabled: true}),
           email: new FormControl('', [Validators.required, Validators.email]),
           senha: new FormControl('', Validators.required)
-        }); 
+        });
         break;
-      case 'dtNasc': 
+      case 'dtNasc':
         this.form = this.formBuilder.group({
           dtNascAntiga: new FormControl({value: '', disabled: true}),
           dtNasc: new FormControl('', Validators.required),
-        }); 
+        });
         break;
-      case 'sexo': 
+      case 'sexo':
         this.form = this.formBuilder.group({
           sexoAntigo: new FormControl({value: '', disabled: true}),
           sexo: new FormControl('', Validators.required),
-        }); 
+        });
         break;
-      case 'senha': 
+      case 'senha':
         this.form = this.formBuilder.group({
           senhaAntiga: new FormControl('', Validators.required),
           senha: new FormControl('', [Validators.required,
@@ -64,41 +69,44 @@ export class EditDialogComponent implements OnInit {
   }
 
   salvarNome(nome: string) {
-    let modJson = this.loginService.getusuarioInfo();
-    modJson.nomeUser = nome;
-    this.callService(modJson);
+    this.modJson.nomeUser = nome;
+    this.callService();
   }
 
   salvarEmail(senha: string, email: string) {
-    let modJson = this.loginService.getusuarioInfo();
-    modJson.emailNovo = email;
-    modJson.senha = senha;
-    this.callService(modJson);
+    this.modJson.emailNovo = email;
+    this.modJson.senha = senha;
+    this.callService();
   }
 
   salvarDtNasc(dtNasc: string) {
-    let modJson = this.loginService.getusuarioInfo();
-    modJson.dtNasc = dtNasc.slice(6, 10) + '-' + dtNasc.slice(3, 5) + '-' + dtNasc.slice(0, 2);
-    this.callService(modJson);
+    this.modJson.dtNasc = dtNasc.slice(6, 10) + '-' + dtNasc.slice(3, 5) + '-' + dtNasc.slice(0, 2);
+    this.callService();
   }
 
   salvarSexo(sexo: string) {
-    let modJson = this.loginService.getusuarioInfo();
-    modJson.sexo = sexo;
-    this.callService(modJson);
+    this.modJson.sexo = sexo;
+    this.callService();
   }
 
   salvarSenha(senhaAntiga: string, senha: string) {
-    let modJson = this.loginService.getusuarioInfo();
-    modJson.senhaAntiga = senhaAntiga;
-    modJson.senha = senha;
-    this.callService(modJson);
+    this.modJson.senhaNova = senha;
+    this.modJson.senha = senhaAntiga;
+    this.callService();
   }
 
-  callService(modJson){
-    this.editService.atualizar(modJson, this.loginService.usuarioInfo).subscribe(resp => {
+  callService() {
+    this.editService.atualizar(this.modJson, this.loginService.usuarioInfo).subscribe(resp => {
       this.loginService.setusuarioInfo(resp);
       this.modal.closeAll();
+      this.openDialogSuccess('1');
+    });
+  }
+
+  openDialogSuccess(message: string) {
+    this.modal.open(SuccessDialogComponent, {
+      width: '20rem',
+      data: {message}
     });
   }
 

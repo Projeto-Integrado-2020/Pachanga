@@ -64,6 +64,7 @@ export class LoginService {
   }
 
   setusuarioInfo(json) {
+    json.dtNasc = json.dtNasc.slice(0, 10);
     this.usuarioInfo = json;
     localStorage.setItem('usuarioInfo', JSON.stringify(this.usuarioInfo));
   }

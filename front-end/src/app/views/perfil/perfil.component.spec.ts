@@ -8,6 +8,9 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { HttpLoaderFactory } from '../cadastro/cadastro.component.spec';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { LoginService } from 'src/app/services/loginService/login.service';
+
 describe('PerfilComponent', () => {
   let component: PerfilComponent;
   let fixture: ComponentFixture<PerfilComponent>;
@@ -18,6 +21,8 @@ describe('PerfilComponent', () => {
       declarations: [ PerfilComponent ],
       imports: [
         BrowserAnimationsModule,
+        FormsModule,
+        ReactiveFormsModule,
         CustomMaterialModule,
         HttpClientModule,
         TranslateModule.forRoot({
@@ -27,6 +32,9 @@ describe('PerfilComponent', () => {
             deps: [HttpClient]
           }
         }),
+      ],
+      providers: [
+        { provide: LoginService, useValue: {usuarioInfo: {nomeUser: 'Teste'}} },
       ]
     })
     .compileComponents();

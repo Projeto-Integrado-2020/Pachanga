@@ -18,7 +18,7 @@ export class ErroDialogComponent implements OnInit {
     }
 
   ngOnInit() {
-    switch (this.erro.toString()){
+    switch (this.erro.toString()) {
       case '1': this.erro = this.translate.instant('ERRO.ERRO1'); break;
       case '2': this.erro = this.translate.instant('ERRO.ERRO2'); break;
       case '3': this.erro = this.translate.instant('ERRO.ERRO3'); break;
