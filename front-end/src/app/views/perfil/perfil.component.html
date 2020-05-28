@@ -145,7 +145,7 @@
               <p>
                 <mat-form-field>
                   <mat-label>{{'PERFIL.BIRTHDAY' | translate}}</mat-label>
-                  <input (click)="picker.open()" disabled  #dtnascCadastro matInput required formControlName="dtnasc" maxlength="10" [matDatepicker]="picker">
+                  <input (click)="picker.open()" disabled  #dtnascCadastro matInput required maxlength="10" [matDatepicker]="picker">
                   <mat-datepicker-toggle matSuffix [for]="picker" ></mat-datepicker-toggle>
                   <mat-datepicker #picker ></mat-datepicker>
               </mat-form-field>
