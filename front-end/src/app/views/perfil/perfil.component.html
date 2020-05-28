@@ -7,20 +7,72 @@
   <div class="dados-conta">
     <mat-tab-group mat-align-tabs="center">
       <mat-tab label="{{'PERFIL.ACCINFO' | translate}}">
-        <form class="example-form">
+        <form [formGroup]="form" class="form_edit">
           <p>
             <mat-form-field class="example-full-width">
               <mat-label>{{'PERFIL.NAME' | translate}}</mat-label>
-              <input matInput placeholder="" value="Fulano (Hard-coded)">
+              <input formControlName="nome" required matInput value="{{ loginService.usuarioInfo.nomeUser }}">
             </mat-form-field>
+          </p>
+          <p>
+            <button (click)="openDialogEdit('nome')">
+              <mat-icon>edit</mat-icon>
+            </button>
+          </p>
+
+          <p *ngIf="loginService.usuarioInfo.tipConta == 'P'">
+            <mat-form-field class="example-full-width">
+              <mat-label>{{'PERFIL.EMAIL' | translate}}</mat-label>
+              <input formControlName="email" required matInput value="{{ loginService.usuarioInfo.email }}">
+            </mat-form-field>
+          </p>
+          <p *ngIf="loginService.usuarioInfo.tipConta == 'P'">
+            <button (click)="openDialogEdit('email')">
+              <mat-icon>edit</mat-icon>
+            </button>
           </p>
 
           <p>
             <mat-form-field class="example-full-width">
-              <mat-label>{{'PERFIL.PASSWORD' | translate}}</mat-label>
-              <input matInput placeholder="" value="">
+              <mat-label>{{'PERFIL.BIRTHDAY' | translate}}</mat-label>
+              <input formControlName="dtNasc" *ngIf="!loginService.usuarioInfo.dtNasc" required matInput value="{{'PERFIL.NOTINFORMED' | translate}}">
+              <input formControlName="dtNasc" *ngIf="loginService.usuarioInfo.dtNasc" required matInput value="{{ userDtNasc }}">
             </mat-form-field>
           </p>
+          <p>
+            <button (click)="openDialogEdit('dtNasc')">
+              <mat-icon>edit</mat-icon>
+            </button>
+          </p>
+
+          <p>
+            <mat-form-field class="example-full-width">
+              <mat-label>{{'PERFIL.SEX' | translate}}</mat-label>
+              <input formControlName="sexo" *ngIf="!loginService.usuarioInfo.sexo" required matInput value="{{'PERFIL.NOTINFORMED' | translate}}">
+              <input formControlName="sexo" *ngIf="loginService.usuarioInfo.sexo && loginService.usuarioInfo.sexo == 'M'" required matInput value="{{'SEXO.MASC' | translate}}">
+              <input formControlName="sexo" *ngIf="loginService.usuarioInfo.sexo && loginService.usuarioInfo.sexo == 'F'" required matInput value="{{'SEXO.FEM' | translate}}">
+              <input formControlName="sexo" *ngIf="loginService.usuarioInfo.sexo && loginService.usuarioInfo.sexo == 'T'" required matInput value="{{'SEXO.TRANS' | translate}}">
+              <input formControlName="sexo" *ngIf="loginService.usuarioInfo.sexo && loginService.usuarioInfo.sexo == 'O'" required matInput value="{{'SEXO.OUTRO' | translate}}">
+            </mat-form-field>
+          </p>
+          <p>
+            <button (click)="openDialogEdit('sexo')">
+              <mat-icon>edit</mat-icon>
+            </button>
+          </p>
+
+          <p *ngIf="loginService.usuarioInfo.tipConta == 'P'">
+            <mat-form-field class="example-full-width">
+              <mat-label>{{'PERFIL.PASSWORD' | translate}}</mat-label>
+              <input formControlName="senha" required matInput value="********">
+            </mat-form-field>
+          </p>
+          <p *ngIf="loginService.usuarioInfo.tipConta == 'P'">
+            <button (click)="openDialogEdit('senha')">
+              <mat-icon>edit</mat-icon>
+            </button>
+          </p>
+
         </form>
       </mat-tab>
     </mat-tab-group>
@@ -145,7 +197,7 @@
               <p>
                 <mat-form-field>
                   <mat-label>{{'PERFIL.BIRTHDAY' | translate}}</mat-label>
-                  <input (click)="picker.open()" disabled  #dtnascCadastro matInput required formControlName="dtnasc" maxlength="10" [matDatepicker]="picker">
+                  <input (click)="picker.open()" disabled  #dtnascCadastro matInput required maxlength="10" [matDatepicker]="picker">
                   <mat-datepicker-toggle matSuffix [for]="picker" ></mat-datepicker-toggle>
                   <mat-datepicker #picker ></mat-datepicker>
               </mat-form-field>

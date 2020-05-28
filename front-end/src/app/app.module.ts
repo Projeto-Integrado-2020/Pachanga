@@ -38,6 +38,8 @@ import { LoginService } from './services/loginService/login.service';
 import { ErroDialogComponent } from './views/erro-dialog/erro-dialog.component';
 import { LogService } from './services/logging/log.service';
 import { InfoCompleteComponent } from './views/info-complete/info-complete.component';
+import { EditAccountService } from './services/editAccountService/edit-account.service';
+import { EditDialogComponent } from './views/edit-dialog/edit-dialog.component';
 
 const config = new AuthServiceConfig([
   {
@@ -65,11 +67,13 @@ export function provideConfig() {
     PerfilComponent,
     ErroDialogComponent,
     InfoCompleteComponent,
+    EditDialogComponent,
   ],
   entryComponents: [
     LoginComponent,
     CadastroComponent,
-    ErroDialogComponent
+    ErroDialogComponent,
+    EditDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -101,6 +105,7 @@ export function provideConfig() {
     },
     AuthService,
     LoginService,
+    EditAccountService,
     AuthGuard,
     LogService
   ],

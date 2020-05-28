@@ -1,0 +1,115 @@
+<div *ngIf="campo == 'nome'">
+    <h1 mat-dialog-title>{{'EDIT.ALTNAME' | translate}}</h1>
+    <div mat-dialog-content>
+        <form [formGroup]="form" class="example-form" (submit)="salvarNome(nome.value)">
+            <mat-form-field class="example-full-width">
+                <mat-label>{{'EDIT.OLDNAME' | translate}}</mat-label>
+                <input matInput required formControlName="nomeAntigo" value="{{ loginService.usuarioInfo.nomeUser }}">
+            </mat-form-field>
+            <mat-form-field class="example-full-width">
+                <mat-label>{{'EDIT.NEWNAME' | translate}}</mat-label>
+                <input #nome ng-class="{ f.nome.errors }" matInput required formControlName="nome">
+                <mat-error *ngIf="f.nome.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
+            </mat-form-field>
+            <button [disabled]="!form.valid" class="button-index" mat-raised-button color="accent">{{'EDIT.SAVE' | translate}}</button>
+        </form>
+    </div>
+</div>
+
+<div *ngIf="campo == 'email'">
+    <h1 mat-dialog-title>{{'EDIT.ALTEMAIL' | translate}}</h1>
+    <div mat-dialog-content>
+        <form [formGroup]="form" class="example-form" (submit)="salvarEmail(senhaAntiga.value, email.value)">
+            <mat-form-field class="example-full-width">
+                <mat-label>{{'EDIT.OLDEMAIL' | translate}}</mat-label>
+                <input matInput required formControlName="emailAntigo" value="{{ loginService.usuarioInfo.email }}">
+            </mat-form-field>
+            <mat-form-field class="example-full-width">
+                <mat-label>{{'EDIT.NEWEMAIL' | translate}}</mat-label>
+                <input #nome ng-class="{ f.email.errors }" matInput required formControlName="email">
+                <mat-error *ngIf="f.email.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
+                <mat-error *ngIf="f.email.errors?.email">{{'FORMERRORS.EMAIL' | translate}}</mat-error>
+            </mat-form-field>
+            <mat-form-field class="example-full-width">
+                <mat-label>{{'CADASTRO.SENHA' | translate}}</mat-label>
+                <input ng-class="{ f.senha.errors }" required #senhaAntiga matInput required type="password" formControlName="senha">
+                <mat-error *ngIf="f.senha.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
+            </mat-form-field>
+            <button [disabled]="!form.valid" class="button-index" mat-raised-button color="accent">{{'EDIT.SAVE' | translate}}</button>
+        </form>
+    </div>
+</div>
+
+<div *ngIf="campo == 'dtNasc'">
+    <h1 mat-dialog-title>{{'EDIT.ALTDTNASC' | translate}}</h1>
+    <div mat-dialog-content>
+        <form [formGroup]="form" class="example-form" (submit)="salvarDtNasc(dtNasc.value)">
+            <mat-form-field class="example-full-width">
+                <mat-label>{{'EDIT.OLDDTNASC' | translate}}</mat-label>
+                <input formControlName="dtNascAntiga" *ngIf="!loginService.usuarioInfo.dtNasc" required matInput value="{{'PERFIL.NOTINFORMED' | translate}}">
+                <input formControlName="dtNascAntiga" *ngIf="loginService.usuarioInfo.dtNasc" required matInput value="{{ loginService.usuarioInfo.dtNasc }}">
+            </mat-form-field>
+            <mat-form-field class="example-full-width">
+                <mat-label>{{'EDIT.NEWDTNASC' | translate}}</mat-label>
+                <input #dtNasc ng-class="{ f.dtNasc.errors }" (click)="picker.open()" matInput required formControlName="dtNasc" maxlength="10" [matDatepicker]="picker">
+                <mat-datepicker-toggle matSuffix [for]="picker" ></mat-datepicker-toggle>
+                <mat-datepicker #picker ></mat-datepicker>
+                <mat-error *ngIf="f.dtNasc.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
+            </mat-form-field>
+            <button [disabled]="!form.valid" class="button-index" mat-raised-button color="accent">{{'EDIT.SAVE' | translate}}</button>
+        </form>
+    </div>
+</div>
+
+<div *ngIf="campo == 'sexo'">
+    <h1 mat-dialog-title>{{'EDIT.ALTSEXO' | translate}}</h1>
+    <div mat-dialog-content>
+        <form [formGroup]="form" class="example-form" (submit)="salvarSexo(sexo.value)">
+            <mat-form-field class="example-full-width">
+                <mat-label>{{'EDIT.OLDSEXO' | translate}}</mat-label>
+                <input formControlName="sexoAntigo" *ngIf="!loginService.usuarioInfo.sexo" required matInput value="{{'PERFIL.NOTINFORMED' | translate}}">
+                <input formControlName="sexoAntigo" *ngIf="loginService.usuarioInfo.sexo && loginService.usuarioInfo.sexo == 'M'" required matInput value="{{'SEXO.MASC' | translate}}">
+                <input formControlName="sexoAntigo" *ngIf="loginService.usuarioInfo.sexo && loginService.usuarioInfo.sexo == 'F'" required matInput value="{{'SEXO.FEM' | translate}}">
+                <input formControlName="sexoAntigo" *ngIf="loginService.usuarioInfo.sexo && loginService.usuarioInfo.sexo == 'T'" required matInput value="{{'SEXO.TRANS' | translate}}">
+                <input formControlName="sexoAntigo" *ngIf="loginService.usuarioInfo.sexo && loginService.usuarioInfo.sexo == 'O'" required matInput value="{{'SEXO.OUTRO' | translate}}">
+            </mat-form-field>
+            <mat-form-field class="example-full-width">
+                <mat-label>{{'EDIT.NEWSEXO' | translate}}</mat-label>
+                <mat-select ng-class="{ f.sexo.errors }" formControlName="sexo" #sexo required>
+                    <mat-option value="M">{{"SEXO.MASC" | translate}}</mat-option>
+                    <mat-option value="F">{{"SEXO.FEM" | translate}}</mat-option>
+                    <mat-option value="T">{{"SEXO.TRANS" | translate}}</mat-option>
+                    <mat-option value="O">{{"SEXO.OUTRO" | translate}}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="f.sexo.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
+            </mat-form-field>
+            <button [disabled]="!form.valid" class="button-index" mat-raised-button color="accent">{{'EDIT.SAVE' | translate}}</button>
+        </form>
+    </div>
+</div>
+
+<div *ngIf="campo == 'senha'">
+    <h1 mat-dialog-title>{{'EDIT.ALTSENHA' | translate}}</h1>
+    <div mat-dialog-content>
+        <form [formGroup]="form" class="example-form" (submit)="salvarSenha(senhaAntiga.value, senha.value)">
+            <mat-form-field class="example-full-width">
+                <mat-label>{{'EDIT.OLDSENHA' | translate}}</mat-label>
+                <input ng-class="{ f.senhaAntiga.errors }" required #senhaAntiga matInput required type="password" formControlName="senhaAntiga">
+                <mat-error *ngIf="f.senhaAntiga.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
+            </mat-form-field>
+            <mat-form-field class="example-full-width">
+                <mat-label>{{'EDIT.NEWSENHA' | translate}}</mat-label>
+                <input ng-class="{ f.senha.errors }" #senha matInput required type="password" formControlName="senha">
+                <mat-error *ngIf="f.senha.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
+                <mat-error *ngIf="f.senha.errors?.pattern">{{'FORMERRORS.PASSPATTERN' | translate}}</mat-error>
+            </mat-form-field>
+            <mat-form-field class="example-full-width">
+                <mat-label>{{'EDIT.CONFPASS' | translate}}</mat-label>
+                <input ng-class="{ f.confirmacaoSenha.errors }" #conf_senha matInput required type="password" formControlName="confirmacaoSenha">
+                <mat-error *ngIf="f.confirmacaoSenha.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
+                <mat-error *ngIf="f.confirmacaoSenha.errors?.mustMatch">{{'FORMERRORS.MATCH' | translate}}</mat-error>
+            </mat-form-field>
+            <button [disabled]="!form.valid" class="button-index" mat-raised-button color="accent">{{'EDIT.SAVE' | translate}}</button>
+        </form>
+    </div>
+</div>

@@ -241,3 +241,15 @@ form {
   top: 1rem;
   padding: .5rem;
 }
+
+.form_edit {
+  display: block;
+}
+
+.form_edit p {
+  float: left;
+}
+
+.form_edit button {
+  cursor: pointer;
+}

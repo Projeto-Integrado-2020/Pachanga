@@ -54,9 +54,13 @@
 
     "ERRO": {
         "TITULO": "Erro",
-        "ERRO1": "Outra conta está usando esse e-mail.",
+        "ERRO0": "Ops! Algo estranho aconteceu. Por favor tente mais tarde.",
+        "ERRO1": "Outra conta está utlizando este e-mail.",
         "ERRO2": "Usuário ou senha incorretos.",
-        "ERRO3": "Usuário não cadastrado."
+        "ERRO3": "Usuário não cadastrado.",
+        "ERRO4": "Senha nova precisa ser diferente da atual.",
+        "ERRO5": "Usuário não encontrado.",
+        "ERRO101": "Nada a se alterar."
     },
     
     "PERFIL":{
@@ -92,11 +96,35 @@
         "NUMBER": "Número",
         "ADDRESS2": "Complemento",
         "CITY": "Cidade",
-        "STATE": "Estado"
+        "STATE": "Estado",
+        "SEX": "Sexo",
+        "PASSWORDCONFIRM": "Confirmar senha",
+        "NOTINFORMED": "Não Informado",
+        "EMAIL": "E-mail"
     },
 
     "INFOCOMPLETE": {
         "MESSAGE": "Ainda faltam informações para preencher em seu cadastro. Por favor clique ",
         "HERE": "aqui"
+    },
+
+    "EDIT": {
+        "OLDNAME": "Nome atual",
+        "NEWNAME": "Novo nome",
+        "OLDEMAIL": "E-mail atual",
+        "NEWEMAIL": "Novo e-mail",
+        "OLDSEXO": "Sexo atual",
+        "NEWSEXO": "Novo sexo",
+        "OLDDTNASC": "Data de nascimento atual",
+        "NEWDTNASC": "Nova data de nascimento",
+        "OLDSENHA": "Senha atual",
+        "NEWSENHA": "Nova senha",
+        "SAVE": "Salvar alterações",
+        "ALTNAME": "Alterar nome",
+        "ALTDTNASC": "Alterar data de nascimento",
+        "ALTSEXO": "Alterar sexo",
+        "ALTEMAIL": "Alterar e-mail",
+        "ALTSENHA": "Alterar senha",
+        "CONFPASS": "Confirmar nova senha"
     }
 }

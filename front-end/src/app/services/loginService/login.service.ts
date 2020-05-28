@@ -20,10 +20,9 @@ export class LoginService {
   private readonly urlLogin = `${environment.URL_BACK}usuario/login`;
   private readonly urlCadastro = `${environment.URL_BACK}usuario/cadastro`;
 
-  constructor(private http: HttpClient, public logService: LogService, public dialog: MatDialog) { }
+  constructor(private http: HttpClient, public logService: LogService, public dialog: MatDialog) {  }
 
   logar(usuario) {
-    console.log(JSON.stringify(usuario));
     return this.http.post(this.urlLogin, usuario).pipe(
       take(1),
       catchError(error => {
@@ -33,7 +32,6 @@ export class LoginService {
   }
 
   cadastrar(usuario) {
-    console.log(JSON.stringify(usuario));
     return this.http.post(this.urlCadastro, usuario).pipe(
       take(1),
       catchError(error => {

@@ -54,9 +54,13 @@
 
     "ERRO": {
         "TITULO": "Error",
+        "ERRO0": "Ops! Something strange just happened. Please try later.",
         "ERRO1": "Another account is using this email.",
         "ERRO2": "Incorrect username or password.",
-        "ERRO3": "User not registered."
+        "ERRO3": "User not registered.",
+        "ERRO4": "New password must be different from the current.",
+        "ERRO5": "User not found",
+        "ERRO101": "Nothing to modify"
     },
 
     "PERFIL":{
@@ -92,11 +96,35 @@
         "NUMBER": "Number",
         "ADDRESS2": "Address 2",
         "CITY": "City",
-        "STATE": "STATE"
+        "STATE": "STATE",
+        "SEX": "Gender",
+        "PASSWORDCONFIRM": "Confirm password",
+        "NOTINFORMED": "Not Informed",
+        "EMAIL": "E-mail"
     },
 
     "INFOCOMPLETE": {
         "MESSAGE": "There's still a lack of information to fill in your registration. Please click ",
         "HERE": "here"
+    },
+
+    "EDIT": {
+        "OLDNAME": "Current name",
+        "NEWNAME": "New name",
+        "OLDEMAIL": "Current e-mail",
+        "NEWEMAIL": "New e-mail",
+        "OLDSEXO": "Current gender",
+        "NEWSEXO": "New gender",
+        "OLDDTNASC": "Current birthdate",
+        "NEWDTNASC": "New birthdate",
+        "OLDSENHA": "Current password",
+        "NEWSENHA": "New password",
+        "SAVE": "Save new information",
+        "ALTNAME": "Alter name",
+        "ALTDTNASC": "Alter birthdate",
+        "ALTSEXO": "Alter gender",
+        "ALTEMAIL": "Alter e-mail",
+        "ALTSENHA": "Alter password",
+        "CONFPASS": "Confirm new password"
     }
 }

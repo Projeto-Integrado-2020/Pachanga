@@ -6,7 +6,7 @@ import { SocialLoginBaseComponent } from '../social-login-base/social-login-base
 
 import { FacebookLoginProvider, GoogleLoginProvider } from 'angularx-social-login';
 
-import { MustMatch } from './matchPassword';
+import { MustMatch } from '../utils/matchPassword';
 
 
 @Component({
