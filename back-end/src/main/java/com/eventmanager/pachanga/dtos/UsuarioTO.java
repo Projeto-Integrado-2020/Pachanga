@@ -11,6 +11,7 @@ public class UsuarioTO {
     private String email; //email atual da pesoa
     private String emailNovo;
     private String senha;
+    private String senhaNova;
     private String sexo;
     
 	public Date getDtNasc() {
@@ -75,6 +76,14 @@ public class UsuarioTO {
 
 	public void setEmailNovo(String emailNovo) {
 		this.emailNovo = emailNovo;
+	}
+
+	public String getSenhaNova() {
+		return senhaNova;
+	}
+
+	public void setSenhaNova(String senhaNova) {
+		this.senhaNova = senhaNova;
 	}
 	    
 }
