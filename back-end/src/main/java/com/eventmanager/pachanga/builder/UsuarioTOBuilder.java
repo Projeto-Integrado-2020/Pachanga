@@ -7,9 +7,10 @@ import com.eventmanager.pachanga.dtos.UsuarioTO;
 public class UsuarioTOBuilder {
 	
 	private Date dtNasc;
-	private  String nomeUser;
+	private String nomeUser;
 	private String email;
 	private String sexo;
+	private String tipConta;
 	
 	public static UsuarioTOBuilder getInstance() {
 		return new UsuarioTOBuilder();
@@ -40,6 +41,11 @@ public class UsuarioTOBuilder {
 		this.sexo = sexo;
 		return this;
 	}
+	
+	public UsuarioTOBuilder tipConta(String tipConta) {
+		this.tipConta = tipConta;
+		return this;
+	}
 
 
 	public UsuarioTO build() {
@@ -48,6 +54,7 @@ public class UsuarioTOBuilder {
 		user.setEmail(email);
 		user.setNomeUser(nomeUser);
 		user.setSexo(sexo);
+		user.setTipConta(tipConta);
 		return user;
 	}
 

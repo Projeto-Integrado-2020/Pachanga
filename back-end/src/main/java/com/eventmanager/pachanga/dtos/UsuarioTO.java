@@ -8,13 +8,11 @@ public class UsuarioTO {
     private int codUsuario;
     private  String nomeUser;
     private String tipConta;
-    private String email;
+    private String email; //email atual da pesoa
+    private String emailNovo;
     private String senha;
     private String sexo;
     
-    public UsuarioTO() {
-    }
-
 	public Date getDtNasc() {
 		return dtNasc;
 	}
@@ -51,8 +49,8 @@ public class UsuarioTO {
 		return email;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setEmail(String emailAtual) {
+		this.email = emailAtual;
 	}
 
 	public String getSenha() {
@@ -69,6 +67,14 @@ public class UsuarioTO {
 
 	public void setSexo(String sexo) {
 		this.sexo = sexo;
+	}
+
+	public String getEmailNovo() {
+		return emailNovo;
+	}
+
+	public void setEmailNovo(String emailNovo) {
+		this.emailNovo = emailNovo;
 	}
 	    
 }
