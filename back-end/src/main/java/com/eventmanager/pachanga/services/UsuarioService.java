@@ -79,6 +79,7 @@ public class UsuarioService {
 		Usuario usuarioValidado = validacaoAtualizar(user);
 		usuarioValidado.setDtNasc(user.getDtNasc());
 		usuarioValidado.setSexo(user.getSexo());
+		usuarioValidado.setNomeUser(user.getNomeUser());
 
 		userRepository.save(usuarioValidado);
 		return usuarioValidado;
@@ -89,19 +90,23 @@ public class UsuarioService {
 		if(usuarioBanco == null) {
 			throw new ValidacaoException("5");
 		}
-		if(TipoConta.PACHANGA.getDescricao().equals(usuarioBanco.getTipConta())) {
-			if(user.getSenha() != null) {
-				if(HashBuilder.compararSenha(user.getSenha(), usuarioBanco.getSenha())) {
+		if(TipoConta.PACHANGA.getDescricao().equals(usuarioBanco.getTipConta()) && user.getSenha() != null) {
+			if(!HashBuilder.compararSenha(user.getSenha(), usuarioBanco.getSenha())) {
+				throw new ValidacaoException("6");
+			}
+			if(user.getSenhaNova() != null) {
+				if(HashBuilder.compararSenha(user.getSenhaNova(), usuarioBanco.getSenha())) {
 					throw new ValidacaoException("4");
 				}
-				usuarioBanco.setSenha(HashBuilder.gerarSenha(user.getSenha()));
+				usuarioBanco.setSenha(HashBuilder.gerarSenha(user.getSenhaNova()));
 			}
 			if(user.getEmailNovo() != null) {
 				user.setEmail(user.getEmailNovo());
 				Usuario usuarioEmail = getUsuario(user);
-				if(usuarioEmail == null) {
-					usuarioBanco.setEmail(user.getEmailNovo());
+				if(usuarioEmail != null) {
+					throw new ValidacaoException("1");
 				}
+				usuarioBanco.setEmail(user.getEmailNovo());
 			}
 		}
 		return usuarioBanco;

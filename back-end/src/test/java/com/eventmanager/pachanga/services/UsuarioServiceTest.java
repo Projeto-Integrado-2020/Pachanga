@@ -156,12 +156,11 @@ public class UsuarioServiceTest {
 
 		UsuarioTO usuarioTestLogin = usuarioToTest();
 
-		Usuario usuarioRetorno;
+		Usuario usuarioRetorno = null;
 		boolean caiuException = false;
 		try {
 			usuarioRetorno = userService.logar(usuarioTestLogin);
 		}catch(ValidacaoException e){
-			usuarioRetorno = null;
 			caiuException = true;
 		};
 
@@ -212,12 +211,11 @@ public class UsuarioServiceTest {
 
 		UsuarioTO usuarioTestCadastro = usuarioToTest();
 
-		Usuario usuarioRetorno;
+		Usuario usuarioRetorno = null;
 		boolean caiuException = false;
 		try {
 			usuarioRetorno = userService.cadastrar(usuarioTestCadastro);
 		}catch(ValidacaoException e){
-			usuarioRetorno = null;
 			caiuException = true;
 		};
 
@@ -250,12 +248,11 @@ public class UsuarioServiceTest {
 
 		UsuarioTO usuarioTestCadastro = usuarioToTest();
 
-		Usuario usuarioRetorno;
+		Usuario usuarioRetorno = null;
 		boolean caiuException = false;
 		try {
 			usuarioRetorno = userService.cadastrar(usuarioTestCadastro);
 		}catch(ValidacaoException e){
-			usuarioRetorno = null;
 			caiuException = true;
 		};
 
@@ -276,13 +273,13 @@ public class UsuarioServiceTest {
 		UsuarioTO usuarioTestAtualizacao= usuarioToTest();
 		usuarioTestAtualizacao.setDtNasc(new Date(2002, 6, 27));
 		usuarioTestAtualizacao.setSexo("F");
+		usuarioTestAtualizacao.setSenhaNova("1234");
 
-		Usuario usuarioRetorno;
+		Usuario usuarioRetorno = null;
 		boolean caiuException = false;
 		try {
 			usuarioRetorno = userService.atualizar(usuarioTestAtualizacao);
 		}catch(ValidacaoException e){
-			usuarioRetorno = null;
 			caiuException = true;
 		};
 
@@ -301,7 +298,7 @@ public class UsuarioServiceTest {
 		UsuarioTO usuarioTestAtualizacao= usuarioToTest();
 		usuarioTestAtualizacao.setDtNasc(new Date(2002, 6, 27));
 		usuarioTestAtualizacao.setSexo("F");
-		usuarioTestAtualizacao.setSenha("12345");
+		usuarioTestAtualizacao.setSenha("1234");
 
 		Usuario usuarioRetorno;
 		boolean caiuException = false;
@@ -347,13 +344,12 @@ public class UsuarioServiceTest {
 		usuarioTestAtualizacao.setDtNasc(new Date(2002, 6, 27));
 		usuarioTestAtualizacao.setSexo("F");
 
-		Usuario usuarioRetorno;
+		Usuario usuarioRetorno = null;
 		boolean caiuException = false;
 		try {
-			usuarioRetorno = userService.atualizar(usuarioTestAtualizacao);
+			userService.atualizar(usuarioTestAtualizacao);
 
 		}catch(ValidacaoException e){
-			usuarioRetorno = null;
 			caiuException = true;
 		};
 
@@ -370,14 +366,86 @@ public class UsuarioServiceTest {
 		Mockito.when(usuarioRepository.findByEmailAndTipConta("gustavinhoTPD@fodasse.com.br", "P")).thenReturn(usuarioTestBanco);
 
 		UsuarioTO usuarioTestAtualizacao= usuarioToTest();
-		usuarioTestAtualizacao.setSenha(null);
+		usuarioTestAtualizacao.setSenha("1234");
 		usuarioTestAtualizacao.setTipConta("P");
 		usuarioTestAtualizacao.setEmailNovo("gustavinhoTPD1@fodasse.com.br");
+
+		 Usuario usuarioRetorno = userService.atualizar(usuarioTestAtualizacao);
+
+		assertEquals(true, usuarioRetorno != null); 
+
+	}
+	
+	@Test
+	public void AtualizaSenhaTest() throws Exception{
+		Usuario usuarioTestBanco = usuarioTest();
+		usuarioTestBanco.setTipConta("P");
+
+		Mockito.when(usuarioRepository.findByEmailAndTipConta("gustavinhoTPD@fodasse.com.br", "P")).thenReturn(usuarioTestBanco);
+
+		UsuarioTO usuarioTestAtualizacao= usuarioToTest();
+		usuarioTestAtualizacao.setSenha("1234");
+		usuarioTestAtualizacao.setTipConta("P");
+		usuarioTestAtualizacao.setEmailNovo("gustavinhoTPD1@fodasse.com.br");
+		usuarioTestAtualizacao.setSenhaNova("12345");
 
 		Usuario usuarioRetorno;
 		usuarioRetorno = userService.atualizar(usuarioTestAtualizacao);
 
 		assertEquals(true, usuarioRetorno != null); 
+
+	}
+	
+	@Test
+	public void AtualizaSenhaTestErro() throws Exception{
+		Usuario usuarioTestBanco = usuarioTest();
+		usuarioTestBanco.setTipConta("P");
+
+		Mockito.when(usuarioRepository.findByEmailAndTipConta("gustavinhoTPD@fodasse.com.br", "P")).thenReturn(usuarioTestBanco);
+
+		UsuarioTO usuarioTestAtualizacao= usuarioToTest();
+		usuarioTestAtualizacao.setSenha("12345");
+		usuarioTestAtualizacao.setTipConta("P");
+		usuarioTestAtualizacao.setEmailNovo("gustavinhoTPD1@fodasse.com.br");
+
+		Usuario usuarioRetorno = null;
+		boolean caiuException = false;
+		try {
+			userService.atualizar(usuarioTestAtualizacao);
+
+		}catch(ValidacaoException e){
+			caiuException = true;
+		};
+
+		assertEquals(true, usuarioRetorno == null); 
+		assertEquals(true, caiuException == true); 
+
+	}
+	
+	@Test
+	public void AtualizaEmailTestErro() throws Exception{
+		Usuario usuarioTestBanco = usuarioTest();
+		usuarioTestBanco.setTipConta("P");
+
+		Mockito.when(usuarioRepository.findByEmailAndTipConta("gustavinhoTPD@fodasse.com.br", "P")).thenReturn(usuarioTestBanco);
+		Mockito.when(usuarioRepository.findByEmailAndTipConta("gustavinhoTPD1@fodasse.com.br", "P")).thenReturn(usuarioTestBanco);
+
+		UsuarioTO usuarioTestAtualizacao= usuarioToTest();
+		usuarioTestAtualizacao.setSenha("1234");
+		usuarioTestAtualizacao.setTipConta("P");
+		usuarioTestAtualizacao.setEmailNovo("gustavinhoTPD1@fodasse.com.br");
+
+		Usuario usuarioRetorno = null;
+		boolean caiuException = false;
+		try {
+			userService.atualizar(usuarioTestAtualizacao);
+
+		}catch(ValidacaoException e){
+			caiuException = true;
+		};
+
+		assertEquals(true, usuarioRetorno == null); 
+		assertEquals(true, caiuException == true); 
 
 	}
 
