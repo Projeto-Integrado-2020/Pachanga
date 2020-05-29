@@ -17,8 +17,8 @@ export class EditDialogComponent implements OnInit {
   public form: FormGroup;
   public modJson;
 
-  constructor(@Inject(MAT_DIALOG_DATA) data, private loginService: LoginService,
-              private formBuilder: FormBuilder, private editService: EditAccountService,
+  constructor(@Inject(MAT_DIALOG_DATA) data, public loginService: LoginService,
+              public formBuilder: FormBuilder, public editService: EditAccountService,
               public modal: MatDialog) {
     this.campo = data.campo;
   }
