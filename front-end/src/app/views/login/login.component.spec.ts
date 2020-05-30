@@ -9,8 +9,8 @@ import { AppRoutingModule } from '../../app-routing.module';
 import { CadastroComponent } from '../cadastro/cadastro.component';
 import { IndexComponent } from '../index/index.component';
 
-import { SocialLoginModule, AuthServiceConfig } from 'angularx-social-login';
-import { GoogleLoginProvider, FacebookLoginProvider } from 'angularx-social-login';
+import { SocialLoginModule, AuthServiceConfig } from 'angular4-social-login';
+import { GoogleLoginProvider, FacebookLoginProvider } from 'angular4-social-login';
 
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';

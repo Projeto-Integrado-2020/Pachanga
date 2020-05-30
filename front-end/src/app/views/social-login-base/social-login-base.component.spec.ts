@@ -2,8 +2,8 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SocialLoginBaseComponent } from './social-login-base.component';
 
-import { SocialLoginModule, AuthServiceConfig } from 'angularx-social-login';
-import { GoogleLoginProvider, FacebookLoginProvider } from 'angularx-social-login';
+import { SocialLoginModule, AuthServiceConfig } from 'angular4-social-login';
+import { GoogleLoginProvider, FacebookLoginProvider } from 'angular4-social-login';
 import { CustomMaterialModule } from '../material/material.module';
 
 import { HttpClientModule } from '@angular/common/http';

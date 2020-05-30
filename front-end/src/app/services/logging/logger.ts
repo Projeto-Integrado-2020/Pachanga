@@ -65,7 +65,7 @@ export class Logger {
           data
         });
     } else {
-      let options: any = {
+      const options: any = {
         hostname: 'pachanga.heroku',
         ip: '',
         mac: '',
@@ -74,7 +74,7 @@ export class Logger {
         index_meta: 'true',
         tags: ['logging', 'nodejs', 'logdna']
       };
-      let log = logdna.createLogger(this.logEndpoint, options);
+      const log = logdna.createLogger(this.logEndpoint, options);
       log.log(body);
     }
   }
