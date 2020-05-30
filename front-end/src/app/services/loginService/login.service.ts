@@ -46,7 +46,7 @@ export class LoginService {
       data: {erro: error.error}
     });
     logService.initialize();
-    logService.logHttpInfo(error.error, 0, error.url);
+    logService.logHttpInfo(JSON.stringify(error), 0, error.url);
     return throwError(error);
   }
 

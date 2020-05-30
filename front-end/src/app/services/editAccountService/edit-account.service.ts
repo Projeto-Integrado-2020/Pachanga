@@ -34,7 +34,7 @@ export class EditAccountService {
   handleError = (error: HttpErrorResponse, logService: LogService) => {
     this.openErrorDialog(error.error);
     logService.initialize();
-    logService.logHttpInfo(error.error, 0, error.url);
+    logService.logHttpInfo(JSON.stringify(error), 0, error.url);
     return throwError(error);
   }
 

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from 'angularx-social-login';
-import { SocialUser } from 'angularx-social-login';
+import { AuthService } from 'angular4-social-login';
+import { SocialUser } from 'angular4-social-login';
 import { LoginService } from 'src/app/services/loginService/login.service';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { MatDialog } from '@angular/material';

@@ -2,6 +2,7 @@ import { environment } from '../../../environments/environment';
 import * as moment from 'moment';
 import { Subject } from 'rxjs';
 import { debounceTime, filter } from 'rxjs/operators';
+import * as logdna from 'logdna';
 import { LogFields } from './log-data.interface';
 
 export type LogType = 'Error' | 'Warning' | 'Information';
@@ -64,11 +65,17 @@ export class Logger {
           data
         });
     } else {
-      // const xobj = new XMLHttpRequest();
-      // tslint:disable-next-line:no-console
-      // xobj.onerror = (err) => console.error(err);
-      // xobj.open('POST', this.logEndpoint, true);
-      // xobj.send(body);
+      let options: any = {
+        hostname: 'pachanga.heroku',
+        ip: '',
+        mac: '',
+        app: 'pachanga',
+        env: 'prod',
+        index_meta: 'true',
+        tags: ['logging', 'nodejs', 'logdna']
+      };
+      let log = logdna.createLogger(this.logEndpoint, options);
+      log.log(body);
     }
   }
 

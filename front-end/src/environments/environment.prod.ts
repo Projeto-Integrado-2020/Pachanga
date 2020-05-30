@@ -4,6 +4,6 @@ export const environment = {
   env: 'prod',
   URL_BACK: 'https://pachanga-back-end.herokuapp.com/',
   endpoints: {
-    log: ''
+    log: 'a1c1e48571dda35beab46d44338b7965'
   }
 };

@@ -8,7 +8,7 @@ export const environment = {
   env: 'local',
   URL_BACK: 'http://localhost:8080/',
   endpoints: {
-    log: ''
+    log: 'a1c1e48571dda35beab46d44338b7965'
   }
 };
 

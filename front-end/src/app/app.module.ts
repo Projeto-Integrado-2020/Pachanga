@@ -24,8 +24,8 @@ export function HttpLoaderFactory(http: HttpClient) {
 }
 
 // Imports  para login via Facebook e Gmail
-import { SocialLoginModule, AuthServiceConfig, AuthService } from 'angularx-social-login';
-import { GoogleLoginProvider, FacebookLoginProvider } from 'angularx-social-login';
+import { SocialLoginModule, AuthServiceConfig, AuthService } from 'angular4-social-login';
+import { GoogleLoginProvider, FacebookLoginProvider } from 'angular4-social-login';
 import { SocialLoginBaseComponent } from './views/social-login-base/social-login-base.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatToolbarModule } from '@angular/material/toolbar';
