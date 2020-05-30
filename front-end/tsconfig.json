@@ -14,6 +14,11 @@
     "typeRoots": [
       "node_modules/@types"
     ],
+    "paths": {
+      "os": [
+        "src/empty.ts"
+      ]
+    },
     "lib": [
       "es2018",
       "dom"
