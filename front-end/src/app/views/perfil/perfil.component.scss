@@ -1,3 +1,5 @@
+@import '../material/paleta.scss';
+
 * {
   margin: 0;
   padding: 0;
@@ -99,7 +101,9 @@
 @media (min-width: 748px){
   .dados-conta {
     width: 30%;
+    min-width: 292.5px;
   }
+
 
   .configuracoes {
     width: 70%;
@@ -252,4 +256,9 @@ form {
 
 .form_edit button {
   cursor: pointer;
+}
+
+
+::ng-deep .mat-tab-group.mat-primary .mat-ink-bar, .mat-tab-nav-bar.mat-primary .mat-ink-bar {
+  background-color: $color-primary !important;
 }
