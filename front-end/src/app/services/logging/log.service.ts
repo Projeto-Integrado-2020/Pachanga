@@ -12,8 +12,10 @@ export class LogService {
 
   constructor() {}
 
-  public setUserId(userId: string) {
-    this.userId = userId;
+  public setUserId() {
+    if (JSON.parse(localStorage.getItem('usuarioInfo')) != null) {
+      this.userId = JSON.parse(localStorage.getItem('usuarioInfo')).email;
+    }
   }
 
   public initialize() {
@@ -23,6 +25,7 @@ export class LogService {
   public logHttpInfo(info: any, elapsedTime: number, requestPath: string) {
     // TODO: create and set correlation id
     const url = location.href;
+    this.setUserId();
     const logFields: LogFields = {
       environment: environment.env,
       userId: this.userId,
@@ -31,7 +34,7 @@ export class LogService {
       url,
     };
 
-    this.logger.log('Information', `${info}`, logFields);
+    this.logger.log('Error', `${info}`, logFields);
   }
 
   public logWarning(errorMsg: string) {
