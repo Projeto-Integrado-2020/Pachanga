@@ -146,7 +146,7 @@ form {
 }
 
 .card-dados-cad {
-  background-color: #ffe6b1;
+  background-color: $color-primary-light;
     /* make element inline flex-container */
   /* this will make its children flex-items */
   display: inline-flex;
@@ -187,7 +187,6 @@ form {
 }
 
 .card-button {
-  background-color: #ff9023;
   color: #ffffff;
   transform: translateX(-50%);
 }
@@ -258,7 +257,18 @@ form {
   cursor: pointer;
 }
 
+//CORES
 
+//abas do mat-tab
 ::ng-deep .mat-tab-group.mat-primary .mat-ink-bar, .mat-tab-nav-bar.mat-primary .mat-ink-bar {
   background-color: $color-primary !important;
+}
+
+.purple-back {
+  background-color: $color-primary;
+  color: #ffffff;
+}
+
+.red-back {
+  background-color: $color-tertiary;
 }
