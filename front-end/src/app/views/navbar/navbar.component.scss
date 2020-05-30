@@ -91,7 +91,7 @@ mat-toolbar{
 
 //botao verde
 .grn-btn {
-  background-color: $color-secondary;
+  background-color: $color-primary;
   color: #ffffff;
 }
 
@@ -104,5 +104,5 @@ mat-toolbar{
 
 //COR DA NAVBAR
 .mat-toolbar.mat-primary {
-  background: linear-gradient(197deg, $color-secondary 0%, $color-tertiary 47%, $color-primary 100%);
+  background: linear-gradient(197deg, $color-secondary 0%, $color-primary 100%);
 }

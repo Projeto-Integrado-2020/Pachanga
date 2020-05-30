@@ -34,7 +34,7 @@
           <button *ngIf="loginService.usuarioAutenticado" class="button-index prp-btn btn-navbar" mat-raised-button >{{'NAV.INGRESSOS' | translate}}</button>
           <button *ngIf="loginService.usuarioAutenticado" class="button-index prp-btn btn-navbar" mat-raised-button >{{'NAV.EVENTOS' | translate}}</button>
 
-          <button *ngIf="loginService.usuarioAutenticado" class="button-index grn-btn cadastro-btn btn-navbar" mat-raised-button [matMenuTriggerFor]="myMenu">
+          <button *ngIf="loginService.usuarioAutenticado" class="button-index org-btn btn-navbar" mat-raised-button [matMenuTriggerFor]="myMenu">
             {{ loginService.usuarioInfo.nomeUser }}
             <mat-icon>more_vert</mat-icon>
           </button>
