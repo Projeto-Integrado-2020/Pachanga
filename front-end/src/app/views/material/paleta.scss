@@ -2,3 +2,14 @@ $color-primary: #6b219c;
 $color-primary-light: #d084ff;
 $color-secondary: #000000;
 $color-tertiary: #9c2152;
+
+//
+.purple-back {
+    background-color: $color-primary !important;
+    color: #ffffff !important;
+  }
+  
+  .red-back {
+    background-color: $color-tertiary !important;
+    color: #ffffff !important;
+  }
