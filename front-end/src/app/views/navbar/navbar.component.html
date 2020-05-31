@@ -39,8 +39,8 @@
             <mat-icon>more_vert</mat-icon>
           </button>
           <mat-menu #myMenu="matMenu" class="my-menu">
-            <a routerLink="../perfil"><button mat-menu-item class="no-mw">{{'NAV.CONTA_L' | translate}}</button></a>
-            <button mat-menu-item (click)="loginComponent.signOut()" class="no-mw">{{'NAV.SAIR' | translate}}</button>
+            <a routerLink="../perfil"><button mat-menu-item class="botao-menu">{{'NAV.CONTA_L' | translate}}</button></a>
+            <button mat-menu-item (click)="loginComponent.signOut()" class="botao-menu">{{'NAV.SAIR' | translate}}</button>
           </mat-menu>
 
           <button id="pt-btn" class="button-index" mat-mini-fab color="accent" (click)="langPt()" [value]="'pt'">.</button>
