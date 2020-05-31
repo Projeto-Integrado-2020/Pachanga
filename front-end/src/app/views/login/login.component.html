@@ -12,7 +12,7 @@
                 <input ng-class="{ f.senha.errors }" required #senhaLogin matInput required type="password" formControlName="senha">
                 <mat-error *ngIf="f.senha.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
             </mat-form-field>
-            <button [disabled]="!form.valid" class="button-index" mat-raised-button color="accent">{{'LOGIN.ENTRAR' | translate}}</button>
+            <button [disabled]="!form.valid" class="button-index red-back" mat-raised-button>{{'LOGIN.ENTRAR' | translate}}</button>
             <mat-divider [inset]="true"></mat-divider>
             <!--<button class="button-index cadastro-btn" mat-raised-button color="warn">{{'LOGIN.CONTA' | translate}}</button>-->
             <mat-divider [inset]="true"></mat-divider>

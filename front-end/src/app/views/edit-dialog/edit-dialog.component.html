@@ -11,7 +11,7 @@
                 <input #nome ng-class="{ f.nome.errors }" matInput required formControlName="nome">
                 <mat-error *ngIf="f.nome.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
             </mat-form-field>
-            <button [disabled]="!form.valid" class="button-index" mat-raised-button color="accent">{{'EDIT.SAVE' | translate}}</button>
+            <button [disabled]="!form.valid" class="red-back button-index" mat-raised-button>{{'EDIT.SAVE' | translate}}</button>
         </form>
     </div>
 </div>

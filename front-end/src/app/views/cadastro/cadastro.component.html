@@ -49,6 +49,6 @@
                 <mat-checkbox ng-class="{ f.termos.errors }" formControlName="termos" class="termos">{{'CADASTRO.TERMOS' | translate}}</mat-checkbox>
             </section>
             <mat-error *ngIf="f.termos.errors">{{'FORMERRORS.TERMOS' | translate}}</mat-error>
-            <button [disabled]="!form.valid" class="butao cadastro-btn" mat-raised-button color="accent">{{'CADASTRO.CADASTRAR' | translate}}</button>
+            <button [disabled]="!form.valid" class="butao purple-back cadastro-btn" mat-raised-button>{{'CADASTRO.CADASTRAR' | translate}}</button>
         </form>
     </div>
