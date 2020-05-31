@@ -25,6 +25,7 @@ a{
 mat-toolbar{
   position: fixed;
   z-index: 1001 !important; // Essa gambiarra é o único workaround possível pra resolver o problema dos elementos do mat-tab passando por cima da mat-toolbar. Em qualquer outro contexto essa intervenção seria considerada má-prática.
+  opacity: 0.8;
 }
 
 .mat-toolbar.mat-primary {
