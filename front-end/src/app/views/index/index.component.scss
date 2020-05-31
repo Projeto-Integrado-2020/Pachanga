@@ -2,7 +2,7 @@
 
 
 h1{
-    color: #ffffff;//$color-primary;
+    color: $color-primary;
     font-size: 5rem;
     left: 1rem;
     z-index: 1;
@@ -29,11 +29,6 @@ html {
   background-color: black;
 }
 
-mat-grid-list {
-  background-image: url('https://cdn.discordapp.com/attachments/678365420540919819/716413859987980428/8decd50b62d3a2fc296da97b0318d376.jpg');
-  background-size: cover;
-  background-position: top;
-}
 
 #video-cover {
   min-height: 100%;
