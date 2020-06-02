@@ -51,7 +51,7 @@
             </mat-form-field>
             <mat-form-field class="example-full-width">
                 <mat-label>{{'EDIT.NEWDTNASC' | translate}}</mat-label>
-                <input #dtNasc ng-class="{ f.dtNasc.errors }" (click)="picker.open()" matInput required formControlName="dtNasc" maxlength="10" [matDatepicker]="picker">
+                <input #dtNasc [max]="maxDate" ng-class="{ f.dtNasc.errors }" (click)="picker.open()" matInput required formControlName="dtNasc" maxlength="10" [matDatepicker]="picker">
                 <mat-datepicker-toggle matSuffix [for]="picker" ></mat-datepicker-toggle>
                 <mat-datepicker #picker ></mat-datepicker>
                 <mat-error *ngIf="f.dtNasc.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>

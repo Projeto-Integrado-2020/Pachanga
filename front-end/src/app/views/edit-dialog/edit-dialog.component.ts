@@ -17,6 +17,8 @@ export class EditDialogComponent implements OnInit {
   public form: FormGroup;
   public modJson;
 
+  maxDate = new Date();
+
   constructor(@Inject(MAT_DIALOG_DATA) data, public loginService: LoginService,
               public formBuilder: FormBuilder, public editService: EditAccountService,
               public modal: MatDialog) {

@@ -25,6 +25,8 @@ export class CadastroComponent extends SocialLoginBaseComponent implements OnIni
   emailCadastro;
   senhaCadastro;
 
+  maxDate = new Date();
+
   ngOnInit() {
     this.form = this.formBuilder.group({
       email: new FormControl('', [Validators.required, Validators.email]),
