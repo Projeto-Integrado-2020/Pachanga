@@ -75,7 +75,7 @@ export class Logger {
         tags: ['logging', 'nodejs', 'logdna']
       };
       const log = logdna.createLogger(this.logEndpoint, options);
-      log.log(body);
+      log.log(body, {level: 'WARN'});
     }
   }
 

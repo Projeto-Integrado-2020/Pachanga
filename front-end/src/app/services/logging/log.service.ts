@@ -34,7 +34,7 @@ export class LogService {
       url,
     };
 
-    this.logger.log('Error', `${info}`, logFields);
+    this.logger.log('Information', `${info}`, logFields);
   }
 
   public logWarning(errorMsg: string) {
