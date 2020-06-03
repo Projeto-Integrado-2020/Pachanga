@@ -43,6 +43,7 @@ export class SocialLoginBaseComponent implements OnInit {
 
   cadastrar_se(user) {
     this.loginService.cadastrar(user).subscribe(resp => {
+      this.loginService.setFarol(false);
       this.autenticar(user);
     });
   }
