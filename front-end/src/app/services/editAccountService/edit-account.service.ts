@@ -24,13 +24,14 @@ export class EditAccountService {
           usuarioAtualizado.dtNasc === userInfo.dtNasc && (usuarioAtualizado.emailNovo === null ||
           usuarioAtualizado.emailNovo === userInfo.email) && usuarioAtualizado.senhaNova === null) {
           this.openErrorDialog(101);
+      } else {
+        return this.http.post(this.urlEdit, usuarioAtualizado).pipe(
+          take(1),
+          catchError(error => {
+            return this.handleError(error, this.logService);
+          }),
+        );
       }
-      return this.http.post(this.urlEdit, usuarioAtualizado).pipe(
-        take(1),
-        catchError(error => {
-          return this.handleError(error, this.logService);
-        }),
-      );
     }
     return new Observable<never>();
   }
