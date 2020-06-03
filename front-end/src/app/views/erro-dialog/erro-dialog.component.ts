@@ -19,14 +19,14 @@ export class ErroDialogComponent implements OnInit {
 
   ngOnInit() {
     switch (this.erro.toString()) {
-      case '1': this.erro = this.translate.instant('ERRO.ERRO1'); break;
-      case '2': this.erro = this.translate.instant('ERRO.ERRO2'); break;
-      case '3': this.erro = this.translate.instant('ERRO.ERRO3'); break;
-      case '4': this.erro = this.translate.instant('ERRO.ERRO4'); break;
-      case '5': this.erro = this.translate.instant('ERRO.ERRO5'); break;
-      case '6': this.erro = this.translate.instant('ERRO.ERRO6'); break;
-      case '101': this.erro = this.translate.instant('ERRO.ERRO101'); break;
-      default: this.erro = this.translate.instant('ERRO.ERRO0');
+      case '1': this.erro = this.translate.instant('ERRO.USEDMAIL'); break;
+      case '2': this.erro = this.translate.instant('ERRO.UORPINCO'); break;
+      case '3': this.erro = this.translate.instant('ERRO.USERNCAD'); break;
+      case '4': this.erro = this.translate.instant('ERRO.PASSDIFF'); break;
+      case '5': this.erro = this.translate.instant('ERRO.USERNFOU'); break;
+      case '6': this.erro = this.translate.instant('ERRO.PASSINCO'); break;
+      case '101': this.erro = this.translate.instant('ERRO.NOMOD'); break;
+      default: this.erro = this.translate.instant('ERRO.STSTRANGE');
     }
   }
 

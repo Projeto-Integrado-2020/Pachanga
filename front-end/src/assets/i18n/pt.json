@@ -54,14 +54,14 @@
 
     "ERRO": {
         "TITULO": "Erro",
-        "ERRO0": "Ops! Algo estranho aconteceu. Por favor tente mais tarde.",
-        "ERRO1": "Outra conta está utlizando este e-mail.",
-        "ERRO2": "Usuário ou senha incorretos.",
-        "ERRO3": "Usuário não cadastrado.",
-        "ERRO4": "Senha nova precisa ser diferente da atual.",
-        "ERRO5": "Usuário não encontrado.",
-        "ERRO6": "Senha incorreta",
-        "ERRO101": "Nada a se alterar."
+        "STSTRANGE": "Ops! Algo estranho aconteceu. Por favor tente mais tarde.",
+        "USEDMAIL": "Outra conta está utlizando este e-mail.",
+        "UORPINCO ": "Usuário ou senha incorretos.",
+        "USERNCAD ": "Usuário não cadastrado.",
+        "PASSDIFF": "Senha nova precisa ser diferente da atual.",
+        "USERNFOU": "Usuário não encontrado.",
+        "PASSINCO": "Senha incorreta",
+        "NOMOD": "Nada a se alterar."
     },
 
     "SUCCESS": {
