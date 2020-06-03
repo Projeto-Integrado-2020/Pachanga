@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { take, catchError } from 'rxjs/operators';
-import { throwError } from 'rxjs';
+import { throwError, Observable } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { ErroDialogComponent } from '../../views/erro-dialog/erro-dialog.component';
 import { LogService } from '../logging/log.service';
@@ -17,41 +17,64 @@ export class LoginService {
 
   public usuarioInfo = JSON.parse(localStorage.getItem('usuarioInfo'));
 
+  public farol = false;
+
   private readonly urlLogin = `${environment.URL_BACK}usuario/login`;
   private readonly urlCadastro = `${environment.URL_BACK}usuario/cadastro`;
 
   constructor(private http: HttpClient, public logService: LogService, public dialog: MatDialog) {  }
 
   logar(usuario) {
-    return this.http.post(this.urlLogin, usuario).pipe(
-      take(1),
-      catchError(error => {
-        return this.handleError(error, this.logService);
-      })
-    );
+    if (!this.farol) {
+      this.setFarol(true);
+      return this.http.post(this.urlLogin, usuario).pipe(
+        take(1),
+        catchError(error => {
+          return this.handleError(error, this.logService);
+        })
+      );
+    }
+    return new Observable<never>();
   }
 
   cadastrar(usuario) {
-    return this.http.post(this.urlCadastro, usuario).pipe(
-      take(1),
-      catchError(error => {
-        return this.handleError(error, this.logService);
-      })
-    );
+    if (!this.farol) {
+      this.setFarol(true);
+      return this.http.post(this.urlCadastro, usuario).pipe(
+        take(1),
+        catchError(error => {
+          return this.handleError(error, this.logService);
+        })
+      );
+    }
+    return new Observable<never>();
   }
 
   handleError = (error: HttpErrorResponse, logService: LogService) => {
-    const dialogRef = this.dialog.open(ErroDialogComponent, {
-      width: '250px',
-      data: {erro: error.error}
-    });
+    this.openErrorDialog(error.error);
     logService.initialize();
     logService.logHttpInfo(JSON.stringify(error), 0, error.url);
+    this.setFarol(false);
     return throwError(error);
+  }
+
+  openErrorDialog(error) {
+    const dialogRef = this.dialog.open(ErroDialogComponent, {
+      width: '250px',
+      data: {erro: error}
+    });
   }
 
   getUsuarioAutenticado() {
     return this.usuarioAutenticado;
+  }
+
+  setFarol(flag: boolean) {
+    this.farol = flag;
+  }
+
+  getFarol() {
+    return this.farol;
   }
 
   setUsuarioAutenticado(flag: boolean) {

@@ -100,6 +100,7 @@ export class EditDialogComponent implements OnInit {
   callService() {
     this.editService.atualizar(this.modJson, this.loginService.usuarioInfo).subscribe(resp => {
       this.loginService.setusuarioInfo(resp);
+      this.editService.setFarol(false);
       this.modal.closeAll();
       this.openDialogSuccess('1');
     });

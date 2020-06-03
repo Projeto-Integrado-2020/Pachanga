@@ -36,6 +36,7 @@ export class SocialLoginBaseComponent implements OnInit {
     this.loginService.logar(user).subscribe(resp => {
       this.loginService.setUsuarioAutenticado(true);
       this.loginService.setusuarioInfo(resp);
+      this.loginService.setFarol(false);
       this.modal.closeAll();
     });
   }
