@@ -36,7 +36,7 @@ public class UsuarioService {
 	public Usuario validarCadastro(UsuarioTO user){
 		Usuario usuarioExistente = getUsuario(user);
 		if(usuarioExistente != null && TipoConta.PACHANGA.getDescricao().equals(usuarioExistente.getTipConta())) {
-			throw new ValidacaoException("1");
+			throw new ValidacaoException("USERMAIL");
 		}
 		if(usuarioExistente != null && !TipoConta.PACHANGA.getDescricao().equals(usuarioExistente.getTipConta())) {
 			return logar(user);
@@ -54,9 +54,8 @@ public class UsuarioService {
 		}
 		if(validarLogin(usuarioExistente, user)) {
 			return usuarioExistente;
-		}else {
-			throw new ValidacaoException("2");
 		}
+		return null;
 	}
 
 	public boolean validarLogin(Usuario usuarioExistente, UsuarioTO userLogin){
@@ -65,12 +64,12 @@ public class UsuarioService {
 
 				boolean senhasIguais = HashBuilder.compararSenha(userLogin.getSenha(), usuarioExistente.getSenha());
 				if(!senhasIguais) {
-					return false;
+					throw new ValidacaoException("PASSINCO");
 				}
 			} 
 			return true;
 		}
-		throw new ValidacaoException("3");
+		throw new ValidacaoException("EMALINCO");
 	}
 
 	//atualizar_________________________________________________________________________________________________________		
@@ -88,15 +87,15 @@ public class UsuarioService {
 	private Usuario validacaoAtualizar(UsuarioTO user) {
 		Usuario usuarioBanco = getUsuario(user);
 		if(usuarioBanco == null) {
-			throw new ValidacaoException("5");
+			throw new ValidacaoException("USERNFOU");
 		}
 		if(TipoConta.PACHANGA.getDescricao().equals(usuarioBanco.getTipConta()) && user.getSenha() != null) {
 			if(!HashBuilder.compararSenha(user.getSenha(), usuarioBanco.getSenha())) {
-				throw new ValidacaoException("6");
+				throw new ValidacaoException("PASSINCO");
 			}
 			if(user.getSenhaNova() != null) {
 				if(HashBuilder.compararSenha(user.getSenhaNova(), usuarioBanco.getSenha())) {
-					throw new ValidacaoException("4");
+					throw new ValidacaoException("PASSDIFF");
 				}
 				usuarioBanco.setSenha(HashBuilder.gerarSenha(user.getSenhaNova()));
 			}
@@ -104,7 +103,7 @@ public class UsuarioService {
 				user.setEmail(user.getEmailNovo());
 				Usuario usuarioEmail = getUsuario(user);
 				if(usuarioEmail != null) {
-					throw new ValidacaoException("1");
+					throw new ValidacaoException("USERMAIL");
 				}
 				usuarioBanco.setEmail(user.getEmailNovo());
 			}

@@ -13,7 +13,7 @@
         <Logger name="com.eventmanager.pachanga" level="debug"  additivity="false">
             <AppenderRef ref="Console" />
         </Logger>
-       <Root level="info">
+        <Root level="error">
             <AppenderRef ref="Console"/>
         </Root>
     </Loggers>
