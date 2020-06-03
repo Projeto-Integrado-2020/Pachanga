@@ -16,8 +16,8 @@ export class SuccessDialogComponent implements OnInit {
   }
 
   ngOnInit() {
-    switch (this.message.toString()) {
-      case '1': this.message = this.translate.instant('SUCCESS.ALTEROK'); break;
+    switch (this.message) {
+      case 'ALTERSUC': this.message = this.translate.instant('SUCCESS.ALTERSUC'); break;
     }
   }
 

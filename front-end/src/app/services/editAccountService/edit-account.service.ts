@@ -23,7 +23,7 @@ export class EditAccountService {
       if (usuarioAtualizado.nomeUser === userInfo.nomeUser && usuarioAtualizado.sexo === userInfo.sexo &&
           usuarioAtualizado.dtNasc === userInfo.dtNasc && (usuarioAtualizado.emailNovo === null ||
           usuarioAtualizado.emailNovo === userInfo.email) && usuarioAtualizado.senhaNova === null) {
-          this.openErrorDialog(101);
+          this.openErrorDialog('NOTMODIF');
       } else {
         return this.http.post(this.urlEdit, usuarioAtualizado).pipe(
           take(1),

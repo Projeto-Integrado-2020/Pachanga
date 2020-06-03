@@ -64,7 +64,7 @@ public class UsuarioService {
 
 				boolean senhasIguais = HashBuilder.compararSenha(userLogin.getSenha(), usuarioExistente.getSenha());
 				if(!senhasIguais) {
-					throw new ValidacaoException("PASSINCO");
+					throw new ValidacaoException("PASSINC1");
 				}
 			} 
 			return true;
@@ -91,7 +91,7 @@ public class UsuarioService {
 		}
 		if(TipoConta.PACHANGA.getDescricao().equals(usuarioBanco.getTipConta()) && user.getSenha() != null) {
 			if(!HashBuilder.compararSenha(user.getSenha(), usuarioBanco.getSenha())) {
-				throw new ValidacaoException("PASSINCO");
+				throw new ValidacaoException("PASSINC2");
 			}
 			if(user.getSenhaNova() != null) {
 				if(HashBuilder.compararSenha(user.getSenhaNova(), usuarioBanco.getSenha())) {

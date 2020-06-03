@@ -54,19 +54,18 @@
 
     "ERRO": {
         "TITULO": "Error",
-        "STSTRANGE": "Ops! Something strange just happened. Please try later.",
+        "SERVERRO": "Ops! Something strange just happened. Please try later.",
         "USEDMAIL": "Another account is using this email.",
         "UORPINCO": "Incorrect username or password.",
-        "USERNCAD": "User not registered.",
         "PASSDIFF": "New password must be different from the current.",
         "USERNFOU": "User not found.",
         "PASSINCO": "Incorrect password.",
-        "NOMOD": "Nothing to modify."
+        "NOTMODIF": "Nothing to modify."
     },
 
     "SUCCESS": {
         "TITULO": "Success!",
-        "ALTEROK": "Your data has been successfully changed"
+        "ALTERSUC": "Your data has been successfully changed"
     },
 
     "PERFIL":{

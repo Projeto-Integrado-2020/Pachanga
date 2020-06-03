@@ -102,7 +102,7 @@ export class EditDialogComponent implements OnInit {
       this.loginService.setusuarioInfo(resp);
       this.editService.setFarol(false);
       this.modal.closeAll();
-      this.openDialogSuccess('1');
+      this.openDialogSuccess('ALTERSUC');
     });
   }
 

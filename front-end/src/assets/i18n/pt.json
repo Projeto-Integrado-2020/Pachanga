@@ -54,19 +54,18 @@
 
     "ERRO": {
         "TITULO": "Erro",
-        "STSTRANGE": "Ops! Algo estranho aconteceu. Por favor tente mais tarde.",
-        "USEDMAIL": "Outra conta está utlizando este e-mail.",
-        "UORPINCO ": "Usuário ou senha incorretos.",
-        "USERNCAD ": "Usuário não cadastrado.",
+        "SERVERRO": "Ops! Algo estranho aconteceu. Por favor tente mais tarde.",
+        "USERMAIL": "Outra conta está utlizando este e-mail.",
+        "UORPINCO": "Usuário ou senha incorretos.",
         "PASSDIFF": "Senha nova precisa ser diferente da atual.",
         "USERNFOU": "Usuário não encontrado.",
-        "PASSINCO": "Senha incorreta",
-        "NOMOD": "Nada a se alterar."
+        "PASSINCO": "Senha incorreta.",
+        "NOTMODIF": "Nada a se alterar."
     },
 
     "SUCCESS": {
         "TITULO": "Sucesso!",
-        "ALTEROK": "Seus dados foram alterados com sucesso"
+        "ALTERSUC": "Seus dados foram alterados com sucesso"
     },
     
     "PERFIL":{

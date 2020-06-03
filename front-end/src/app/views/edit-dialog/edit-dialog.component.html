@@ -67,7 +67,7 @@
         <form [formGroup]="form" class="example-form" (submit)="salvarSexo(sexo.value)">
             <mat-form-field class="example-full-width">
                 <mat-label>{{'EDIT.OLDSEXO' | translate}}</mat-label>
-                <input formControlName="sexoAntigo" *ngIf="!loginService.usuarioInfo.sexo" required matInput value="{{'PERFIL.NOTINFORMED' | translate}}">
+                <input formControlName="sexoAntigo" *ngIf="!loginService.usuarioInfo.sexo || loginService.usuarioInfo.sexo == 'N'" required matInput value="{{'PERFIL.NOTINFORMED' | translate}}">
                 <input formControlName="sexoAntigo" *ngIf="loginService.usuarioInfo.sexo && loginService.usuarioInfo.sexo == 'M'" required matInput value="{{'SEXO.MASC' | translate}}">
                 <input formControlName="sexoAntigo" *ngIf="loginService.usuarioInfo.sexo && loginService.usuarioInfo.sexo == 'F'" required matInput value="{{'SEXO.FEM' | translate}}">
                 <input formControlName="sexoAntigo" *ngIf="loginService.usuarioInfo.sexo && loginService.usuarioInfo.sexo == 'T'" required matInput value="{{'SEXO.TRANS' | translate}}">

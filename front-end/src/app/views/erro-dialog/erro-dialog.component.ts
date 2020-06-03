@@ -18,15 +18,15 @@ export class ErroDialogComponent implements OnInit {
     }
 
   ngOnInit() {
-    switch (this.erro.toString()) {
-      case '1': this.erro = this.translate.instant('ERRO.USEDMAIL'); break;
-      case '2': this.erro = this.translate.instant('ERRO.UORPINCO'); break;
-      case '3': this.erro = this.translate.instant('ERRO.USERNCAD'); break;
-      case '4': this.erro = this.translate.instant('ERRO.PASSDIFF'); break;
-      case '5': this.erro = this.translate.instant('ERRO.USERNFOU'); break;
-      case '6': this.erro = this.translate.instant('ERRO.PASSINCO'); break;
-      case '101': this.erro = this.translate.instant('ERRO.NOMOD'); break;
-      default: this.erro = this.translate.instant('ERRO.STSTRANGE');
+    switch (this.erro) {
+      case 'USERMAIL': this.erro = this.translate.instant('ERRO.USERMAIL'); break;
+      case 'PASSINC1': this.erro = this.translate.instant('ERRO.UORPINCO'); break;
+      case 'PASSINC2': this.erro = this.translate.instant('ERRO.PASSINCO'); break;
+      case 'EMALINCO': this.erro = this.translate.instant('ERRO.UORPINCO'); break;
+      case 'PASSDIFF': this.erro = this.translate.instant('ERRO.PASSDIFF'); break;
+      case 'USERNFOU': this.erro = this.translate.instant('ERRO.USERNFOU'); break;
+      case 'NOTMODIF': this.erro = this.translate.instant('ERRO.NOTMODIF'); break;
+      default: this.erro = this.translate.instant('ERRO.SERVERRO');
     }
   }
 
