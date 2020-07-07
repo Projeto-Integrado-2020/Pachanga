@@ -6,7 +6,7 @@
         "SAIR": "Sair",
         "CONTA_L": "Minha conta",
         "INGRESSOS": "Meus ingressos",
-        "EVENTOS": "Meus eventos"
+        "FESTAS": "Minhas festas"
     },
 
     "INDEX": {
@@ -131,5 +131,12 @@
         "ALTEMAIL": "Alterar e-mail",
         "ALTSENHA": "Alterar senha",
         "CONFPASS": "Confirmar nova senha"
+    },
+
+    "FESTA": {
+        "MENUFESTAS": "Menu de Festas",
+        "MINHASFESTAS": "Minhas Festas",
+        "FESTASMEMBRO": "Festas que sou Membro",
+        "ADDFESTA": "Criar Festa"
     }
 }

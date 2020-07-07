@@ -32,7 +32,7 @@
           <button *ngIf="!loginService.usuarioAutenticado" class="button-index prp-btn btn-navbar" mat-raised-button (click)="openDialogLogin()">{{'NAV.ENTRAR' | translate}}</button>
           <button *ngIf="!loginService.usuarioAutenticado" class="button-index org-btn btn-navbar" mat-raised-button (click)="openDialogCadastro()">{{'NAV.CONTA' | translate}}</button>
           <button *ngIf="loginService.usuarioAutenticado" class="button-index prp-btn btn-navbar" mat-raised-button >{{'NAV.INGRESSOS' | translate}}</button>
-          <button *ngIf="loginService.usuarioAutenticado" class="button-index prp-btn btn-navbar" mat-raised-button >{{'NAV.EVENTOS' | translate}}</button>
+          <a routerLink="../minhas-festas"><button *ngIf="loginService.usuarioAutenticado" class="button-index prp-btn btn-navbar" mat-raised-button >{{'NAV.FESTAS' | translate}}</button></a>
 
           <button *ngIf="loginService.usuarioAutenticado" class="button-index org-btn btn-navbar" mat-raised-button [matMenuTriggerFor]="myMenu">
             {{ loginService.usuarioInfo.nomeUser }}

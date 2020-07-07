@@ -6,7 +6,7 @@
         "SAIR": "Logout",
         "CONTA_L": "My account",
         "INGRESSOS": "My tickets",
-        "EVENTOS": "My events"
+        "FESTAS": "My parties"
     },
 
     "INDEX": {
@@ -131,5 +131,12 @@
         "ALTEMAIL": "Alter e-mail",
         "ALTSENHA": "Alter password",
         "CONFPASS": "Confirm new password"
+    },
+
+    "FESTA": {
+        "MENUFESTAS": "Parties Menu",
+        "MINHASFESTAS": "My Own Parties",
+        "FESTASMEMBRO": "Parties I'm Member",
+        "ADDFESTA": "Add Party"
     }
 }

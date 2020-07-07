@@ -11,6 +11,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from '../../app-routing.module';
 import { LoginComponent } from '../login/login.component';
 import { IndexComponent } from '../index/index.component';
+import { MenuFestasComponent } from '../menu-festas/menu-festas.component';
 
 import { SocialLoginModule, AuthServiceConfig } from 'angular4-social-login';
 import { GoogleLoginProvider, FacebookLoginProvider } from 'angular4-social-login';
@@ -55,7 +56,8 @@ describe('CadastroComponent', () => {
         LoginComponent,
         IndexComponent,
         PerfilComponent,
-        InfoCompleteComponent
+        InfoCompleteComponent,
+        MenuFestasComponent
       ],
       imports: [
         CustomMaterialModule,

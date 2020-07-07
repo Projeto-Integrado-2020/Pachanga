@@ -5,6 +5,7 @@ import { CadastroComponent } from './views/cadastro/cadastro.component';
 import { IndexComponent } from './views/index/index.component';
 import { PerfilComponent } from './views/perfil/perfil.component';
 import { AuthGuard } from './guard/auth.guard';
+import { MenuFestasComponent } from './views/menu-festas/menu-festas.component';
 
 const routes: Routes = [
 
@@ -26,6 +27,12 @@ const routes: Routes = [
     {
       path: 'perfil',
       component: PerfilComponent,
+      canActivate: [AuthGuard]
+    },
+
+    {
+      path: 'minhas-festas',
+      component: MenuFestasComponent,
       canActivate: [AuthGuard]
     }
 ];

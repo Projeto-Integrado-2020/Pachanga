@@ -1,0 +1,107 @@
+@import '../material/paleta.scss';
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  border: 0;
+}
+
+.main-container {
+    max-width: 1140px;
+    margin: 0 auto;
+}
+
+.minhas-festas {
+    height: 10vh;
+    width: 100%;
+    display: block;
+    margin: 0;
+}
+
+.title, .centered-text {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: block;
+    position: relative;
+}
+
+.organizador , .membro{
+    display: inline-block;
+    height: 90vh;
+    vertical-align: top;
+}
+
+@media (min-width: 748px){
+    .organizador {
+      width: 50%;
+      min-width: 292.5px;
+    }
+  
+  
+    .membro {
+      width: 50%;
+    }
+  
+    .organizador{
+        border-right: 1px solid lightgrey;
+    }
+}
+
+@media (max-width: 748px){
+    .organizador , .membro{
+      width: 100%;
+    }
+}
+
+.margin-tops {
+    margin-top: 2rem;
+}
+
+.button-main-action {
+    background-color: $color-primary;
+    color: #ffffff;
+    padding-left: .4rem;
+    padding-right: .4rem;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.party-info h1 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.party-body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid lightgrey;
+    padding-bottom: 2rem;
+}
+
+.party-info .texto {
+    float: left;
+    margin-right: 25%;
+}
+
+.party-info button {
+    background-color: $color-tertiary;
+    color: #ffffff;
+    padding: .3rem;
+}
+
+.tab-center{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mat-tab-label {
+    opacity: 1 !important;
+}

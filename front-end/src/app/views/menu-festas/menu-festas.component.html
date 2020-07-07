@@ -1,0 +1,106 @@
+<div class="main-container">
+    <div class="minhas-festas">
+        <h1 class="mat-title title">{{'FESTA.MENUFESTAS' | translate}}</h1>
+    </div>
+    
+    <div class="organizador">
+        <mat-tab-group mat-align-tabs="center">
+          <mat-tab label="{{'FESTA.MINHASFESTAS' | translate}}">
+                <div class="party-info margin-tops">
+                    <h1 class="mat-headline nome-festa">Festa 1</h1>
+                    <div class="party-body">
+                        <div class="texto">
+                            <h2 class="mat-subheading-2">1 Membro</h2>
+                            <h2 class="mat-subheading-2">Data: 07/07/2020</h2>
+                        </div>
+                        <div class="acao">
+                            <button mat-raised-button>Acessar Festa</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="party-info margin-tops">
+                    <h1 class="mat-headline">Festa 2</h1>
+                    <div class="party-body">
+                        <div class="texto">
+                            <h2 class="mat-subheading-2">58 Membros</h2>
+                            <h2 class="mat-subheading-2">Data: 17/07/2020</h2>
+                        </div>
+                        <div class="acao">
+                            <button mat-raised-button>Acessar Festa</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="party-info margin-tops">
+                    <h1 class="mat-headline">Festa 3</h1>
+                    <div class="party-body">
+                        <div class="texto">
+                            <h2 class="mat-subheading-2">90 Membros</h2>
+                            <h2 class="mat-subheading-2">Data: 27/07/2020</h2>
+                        </div>
+                        <div class="acao">
+                            <button mat-raised-button>Acessar Festa</button>
+                        </div>
+                    </div>
+                </div>
+                <mat-paginator [length]="100"
+                            [pageSize]="10"
+                            [pageSizeOptions]="[5, 10, 25, 100]">
+                </mat-paginator>
+          </mat-tab>
+            <mat-tab disabled>
+                <ng-template mat-tab-label>
+                    <button class="button-main-action" mat-raised-button>
+                        <mat-icon>add</mat-icon>{{ 'FESTA.ADDFESTA' | translate }}
+                    </button>
+                </ng-template>
+            </mat-tab>
+        </mat-tab-group>
+    </div>
+
+    <div class="membro">
+        <mat-tab-group mat-align-tabs="center">
+            <mat-tab label="{{'FESTA.FESTASMEMBRO' | translate}}">
+                <div class="party-info margin-tops">
+                    <h1 class="mat-headline">Festa 1</h1>
+                    <div class="party-body">
+                        <div class="texto">
+                            <h2 class="mat-subheading-2">Data: 07/07/2020</h2>
+                            <h2 class="mat-subheading-2">Função: Bartender</h2>
+                        </div>
+                        <div class="acao">
+                            <button mat-raised-button>Acessar Festa</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="party-info margin-tops">
+                    <h1 class="mat-headline">Festa 2</h1>
+                    <div class="party-body">
+                        <div class="texto">
+                            <h2 class="mat-subheading-2">Data: 17/07/2020</h2>
+                            <h2 class="mat-subheading-2">Função: Bartender, Estoque e mais</h2>
+                        </div>
+                        <div class="acao">
+                            <button mat-raised-button>Acessar Festa</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="party-info margin-tops">
+                    <h1 class="mat-headline">Festa 3</h1>
+                    <div class="party-body">
+                        <div class="texto">
+                            <h2 class="mat-subheading-2">Data: 27/07/2020</h2>
+                            <h2 class="mat-subheading-2">Função: Administrador</h2>
+                        </div>
+                        <div class="acao">
+                            <button mat-raised-button>Acessar Festa</button>
+                        </div>
+                    </div>
+                </div>
+                <mat-paginator [length]="100"
+                            [pageSize]="10"
+                            [pageSizeOptions]="[5, 10, 25, 100]">
+                </mat-paginator>
+            </mat-tab>
+        </mat-tab-group>
+    </div>
+</div>

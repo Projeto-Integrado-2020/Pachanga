@@ -41,6 +41,7 @@ import { InfoCompleteComponent } from './views/info-complete/info-complete.compo
 import { EditAccountService } from './services/editAccountService/edit-account.service';
 import { EditDialogComponent } from './views/edit-dialog/edit-dialog.component';
 import { SuccessDialogComponent } from './views/success-dialog/success-dialog.component';
+import { MenuFestasComponent } from './views/menu-festas/menu-festas.component';
 
 const config = new AuthServiceConfig([
   {
@@ -70,6 +71,7 @@ export function provideConfig() {
     InfoCompleteComponent,
     EditDialogComponent,
     SuccessDialogComponent,
+    MenuFestasComponent,
   ],
   entryComponents: [
     LoginComponent,

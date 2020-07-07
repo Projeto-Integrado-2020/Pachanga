@@ -14,6 +14,7 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PerfilComponent } from '../perfil/perfil.component';
 import { InfoCompleteComponent } from '../info-complete/info-complete.component';
+import { MenuFestasComponent } from '../menu-festas/menu-festas.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -31,7 +32,8 @@ describe('IndexComponent', () => {
         LoginComponent,
         CadastroComponent,
         PerfilComponent,
-        InfoCompleteComponent
+        InfoCompleteComponent,
+        MenuFestasComponent
       ],
       imports: [
         CustomMaterialModule,
