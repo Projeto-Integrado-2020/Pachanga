@@ -9,99 +9,83 @@
 
 .main-container {
     max-width: 1140px;
-    margin: 0 auto;
+    margin-left: 10vh;
 }
 
 .minhas-festas {
-    height: 10vh;
+    margin-top: 13vh;
+}
+
+.list-festas {
+    margin-top: 3vh;
+    width: 198vh;
+    margin-bottom: 5vh;
+    padding-bottom: 0!important;
+}
+
+.title {
+    font-size: 1.8rem;
+    font-weight: lighter;
     width: 100%;
-    display: block;
-    margin: 0;
+    color: $color-primary;
 }
 
-.title, .centered-text {
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    display: block;
-    position: relative;
+.card-top {
+    display: flex;
+    align-items: center;
+    padding-bottom: .8rem;
+    border-bottom: 1px solid lightgrey;
 }
 
-.organizador , .membro{
-    display: inline-block;
-    height: 90vh;
-    vertical-align: top;
-}
-
-@media (min-width: 748px){
-    .organizador {
-      width: 50%;
-      min-width: 292.5px;
-    }
-  
-  
-    .membro {
-      width: 50%;
-    }
-  
-    .organizador{
-        border-right: 1px solid lightgrey;
-    }
-}
-
-@media (max-width: 748px){
-    .organizador , .membro{
-      width: 100%;
-    }
-}
-
-.margin-tops {
-    margin-top: 2rem;
+.card-title {
+    font-size: 1.2rem;
+    font-weight: 500;
+    width: 88%;
+    color: $color-tertiary;
+    float: right;
+    padding-left: 3%;
 }
 
 .button-main-action {
-    background-color: $color-primary;
+    background-color: $color-tertiary;
+    opacity: 0.9;
     color: #ffffff;
-    padding-left: .4rem;
-    padding-right: .4rem;
+    padding: 0;
+    padding-left: .2rem;
+    padding-right: .5rem;
+    font-weight: 400;
 }
 
-a {
-    text-decoration: none;
-    color: inherit;
-}
-
-.party-info h1 {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.nome-festa {
+    font-weight: normal;
+    color: $color-secondary;
+    padding-left: 2.5%;
+    margin-bottom: 1.5rem;
+    margin-top: 1.5rem;
 }
 
 .party-body {
     display: flex;
     align-items: center;
     justify-content: center;
-    border-bottom: 1px solid lightgrey;
-    padding-bottom: 2rem;
 }
 
-.party-info .texto {
+.party-body .texto {
     float: left;
     margin-right: 25%;
+    padding-left: 1%;
+    margin-bottom: 0;
+    width: 18%;
 }
 
-.party-info button {
-    background-color: $color-tertiary;
+.party-body button {
+    background-color: $color-primary;
     color: #ffffff;
-    padding: .3rem;
+    padding: .2rem;
+    padding-right: .3rem;
 }
 
-.tab-center{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.mat-tab-label {
-    opacity: 1 !important;
+.festa-tab {
+    border-bottom: 1px solid lightgrey;
+    padding-bottom: 1rem;
 }

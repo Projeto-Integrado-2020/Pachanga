@@ -134,9 +134,18 @@
     },
 
     "FESTA": {
-        "MENUFESTAS": "Parties Menu",
-        "MINHASFESTAS": "My Own Parties",
-        "FESTASMEMBRO": "Parties I'm Member",
-        "ADDFESTA": "Add Party"
+        "MENUFESTAS": "Parties menu",
+        "LISTAFESTAS": "Parties list",
+        "ADDFESTA": "New party",
+        "ACESSARFESTA": "Access party",
+        "PAPEL": "Role",
+        "PAPEIS": "Roles",
+        "DATA": "Date",
+        "MEMBRO": "Collaborating member",
+        "MEMBROS": "Collaborating members",
+        "ANDAMENTO": "In progress",
+        "FINALIZADA": "Finished",
+        "PREPARACAO": "In preparation",
+        "MAIS": "and more..."
     }
 }

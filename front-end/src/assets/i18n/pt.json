@@ -134,9 +134,18 @@
     },
 
     "FESTA": {
-        "MENUFESTAS": "Menu de Festas",
-        "MINHASFESTAS": "Minhas Festas",
-        "FESTASMEMBRO": "Festas que sou Membro",
-        "ADDFESTA": "Criar Festa"
+        "MENUFESTAS": "Menu de festas",
+        "LISTAFESTAS": "Lista de festas",
+        "ADDFESTA": "Nova festa",
+        "ACESSARFESTA": "Acessar festa",
+        "PAPEL": "Papel",
+        "PAPEIS": "Papéis",
+        "DATA": "Data",
+        "MEMBRO": "Membro colaborador",
+        "MEMBROS": "Membros colaboradores",
+        "ANDAMENTO": "Em andamento",
+        "FINALIZADA": "Finalizada",
+        "PREPARACAO": "Em preparação",
+        "MAIS": "e mais..."
     }
 }
