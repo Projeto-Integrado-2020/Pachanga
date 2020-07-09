@@ -7,13 +7,6 @@ const app = express();
 // Serve only the static files form the dist directory
 app.use(express.static(__dirname + '/dist/front-end'));
 
-app.use(function(req, res, next) {
-    if(!req.secure) {
-      return res.redirect('https://pachanga.herokuapp.com/');
-    }
-    next();
-});
-
 app.get('/*', function(req,res) {
     
 res.sendFile(path.join(__dirname+'/dist/front-end/index.html'));
