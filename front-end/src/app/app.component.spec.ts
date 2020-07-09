@@ -8,6 +8,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { LoginComponent } from './views/login/login.component';
 import { CadastroComponent } from './views/cadastro/cadastro.component';
 import { MenuFestasComponent } from './views/menu-festas/menu-festas.component';
+import { CriarFestaComponent } from './views/criar-festa/criar-festa.component';
 import { AppRoutingModule } from './app-routing.module';
 
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
@@ -55,7 +56,8 @@ describe('AppComponent', () => {
         ErroDialogComponent,
         PerfilComponent,
         InfoCompleteComponent,
-        MenuFestasComponent
+        MenuFestasComponent,
+        CriarFestaComponent
       ],
       imports: [
         BrowserModule,

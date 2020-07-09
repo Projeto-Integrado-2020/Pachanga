@@ -37,7 +37,7 @@ const routes: Routes = [
       canActivate: [AuthGuard]
     },
     {
-      path: "criar-festa",
+      path: 'criar-festa',
       component: CriarFestaComponent,
       canActivate: [AuthGuard]
     }

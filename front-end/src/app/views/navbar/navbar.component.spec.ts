@@ -8,6 +8,7 @@ import { LoginComponent } from '../login/login.component';
 import { CadastroComponent } from '../cadastro/cadastro.component';
 import { IndexComponent } from '../index/index.component';
 import { MenuFestasComponent } from '../menu-festas/menu-festas.component';
+import { CriarFestaComponent } from '../criar-festa/criar-festa.component';
 
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -54,7 +55,8 @@ describe('NavbarComponent', () => {
         IndexComponent,
         PerfilComponent,
         InfoCompleteComponent,
-        MenuFestasComponent
+        MenuFestasComponent,
+        CriarFestaComponent
        ],
       imports: [
         CustomMaterialModule,
