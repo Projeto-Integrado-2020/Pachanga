@@ -11,11 +11,6 @@ export class AppComponent implements OnInit {
   title = 'Pachanga';
 
   ngOnInit() {
-    if (environment.production) {
-      if (location.protocol === 'http:') {
-        window.location.href = location.href.replace('http', 'https');
-      }
-    }
   }
 
 }
