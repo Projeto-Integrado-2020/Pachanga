@@ -44,6 +44,7 @@ import { SuccessDialogComponent } from './views/success-dialog/success-dialog.co
 import { MenuFestasComponent } from './views/menu-festas/menu-festas.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import { CriarFestaComponent } from './views/criar-festa/criar-festa.component';
 
 const config = new AuthServiceConfig([
   {
@@ -74,6 +75,7 @@ export function provideConfig() {
     EditDialogComponent,
     SuccessDialogComponent,
     MenuFestasComponent,
+    CriarFestaComponent,
   ],
   entryComponents: [
     LoginComponent,

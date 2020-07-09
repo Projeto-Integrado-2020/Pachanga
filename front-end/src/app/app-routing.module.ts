@@ -6,6 +6,7 @@ import { IndexComponent } from './views/index/index.component';
 import { PerfilComponent } from './views/perfil/perfil.component';
 import { AuthGuard } from './guard/auth.guard';
 import { MenuFestasComponent } from './views/menu-festas/menu-festas.component';
+import { CriarFestaComponent } from './views/criar-festa/criar-festa.component';
 
 const routes: Routes = [
 
@@ -33,6 +34,11 @@ const routes: Routes = [
     {
       path: 'minhas-festas',
       component: MenuFestasComponent,
+      canActivate: [AuthGuard]
+    },
+    {
+      path: "criar-festa",
+      component: CriarFestaComponent,
       canActivate: [AuthGuard]
     }
 ];
