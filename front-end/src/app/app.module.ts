@@ -42,6 +42,8 @@ import { EditAccountService } from './services/editAccountService/edit-account.s
 import { EditDialogComponent } from './views/edit-dialog/edit-dialog.component';
 import { SuccessDialogComponent } from './views/success-dialog/success-dialog.component';
 import { MenuFestasComponent } from './views/menu-festas/menu-festas.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 const config = new AuthServiceConfig([
   {
@@ -101,7 +103,8 @@ export function provideConfig() {
     MatButtonModule,
     MatSidenavModule,
     MatIconModule,
-    MatListModule
+    MatListModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [
     {
