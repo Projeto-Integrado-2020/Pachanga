@@ -1,14 +1,22 @@
 //Install express server
 const express = require('express');
 const path = require('path');
-const app = require("https-localhost")()
+
+const app = express();
 
 // Serve only the static files form the dist directory
 app.use(express.static(__dirname + '/dist/front-end'));
-app.redirect()
+
+app.use(function(req, res, next) {
+    if(!req.secure) {
+      return res.redirect('https://pachanga.herokuapp.com/');
+    }
+    next();
+});
 
 app.get('/*', function(req,res) {
-  res.sendFile(path.join(__dirname+'/dist/front-end/index.html'));
+    
+res.sendFile(path.join(__dirname+'/dist/front-end/index.html'));
 });
 
 // Start the app by listening on the default Heroku port
