@@ -7,16 +7,19 @@ const app = express();
 // Serve only the static files form the dist directory
 app.use(express.static(__dirname + '/dist/front-end'));
 
-app.use(function(req, res, next) {
-    if(!req.secure) {
-      return res.redirect('https://pachanga.herokuapp.com/');
-    }
-    next();
-});
+// Middleware para forçar uso do SSL (HTTPS)
+function requireHTTPS(req, res, next) {
+  // The 'x-forwarded-proto' check is for Heroku
+  if (!req.secure && req.get('x-forwarded-proto') !== 'https' && req.get('host') !== "localhost:8080") {
+    return res.redirect('https://' + req.get('host') + req.url);
+  }
+  next();
+}
+
+app.use(requireHTTPS);
 
 app.get('/*', function(req,res) {
-    
-res.sendFile(path.join(__dirname+'/dist/front-end/index.html'));
+  res.sendFile(path.join(__dirname+'/dist/front-end/index.html'));
 });
 
 // Start the app by listening on the default Heroku port
