@@ -10,12 +10,8 @@ app.use(express.static(__dirname + '/dist/front-end'));
 
 app.use(sslRedirect());
 
-app.get('/*', function(req,res) {
-    res.sendFile(path.join(__dirname+'/dist/front-end/index.html'));
-});
-
-app.get('/.well-known/acme-challenge/CytPHEoT_4qgVSJjraH0lpTP5KVjiROh4-eDyqKY4xQ', function(req, res) {
-    res.send('CytPHEoT_4qgVSJjraH0lpTP5KVjiROh4-eDyqKY4xQ.z9Coz9YXNvl8QrQOr6k2A2tWbudvS5xiXHjd-tHQPIc');
+app.get('/.well-known/acme-challenge/3tjbjSzDmDxYfSKeLkZ9aeJ0pdJaIdyE6wXgEu-mmt8', function(req, res) {
+    res.send('3tjbjSzDmDxYfSKeLkZ9aeJ0pdJaIdyE6wXgEu-mmt8.z9Coz9YXNvl8QrQOr6k2A2tWbudvS5xiXHjd-tHQPIc');
 });
 
 // Start the app by listening on the default Heroku port
