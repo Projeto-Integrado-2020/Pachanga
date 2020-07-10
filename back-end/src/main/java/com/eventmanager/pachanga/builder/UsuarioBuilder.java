@@ -23,48 +23,35 @@ public class UsuarioBuilder{
 		return this;
 	}
 
-
-
 	public UsuarioBuilder codUsuario(int codUsuario) {
 		this.codUsuario = codUsuario;
 		return this;
 	}
-
-
 
 	public UsuarioBuilder nomeUser(String nomeUser) {
 		this.nomeUser = nomeUser;
 		return this;
 	}
 
-
-
 	public UsuarioBuilder tipConta(String tipConta) {
 		this.tipConta = tipConta;
 		return this;
 	}
-
-
 
 	public UsuarioBuilder email(String email) {
 		this.email = email;
 		return this;
 	}
 
-
-
 	public UsuarioBuilder senha(String senha) {
 		this.senha = senha;
 		return this;
 	}
 
-
-
 	public UsuarioBuilder sexo(String sexo) {
 		this.sexo = sexo;
 		return this;
 	}
-
 
 	public Usuario build() {
 		Usuario user = new Usuario();
