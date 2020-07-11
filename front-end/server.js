@@ -1,11 +1,15 @@
 //Install express server
 const express = require('express');
 const path = require('path');
+const compression = require('compression');
 
 const app = express();
 
 // Serve only the static files form the dist directory
 app.use(express.static(__dirname + '/dist/front-end'));
+
+// Enable text compression - PWA requisit
+app.use(compression());
 
 
 app.get('/*', function(req,res) { 
