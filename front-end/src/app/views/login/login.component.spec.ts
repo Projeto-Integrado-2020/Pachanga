@@ -20,6 +20,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PerfilComponent } from '../perfil/perfil.component';
 import { InfoCompleteComponent } from '../info-complete/info-complete.component';
 import { MenuFestasComponent } from '../menu-festas/menu-festas.component';
+import { FestaPainelControleComponent } from '../festa-painel-controle/festa-painel-controle.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -54,7 +55,8 @@ describe('LoginComponent', () => {
         IndexComponent,
         PerfilComponent,
         InfoCompleteComponent,
-        MenuFestasComponent
+        MenuFestasComponent,
+        FestaPainelControleComponent
       ],
       imports: [
         CustomMaterialModule,
