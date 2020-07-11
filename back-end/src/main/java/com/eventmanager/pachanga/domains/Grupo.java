@@ -1,13 +1,12 @@
 package com.eventmanager.pachanga.domains;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -21,9 +20,8 @@ public class Grupo {
 	private String nomeGrupo;
 	@Column(name = "quant_max_pessoas")
 	private int quantMaxPessoas;
-	@ManyToMany(fetch = FetchType.LAZY,
-    		mappedBy = "grupos")
-    private Set<Festa> festas = new HashSet<Festa>();
+	@OneToMany(fetch = FetchType.LAZY)
+	private List<FestaGrupoUsuario> festaGrupoUsuarios;
 	
 	public int getCodGrupo() {
 		return codGrupo;
@@ -42,6 +40,12 @@ public class Grupo {
 	}
 	public void setQuantMaxPessoas(int quantMaxPessoas) {
 		this.quantMaxPessoas = quantMaxPessoas;
+	}
+	public List<FestaGrupoUsuario> getFestaGrupoUsuarios() {
+		return festaGrupoUsuarios;
+	}
+	public void setFestaGrupoUsuarios(List<FestaGrupoUsuario> festaGrupoUsuarios) {
+		this.festaGrupoUsuarios = festaGrupoUsuarios;
 	}
 
 }

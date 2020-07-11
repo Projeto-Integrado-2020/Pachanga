@@ -1,16 +1,14 @@
 package com.eventmanager.pachanga.domains;
 
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -44,17 +42,9 @@ public class Festa {
 	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm:ss")
 	private LocalDateTime horarioFimFestaReal;
 	
-	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "usuario_x_festa_x_grupo",
-    joinColumns =  @JoinColumn(name = "cod_festa") ,	
-    inverseJoinColumns =  @JoinColumn(name = "cod_usuario"))
-	private Set<Usuario> usuarios = new HashSet<Usuario>();
-	
-	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "usuario_x_festa_x_grupo",
-    joinColumns =  @JoinColumn(name = "cod_festa") ,	
-    inverseJoinColumns =  @JoinColumn(name = "cod_grupo"))
-	private Set<Grupo> grupos = new HashSet<Grupo>();
+	@OneToMany(fetch = FetchType.LAZY)
+	@JoinColumn(name = "cod_festa")
+	private List<FestaGrupoUsuario> festaGrupoUsuarios;
 	
 	public int getCodFesta() {
 		return codFesta;
@@ -116,24 +106,15 @@ public class Festa {
 	public void setHorarioInicioFesta(LocalDateTime horaioInicioFesta) {
 		this.horarioInicioFesta = horaioInicioFesta;
 	}
-	public Set<Usuario> getUsuario() {
-		return usuarios;
+	public List<FestaGrupoUsuario> getFestaGrupoUsuarios() {
+		return festaGrupoUsuarios;
 	}
-	public void setUsuario(Usuario usuario) {
-		this.usuarios.add(usuario);
+	public void setFestaGrupoUsuarios(List<FestaGrupoUsuario> festaGrupoUsuarios) {
+		this.festaGrupoUsuarios = festaGrupoUsuarios;
 	}
 	
-	public void setUsuarios(Set<Usuario> usuarios) {
-		this.usuarios = usuarios;
-	}
-	public Set<Grupo> getGrupos() {
-		return grupos;
-	}
-	public void setGrupos(Set<Grupo> grupos) {
-		this.grupos = grupos;
-	}
-	public void setGrupo(Grupo grupo) {
-		this.grupos.add(grupo);
+	public void setFestaGrupoUsuario(FestaGrupoUsuario festaGrupoUsuario) {
+		this.festaGrupoUsuarios.add(festaGrupoUsuario);
 	}
 	
 }

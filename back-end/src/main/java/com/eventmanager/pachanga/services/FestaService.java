@@ -10,9 +10,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.eventmanager.pachanga.builder.FestaBuilder;
 import com.eventmanager.pachanga.domains.Festa;
+import com.eventmanager.pachanga.domains.FestaGrupoUsuario;
 import com.eventmanager.pachanga.domains.Grupo;
 import com.eventmanager.pachanga.domains.Usuario;
 import com.eventmanager.pachanga.dtos.FestaTO;
+import com.eventmanager.pachanga.repositories.FestaGrupoUsuarioRepository;
 import com.eventmanager.pachanga.repositories.FestaRepository;
 import com.eventmanager.pachanga.repositories.GrupoRepository;
 import com.eventmanager.pachanga.repositories.UsuarioRepository;
@@ -29,6 +31,9 @@ public class FestaService {
 	
 	@Autowired
 	private GrupoRepository grupoRepository;
+	
+	@Autowired
+	private FestaGrupoUsuarioRepository festaGrupoUsuarioRepository;
 
 	public List<Festa> procurarFestas(){
 		return festaRepository.findFesta();
@@ -49,9 +54,9 @@ public class FestaService {
 		Grupo grupo = grupoRepository.findById(1);
 		festaTo.setCodFesta(festaRepository.getNextValMySequence());
 		Festa festa = criacaoFesta(festaTo);
-		festa.setUsuario(usuario);
-		festa.setGrupo(grupo);
+		FestaGrupoUsuario festaGrupoUsuario = new FestaGrupoUsuario(grupo, festa, usuario);
 		festaRepository.save(festa);
+		festaGrupoUsuarioRepository.save(festaGrupoUsuario);
 		return festa;
 	}
 	
