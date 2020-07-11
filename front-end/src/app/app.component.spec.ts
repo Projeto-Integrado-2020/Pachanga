@@ -9,6 +9,7 @@ import { LoginComponent } from './views/login/login.component';
 import { CadastroComponent } from './views/cadastro/cadastro.component';
 import { MenuFestasComponent } from './views/menu-festas/menu-festas.component';
 import { FestaPainelControleComponent } from './views/festa-painel-controle/festa-painel-controle.component';
+import { CriarFestaComponent } from './views/criar-festa/criar-festa.component';
 import { AppRoutingModule } from './app-routing.module';
 
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
@@ -57,7 +58,8 @@ describe('AppComponent', () => {
         PerfilComponent,
         InfoCompleteComponent,
         MenuFestasComponent,
-        FestaPainelControleComponent
+        FestaPainelControleComponent,
+        CriarFestaComponent
       ],
       imports: [
         BrowserModule,

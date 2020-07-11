@@ -3,19 +3,8 @@
 
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; font-display: swap;}
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
-
-.cadastro-btn{
-    background-color: #ff8040 !important;
-}
-
-button {
-    display: block;
-    margin: 10px;
-}
 
 a{
     text-decoration: none;

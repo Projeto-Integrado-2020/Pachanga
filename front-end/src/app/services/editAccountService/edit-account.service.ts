@@ -25,7 +25,7 @@ export class EditAccountService {
           usuarioAtualizado.emailNovo === userInfo.email) && usuarioAtualizado.senhaNova === null) {
           this.openErrorDialog('NOTMODIF');
       } else {
-        return this.http.post(this.urlEdit, usuarioAtualizado).pipe(
+        return this.http.put(this.urlEdit, usuarioAtualizado).pipe(
           take(1),
           catchError(error => {
             return this.handleError(error, this.logService);

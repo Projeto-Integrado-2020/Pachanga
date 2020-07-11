@@ -43,6 +43,9 @@ import { EditDialogComponent } from './views/edit-dialog/edit-dialog.component';
 import { SuccessDialogComponent } from './views/success-dialog/success-dialog.component';
 import { MenuFestasComponent } from './views/menu-festas/menu-festas.component';
 import { FestaPainelControleComponent } from './views/festa-painel-controle/festa-painel-controle.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
+import { CriarFestaComponent } from './views/criar-festa/criar-festa.component';
 
 const config = new AuthServiceConfig([
   {
@@ -74,6 +77,7 @@ export function provideConfig() {
     SuccessDialogComponent,
     MenuFestasComponent,
     FestaPainelControleComponent,
+    CriarFestaComponent,
   ],
   entryComponents: [
     LoginComponent,
@@ -103,7 +107,8 @@ export function provideConfig() {
     MatButtonModule,
     MatSidenavModule,
     MatIconModule,
-    MatListModule
+    MatListModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [
     {

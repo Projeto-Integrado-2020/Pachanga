@@ -9,6 +9,7 @@ import { CadastroComponent } from '../cadastro/cadastro.component';
 import { IndexComponent } from '../index/index.component';
 import { MenuFestasComponent } from '../menu-festas/menu-festas.component';
 import { FestaPainelControleComponent } from '../festa-painel-controle/festa-painel-controle.component';
+import { CriarFestaComponent } from '../criar-festa/criar-festa.component';
 
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -57,7 +58,8 @@ describe('NavbarComponent', () => {
         PerfilComponent,
         InfoCompleteComponent,
         MenuFestasComponent,
-        FestaPainelControleComponent
+        FestaPainelControleComponent,
+        CriarFestaComponent
        ],
       imports: [
         CustomMaterialModule,
