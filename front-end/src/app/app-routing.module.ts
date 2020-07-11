@@ -11,16 +11,6 @@ import { CriarFestaComponent } from './views/criar-festa/criar-festa.component';
 const routes: Routes = [
 
     {
-      path: 'login',
-      component: LoginComponent
-    },
-
-    {
-      path: 'cadastro',
-      component: CadastroComponent
-    },
-
-    {
       path: '',
       component: IndexComponent
     },
