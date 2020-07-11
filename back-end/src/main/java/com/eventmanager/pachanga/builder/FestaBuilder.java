@@ -15,6 +15,7 @@ public class FestaBuilder {
 	private String descricaoFesta;
 	private String codEnderecoFesta;
 	private String descOrganizador;
+	private LocalDateTime horarioFimFestaReal;
 	
 	public static FestaBuilder getInstance() {
 		return new FestaBuilder();
@@ -65,17 +66,23 @@ public class FestaBuilder {
 		return this;
 	}
 	
+	public FestaBuilder horarioFimFestaReal(LocalDateTime horarioFimFestaReal) {
+		this.horarioFimFestaReal = horarioFimFestaReal;
+		return this;
+	}
+	
 	public Festa build() {
 		Festa festa = new Festa();
 		festa.setCodEnderecoFesta(codEnderecoFesta);
 		festa.setCodFesta(codFesta);
 		festa.setDescOrganizador(descOrganizador);
 		festa.setDescricaoFesta(descricaoFesta);
-		festa.setHoraioInicioFesta(horarioInicioFesta);
+		festa.setHorarioInicioFesta(horarioInicioFesta);
 		festa.setHorarioFimFesta(horarioFimFesta);
 		festa.setNomeFesta(nomeFesta);
 		festa.setOrganizador(organizador);
 		festa.setStatusFesta(statusFesta);
+		festa.setHorarioFimFestaReal(horarioFimFestaReal);
 		return festa;
 	}
 }

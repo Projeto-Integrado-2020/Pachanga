@@ -110,10 +110,10 @@ public class Festa {
 	public void setHorarioFimFestaReal(LocalDateTime horarioFimFestaReal) {
 		this.horarioFimFestaReal = horarioFimFestaReal;
 	}
-	public LocalDateTime getHoraioInicioFesta() {
+	public LocalDateTime getHorarioInicioFesta() {
 		return horarioInicioFesta;
 	}
-	public void setHoraioInicioFesta(LocalDateTime horaioInicioFesta) {
+	public void setHorarioInicioFesta(LocalDateTime horaioInicioFesta) {
 		this.horarioInicioFesta = horaioInicioFesta;
 	}
 	public Set<Usuario> getUsuario() {

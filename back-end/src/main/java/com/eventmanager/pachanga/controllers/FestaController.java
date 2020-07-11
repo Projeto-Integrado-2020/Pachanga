@@ -2,6 +2,7 @@ package com.eventmanager.pachanga.controllers;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.validation.ValidationException;
 
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.eventmanager.pachanga.builder.FestaTOBuilder;
 import com.eventmanager.pachanga.domains.Festa;
 import com.eventmanager.pachanga.dtos.FestaTO;
 import com.eventmanager.pachanga.services.FestaService;
@@ -40,7 +42,8 @@ public class FestaController {
 			}else {
 				festas =  festaService.procurarFestasPorUsuario(Integer.parseInt(idUser));
 			}
-			return ResponseEntity.ok(festas);
+			List<FestaTO> festasTo = festas.stream().map(f -> createFestaTo(f)).collect(Collectors.toList());
+			return ResponseEntity.ok(festasTo);
 		}catch(ValidationException e) {
 			return ResponseEntity.status(400).body(e.getMessage());
 		}
@@ -73,5 +76,12 @@ public class FestaController {
 	public ResponseEntity<Object> atualizaFesta(@RequestBody FestaTO festaTo, @RequestParam(required = true) int idUser){
 		
 		return null;
+	}
+	
+	private FestaTO createFestaTo(Festa festa) {
+		return FestaTOBuilder.getInstance().codEnderecoFesta(festa.getCodEnderecoFesta()).codFesta(festa.getCodFesta()).
+				descOrganizador(festa.getDescOrganizador()).descricaoFesta(festa.getDescricaoFesta()).horarioFimFesta(festa.getHorarioFimFesta()).
+				horarioFimFestaReal(festa.getHorarioFimFestaReal()).horarioInicioFesta(festa.getHorarioInicioFesta()).
+				nomeFesta(festa.getNomeFesta()).organizador(festa.getOrganizador()).statusFesta(festa.getStatusFesta()).build();
 	}
 }

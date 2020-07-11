@@ -1,6 +1,5 @@
 package com.eventmanager.pachanga.dtos;
 
-import java.security.Timestamp;
 import java.time.LocalDateTime;
 
 public class FestaTO {
@@ -14,7 +13,7 @@ public class FestaTO {
 	private String descricaoFesta;
 	private String codEnderecoFesta; //Url do local, talvez mude
 	private String descOrganizador;
-	private Timestamp horarioFimFestaReal;
+	private LocalDateTime horarioFimFestaReal;
 	
 	public int getCodFesta() {
 		return codFesta;
@@ -70,10 +69,10 @@ public class FestaTO {
 	public void setDescOrganizador(String descOrganizador) {
 		this.descOrganizador = descOrganizador;
 	}
-	public Timestamp getHorarioFimFestaReal() {
+	public LocalDateTime getHorarioFimFestaReal() {
 		return horarioFimFestaReal;
 	}
-	public void setHorarioFimFestaReal(Timestamp horarioFimFestaReal) {
+	public void setHorarioFimFestaReal(LocalDateTime horarioFimFestaReal) {
 		this.horarioFimFestaReal = horarioFimFestaReal;
 	}
 
