@@ -1,0 +1,98 @@
+<mat-sidenav-container class="example-container">
+    <mat-sidenav #sidenav mode="side" opened class="example-sidenav"
+        [fixedInViewport]="options.value.fixed" [fixedTopGap]="options.value.top"
+        [fixedBottomGap]="options.value.bottom">
+        <button mat-button class="botao-sidenav">{{'PAINELCONTROLE.GERAL' | translate}} <mat-icon>tab</mat-icon></button>
+        <button mat-button class="botao-sidenav">{{'PAINELCONTROLE.ESTOQUE' | translate}} <mat-icon>store</mat-icon></button>
+        <button mat-button class="botao-sidenav">{{'PAINELCONTROLE.SEGURANÇA' | translate}} <mat-icon>security</mat-icon></button>
+        <button mat-button class="botao-sidenav">{{'PAINELCONTROLE.INGRESSOS' | translate}} <mat-icon> local_offer</mat-icon></button>
+        <button mat-button class="botao-sidenav">{{'PAINELCONTROLE.RELATORIO' | translate}} <mat-icon> format_list_numbered</mat-icon></button>
+    </mat-sidenav>
+    <mat-sidenav-content [formGroup]="options">
+        <button mat-icon-button class="toggle" (click)="sidenav.toggle()"><mat-icon>keyboard_arrow_right</mat-icon></button>
+        <div class="main-container">
+            <mat-list>
+                <mat-list-item>
+                    <div class="titulo1">
+                        <span>{{'PAINELCONTROLE.TITULO' | translate}}</span>    
+                    </div>
+                </mat-list-item>
+                <mat-list-item>
+                    <div class="titulo2">
+                        <span>Twurusbengo Twurusbago</span>
+                    </div>
+                </mat-list-item>
+                <mat-list-item> 
+                    <span class="status">Status: {{'PAINELCONTROLE.PREPARACAO' | translate}}</span><mat-icon>access_time</mat-icon>
+                </mat-list-item>
+                <mat-divider></mat-divider>
+            </mat-list>
+            <mat-list class="list1">
+                <mat-list-item>
+                    <span class="layouts">{{'PAINELCONTROLE.MEMBROS' | translate}}</span>
+                    <span class="layouts">{{'PAINELCONTROLE.NIVACESSO' | translate}}</span>
+                    <span class="layouts">{{'PAINELCONTROLE.CONVITESTATUS' | translate}}</span>
+                    <span class="icons">
+                        <button (click)="openDialogInvite()" mat-raised-button class="prp-btn-invite">{{'PAINELCONTROLE.CONVIDARMEMBROS' | translate}}</button>
+                    </span>
+                </mat-list-item>
+                <mat-divider></mat-divider>
+                <mat-list role="list">
+                    <mat-list-item role="listitem" class="membros">
+                        <span class="membros">Andrey Lacerda</span>
+                        <button mat-raised-button class="red-btn-acesso">{{'PAINELCONTROLE.CONSULTACESSO' | translate}}</button>
+                        <span class="icons">
+                            <button mat-icon-button>
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                            <button mat-icon-button>
+                                <mat-icon>delete</mat-icon>
+                            </button>
+                        </span>
+                    </mat-list-item>
+                    <mat-list-item role="listitem" class="membros">
+                        <span class="membros">Gustavo Pererira</span>
+                        <button mat-raised-button class="red-btn-acesso">{{'PAINELCONTROLE.CONSULTACESSO' | translate}}</button>
+                        <span class="icons">
+                            <button mat-icon-button>
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                            <button mat-icon-button>
+                                <mat-icon>delete</mat-icon>
+                            </button>
+                        </span>
+                    </mat-list-item>
+                    <mat-list-item role="listitem" class="membros">
+                        <span class="membros">Pedro Freitas</span>
+                        <button mat-raised-button class="red-btn-acesso">{{'PAINELCONTROLE.CONSULTACESSO' | translate}}</button>
+                        <span class="icons">
+                            <button mat-icon-button>
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                            <button mat-icon-button>
+                                <mat-icon>delete</mat-icon>
+                            </button>
+                        </span>
+                    </mat-list-item>
+                </mat-list>
+            </mat-list>
+            
+            <mat-list>
+                <mat-list-item>
+                    <span class="status">{{'PAINELCONTROLE.STATSINGRESSOS' | translate}}</span><mat-icon> local_offer</mat-icon>
+                </mat-list-item>
+                <mat-card class="example-card">
+                    <mat-card-header>
+                        <div mat-card-avatar class="example-header-image"></div>
+                        <mat-card-title>Seila</mat-card-title>
+                        <mat-card-subtitle>Xama</mat-card-subtitle>
+                    </mat-card-header>
+                    <img mat-card-image src="https://s1.static.brasilescola.uol.com.br/be/conteudo/images/a-imagem-destaca-grafico-setores-grafico-linhas-grafico-barras-5b31583d25798.jpg" alt="Gráfico de tickets">
+                    <mat-card-content>
+                        <p>Salve Salve Salve Salve Salve Salve Salve Salve Salve Salve Salve Salve Salve Salve </p>
+                    </mat-card-content>
+                </mat-card>
+            </mat-list>
+        </div>
+    </mat-sidenav-content>
+</mat-sidenav-container>

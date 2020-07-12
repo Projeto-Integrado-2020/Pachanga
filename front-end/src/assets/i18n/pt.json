@@ -147,5 +147,21 @@
         "FINALIZADA": "Finalizada",
         "PREPARACAO": "Em preparação",
         "MAIS": "e mais..."
+    },
+
+    "PAINELCONTROLE": {
+        "GERAL": "Visão geral",
+        "ESTOQUE": "Estoque",
+        "SEGURANÇA": "Segurança",
+        "INGRESSOS": "Ingressos",
+        "RELATORIO": "Relatórios",
+        "TITULO": "Painel de controle da festa",
+        "MEMBROS": "Membros colaboradores",
+        "NIVACESSO": "Nível de acesso",
+        "CONVITESTATUS": "Status do convite",
+        "CONVIDARMEMBROS": "Convidar membros",
+        "CONSULTACESSO": "Consultar níveis de acesso",
+        "STATSINGRESSOS": "Estatísticas de ingressos",
+        "PREPARACAO": "Fase de preparação"
     }
 }

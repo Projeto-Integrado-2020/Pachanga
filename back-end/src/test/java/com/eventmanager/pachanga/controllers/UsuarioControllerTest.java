@@ -212,7 +212,7 @@ public class UsuarioControllerTest {
 		Mockito.when(userService.atualizar(Mockito.any(UsuarioTO.class))).thenReturn(usuarioTest);
 		
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
-				.post(uri)
+				.put(uri)
 				.accept(MediaType.APPLICATION_JSON)
 				.content(usuarioAtualizacaoJson)
 				.contentType(MediaType.APPLICATION_JSON);
@@ -238,7 +238,7 @@ public class UsuarioControllerTest {
 		Mockito.when(userService.atualizar(Mockito.any(UsuarioTO.class))).thenThrow(new ValidacaoException("3"));
 		
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
-				.post(uri)
+				.put(uri)
 				.accept(MediaType.APPLICATION_JSON)
 				.content(usuarioAtualizacaoJson)
 				.contentType(MediaType.APPLICATION_JSON);

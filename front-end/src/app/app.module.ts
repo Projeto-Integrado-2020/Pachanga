@@ -43,6 +43,7 @@ import { EditAccountService } from './services/editAccountService/edit-account.s
 import { EditDialogComponent } from './views/edit-dialog/edit-dialog.component';
 import { SuccessDialogComponent } from './views/success-dialog/success-dialog.component';
 import { MenuFestasComponent } from './views/menu-festas/menu-festas.component';
+import { FestaPainelControleComponent } from './views/festa-painel-controle/festa-painel-controle.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { CriarFestaComponent } from './views/criar-festa/criar-festa.component';
@@ -76,6 +77,7 @@ export function provideConfig() {
     EditDialogComponent,
     SuccessDialogComponent,
     MenuFestasComponent,
+    FestaPainelControleComponent,
     CriarFestaComponent,
     InviteDialogComponent
   ],

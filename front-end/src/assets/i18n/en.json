@@ -147,5 +147,21 @@
         "FINALIZADA": "Finished",
         "PREPARACAO": "In preparation",
         "MAIS": "and more..."
+    },
+
+    "PAINELCONTROLE": {
+        "GERAL": "Overview",
+        "ESTOQUE": "Stock",
+        "SEGURANÇA": "Security",
+        "INGRESSOS": "Tickerts",
+        "RELATORIO": "Reports",
+        "TITULO": "Party control panel",
+        "MEMBROS": "Collaborating members",
+        "NIVACESSO": "Access level",
+        "CONVITESTATUS": "Status do convite",
+        "CONVIDARMEMBROS": "Invitation status",
+        "CONSULTACESSO": "Consult access levels",
+        "STATSINGRESSOS": "Ticket statistics",
+        "PREPARACAO": "Preparation phase"
     }
 }

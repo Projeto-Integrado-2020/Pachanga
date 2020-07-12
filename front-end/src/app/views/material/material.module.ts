@@ -33,7 +33,8 @@ import {
   MatTableModule,
   MatSortModule,
   MatPaginatorModule,
-  MatNativeDateModule
+  MatNativeDateModule,
+  MatBadgeModule
 } from '@angular/material';
 
 @NgModule({
@@ -74,7 +75,8 @@ import {
     MatTableModule,
     MatSortModule,
     MatPaginatorModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatBadgeModule
   ],
   exports: [
     MatToolbarModule,
@@ -112,7 +114,8 @@ import {
     MatTableModule,
     MatSortModule,
     MatPaginatorModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatBadgeModule
   ],
   providers: [
     {provide: MAT_DATE_LOCALE, useValue: 'pt-br'},

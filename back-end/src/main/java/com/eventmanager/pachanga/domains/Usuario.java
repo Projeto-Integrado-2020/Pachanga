@@ -1,10 +1,13 @@
 package com.eventmanager.pachanga.domains;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity(name = "usuario")
 public class Usuario {
@@ -21,6 +24,9 @@ public class Usuario {
     @Column(name = "dt_nasc")
     private Date dtNasc;
     private String sexo;
+    
+    @OneToMany(fetch = FetchType.LAZY)
+    private List<FestaGrupoUsuario> festaGrupoUsuarios;
     
 	public void setCodUsuario(int codUsuario) {
 		this.codUsuario = codUsuario;
@@ -61,5 +67,13 @@ public class Usuario {
 	public void setSexo(String sexo) {
 		this.sexo = sexo;
 	}
-     
+	public List<FestaGrupoUsuario> getFestaGrupoUsuarios() {
+		return festaGrupoUsuarios;
+	}
+	public void setFestaGrupoUsuarios(List<FestaGrupoUsuario> festaGrupoUsuarios) {
+		this.festaGrupoUsuarios = festaGrupoUsuarios;
+	}
+	public int getCodUsuario() {
+		return codUsuario;
+	}
 }

@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -45,7 +46,7 @@ public class UsuarioController{
 		}
 	}
 	
-	@PostMapping(path ="/atualizacao")
+	@PutMapping(path ="/atualizacao")
 	public ResponseEntity<Object> atualiza(@RequestBody UsuarioTO user) {
 		try {
 			Usuario userAtualizado = userService.atualizar(user);
