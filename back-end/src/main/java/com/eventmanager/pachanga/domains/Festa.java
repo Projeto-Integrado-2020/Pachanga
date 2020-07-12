@@ -1,13 +1,12 @@
 package com.eventmanager.pachanga.domains;
 
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -41,10 +40,9 @@ public class Festa {
 	@Column(name = "horario_fim_real")
 	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm:ss")
 	private LocalDateTime horarioFimFestaReal;
-	
-	@OneToMany(fetch = FetchType.LAZY)
-	@JoinColumn(name = "cod_festa")
-	private List<FestaGrupoUsuario> festaGrupoUsuarios;
+	@OneToMany(fetch = FetchType.LAZY,
+			mappedBy = "festa")
+	private Set<Grupo> grupos;
 	
 	public int getCodFesta() {
 		return codFesta;
@@ -106,15 +104,11 @@ public class Festa {
 	public void setHorarioInicioFesta(LocalDateTime horaioInicioFesta) {
 		this.horarioInicioFesta = horaioInicioFesta;
 	}
-	public List<FestaGrupoUsuario> getFestaGrupoUsuarios() {
-		return festaGrupoUsuarios;
+	public Set<Grupo> getGrupos() {
+		return grupos;
 	}
-	public void setFestaGrupoUsuarios(List<FestaGrupoUsuario> festaGrupoUsuarios) {
-		this.festaGrupoUsuarios = festaGrupoUsuarios;
-	}
-	
-	public void setFestaGrupoUsuario(FestaGrupoUsuario festaGrupoUsuario) {
-		this.festaGrupoUsuarios.add(festaGrupoUsuario);
+	public void setGrupos(Set<Grupo> grupos) {
+		this.grupos = grupos;
 	}
 	
 }

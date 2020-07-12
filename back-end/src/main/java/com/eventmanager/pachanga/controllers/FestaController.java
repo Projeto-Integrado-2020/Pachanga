@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import javax.validation.ValidationException;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -22,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.eventmanager.pachanga.builder.FestaTOBuilder;
 import com.eventmanager.pachanga.domains.Festa;
 import com.eventmanager.pachanga.dtos.FestaTO;
+import com.eventmanager.pachanga.errors.ValidacaoException;
 import com.eventmanager.pachanga.services.FestaService;
 
 @Controller
@@ -44,7 +43,7 @@ public class FestaController {
 			}
 			List<FestaTO> festasTo = festas.stream().map(f -> createFestaTo(f)).collect(Collectors.toList());
 			return ResponseEntity.ok(festasTo);
-		}catch(ValidationException e) {
+		}catch(ValidacaoException e) {
 			return ResponseEntity.status(400).body(e.getMessage());
 		}
 	}
@@ -54,19 +53,19 @@ public class FestaController {
 	public ResponseEntity<Object> addFesta(@RequestBody FestaTO festaTo, @RequestParam(required = true) int idUser){
 		try {
 			Festa festa = festaService.addFesta(festaTo, idUser);
-			return ResponseEntity.ok(festa);
-		}catch(ValidationException e) {
+			return ResponseEntity.ok(createFestaTo(festa));
+		}catch(ValidacaoException e) {
 			return ResponseEntity.status(400).body(e.getMessage());
 		}
 	}
 
 	@ResponseBody
 	@DeleteMapping(path = "/delete")
-	public ResponseEntity<Object> deleteFesta(@RequestParam(required = true) int idFesta){
+	public ResponseEntity<Object> deleteFesta(@RequestParam(required = true) int idFesta, @RequestParam(required = true) int idUser){
 		try {
-			festaService.deleteFesta(idFesta);
+			festaService.deleteFesta(idFesta, idUser);
 			return ResponseEntity.ok("FESTDELE");//ver se precisa colocar alguma coisa aqui ou pode mandar somente um ok
-		}catch(ValidationException e) {
+		}catch(ValidacaoException e) {
 			return ResponseEntity.status(400).body(e.getMessage());
 		}
 	}
@@ -74,8 +73,12 @@ public class FestaController {
 	@ResponseBody
 	@PutMapping(path = "/atualizar")
 	public ResponseEntity<Object> atualizaFesta(@RequestBody FestaTO festaTo, @RequestParam(required = true) int idUser){
-		
-		return null;
+		try {
+			Festa festa = festaService.updateFesta(festaTo, idUser);
+			return ResponseEntity.ok(createFestaTo(festa));
+		}catch(ValidacaoException e) {
+			return ResponseEntity.status(400).body(e.getMessage());
+		}
 	}
 	
 	private FestaTO createFestaTo(Festa festa) {

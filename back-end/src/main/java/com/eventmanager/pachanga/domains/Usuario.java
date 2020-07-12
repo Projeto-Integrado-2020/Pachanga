@@ -1,33 +1,34 @@
 package com.eventmanager.pachanga.domains;
 
 import java.util.Date;
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
 
 @Entity(name = "usuario")
 public class Usuario {
 	@Id
 	@Column(name = "cod_usuario")
-    private int codUsuario;
-    @Column(name = "nome_user")
-    private  String nomeUser;
-    @Column(name = "tip_conta")
-    private String tipConta;
-    private String email;
-    @Column(name = "senha")
-    private String senha;
-    @Column(name = "dt_nasc")
-    private Date dtNasc;
-    private String sexo;
-    
-    @OneToMany(fetch = FetchType.LAZY)
-    private List<FestaGrupoUsuario> festaGrupoUsuarios;
-    
+	private int codUsuario;
+	@Column(name = "nome_user")
+	private  String nomeUser;
+	@Column(name = "tip_conta")
+	private String tipConta;
+	private String email;
+	@Column(name = "senha")
+	private String senha;
+	@Column(name = "dt_nasc")
+	private Date dtNasc;
+	private String sexo;
+
+	@ManyToMany(mappedBy = "usuarios",
+			fetch = FetchType.LAZY)
+	private Set<Grupo> grupos;
+
 	public void setCodUsuario(int codUsuario) {
 		this.codUsuario = codUsuario;
 	}
@@ -66,12 +67,6 @@ public class Usuario {
 	}
 	public void setSexo(String sexo) {
 		this.sexo = sexo;
-	}
-	public List<FestaGrupoUsuario> getFestaGrupoUsuarios() {
-		return festaGrupoUsuarios;
-	}
-	public void setFestaGrupoUsuarios(List<FestaGrupoUsuario> festaGrupoUsuarios) {
-		this.festaGrupoUsuarios = festaGrupoUsuarios;
 	}
 	public int getCodUsuario() {
 		return codUsuario;
