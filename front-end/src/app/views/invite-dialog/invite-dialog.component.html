@@ -1,0 +1,18 @@
+<h1 mat-dialog-title>Convidar Rapaziada</h1>
+<mat-form-field class="example-chip-list">
+    <mat-chip-list #chipList aria-label="Email selection">
+      <mat-chip *ngFor="let email of maillist" [selectable]="selectable"
+               [removable]="removable" (removed)="remove(email)">
+        {{email.address}}
+        <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+      </mat-chip>
+      <input placeholder="Lista de emails"
+             [matChipInputFor]="chipList"
+             [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+             [matChipInputAddOnBlur]="addOnBlur"
+             (matChipInputTokenEnd)="add($event)">
+    </mat-chip-list>
+  </mat-form-field>
+  <button *ngIf="maillist.length > 0" class="button-index prp-btn btn-navbar" mat-raised-button>
+    Enviar Convites
+  </button>

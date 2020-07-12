@@ -15,8 +15,8 @@ import { FormControl, Validators} from '@angular/forms';
 
 export class LoginComponent extends SocialLoginBaseComponent implements OnInit {
 
-  userLogin;
-  senhaLogin;
+  userLogin: any;
+  senhaLogin: any;
 
   ngOnInit() {
     this.form = this.formBuilder.group({

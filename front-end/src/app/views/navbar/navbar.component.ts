@@ -7,6 +7,7 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { LoginService } from 'src/app/services/loginService/login.service';
+import { InviteDialogComponent } from '../invite-dialog/invite-dialog.component';
 
 @Component({
   selector: 'app-navbar',
@@ -23,7 +24,7 @@ export class NavbarComponent implements OnInit {
     );
 
   constructor(public translate: TranslateService, public login: MatDialog,
-              public cadastro: MatDialog, private breakpointObserver: BreakpointObserver,
+              public cadastro: MatDialog, public invite: MatDialog, private breakpointObserver: BreakpointObserver,
               public loginComponent: LoginComponent, public loginService: LoginService) {
     translate.addLangs(['pt', 'en']);
     translate.setDefaultLang('pt');
@@ -49,6 +50,12 @@ export class NavbarComponent implements OnInit {
   openDialogCadastro() {
     this.cadastro.open(CadastroComponent, {
       width: '20rem'
+    });
+  }
+
+  openDialogPROVISORIO() {
+    this.invite.open(InviteDialogComponent, {
+      width: '20rem',
     });
   }
 

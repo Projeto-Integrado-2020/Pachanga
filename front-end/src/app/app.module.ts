@@ -15,6 +15,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { NavbarComponent } from './views/navbar/navbar.component';
 import { IndexComponent } from './views/index/index.component';
 import { LoginComponent } from './views/login/login.component';
+import { InviteDialogComponent } from './views/invite-dialog/invite-dialog.component';
 import { CadastroComponent } from './views/cadastro/cadastro.component';
 import { PerfilComponent } from './views/perfil/perfil.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -76,13 +77,15 @@ export function provideConfig() {
     SuccessDialogComponent,
     MenuFestasComponent,
     CriarFestaComponent,
+    InviteDialogComponent
   ],
   entryComponents: [
     LoginComponent,
     CadastroComponent,
     ErroDialogComponent,
     EditDialogComponent,
-    SuccessDialogComponent
+    SuccessDialogComponent,
+    InviteDialogComponent
   ],
   imports: [
     BrowserModule,
