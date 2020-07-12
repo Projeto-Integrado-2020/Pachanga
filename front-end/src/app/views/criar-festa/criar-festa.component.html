@@ -1,71 +1,72 @@
 <div class="main-container">
-    <div class="minhas-festas">
-        <h1 class="title">{{'FESTA.MENUFESTAS' | translate}}</h1>
+    <div class="criar-festa">
+        <h1 class="title">{{'CRIARFESTA.CRIARFESTA' | translate}}</h1>
     </div>
-
-    <mat-card class="list-festas">
-        <div class="card-top">
-            <h1 class="card-title">{{'FESTA.LISTAFESTAS' | translate}}</h1>
-            <button class="button-main-action" mat-raised-button>
-                <mat-icon>add</mat-icon> {{ 'FESTA.ADDFESTA' | translate }}
-            </button>
-        </div>
-        <div class="festa-tab">
-            <h1 class="nome-festa"><mat-icon style="color: red;">star_rate</mat-icon> Audio São Paulo - Resenha com Mumuzinho</h1>
-            <div class="party-body">
-                <div class="texto">
-                    <h2 class="mat-subheading-2"><b>Status:</b> {{ 'FESTA.FINALIZADA' | translate }}</h2>
-                    <h2 class="mat-subheading-2"><b>{{ 'FESTA.PAPEL' | translate }}:</b> Organizador</h2>
-                </div>
-                <div class="texto">                        
-                    <h2 class="mat-subheading-2"><b>1</b> {{ 'FESTA.MEMBRO' | translate }}</h2>
-                    <h2 class="mat-subheading-2"><b>{{ 'FESTA.DATA' | translate }}:</b> 07/07/2020</h2>
-                </div>
-                <div class="acao">
-                    <button mat-raised-button>
-                        <mat-icon>insert_chart_outlined</mat-icon> {{ 'FESTA.ACESSARFESTA' | translate }}
-                    </button>
-                </div>
-            </div>
-        </div>
-        <div class="festa-tab">
-            <h1 class="nome-festa"><mat-icon style="color: red;">star_rate</mat-icon> O Fantástico Villa Mix Circus Goiânia - Circuito Brahma</h1>
-            <div class="party-body">
-                <div class="texto">
-                    <h2 class="mat-subheading-2"><b>Status:</b> {{ 'FESTA.ANDAMENTO' | translate }}</h2>
-                    <h2 class="mat-subheading-2"><b>{{ 'FESTA.PAPEL' | translate }}:</b> Organizador</h2>
-                </div>
-                <div class="texto">                        
-                    <h2 class="mat-subheading-2"><b>17</b> {{ 'FESTA.MEMBROS' | translate }}</h2>
-                    <h2 class="mat-subheading-2"><b>{{ 'FESTA.DATA' | translate }}:</b> 08/07/2020</h2>
-                </div>
-                <div class="acao">
-                    <button mat-raised-button>
-                        <mat-icon>insert_chart_outlined</mat-icon> {{ 'FESTA.ACESSARFESTA' | translate }}
-                    </button>
-                </div>
-            </div>
-        </div>
-        <div class="festa-tab">
-            <h1 class="nome-festa"> Villa Mix Brasilía - Circuitão Brahma</h1>
-            <div class="party-body">
-                <div class="texto">
-                    <h2 class="mat-subheading-2"><b>Status:</b> {{ 'FESTA.PREPARACAO' | translate }}</h2>
-                    <h2 class="mat-subheading-2"><b>{{ 'FESTA.PAPEIS' | translate }}:</b> Bartender Chefe da Parada, Controle de Estoque, {{ 'FESTA.MAIS' | translate }}</h2>
-                </div>
-                <div class="texto">
-                    <h2 class="mat-subheading-2"><b>20</b> {{ 'FESTA.MEMBROS' | translate }}</h2>
-                    <h2 class="mat-subheading-2"><b>{{ 'FESTA.DATA' | translate }}:</b> 17/07/2020</h2>
-                </div>
-                <div class="acao">
-                    <button mat-raised-button>
-                        <mat-icon>insert_chart_outlined</mat-icon> {{ 'FESTA.ACESSARFESTA' | translate }}
-                    </button>
-                </div>
-            </div>
-        </div>
-        <mat-paginator [length]="8"
-            [pageSize]="3"
-            [hidePageSize]="true">
-        </mat-paginator>
-    </mat-card>
+    <div class="content">
+        <mat-card class="formulario-card">
+            <form [formGroup]="form" class="formulario">
+                <mat-form-field class="texto-input">
+                    <mat-label>{{'CRIARFESTA.NOMEFESTA' | translate}}</mat-label>
+                    <input ng-class="{ f.nomeFesta.errors }" formControlName="nomeFesta" matInput required>
+                    <mat-error *ngIf="f.nomeFesta.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
+                </mat-form-field>
+                <br>
+                <mat-form-field class="texto-input">
+                    <mat-label>{{'CRIARFESTA.DESCFESTA' | translate}}</mat-label>
+                    <textarea ng-class="{ f.descFesta.errors }" formControlName="descFesta" matInput required rows="4"></textarea>
+                    <mat-error *ngIf="f.descFesta.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
+                </mat-form-field>
+                <br>
+                <mat-form-field class="texto-input">
+                    <mat-label>{{'CRIARFESTA.ENDERECO' | translate}}</mat-label>
+                    <input ng-class="{ f.endereco.errors }" formControlName="endereco" matInput required>
+                    <mat-error *ngIf="f.endereco.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
+                </mat-form-field>
+                <br>
+                <mat-form-field class="date-input">
+                    <mat-label>{{'CRIARFESTA.INICIODATA' | translate}}</mat-label>
+                    <input ng-class="{ f.inicioData.errors }" formControlName="inicioData" matInput required (click)="pickerInicioData.open()" [matDatepicker]="pickerInicioData">
+                    <mat-datepicker-toggle matSuffix [for]="pickerInicioData" ></mat-datepicker-toggle>
+                    <mat-datepicker #pickerInicioData ></mat-datepicker>
+                    <mat-error *ngIf="f.inicioData.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>{{'CRIARFESTA.INICIOHORA' | translate}}</mat-label>
+                    <input ng-class="{ f.inicioHora.errors }" formControlName="inicioHora" matInput required [ngxTimepicker]="pickerInicioHora" [format]=24>
+                    <ngx-material-timepicker #pickerInicioHora></ngx-material-timepicker>
+                    <mat-error *ngIf="f.inicioHora.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
+                </mat-form-field>
+                <br>
+                <mat-form-field class="date-input">
+                    <mat-label>{{'CRIARFESTA.FIMDATA' | translate}}</mat-label>
+                    <input ng-class="{ f.fimData.errors }" formControlName="fimData" matInput required (click)="pickerFimData.open()" [matDatepicker]="pickerFimData">
+                    <mat-datepicker-toggle matSuffix [for]="pickerFimData" ></mat-datepicker-toggle>
+                    <mat-datepicker #pickerFimData ></mat-datepicker>
+                    <mat-error *ngIf="f.fimData.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>{{'CRIARFESTA.FIMHORA' | translate}}</mat-label>
+                    <input ng-class="{ f.fimHora.errors }" formControlName="fimHora" matInput required [ngxTimepicker]="pickerFimHora" [format]=24>
+                    <ngx-material-timepicker #pickerFimHora></ngx-material-timepicker>
+                    <mat-error *ngIf="f.fimHora.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
+                </mat-form-field>
+                <br>
+                <mat-form-field class="texto-input">
+                    <mat-label>{{'CRIARFESTA.ORGANIZADOR' | translate}}</mat-label>
+                    <input ng-class="{ f.organizador.errors }" formControlName="organizador" matInput required>
+                    <mat-error *ngIf="f.organizador.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
+                </mat-form-field>
+                <br>
+                <mat-form-field class="texto-input">
+                    <mat-label>{{'CRIARFESTA.DESCORGANIZADOR' | translate}}</mat-label>
+                    <textarea ng-class="{ f.descOrganizador.errors }" formControlName="descOrganizador" matInput required rows="4"></textarea>
+                    <mat-error *ngIf="f.descOrganizador.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
+                </mat-form-field>
+                <br>
+                <button [disabled]="!form.valid" class="button-form" mat-raised-button>
+                    <mat-icon>add</mat-icon> {{'CRIARFESTA.CRIARFESTA' | translate}}
+                </button>
+            </form>
+        </mat-card>
+    </div>
+</div>

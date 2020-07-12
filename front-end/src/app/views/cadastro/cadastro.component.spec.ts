@@ -26,6 +26,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PerfilComponent } from '../perfil/perfil.component';
 import { InfoCompleteComponent } from '../info-complete/info-complete.component';
 
+import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
+
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
 }
@@ -65,6 +67,7 @@ describe('CadastroComponent', () => {
       ],
       imports: [
         CustomMaterialModule,
+        NgxMaterialTimepickerModule,
         BrowserAnimationsModule,
         BrowserModule,
         AppRoutingModule,

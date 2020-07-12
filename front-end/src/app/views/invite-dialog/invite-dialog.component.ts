@@ -19,7 +19,7 @@ export class InviteDialogComponent implements OnInit {
 
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
   maillist: Email[] = [];
-  //niveis de acesso: 
+  // niveis de acesso:
 
   constructor() { }
 
@@ -33,7 +33,7 @@ export class InviteDialogComponent implements OnInit {
     // adicionar email
     if ((value || '').trim()) {
       const mails = value.split(',');
-      for (let v of mails){
+      for (const v of mails) {
         this.maillist.push({address: v.trim()});
       }
     }

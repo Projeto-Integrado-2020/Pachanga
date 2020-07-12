@@ -8,6 +8,9 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 import { CustomMaterialModule } from '../material/material.module';
+import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
+
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -23,6 +26,9 @@ describe('CriarFestaComponent', () => {
       declarations: [ CriarFestaComponent ],
       imports: [
         CustomMaterialModule,
+        NgxMaterialTimepickerModule,
+        FormsModule,
+        ReactiveFormsModule,
         HttpClientModule,
         BrowserAnimationsModule,
         TranslateModule.forRoot({

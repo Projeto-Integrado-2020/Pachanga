@@ -149,13 +149,26 @@
         "MAIS": "and more..."
     },
 
+    "CRIARFESTA": {
+        "CRIARFESTA": "Create party",
+        "NOMEFESTA": "Party name",
+        "DESCFESTA": "Party description",
+        "INICIODATA": "Party date start",
+        "FIMDATA": "Party date end",
+        "INICIOHORA": "Party time start",
+        "FIMHORA": "Party time end",
+        "ENDERECO": "Address",
+        "ORGANIZADOR": "Party manager",
+        "DESCORGANIZADOR": "Manager description"
+    },
+
     "PAINELCONTROLE": {
         "GERAL": "Overview",
         "ESTOQUE": "Stock",
         "SEGURANÇA": "Security",
         "INGRESSOS": "Tickerts",
         "RELATORIO": "Reports",
-        "TITULO": "Party control panel",
+        "TITULO": "Control panel",
         "MEMBROS": "Collaborating members",
         "NIVACESSO": "Access level",
         "CONVITESTATUS": "Status do convite",

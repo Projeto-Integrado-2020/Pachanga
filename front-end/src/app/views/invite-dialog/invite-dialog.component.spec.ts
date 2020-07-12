@@ -5,13 +5,20 @@ import { DebugElement } from '@angular/core';
 
 import { InviteDialogComponent } from './invite-dialog.component';
 
+import { CustomMaterialModule } from '../material/material.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 describe('InviteDialogComponent', () => {
   let component: InviteDialogComponent;
   let fixture: ComponentFixture<InviteDialogComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ InviteDialogComponent ]
+      declarations: [ InviteDialogComponent ],
+      imports: [
+        CustomMaterialModule,
+        BrowserAnimationsModule
+      ]
     })
     .compileComponents();
   }));

@@ -22,6 +22,8 @@ import { GoogleLoginProvider, FacebookLoginProvider } from 'angular4-social-logi
 import { PerfilComponent } from '../perfil/perfil.component';
 import { InfoCompleteComponent } from '../info-complete/info-complete.component';
 
+import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
+
 
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 100000;
 
@@ -63,6 +65,7 @@ describe('NavbarComponent', () => {
        ],
       imports: [
         CustomMaterialModule,
+        NgxMaterialTimepickerModule,
         AppRoutingModule,
         HttpClientModule,
         FormsModule,

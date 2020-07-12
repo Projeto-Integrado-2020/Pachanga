@@ -1,7 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LoginComponent } from './views/login/login.component';
-import { CadastroComponent } from './views/cadastro/cadastro.component';
 import { IndexComponent } from './views/index/index.component';
 import { PerfilComponent } from './views/perfil/perfil.component';
 import { AuthGuard } from './guard/auth.guard';
@@ -29,7 +27,7 @@ const routes: Routes = [
     },
 
     {
-      path: 'festa-painel-controle',
+      path: 'festa-painel',
       component: FestaPainelControleComponent,
       canActivate: [AuthGuard]
     },

@@ -47,6 +47,7 @@ import { FestaPainelControleComponent } from './views/festa-painel-controle/fest
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { CriarFestaComponent } from './views/criar-festa/criar-festa.component';
+import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 
 const config = new AuthServiceConfig([
   {
@@ -93,6 +94,7 @@ export function provideConfig() {
     BrowserModule,
     BrowserAnimationsModule,
     CustomMaterialModule,
+    NgxMaterialTimepickerModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,

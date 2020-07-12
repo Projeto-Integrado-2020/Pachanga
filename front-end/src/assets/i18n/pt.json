@@ -149,13 +149,26 @@
         "MAIS": "e mais..."
     },
 
+    "CRIARFESTA": {
+        "CRIARFESTA": "Criar festa",
+        "NOMEFESTA": "Nome da festa",
+        "DESCFESTA": "Descrição da festa",
+        "INICIODATA": "Data de início da festa",
+        "FIMDATA": "Data do fim da festa",
+        "INICIOHORA": "Hora de início da Festa",
+        "FIMHORA": "Hora de fim da Festa",
+        "ENDERECO": "Endereço",
+        "ORGANIZADOR": "Organizador da festa",
+        "DESCORGANIZADOR": "Descrição do organizador"
+    },
+
     "PAINELCONTROLE": {
         "GERAL": "Visão geral",
         "ESTOQUE": "Estoque",
         "SEGURANÇA": "Segurança",
         "INGRESSOS": "Ingressos",
         "RELATORIO": "Relatórios",
-        "TITULO": "Painel de controle da festa",
+        "TITULO": "Painel de controle",
         "MEMBROS": "Membros colaboradores",
         "NIVACESSO": "Nível de acesso",
         "CONVITESTATUS": "Status do convite",

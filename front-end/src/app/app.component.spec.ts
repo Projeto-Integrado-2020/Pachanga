@@ -24,6 +24,8 @@ import { ErroDialogComponent } from './views/erro-dialog/erro-dialog.component';
 import { PerfilComponent } from './views/perfil/perfil.component';
 import { InfoCompleteComponent } from './views/info-complete/info-complete.component';
 
+import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
+
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -65,6 +67,7 @@ describe('AppComponent', () => {
         BrowserModule,
         BrowserAnimationsModule,
         CustomMaterialModule,
+        NgxMaterialTimepickerModule,
         AppRoutingModule,
         HttpClientModule,
         FormsModule,
