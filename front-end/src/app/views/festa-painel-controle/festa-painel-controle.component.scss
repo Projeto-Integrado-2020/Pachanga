@@ -1,17 +1,5 @@
 @import "../material/paleta.scss";
 
-  .titulo1 {
-    height: 5vh;
-    width: 100%;
-    display: block;
-    margin: 31px;
-    text-align: center;
-    font-weight: bold;
-    font-size: 40px;
-    /*padding-bottom: 15%;
-    padding-top: 5%;*/
-  }
-
   .titulo2 {
     height: 5vh;
     width: 100%;
@@ -21,66 +9,18 @@
     font-weight: bold;
     font-size: 30px;
     padding-top: 0%;
+    white-space: nowrap;
   }
 
   .main-container {
+    height: 5vh;
     max-width: 1500px;
     margin: 0 auto;
   }
 
-  .prp-btn {
-    background-color: $color-tertiary;
-    color: #ffffff;
-    width: 170px;
-    text-align: center;
-  }
-
-  .layouts{
-    display: inline-block;
-    width: 600px;
-  }
-
-  .membros{
-    display: inline-block;
-    width: 377.5px;
-  }
-
-  .red-btn-acesso {
-    background-color: $color-tertiary;
-    color: #ffffff;
-    display: inline-block;
-    width: 200px;
-    text-align: center;
-  }
-
-  .icons{
-    display: inline-block;
-    margin-left: auto;
-  }
-
-  .status{
-    display: inline-block;
-    text-align: center;
-    padding-left: 42.5%;
-    padding-right: 10px;
-  }
-
-  .grid{
-    width: 200px;
-    margin-top: 31px;
-    margin-bottom: auto;
-    text-align: right;
-  }
-
-  .menu{
-    background-color: $color-tertiary;
-    color: #ffffff;
-    width: 170px;
-  }
-
   .example-container {
     position: absolute;
-    top: 64px;
+    top: 56px;
     bottom: 0;
     left: 0;
     right: 0;
@@ -90,7 +30,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 125px;
+    width: 13.3vh;
     background: #DADADA  ;
   }
   
@@ -114,34 +54,74 @@
     position: fixed;
     padding: 0;
   }
-
+//5.32
+//1.064
   .botao-sidenav{
-    padding-top: 50px;
-    padding-bottom: 50px;
+    padding-top: 5.32vh;
+    padding-bottom: 5.32vh;
     width: 100%;
-    padding-right: 10px;
+    padding-right: 1.064vh;
     text-align: center;
     position: relative
   }
 
-  .title{
-    width: 100%;
-    text-align: center;
-    white-space: nowrap;
-  }
-
-  .list1{
-    padding-bottom: 5%;
-  }
-
   .example-card {
-    max-width: 400px;
-    margin-left: 34.5%;
+    //max-width: 42.56vh;
+    width: 98%;
   }
 
   .prp-btn-invite{
     background-color: $color-primary;
     color: #ffffff;
-    display: inline-block;
     width: 200px;
+    float: right;
+  }
+
+  table {
+    width: 100%;
+  }
+
+  .icon-edit{
+    position: relative;
+    //transform: translateX(-50%);
+    float: right;
+  }
+
+  .icon-delete{
+    position: relative;
+    float: right;
+    width: 100px;
+  }
+
+  th{
+    padding: auto;
+  }
+
+  a{
+    text-decoration: underline;
+  }
+
+  .status-list{
+    margin-top: 1.5rem;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    margin-bottom: 1rem;
+  }
+
+  .status-list mat-icon{
+    margin-left: .3rem;
+  }
+
+  .card-header{
+    margin-bottom: 1rem;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+  }
+
+  .card-content{
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
   }

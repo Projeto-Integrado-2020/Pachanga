@@ -13,86 +13,69 @@
         <div class="main-container">
             <mat-list>
                 <mat-list-item>
-                    <div class="titulo1">
-                        <span>{{'PAINELCONTROLE.TITULO' | translate}}</span>    
-                    </div>
-                </mat-list-item>
-                <mat-list-item>
                     <div class="titulo2">
                         <span>Twurusbengo Twurusbago</span>
                     </div>
                 </mat-list-item>
-                <mat-list-item> 
-                    <span class="status">Status: {{'PAINELCONTROLE.PREPARACAO' | translate}}</span><mat-icon>access_time</mat-icon>
+                <mat-list-item class="status-list"> 
+                        Status: {{'PAINELCONTROLE.PREPARACAO' | translate}} <mat-icon>access_time</mat-icon>
                 </mat-list-item>
                 <mat-divider></mat-divider>
             </mat-list>
-            <mat-list class="list1">
-                <mat-list-item>
-                    <span class="layouts">{{'PAINELCONTROLE.MEMBROS' | translate}}</span>
-                    <span class="layouts">{{'PAINELCONTROLE.NIVACESSO' | translate}}</span>
-                    <span class="layouts">{{'PAINELCONTROLE.CONVITESTATUS' | translate}}</span>
-                    <span class="icons">
-                        <button (click)="openDialogInvite()" mat-raised-button class="prp-btn-invite">{{'PAINELCONTROLE.CONVIDARMEMBROS' | translate}}</button>
-                    </span>
-                </mat-list-item>
-                <mat-divider></mat-divider>
-                <mat-list role="list">
-                    <mat-list-item role="listitem" class="membros">
-                        <span class="membros">Andrey Lacerda</span>
-                        <button mat-raised-button class="red-btn-acesso">{{'PAINELCONTROLE.CONSULTACESSO' | translate}}</button>
-                        <span class="icons">
-                            <button mat-icon-button>
-                                <mat-icon>edit</mat-icon>
-                            </button>
-                            <button mat-icon-button>
-                                <mat-icon>delete</mat-icon>
-                            </button>
-                        </span>
-                    </mat-list-item>
-                    <mat-list-item role="listitem" class="membros">
-                        <span class="membros">Gustavo Pererira</span>
-                        <button mat-raised-button class="red-btn-acesso">{{'PAINELCONTROLE.CONSULTACESSO' | translate}}</button>
-                        <span class="icons">
-                            <button mat-icon-button>
-                                <mat-icon>edit</mat-icon>
-                            </button>
-                            <button mat-icon-button>
-                                <mat-icon>delete</mat-icon>
-                            </button>
-                        </span>
-                    </mat-list-item>
-                    <mat-list-item role="listitem" class="membros">
-                        <span class="membros">Pedro Freitas</span>
-                        <button mat-raised-button class="red-btn-acesso">{{'PAINELCONTROLE.CONSULTACESSO' | translate}}</button>
-                        <span class="icons">
-                            <button mat-icon-button>
-                                <mat-icon>edit</mat-icon>
-                            </button>
-                            <button mat-icon-button>
-                                <mat-icon>delete</mat-icon>
-                            </button>
-                        </span>
-                    </mat-list-item>
-                </mat-list>
-            </mat-list>
+            <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+                <!--- Note that these columns can be defined in any order.
+                      The actual rendered columns are set as a property on the row definition" -->
+              
+                <!-- Position Column -->
+                <ng-container matColumnDef="membro">
+                  <th mat-header-cell *matHeaderCellDef> Membro </th>
+                  <td mat-cell *matCellDef="let element"> {{element.membro}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="permissao">
+                    <th mat-header-cell *matHeaderCellDef> Níveis de acesso </th>
+                    <td mat-cell *matCellDef="let element"><a href="#">Consultar permissões</a></td> <!-- -->
+                </ng-container>
+              
+                <!-- Name Column -->
+                <ng-container matColumnDef="status">
+                  <th mat-header-cell *matHeaderCellDef> Status </th>
+                  <td mat-cell *matCellDef="let element"> {{element.status}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="edit">
+                    <th mat-header-cell *matHeaderCellDef><button (click)="openDialogInvite()" mat-raised-button class="prp-btn-invite">{{'PAINELCONTROLE.CONVIDARMEMBROS' | translate}}</button></th>
+                    <td mat-cell *matCellDef="let element">
+                        <button mat-icon-button class="icon-delete">
+                            <mat-icon matTooltip="Deletar colaborador">delete</mat-icon>
+                        </button> 
+                        <button mat-icon-button class="icon-edit">
+                            <mat-icon matTooltip="Editar permissões do colaborador">edit</mat-icon>
+                        </button>   
+                    </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+              </table>
             
-            <mat-list>
-                <mat-list-item>
-                    <span class="status">{{'PAINELCONTROLE.STATSINGRESSOS' | translate}}</span><mat-icon> local_offer</mat-icon>
-                </mat-list-item>
-                <mat-card class="example-card">
-                    <mat-card-header>
-                        <div mat-card-avatar class="example-header-image"></div>
-                        <mat-card-title>Seila</mat-card-title>
-                        <mat-card-subtitle>Xama</mat-card-subtitle>
-                    </mat-card-header>
-                    <img mat-card-image src="https://s1.static.brasilescola.uol.com.br/be/conteudo/images/a-imagem-destaca-grafico-setores-grafico-linhas-grafico-barras-5b31583d25798.jpg" alt="Gráfico de tickets">
-                    <mat-card-content>
-                        <p>Salve Salve Salve Salve Salve Salve Salve Salve Salve Salve Salve Salve Salve Salve </p>
-                    </mat-card-content>
-                </mat-card>
-            </mat-list>
+            <mat-list-item class="status-list">
+                {{'PAINELCONTROLE.STATSINGRESSOS' | translate}}<mat-icon> local_offer</mat-icon>
+            </mat-list-item>
+            <mat-card class="example-card">
+                <mat-card-header class="card-header">
+                    <div mat-card-avatar class="example-header-image"></div>
+                    <mat-card-title>Seila</mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                    <div class="card-content">
+                        <img style="width: 50%;" mat-card-image src="https://s1.static.brasilescola.uol.com.br/be/conteudo/images/a-imagem-destaca-grafico-setores-grafico-linhas-grafico-barras-5b31583d25798.jpg" alt="Gráfico de tickets">
+                    </div>
+                    <div class="card-content">
+                        <p>Gráficos </p>    
+                    </div>
+                </mat-card-content>
+            </mat-card>
         </div>
     </mat-sidenav-content>
 </mat-sidenav-container>
