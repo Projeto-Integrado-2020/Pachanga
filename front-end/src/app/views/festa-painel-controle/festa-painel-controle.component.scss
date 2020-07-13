@@ -13,9 +13,8 @@
   }
 
   .main-container {
-    height: 5vh;
-    max-width: 1500px;
-    margin: 0 auto;
+    max-width: 1140px;
+    margin-left: 10vh;
   }
 
   .example-container {
@@ -30,7 +29,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 13.3vh;
+    width: 8.7%;
     background: #DADADA  ;
   }
   
@@ -67,7 +66,8 @@
 
   .example-card {
     //max-width: 42.56vh;
-    width: 98%;
+    width: 73%;
+    margin-left: 12.5%;
   }
 
   .prp-btn-invite{
@@ -78,7 +78,7 @@
   }
 
   table {
-    width: 100%;
+    width: 75%;
   }
 
   .icon-edit{
@@ -125,3 +125,8 @@
     justify-content: center !important;
     align-items: center !important;
   }
+  
+
+.tabela{
+    margin-left: 12.5%;
+}
