@@ -32,7 +32,7 @@ export class InviteDialogComponent implements OnInit {
 
     // adicionar email
     if ((value || '').trim()) {
-      const mails = value.split(',');
+      const mails = value.split(';');
       for (const v of mails) {
         this.maillist.push({address: v.trim()});
       }
