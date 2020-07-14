@@ -34,9 +34,8 @@ public class Grupo {
 	@JoinColumn(name = "cod_festa")
 	private Festa festa;
 	
-	public Grupo(int codGrupo, Festa festa, String nomeGrupo, int quant) {
+	public Grupo(int codGrupo, String nomeGrupo, int quant) {
 		this.codGrupo = codGrupo;
-		this.festa = festa;
 		this.nomeGrupo = nomeGrupo;
 		this.quantMaxPessoas = quant;
 	}

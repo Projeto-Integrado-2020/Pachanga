@@ -43,7 +43,7 @@ public class FestaService {
 		festaTo.setCodFesta(festaRepository.getNextValMySequence());
 		validarFesta(festaTo);
 		Festa festa = criacaoFesta(festaTo);
-		Grupo grupo = new Grupo(grupoRepository.getNextValMySequence(), festa, "ORGANIZADOR", 1);
+		Grupo grupo = new Grupo(grupoRepository.getNextValMySequence(), "ORGANIZADOR", 1);
 		festaRepository.save(festa);
 		grupoRepository.save(grupo);
 		grupoRepository.saveUsuarioGrupo(usuario.getCodUsuario(), grupo.getCodGrupo());
@@ -91,11 +91,19 @@ public class FestaService {
 		}
 		Festa festa = festaRepository.findByNomeFesta(festaTo.getNomeFesta());
 		if(festa != null && festa.getCodFesta() != festaTo.getCodFesta() && festa.getNomeFesta().equals(festaTo.getNomeFesta())) {
-			throw new ValidacaoException("FESTNOME");
+			throw new ValidacaoException("FESTNOME");//outra festa está usando o msm nome 
 		}
 		if(festaTo.getCodEnderecoFesta() == null) {
 			throw new ValidacaoException("FESTNEND");//Festa sem código de endereço
 		}
+	}
+	
+	public Festa procurarFesta(int idFesta) {
+		Festa festa = festaRepository.findByCodFesta(idFesta);
+		if(festa == null) {
+			throw new ValidacaoException("FESTNFOU");//festa nn encontrada
+		}
+		return festa;
 	}
 
 	private Festa criacaoFesta(FestaTO festaTo) {		

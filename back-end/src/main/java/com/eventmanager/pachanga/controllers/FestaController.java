@@ -81,6 +81,17 @@ public class FestaController {
 		}
 	}
 	
+	@ResponseBody
+	@GetMapping(path = "/festaUnica")
+	public ResponseEntity<Object> getFesta(@RequestParam(required = true)int idFesta){
+		try {
+			Festa festa = festaService.procurarFesta(idFesta);
+			return ResponseEntity.ok(createFestaTo(festa));
+		}catch (ValidacaoException e) {
+			return ResponseEntity.status(400).body(e.getMessage());
+		}
+	}
+	
 	private FestaTO createFestaTo(Festa festa) {
 		return FestaTOBuilder.getInstance().codEnderecoFesta(festa.getCodEnderecoFesta()).codFesta(festa.getCodFesta()).
 				descOrganizador(festa.getDescOrganizador()).descricaoFesta(festa.getDescricaoFesta()).horarioFimFesta(festa.getHorarioFimFesta()).
