@@ -32,4 +32,6 @@ public interface FestaRepository extends JpaRepository<Festa, Integer>{
 	@Query(value = "delete from Festa f where f.codFesta = :#{#festa.codFesta}")
 	public void deleteFesta(Festa festa);
 
+	public Festa findByCodFesta(int codFesta);
+	
 }
