@@ -49,14 +49,10 @@ export class CriarFestaComponent implements OnInit {
   callService(dadosFesta) {
     this.festaService.cadastrarFesta(dadosFesta).subscribe((resp: any) => {
       this.festaService.setFarol(false);
-      const nomeFesta = resp.nomeFesta.toLowerCase().replace('-', '').replace(/\s+/g, '-')
-                                    .replace('á', 'a').replace('é', 'e')
-                                    .replace('í', 'i').replace('ó', 'o')
-                                    .replace('ú', 'u').replace('à', 'a')
-                                    .replace('â', 'a').replace('ê', 'e')
-                                    .replace('î', 'i').replace('ô', 'o')
-                                    .replace('û', 'u').replace('ã', 'a')
-                                    .replace('õ', 'o');
+      const nomeFesta = resp.nomeFesta.toLowerCase().replace('-', '').replace('–', '')
+                                    .replace(/\s+/g, '-').replace('ç', 'c')
+                                    .replace('º', '').replace('ª', '')
+                                    .normalize('NFD').replace(/[\u0300-\u036f]/g, '');
       this.router.navigate(['festas/' + nomeFesta + '/painel/']);
     });
   }
