@@ -28,6 +28,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 import { SocialLoginModule, AuthServiceConfig, AuthService } from 'angular4-social-login';
 import { GoogleLoginProvider, FacebookLoginProvider } from 'angular4-social-login';
 import { SocialLoginBaseComponent } from './views/social-login-base/social-login-base.component';
+
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
@@ -48,6 +49,8 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { CriarFestaComponent } from './views/criar-festa/criar-festa.component';
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
+
+import { CadastrarFestaService } from './services/cadastro-festa/cadastrar-festa.service';
 
 const config = new AuthServiceConfig([
   {
@@ -124,7 +127,8 @@ export function provideConfig() {
     LoginService,
     EditAccountService,
     AuthGuard,
-    LogService
+    LogService,
+    CadastrarFestaService
   ],
   bootstrap: [AppComponent]
 })

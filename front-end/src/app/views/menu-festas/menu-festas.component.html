@@ -24,7 +24,7 @@
                     <h2 class="mat-subheading-2"><b>{{ 'FESTA.DATA' | translate }}:</b> 07/07/2020</h2>
                 </div>
                 <div class="acao">
-                    <a routerLink="../festa-painel">
+                    <a [routerLink]="['../festas', 'festaca', 'painel']">
                         <button mat-raised-button>
                             <mat-icon>insert_chart_outlined</mat-icon> {{ 'FESTA.ACESSARFESTA' | translate }}
                         </button>
@@ -44,7 +44,7 @@
                     <h2 class="mat-subheading-2"><b>{{ 'FESTA.DATA' | translate }}:</b> 08/07/2020</h2>
                 </div>
                 <div class="acao">
-                    <a routerLink="../festa-painel">
+                    <a [routerLink]="['../festas', 'festival', 'painel']">
                         <button mat-raised-button>
                             <mat-icon>insert_chart_outlined</mat-icon> {{ 'FESTA.ACESSARFESTA' | translate }}
                         </button>
@@ -64,7 +64,7 @@
                     <h2 class="mat-subheading-2"><b>{{ 'FESTA.DATA' | translate }}:</b> 17/07/2020</h2>
                 </div>
                 <div class="acao">
-                    <a routerLink="../festa-painel">
+                    <a [routerLink]="['../festas', 'rave', 'painel']">
                         <button mat-raised-button>
                             <mat-icon>insert_chart_outlined</mat-icon> {{ 'FESTA.ACESSARFESTA' | translate }}
                         </button>

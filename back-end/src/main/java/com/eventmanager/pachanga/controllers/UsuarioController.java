@@ -58,7 +58,7 @@ public class UsuarioController{
 	}
 	
 	private UsuarioTO criadorUserDto(Usuario user) {
-		return UsuarioTOBuilder.getInstance().dtNasc(user.getDtNasc()).email(user.getEmail())
+		return UsuarioTOBuilder.getInstance().codUsuario(user.getCodUsuario()).dtNasc(user.getDtNasc()).email(user.getEmail())
 				.nomeUser(user.getNomeUser()).sexo(user.getSexo()).tipConta(user.getTipConta()).build();
 	}
 

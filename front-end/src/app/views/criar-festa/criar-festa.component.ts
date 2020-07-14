@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
+import { CadastrarFestaService } from 'src/app/services/cadastro-festa/cadastrar-festa.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-criar-festa',
@@ -9,8 +11,10 @@ import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms'
 export class CriarFestaComponent implements OnInit {
 
   public form: FormGroup;
+  minDate = new Date();
 
-  constructor(public formBuilder: FormBuilder) { }
+  constructor(public formBuilder: FormBuilder, public festaService: CadastrarFestaService,
+              public router: Router) { }
 
   ngOnInit() {
     this.form = this.formBuilder.group({
@@ -27,5 +31,34 @@ export class CriarFestaComponent implements OnInit {
   }
 
   get f() { return this.form.controls; }
+
+  adicionarFesta(nomeFesta, descricaoFesta, codEnderecoFesta, dataInicio, horaInicio, dataFim, horaFim, organizador, descOrganizador) {
+    const dadosFesta = {
+      nomeFesta,
+      statusFesta: null,
+      organizador,
+      horarioInicioFesta: dataInicio.slice(6, 10) + '-' + dataInicio.slice(3, 5) + '-' + dataInicio.slice(0, 2) + 'T' + horaInicio,
+      horarioFimFesta: dataFim.slice(6, 10) + '-' + dataFim.slice(3, 5) + '-' + dataFim.slice(0, 2) + 'T' + horaFim,
+      descricaoFesta,
+      codEnderecoFesta,
+      descOrganizador
+    };
+    this.callService(dadosFesta);
+  }
+
+  callService(dadosFesta) {
+    this.festaService.cadastrarFesta(dadosFesta).subscribe((resp: any) => {
+      this.festaService.setFarol(false);
+      const nomeFesta = resp.nomeFesta.toLowerCase().replace('-', '').replace(/\s+/g, '-')
+                                    .replace('á', 'a').replace('é', 'e')
+                                    .replace('í', 'i').replace('ó', 'o')
+                                    .replace('ú', 'u').replace('à', 'a')
+                                    .replace('â', 'a').replace('ê', 'e')
+                                    .replace('î', 'i').replace('ô', 'o')
+                                    .replace('û', 'u').replace('ã', 'a')
+                                    .replace('õ', 'o');
+      this.router.navigate(['festas/' + nomeFesta + '/painel/']);
+    });
+  }
 
 }

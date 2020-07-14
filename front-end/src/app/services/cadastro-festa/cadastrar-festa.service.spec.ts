@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { EditAccountService } from './edit-account.service';
+import { CadastrarFestaService } from './cadastrar-festa.service';
 
 import { HttpClientModule } from '@angular/common/http';
 
 import { CustomMaterialModule } from '../../views/material/material.module';
 
-describe('EditAccountService', () => {
+describe('CadastrarFestaService', () => {
   beforeEach(() => TestBed.configureTestingModule({
     imports: [
       HttpClientModule,
@@ -15,7 +15,7 @@ describe('EditAccountService', () => {
   }));
 
   it('should be created', () => {
-    const service: EditAccountService = TestBed.get(EditAccountService);
+    const service: CadastrarFestaService = TestBed.get(CadastrarFestaService);
     expect(service).toBeTruthy();
   });
 });

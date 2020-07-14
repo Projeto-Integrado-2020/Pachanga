@@ -60,12 +60,18 @@
         "PASSDIFF": "New password must be different from the current.",
         "USERNFOU": "User not found.",
         "PASSINCO": "Incorrect password.",
-        "NOTMODIF": "Nothing to modify."
+        "NOTMODIF": "Nothing to modify.",
+        "FESTNFOU": "Party not found.",
+        "USERSPER": "User without permission for this action.",
+        "DATEINFE": "Party start or end invalid.",
+        "FESTNEND": "Party without address.",
+        "FESTNOME": "Another party is using this name."
     },
 
     "SUCCESS": {
         "TITULO": "Success!",
-        "ALTERSUC": "Your data has been successfully changed"
+        "ALTERSUC": "Your data has been successfully changed",
+        "FESTDELE": "Party successfully deleted"
     },
 
     "PERFIL":{

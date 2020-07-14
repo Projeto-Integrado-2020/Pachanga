@@ -6,6 +6,7 @@ import com.eventmanager.pachanga.dtos.UsuarioTO;
 
 public class UsuarioTOBuilder {
 	
+	private int codUsuario;
 	private Date dtNasc;
 	private String nomeUser;
 	private String email;
@@ -14,6 +15,11 @@ public class UsuarioTOBuilder {
 	
 	public static UsuarioTOBuilder getInstance() {
 		return new UsuarioTOBuilder();
+	}
+	
+	public UsuarioTOBuilder codUsuario(int codUsuario) {
+		this.codUsuario = codUsuario;
+		return this;
 	}
 	
 	public UsuarioTOBuilder dtNasc(Date dtNasc) {
@@ -50,6 +56,7 @@ public class UsuarioTOBuilder {
 
 	public UsuarioTO build() {
 		UsuarioTO user = new UsuarioTO();
+		user.setCodUsuario(codUsuario);
 		user.setDtNasc(dtNasc);
 		user.setEmail(email);
 		user.setNomeUser(nomeUser);

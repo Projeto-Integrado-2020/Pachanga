@@ -26,6 +26,11 @@ export class ErroDialogComponent implements OnInit {
       case 'PASSDIFF': this.erro = this.translate.instant('ERRO.PASSDIFF'); break;
       case 'USERNFOU': this.erro = this.translate.instant('ERRO.USERNFOU'); break;
       case 'NOTMODIF': this.erro = this.translate.instant('ERRO.NOTMODIF'); break;
+      case 'FESTNFOU': this.erro = this.translate.instant('ERRO.FESTNFOU'); break;
+      case 'USERSPER': this.erro = this.translate.instant('ERRO.USERSPER'); break;
+      case 'DATEINFE': this.erro = this.translate.instant('ERRO.DATEINFE'); break;
+      case 'FESTNEND': this.erro = this.translate.instant('ERRO.FESTNEND'); break;
+      case 'FESTNOME': this.erro = this.translate.instant('ERRO.FESTNOME'); break;
       default: this.erro = this.translate.instant('ERRO.SERVERRO');
     }
   }

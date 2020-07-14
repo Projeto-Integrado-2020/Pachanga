@@ -60,12 +60,18 @@
         "PASSDIFF": "Senha nova precisa ser diferente da atual.",
         "USERNFOU": "Usuário não encontrado.",
         "PASSINCO": "Senha incorreta.",
-        "NOTMODIF": "Nada a se alterar."
+        "NOTMODIF": "Nada a se alterar.",
+        "FESTNFOU": "Festa não encontrada.",
+        "USERSPER": "Usuário sem permissão para esta ação.",
+        "DATEINFE": "Data inicial ou final incorretas.",
+        "FESTNEND": "Festa sem endereço.",
+        "FESTNOME": "Já existe uma festa com este nome."
     },
 
     "SUCCESS": {
         "TITULO": "Sucesso!",
-        "ALTERSUC": "Seus dados foram alterados com sucesso"
+        "ALTERSUC": "Seus dados foram alterados com sucesso",
+        "FESTDELE": "Festa deletada com sucesso"
     },
     
     "PERFIL":{

@@ -9,6 +9,8 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 import { CustomMaterialModule } from '../material/material.module';
 
+import { RouterModule } from '@angular/router';
+
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
 }
@@ -31,6 +33,7 @@ describe('MenuFestasComponent', () => {
             deps: [HttpClient]
           }
         }),
+        RouterModule.forRoot([])
       ]
     })
     .compileComponents();

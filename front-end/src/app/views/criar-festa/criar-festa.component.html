@@ -4,62 +4,63 @@
     </div>
     <div class="content">
         <mat-card class="formulario-card">
-            <form [formGroup]="form" class="formulario">
+            <form [formGroup]="form" class="formulario" 
+            (submit)="adicionarFesta(nomeFesta.value, descricaoFesta.value, codEnderecoFesta.value, dataInicio.value, horaInicio.value, dataFim.value, horaFim.value, organizador.value, descOrganizador.value)">
                 <mat-form-field class="texto-input">
                     <mat-label>{{'CRIARFESTA.NOMEFESTA' | translate}}</mat-label>
-                    <input ng-class="{ f.nomeFesta.errors }" formControlName="nomeFesta" matInput required>
+                    <input ng-class="{ f.nomeFesta.errors }" #nomeFesta formControlName="nomeFesta" matInput required>
                     <mat-error *ngIf="f.nomeFesta.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
                 </mat-form-field>
                 <br>
                 <mat-form-field class="texto-input">
                     <mat-label>{{'CRIARFESTA.DESCFESTA' | translate}}</mat-label>
-                    <textarea ng-class="{ f.descFesta.errors }" formControlName="descFesta" matInput required rows="4"></textarea>
+                    <textarea ng-class="{ f.descFesta.errors }" #descricaoFesta formControlName="descFesta" matInput required rows="4"></textarea>
                     <mat-error *ngIf="f.descFesta.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
                 </mat-form-field>
                 <br>
                 <mat-form-field class="texto-input">
                     <mat-label>{{'CRIARFESTA.ENDERECO' | translate}}</mat-label>
-                    <input ng-class="{ f.endereco.errors }" formControlName="endereco" matInput required>
+                    <input ng-class="{ f.endereco.errors }" #codEnderecoFesta formControlName="endereco" matInput required>
                     <mat-error *ngIf="f.endereco.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
                 </mat-form-field>
                 <br>
                 <mat-form-field class="date-input">
                     <mat-label>{{'CRIARFESTA.INICIODATA' | translate}}</mat-label>
-                    <input ng-class="{ f.inicioData.errors }" formControlName="inicioData" matInput required (click)="pickerInicioData.open()" [matDatepicker]="pickerInicioData">
+                    <input [min]="minDate" ng-class="{ f.inicioData.errors }" #dataInicio formControlName="inicioData" matInput required (click)="pickerInicioData.open()" [matDatepicker]="pickerInicioData">
                     <mat-datepicker-toggle matSuffix [for]="pickerInicioData" ></mat-datepicker-toggle>
                     <mat-datepicker #pickerInicioData ></mat-datepicker>
                     <mat-error *ngIf="f.inicioData.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
                 </mat-form-field>
                 <mat-form-field>
                     <mat-label>{{'CRIARFESTA.INICIOHORA' | translate}}</mat-label>
-                    <input ng-class="{ f.inicioHora.errors }" formControlName="inicioHora" matInput required [ngxTimepicker]="pickerInicioHora" [format]=24>
+                    <input ng-class="{ f.inicioHora.errors }" #horaInicio formControlName="inicioHora" matInput required [ngxTimepicker]="pickerInicioHora" [format]=24>
                     <ngx-material-timepicker #pickerInicioHora></ngx-material-timepicker>
                     <mat-error *ngIf="f.inicioHora.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
                 </mat-form-field>
                 <br>
                 <mat-form-field class="date-input">
                     <mat-label>{{'CRIARFESTA.FIMDATA' | translate}}</mat-label>
-                    <input ng-class="{ f.fimData.errors }" formControlName="fimData" matInput required (click)="pickerFimData.open()" [matDatepicker]="pickerFimData">
+                    <input [min]="minDate" ng-class="{ f.fimData.errors }" #dataFim formControlName="fimData" matInput required (click)="pickerFimData.open()" [matDatepicker]="pickerFimData">
                     <mat-datepicker-toggle matSuffix [for]="pickerFimData" ></mat-datepicker-toggle>
                     <mat-datepicker #pickerFimData ></mat-datepicker>
                     <mat-error *ngIf="f.fimData.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
                 </mat-form-field>
                 <mat-form-field>
                     <mat-label>{{'CRIARFESTA.FIMHORA' | translate}}</mat-label>
-                    <input ng-class="{ f.fimHora.errors }" formControlName="fimHora" matInput required [ngxTimepicker]="pickerFimHora" [format]=24>
+                    <input ng-class="{ f.fimHora.errors }" #horaFim formControlName="fimHora" matInput required [ngxTimepicker]="pickerFimHora" [format]=24>
                     <ngx-material-timepicker #pickerFimHora></ngx-material-timepicker>
                     <mat-error *ngIf="f.fimHora.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
                 </mat-form-field>
                 <br>
                 <mat-form-field class="texto-input">
                     <mat-label>{{'CRIARFESTA.ORGANIZADOR' | translate}}</mat-label>
-                    <input ng-class="{ f.organizador.errors }" formControlName="organizador" matInput required>
+                    <input ng-class="{ f.organizador.errors }" #organizador formControlName="organizador" matInput required>
                     <mat-error *ngIf="f.organizador.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
                 </mat-form-field>
                 <br>
                 <mat-form-field class="texto-input">
                     <mat-label>{{'CRIARFESTA.DESCORGANIZADOR' | translate}}</mat-label>
-                    <textarea ng-class="{ f.descOrganizador.errors }" formControlName="descOrganizador" matInput required rows="4"></textarea>
+                    <textarea ng-class="{ f.descOrganizador.errors }" #descOrganizador formControlName="descOrganizador" matInput required rows="4"></textarea>
                     <mat-error *ngIf="f.descOrganizador.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
                 </mat-form-field>
                 <br>

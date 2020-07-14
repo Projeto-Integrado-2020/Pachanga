@@ -12,6 +12,8 @@ import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+import { RouterModule } from '@angular/router';
+
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
 }
@@ -38,6 +40,7 @@ describe('CriarFestaComponent', () => {
             deps: [HttpClient]
           }
         }),
+        RouterModule.forRoot([])
       ]
     })
     .compileComponents();
