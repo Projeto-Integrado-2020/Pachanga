@@ -34,4 +34,7 @@ public interface FestaRepository extends JpaRepository<Festa, Integer>{
 
 	public Festa findByCodFesta(int codFesta);
 	
+	@Query(value = "SELECT f FROM Festa f JOIN f.grupos g JOIN g.usuarios u WHERE f.codFesta = :codFesta ")
+	public String findByFuncionalidade(int codFesta);
+	
 }

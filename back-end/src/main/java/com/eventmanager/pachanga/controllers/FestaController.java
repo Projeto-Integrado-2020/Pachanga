@@ -17,10 +17,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.eventmanager.pachanga.builder.FestaTOBuilder;
 import com.eventmanager.pachanga.domains.Festa;
+import com.eventmanager.pachanga.domains.Usuario;
 import com.eventmanager.pachanga.dtos.FestaTO;
 import com.eventmanager.pachanga.errors.ValidacaoException;
+import com.eventmanager.pachanga.factory.FestaFactory;
 import com.eventmanager.pachanga.services.FestaService;
 
 @Controller
@@ -41,7 +42,13 @@ public class FestaController {
 			}else {
 				festas =  festaService.procurarFestasPorUsuario(Integer.parseInt(idUser));
 			}
-			List<FestaTO> festasTo = festas.stream().map(f -> createFestaTo(f)).collect(Collectors.toList());
+			List<FestaTO> festasTo = festas.stream().map(f -> {
+				FestaTO festaTo = FestaFactory.getFestaTO(f);
+				if(idUser != null) {
+					festaTo.setFuncionalidade(festaService.funcionalidadeFesta(festaTo.getCodFesta(), Integer.parseInt(idUser)));
+				}
+				return festaTo;
+			}).collect(Collectors.toList());
 			return ResponseEntity.ok(festasTo);
 		}catch(ValidacaoException e) {
 			return ResponseEntity.status(400).body(e.getMessage());
@@ -53,7 +60,7 @@ public class FestaController {
 	public ResponseEntity<Object> addFesta(@RequestBody FestaTO festaTo, @RequestParam(required = true) int idUser){
 		try {
 			Festa festa = festaService.addFesta(festaTo, idUser);
-			return ResponseEntity.ok(createFestaTo(festa));
+			return ResponseEntity.ok(FestaFactory.getFestaTO(festa));
 		}catch(ValidacaoException e) {
 			return ResponseEntity.status(400).body(e.getMessage());
 		}
@@ -69,33 +76,37 @@ public class FestaController {
 			return ResponseEntity.status(400).body(e.getMessage());
 		}
 	}
-	
+
 	@ResponseBody
 	@PutMapping(path = "/atualizar")
 	public ResponseEntity<Object> atualizaFesta(@RequestBody FestaTO festaTo, @RequestParam(required = true) int idUser){
 		try {
 			Festa festa = festaService.updateFesta(festaTo, idUser);
-			return ResponseEntity.ok(createFestaTo(festa));
+			return ResponseEntity.ok(FestaFactory.getFestaTO(festa));
 		}catch(ValidacaoException e) {
 			return ResponseEntity.status(400).body(e.getMessage());
 		}
 	}
-	
+
 	@ResponseBody
 	@GetMapping(path = "/festaUnica")
 	public ResponseEntity<Object> getFesta(@RequestParam(required = true)int idFesta){
 		try {
 			Festa festa = festaService.procurarFesta(idFesta);
-			return ResponseEntity.ok(createFestaTo(festa));
+			return ResponseEntity.ok(festa == null ? null : FestaFactory.getFestaTO(festa));
 		}catch (ValidacaoException e) {
 			return ResponseEntity.status(400).body(e.getMessage());
 		}
 	}
 	
-	private FestaTO createFestaTo(Festa festa) {
-		return FestaTOBuilder.getInstance().codEnderecoFesta(festa.getCodEnderecoFesta()).codFesta(festa.getCodFesta()).
-				descOrganizador(festa.getDescOrganizador()).descricaoFesta(festa.getDescricaoFesta()).horarioFimFesta(festa.getHorarioFimFesta()).
-				horarioFimFestaReal(festa.getHorarioFimFestaReal()).horarioInicioFesta(festa.getHorarioInicioFesta()).
-				nomeFesta(festa.getNomeFesta()).organizador(festa.getOrganizador()).statusFesta(festa.getStatusFesta()).build();
+	@ResponseBody
+	@GetMapping(path = "/addUserFesta")
+	public ResponseEntity<Object> addUsuarioFesta(@RequestParam(required = true)int codFesta, @RequestBody List<Usuario> usuarios){
+		try {
+			festaService.addUsuariosFesta(usuarios, codFesta);
+			return ResponseEntity.ok(null);
+		} catch (ValidacaoException e) {
+			return ResponseEntity.status(400).body(e.getMessage());
+		}
 	}
 }

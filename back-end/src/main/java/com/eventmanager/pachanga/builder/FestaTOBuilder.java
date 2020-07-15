@@ -16,6 +16,7 @@ public class FestaTOBuilder {
 	private String codEnderecoFesta; //Url do local, talvez mude
 	private String descOrganizador;
 	private LocalDateTime horarioFimFestaReal;
+	private String funcionalidade;
 	
 	public static FestaTOBuilder getInstance() {
 		return new FestaTOBuilder();
@@ -71,6 +72,11 @@ public class FestaTOBuilder {
 		return this;
 	}
 	
+	public FestaTOBuilder funcionalidade(String funcionalidade) {
+		this.funcionalidade = funcionalidade;
+		return this;
+	}
+
 	public FestaTO build() {
 		FestaTO festaTo = new FestaTO();
 		festaTo.setCodEnderecoFesta(codEnderecoFesta);
@@ -83,6 +89,7 @@ public class FestaTOBuilder {
 		festaTo.setOrganizador(organizador);
 		festaTo.setStatusFesta(statusFesta);
 		festaTo.setHorarioFimFestaReal(horarioFimFestaReal);
+		festaTo.setFuncionalidade(funcionalidade);
 		return festaTo;
 	}
 

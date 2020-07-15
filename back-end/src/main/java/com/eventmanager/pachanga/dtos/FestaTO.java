@@ -14,6 +14,7 @@ public class FestaTO {
 	private String codEnderecoFesta; //Url do local, talvez mude
 	private String descOrganizador;
 	private LocalDateTime horarioFimFestaReal;
+	private String funcionalidade;
 	
 	public int getCodFesta() {
 		return codFesta;
@@ -74,6 +75,12 @@ public class FestaTO {
 	}
 	public void setHorarioFimFestaReal(LocalDateTime horarioFimFestaReal) {
 		this.horarioFimFestaReal = horarioFimFestaReal;
+	}
+	public String getFuncionalidade() {
+		return funcionalidade;
+	}
+	public void setFuncionalidade(String funcionalidade) {
+		this.funcionalidade = funcionalidade;
 	}
 
 }

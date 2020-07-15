@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.eventmanager.pachanga.builder.UsuarioTOBuilder;
 import com.eventmanager.pachanga.domains.Usuario;
 import com.eventmanager.pachanga.dtos.UsuarioTO;
 import com.eventmanager.pachanga.errors.ValidacaoException;
+import com.eventmanager.pachanga.factory.UsuarioFactory;
 import com.eventmanager.pachanga.services.UsuarioService;
 
 @Controller
@@ -27,7 +27,7 @@ public class UsuarioController{
 	public ResponseEntity<Object> cadastro(@RequestBody UsuarioTO user) {
 		try {
 			Usuario userCadastrado = userService.cadastrar(user);
-			UsuarioTO userto = criadorUserDto(userCadastrado);
+			UsuarioTO userto = UsuarioFactory.getUsuarioTO(userCadastrado);
 			return ResponseEntity.ok(userto);
 		} catch (ValidacaoException e) {
 			return ResponseEntity.status(400).body(e.getMessage());	
@@ -39,7 +39,7 @@ public class UsuarioController{
 	public ResponseEntity<Object> login(@RequestBody UsuarioTO user){
 		try {
 			Usuario usarioLogin = userService.logar(user);
-			UsuarioTO userto = criadorUserDto(usarioLogin);
+			UsuarioTO userto = UsuarioFactory.getUsuarioTO(usarioLogin);
 			return ResponseEntity.ok(userto);
 		} catch (ValidacaoException e) {
 			return ResponseEntity.status(400).body(e.getMessage());
@@ -50,16 +50,11 @@ public class UsuarioController{
 	public ResponseEntity<Object> atualiza(@RequestBody UsuarioTO user) {
 		try {
 			Usuario userAtualizado = userService.atualizar(user);
-			UsuarioTO userto = criadorUserDto(userAtualizado);
+			UsuarioTO userto = UsuarioFactory.getUsuarioTO(userAtualizado);
 			return ResponseEntity.ok(userto);
 		} catch (ValidacaoException e) {
 			return ResponseEntity.status(400).body(e.getMessage());	
 		}
-	}
-	
-	private UsuarioTO criadorUserDto(Usuario user) {
-		return UsuarioTOBuilder.getInstance().codUsuario(user.getCodUsuario()).dtNasc(user.getDtNasc()).email(user.getEmail())
-				.nomeUser(user.getNomeUser()).sexo(user.getSexo()).tipConta(user.getTipConta()).build();
 	}
 
 }
