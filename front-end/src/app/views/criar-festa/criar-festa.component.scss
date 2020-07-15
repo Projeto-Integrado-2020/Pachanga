@@ -13,6 +13,7 @@
 }
 
 .content {
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -33,13 +34,13 @@
     padding: .2rem;
     padding-right: .3rem;
     margin-left: 50%;
-    margin-bottom: 3vh;
+    margin-bottom: 3%;
 }
 
 .formulario-card {
-    margin-top: 3vh;
-    width: 170vh;
-    margin-bottom: 5vh;
+    margin-top: 1%;
+    width: 100%;
+    margin-bottom: 2%;
     padding-bottom: 0!important;
     display: flex;
     align-items: center;
@@ -53,6 +54,10 @@ textarea {
 .date-input {
     margin-left: 15%;
     margin-right: 10%;
+}
+
+.formulario {
+    padding-top: 1%;
 }
 
 .title {
