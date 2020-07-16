@@ -1,5 +1,7 @@
 package com.eventmanager.pachanga.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -113,6 +115,10 @@ public class UsuarioService {
 
 	public Usuario getUsuario(UsuarioTO user){
 		return userRepository.findByEmailAndTipConta(user.getEmail(), user.getTipConta());
+	}
+	
+	public List<Usuario> getUsuariosFesta(int codFesta){
+		return userRepository.findByIdFesta(codFesta);
 	}
 
 
