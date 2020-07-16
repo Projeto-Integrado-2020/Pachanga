@@ -8,19 +8,18 @@
 }
 
 .main-container {
+    top: 64px;
     max-width: 1140px;
-    margin-left: 10vh;
+    height: calc(100vh - 64px);
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 0 2rem 0 2rem;
 }
 
-.minhas-festas {
-    margin-top: 13vh;
-}
-
-.list-festas {
-    margin-top: 3vh;
-    width: 108.5%;
-    margin-bottom: 5vh;
-    padding-bottom: 0!important;
+header {
+    display: flex;
+    margin-top: 2rem;
 }
 
 .title {
@@ -30,11 +29,13 @@
     color: $color-primary;
 }
 
-.card-top {
-    display: flex;
-    align-items: center;
-    padding-bottom: .8rem;
-    border-bottom: 1px solid lightgrey;
+.lista-festas {
+    margin-top: 2rem;
+}
+
+.festa-tab:hover {
+    background-color: #f2f2f2;
+    transition: background-color 0.3s ease-in-out;
 }
 
 .card-title {
@@ -44,6 +45,18 @@
     color: $color-tertiary;
     float: right;
     padding-left: 3%;
+}
+
+.subtitle {
+    text-transform: capitalize;
+}
+
+.card-content {
+    padding: 0 3.3rem 0 3.3rem;
+}
+
+.textos {
+    margin-top: 1rem;
 }
 
 .button-main-action {
@@ -58,33 +71,39 @@
 
 .nome-festa {
     font-weight: normal;
+    font-size: 1.5rem;
     color: $color-secondary;
-    padding-left: 2.5%;
     margin-bottom: 1.5rem;
     margin-top: 1.5rem;
 }
 
-.party-body {
-    display: flex;
-    justify-content: center;
+
+.texto {
+    display: inline-block;
+    margin-right: 2rem;
 }
 
-.party-body .texto {
-    float: left;
-    margin-right: 25%;
-    padding-left: 1%;
-    margin-bottom: 0;
-    width: 18%;
-}
-
-.party-body button {
+.btn-1 {
     background-color: $color-primary;
     color: #ffffff;
     padding: .2rem;
     padding-right: .3rem;
 }
 
-.festa-tab {
-    border-bottom: 1px solid lightgrey;
-    padding-bottom: 1rem;
+.acoes {
+    margin-left: 3.3rem;
+}
+
+
+.descricao {
+    display: block;
+}
+
+.acessar-festa-btn {
+    position: absolute;
+    top: 50%;
+}
+
+.paginator {
+    margin-top: 2rem;
 }
