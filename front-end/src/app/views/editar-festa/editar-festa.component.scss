@@ -1,0 +1,68 @@
+@import '../material/paleta.scss';
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  border: 0;
+}
+
+.main-container {
+    max-width: 1140px;
+}
+
+.content {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 10%;
+}
+
+.editar-festa {
+    margin-left: 5%;
+    margin-top: 13vh;
+}
+
+.texto-input {
+    width: 100vh;
+}
+
+.button-form {
+    background-color: $color-primary;
+    color: #ffffff;
+    padding: .2rem;
+    padding-right: .3rem;
+    margin-left: 50%;
+    margin-bottom: 3%;
+}
+
+.formulario-card {
+    margin-top: 1%;
+    width: 100%;
+    margin-bottom: 2%;
+    padding-bottom: 0!important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+textarea {
+    resize: none !important;
+}
+
+.date-input {
+    margin-left: 15%;
+    margin-right: 10%;
+}
+
+.formulario {
+    padding-top: 1%;
+}
+
+.title {
+    font-size: 1.8rem;
+    font-weight: lighter;
+    width: 100%;
+    color: $color-primary;
+}

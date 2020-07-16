@@ -168,6 +168,11 @@
         "DESCORGANIZADOR": "Manager description"
     },
 
+    "EDITARFESTA": {
+        "EDITARFESTA": "Edit party",
+        "SALVAR": "Save changes"
+    },
+
     "PAINELCONTROLE": {
         "GERAL": "Overview",
         "ESTOQUE": "Stock",
