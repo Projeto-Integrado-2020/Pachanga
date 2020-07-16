@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.eventmanager.pachanga.domains.Festa;
-import com.eventmanager.pachanga.domains.Usuario;
 import com.eventmanager.pachanga.dtos.FestaTO;
 import com.eventmanager.pachanga.errors.ValidacaoException;
 import com.eventmanager.pachanga.factory.FestaFactory;
@@ -95,17 +94,6 @@ public class FestaController {
 			Festa festa = festaService.procurarFesta(idFesta);
 			return ResponseEntity.ok(festa == null ? null : FestaFactory.getFestaTO(festa));
 		}catch (ValidacaoException e) {
-			return ResponseEntity.status(400).body(e.getMessage());
-		}
-	}
-	
-	@ResponseBody
-	@GetMapping(path = "/addUserFesta")
-	public ResponseEntity<Object> addUsuarioFesta(@RequestParam(required = true)int codFesta, @RequestBody List<Usuario> usuarios){
-		try {
-			festaService.addUsuariosFesta(usuarios, codFesta);
-			return ResponseEntity.ok(null);
-		} catch (ValidacaoException e) {
 			return ResponseEntity.status(400).body(e.getMessage());
 		}
 	}
