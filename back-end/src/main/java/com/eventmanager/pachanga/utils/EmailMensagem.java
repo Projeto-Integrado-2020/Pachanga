@@ -13,6 +13,8 @@ import javax.mail.internet.MimeMessage;
 
 import org.springframework.stereotype.Component;
 
+import com.eventmanager.pachanga.errors.ValidacaoException;
+
 @Component(value = "emailMensagem")
 public class EmailMensagem {
 	
@@ -27,6 +29,7 @@ public class EmailMensagem {
 	 
 	    Session session = Session.getInstance(props,
 	      new javax.mail.Authenticator() {
+	    	@Override
 	           protected PasswordAuthentication getPasswordAuthentication() 
 	           {
 	                 return new PasswordAuthentication("eventmanager72@gmail.com","11443322");
@@ -51,7 +54,7 @@ public class EmailMensagem {
 	      Transport.send(message);
 	 	 
 	     } catch (MessagingException e) {
-	        throw new RuntimeException(e);
+	        throw new ValidacaoException(e.getMessage());
 	    }
 	}
 

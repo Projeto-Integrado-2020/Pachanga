@@ -5,15 +5,15 @@ import java.util.List;
 import com.eventmanager.pachanga.builder.FestaBuilder;
 import com.eventmanager.pachanga.builder.FestaTOBuilder;
 import com.eventmanager.pachanga.domains.Festa;
-import com.eventmanager.pachanga.domains.Usuario;
 import com.eventmanager.pachanga.dtos.FestaTO;
+import com.eventmanager.pachanga.dtos.UsuarioTO;
 
 public class FestaFactory {
 	
 	private FestaFactory() {
 	}
 	
-	public static FestaTO getFestaTO(Festa festa, List<Usuario> usuarios, boolean enviarQuantidade) {
+	public static FestaTO getFestaTO(Festa festa, List<UsuarioTO> usuarios, boolean enviarQuantidade) {
 		FestaTOBuilder festaToBuilder = FestaTOBuilder.getInstance().codEnderecoFesta(festa.getCodEnderecoFesta()).codFesta(festa.getCodFesta()).
 				descOrganizador(festa.getDescOrganizador()).descricaoFesta(festa.getDescricaoFesta()).horarioFimFesta(festa.getHorarioFimFesta()).
 				horarioFimFestaReal(festa.getHorarioFimFestaReal()).horarioInicioFesta(festa.getHorarioInicioFesta()).
