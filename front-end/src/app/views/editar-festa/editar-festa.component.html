@@ -5,7 +5,7 @@
     <div class="content">
         <mat-card class="formulario-card">
             <form [formGroup]="form" class="formulario" 
-            (submit)="adicionarFesta(nomeFesta.value, descricaoFesta.value, codEnderecoFesta.value, dataInicio.value, horaInicio.value, dataFim.value, horaFim.value, organizador.value, descOrganizador.value)">
+            (submit)="atualizarFesta(nomeFesta.value, descricaoFesta.value, codEnderecoFesta.value, dataInicio.value, horaInicio.value, dataFim.value, horaFim.value, organizador.value, descOrganizador.value)">
                 <mat-form-field class="texto-input">
                     <mat-label>{{'CRIARFESTA.NOMEFESTA' | translate}}</mat-label>
                     <input ng-class="{ f.nomeFesta.errors }" #nomeFesta formControlName="nomeFesta" matInput required>
