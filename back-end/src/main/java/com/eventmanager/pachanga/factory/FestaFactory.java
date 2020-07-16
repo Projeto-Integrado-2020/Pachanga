@@ -1,8 +1,11 @@
 package com.eventmanager.pachanga.factory;
 
+import java.util.List;
+
 import com.eventmanager.pachanga.builder.FestaBuilder;
 import com.eventmanager.pachanga.builder.FestaTOBuilder;
 import com.eventmanager.pachanga.domains.Festa;
+import com.eventmanager.pachanga.domains.Usuario;
 import com.eventmanager.pachanga.dtos.FestaTO;
 
 public class FestaFactory {
@@ -10,11 +13,19 @@ public class FestaFactory {
 	private FestaFactory() {
 	}
 	
-	public static FestaTO getFestaTO(Festa festa) {
-		return FestaTOBuilder.getInstance().codEnderecoFesta(festa.getCodEnderecoFesta()).codFesta(festa.getCodFesta()).
+	public static FestaTO getFestaTO(Festa festa, List<Usuario> usuarios, boolean enviarQuantidade) {
+		FestaTOBuilder festaToBuilder = FestaTOBuilder.getInstance().codEnderecoFesta(festa.getCodEnderecoFesta()).codFesta(festa.getCodFesta()).
 				descOrganizador(festa.getDescOrganizador()).descricaoFesta(festa.getDescricaoFesta()).horarioFimFesta(festa.getHorarioFimFesta()).
 				horarioFimFestaReal(festa.getHorarioFimFestaReal()).horarioInicioFesta(festa.getHorarioInicioFesta()).
-				nomeFesta(festa.getNomeFesta()).organizador(festa.getOrganizador()).statusFesta(festa.getStatusFesta()).build();
+				nomeFesta(festa.getNomeFesta()).organizador(festa.getOrganizador()).statusFesta(festa.getStatusFesta());
+		if(usuarios != null) {
+			if(enviarQuantidade) {
+				festaToBuilder.quantidadeParticipantes(usuarios.size());
+			}else {
+				festaToBuilder.usuarios(usuarios);
+			}
+		}
+		return festaToBuilder.build();
 	}
 	
 	public static Festa getFesta(FestaTO festaTo) {

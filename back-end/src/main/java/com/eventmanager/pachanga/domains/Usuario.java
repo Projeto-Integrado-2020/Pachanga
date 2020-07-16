@@ -8,8 +8,10 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 
-@Entity(name = "usuario")
+@Entity
+@Table(name = "usuario")
 public class Usuario {
 	@Id
 	@Column(name = "cod_usuario")

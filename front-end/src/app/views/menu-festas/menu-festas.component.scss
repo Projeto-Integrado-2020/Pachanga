@@ -10,6 +10,7 @@
 .main-container {
     top: 64px;
     max-width: 1140px;
+<<<<<<< HEAD
     height: calc(100vh - 64px);
     position: relative;
     left: 50%;
@@ -20,6 +21,21 @@
 header {
     display: flex;
     margin-top: 2rem;
+=======
+}
+
+.minhas-festas {
+    margin-top: 13vh;
+    margin-left: 6%;
+}
+
+.list-festas {
+    margin-left: 5.2%;
+    margin-top: 3vh;
+    width: 108.5%;
+    margin-bottom: 5vh;
+    padding-bottom: 0!important;
+>>>>>>> b1a58465871311cc7b49f20cb359f3b175244140
 }
 
 .title {

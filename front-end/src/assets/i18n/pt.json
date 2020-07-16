@@ -168,6 +168,11 @@
         "DESCORGANIZADOR": "Descrição do organizador"
     },
 
+    "EDITARFESTA": {
+        "EDITARFESTA": "Editar festa",
+        "SALVAR": "Salvar alterações"
+    },
+
     "PAINELCONTROLE": {
         "GERAL": "Visão geral",
         "ESTOQUE": "Estoque",

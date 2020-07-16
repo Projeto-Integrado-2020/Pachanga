@@ -107,21 +107,4 @@ public class FestaService {
 	public String funcionalidadeFesta(int codFesta, int codUsuario) {
 		return grupoRepository.findFuncionalidade(codFesta, codUsuario);
 	}
-
-	public void addUsuariosFesta(List<Usuario> usuarios, int codFesta) {
-		Grupo grupo = grupoRepository.findGrupoConvidadoFesta(codFesta);
-		if(grupo == null) {
-			grupo = new Grupo(grupoRepository.getNextValMySequence(), festaRepository.findByCodFesta(codFesta), "CONVIDADO", 100);
-			grupoRepository.save(grupo);
-		}
-		usuarios.stream().forEach(u -> {
-			Usuario usuario = usuarioRepository.findById(u.getCodUsuario());
-			if(usuario == null) {
-//				grupoRepository.saveUsuarioGrupo(usuario.getCodUsuario(), grupo.getCodGrupo());
-			}else {
-				
-			}
-		});
-		
-	}
 }

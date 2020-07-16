@@ -1,6 +1,9 @@
 package com.eventmanager.pachanga.dtos;
 
 import java.time.LocalDateTime;
+import java.util.List;
+
+import com.eventmanager.pachanga.domains.Usuario;
 
 public class FestaTO {
 	
@@ -15,6 +18,8 @@ public class FestaTO {
 	private String descOrganizador;
 	private LocalDateTime horarioFimFestaReal;
 	private String funcionalidade;
+	private int quantidadeParticipantes;
+	private List<Usuario> usuarios;
 	
 	public int getCodFesta() {
 		return codFesta;
@@ -81,6 +86,18 @@ public class FestaTO {
 	}
 	public void setFuncionalidade(String funcionalidade) {
 		this.funcionalidade = funcionalidade;
+	}
+	public int getQuantidadeParticipantes() {
+		return quantidadeParticipantes;
+	}
+	public void setQuantidadeParticipantes(int quantidadeParticipantes) {
+		this.quantidadeParticipantes = quantidadeParticipantes;
+	}
+	public List<Usuario> getUsuarios() {
+		return usuarios;
+	}
+	public void setUsuarios(List<Usuario> usuarios) {
+		this.usuarios = usuarios;
 	}
 
 }
