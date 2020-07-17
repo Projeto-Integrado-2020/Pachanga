@@ -21,7 +21,7 @@ export class IndexComponent implements OnInit {
   }
 
   tiles: Tile[] = [
-    {text: this.title, cols: 2, rows: 1, },
+    {text: this.title, cols: 3, rows: 1, },
     {text: null, cols: 1, rows: 1}
   ];
 

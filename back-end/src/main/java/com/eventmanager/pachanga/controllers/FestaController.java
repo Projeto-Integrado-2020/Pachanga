@@ -17,11 +17,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.eventmanager.pachanga.builder.FestaTOBuilder;
 import com.eventmanager.pachanga.domains.Festa;
 import com.eventmanager.pachanga.dtos.FestaTO;
+import com.eventmanager.pachanga.dtos.UsuarioTO;
 import com.eventmanager.pachanga.errors.ValidacaoException;
+import com.eventmanager.pachanga.factory.FestaFactory;
+import com.eventmanager.pachanga.factory.UsuarioFactory;
 import com.eventmanager.pachanga.services.FestaService;
+import com.eventmanager.pachanga.services.UsuarioService;
 
 @Controller
 @RequestMapping("/festa")
@@ -30,6 +33,9 @@ public class FestaController {
 
 	@Autowired
 	private FestaService festaService;
+	
+	@Autowired
+	private UsuarioService usuarioService;
 
 	@ResponseBody
 	@GetMapping(path = "/lista")
@@ -41,7 +47,14 @@ public class FestaController {
 			}else {
 				festas =  festaService.procurarFestasPorUsuario(Integer.parseInt(idUser));
 			}
-			List<FestaTO> festasTo = festas.stream().map(f -> createFestaTo(f)).collect(Collectors.toList());
+			List<FestaTO> festasTo = festas.stream().map(f -> {
+				List<UsuarioTO> usuarios = listUsuarioTO(f);  
+				FestaTO festaTo = FestaFactory.getFestaTO(f, usuarios, true);
+				if(idUser != null) {
+					festaTo.setFuncionalidade(festaService.funcionalidadeFesta(festaTo.getCodFesta(), Integer.parseInt(idUser)));
+				}
+				return festaTo;
+			}).collect(Collectors.toList());
 			return ResponseEntity.ok(festasTo);
 		}catch(ValidacaoException e) {
 			return ResponseEntity.status(400).body(e.getMessage());
@@ -53,7 +66,7 @@ public class FestaController {
 	public ResponseEntity<Object> addFesta(@RequestBody FestaTO festaTo, @RequestParam(required = true) int idUser){
 		try {
 			Festa festa = festaService.addFesta(festaTo, idUser);
-			return ResponseEntity.ok(createFestaTo(festa));
+			return ResponseEntity.ok(FestaFactory.getFestaTO(festa, null, false));
 		}catch(ValidacaoException e) {
 			return ResponseEntity.status(400).body(e.getMessage());
 		}
@@ -69,33 +82,32 @@ public class FestaController {
 			return ResponseEntity.status(400).body(e.getMessage());
 		}
 	}
-	
+
 	@ResponseBody
 	@PutMapping(path = "/atualizar")
 	public ResponseEntity<Object> atualizaFesta(@RequestBody FestaTO festaTo, @RequestParam(required = true) int idUser){
 		try {
 			Festa festa = festaService.updateFesta(festaTo, idUser);
-			return ResponseEntity.ok(createFestaTo(festa));
+			return ResponseEntity.ok(FestaFactory.getFestaTO(festa, null, false));
 		}catch(ValidacaoException e) {
 			return ResponseEntity.status(400).body(e.getMessage());
 		}
 	}
-	
+
 	@ResponseBody
 	@GetMapping(path = "/festaUnica")
 	public ResponseEntity<Object> getFesta(@RequestParam(required = true)int idFesta){
+		
 		try {
 			Festa festa = festaService.procurarFesta(idFesta);
-			return ResponseEntity.ok(createFestaTo(festa));
+			List<UsuarioTO> usuarios = listUsuarioTO(festa);
+			return ResponseEntity.ok(festa == null ? null : FestaFactory.getFestaTO(festa, usuarios, false));
 		}catch (ValidacaoException e) {
 			return ResponseEntity.status(400).body(e.getMessage());
 		}
 	}
 	
-	private FestaTO createFestaTo(Festa festa) {
-		return FestaTOBuilder.getInstance().codEnderecoFesta(festa.getCodEnderecoFesta()).codFesta(festa.getCodFesta()).
-				descOrganizador(festa.getDescOrganizador()).descricaoFesta(festa.getDescricaoFesta()).horarioFimFesta(festa.getHorarioFimFesta()).
-				horarioFimFestaReal(festa.getHorarioFimFestaReal()).horarioInicioFesta(festa.getHorarioInicioFesta()).
-				nomeFesta(festa.getNomeFesta()).organizador(festa.getOrganizador()).statusFesta(festa.getStatusFesta()).build();
+	private List<UsuarioTO> listUsuarioTO(Festa festa){
+		return usuarioService.getUsuariosFesta(festa.getCodFesta()).stream().map(u -> UsuarioFactory.getUsuarioTO(u)).collect(Collectors.toList());
 	}
 }

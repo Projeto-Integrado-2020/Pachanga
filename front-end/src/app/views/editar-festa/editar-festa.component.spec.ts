@@ -1,31 +1,38 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CustomMaterialModule } from '../material/material.module';
+import { EditarFestaComponent } from './editar-festa.component';
 
-import { PerfilComponent } from './perfil.component';
-import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
-import { HttpClient } from '@angular/common/http';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { HttpLoaderFactory } from '../cadastro/cadastro.component.spec';
+import { CustomMaterialModule } from '../material/material.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
+
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { HttpClient } from '@angular/common/http';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { LoginService } from 'src/app/services/loginService/login.service';
 
-describe('PerfilComponent', () => {
-  let component: PerfilComponent;
-  let fixture: ComponentFixture<PerfilComponent>;
+import { RouterModule } from '@angular/router';
+
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}
+
+describe('EditarFestaComponent', () => {
+  let component: EditarFestaComponent;
+  let fixture: ComponentFixture<EditarFestaComponent>;
 
   beforeEach(async(() => {
-    jasmine.DEFAULT_TIMEOUT_INTERVAL = 100000;
     TestBed.configureTestingModule({
-      declarations: [ PerfilComponent ],
+      declarations: [ EditarFestaComponent ],
       imports: [
-        BrowserAnimationsModule,
+        CustomMaterialModule,
+        NgxMaterialTimepickerModule,
         FormsModule,
         ReactiveFormsModule,
-        CustomMaterialModule,
         HttpClientTestingModule,
+        BrowserAnimationsModule,
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
@@ -33,17 +40,14 @@ describe('PerfilComponent', () => {
             deps: [HttpClient]
           }
         }),
-      ],
-      providers: [
-        { provide: LoginService, useValue: {usuarioInfo: {nomeUser: 'Teste'}} },
+        RouterModule.forRoot([])
       ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    jasmine.DEFAULT_TIMEOUT_INTERVAL = 100000;
-    fixture = TestBed.createComponent(PerfilComponent);
+    fixture = TestBed.createComponent(EditarFestaComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

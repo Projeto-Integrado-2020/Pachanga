@@ -1,6 +1,7 @@
 package com.eventmanager.pachanga.dtos;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class FestaTO {
 	
@@ -14,6 +15,9 @@ public class FestaTO {
 	private String codEnderecoFesta; //Url do local, talvez mude
 	private String descOrganizador;
 	private LocalDateTime horarioFimFestaReal;
+	private String funcionalidade;
+	private int quantidadeParticipantes;
+	private List<UsuarioTO> usuarios;
 	
 	public int getCodFesta() {
 		return codFesta;
@@ -74,6 +78,24 @@ public class FestaTO {
 	}
 	public void setHorarioFimFestaReal(LocalDateTime horarioFimFestaReal) {
 		this.horarioFimFestaReal = horarioFimFestaReal;
+	}
+	public String getFuncionalidade() {
+		return funcionalidade;
+	}
+	public void setFuncionalidade(String funcionalidade) {
+		this.funcionalidade = funcionalidade;
+	}
+	public int getQuantidadeParticipantes() {
+		return quantidadeParticipantes;
+	}
+	public void setQuantidadeParticipantes(int quantidadeParticipantes) {
+		this.quantidadeParticipantes = quantidadeParticipantes;
+	}
+	public List<UsuarioTO> getUsuarios() {
+		return usuarios;
+	}
+	public void setUsuarios(List<UsuarioTO> usuarios) {
+		this.usuarios = usuarios;
 	}
 
 }

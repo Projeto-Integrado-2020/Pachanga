@@ -1,182 +1,51 @@
 <div class="main-container">
-    <div class="minhas-festas">
-        <h1 class="title">{{'FESTA.MENUFESTAS' | translate}}</h1>
+    <header>
+        <h1 class="title">Minhas Festas</h1>
+
+        <a class="botao-criar-festa" routerLink="../criar-festa">
+            <button class="btn-1" mat-raised-button>
+                <mat-icon>add</mat-icon> {{ 'FESTA.ADDFESTA' | translate }}
+            </button>
+        </a>
+    </header>
+    
+    <div *ngFor="let festa of festas" class="lista-festas">
+        <a [routerLink]="['../festas', 'festaca', 'painel']">
+            <mat-card class="festa-tab">
+                <mat-card-header>
+                    <div mat-card-avatar><mat-icon *ngIf="isAdmin(festa)" style="color: red;">star_rate</mat-icon></div>
+                    <mat-card-title>{{festa.nomeFesta}}</mat-card-title>
+                    <mat-card-subtitle><span class="subtitle">{{festa.funcionalidade.toLowerCase()}}</span></mat-card-subtitle>
+                </mat-card-header>
+                
+                <mat-card-content class="card-content">
+                    <div class="descricao">
+                        <p><b>Descrição</b>:{{festa.descricaoFesta}}</p>
+                    </div>
+
+                    <div class="textos">
+                        <div class="texto">
+                            <p><b>Status:</b> {{ 'FESTA.FINALIZADA' | translate }}</p>
+                            <p><b>{{ 'FESTA.PAPEL' | translate }}:</b> {{festa.funcionalidade}}</p>
+                            <p><b>Data de Inicio:</b> {{getDateFromDTF(festa.horarioInicioFesta)}}</p>
+                            <p><b>Data de Fim:</b> {{getDateFromDTF(festa.horarioFimFesta)}}</p>
+                        </div>
+                        <div class="texto">                        
+                            <p><b>1</b> {{ 'FESTA.MEMBRO' | translate }}</p>
+                            <p><b>Endereço:</b> {{festa.codEnderecoFesta}}</p>
+                            <p><b>Horário de Início:</b> {{getTimeFromDTF(festa.horarioInicioFesta)}}</p>
+                            <p><b>Horário de Fim:</b> {{getTimeFromDTF(festa.horarioFimFesta)}}</p> 
+                        </div>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+        </a>
     </div>
 
-    <mat-card class="list-festas">
-        <div class="card-top">
-            <h1 class="card-title">{{'FESTA.LISTAFESTAS' | translate}}</h1>
-            <a routerLink="../criar-festa">
-                <button class="button-main-action" mat-raised-button>
-                    <mat-icon>add</mat-icon> {{ 'FESTA.ADDFESTA' | translate }}
-                </button>
-            </a>
-        </div>
-        <div class="festa-tab">
-            <h1 class="nome-festa"><mat-icon style="color: red;">star_rate</mat-icon> Audio São Paulo - Resenha com Mumuzinho</h1>
-            <div class="party-body">
-                <div class="texto">
-                    <h2 class="mat-subheading-2"><b>Status:</b> {{ 'FESTA.FINALIZADA' | translate }}</h2>
-                    <h2 class="mat-subheading-2"><b>{{ 'FESTA.PAPEL' | translate }}:</b> Organizador</h2>
-                </div>
-                <div class="texto">                        
-                    <h2 class="mat-subheading-2"><b>1</b> {{ 'FESTA.MEMBRO' | translate }}</h2>
-                    <h2 class="mat-subheading-2"><b>{{ 'FESTA.DATA' | translate }}:</b> 07/07/2020</h2>
-                </div>
-                <div class="acao">
-                    <a [routerLink]="['../festas', 'festaca', 'painel']">
-                        <button mat-raised-button>
-                            <mat-icon>insert_chart_outlined</mat-icon> {{ 'FESTA.ACESSARFESTA' | translate }}
-                        </button>
-                    </a>
-                </div>
-            </div>
-        </div>
-        <div class="festa-tab">
-            <h1 class="nome-festa"><mat-icon style="color: red;">star_rate</mat-icon> O Fantástico Villa Mix Circus Goiânia - Circuito Brahma</h1>
-            <div class="party-body">
-                <div class="texto">
-                    <h2 class="mat-subheading-2"><b>Status:</b> {{ 'FESTA.ANDAMENTO' | translate }}</h2>
-                    <h2 class="mat-subheading-2"><b>{{ 'FESTA.PAPEL' | translate }}:</b> Organizador</h2>
-                </div>
-                <div class="texto">                        
-                    <h2 class="mat-subheading-2"><b>17</b> {{ 'FESTA.MEMBROS' | translate }}</h2>
-                    <h2 class="mat-subheading-2"><b>{{ 'FESTA.DATA' | translate }}:</b> 08/07/2020</h2>
-                </div>
-                <div class="acao">
-                    <a [routerLink]="['../festas', 'festival', 'painel']">
-                        <button mat-raised-button>
-                            <mat-icon>insert_chart_outlined</mat-icon> {{ 'FESTA.ACESSARFESTA' | translate }}
-                        </button>
-                    </a>
-                </div>
-            </div>
-        </div>
-        <div class="festa-tab">
-            <h1 class="nome-festa"> Villa Mix Brasilía - Circuitão Brahma</h1>
-            <div class="party-body">
-                <div class="texto">
-                    <h2 class="mat-subheading-2"><b>Status:</b> {{ 'FESTA.PREPARACAO' | translate }}</h2>
-                    <h2 class="mat-subheading-2"><b>{{ 'FESTA.PAPEIS' | translate }}:</b> Bartender Chefe da Parada, Controle de Estoque, {{ 'FESTA.MAIS' | translate }}</h2>
-                </div>
-                <div class="texto">
-                    <h2 class="mat-subheading-2"><b>20</b> {{ 'FESTA.MEMBROS' | translate }}</h2>
-                    <h2 class="mat-subheading-2"><b>{{ 'FESTA.DATA' | translate }}:</b> 17/07/2020</h2>
-                </div>
-                <div class="acao">
-                    <a [routerLink]="['../festas', 'rave', 'painel']">
-                        <button mat-raised-button>
-                            <mat-icon>insert_chart_outlined</mat-icon> {{ 'FESTA.ACESSARFESTA' | translate }}
-                        </button>
-                    </a>
-                </div>
-            </div>
-        </div>
-        <mat-paginator [length]="8"
-            [pageSize]="3"
-            [hidePageSize]="true">
-        </mat-paginator>
-    </mat-card>
-<!--
-    <div class="organizador">
-        <mat-tab-group mat-align-tabs="center">
-          <mat-tab label="{{'FESTA.MINHASFESTAS' | translate}}">
-                <div class="party-info margin-tops">
-                    <h1 class="mat-headline nome-festa">Festa 1</h1>
-                    <div class="party-body">
-                        <div class="texto">
-                            <h2 class="mat-subheading-2">1 Membro</h2>
-                            <h2 class="mat-subheading-2">Data: 07/07/2020</h2>
-                        </div>
-                        <div class="acao">
-                            <button mat-raised-button>Acessar Festa</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="party-info margin-tops">
-                    <h1 class="mat-headline">Festa 2</h1>
-                    <div class="party-body">
-                        <div class="texto">
-                            <h2 class="mat-subheading-2">58 Membros</h2>
-                            <h2 class="mat-subheading-2">Data: 17/07/2020</h2>
-                        </div>
-                        <div class="acao">
-                            <button mat-raised-button>Acessar Festa</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="party-info margin-tops">
-                    <h1 class="mat-headline">Festa 3</h1>
-                    <div class="party-body">
-                        <div class="texto">
-                            <h2 class="mat-subheading-2">90 Membros</h2>
-                            <h2 class="mat-subheading-2">Data: 27/07/2020</h2>
-                        </div>
-                        <div class="acao">
-                            <button mat-raised-button>Acessar Festa</button>
-                        </div>
-                    </div>
-                </div>
-                <mat-paginator [length]="100"
-                            [pageSize]="10"
-                            [pageSizeOptions]="[5, 10, 25, 100]">
-                </mat-paginator>
-          </mat-tab>
-            <mat-tab disabled>
-                <ng-template mat-tab-label>
-                    <button class="button-main-action" mat-raised-button>
-                        <mat-icon>add</mat-icon>{{ 'FESTA.ADDFESTA' | translate }}
-                    </button>
-                </ng-template>
-            </mat-tab>
-        </mat-tab-group>
-    </div>
-
-    <div class="membro">
-        <mat-tab-group mat-align-tabs="center">
-            <mat-tab label="{{'FESTA.FESTASMEMBRO' | translate}}">
-                <div class="party-info margin-tops">
-                    <h1 class="mat-headline">Festa 1</h1>
-                    <div class="party-body">
-                        <div class="texto">
-                            <h2 class="mat-subheading-2">Data: 07/07/2020</h2>
-                            <h2 class="mat-subheading-2">Função: Bartender</h2>
-                        </div>
-                        <div class="acao">
-                            <button mat-raised-button>Acessar Festa</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="party-info margin-tops">
-                    <h1 class="mat-headline">Festa 2</h1>
-                    <div class="party-body">
-                        <div class="texto">
-                            <h2 class="mat-subheading-2">Data: 17/07/2020</h2>
-                            <h2 class="mat-subheading-2">Função: Bartender, Estoque e mais</h2>
-                        </div>
-                        <div class="acao">
-                            <button mat-raised-button>Acessar Festa</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="party-info margin-tops">
-                    <h1 class="mat-headline">Festa 3</h1>
-                    <div class="party-body">
-                        <div class="texto">
-                            <h2 class="mat-subheading-2">Data: 27/07/2020</h2>
-                            <h2 class="mat-subheading-2">Função: Administrador</h2>
-                        </div>
-                        <div class="acao">
-                            <button mat-raised-button>Acessar Festa</button>
-                        </div>
-                    </div>
-                </div>
-                <mat-paginator [length]="100"
-                            [pageSize]="10"
-                            [pageSizeOptions]="[5, 10, 25, 100]">
-                </mat-paginator>
-            </mat-tab>
-        </mat-tab-group>
-    </div>
--->
+    <mat-paginator [length]="8"
+        [pageSize]="3"
+        [hidePageSize]="true"
+        class="paginator"
+    >
+    </mat-paginator>
 </div>

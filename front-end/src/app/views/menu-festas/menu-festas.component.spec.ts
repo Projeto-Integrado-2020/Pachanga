@@ -1,15 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MenuFestasComponent } from './menu-festas.component';
+
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { HttpClient } from '@angular/common/http';
 
 import { CustomMaterialModule } from '../material/material.module';
 
 import { RouterModule } from '@angular/router';
+
+import { LoginService } from 'src/app/services/loginService/login.service';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -24,7 +28,7 @@ describe('MenuFestasComponent', () => {
       declarations: [ MenuFestasComponent ],
       imports: [
         CustomMaterialModule,
-        HttpClientModule,
+        HttpClientTestingModule,
         BrowserAnimationsModule,
         TranslateModule.forRoot({
           loader: {
@@ -33,7 +37,10 @@ describe('MenuFestasComponent', () => {
             deps: [HttpClient]
           }
         }),
-        RouterModule.forRoot([])
+        RouterModule.forRoot([]),
+      ],
+      providers: [
+        { provide: LoginService, useValue: {usuarioInfo: {codUsuario: '1'}} },
       ]
     })
     .compileComponents();

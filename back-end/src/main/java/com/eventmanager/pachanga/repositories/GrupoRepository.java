@@ -31,4 +31,9 @@ public interface GrupoRepository extends CrudRepository<Grupo, Integer>{
 	@Query(value = "INSERT INTO usuario_x_grupo(cod_usuario, cod_grupo) VALUES(:codUsuario, :codGrupo)", nativeQuery = true)
 	public void saveUsuarioGrupo(@Param("codUsuario") int codUsuario, @Param("codGrupo") int codGrupo);
 
+	@Query(value = "SELECT g.nomeGrupo FROM Grupo g JOIN g.usuarios u WHERE u.codUsuario = :codUsuario AND g.festa.codFesta = :codFesta")
+	public String findFuncionalidade(@Param("codFesta")int codFesta,@Param("codUsuario") int codUsuario);
+	
+	@Query(value = "SELECT g FROM Grupo g JOIN g.festa f WHERE f.codFesta = :codFesta AND g.nomeGrupo = 'CONVIDADO' ")
+	public Grupo findGrupoConvidadoFesta(@Param("codFesta")int codFesta);
 }

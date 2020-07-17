@@ -20,11 +20,13 @@ import { GoogleLoginProvider, FacebookLoginProvider } from 'angular4-social-logi
 
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
+import {HttpClient } from '@angular/common/http';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PerfilComponent } from '../perfil/perfil.component';
 import { InfoCompleteComponent } from '../info-complete/info-complete.component';
+import { EditarFestaComponent } from '../editar-festa/editar-festa.component';
 
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 
@@ -63,7 +65,8 @@ describe('CadastroComponent', () => {
         InfoCompleteComponent,
         MenuFestasComponent,
         FestaPainelControleComponent,
-        CriarFestaComponent
+        CriarFestaComponent,
+        EditarFestaComponent
       ],
       imports: [
         CustomMaterialModule,
@@ -72,7 +75,7 @@ describe('CadastroComponent', () => {
         BrowserModule,
         AppRoutingModule,
         SocialLoginModule,
-        HttpClientModule,
+        HttpClientTestingModule,
         ReactiveFormsModule,
         FormsModule,
         TranslateModule.forRoot({
@@ -81,7 +84,7 @@ describe('CadastroComponent', () => {
             useFactory: HttpLoaderFactory,
             deps: [HttpClient]
           }
-        }),
+        })
       ],
       providers: [
         {

@@ -1,16 +1,17 @@
 package com.eventmanager.pachanga.services;
 
+import java.time.Duration;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.eventmanager.pachanga.builder.FestaBuilder;
 import com.eventmanager.pachanga.domains.Festa;
 import com.eventmanager.pachanga.domains.Grupo;
 import com.eventmanager.pachanga.domains.Usuario;
 import com.eventmanager.pachanga.dtos.FestaTO;
 import com.eventmanager.pachanga.errors.ValidacaoException;
+import com.eventmanager.pachanga.factory.FestaFactory;
 import com.eventmanager.pachanga.repositories.FestaRepository;
 import com.eventmanager.pachanga.repositories.GrupoRepository;
 import com.eventmanager.pachanga.repositories.UsuarioRepository;
@@ -26,7 +27,7 @@ public class FestaService {
 
 	@Autowired
 	private GrupoRepository grupoRepository;
-
+	
 	public List<Festa> procurarFestas(){
 		return festaRepository.findAll();
 	}
@@ -42,8 +43,8 @@ public class FestaService {
 		validarUsuarioFesta(usuario);
 		festaTo.setCodFesta(festaRepository.getNextValMySequence());
 		validarFesta(festaTo);
-		Festa festa = criacaoFesta(festaTo);
-		Grupo grupo = new Grupo(grupoRepository.getNextValMySequence(), "ORGANIZADOR", 1);
+		Festa festa =  FestaFactory.getFesta(festaTo);
+		Grupo grupo = new Grupo(grupoRepository.getNextValMySequence(), festa, "ORGANIZADOR", 1);
 		festaRepository.save(festa);
 		grupoRepository.save(grupo);
 		grupoRepository.saveUsuarioGrupo(usuario.getCodUsuario(), grupo.getCodGrupo());
@@ -73,7 +74,7 @@ public class FestaService {
 			throw new ValidacaoException("FESTNFOU");//festa nn encontrada
 		}
 		validarFesta(festaTo);
-		festa = criacaoFesta(festaTo);
+		festa = FestaFactory.getFesta(festaTo);
 		festaRepository.save(festa);
 		return festa;
 	}
@@ -86,7 +87,8 @@ public class FestaService {
 	}
 
 	private void validarFesta(FestaTO festaTo) {
-		if(festaTo.getHorarioFimFesta().isBefore(festaTo.getHorarioInicioFesta())) {
+		if(festaTo.getHorarioFimFesta().isBefore(festaTo.getHorarioInicioFesta()) || 
+				Duration.between(festaTo.getHorarioInicioFesta(), festaTo.getHorarioFimFesta()).isZero()) {
 			throw new ValidacaoException("DATEINFE");//data inicial ou final incorreta
 		}
 		Festa festa = festaRepository.findByNomeFesta(festaTo.getNomeFesta());
@@ -97,19 +99,12 @@ public class FestaService {
 			throw new ValidacaoException("FESTNEND");//Festa sem código de endereço
 		}
 	}
-	
+
 	public Festa procurarFesta(int idFesta) {
-		Festa festa = festaRepository.findByCodFesta(idFesta);
-		if(festa == null) {
-			throw new ValidacaoException("FESTNFOU");//festa nn encontrada
-		}
-		return festa;
+		return festaRepository.findByCodFesta(idFesta);
 	}
 
-	private Festa criacaoFesta(FestaTO festaTo) {		
-		return FestaBuilder.getInstance().codEnderecoFesta(festaTo.getCodEnderecoFesta()).codFesta(festaTo.getCodFesta()).
-				descOrganizador(festaTo.getDescOrganizador()).descricaoFesta(festaTo.getDescricaoFesta()).
-				horarioFimFesta(festaTo.getHorarioFimFesta()).horarioInicioFesta(festaTo.getHorarioInicioFesta()).
-				nomeFesta(festaTo.getNomeFesta()).organizador(festaTo.getOrganizador()).statusFesta(festaTo.getStatusFesta()).build();
+	public String funcionalidadeFesta(int codFesta, int codUsuario) {
+		return grupoRepository.findFuncionalidade(codFesta, codUsuario);
 	}
 }

@@ -5,7 +5,8 @@ import { SuccessDialogComponent } from './success-dialog.component';
 import { CustomMaterialModule } from '../material/material.module';
 
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 import {MAT_DIALOG_DATA} from '@angular/material';
@@ -22,7 +23,7 @@ describe('SuccessDialogComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ SuccessDialogComponent ],
       imports: [
-      HttpClientModule,
+      HttpClientTestingModule,
       CustomMaterialModule,
       TranslateModule.forRoot({
         loader: {

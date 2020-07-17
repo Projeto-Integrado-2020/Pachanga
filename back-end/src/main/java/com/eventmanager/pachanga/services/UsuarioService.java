@@ -1,12 +1,14 @@
 package com.eventmanager.pachanga.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.eventmanager.pachanga.builder.UsuarioBuilder;
 import com.eventmanager.pachanga.domains.Usuario;
 import com.eventmanager.pachanga.dtos.UsuarioTO;
 import com.eventmanager.pachanga.errors.ValidacaoException;
+import com.eventmanager.pachanga.factory.UsuarioFactory;
 import com.eventmanager.pachanga.repositories.UsuarioRepository;
 import com.eventmanager.pachanga.utils.HashBuilder;
 import com.eventmanager.pachanga.utils.TipoConta;
@@ -28,7 +30,7 @@ public class UsuarioService {
 			user.setSenha(HashBuilder.gerarSenha(user.getSenha()));
 		}
 		user.setCodUsuario(userRepository.getNextValMySequence());
-		Usuario usuario = criacaoUsuario(user);
+		Usuario usuario = UsuarioFactory.getUsuario(user);
 		userRepository.save(usuario);
 		return usuario;
 	}
@@ -114,14 +116,10 @@ public class UsuarioService {
 	public Usuario getUsuario(UsuarioTO user){
 		return userRepository.findByEmailAndTipConta(user.getEmail(), user.getTipConta());
 	}
-
-
-	//dtos_________________________________________________________________________________________________________		
-
-	private Usuario criacaoUsuario(UsuarioTO userto) {
-		return UsuarioBuilder.getInstance().codUsuario(userto.getCodUsuario()).dtNasc(userto.getDtNasc())
-				.email(userto.getEmail()).nomeUser(userto.getNomeUser()).senha(userto.getSenha())
-				.sexo(userto.getSexo()).tipConta(userto.getTipConta()).build();
+	
+	public List<Usuario> getUsuariosFesta(int codFesta){
+		return userRepository.findByIdFesta(codFesta);
 	}
+
 
 }

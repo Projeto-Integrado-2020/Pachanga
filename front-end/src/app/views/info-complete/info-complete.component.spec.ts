@@ -5,7 +5,8 @@ import { CustomMaterialModule } from '../material/material.module';
 
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -20,7 +21,7 @@ describe('InfoCompleteComponent', () => {
       declarations: [ InfoCompleteComponent ],
       imports: [
         CustomMaterialModule,
-        HttpClientModule,
+        HttpClientTestingModule,
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,

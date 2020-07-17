@@ -65,7 +65,9 @@
 
     "SUCCESS": {
         "TITULO": "Sucesso!",
-        "ALTERSUC": "Seus dados foram alterados com sucesso"
+        "ALTERSUC": "Seus dados foram alterados com sucesso",
+        "FESTDELE": "Festa deletada com sucesso",
+        "FESTAALT": "Os dados da festa foram alterados com sucessoaaaaaa"
     },
     
     "PERFIL":{
@@ -160,6 +162,11 @@
         "ENDERECO": "Endereço",
         "ORGANIZADOR": "Organizador da festa",
         "DESCORGANIZADOR": "Descrição do organizador"
+    },
+
+    "EDITARFESTA": {
+        "EDITARFESTA": "Editar festa",
+        "SALVAR": "Salvar alterações"
     },
 
     "PAINELCONTROLE": {

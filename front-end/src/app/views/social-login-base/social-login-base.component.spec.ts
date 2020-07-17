@@ -6,7 +6,7 @@ import { SocialLoginModule, AuthServiceConfig } from 'angular4-social-login';
 import { GoogleLoginProvider, FacebookLoginProvider } from 'angular4-social-login';
 import { CustomMaterialModule } from '../material/material.module';
 
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { RouterModule } from '@angular/router';
 
@@ -37,7 +37,7 @@ describe('SocialLoginBaseComponent', () => {
       declarations: [ SocialLoginBaseComponent ],
       imports: [
         SocialLoginModule,
-        HttpClientModule,
+        HttpClientTestingModule,
         FormsModule,
         ReactiveFormsModule,
         CustomMaterialModule,

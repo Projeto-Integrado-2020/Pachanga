@@ -5,7 +5,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { CustomMaterialModule } from '../material/material.module';
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
@@ -31,7 +32,7 @@ describe('CriarFestaComponent', () => {
         NgxMaterialTimepickerModule,
         FormsModule,
         ReactiveFormsModule,
-        HttpClientModule,
+        HttpClientTestingModule,
         BrowserAnimationsModule,
         TranslateModule.forRoot({
           loader: {

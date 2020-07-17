@@ -44,6 +44,7 @@ import { EditAccountService } from './services/editAccountService/edit-account.s
 import { EditDialogComponent } from './views/edit-dialog/edit-dialog.component';
 import { SuccessDialogComponent } from './views/success-dialog/success-dialog.component';
 import { MenuFestasComponent } from './views/menu-festas/menu-festas.component';
+import { MenuFestasService } from './services/menu-festa/menu-festas.service';
 import { FestaPainelControleComponent } from './views/festa-painel-controle/festa-painel-controle.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
@@ -51,6 +52,7 @@ import { CriarFestaComponent } from './views/criar-festa/criar-festa.component';
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 
 import { CadastrarFestaService } from './services/cadastro-festa/cadastrar-festa.service';
+import { EditarFestaComponent } from './views/editar-festa/editar-festa.component';
 
 const config = new AuthServiceConfig([
   {
@@ -83,7 +85,8 @@ export function provideConfig() {
     MenuFestasComponent,
     FestaPainelControleComponent,
     CriarFestaComponent,
-    InviteDialogComponent
+    InviteDialogComponent,
+    EditarFestaComponent
   ],
   entryComponents: [
     LoginComponent,
@@ -128,6 +131,7 @@ export function provideConfig() {
     EditAccountService,
     AuthGuard,
     LogService,
+    MenuFestasService,
     CadastrarFestaService
   ],
   bootstrap: [AppComponent]
