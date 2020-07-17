@@ -38,5 +38,13 @@ export class MenuFestasComponent implements OnInit {
     return date.split('T')[1];
   }
 
+  createUrl(nomeFesta) {
+    return nomeFesta.toLowerCase().replace('-', '').replace('–', '')
+                    .replace(/\s+/g, '-').replace('ç', 'c')
+                    .replace('º', '').replace('ª', '')
+                    .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+                    .replace(/[`~!@#$%^&*()_|+\=?;:'",.<>\{\}\[\]\\\/]/gi, '');
+  }
+
 
 }

@@ -53,7 +53,7 @@ export class CriarFestaComponent implements OnInit {
                                     .replace(/\s+/g, '-').replace('ç', 'c')
                                     .replace('º', '').replace('ª', '')
                                     .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
-                                    .replace(/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, '');
+                                    .replace(/[`~!@#$%^&*()_|+\=?;:'",.<>\{\}\[\]\\\/]/gi, '');
       this.router.navigate(['festas/' + nomeFesta + '/painel/']);
     });
   }
