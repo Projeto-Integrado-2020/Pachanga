@@ -3,13 +3,13 @@ import { TestBed } from '@angular/core/testing';
 import { AuthGuard } from './auth.guard';
 import { RouterModule } from '@angular/router';
 
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { CustomMaterialModule } from '../views/material/material.module';
 
 describe('AuthGuard', () => {
   beforeEach(() => TestBed.configureTestingModule({
     imports: [
-      HttpClientModule,
+      HttpClientTestingModule,
       RouterModule.forRoot([]),
       CustomMaterialModule
     ],

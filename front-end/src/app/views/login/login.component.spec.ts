@@ -14,7 +14,8 @@ import { GoogleLoginProvider, FacebookLoginProvider } from 'angular4-social-logi
 
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PerfilComponent } from '../perfil/perfil.component';
@@ -23,6 +24,7 @@ import { MenuFestasComponent } from '../menu-festas/menu-festas.component';
 import { FestaPainelControleComponent } from '../festa-painel-controle/festa-painel-controle.component';
 import { CriarFestaComponent } from '../criar-festa/criar-festa.component';
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
+import { EditarFestaComponent } from '../editar-festa/editar-festa.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -59,7 +61,8 @@ describe('LoginComponent', () => {
         InfoCompleteComponent,
         MenuFestasComponent,
         FestaPainelControleComponent,
-        CriarFestaComponent
+        CriarFestaComponent,
+        EditarFestaComponent
       ],
       imports: [
         CustomMaterialModule,
@@ -67,7 +70,7 @@ describe('LoginComponent', () => {
         BrowserAnimationsModule,
         AppRoutingModule,
         SocialLoginModule,
-        HttpClientModule,
+        HttpClientTestingModule,
         FormsModule,
         ReactiveFormsModule,
         BrowserAnimationsModule,

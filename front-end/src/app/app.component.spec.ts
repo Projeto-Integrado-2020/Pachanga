@@ -14,7 +14,8 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -23,6 +24,7 @@ import { GoogleLoginProvider, FacebookLoginProvider } from 'angular4-social-logi
 import { ErroDialogComponent } from './views/erro-dialog/erro-dialog.component';
 import { PerfilComponent } from './views/perfil/perfil.component';
 import { InfoCompleteComponent } from './views/info-complete/info-complete.component';
+import { EditarFestaComponent } from './views/editar-festa/editar-festa.component';
 
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 
@@ -61,7 +63,8 @@ describe('AppComponent', () => {
         InfoCompleteComponent,
         MenuFestasComponent,
         FestaPainelControleComponent,
-        CriarFestaComponent
+        CriarFestaComponent,
+        EditarFestaComponent
       ],
       imports: [
         BrowserModule,
@@ -69,7 +72,7 @@ describe('AppComponent', () => {
         CustomMaterialModule,
         NgxMaterialTimepickerModule,
         AppRoutingModule,
-        HttpClientModule,
+        HttpClientTestingModule,
         FormsModule,
         ReactiveFormsModule,
         TranslateModule.forRoot({

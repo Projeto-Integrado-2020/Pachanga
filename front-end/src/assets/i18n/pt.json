@@ -71,7 +71,8 @@
     "SUCCESS": {
         "TITULO": "Sucesso!",
         "ALTERSUC": "Seus dados foram alterados com sucesso",
-        "FESTDELE": "Festa deletada com sucesso"
+        "FESTDELE": "Festa deletada com sucesso",
+        "FESTAALT": "Os dados da festa foram alterados com sucesso"
     },
     
     "PERFIL":{

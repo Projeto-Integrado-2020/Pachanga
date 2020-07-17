@@ -8,9 +8,12 @@ import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { HttpClient } from '@angular/common/http';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+import { RouterModule } from '@angular/router';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -28,7 +31,7 @@ describe('EditarFestaComponent', () => {
         NgxMaterialTimepickerModule,
         FormsModule,
         ReactiveFormsModule,
-        HttpClientModule,
+        HttpClientTestingModule,
         BrowserAnimationsModule,
         TranslateModule.forRoot({
           loader: {
@@ -37,6 +40,7 @@ describe('EditarFestaComponent', () => {
             deps: [HttpClient]
           }
         }),
+        RouterModule.forRoot([])
       ]
     })
     .compileComponents();

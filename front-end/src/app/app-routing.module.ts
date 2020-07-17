@@ -6,6 +6,7 @@ import { AuthGuard } from './guard/auth.guard';
 import { MenuFestasComponent } from './views/menu-festas/menu-festas.component';
 import { FestaPainelControleComponent } from './views/festa-painel-controle/festa-painel-controle.component';
 import { CriarFestaComponent } from './views/criar-festa/criar-festa.component';
+import { EditarFestaComponent } from './views/editar-festa/editar-festa.component';
 
 const routes: Routes = [
 
@@ -36,7 +37,13 @@ const routes: Routes = [
       path: 'criar-festa',
       component: CriarFestaComponent,
       canActivate: [AuthGuard]
-    }
+    },
+
+    {
+      path: 'festas/:festa&:id/editar',
+      component: EditarFestaComponent,
+      canActivate: [AuthGuard]
+    },
 ];
 
 @NgModule({
