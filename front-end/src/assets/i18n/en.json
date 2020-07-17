@@ -139,30 +139,40 @@
         "CONFPASS": "Confirm new password"
     },
 
+    "PAGINATOR": {
+        "ITEMSPPAGE": "Itens per page",
+        "NEXTPAGE": "Next page",
+        "PREVIOUSPAGE": "Previous page",
+        "OF": "of"
+
+    },
+
     "FESTA": {
-        "MENUFESTAS": "Parties menu",
-        "LISTAFESTAS": "Parties list",
-        "ADDFESTA": "New party",
-        "ACESSARFESTA": "Access party",
+        "MYPARTIES": "My Parties",
+        "NEWPARTY": "New party",
+        "DESCRIPTION": "Description",
         "PAPEL": "Role",
         "PAPEIS": "Roles",
-        "DATA": "Date",
-        "MEMBRO": "Collaborating member",
-        "MEMBROS": "Collaborating members",
-        "ANDAMENTO": "In progress",
-        "FINALIZADA": "Finished",
-        "PREPARACAO": "In preparation",
-        "MAIS": "and more..."
+        "INICIODATA": "Starting date",
+        "FIMDATA": "Ending date",
+        "INICIOHORA": "Starting time",
+        "FIMHORA": "Ending time",
+        "ENDERECO": "Address",
+        "MEMBERS": "Number of collaborators",
+        "PROGRESS": "In progress",
+        "FINISHED": "Finished",
+        "PREPARING": "In preparation",
+        "MORE": "and more..."
     },
 
     "CRIARFESTA": {
         "CRIARFESTA": "Create party",
         "NOMEFESTA": "Party name",
         "DESCFESTA": "Party description",
-        "INICIODATA": "Party date start",
-        "FIMDATA": "Party date end",
-        "INICIOHORA": "Party time start",
-        "FIMHORA": "Party time end",
+        "INICIODATA": "Starting date",
+        "FIMDATA": "Ending date",
+        "INICIOHORA": "Starting time",
+        "FIMHORA": "Ending time",
         "ENDERECO": "Address",
         "ORGANIZADOR": "Party manager",
         "DESCORGANIZADOR": "Manager description"

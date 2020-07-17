@@ -53,6 +53,8 @@ import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 
 import { CadastrarFestaService } from './services/cadastro-festa/cadastrar-festa.service';
 import { EditarFestaComponent } from './views/editar-festa/editar-festa.component';
+import { MatPaginatorIntl } from '@angular/material';
+import { MatPaginatorPtBr } from './views/menu-festas/mat-paginator-ptbr';
 
 const config = new AuthServiceConfig([
   {
@@ -132,7 +134,11 @@ export function provideConfig() {
     AuthGuard,
     LogService,
     MenuFestasService,
-    CadastrarFestaService
+    CadastrarFestaService,
+    {
+      provide: MatPaginatorIntl,
+      useClass: MatPaginatorPtBr
+    }
   ],
   bootstrap: [AppComponent]
 })

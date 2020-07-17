@@ -1,14 +1,21 @@
 <div class="main-container">
     <header>
-        <h1 class="title">Minhas Festas</h1>
+        <h1 class="title">{{ 'FESTA.MYPARTIES' | translate }}</h1>
 
         <a class="botao-criar-festa" routerLink="../criar-festa">
             <button class="btn-1" mat-raised-button>
-                <mat-icon>add</mat-icon> {{ 'FESTA.ADDFESTA' | translate }}
+                <mat-icon>add</mat-icon> {{ 'FESTA.NEWPARTY' | translate }}
             </button>
         </a>
     </header>
-    
+    <mat-paginator 
+        [length]="length"
+        [pageSize]="pageSize"
+        [pageSizeOptions]="pageSizeOptions"
+        (page)="pageEvent = $event"
+        class="paginator"
+    >
+    </mat-paginator>    
     <div *ngFor="let festa of festas" class="lista-festas">
         <a [routerLink]="['../festas', 'festaca', 'painel']">
             <mat-card class="festa-tab">
@@ -20,21 +27,21 @@
                 
                 <mat-card-content class="card-content">
                     <div class="descricao">
-                        <p><b>Descrição</b>:{{festa.descricaoFesta}}</p>
+                        <p><b>{{ 'FESTA.DESCRIPTION' | translate }}:</b> {{festa.descricaoFesta}}</p>
                     </div>
 
                     <div class="textos">
                         <div class="texto">
                             <p><b>Status:</b> {{ 'FESTA.FINALIZADA' | translate }}</p>
                             <p><b>{{ 'FESTA.PAPEL' | translate }}:</b> {{festa.funcionalidade}}</p>
-                            <p><b>Data de Inicio:</b> {{getDateFromDTF(festa.horarioInicioFesta)}}</p>
-                            <p><b>Data de Fim:</b> {{getDateFromDTF(festa.horarioFimFesta)}}</p>
+                            <p><b>{{ 'FESTA.INICIODATA' | translate }}:</b> {{getDateFromDTF(festa.horarioInicioFesta)}}</p>
+                            <p><b>{{ 'FESTA.FIMDATA' | translate }}:</b> {{getDateFromDTF(festa.horarioFimFesta)}}</p>
                         </div>
                         <div class="texto">                        
-                            <p><b>1</b> {{ 'FESTA.MEMBRO' | translate }}</p>
-                            <p><b>Endereço:</b> {{festa.codEnderecoFesta}}</p>
-                            <p><b>Horário de Início:</b> {{getTimeFromDTF(festa.horarioInicioFesta)}}</p>
-                            <p><b>Horário de Fim:</b> {{getTimeFromDTF(festa.horarioFimFesta)}}</p> 
+                            <p><b>{{ 'FESTA.MEMBERS' | translate }}:</b> 1 </p>
+                            <p><b>{{ 'FESTA.ENDERECO' | translate }}:</b> {{festa.codEnderecoFesta}}</p>
+                            <p><b>{{ 'FESTA.INICIOHORA' | translate }}:</b> {{getTimeFromDTF(festa.horarioInicioFesta)}}</p>
+                            <p><b>{{ 'FESTA.FIMHORA' | translate }}:</b> {{getTimeFromDTF(festa.horarioFimFesta)}}</p> 
                         </div>
                     </div>
                 </mat-card-content>
@@ -42,10 +49,4 @@
         </a>
     </div>
 
-    <mat-paginator [length]="8"
-        [pageSize]="3"
-        [hidePageSize]="true"
-        class="paginator"
-    >
-    </mat-paginator>
 </div>
