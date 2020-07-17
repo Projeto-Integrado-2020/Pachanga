@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { MenuFestasService } from '../../services/menu-festa/menu-festas.service';
-import { FestaPainelControleComponent } from '../festa-painel-controle/festa-painel-controle.component';
+import { LoginService } from '../../services/loginService/login.service';
 
 @Component({
   selector: 'app-menu-festas',
@@ -12,10 +12,10 @@ export class MenuFestasComponent implements OnInit {
 
   festas: any = [];
 
-  constructor(public menuFestasService: MenuFestasService) { }
+  constructor(public menuFestasService: MenuFestasService, public loginService: LoginService) { }
 
   ngOnInit() {
-    this.menuFestasService.getFestas().subscribe((resp: any) => {
+    this.menuFestasService.getFestas(this.loginService.usuarioInfo.codUsuario).subscribe((resp: any) => {
       this.menuFestasService.setFarol(false);
       this.festas = resp;
       console.log(resp);

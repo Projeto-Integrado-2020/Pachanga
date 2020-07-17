@@ -1,7 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MenuFestasComponent } from './menu-festas.component';
-import { MenuFestasService } from 'src/app/services/menu-festa/menu-festas.service';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -13,6 +12,7 @@ import { CustomMaterialModule } from '../material/material.module';
 
 import { RouterModule } from '@angular/router';
 
+import { LoginService } from 'src/app/services/loginService/login.service';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -36,10 +36,10 @@ describe('MenuFestasComponent', () => {
             deps: [HttpClient]
           }
         }),
-        RouterModule.forRoot([])
+        RouterModule.forRoot([]),
       ],
       providers: [
-        { provide: MenuFestasService, useValue: {codUsuario: 1} },
+        { provide: LoginService, useValue: {usuarioInfo: {codUsuario: '1'}} },
       ]
     })
     .compileComponents();

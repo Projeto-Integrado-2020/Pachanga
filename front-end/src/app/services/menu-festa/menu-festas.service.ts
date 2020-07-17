@@ -4,7 +4,6 @@ import { take, catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { LogService } from '../logging/log.service';
-import { LoginService } from '../loginService/login.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,14 +13,13 @@ export class MenuFestasService {
   farol = false;
   private readonly urlGetFesta = `${environment.URL_BACK}festa/lista`;
 
-  constructor(private http: HttpClient, public logService: LogService,
-              public loginService: LoginService) { }
+  constructor(private http: HttpClient, public logService: LogService) { }
 
-  getFestas() {
+  getFestas(codUsuario) {
     if (!this.farol) {
       this.setFarol(true);
       const httpParams = new HttpParams()
-        .append('idUser', this.loginService.usuarioInfo.codUsuario);
+        .append('idUser', codUsuario);
       return this.http.get(this.urlGetFesta, {params: httpParams}).pipe(
         take(1),
         catchError(error => {

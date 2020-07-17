@@ -1,16 +1,18 @@
-/* tslint:disable:no-unused-variable */
-
-import { TestBed, async, inject } from '@angular/core/testing';
+import { TestBed, inject } from '@angular/core/testing';
 import { MenuFestasService } from './menu-festas.service';
+import { HttpClientModule } from '@angular/common/http';
+import { CustomMaterialModule } from '../../views/material/material.module';
 
-describe('Service: MenuFestas', () => {
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      providers: [MenuFestasService]
-    });
-  });
-
-  it('should ...', inject([MenuFestasService], (service: MenuFestasService) => {
-    expect(service).toBeTruthy();
+describe('MenuFestasService', () => {
+  beforeEach(() => TestBed.configureTestingModule({
+      imports: [
+        HttpClientModule,
+        CustomMaterialModule
+      ]
   }));
+
+  it('should be created', () => {
+    const service: MenuFestasService = TestBed.get(MenuFestasService);
+    expect(service).toBeTruthy();
+  });
 });
