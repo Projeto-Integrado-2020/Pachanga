@@ -60,18 +60,12 @@
         "PASSDIFF": "Senha nova precisa ser diferente da atual.",
         "USERNFOU": "Usuário não encontrado.",
         "PASSINCO": "Senha incorreta.",
-        "NOTMODIF": "Nada a se alterar.",
-        "FESTNFOU": "Festa não encontrada.",
-        "USERSPER": "Usuário sem permissão para esta ação.",
-        "DATEINFE": "Data inicial ou final incorretas.",
-        "FESTNEND": "Festa sem endereço.",
-        "FESTNOME": "Já existe uma festa com este nome."
+        "NOTMODIF": "Nada a se alterar."
     },
 
     "SUCCESS": {
         "TITULO": "Sucesso!",
-        "ALTERSUC": "Seus dados foram alterados com sucesso",
-        "FESTDELE": "Festa deletada com sucesso"
+        "ALTERSUC": "Seus dados foram alterados com sucesso"
     },
     
     "PERFIL":{
@@ -179,8 +173,11 @@
         "NIVACESSO": "Nível de acesso",
         "CONVITESTATUS": "Status do convite",
         "CONVIDARMEMBROS": "Convidar membros",
-        "CONSULTACESSO": "Consultar níveis de acesso",
+        "CONSULTACESSO": "Consultar permissões",
         "STATSINGRESSOS": "Estatísticas de ingressos",
-        "PREPARACAO": "Fase de preparação"
+        "PREPARACAO": "Fase de preparação",
+        "ACEITO": "Aceito",
+        "RECUSADO": "Recusado",
+        "PENDENTE": "Pendente"
     }
 }

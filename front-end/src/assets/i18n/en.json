@@ -179,8 +179,11 @@
         "NIVACESSO": "Access level",
         "CONVITESTATUS": "Status do convite",
         "CONVIDARMEMBROS": "Invitation status",
-        "CONSULTACESSO": "Consult access levels",
+        "CONSULTACESSO": "See permissions",
         "STATSINGRESSOS": "Ticket statistics",
-        "PREPARACAO": "Preparation phase"
+        "PREPARACAO": "Preparation phase",
+        "ACEITO": "Accepted",
+        "RECUSADO": "Declined",
+        "PENDENTE": "Pending"
     }
 }

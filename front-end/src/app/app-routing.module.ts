@@ -27,7 +27,7 @@ const routes: Routes = [
     },
 
     {
-      path: 'festas/:festa/painel',
+      path: 'festas/:festa&:id/painel',
       component: FestaPainelControleComponent,
       canActivate: [AuthGuard]
     },
