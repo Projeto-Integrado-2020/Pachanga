@@ -48,6 +48,7 @@ export class EditarFestaComponent implements OnInit {
 
   atualizarFesta(nomeFesta, descricaoFesta, codEnderecoFesta, dataInicio, horaInicio, dataFim, horaFim, organizador, descOrganizador) {
     const dadosFesta = {
+      codFesta: this.festa.codFesta,
       nomeFesta,
       statusFesta: null,
       organizador,

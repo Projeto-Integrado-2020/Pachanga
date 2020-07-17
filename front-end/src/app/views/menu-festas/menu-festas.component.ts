@@ -16,7 +16,7 @@ export class MenuFestasComponent implements OnInit {
   pageSize = 10;
   pageSizeOptions: number[] = [5, 10, 25, 100];
 
-  //MatPaginator Output
+  // MatPaginator Output
   pageEvent: PageEvent;
 
   constructor(public menuFestasService: MenuFestasService, public loginService: LoginService) { }

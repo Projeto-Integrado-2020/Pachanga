@@ -19,6 +19,7 @@ export class SuccessDialogComponent implements OnInit {
     switch (this.message) {
       case 'ALTERSUC': this.message = this.translate.instant('SUCCESS.ALTERSUC'); break;
       case 'FESTDELE': this.message = this.translate.instant('SUCCESS.FESTDELE'); break;
+      case 'FESTAALT': this.message = this.translate.instant('SUCCESS.FESTAALT'); break;
     }
   }
 

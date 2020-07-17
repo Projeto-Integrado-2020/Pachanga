@@ -18,11 +18,11 @@ export class MatPaginatorPtBr extends MatPaginatorIntl {
     ipp = translated;
   });
 
-  constructor(@Inject(TranslateService) private translate: TranslateService) { 
+  constructor(@Inject(TranslateService) private translate: TranslateService) {
     super();
   }
 */
-  getRangeLabel = function (page, pageSize, length) {
+  getRangeLabel = (page, pageSize, length) => {
     if (length === 0 || pageSize === 0) {
       return '0 de ' + length;
     }
@@ -33,6 +33,6 @@ export class MatPaginatorPtBr extends MatPaginatorIntl {
       Math.min(startIndex + pageSize, length) :
       startIndex + pageSize;
     return startIndex + 1 + ' - ' + endIndex + ' de ' + length;
-  };
+  }
 
 }
