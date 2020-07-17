@@ -45,9 +45,21 @@ export class MenuFestasComponent implements OnInit {
     return date.split('T')[1];
   }
 
+<<<<<<< HEAD
   setPageSizeOptions(setPageSizeOptionsInput: string) {
     if (setPageSizeOptionsInput) {
       this.pageSizeOptions = setPageSizeOptionsInput.split(',').map(str => +str);
     }
   }
+=======
+  createUrl(nomeFesta) {
+    return nomeFesta.toLowerCase().replace('-', '').replace('–', '')
+                    .replace(/\s+/g, '-').replace('ç', 'c')
+                    .replace('º', '').replace('ª', '')
+                    .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+                    .replace(/[`~!@#$%^&*()_|+\=?;:'",.<>\{\}\[\]\\\/]/gi, '');
+  }
+
+
+>>>>>>> 2ec9a166346ab353de6e6105bb748683d4ec14e8
 }

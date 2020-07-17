@@ -3,7 +3,8 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ErroDialogComponent } from './erro-dialog.component';
 
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 import {MAT_DIALOG_DATA} from '@angular/material';
@@ -20,7 +21,7 @@ describe('ErroDialogComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ ErroDialogComponent ],
       imports: [
-      HttpClientModule,
+      HttpClientTestingModule,
       TranslateModule.forRoot({
         loader: {
           provide: TranslateLoader,

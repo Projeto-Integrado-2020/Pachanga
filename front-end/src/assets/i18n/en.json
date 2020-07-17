@@ -71,7 +71,8 @@
     "SUCCESS": {
         "TITULO": "Success!",
         "ALTERSUC": "Your data has been successfully changed",
-        "FESTDELE": "Party successfully deleted"
+        "FESTDELE": "Party successfully deleted",
+        "FESTAALT": "The party data has been successfully changed"
     },
 
     "PERFIL":{

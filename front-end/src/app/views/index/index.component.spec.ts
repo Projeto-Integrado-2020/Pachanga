@@ -9,7 +9,8 @@ import { CadastroComponent } from '../cadastro/cadastro.component';
 
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PerfilComponent } from '../perfil/perfil.component';
@@ -17,6 +18,7 @@ import { InfoCompleteComponent } from '../info-complete/info-complete.component'
 import { MenuFestasComponent } from '../menu-festas/menu-festas.component';
 import { FestaPainelControleComponent } from '../festa-painel-controle/festa-painel-controle.component';
 import { CriarFestaComponent } from '../criar-festa/criar-festa.component';
+import { EditarFestaComponent } from '../editar-festa/editar-festa.component';
 
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 
@@ -39,13 +41,14 @@ describe('IndexComponent', () => {
         InfoCompleteComponent,
         MenuFestasComponent,
         FestaPainelControleComponent,
-        CriarFestaComponent
+        CriarFestaComponent,
+        EditarFestaComponent
       ],
       imports: [
         CustomMaterialModule,
         NgxMaterialTimepickerModule,
         AppRoutingModule,
-        HttpClientModule,
+        HttpClientTestingModule,
         ReactiveFormsModule,
         FormsModule,
         TranslateModule.forRoot({

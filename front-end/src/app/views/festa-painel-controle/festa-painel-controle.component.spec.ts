@@ -5,7 +5,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { CustomMaterialModule } from '../material/material.module';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -23,7 +24,7 @@ describe('FestaPainelControleComponent', () => {
       declarations: [ FestaPainelControleComponent ],
       imports: [
         CustomMaterialModule,
-        HttpClientModule,
+        HttpClientTestingModule,
         BrowserAnimationsModule,
         ReactiveFormsModule,
         TranslateModule.forRoot({

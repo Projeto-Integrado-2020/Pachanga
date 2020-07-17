@@ -4,7 +4,8 @@ import { CustomMaterialModule } from '../material/material.module';
 
 import { PerfilComponent } from './perfil.component';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { HttpLoaderFactory } from '../cadastro/cadastro.component.spec';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -24,7 +25,7 @@ describe('PerfilComponent', () => {
         FormsModule,
         ReactiveFormsModule,
         CustomMaterialModule,
-        HttpClientModule,
+        HttpClientTestingModule,
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,

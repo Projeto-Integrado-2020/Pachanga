@@ -13,7 +13,8 @@ import { CriarFestaComponent } from '../criar-festa/criar-festa.component';
 
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -21,6 +22,7 @@ import { SocialLoginModule, AuthServiceConfig } from 'angular4-social-login';
 import { GoogleLoginProvider, FacebookLoginProvider } from 'angular4-social-login';
 import { PerfilComponent } from '../perfil/perfil.component';
 import { InfoCompleteComponent } from '../info-complete/info-complete.component';
+import { EditarFestaComponent } from '../editar-festa/editar-festa.component';
 
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 
@@ -61,13 +63,14 @@ describe('NavbarComponent', () => {
         InfoCompleteComponent,
         MenuFestasComponent,
         FestaPainelControleComponent,
-        CriarFestaComponent
+        CriarFestaComponent,
+        EditarFestaComponent
        ],
       imports: [
         CustomMaterialModule,
         NgxMaterialTimepickerModule,
         AppRoutingModule,
-        HttpClientModule,
+        HttpClientTestingModule,
         FormsModule,
         ReactiveFormsModule,
         BrowserAnimationsModule,
