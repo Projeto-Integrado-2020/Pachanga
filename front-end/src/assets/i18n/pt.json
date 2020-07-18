@@ -65,7 +65,7 @@
         "USERSPER": "Usuário sem permissão para executar esta ação.",
         "DATEINFE": "Datas/Horários inválidos.",
         "FESTNEND": "Festa sem endereço.",
-        "FESTNOME": "Outra festa já está usando este e-mail."
+        "FESTNOME": "Outra festa já está usando este nome."
     },
 
     "SUCCESS": {
