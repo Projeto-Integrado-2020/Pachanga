@@ -22,6 +22,7 @@ export class EditarFestaService {
               public loginService: LoginService) { }
 
   atualizarFesta(dadosFesta) {
+    console.log(this.loginService.usuarioInfo.codUsuario);
     const httpParams = new HttpParams()
     .append('idUser', this.loginService.usuarioInfo.codUsuario);
     return this.http.put(this.urlAtualizarFesta, dadosFesta, {params: httpParams}).pipe(

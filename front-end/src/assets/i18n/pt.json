@@ -135,20 +135,30 @@
         "CONFPASS": "Confirmar nova senha"
     },
 
+    "PAGINATOR": {
+        "ITEMSPPAGE": "Itens por página",
+        "NEXTPAGE": "Próxima página",
+        "PREVIOUSPAGE": "Página anterior",
+        "OF": "de"
+
+    },
+
     "FESTA": {
-        "MENUFESTAS": "Menu de festas",
-        "LISTAFESTAS": "Lista de festas",
-        "ADDFESTA": "Nova festa",
-        "ACESSARFESTA": "Acessar festa",
+        "MYPARTIES": "Minhas Festas",
+        "NEWPARTY": "Nova Festa",
+        "DESCRIPTION": "Descrição",
         "PAPEL": "Papel",
         "PAPEIS": "Papéis",
-        "DATA": "Data",
-        "MEMBRO": "Membro colaborador",
-        "MEMBROS": "Membros colaboradores",
-        "ANDAMENTO": "Em andamento",
-        "FINALIZADA": "Finalizada",
-        "PREPARACAO": "Em preparação",
-        "MAIS": "e mais..."
+        "INICIODATA": "Data de Início",
+        "FIMDATA": "Data de Fim",
+        "INICIOHORA": "Horário de Início",
+        "FIMHORA": "Horário de Término",
+        "ENDERECO": "Endereço",
+        "MEMBERS": "Número de colaboradores",
+        "PROGRESS": "Em progresso",
+        "FINISHED": "Terminado",
+        "PREPARING": "Em preparação",
+        "MORE": "and more..."
     },
 
     "CRIARFESTA": {

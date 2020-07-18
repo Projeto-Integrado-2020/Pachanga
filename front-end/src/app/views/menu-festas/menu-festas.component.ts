@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { MenuFestasService } from '../../services/menu-festa/menu-festas.service';
 import { LoginService } from '../../services/loginService/login.service';
+import {PageEvent} from '@angular/material/paginator';
 
 @Component({
   selector: 'app-menu-festas',
@@ -11,6 +12,12 @@ import { LoginService } from '../../services/loginService/login.service';
 export class MenuFestasComponent implements OnInit {
 
   festas: any = [];
+  length = 100;
+  pageSize = 10;
+  pageSizeOptions: number[] = [5, 10, 25, 100];
+
+  // MatPaginator Output
+  pageEvent: PageEvent;
 
   constructor(public menuFestasService: MenuFestasService, public loginService: LoginService) { }
 
@@ -38,5 +45,19 @@ export class MenuFestasComponent implements OnInit {
     return date.split('T')[1];
   }
 
+
+  setPageSizeOptions(setPageSizeOptionsInput: string) {
+    if (setPageSizeOptionsInput) {
+      this.pageSizeOptions = setPageSizeOptionsInput.split(',').map(str => +str);
+    }
+  }
+
+  createUrl(nomeFesta) {
+    return nomeFesta.toLowerCase().replace('-', '').replace('–', '')
+                    .replace(/\s+/g, '-').replace('ç', 'c')
+                    .replace('º', '').replace('ª', '')
+                    .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+                    .replace(/[`~!@#$%^&*()_|+\=?;:'",.<>\{\}\[\]\\\/]/gi, '');
+  }
 
 }
