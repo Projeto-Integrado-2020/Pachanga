@@ -203,5 +203,9 @@
         "PENDENTE": "Pending",
         "EDIT": "Edit collaborator permissions",
         "DELETE": "Delete collaborator"
+    },
+
+    "404": {
+        "MESSAGE": "Outch, I think the party is over! This content is unavailable."
     }
 }

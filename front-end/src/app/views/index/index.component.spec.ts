@@ -19,6 +19,7 @@ import { MenuFestasComponent } from '../menu-festas/menu-festas.component';
 import { FestaPainelControleComponent } from '../festa-painel-controle/festa-painel-controle.component';
 import { CriarFestaComponent } from '../criar-festa/criar-festa.component';
 import { EditarFestaComponent } from '../editar-festa/editar-festa.component';
+import { NotFoundComponent } from '../not-found/not-found.component';
 
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 
@@ -42,7 +43,8 @@ describe('IndexComponent', () => {
         MenuFestasComponent,
         FestaPainelControleComponent,
         CriarFestaComponent,
-        EditarFestaComponent
+        EditarFestaComponent,
+        NotFoundComponent
       ],
       imports: [
         CustomMaterialModule,

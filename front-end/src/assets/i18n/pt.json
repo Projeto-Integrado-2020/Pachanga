@@ -198,5 +198,9 @@
         "PENDENTE": "Pendente",
         "EDIT": "Editar permissões do colaborador",
         "DELETE": "Deletar colaborador"
+    },
+
+    "404": {
+        "MESSAGE": "Vish, acho que a festa acabou! Este conteúdo está indisponível."
     }
 }

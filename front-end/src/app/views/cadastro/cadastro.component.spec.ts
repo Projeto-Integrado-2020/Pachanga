@@ -27,6 +27,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PerfilComponent } from '../perfil/perfil.component';
 import { InfoCompleteComponent } from '../info-complete/info-complete.component';
 import { EditarFestaComponent } from '../editar-festa/editar-festa.component';
+import { NotFoundComponent } from '../not-found/not-found.component';
 
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 
@@ -66,7 +67,8 @@ describe('CadastroComponent', () => {
         MenuFestasComponent,
         FestaPainelControleComponent,
         CriarFestaComponent,
-        EditarFestaComponent
+        EditarFestaComponent,
+        NotFoundComponent
       ],
       imports: [
         CustomMaterialModule,

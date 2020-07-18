@@ -55,6 +55,7 @@ import { CadastrarFestaService } from './services/cadastro-festa/cadastrar-festa
 import { EditarFestaComponent } from './views/editar-festa/editar-festa.component';
 import { MatPaginatorIntl } from '@angular/material';
 import { MatPaginatorPtBr } from './views/menu-festas/mat-paginator-ptbr';
+import { NotFoundComponent } from './views/not-found/not-found.component';
 
 const config = new AuthServiceConfig([
   {
@@ -88,7 +89,8 @@ export function provideConfig() {
     FestaPainelControleComponent,
     CriarFestaComponent,
     InviteDialogComponent,
-    EditarFestaComponent
+    EditarFestaComponent,
+    NotFoundComponent
   ],
   entryComponents: [
     LoginComponent,

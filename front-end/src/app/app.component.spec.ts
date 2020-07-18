@@ -25,6 +25,7 @@ import { ErroDialogComponent } from './views/erro-dialog/erro-dialog.component';
 import { PerfilComponent } from './views/perfil/perfil.component';
 import { InfoCompleteComponent } from './views/info-complete/info-complete.component';
 import { EditarFestaComponent } from './views/editar-festa/editar-festa.component';
+import { NotFoundComponent } from './views/not-found/not-found.component';
 
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 
@@ -64,7 +65,8 @@ describe('AppComponent', () => {
         MenuFestasComponent,
         FestaPainelControleComponent,
         CriarFestaComponent,
-        EditarFestaComponent
+        EditarFestaComponent,
+        NotFoundComponent
       ],
       imports: [
         BrowserModule,

@@ -15,7 +15,7 @@ export class PainelControleService {
 
   public farol = false;
 
-  constructor(private http: HttpClient, public logService: LogService) { }
+  constructor(private http: HttpClient, public logService: LogService, public router: Router) { }
 
   acessarFesta(idFesta) {
     if (!this.farol) {
@@ -35,6 +35,7 @@ export class PainelControleService {
     logService.initialize();
     logService.logHttpInfo(JSON.stringify(error), 0, error.url);
     this.setFarol(false);
+    this.router.navigate(['404']);
     return throwError(error);
   }
 

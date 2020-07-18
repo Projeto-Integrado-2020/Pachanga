@@ -6,11 +6,14 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { CustomMaterialModule } from '../../views/material/material.module';
 
+import { RouterModule } from '@angular/router';
+
 describe('EditarFestaService', () => {
   beforeEach(() => TestBed.configureTestingModule({
     imports: [
       HttpClientModule,
-      CustomMaterialModule
+      CustomMaterialModule,
+      RouterModule.forRoot([])
     ]
   }));
 

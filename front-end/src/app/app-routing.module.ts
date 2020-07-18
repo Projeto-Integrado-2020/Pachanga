@@ -7,6 +7,7 @@ import { MenuFestasComponent } from './views/menu-festas/menu-festas.component';
 import { FestaPainelControleComponent } from './views/festa-painel-controle/festa-painel-controle.component';
 import { CriarFestaComponent } from './views/criar-festa/criar-festa.component';
 import { EditarFestaComponent } from './views/editar-festa/editar-festa.component';
+import { NotFoundComponent } from './views/not-found/not-found.component';
 
 const routes: Routes = [
 
@@ -44,6 +45,16 @@ const routes: Routes = [
       component: EditarFestaComponent,
       canActivate: [AuthGuard]
     },
+
+    {
+      path: '404',
+      component: NotFoundComponent
+    },
+
+    {
+      path: '**',
+      redirectTo: '404'
+    }
 ];
 
 @NgModule({
