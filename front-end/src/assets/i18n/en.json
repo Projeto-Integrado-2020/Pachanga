@@ -190,6 +190,8 @@
         "PREPARACAO": "Preparation phase",
         "ACEITO": "Accepted",
         "RECUSADO": "Declined",
-        "PENDENTE": "Pending"
+        "PENDENTE": "Pending",
+        "EDIT": "Edit collaborator permissions",
+        "DELETE": "Delete collaborator"
     }
 }

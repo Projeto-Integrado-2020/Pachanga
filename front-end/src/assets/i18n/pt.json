@@ -67,7 +67,7 @@
         "TITULO": "Sucesso!",
         "ALTERSUC": "Seus dados foram alterados com sucesso",
         "FESTDELE": "Festa deletada com sucesso",
-        "FESTAALT": "Os dados da festa foram alterados com sucessoaaaaaa"
+        "FESTAALT": "Os dados da festa foram alterados com sucesso"
     },
     
     "PERFIL":{
@@ -185,6 +185,8 @@
         "PREPARACAO": "Fase de preparação",
         "ACEITO": "Aceito",
         "RECUSADO": "Recusado",
-        "PENDENTE": "Pendente"
+        "PENDENTE": "Pendente",
+        "EDIT": "Editar permissões do colaborador",
+        "DELETE": "Deletar colaborador"
     }
 }

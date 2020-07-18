@@ -17,7 +17,7 @@ export class PainelControleService {
 
   constructor(private http: HttpClient, public logService: LogService) { }
 
-  acessarFesta(idFesta){
+  acessarFesta(idFesta) {
     if (!this.farol) {
       this.setFarol(true);
       const httpParams = new HttpParams()
