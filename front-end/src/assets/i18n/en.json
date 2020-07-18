@@ -202,10 +202,18 @@
         "RECUSADO": "Declined",
         "PENDENTE": "Pending",
         "EDIT": "Edit collaborator permissions",
-        "DELETE": "Delete collaborator"
+        "DELETE": "Delete collaborator",
+        "EDITFESTA": "Edit party",
+        "DELETEFESTA": "Delete party"
     },
 
     "404": {
         "MESSAGE": "Outch, I think the party is over! This content is unavailable."
+    },
+
+    "DELETDIALOG": {
+        "MESSAGE": "Do you really want to delete the party",
+        "CONFIRM": "Confirm",
+        "CANCEL": "Cancel"
     }
 }

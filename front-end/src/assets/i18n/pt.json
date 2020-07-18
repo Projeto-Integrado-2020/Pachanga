@@ -60,7 +60,12 @@
         "PASSDIFF": "Senha nova precisa ser diferente da atual.",
         "USERNFOU": "Usuário não encontrado.",
         "PASSINCO": "Senha incorreta.",
-        "NOTMODIF": "Nada a se alterar."
+        "NOTMODIF": "Nada a se alterar.",
+        "FESTNFOU": "Festa não encontrada.",
+        "USERSPER": "Usuário sem permissão para executar esta ação.",
+        "DATEINFE": "Datas/Horários inválidos.",
+        "FESTNEND": "Festa sem endereço.",
+        "FESTNOME": "Outra festa já está usando este e-mail."
     },
 
     "SUCCESS": {
@@ -197,10 +202,18 @@
         "RECUSADO": "Recusado",
         "PENDENTE": "Pendente",
         "EDIT": "Editar permissões do colaborador",
-        "DELETE": "Deletar colaborador"
+        "DELETE": "Deletar colaborador",
+        "EDITFESTA": "Editar festa",
+        "DELETEFESTA": "Deletar festa"
     },
 
     "404": {
         "MESSAGE": "Vish, acho que a festa acabou! Este conteúdo está indisponível."
+    },
+
+    "DELETEDIALOG": {
+        "MESSAGE": "Você realmente deseja deletar a festa ",
+        "CONFIRM": "Confirmar",
+        "CANCEL": "Cancelar"
     }
 }

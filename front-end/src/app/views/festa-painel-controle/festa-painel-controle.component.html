@@ -19,7 +19,12 @@
                         </div>
                     </mat-list-item>
                     <mat-list-item class="status-list"> 
-                            Status: {{'PAINELCONTROLE.PREPARACAO' | translate}} <mat-icon>access_time</mat-icon>
+                        Status: {{'PAINELCONTROLE.PREPARACAO' | translate}} <mat-icon>access_time</mat-icon>
+                        <a routerLink="../editar">
+                            <button mat-button class="botao-editar">
+                                {{'PAINELCONTROLE.EDITFESTA' | translate}} <mat-icon>edit</mat-icon>
+                            </button>
+                        </a>
                     </mat-list-item>
                 </mat-list>
                 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 tabela">
@@ -51,7 +56,12 @@
                     </ng-container>
                     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-                </table>    
+                </table>
+
+                <button mat-button class="botao-deletar" (click)="openDialogDelete()">
+                    {{'PAINELCONTROLE.DELETEFESTA' | translate}} <mat-icon>delete</mat-icon>
+                </button>
+                
         </mat-sidenav-content>
     </mat-sidenav-container>
 </div>

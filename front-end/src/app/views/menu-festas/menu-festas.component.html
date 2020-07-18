@@ -17,7 +17,7 @@
     >
     </mat-paginator>    
     <div *ngFor="let festa of festas" class="lista-festas">
-        <a routerLink="../festas/{{createUrl(festa.nomeFesta)}}&{{festa.codFesta}}/painel">
+        <a routerLink="{{createUrl(festa.nomeFesta, festa.codFesta)}}">
             <mat-card class="festa-tab">
                 <mat-card-header>
                     <div mat-card-avatar><mat-icon *ngIf="isAdmin(festa)" style="color: red;">star_rate</mat-icon></div>

@@ -52,12 +52,14 @@ export class MenuFestasComponent implements OnInit {
     }
   }
 
-  createUrl(nomeFesta) {
-    return nomeFesta.toLowerCase().replace('-', '').replace('–', '')
-                    .replace(/\s+/g, '-').replace('ç', 'c')
-                    .replace('º', '').replace('ª', '')
-                    .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
-                    .replace(/[`~!@#$%^&*()_|+\=?;:'",.<>\{\}\[\]\\\/]/gi, '');
+  createUrl(nomeFesta, codFesta) {
+    nomeFesta = nomeFesta.toLowerCase().replace('-', '').replace('–', '')
+                        .replace(/\s+/g, '-').replace('ç', 'c')
+                        .replace('º', '').replace('ª', '')
+                        .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+                        .replace(/[`~!@#$%^&*()_|+\=?;:'",.<>\{\}\[\]\\\/]/gi, '');
+    const url = '../festas/' + nomeFesta + '&' + codFesta + '/painel';
+    return url;
   }
 
 }

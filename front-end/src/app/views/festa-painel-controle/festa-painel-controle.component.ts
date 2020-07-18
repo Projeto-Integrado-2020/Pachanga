@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { InviteDialogComponent } from '../invite-dialog/invite-dialog.component';
+import { DeletarFestaComponent } from '../deletar-festa/deletar-festa.component';
 import { MatDialog, MatTableDataSource } from '@angular/material';
-import {TranslateService} from '@ngx-translate/core';
+import { TranslateService } from '@ngx-translate/core';
 import { PainelControleService } from '../../services/painel-controle/painel-controle.service';
 import { Router } from '@angular/router';
 
@@ -27,7 +28,7 @@ export class FestaPainelControleComponent implements OnInit {
   displayedColumns: string[] = ['membro', 'status', 'permissao', 'edit'];
   dataSource = new MatTableDataSource<TabelaMembros>(this.membros);
 
-  constructor(fb: FormBuilder, public invite: MatDialog, private translate: TranslateService, public painelService: PainelControleService,
+  constructor(fb: FormBuilder, public dialog: MatDialog, private translate: TranslateService, public painelService: PainelControleService,
               public router: Router) {
     this.options = fb.group({
       bottom: 55,
@@ -36,7 +37,7 @@ export class FestaPainelControleComponent implements OnInit {
   }
 
   openDialogInvite() {
-    this.invite.open(InviteDialogComponent, {
+    this.dialog.open(InviteDialogComponent, {
       width: '20rem',
     });
   }
@@ -53,6 +54,13 @@ export class FestaPainelControleComponent implements OnInit {
         this.membros.push({membro: resp.usuarios[usuario].nomeUser, status: 'Pendente'});
       }
       this.dataSource.data = this.membros;
+    });
+  }
+
+  openDialogDelete() {
+    this.dialog.open(DeletarFestaComponent, {
+      width: '20rem',
+      data: {festa: this.festa}
     });
   }
 

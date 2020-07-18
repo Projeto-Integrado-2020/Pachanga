@@ -132,3 +132,22 @@
 .tabela{
     margin-left: 12.5%;
 }
+
+.botao-editar {
+  float: right;
+  background-color: $color-tertiary;
+  color: white;
+  padding: 0;
+  padding-left: .5rem;
+  margin-left: 3rem;
+}
+
+.botao-deletar {
+  margin-top: 1.5rem;
+  margin-right: 18%;
+  float: right;
+  background-color: $color-tertiary;
+  color: white;
+  padding: 0;
+  padding-left: .5rem;
+}
