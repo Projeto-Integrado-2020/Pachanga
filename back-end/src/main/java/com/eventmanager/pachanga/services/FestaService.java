@@ -15,6 +15,7 @@ import com.eventmanager.pachanga.factory.FestaFactory;
 import com.eventmanager.pachanga.repositories.FestaRepository;
 import com.eventmanager.pachanga.repositories.GrupoRepository;
 import com.eventmanager.pachanga.repositories.UsuarioRepository;
+import com.eventmanager.pachanga.tipo.TipoGrupo;
 
 @Service
 public class FestaService {
@@ -44,7 +45,7 @@ public class FestaService {
 		festaTo.setCodFesta(festaRepository.getNextValMySequence());
 		validarFesta(festaTo);
 		Festa festa =  FestaFactory.getFesta(festaTo);
-		Grupo grupo = new Grupo(grupoRepository.getNextValMySequence(), festa, "ORGANIZADOR", 1);
+		Grupo grupo = new Grupo(grupoRepository.getNextValMySequence(), festa, TipoGrupo.ORGANIZADOR.getValor(), 1);
 		festaRepository.save(festa);
 		grupoRepository.save(grupo);
 		grupoRepository.saveUsuarioGrupo(usuario.getCodUsuario(), grupo.getCodGrupo());

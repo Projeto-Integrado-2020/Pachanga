@@ -9,15 +9,20 @@ import com.eventmanager.pachanga.domains.Usuario;
 import com.eventmanager.pachanga.dtos.UsuarioTO;
 import com.eventmanager.pachanga.errors.ValidacaoException;
 import com.eventmanager.pachanga.factory.UsuarioFactory;
+import com.eventmanager.pachanga.repositories.GrupoRepository;
 import com.eventmanager.pachanga.repositories.UsuarioRepository;
+import com.eventmanager.pachanga.tipo.TipoConta;
+import com.eventmanager.pachanga.tipo.TipoGrupo;
 import com.eventmanager.pachanga.utils.HashBuilder;
-import com.eventmanager.pachanga.utils.TipoConta;
 
 @Service
 public class UsuarioService {
 
 	@Autowired
 	private UsuarioRepository userRepository;
+	
+	@Autowired
+	private GrupoRepository grupoRepository;
 
 	//cadastro_________________________________________________________________________________________________________	
 
@@ -119,6 +124,18 @@ public class UsuarioService {
 	
 	public List<Usuario> getUsuariosFesta(int codFesta){
 		return userRepository.findByIdFesta(codFesta);
+	}
+	
+	public String funcionalidadeUsuarioFesta(int codFesta, int codUsuario) {
+		Usuario usuario = userRepository.findById(codUsuario);
+		if(usuario == null) {
+			throw new ValidacaoException("USERNFOU");
+		}
+		return grupoRepository.findFuncionalidade(codFesta, codUsuario);
+	}
+	
+	public Usuario getUsuarioResponsavelFesta(int codFesta) {
+		return userRepository.findByFestaGrupo(codFesta, TipoGrupo.ORGANIZADOR.getValor());
 	}
 
 

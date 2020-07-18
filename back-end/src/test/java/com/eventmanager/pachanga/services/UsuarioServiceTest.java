@@ -2,7 +2,9 @@ package com.eventmanager.pachanga.services;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -15,7 +17,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 import com.eventmanager.pachanga.domains.Usuario;
 import com.eventmanager.pachanga.dtos.UsuarioTO;
 import com.eventmanager.pachanga.errors.ValidacaoException;
+import com.eventmanager.pachanga.repositories.GrupoRepository;
 import com.eventmanager.pachanga.repositories.UsuarioRepository;
+import com.eventmanager.pachanga.tipo.TipoGrupo;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(value=UsuarioService.class)
@@ -23,6 +27,9 @@ public class UsuarioServiceTest {
 
 	@MockBean
 	private UsuarioRepository usuarioRepository;
+	
+	@MockBean
+	private GrupoRepository grupoRepository;
 
 	@Autowired
 	private UsuarioService userService;
@@ -190,7 +197,7 @@ public class UsuarioServiceTest {
 	//cadastro______________________________________________________________________________________________________________	
 
 	@Test
-	public void CadastroSucessoTest() throws Exception{
+	public void cadastroSucessoTest() throws Exception{
 		Mockito.when(usuarioRepository.findByEmailAndTipConta("gustavinhoTPD@fodasse.com.br", "P")).thenReturn(null);
 
 		UsuarioTO usuarioTestCadastro = usuarioToTest();
@@ -204,7 +211,7 @@ public class UsuarioServiceTest {
 	}
 
 	@Test
-	public void CadastroEmailDuplicadoTest() throws Exception{
+	public void cadastroEmailDuplicadoTest() throws Exception{
 		Usuario usuarioTestBanco = usuarioTest();
 
 		Mockito.when(usuarioRepository.findByEmailAndTipConta("gustavinhoTPD@fodasse.com.br", "P")).thenReturn(usuarioTestBanco);
@@ -225,7 +232,7 @@ public class UsuarioServiceTest {
 	}
 
 	@Test
-	public void CadastroUserTypeNotPSucessTest() throws Exception{
+	public void cadastroUserTypeNotPSucessTest() throws Exception{
 		Mockito.when(usuarioRepository.findByEmailAndTipConta("gustavinhoTPD@fodasse.com.br", "G")).thenReturn(null);
 
 		UsuarioTO usuarioTestCadastro = usuarioToTest();
@@ -241,7 +248,7 @@ public class UsuarioServiceTest {
 	}
 
 	@Test
-	public void CadastroTest() throws Exception{
+	public void cadastroTest() throws Exception{
 		Usuario usuarioTestBanco = usuarioTest();
 
 		Mockito.when(usuarioRepository.findByEmailAndTipConta("gustavinhoTPD@fodasse.com.br", "P")).thenReturn(usuarioTestBanco);
@@ -265,7 +272,7 @@ public class UsuarioServiceTest {
 
 	@SuppressWarnings("deprecation")
 	@Test
-	public void AtualizaTestException() throws Exception{ //Atualiza as senhas, mas as senhas são identicas então da erro
+	public void atualizaTestException() throws Exception{ //Atualiza as senhas, mas as senhas são identicas então da erro
 		Usuario usuarioTestBanco = usuarioTest();
 
 		Mockito.when(usuarioRepository.findByEmailAndTipConta("gustavinhoTPD@fodasse.com.br", "P")).thenReturn(usuarioTestBanco);
@@ -290,7 +297,7 @@ public class UsuarioServiceTest {
 
 	@SuppressWarnings("deprecation")
 	@Test
-	public void AtualizaTest() throws Exception{
+	public void atualizaTest() throws Exception{
 		Usuario usuarioTestBanco = usuarioTest();
 
 		Mockito.when(usuarioRepository.findByEmailAndTipConta("gustavinhoTPD@fodasse.com.br", "P")).thenReturn(usuarioTestBanco);
@@ -311,7 +318,7 @@ public class UsuarioServiceTest {
 
 	@SuppressWarnings("deprecation")
 	@Test
-	public void AtualizaUserTypeNotPTest() throws Exception{
+	public void atualizaUserTypeNotPTest() throws Exception{
 		Usuario usuarioTestBanco = usuarioTest();
 		usuarioTestBanco.setTipConta("G");
 
@@ -333,7 +340,7 @@ public class UsuarioServiceTest {
 
 	@SuppressWarnings("deprecation")
 	@Test
-	public void AtualizaUserNotExistTest() throws Exception{
+	public void atualizaUserNotExistTest() throws Exception{
 		Usuario usuarioTestBanco = usuarioTest();
 		usuarioTestBanco.setTipConta("G");
 
@@ -359,7 +366,7 @@ public class UsuarioServiceTest {
 	}
 
 	@Test
-	public void AtualizaEmailTest() throws Exception{
+	public void atualizaEmailTest() throws Exception{
 		Usuario usuarioTestBanco = usuarioTest();
 		usuarioTestBanco.setTipConta("P");
 
@@ -377,7 +384,7 @@ public class UsuarioServiceTest {
 	}
 	
 	@Test
-	public void AtualizaSenhaTest() throws Exception{
+	public void atualizaSenhaTest() throws Exception{
 		Usuario usuarioTestBanco = usuarioTest();
 		usuarioTestBanco.setTipConta("P");
 
@@ -397,7 +404,7 @@ public class UsuarioServiceTest {
 	}
 	
 	@Test
-	public void AtualizaSenhaTestErro() throws Exception{
+	public void atualizaSenhaTestErro() throws Exception{
 		Usuario usuarioTestBanco = usuarioTest();
 		usuarioTestBanco.setTipConta("P");
 
@@ -423,7 +430,7 @@ public class UsuarioServiceTest {
 	}
 	
 	@Test
-	public void AtualizaEmailTestErro() throws Exception{
+	public void atualizaEmailTestErro() throws Exception{
 		Usuario usuarioTestBanco = usuarioTest();
 		usuarioTestBanco.setTipConta("P");
 
@@ -447,6 +454,59 @@ public class UsuarioServiceTest {
 		assertEquals(true, usuarioRetorno == null); 
 		assertEquals(true, caiuException == true); 
 
+	}
+	
+	@Test
+	public void getUsuarioFestaTest() throws Exception {
+		List<Usuario> usuarios = new ArrayList<Usuario>();
+		usuarios.add(usuarioTest());
+		Mockito.when(usuarioRepository.findByIdFesta(14)).thenReturn(usuarios);
+		
+		List<Usuario> usuariosResposta = userService.getUsuariosFesta(14);
+		
+		assertEquals(1, usuariosResposta.size());
+	}
+	
+	@Test
+	public void funcionalidadeUsuarioFestaSucessTest() throws Exception{
+		
+		Mockito.when(usuarioRepository.findById(1)).thenReturn(usuarioTest());
+		
+		Mockito.when(grupoRepository.findFuncionalidade(14, 1)).thenReturn(TipoGrupo.ORGANIZADOR.getValor());
+		
+		String funcionalidade = userService.funcionalidadeUsuarioFesta(14, 1);
+		
+		assertEquals(funcionalidade, TipoGrupo.ORGANIZADOR.getValor());
+		
+	}
+	
+	@Test
+	public void funcionalidadeUsuarioFestaFailedTest() throws Exception{
+		
+		Mockito.when(usuarioRepository.findById(1)).thenReturn(null);
+		
+		Mockito.when(grupoRepository.findFuncionalidade(14, 1)).thenReturn(TipoGrupo.ORGANIZADOR.getValor());
+		
+		boolean caiuException = false;
+		String funcionalidade = null;
+		try {
+			funcionalidade = userService.funcionalidadeUsuarioFesta(14, 1);
+		}catch(ValidacaoException e) {
+			caiuException = true;
+		}
+		assertEquals(true, caiuException == true); 
+		
+		assertEquals(true, funcionalidade == null);
+		
+	}
+	
+	@Test
+	public void getUsuarioResponsavelFestaTest() throws Exception{
+		Mockito.when(usuarioRepository.findByFestaGrupo(14, TipoGrupo.ORGANIZADOR.getValor())).thenReturn(usuarioTest());
+		
+		Usuario usuarioResposta = userService.getUsuarioResponsavelFesta(14);
+		
+		assertEquals(true, usuarioResposta != null);
 	}
 
 }

@@ -10,6 +10,7 @@ import com.eventmanager.pachanga.domains.Usuario;
 import com.eventmanager.pachanga.repositories.FestaRepository;
 import com.eventmanager.pachanga.repositories.GrupoRepository;
 import com.eventmanager.pachanga.repositories.UsuarioRepository;
+import com.eventmanager.pachanga.tipo.TipoGrupo;
 import com.eventmanager.pachanga.utils.EmailMensagem;
 
 @Service
@@ -32,7 +33,7 @@ public class GrupoService {
 		StringBuilder mensagemRetorno = new StringBuilder();
 		Grupo grupo = grupoRepository.findGrupoConvidadoFesta(codFesta);
 		if(grupo == null) {
-			grupo = new Grupo(grupoRepository.getNextValMySequence(), festaRepository.findByCodFesta(codFesta), "CONVIDADO", 100);
+			grupo = new Grupo(grupoRepository.getNextValMySequence(), festaRepository.findByCodFesta(codFesta), TipoGrupo.CONVIDADO.getValor(), 100);
 			grupoRepository.save(grupo);
 		}
 		for(String email : emails) {

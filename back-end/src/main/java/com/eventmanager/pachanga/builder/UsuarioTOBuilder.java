@@ -12,6 +12,7 @@ public class UsuarioTOBuilder {
 	private String email;
 	private String sexo;
 	private String tipConta;
+	private String funcionalidade;
 	
 	public static UsuarioTOBuilder getInstance() {
 		return new UsuarioTOBuilder();
@@ -53,6 +54,10 @@ public class UsuarioTOBuilder {
 		return this;
 	}
 
+	public UsuarioTOBuilder funcionalidade(String funcionalidade) {
+		this.funcionalidade = funcionalidade;
+		return this;
+	}
 
 	public UsuarioTO build() {
 		UsuarioTO user = new UsuarioTO();
@@ -62,6 +67,7 @@ public class UsuarioTOBuilder {
 		user.setNomeUser(nomeUser);
 		user.setSexo(sexo);
 		user.setTipConta(tipConta);
+		user.setFuncionalidade(funcionalidade);
 		return user;
 	}
 

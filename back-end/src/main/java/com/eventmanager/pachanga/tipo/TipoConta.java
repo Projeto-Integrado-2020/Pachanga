@@ -1,4 +1,4 @@
-package com.eventmanager.pachanga.utils;
+package com.eventmanager.pachanga.tipo;
 
 public enum TipoConta {
 	PACHANGA("P"),

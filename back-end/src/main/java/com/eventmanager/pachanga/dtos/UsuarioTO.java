@@ -13,6 +13,7 @@ public class UsuarioTO {
     private String senha;
     private String senhaNova;
     private String sexo;
+    private String funcionalidade;
     
 	public Date getDtNasc() {
 		return dtNasc;
@@ -84,6 +85,14 @@ public class UsuarioTO {
 
 	public void setSenhaNova(String senhaNova) {
 		this.senhaNova = senhaNova;
+	}
+
+	public String getFuncionalidade() {
+		return funcionalidade;
+	}
+
+	public void setFuncionalidade(String funcionalidade) {
+		this.funcionalidade = funcionalidade;
 	}
 	    
 }

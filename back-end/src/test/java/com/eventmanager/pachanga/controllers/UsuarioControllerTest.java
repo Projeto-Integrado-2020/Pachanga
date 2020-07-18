@@ -32,8 +32,6 @@ public class UsuarioControllerTest {
 
 	@Autowired
 	private MockMvc mockMvc;
-
-	//private UsuarioRepository usuarioRepository;
 	
 	@MockBean
 	private UsuarioService userService;

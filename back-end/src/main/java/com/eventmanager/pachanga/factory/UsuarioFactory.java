@@ -21,4 +21,9 @@ public class UsuarioFactory {
 				.nomeUser(user.getNomeUser()).sexo(user.getSexo()).tipConta(user.getTipConta()).build();
 	}
 
+	public static UsuarioTO getUsuarioTO(Usuario user, String funcionalidade) {
+		return UsuarioTOBuilder.getInstance().codUsuario(user.getCodUsuario()).dtNasc(user.getDtNasc()).email(user.getEmail())
+				.nomeUser(user.getNomeUser()).sexo(user.getSexo()).tipConta(user.getTipConta()).funcionalidade(funcionalidade).build();
+	}
+
 }

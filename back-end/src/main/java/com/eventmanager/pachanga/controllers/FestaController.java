@@ -48,7 +48,7 @@ public class FestaController {
 				festas =  festaService.procurarFestasPorUsuario(Integer.parseInt(idUser));
 			}
 			List<FestaTO> festasTo = festas.stream().map(f -> {
-				List<UsuarioTO> usuarios = listUsuarioTO(f);  
+				List<UsuarioTO> usuarios = listUsuarioTO(f);
 				FestaTO festaTo = FestaFactory.getFestaTO(f, usuarios, true);
 				if(idUser != null) {
 					festaTo.setFuncionalidade(festaService.funcionalidadeFesta(festaTo.getCodFesta(), Integer.parseInt(idUser)));
@@ -108,6 +108,9 @@ public class FestaController {
 	}
 	
 	private List<UsuarioTO> listUsuarioTO(Festa festa){
-		return usuarioService.getUsuariosFesta(festa.getCodFesta()).stream().map(u -> UsuarioFactory.getUsuarioTO(u)).collect(Collectors.toList());
+		return usuarioService.getUsuariosFesta(festa.getCodFesta()).stream().map(u -> {
+			String funcionalidade = usuarioService.funcionalidadeUsuarioFesta(festa.getCodFesta(), u.getCodUsuario());
+			return UsuarioFactory.getUsuarioTO(u, funcionalidade);
+			}).collect(Collectors.toList());
 	}
 }
