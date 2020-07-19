@@ -12,8 +12,9 @@ import {PageEvent} from '@angular/material/paginator';
 export class MenuFestasComponent implements OnInit {
 
   festas: any = [];
-  length = 100;
-  pageSize = 10;
+  length;
+  pageSize = 5;
+  festasMostradas = [];
   pageSizeOptions: number[] = [5, 10, 25, 100];
 
   // MatPaginator Output
@@ -26,7 +27,11 @@ export class MenuFestasComponent implements OnInit {
       this.menuFestasService.setFarol(false);
       this.festas = resp;
       console.log(resp);
+
+      this.length = this.festas.length;
+      this.festasMostradas = this.festas.slice(0, 5);
     });
+    
   }
 
   isAdmin(festa) {
@@ -43,6 +48,16 @@ export class MenuFestasComponent implements OnInit {
 
   getTimeFromDTF(date) {
     return date.split('T')[1];
+  }
+
+  onPageChange(event: PageEvent) {
+    console.log(event);
+    const startIndex = event.pageIndex * event.pageSize;
+    let endIndex = startIndex + event.pageSize;
+    if (endIndex > this.festas.length) {
+      endIndex = this.festas.length;
+    }
+    this.festasMostradas = this.festas.slice(startIndex, endIndex);
   }
 
 

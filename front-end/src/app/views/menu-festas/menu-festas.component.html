@@ -12,11 +12,11 @@
         [length]="length"
         [pageSize]="pageSize"
         [pageSizeOptions]="pageSizeOptions"
-        (page)="pageEvent = $event"
+        (page)="onPageChange($event)"
         class="paginator"
     >
     </mat-paginator>    
-    <div *ngFor="let festa of festas" class="lista-festas">
+    <div *ngFor="let festa of festasMostradas" class="lista-festas">
         <a routerLink="{{createUrl(festa.nomeFesta, festa.codFesta)}}">
             <mat-card class="festa-tab">
                 <mat-card-header>
