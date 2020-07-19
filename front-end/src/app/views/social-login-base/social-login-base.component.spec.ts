@@ -8,9 +8,10 @@ import { CustomMaterialModule } from '../material/material.module';
 
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { LoginService } from 'src/app/services/loginService/login.service';
 
 const config = new AuthServiceConfig([
   {
@@ -30,6 +31,9 @@ export function provideConfig() {
 describe('SocialLoginBaseComponent', () => {
   let component: SocialLoginBaseComponent;
   let fixture: ComponentFixture<SocialLoginBaseComponent>;
+  const router = {
+    navigate: jasmine.createSpy('navigate')
+  };
 
   beforeEach(async(() => {
     jasmine.DEFAULT_TIMEOUT_INTERVAL = 100000;
@@ -47,7 +51,8 @@ describe('SocialLoginBaseComponent', () => {
         {
           provide: AuthServiceConfig,
           useFactory: provideConfig
-        }
+        },
+        { provide: Router, useValue: router }
       ],
     })
     .compileComponents();
@@ -62,5 +67,14 @@ describe('SocialLoginBaseComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should navigate ["/"] when signOut', () => {
+    spyOn(component.loginService, 'finalizarSessao');
+    spyOn(component.loginService, 'setUsuarioAutenticado');
+    component.signOut();
+    expect(component.loginService.finalizarSessao).toHaveBeenCalled();
+    expect(component.loginService.setUsuarioAutenticado).toHaveBeenCalled();
+    expect(router.navigate).toHaveBeenCalledWith(['/']);
   });
 });

@@ -56,4 +56,15 @@ describe('CriarFestaComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should callService when adicionarFesta', () => {
+    spyOn(component, 'callService');
+    component.adicionarFesta('teste', 'teste', 'teste', 'teste', 'teste', 'teste', 'teste', 'teste', 'teste');
+    expect(component.callService).toHaveBeenCalled();
+  });
+
+  it('should get f to get form controls', () => {
+    expect(component.f).toBe(component.form.controls);
+  });
+
 });

@@ -33,7 +33,7 @@ describe('SuccessDialogComponent', () => {
         }
       })],
       providers: [
-        { provide: MAT_DIALOG_DATA, useValue: {message: '1'} },
+        { provide: MAT_DIALOG_DATA, useValue: {message: 'ALTERSUC'} },
     ]
     })
     .compileComponents();

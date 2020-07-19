@@ -30,7 +30,7 @@ describe('ErroDialogComponent', () => {
         }
       })],
       providers: [
-        { provide: MAT_DIALOG_DATA, useValue: {erro: '1'} },
+        { provide: MAT_DIALOG_DATA, useValue: {erro: 'USERMAIL'} },
     ]
     })
     .compileComponents();

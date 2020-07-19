@@ -42,5 +42,11 @@ describe('InfoCompleteComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+    expect(component.mensagem).toBeTruthy();
+  });
+
+  it('should close message', () => {
+    component.fecharMensagem();
+    expect(component.mensagem).toBeFalsy();
   });
 });

@@ -11,12 +11,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginService } from 'src/app/services/loginService/login.service';
+import { MatDialog } from '@angular/material';
 
 describe('PerfilComponent', () => {
   let component: PerfilComponent;
   let fixture: ComponentFixture<PerfilComponent>;
+  let dialogSpy: MatDialog;
 
   beforeEach(async(() => {
+    dialogSpy = jasmine.createSpyObj('MatDialog', ['open']);
     jasmine.DEFAULT_TIMEOUT_INTERVAL = 100000;
     TestBed.configureTestingModule({
       declarations: [ PerfilComponent ],
@@ -36,6 +39,7 @@ describe('PerfilComponent', () => {
       ],
       providers: [
         { provide: LoginService, useValue: {usuarioInfo: {nomeUser: 'Teste'}} },
+        { provide: MatDialog, useValue: dialogSpy },
       ]
     })
     .compileComponents();
@@ -50,5 +54,14 @@ describe('PerfilComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should open a dialog through a method', () => {
+    component.openDialogEdit('nome');
+    expect(dialogSpy.open).toHaveBeenCalled();
+  });
+
+  it('should get f to get form controls', () => {
+    expect(component.f).toBe(component.form.controls);
   });
 });

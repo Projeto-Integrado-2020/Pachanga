@@ -9,9 +9,11 @@ import { HttpClient } from '@angular/common/http';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
-import {MAT_DIALOG_DATA} from '@angular/material';
+import {MAT_DIALOG_DATA, MatDialog} from '@angular/material';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { LoginService } from 'src/app/services/loginService/login.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -20,13 +22,16 @@ export function HttpLoaderFactory(http: HttpClient) {
 describe('EditDialogComponent', () => {
   let component: EditDialogComponent;
   let fixture: ComponentFixture<EditDialogComponent>;
+  let dialogSpy: MatDialog;
 
   beforeEach(async(() => {
+    dialogSpy = jasmine.createSpyObj('MatDialog', ['open']);
     TestBed.configureTestingModule({
       declarations: [ EditDialogComponent ],
       imports: [
       HttpClientTestingModule,
       CustomMaterialModule,
+      BrowserAnimationsModule,
       FormsModule,
       ReactiveFormsModule,
       TranslateModule.forRoot({
@@ -37,7 +42,9 @@ describe('EditDialogComponent', () => {
         }
       })],
       providers: [
-        { provide: MAT_DIALOG_DATA, useValue: {erro: '1'} },
+        { provide: MAT_DIALOG_DATA, useValue: {campo: 'nome'} },
+        { provide: MatDialog, useValue: dialogSpy },
+        { provide: LoginService, useValue: {usuarioInfo: {nomeUser: 'teste'}} },
     ]
     })
     .compileComponents();
@@ -51,5 +58,51 @@ describe('EditDialogComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should get f to get form controls', () => {
+    expect(component.f).toBe(component.form.controls);
+  });
+
+  it('should open a dialog through a method', () => {
+    component.openDialogSuccess('teste');
+    expect(dialogSpy.open).toHaveBeenCalled();
+  });
+
+  it('should save name at salvarNome and callService', () => {
+    spyOn(component, 'callService');
+    component.salvarNome('teste');
+    expect(component.modJson.nomeUser).toBe('teste');
+    expect(component.callService).toHaveBeenCalled();
+  });
+
+  it('should save email at salvarEmail and callService', () => {
+    spyOn(component, 'callService');
+    component.salvarEmail('senha', 'teste');
+    expect(component.modJson.emailNovo).toBe('teste');
+    expect(component.modJson.senha).toBe('senha');
+    expect(component.callService).toHaveBeenCalled();
+  });
+
+  it('should save dtNasc at salvarDtNasc and callService', () => {
+    spyOn(component, 'callService');
+    component.salvarDtNasc('01/02/2000');
+    expect(component.modJson.dtNasc).toBe('2000-02-01');
+    expect(component.callService).toHaveBeenCalled();
+  });
+
+  it('should save sexo at salvarSexo and callService', () => {
+    spyOn(component, 'callService');
+    component.salvarSexo('M');
+    expect(component.modJson.sexo).toBe('M');
+    expect(component.callService).toHaveBeenCalled();
+  });
+
+  it('should save senha at salvarSenha and callService', () => {
+    spyOn(component, 'callService');
+    component.salvarSenha('antiga', 'nova');
+    expect(component.modJson.senhaNova).toBe('nova');
+    expect(component.modJson.senha).toBe('antiga');
+    expect(component.callService).toHaveBeenCalled();
   });
 });

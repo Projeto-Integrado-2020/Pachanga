@@ -31,7 +31,7 @@ export class MenuFestasComponent implements OnInit {
       this.length = this.festas.length;
       this.festasMostradas = this.festas.slice(0, 5);
     });
-    
+
   }
 
   isAdmin(festa) {
@@ -51,7 +51,6 @@ export class MenuFestasComponent implements OnInit {
   }
 
   onPageChange(event: PageEvent) {
-    console.log(event);
     const startIndex = event.pageIndex * event.pageSize;
     let endIndex = startIndex + event.pageSize;
     if (endIndex > this.festas.length) {

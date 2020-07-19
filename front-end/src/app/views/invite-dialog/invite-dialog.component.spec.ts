@@ -7,6 +7,7 @@ import { InviteDialogComponent } from './invite-dialog.component';
 
 import { CustomMaterialModule } from '../material/material.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatChipInputEvent } from '@angular/material/chips';
 
 describe('InviteDialogComponent', () => {
   let component: InviteDialogComponent;
@@ -31,5 +32,16 @@ describe('InviteDialogComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should add e-mail', () => {
+    component.add({input: null, value: 'teste@teste.com'});
+    expect(component.maillist).toEqual([{address: 'teste@teste.com'}]);
+  });
+
+  it('should remove e-mail', () => {
+    component.add({input: null, value: 'teste@teste.com'});
+    component.remove(component.maillist[0]);
+    expect(component.maillist).toEqual([]);
   });
 });

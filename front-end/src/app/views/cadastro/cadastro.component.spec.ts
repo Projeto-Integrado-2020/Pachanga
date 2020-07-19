@@ -313,4 +313,10 @@ describe('CadastroComponent', () => {
     expect(errors[errorName]).toBeTruthy();
   });
 
+  it('should call cadastrar_se at SignUpWithPachanga', () => {
+    spyOn(component, 'cadastrar_se');
+    component.signUpWithPachanga('teste', 'teste', 'teste', 'teste', 'teste');
+    expect(component.cadastrar_se).toHaveBeenCalled();
+  });
+
 });

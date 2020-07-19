@@ -26,6 +26,7 @@ import { EditarFestaComponent } from '../editar-festa/editar-festa.component';
 import { NotFoundComponent } from '../not-found/not-found.component';
 
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
+import { MatDialog } from '@angular/material';
 
 
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 100000;
@@ -52,8 +53,10 @@ export function provideConfig() {
 describe('NavbarComponent', () => {
   let component: NavbarComponent;
   let fixture: ComponentFixture<NavbarComponent>;
+  let dialogSpy: MatDialog;
 
   beforeEach(async(() => {
+    dialogSpy = jasmine.createSpyObj('MatDialog', ['open']);
     TestBed.configureTestingModule({
       declarations: [
         NavbarComponent,
@@ -89,7 +92,8 @@ describe('NavbarComponent', () => {
         {
           provide: AuthServiceConfig,
           useFactory: provideConfig
-        }
+        },
+        { provide: MatDialog, useValue: dialogSpy },
       ]
     })
     .compileComponents();
@@ -103,6 +107,21 @@ describe('NavbarComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should open a dialog cadastro through a method', () => {
+    component.openDialogCadastro();
+    expect(dialogSpy.open).toHaveBeenCalled();
+  });
+
+  it('should open a dialog login through a method', () => {
+    component.openDialogLogin();
+    expect(dialogSpy.open).toHaveBeenCalled();
+  });
+
+  it('should open a dialog invite through a method', () => {
+    component.openDialogPROVISORIO();
+    expect(dialogSpy.open).toHaveBeenCalled();
   });
 
 });

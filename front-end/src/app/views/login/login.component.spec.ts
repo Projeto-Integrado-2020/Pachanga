@@ -186,4 +186,10 @@ describe('LoginComponent', () => {
     expect(errors[errorName]).toBeFalsy();
   });
 
+  it('should call cadastrar_se at SignUpWithPachanga', () => {
+    spyOn(component, 'autenticar');
+    component.signInWithPachanga('teste', 'teste');
+    expect(component.autenticar).toHaveBeenCalled();
+  });
+
 });

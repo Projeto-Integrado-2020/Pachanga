@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SocialLoginBaseComponent } from '../social-login-base/social-login-base.component';
 import { FacebookLoginProvider, GoogleLoginProvider } from 'angular4-social-login';
 
-import { FormControl, Validators} from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
