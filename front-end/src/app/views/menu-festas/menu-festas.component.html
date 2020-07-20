@@ -38,7 +38,7 @@
                             <p><b>{{ 'FESTA.FIMDATA' | translate }}:</b> {{getDateFromDTF(festa.horarioFimFesta)}}</p>
                         </div>
                         <div class="texto">                        
-                            <p><b>{{ 'FESTA.MEMBERS' | translate }}:</b> 1 </p>
+                            <p><b>{{ 'FESTA.MEMBERS' | translate }}:</b> {{festa.quantidadeParticipantes}} </p>
                             <p><b>{{ 'FESTA.ENDERECO' | translate }}:</b> {{festa.codEnderecoFesta}}</p>
                             <p><b>{{ 'FESTA.INICIOHORA' | translate }}:</b> {{getTimeFromDTF(festa.horarioInicioFesta)}}</p>
                             <p><b>{{ 'FESTA.FIMHORA' | translate }}:</b> {{getTimeFromDTF(festa.horarioFimFesta)}}</p> 

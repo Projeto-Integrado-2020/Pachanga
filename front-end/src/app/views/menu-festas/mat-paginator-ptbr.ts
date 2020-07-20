@@ -8,23 +8,27 @@ export class MatPaginatorPtBr extends MatPaginatorIntl {
   itemsPerPageLabel = 'Itens por página';
   nextPageLabel     = 'Próxima página';
   previousPageLabel = 'Página anterior';
-
-  /*
-  const ipp: string;
-  const np: string;
-  const pp: string;
-
-  this.translate.get('PAGINATOR.ITEMSPPAGE').subscribe((translated: string) => {
-    ipp = translated;
-  });
-
-  constructor(@Inject(TranslateService) private translate: TranslateService) {
+/*
+  constructor(@Inject(TranslateService) private readonly translate: TranslateService) {
     super();
   }
-*/
+
+  getPaginatorIntl(): MatPaginatorIntl {
+    // tslint:disable-next-line: new-parens
+    const paginatorIntl = new MatPaginatorIntl;
+    paginatorIntl.itemsPerPageLabel = this.translate.instant('PAGINATOR.ITENSPPAGE');
+    paginatorIntl.nextPageLabel = this.translate.instant('PAGINATOR.NEXTPAGE');
+    paginatorIntl.previousPageLabel = this.translate.instant('PAGINATOR.PREVIOUSPAGE');
+    paginatorIntl.getRangeLabel = this.getRangeLabel.bind(this);
+
+    return paginatorIntl;
+
+  }
+  */
+
   getRangeLabel = (page, pageSize, length) => {
     if (length === 0 || pageSize === 0) {
-      return '0 de ' + length;
+      return '0 de ' /*this.translate.instant('PAGINATOR.OF')*/ + length;
     }
     length = Math.max(length, 0);
     const startIndex = page * pageSize;
@@ -32,7 +36,7 @@ export class MatPaginatorPtBr extends MatPaginatorIntl {
     const endIndex = startIndex < length ?
       Math.min(startIndex + pageSize, length) :
       startIndex + pageSize;
-    return startIndex + 1 + ' - ' + endIndex + ' de ' + length;
+    return startIndex + 1 + ' - ' + endIndex + ' de '/* this.translate.instant('PAGINATOR.OF') */ + length;
   }
 
 }

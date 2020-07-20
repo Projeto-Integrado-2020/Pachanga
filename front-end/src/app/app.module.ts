@@ -7,7 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CustomMaterialModule } from './views/material/material.module';
 
 // Imports para a ttradução da página
-import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
@@ -144,6 +144,12 @@ export function provideConfig() {
       provide: MatPaginatorIntl,
       useClass: MatPaginatorPtBr
     }
+    /* Tentativa de solucao para traducao do paginator com ngx-translate
+    {
+      provide: MatPaginatorIntl, deps: [TranslateService],
+      useFactory:  (translateService: TranslateService) => new MatPaginatorPtBr(translateService).getPaginatorIntl()
+    }
+    */
   ],
   bootstrap: [AppComponent]
 })
