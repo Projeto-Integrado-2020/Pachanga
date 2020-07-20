@@ -98,7 +98,7 @@ public class FestaController {
 	@GetMapping(path = "/festaUnica")
 	public ResponseEntity<Object> getFesta(@RequestParam(required = true)int idFesta){
 		
-		try {
+		try {			
 			Festa festa = festaService.procurarFesta(idFesta);
 			List<UsuarioTO> usuarios = listUsuarioTO(festa);
 			return ResponseEntity.ok(festa == null ? null : FestaFactory.getFestaTO(festa, usuarios, false));

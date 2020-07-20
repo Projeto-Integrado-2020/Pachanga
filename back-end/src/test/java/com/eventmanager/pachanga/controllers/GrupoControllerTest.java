@@ -17,6 +17,7 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import com.eventmanager.pachanga.errors.ValidacaoException;
 import com.eventmanager.pachanga.services.GrupoService;
 
 @RunWith(SpringRunner.class)
@@ -61,6 +62,34 @@ public class GrupoControllerTest {
 		
 		assertEquals(HttpStatus.OK.value(), response.getStatus());
 		
+		assertEquals(expected, result.getResponse().getContentAsString());
+		
+	}
+	
+	@Test
+	public void addUserFestaExceptionTest() throws Exception{
+		String uri = "/grupo/addUserFesta";
+		
+		String expected = "addUserFesta";
+		
+		String emailsEnviados = "[\"luis_iruca@hotmail.com\",\"guga.72@hotmail.com\"]";
+		
+		//StringBuilder emailsRetorno = criacaoStringEmails(); 
+		
+		Mockito.when(grupoService.addUsuariosFesta(Mockito.anyList(), Mockito.anyInt())).thenThrow(new ValidacaoException(expected));
+		
+		RequestBuilder requestBuilder = MockMvcRequestBuilders
+				.post(uri)
+				.accept(MediaType.APPLICATION_JSON)
+				.param("codFesta", "14")
+				.content(emailsEnviados)
+				.contentType(MediaType.APPLICATION_JSON);
+		
+		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+		
+		MockHttpServletResponse response = result.getResponse();
+		
+		assertEquals(400, response.getStatus());
 		assertEquals(expected, result.getResponse().getContentAsString());
 		
 	}

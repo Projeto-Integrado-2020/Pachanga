@@ -39,7 +39,7 @@ public class GrupoServiceTest {
 	@MockBean
 	private EmailMensagem emailMensagem;
 	
-	private Grupo criacaoGrupo() {
+	public static Grupo criacaoGrupo() {
 		Grupo grupo = new Grupo();
 		grupo.setCodGrupo(1);
 		grupo.setNomeGrupo("CONVIDADO");
