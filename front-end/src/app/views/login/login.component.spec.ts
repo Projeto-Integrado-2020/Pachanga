@@ -192,4 +192,8 @@ describe('LoginComponent', () => {
     expect(component.autenticar).toHaveBeenCalled();
   });
 
+  it('should get f to get form controls', () => {
+    expect(component.f).toBe(component.form.controls);
+  });
+
 });

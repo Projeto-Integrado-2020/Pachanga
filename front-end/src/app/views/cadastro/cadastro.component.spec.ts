@@ -319,4 +319,8 @@ describe('CadastroComponent', () => {
     expect(component.cadastrar_se).toHaveBeenCalled();
   });
 
+  it('should get f to get form controls', () => {
+    expect(component.f).toBe(component.form.controls);
+  });
+
 });

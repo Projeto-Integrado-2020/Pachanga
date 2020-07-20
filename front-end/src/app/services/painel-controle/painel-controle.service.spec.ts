@@ -15,4 +15,19 @@ describe('PainelControleService', () => {
     const service: PainelControleService = TestBed.get(PainelControleService);
     expect(service).toBeTruthy();
   });
+
+  it('should set farol', () => {
+    const service: PainelControleService = TestBed.get(PainelControleService);
+    service.setFarol(true);
+    expect(service.getFarol()).toBeTruthy();
+    service.setFarol(false);
+    expect(service.getFarol()).toBeFalsy();
+  });
+
+  it('should get farol', () => {
+    const service: PainelControleService = TestBed.get(PainelControleService);
+    expect(service.getFarol()).toBeFalsy();
+    service.setFarol(true);
+    expect(service.getFarol()).toBeTruthy();
+  });
 });
