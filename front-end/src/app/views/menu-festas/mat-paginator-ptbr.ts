@@ -36,7 +36,7 @@ export class MatPaginatorPtBr extends MatPaginatorIntl {
     const endIndex = startIndex < length ?
       Math.min(startIndex + pageSize, length) :
       startIndex + pageSize;
-    return startIndex + 1 + ' - ' + endIndex + ' de '/* this.translate.instant('PAGINATOR.OF') */ + length;
+    return startIndex + 1 + ' - ' + endIndex + ' de ' /* this.translate.instant('PAGINATOR.OF') */ + length;
   }
 
 }

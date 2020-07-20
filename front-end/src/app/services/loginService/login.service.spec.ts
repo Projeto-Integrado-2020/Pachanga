@@ -52,42 +52,4 @@ describe('LoginService', () => {
     service.openErrorDialog('teste');
     expect(dialogSpy.open).toHaveBeenCalled();
   });
-
-  it('should setUsuarioAutenticado', () => {
-    const service: LoginService = TestBed.get(LoginService);
-    service.finalizarSessao();
-    service.setUsuarioAutenticado(true);
-    expect(service.getUsuarioAutenticado()).toBeTruthy();
-    service.setUsuarioAutenticado(false);
-    expect(service.getUsuarioAutenticado()).toBeFalsy();
-  });
-
-  it('should getusuarioInfo', () => {
-    const service: LoginService = TestBed.get(LoginService);
-    service.finalizarSessao();
-    expect(service.getUsuarioAutenticado()).toBeFalsy();
-
-    service.setUsuarioAutenticado(true);
-    expect(service.getUsuarioAutenticado()).toBeTruthy();
-  });
-
-  it('should setusuarioInfo', () => {
-    const service: LoginService = TestBed.get(LoginService);
-    service.finalizarSessao();
-    const json = {nome: 'teste', dtNasc: '2020-02-01T12:00:00'};
-    const jsonMod = {nome: 'teste', dtNasc: '2020-02-01'};
-    service.setusuarioInfo(json);
-    expect(service.getusuarioInfo()).toEqual(jsonMod);
-  });
-
-  it('should getusuarioInfo', () => {
-    const service: LoginService = TestBed.get(LoginService);
-    service.finalizarSessao();
-    expect(service.getusuarioInfo()).toBeFalsy();
-
-    const json = {nome: 'teste', dtNasc: '2020-02-01T12:00:00'};
-    const jsonMod = {nome: 'teste', dtNasc: '2020-02-01'};
-    service.setusuarioInfo(json);
-    expect(service.getusuarioInfo()).toEqual(jsonMod);
-  });
 });
