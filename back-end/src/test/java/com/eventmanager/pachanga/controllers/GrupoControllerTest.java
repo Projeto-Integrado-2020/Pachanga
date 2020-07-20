@@ -74,8 +74,6 @@ public class GrupoControllerTest {
 		
 		String emailsEnviados = "[\"luis_iruca@hotmail.com\",\"guga.72@hotmail.com\"]";
 		
-		//StringBuilder emailsRetorno = criacaoStringEmails(); 
-		
 		Mockito.when(grupoService.addUsuariosFesta(Mockito.anyList(), Mockito.anyInt())).thenThrow(new ValidacaoException(expected));
 		
 		RequestBuilder requestBuilder = MockMvcRequestBuilders

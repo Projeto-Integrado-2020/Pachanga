@@ -99,9 +99,13 @@ public class FestaController {
 	public ResponseEntity<Object> getFesta(@RequestParam(required = true)int idFesta){
 		
 		try {			
+			FestaTO festaTo = null;
 			Festa festa = festaService.procurarFesta(idFesta);
-			List<UsuarioTO> usuarios = listUsuarioTO(festa);
-			return ResponseEntity.ok(festa == null ? null : FestaFactory.getFestaTO(festa, usuarios, false));
+			if(festa != null) {
+				List<UsuarioTO> usuarios = listUsuarioTO(festa);
+				festaTo = FestaFactory.getFestaTO(festa, usuarios, false);
+			}
+			return ResponseEntity.ok(festaTo);
 		}catch (ValidacaoException e) {
 			return ResponseEntity.status(400).body(e.getMessage());
 		}

@@ -185,7 +185,7 @@ public class FestaServiceTest {
 			retorno = null;
 		};
 			
-		assertEquals(retorno, null);
+		assertEquals(null, retorno);
 	}
 	
 	
@@ -250,7 +250,6 @@ public class FestaServiceTest {
 
 		festaService.deleteFesta(festaTO.getCodFesta(), idUser);
 		
-		assertEquals(true, true);  //não tem retorno no festaService.deleteFesta para qualquer assert, esse teste mais verifica se não quebra msm
 	}
 	
 //update Festa__________________________________________________________________________________________________________________________________________________
@@ -319,7 +318,7 @@ public class FestaServiceTest {
 			retorno = null;
 		};
 
-		assertEquals(retorno, null);
+		assertEquals(null, retorno);
 	
 	}
 	
@@ -354,7 +353,7 @@ public class FestaServiceTest {
 			retorno = null;
 		};
 
-		assertEquals(retorno, null);
+		assertEquals(null, retorno);
 	}
 	
 	@Test
@@ -393,7 +392,7 @@ public class FestaServiceTest {
 			retorno = null;
 		};
 
-		assertEquals(retorno, null);
+		assertEquals(null, retorno);
 	}
 	
 	@Test
@@ -432,7 +431,7 @@ public class FestaServiceTest {
 			retorno = null;
 		};
 
-		assertEquals(retorno, null);
+		assertEquals(null, retorno);
 	}
 	
 	@Test
@@ -470,7 +469,7 @@ public class FestaServiceTest {
 			retorno = null;
 		};
 
-		assertEquals(retorno, null);
+		assertEquals(null, retorno);
 	}
 	
 	@Test
@@ -511,7 +510,7 @@ public class FestaServiceTest {
 			retorno = null;
 		};
 
-		assertEquals(retorno, null);
+		assertEquals(null, retorno);
 	}
 	
 //procurar festa____________________________________________________________________________________________________________________________________
