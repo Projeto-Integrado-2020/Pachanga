@@ -27,6 +27,7 @@ import { NotFoundComponent } from '../not-found/not-found.component';
 
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 import { MatDialog } from '@angular/material';
+import { CriarGrupoComponent } from '../criar-grupo/criar-grupo.component';
 
 
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 100000;
@@ -69,7 +70,8 @@ describe('NavbarComponent', () => {
         FestaPainelControleComponent,
         CriarFestaComponent,
         EditarFestaComponent,
-        NotFoundComponent
+        NotFoundComponent,
+        CriarGrupoComponent
        ],
       imports: [
         CustomMaterialModule,

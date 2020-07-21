@@ -7,6 +7,7 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient } from '@angular/common/http';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { LoginService } from 'src/app/services/loginService/login.service';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -36,6 +37,8 @@ describe('InfoCompleteComponent', () => {
 
   beforeEach(() => {
     fixture = TestBed.createComponent(InfoCompleteComponent);
+    const service: LoginService = TestBed.get(LoginService);
+    service.usuarioInfo = {sexo: null, dtNasc: null};
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

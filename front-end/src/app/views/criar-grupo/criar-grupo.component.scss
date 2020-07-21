@@ -1,0 +1,30 @@
+@import '../material/paleta.scss';
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  border: 0;
+}
+
+.main-container {
+    top: 64px;
+    max-width: 1140px;
+    height: calc(100vh - 64px);
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 0 2rem 0 2rem;
+}
+
+header {
+    display: flex;
+    margin-top: 2rem;
+}
+
+.title {
+    font-size: 1.8rem;
+    font-weight: lighter;
+    width: 100%;
+    color: $color-primary;
+}

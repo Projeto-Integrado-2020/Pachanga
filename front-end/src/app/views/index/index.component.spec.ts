@@ -23,6 +23,7 @@ import { NotFoundComponent } from '../not-found/not-found.component';
 
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 import { LoginService } from 'src/app/services/loginService/login.service';
+import { CriarGrupoComponent } from '../criar-grupo/criar-grupo.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -45,7 +46,8 @@ describe('IndexComponent', () => {
         FestaPainelControleComponent,
         CriarFestaComponent,
         EditarFestaComponent,
-        NotFoundComponent
+        NotFoundComponent,
+        CriarGrupoComponent
       ],
       imports: [
         CustomMaterialModule,
@@ -69,13 +71,15 @@ describe('IndexComponent', () => {
   beforeEach(() => {
     jasmine.DEFAULT_TIMEOUT_INTERVAL = 100000;
     fixture = TestBed.createComponent(IndexComponent);
+    const service: LoginService = TestBed.get(LoginService);
+    service.usuarioInfo = {sexo: null, dtNasc: null};
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
   it('should create', () => {
     const service: LoginService = TestBed.get(LoginService);
-    service.usuarioInfo = {nomeUser: 'Teste', nomesexo: null, dtNasc: null};
+    service.usuarioInfo = {nomeUser: 'Teste', sexo: null, dtNasc: null};
     expect(component).toBeTruthy();
   });
 });

@@ -8,6 +8,7 @@ import { FestaPainelControleComponent } from './views/festa-painel-controle/fest
 import { CriarFestaComponent } from './views/criar-festa/criar-festa.component';
 import { EditarFestaComponent } from './views/editar-festa/editar-festa.component';
 import { NotFoundComponent } from './views/not-found/not-found.component';
+import { CriarGrupoComponent } from './views/criar-grupo/criar-grupo.component';
 
 const routes: Routes = [
 
@@ -47,6 +48,12 @@ const routes: Routes = [
     },
 
     {
+      path: 'festas/:festa&:id/membros/criar-grupo',
+      component: CriarGrupoComponent,
+      canActivate: [AuthGuard]
+    },
+
+    { // Tanto esta path quanto a '*' devem ser as últimas.
       path: '404',
       component: NotFoundComponent
     },
