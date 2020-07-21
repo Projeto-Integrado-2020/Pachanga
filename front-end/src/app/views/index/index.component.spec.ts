@@ -22,6 +22,7 @@ import { EditarFestaComponent } from '../editar-festa/editar-festa.component';
 import { NotFoundComponent } from '../not-found/not-found.component';
 
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
+import { LoginService } from 'src/app/services/loginService/login.service';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -73,6 +74,8 @@ describe('IndexComponent', () => {
   });
 
   it('should create', () => {
+    const service: LoginService = TestBed.get(LoginService);
+    service.usuarioInfo = {nomeUser: 'Teste', nomesexo: null, dtNasc: null};
     expect(component).toBeTruthy();
   });
 });

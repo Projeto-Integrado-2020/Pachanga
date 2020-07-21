@@ -102,6 +102,7 @@ describe('NavbarComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(NavbarComponent);
     component = fixture.componentInstance;
+    component.loginService.usuarioInfo = {nomeUser: 'Teste', nomesexo: null, dtNasc: null};
     fixture.detectChanges();
   });
 

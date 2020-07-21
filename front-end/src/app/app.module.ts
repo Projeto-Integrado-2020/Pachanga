@@ -57,6 +57,7 @@ import { MatPaginatorIntl } from '@angular/material';
 import { MatPaginatorPtBr } from './views/menu-festas/mat-paginator-ptbr';
 import { NotFoundComponent } from './views/not-found/not-found.component';
 import { DeletarFestaComponent } from './views/deletar-festa/deletar-festa.component';
+import { CriarGrupoComponent } from './views/criar-grupo/criar-grupo.component';
 
 const config = new AuthServiceConfig([
   {
@@ -92,7 +93,8 @@ export function provideConfig() {
     InviteDialogComponent,
     EditarFestaComponent,
     NotFoundComponent,
-    DeletarFestaComponent
+    DeletarFestaComponent,
+    CriarGrupoComponent
   ],
   entryComponents: [
     LoginComponent,

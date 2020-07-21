@@ -41,11 +41,13 @@ describe('InfoCompleteComponent', () => {
   });
 
   it('should create', () => {
+    component.loginService.usuarioInfo = {sexo: null, dtNasc: null};
     expect(component).toBeTruthy();
     expect(component.mensagem).toBeTruthy();
   });
 
   it('should close message', () => {
+    component.loginService.usuarioInfo = {sexo: null, dtNasc: null};
     component.fecharMensagem();
     expect(component.mensagem).toBeFalsy();
   });
