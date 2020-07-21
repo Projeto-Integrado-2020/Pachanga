@@ -15,7 +15,10 @@
         (page)="onPageChange($event)"
         class="paginator"
     >
-    </mat-paginator>    
+    </mat-paginator>
+    <div class="nenhumafesta-msg" *ngIf="nenhumaFesta === true">
+        <p>Você não tem nenhuma festa associada a esta conta. <a routerLink="../criar-festa"   style="text-decoration: underline">Clique aqui para criar uma festa</a>.</p>
+    </div>
     <div *ngFor="let festa of festasMostradas" class="lista-festas">
         <a routerLink="{{createUrl(festa.nomeFesta, festa.codFesta)}}">
             <mat-card class="festa-tab">

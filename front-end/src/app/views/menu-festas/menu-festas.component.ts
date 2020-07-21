@@ -16,6 +16,7 @@ export class MenuFestasComponent implements OnInit {
   pageSize = 5;
   festasMostradas = [];
   pageSizeOptions: number[] = [5, 10, 25, 100];
+  nenhumaFesta = false;
 
   // MatPaginator Output
   pageEvent: PageEvent;
@@ -26,8 +27,10 @@ export class MenuFestasComponent implements OnInit {
     this.menuFestasService.getFestas(this.loginService.usuarioInfo.codUsuario).subscribe((resp: any) => {
       this.menuFestasService.setFarol(false);
       this.festas = resp;
-      console.log(resp);
 
+      if (this.festas.length === 0) {
+        this.nenhumaFesta = true;
+      }
       this.length = this.festas.length;
       this.festasMostradas = this.festas.slice(0, 5);
     });
