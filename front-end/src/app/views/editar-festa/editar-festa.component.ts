@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { EditarFestaService } from 'src/app/services/editar-festa/editar-festa.service';
+import { GetFestaService } from 'src/app/services/get-festa/get-festa.service';
 import { SuccessDialogComponent } from '../../views/success-dialog/success-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
@@ -13,7 +14,7 @@ import { Router } from '@angular/router';
 export class EditarFestaComponent implements OnInit {
 
   constructor(public formBuilder: FormBuilder, public festaService: EditarFestaService,
-              public router: Router, public dialog: MatDialog) { }
+              public router: Router, public dialog: MatDialog, public getFestaService: GetFestaService) { }
 
   public form: FormGroup;
   minDate: Date;
@@ -68,7 +69,7 @@ export class EditarFestaComponent implements OnInit {
   }
 
   callServiceGet(idFesta) {
-    this.festaService.getFesta(idFesta).subscribe((resp: any) => {
+    this.getFestaService.acessarFesta(idFesta).subscribe((resp: any) => {
       this.festa = resp;
       this.setFormValues();
     });

@@ -4,7 +4,7 @@ import { InviteDialogComponent } from '../invite-dialog/invite-dialog.component'
 import { DeletarFestaComponent } from '../deletar-festa/deletar-festa.component';
 import { MatDialog, MatTableDataSource } from '@angular/material';
 import { TranslateService } from '@ngx-translate/core';
-import { PainelControleService } from '../../services/painel-controle/painel-controle.service';
+import { GetFestaService } from '../../services/get-festa/get-festa.service';
 import { Router } from '@angular/router';
 
 export interface TabelaMembros {
@@ -28,7 +28,7 @@ export class FestaPainelControleComponent implements OnInit {
   displayedColumns: string[] = ['membro', 'status', 'permissao', 'edit'];
   dataSource = new MatTableDataSource<TabelaMembros>(this.membros);
 
-  constructor(fb: FormBuilder, public dialog: MatDialog, private translate: TranslateService, public painelService: PainelControleService,
+  constructor(fb: FormBuilder, public dialog: MatDialog, private translate: TranslateService, public getFestaService: GetFestaService,
               public router: Router) {
     this.options = fb.group({
       bottom: 55,
@@ -45,8 +45,8 @@ export class FestaPainelControleComponent implements OnInit {
   ngOnInit() {
     let idFesta = this.router.url;
     idFesta = idFesta.substring(idFesta.indexOf('&') + 1, idFesta.indexOf('/', idFesta.indexOf('&')));
-    this.painelService.acessarFesta(idFesta).subscribe((resp: any) => {
-      this.painelService.setFarol(false);
+    this.getFestaService.acessarFesta(idFesta).subscribe((resp: any) => {
+      this.getFestaService.setFarol(false);
       this.festa = resp;
       this.festaNome = resp.nomeFesta;
       let usuario: any;

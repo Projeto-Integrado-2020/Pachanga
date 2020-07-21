@@ -215,5 +215,10 @@
         "MESSAGE": "Do you really want to delete the party",
         "CONFIRM": "Confirm",
         "CANCEL": "Cancel"
+    },
+
+    "GRUPO": {
+        "CREATEGROUP": "Create Permission Role",
+        "NAME": "Role Name"
     }
 }

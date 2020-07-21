@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 @Injectable({
   providedIn: 'root'
 })
-export class PainelControleService {
+export class GetFestaService {
 
   private readonly urlFesta = `${environment.URL_BACK}festa/festaUnica`;
 

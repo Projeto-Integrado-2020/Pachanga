@@ -215,5 +215,13 @@
         "MESSAGE": "Você realmente deseja deletar a festa ",
         "CONFIRM": "Confirmar",
         "CANCEL": "Cancelar"
+    },
+
+    "GRUPO": {
+        "CREATEGROUP": "Criar Grupo de Permissão",
+        "NAME": "Nome do Grupo"
+    },
+
+    "PERMISSAO": {
     }
 }
