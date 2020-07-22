@@ -13,3 +13,13 @@ li {
 .example-chip-list {
   width: 100%;
 }
+
+.dialog {
+  max-height: 10rem;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+input {
+  width: 100%!important;
+}

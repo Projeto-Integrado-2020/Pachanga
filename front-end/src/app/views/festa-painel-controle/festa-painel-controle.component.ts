@@ -38,7 +38,7 @@ export class FestaPainelControleComponent implements OnInit {
 
   openDialogInvite() {
     this.dialog.open(InviteDialogComponent, {
-      width: '50rem',
+      width: '55rem',
       data: {
         idFesta: this.festa.codFesta,
         grupo: ''
