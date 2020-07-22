@@ -43,9 +43,7 @@ export class MenuFestasComponent implements OnInit {
 
   getDateFromDTF(date) {
     let conversion = date.split('T', 1);
-    console.log(conversion);
     conversion = conversion[0].split('-');
-    console.log(conversion);
     return conversion[2] + '/' + conversion[1] + '/' + conversion[0];
   }
 

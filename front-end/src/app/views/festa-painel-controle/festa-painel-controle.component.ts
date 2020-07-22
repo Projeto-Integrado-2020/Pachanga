@@ -22,7 +22,7 @@ export class FestaPainelControleComponent implements OnInit {
 
   public festaNome: string;
   options: FormGroup;
-  private festa: any;
+  public festa: any;
 
   membros: TabelaMembros[] = [];
   displayedColumns: string[] = ['membro', 'status', 'permissao', 'edit'];
@@ -38,7 +38,11 @@ export class FestaPainelControleComponent implements OnInit {
 
   openDialogInvite() {
     this.dialog.open(InviteDialogComponent, {
-      width: '20rem',
+      width: '50rem',
+      data: {
+        idFesta: this.festa.codFesta,
+        grupo: ''
+      }
     });
   }
 

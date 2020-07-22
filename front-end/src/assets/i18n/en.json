@@ -72,7 +72,8 @@
         "TITULO": "Success!",
         "ALTERSUC": "Your data has been successfully changed",
         "FESTDELE": "Party successfully deleted",
-        "FESTAALT": "The party data has been successfully changed"
+        "FESTAALT": "The party data has been successfully changed",
+        "MEMBROAD": "Members invited"
     },
 
     "PERFIL":{
@@ -220,5 +221,11 @@
     "GRUPO": {
         "CREATEGROUP": "Create Permission Role",
         "NAME": "Role Name"
+    },
+
+    "CONVITE": {
+        "TITULO": "Invite the buddies",
+        "ENVIARCONVITE": "Send invite",
+        "LISTAEMAIL": "E-mails list"
     }
 }
