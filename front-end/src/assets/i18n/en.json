@@ -227,5 +227,9 @@
         "TITULO": "Invite the buddies",
         "ENVIARCONVITE": "Send invite",
         "LISTAEMAIL": "E-mails list"
+    },
+
+    "UTILS": {
+        "RETURN": "Return"
     }
 }

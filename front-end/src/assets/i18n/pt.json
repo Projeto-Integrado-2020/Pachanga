@@ -227,5 +227,9 @@
         "TITULO": "Convidar a rapaziada",
         "ENVIARCONVITE": "Enviar convite",
         "LISTAEMAIL": "Lista de e-mails"
+    },
+
+    "UTILS": {
+        "RETURN": "Retornar"
     }
 }
