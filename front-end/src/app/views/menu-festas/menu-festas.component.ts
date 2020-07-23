@@ -6,8 +6,7 @@ import {PageEvent} from '@angular/material/paginator';
 @Component({
   selector: 'app-menu-festas',
   templateUrl: './menu-festas.component.html',
-  styleUrls: ['./menu-festas.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  styleUrls: ['./menu-festas.component.scss']
 })
 export class MenuFestasComponent implements OnInit {
 
