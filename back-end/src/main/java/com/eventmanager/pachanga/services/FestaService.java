@@ -28,20 +28,20 @@ public class FestaService {
 
 	@Autowired
 	private GrupoRepository grupoRepository;
-	
+
 	public List<Festa> procurarFestas(){
 		return festaRepository.findAll();
 	}
 
 	public List<Festa> procurarFestasPorUsuario(int idUser){
+		this.validarUsuarioFesta(idUser, 0);
 		Usuario usuario = usuarioRepository.findById(idUser);
-		validarUsuarioFesta(usuario);
 		return festaRepository.findByUsuarios(usuario.getCodUsuario());
 	}
 
 	public Festa addFesta(FestaTO festaTo, int idUser) {
+		this.validarUsuarioFesta(idUser, 0);
 		Usuario usuario = usuarioRepository.findById(idUser);
-		validarUsuarioFesta(usuario);
 		festaTo.setCodFesta(festaRepository.getNextValMySequence());
 		validarFesta(festaTo);
 		Festa festa =  FestaFactory.getFesta(festaTo);
@@ -52,9 +52,16 @@ public class FestaService {
 		return festa;
 	}
 
-	private void validarUsuarioFesta(Usuario usuario) {
+	private void validarUsuarioFesta(int idUsuario, int idFesta) {
+		Usuario usuario = usuarioRepository.findById(idUsuario);
 		if(usuario == null) {
 			throw new ValidacaoException("USERNFOU");
+		}
+		if(idFesta != 0) {
+			usuario = usuarioRepository.findBycodFestaAndUsuario(idFesta, idUsuario);
+			if(usuario == null) {
+				throw new ValidacaoException("USERNFES");// usuário não relacionado a festa
+			}
 		}
 	}
 
@@ -101,11 +108,26 @@ public class FestaService {
 		}
 	}
 
-	public Festa procurarFesta(int idFesta) {
+	public Festa procurarFesta(int idFesta, int idUsuario) {
+		this.validarUsuarioFesta(idUsuario, idFesta);
 		return festaRepository.findByCodFesta(idFesta);
 	}
 
 	public String funcionalidadeFesta(int codFesta, int codUsuario) {
 		return grupoRepository.findFuncionalidade(codFesta, codUsuario);
+	}
+
+	public Festa mudarStatusFesta(int idFesta, String statusFesta, int idUsuario) {
+		if(!"I".equals(statusFesta) && !"F".equals(statusFesta)) {
+			throw new ValidacaoException("STATERRA"); //status errado
+		}
+		this.validarUsuarioFesta(idUsuario, idFesta);
+		Festa festa = festaRepository.findByCodFesta(idFesta);
+		if(statusFesta.equals(festa.getStatusFesta())) {
+			throw new ValidacaoException("STANMUDA");// status não foi alterado
+		}
+		festaRepository.updateStatusFesta(statusFesta, idFesta);
+		festa.setStatusFesta(statusFesta);
+		return festa;
 	}
 }

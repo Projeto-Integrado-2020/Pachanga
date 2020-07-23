@@ -1,6 +1,8 @@
 package com.eventmanager.pachanga.controllers;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.doThrow;
 
 import java.time.LocalDateTime;
 import java.time.Month;
@@ -22,10 +24,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.doNothing;
 
 import com.eventmanager.pachanga.domains.Festa;
+import com.eventmanager.pachanga.domains.Usuario;
 import com.eventmanager.pachanga.dtos.FestaTO;
 import com.eventmanager.pachanga.errors.ValidacaoException;
 import com.eventmanager.pachanga.services.FestaService;
@@ -52,7 +53,6 @@ public class FestaControllerTest {
 		festaTest.setCodFesta(2);
 		festaTest.setCodEnderecoFesta("https//:minhacasa.org");
 		festaTest.setDescOrganizador("sou demente");
-		//festaTest.setGrupos(grupos);
 		festaTest.setHorarioInicioFesta(LocalDateTime.of(2016, Month.JUNE, 22, 19, 10));
 		festaTest.setHorarioFimFesta(LocalDateTime.of(2016, Month.JUNE, 23, 19, 10));
 		festaTest.setNomeFesta("festao");
@@ -135,8 +135,6 @@ public class FestaControllerTest {
 	@Test
 	public void adicionarFestaExceptionTest() throws Exception {
 		String festaJson = "{\"codFesta\":\"2\",\"nomeFesta\":\"festao\",\"statusFesta\":\"I\",\"organizador\":\"Joao Neves\",\"horarioInicioFesta\":\"2016-06-22T19:10:00\",\"horarioFimFesta\":\"2016-06-23T19:10:00\",\"descricaoFesta\":\"Bugago\",\"codEnderecoFesta\":\"https//:minhacasa.org\",\"descOrganizador\":\"sou demente\"}";
-
-		//Festa festaTest = festaTest();
 		 
 		String uri = "/festa/adicionar";
 
@@ -219,8 +217,6 @@ public class FestaControllerTest {
 	
 	@Test
 	public void listarFestaProcurarFestasPorUsuarioExceptionTest() throws Exception {
-		//List<Festa> festas = colecaoDeFestas(2);
-		//List<Festa> festasAll = colecaoDeFestas(4);
 
 		Mockito.when(festaService.procurarFestasPorUsuario(Mockito.any(Integer.class))).thenThrow(new ValidacaoException("procurarFestasPorUsuario"));
 		Mockito.when(festaService.procurarFestas()).thenThrow(new ValidacaoException("procurarFestas"));;
@@ -247,9 +243,7 @@ public class FestaControllerTest {
 	
 	@Test
 	public void listarFestaProcurarFestasExceptionTest() throws Exception {
-		//List<Festa> festas = colecaoDeFestas(2);
-		//List<Festa> festasAll = colecaoDeFestas(4);
-
+		
 		Mockito.when(festaService.procurarFestasPorUsuario(Mockito.any(Integer.class))).thenThrow(new ValidacaoException("procurarFestasPorUsuario"));
 		Mockito.when(festaService.procurarFestas()).thenThrow(new ValidacaoException("procurarFestas"));
 		
@@ -271,21 +265,13 @@ public class FestaControllerTest {
 		assertEquals(expected, result.getResponse().getContentAsString());
 		
 	}
-	
-	//new ValidacaoException("2")	
-	
+		
 //deletar_____________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________	
 	
 	 
 	@Test
 	public void deletarFestaSucessoTest() throws Exception {
-		String uri = "/festa/delete";
-		
-		//Mockito.when(festaService.deleteFesta(Mockito.any(Integer.class), Mockito.any(Integer.class))).thenReturn(null);	
-		//Mockito.doReturn(null)
-	      // .when(festaService)
-	     //  .deleteFesta(Mockito.any(Integer.class), Mockito.any(Integer.class));
-	
+		String uri = "/festa/delete";	
 		
 		doNothing().when(festaService).deleteFesta(Mockito.any(Integer.class), Mockito.any(Integer.class));
 		
@@ -310,8 +296,6 @@ public class FestaControllerTest {
 		
 		String expected = "deleteException";
 		
-		//Mockito.when(festaService.deleteFesta(Mockito.any(Integer.class), Mockito.any(Integer.class))).thenThrow(new ValidacaoException("procurarFestas"));
-		//Mockito.doThrow(new Exception()).when(festaService.deleteFesta(Mockito.any(Integer.class), Mockito.any(Integer.class)));
 		doThrow(new ValidacaoException(expected)).when(festaService).deleteFesta(Mockito.any(Integer.class), Mockito.any(Integer.class));
 
 		
@@ -367,9 +351,7 @@ public class FestaControllerTest {
 		String festaJson = "{\"codFesta\":\"2\",\"nomeFesta\":\"festao\",\"statusFesta\":\"I\",\"organizador\":\"Joao Neves\",\"horarioInicioFesta\":\"2016-06-22T19:10:00\",\"horarioFimFesta\":\"2016-06-23T19:10:00\",\"descricaoFesta\":\"Bugago\",\"codEnderecoFesta\":\"https//:minhacasa.org\",\"descOrganizador\":\"sou demente\"}";
 
 		String expected = "updateFesta";
-		
-		//Festa festaTest = festaTest();
-		 
+				 
 		String uri = "/festa/atualizar";
 
 		Mockito.when(festaService.updateFesta(Mockito.any(FestaTO.class), Mockito.any(Integer.class))).thenThrow(new ValidacaoException(expected));
@@ -402,13 +384,14 @@ public class FestaControllerTest {
 		
 		String uri = "/festa/festaUnica";
 
-		Mockito.when(festaService.procurarFesta(Mockito.any(Integer.class))).thenReturn(festaTest);
+		Mockito.when(festaService.procurarFesta(Mockito.any(Integer.class), Mockito.any(Integer.class))).thenReturn(festaTest);
 		Mockito.when(userService.getUsuariosFesta(Mockito.any(Integer.class))).thenReturn(UsuarioControllerTest.colecaoDeUsuario(2));
 
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.get(uri)
 				.accept(MediaType.APPLICATION_JSON)
 				.param("idFesta", "2")
+				.param("idUsuario", "1")
 				.contentType(MediaType.APPLICATION_JSON);
 		
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
@@ -426,13 +409,12 @@ public class FestaControllerTest {
 	
 	@Test
 	public void getFestaNaoEncontradaTest() throws Exception {
-		//Festa festaTest = festaTest();
 		
 		String uri = "/festa/festaUnica";
 		
 		String expected = "";
 		
-		Mockito.when(festaService.procurarFesta(Mockito.any(Integer.class))).thenReturn(null);
+		Mockito.when(festaService.procurarFesta(Mockito.any(Integer.class), Mockito.any(Integer.class))).thenReturn(null);
 		Mockito.when(userService.getUsuariosFesta(Mockito.any(Integer.class))).thenReturn(UsuarioControllerTest.colecaoDeUsuario(2));
 
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
@@ -450,13 +432,12 @@ public class FestaControllerTest {
 	
 	@Test
 	public void getFestaExceptionTest() throws Exception {
-		//Festa festaTest = festaTest();
 		
-		String expected = "Exception";
+		String expected = "";
 		
 		String uri = "/festa/festaUnica";
 
-		Mockito.when(festaService.procurarFesta(Mockito.any(Integer.class))).thenThrow(new ValidacaoException(expected));
+		Mockito.when(festaService.procurarFesta(Mockito.any(Integer.class), Mockito.any(Integer.class))).thenThrow(new ValidacaoException(expected));
 		Mockito.when(userService.getUsuariosFesta(Mockito.any(Integer.class))).thenThrow(new ValidacaoException(expected));
 
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
@@ -473,6 +454,66 @@ public class FestaControllerTest {
 		
 		assertEquals(400, response.getStatus());
 		assertEquals(expected, result.getResponse().getContentAsString());
+	}
+	
+	//alterar status festa________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+	@Test
+	public void alterarStatusFestaSucesso() throws Exception{
+				
+		String uri = "/festa/festaMudancaStatus";
+		
+		List<Usuario> usuarios = new ArrayList<Usuario>();
+		usuarios.add(UsuarioControllerTest.usuarioTest());
+		
+		Mockito.when(festaService.mudarStatusFesta(Mockito.any(Integer.class), Mockito.any(String.class), Mockito.any(Integer.class))).thenReturn(this.festaTest());
+		
+		Mockito.when(userService.getUsuariosFesta(Mockito.any(Integer.class))).thenReturn(usuarios);
+		
+		Mockito.when(userService.funcionalidadeUsuarioFesta(Mockito.anyInt(), Mockito.anyInt())).thenReturn("ORGANIZADOR");
+		
+		RequestBuilder requestBuilder = MockMvcRequestBuilders
+				.post(uri)
+				.accept(MediaType.APPLICATION_JSON)
+				.param("idFesta", "2")
+				.param("idUsuario", "1")
+				.param("statusFesta", "I")
+				.contentType(MediaType.APPLICATION_JSON);
+		
+		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+		
+		MockHttpServletResponse response = result.getResponse();
+		
+		assertEquals(HttpStatus.OK.value(), response.getStatus());		
+	}
+	
+	@Test
+	public void alterarStatusFestaErro() throws Exception{
+		
+		String expected = "teste";
+		
+		String uri = "/festa/festaMudancaStatus";
+		
+		Mockito.when(festaService.mudarStatusFesta(Mockito.any(Integer.class), Mockito.any(String.class), Mockito.any(Integer.class))).thenThrow(new ValidacaoException("teste"));
+		
+		Mockito.when(userService.getUsuariosFesta(Mockito.any(Integer.class))).thenReturn(null);
+		
+		Mockito.when(userService.funcionalidadeUsuarioFesta(Mockito.anyInt(), Mockito.anyInt())).thenReturn(null);
+		
+		RequestBuilder requestBuilder = MockMvcRequestBuilders
+				.post(uri)
+				.accept(MediaType.APPLICATION_JSON)
+				.param("idFesta", "2")
+				.param("idUsuario", "1")
+				.param("statusFesta", "I")
+				.contentType(MediaType.APPLICATION_JSON);
+		
+		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+		
+		MockHttpServletResponse response = result.getResponse();
+		
+		assertEquals(400, response.getStatus());
+		assertEquals(expected, result.getResponse().getContentAsString());
+		
 	}
 	
 	

@@ -25,6 +25,7 @@ import com.eventmanager.pachanga.factory.FestaFactory;
 import com.eventmanager.pachanga.factory.UsuarioFactory;
 import com.eventmanager.pachanga.services.FestaService;
 import com.eventmanager.pachanga.services.UsuarioService;
+import com.sun.istack.Nullable;
 
 @Controller
 @RequestMapping("/festa")
@@ -33,7 +34,7 @@ public class FestaController {
 
 	@Autowired
 	private FestaService festaService;
-	
+
 	@Autowired
 	private UsuarioService usuarioService;
 
@@ -96,11 +97,11 @@ public class FestaController {
 
 	@ResponseBody
 	@GetMapping(path = "/festaUnica")
-	public ResponseEntity<Object> getFesta(@RequestParam(required = true)int idFesta){
-		
+	@Nullable
+	public ResponseEntity<Object> getFesta(@RequestParam(required = true)int idFesta, @RequestParam(required = true)int idUsuario){
 		try {			
 			FestaTO festaTo = null;
-			Festa festa = festaService.procurarFesta(idFesta);
+			Festa festa = festaService.procurarFesta(idFesta, idUsuario);
 			if(festa != null) {
 				List<UsuarioTO> usuarios = listUsuarioTO(festa);
 				festaTo = FestaFactory.getFestaTO(festa, usuarios, false);
@@ -111,10 +112,21 @@ public class FestaController {
 		}
 	}
 	
+	@ResponseBody
+	@PostMapping(path = "/festaMudancaStatus")
+	public ResponseEntity<Object> alterarStatusFesta(@RequestParam(required = true)int idFesta, @RequestParam(required = true)String statusFesta, @RequestParam(required = true)int idUsuario) {
+		try {
+			Festa festa = festaService.mudarStatusFesta(idFesta, statusFesta, idUsuario);
+			return ResponseEntity.ok(FestaFactory.getFestaTO(festa, this.listUsuarioTO(festa), false));//festa mudada com sucesso
+		} catch (ValidacaoException e) {
+			return ResponseEntity.status(400).body(e.getMessage());
+		}
+	}
+
 	private List<UsuarioTO> listUsuarioTO(Festa festa){
 		return usuarioService.getUsuariosFesta(festa.getCodFesta()).stream().map(u -> {
 			String funcionalidade = usuarioService.funcionalidadeUsuarioFesta(festa.getCodFesta(), u.getCodUsuario());
 			return UsuarioFactory.getUsuarioTO(u, funcionalidade);
-			}).collect(Collectors.toList());
+		}).collect(Collectors.toList());
 	}
 }
