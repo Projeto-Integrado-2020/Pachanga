@@ -13,6 +13,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { RouterModule } from '@angular/router';
 import { MatDialog } from '@angular/material';
+import { LoginService } from 'src/app/services/loginService/login.service';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -51,6 +52,8 @@ describe('FestaPainelControleComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(FestaPainelControleComponent);
     component = fixture.componentInstance;
+    const service: LoginService = TestBed.get(LoginService);
+    service.usuarioInfo = {codUsuario: '1'};
     fixture.detectChanges();
   });
 

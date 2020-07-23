@@ -2,12 +2,14 @@ import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { GetFestaService } from './get-festa.service';
 import { RouterModule } from '@angular/router';
+import { CustomMaterialModule } from '../../views/material/material.module';
 
-describe('PainelControleService', () => {
+describe('GetFestaService', () => {
   beforeEach(() => TestBed.configureTestingModule({
     imports: [
       HttpClientTestingModule,
-      RouterModule.forRoot([])
+      RouterModule.forRoot([]),
+      CustomMaterialModule
     ]
   }));
 

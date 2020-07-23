@@ -10,6 +10,8 @@ import { CriarGrupoComponent } from './criar-grupo.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { LoginService } from 'src/app/services/loginService/login.service';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -44,6 +46,8 @@ describe('CriarGrupoComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(CriarGrupoComponent);
     component = fixture.componentInstance;
+    const service: LoginService = TestBed.get(LoginService);
+    service.usuarioInfo = {codUsuario: '1'};
     fixture.detectChanges();
   });
 
