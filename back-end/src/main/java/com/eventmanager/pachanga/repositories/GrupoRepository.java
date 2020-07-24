@@ -7,12 +7,10 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.eventmanager.pachanga.domains.Grupo;
 
 @Repository
-@Transactional
 public interface GrupoRepository extends CrudRepository<Grupo, Integer>{
 	
 	@Query(value = "SELECT NEXTVAL('seq_grupo');", nativeQuery = true)
@@ -34,6 +32,10 @@ public interface GrupoRepository extends CrudRepository<Grupo, Integer>{
 	@Query(value = "SELECT g.nomeGrupo FROM Grupo g JOIN g.usuarios u WHERE u.codUsuario = :codUsuario AND g.festa.codFesta = :codFesta")
 	public String findFuncionalidade(@Param("codFesta")int codFesta,@Param("codUsuario") int codUsuario);
 	
-	@Query(value = "SELECT g FROM Grupo g JOIN g.festa f WHERE f.codFesta = :codFesta AND g.nomeGrupo = 'CONVIDADO' ")
-	public Grupo findGrupoConvidadoFesta(@Param("codFesta")int codFesta);
+	@Query(value = "SELECT g FROM Grupo g JOIN g.usuarios u JOIN g.permissoes p JOIN g.festa f WHERE u.codUsuario = :codUsuario AND f.codFesta = :codFesta AND p.codPermissao = :codPermissao")
+	public Grupo findGrupoPermissaoUsuario(int codFesta, int codUsuario, int codPermissao);
+	
+	@Modifying
+	@Query(value = "INSERT INTO permissao_x_grupo(cod_grupo, cod_permissao) VALUES(:codGrupo, :codPermissao)", nativeQuery = true)
+	public void saveGrupoPermissao(@Param("codGrupo")int codGrupo, @Param("codPermissao")int codPermissao);
 }

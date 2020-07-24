@@ -26,6 +26,7 @@ import com.eventmanager.pachanga.dtos.UsuarioTO;
 import com.eventmanager.pachanga.errors.ValidacaoException;
 import com.eventmanager.pachanga.repositories.FestaRepository;
 import com.eventmanager.pachanga.repositories.GrupoRepository;
+import com.eventmanager.pachanga.repositories.PermissaoRepository;
 //import com.eventmanager.pachanga.repositories.UsuarioRepository;
 import com.eventmanager.pachanga.repositories.UsuarioRepository;
 
@@ -45,6 +46,9 @@ public class FestaServiceTest {
 
 	@MockBean
 	private GrupoRepository grupoRepository;
+	
+	@MockBean
+	private PermissaoRepository permissaoRepository;
 
 
 
@@ -244,6 +248,7 @@ public class FestaServiceTest {
 
 		Mockito.when(festaRepository.findFestaByUsuarioResponsavel(idUser, festaTO.getCodFesta())).thenReturn(festaTest);
 		Mockito.when(grupoRepository.findGruposFesta(festaTO.getCodFesta())).thenReturn(grupos);
+		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(grupo1);
 
 		doNothing().when(grupoRepository).deleteUsuarioGrupo(Mockito.any(Integer.class));
 		doNothing().when(grupoRepository).deleteAll(Mockito.<Grupo>anyList());
@@ -279,6 +284,8 @@ public class FestaServiceTest {
 		doNothing().when(grupoRepository).deleteAll(Mockito.<Grupo>anyList());
 
 		Mockito.when(festaRepository.save(festaTest)).thenReturn(festaTest2);
+		
+		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(new Grupo());
 
 		Festa retorno = festaService.updateFesta(festaTO, idUser);
 
@@ -286,6 +293,43 @@ public class FestaServiceTest {
 		//assertFalse(retorno.getDescricaoFesta().equals(festaTest.getDescricaoFesta()));
 		assertEquals(retorno.getCodEnderecoFesta(), festaTest.getCodEnderecoFesta());
 		assertEquals(retorno.getOrganizador(), festaTest.getOrganizador());
+	}
+	
+	@Test
+	public void updateFestaSemPermissaoTest() throws Exception {
+		FestaTO festaTO = festaTOTest();
+		Festa festaTest = festaTest();
+
+		Festa festaTest2 = festaTest();
+		festaTest2.setNomeFesta("loucura");
+		festaTest2.setDescricaoFesta("5x mais adrenalina!!!");
+
+		int idUser = 1;
+
+		Usuario usuario1 = UsuarioServiceTest.usuarioTest();
+		usuario1.setCodUsuario(idUser);
+		usuario1.setNomeUser("Aires_qualquer_e_ficticio");
+
+		Mockito.when(festaRepository.findFestaByUsuarioResponsavel(idUser, festaTO.getCodFesta())).thenReturn(festaTest);
+		Mockito.when(festaRepository.findById(festaTO.getCodFesta())).thenReturn(festaTest);
+		Mockito.when(festaRepository.findByNomeFesta(festaTO.getNomeFesta())).thenReturn(null);
+
+		doNothing().when(grupoRepository).deleteUsuarioGrupo(Mockito.any(Integer.class));
+		doNothing().when(grupoRepository).deleteAll(Mockito.<Grupo>anyList());
+
+		Mockito.when(festaRepository.save(festaTest)).thenReturn(festaTest2);
+		
+		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(null);
+
+		Festa retorno = null;
+		try {
+			retorno = festaService.updateFesta(festaTO, idUser);
+		}catch(ValidacaoException e){
+			retorno = null;
+		};
+
+		assertEquals(null, retorno);
+
 	}
 
 	@Test
@@ -309,6 +353,8 @@ public class FestaServiceTest {
 
 		doNothing().when(grupoRepository).deleteUsuarioGrupo(Mockito.any(Integer.class));
 		doNothing().when(grupoRepository).deleteAll(Mockito.<Grupo>anyList());
+		
+		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(new Grupo());
 
 		Mockito.when(festaRepository.save(festaTest)).thenReturn(festaTest2);
 
@@ -344,6 +390,8 @@ public class FestaServiceTest {
 
 		doNothing().when(grupoRepository).deleteUsuarioGrupo(Mockito.any(Integer.class));
 		doNothing().when(grupoRepository).deleteAll(Mockito.<Grupo>anyList());
+		
+		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(new Grupo());
 
 		Mockito.when(festaRepository.save(festaTest)).thenReturn(festaTest2);
 
@@ -385,6 +433,8 @@ public class FestaServiceTest {
 		doNothing().when(grupoRepository).deleteAll(Mockito.<Grupo>anyList());
 
 		Mockito.when(festaRepository.save(festaTest)).thenReturn(festaTest2);
+		
+		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(new Grupo());
 
 		Festa retorno = null;
 		try {
@@ -415,6 +465,8 @@ public class FestaServiceTest {
 		Usuario usuario1 = UsuarioServiceTest.usuarioTest();
 		usuario1.setCodUsuario(idUser);
 		usuario1.setNomeUser("Aires_qualquer_e_ficticio");
+		
+		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(new Grupo());
 
 		Mockito.when(festaRepository.findFestaByUsuarioResponsavel(idUser, festaTO.getCodFesta())).thenReturn(festaTest);
 		Mockito.when(festaRepository.findById(festaTO.getCodFesta())).thenReturn(festaTest);
@@ -462,6 +514,8 @@ public class FestaServiceTest {
 		doNothing().when(grupoRepository).deleteAll(Mockito.<Grupo>anyList());
 
 		Mockito.when(festaRepository.save(festaTest)).thenReturn(festaTest2);
+		
+		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(new Grupo());
 
 		Festa retorno = null;
 		try {
@@ -503,6 +557,8 @@ public class FestaServiceTest {
 		doNothing().when(grupoRepository).deleteAll(Mockito.<Grupo>anyList());
 
 		Mockito.when(festaRepository.save(festaTest)).thenReturn(festaTest2);
+		
+		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(new Grupo());
 
 		Festa retorno = null;
 		try {
