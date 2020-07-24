@@ -19,7 +19,11 @@
                         </div>
                     </mat-list-item>
                     <mat-list-item class="status-list"> 
-                        Status: {{'PAINELCONTROLE.PREPARACAO' | translate}} <mat-icon>access_time</mat-icon>
+                        <mat-button-toggle-group name="status" value="{{statusFesta}}" aria-label="Status da Festa">
+                            <mat-button-toggle (click)="openDialogStatus('P')" disabled value="P">{{'FESTA.P' | translate}}</mat-button-toggle>
+                            <mat-button-toggle (click)="openDialogStatus('I')" disabled value="I">{{'FESTA.I' | translate}}</mat-button-toggle>
+                            <mat-button-toggle (click)="openDialogStatus('F')" disabled value="F">{{'FESTA.F' | translate}}</mat-button-toggle>
+                        </mat-button-toggle-group>
                         <a routerLink="../editar">
                             <button mat-button class="botao-editar">
                                 {{'PAINELCONTROLE.EDITFESTA' | translate}} <mat-icon>edit</mat-icon>

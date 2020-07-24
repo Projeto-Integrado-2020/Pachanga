@@ -164,7 +164,10 @@
         "PROGRESS": "In progress",
         "FINISHED": "Finished",
         "PREPARING": "In preparation",
-        "MORE": "and more..."
+        "MORE": "and more...",
+        "P": "Preparation phase",
+        "I": "Party started",
+        "F": "Party finished"
     },
 
     "CRIARFESTA": {
@@ -198,15 +201,17 @@
         "CONVIDARMEMBROS": "Invitation status",
         "CONSULTACESSO": "See permissions",
         "STATSINGRESSOS": "Ticket statistics",
-        "PREPARACAO": "Preparation phase",
         "ACEITO": "Accepted",
         "RECUSADO": "Declined",
         "PENDENTE": "Pending",
         "EDIT": "Edit collaborator permissions",
         "DELETE": "Delete collaborator",
         "EDITFESTA": "Edit party",
-        "DELETEFESTA": "Delete party"
+        "DELETEFESTA": "Delete party",
+        "CHANGESTATUS": "Change status"
     },
+
+    
 
     "404": {
         "MESSAGE": "Outch, I think the party is over! This content is unavailable."
@@ -227,5 +232,11 @@
         "TITULO": "Invite the buddies",
         "ENVIARCONVITE": "Send invite",
         "LISTAEMAIL": "E-mails list"
+    },
+
+    "STATUSDIALOG": {
+        "MESSAGE": "Do you really want to change the status to ",
+        "CONFIRM": "Confirm",
+        "CANCEL": "Cancel"
     }
 }

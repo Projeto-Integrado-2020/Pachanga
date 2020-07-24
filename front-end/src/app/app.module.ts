@@ -58,6 +58,8 @@ import { MatPaginatorPtBr } from './views/menu-festas/mat-paginator-ptbr';
 import { NotFoundComponent } from './views/not-found/not-found.component';
 import { DeletarFestaComponent } from './views/deletar-festa/deletar-festa.component';
 import { CriarGrupoComponent } from './views/criar-grupo/criar-grupo.component';
+import { StatusDialogComponent } from './views/status-dialog/status-dialog.component';
+import { StatusFestaService } from './services/status-festa/status-festa.service';
 
 const config = new AuthServiceConfig([
   {
@@ -94,7 +96,8 @@ export function provideConfig() {
     EditarFestaComponent,
     NotFoundComponent,
     DeletarFestaComponent,
-    CriarGrupoComponent
+    CriarGrupoComponent,
+    StatusDialogComponent
   ],
   entryComponents: [
     LoginComponent,
@@ -103,7 +106,8 @@ export function provideConfig() {
     EditDialogComponent,
     SuccessDialogComponent,
     InviteDialogComponent,
-    DeletarFestaComponent
+    DeletarFestaComponent,
+    StatusDialogComponent
   ],
   imports: [
     BrowserModule,
