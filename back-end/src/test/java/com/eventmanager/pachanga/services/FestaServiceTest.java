@@ -391,7 +391,7 @@ public class FestaServiceTest {
 		doNothing().when(grupoRepository).deleteUsuarioGrupo(Mockito.any(Integer.class));
 		doNothing().when(grupoRepository).deleteAll(Mockito.<Grupo>anyList());
 		
-		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(new Grupo());
+		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(null);
 
 		Mockito.when(festaRepository.save(festaTest)).thenReturn(festaTest2);
 
