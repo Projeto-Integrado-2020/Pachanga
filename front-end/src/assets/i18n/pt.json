@@ -236,5 +236,9 @@
         "MESSAGE": "Você realmente deseja alterar o status para ",
         "CONFIRM": "Confirmar",
         "CANCEL": "Cancelar"
+    },
+    
+    "UTILS": {
+        "RETURN": "Retornar"
     }
 }

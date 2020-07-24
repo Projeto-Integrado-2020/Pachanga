@@ -238,5 +238,9 @@
         "MESSAGE": "Do you really want to change the status to ",
         "CONFIRM": "Confirm",
         "CANCEL": "Cancel"
+    },
+    
+    "UTILS": {
+        "RETURN": "Return"
     }
 }

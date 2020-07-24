@@ -45,12 +45,14 @@ public class GrupoControllerTest {
 		
 		StringBuilder emailsRetorno = criacaoStringEmails(); 
 		
-		Mockito.when(grupoService.addUsuariosFesta(Mockito.anyList(), Mockito.anyInt())).thenReturn(emailsRetorno);
+		Mockito.when(grupoService.addUsuariosFesta(Mockito.anyList(), Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(emailsRetorno);
 		
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.post(uri)
 				.accept(MediaType.APPLICATION_JSON)
 				.param("codFesta", "14")
+				.param("idUsuario", "14")
+				.param("idGrupo", "14")
 				.content(emailsEnviados)
 				.contentType(MediaType.APPLICATION_JSON);
 		
@@ -74,12 +76,14 @@ public class GrupoControllerTest {
 		
 		String emailsEnviados = "[\"luis_iruca@hotmail.com\",\"guga.72@hotmail.com\"]";
 		
-		Mockito.when(grupoService.addUsuariosFesta(Mockito.anyList(), Mockito.anyInt())).thenThrow(new ValidacaoException(expected));
+		Mockito.when(grupoService.addUsuariosFesta(Mockito.anyList(), Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenThrow(new ValidacaoException(expected));
 		
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.post(uri)
 				.accept(MediaType.APPLICATION_JSON)
 				.param("codFesta", "14")
+				.param("idUsuario", "14")
+				.param("idGrupo", "14")
 				.content(emailsEnviados)
 				.contentType(MediaType.APPLICATION_JSON);
 		

@@ -419,6 +419,8 @@ public class FestaControllerTest {
 
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.get(uri)
+				.param("idFesta", "2")
+				.param("idUsuario", "2")
 				.accept(MediaType.APPLICATION_JSON)
 				.contentType(MediaType.APPLICATION_JSON);
 		
@@ -426,7 +428,7 @@ public class FestaControllerTest {
 
 		MockHttpServletResponse response = result.getResponse();
 		
-		assertEquals(400, response.getStatus());
+		assertEquals(200, response.getStatus());
 		assertEquals(expected, result.getResponse().getContentAsString());
 	}
 	
@@ -444,6 +446,7 @@ public class FestaControllerTest {
 				.get(uri)
 				.accept(MediaType.APPLICATION_JSON)
 				.param("idFesta", "2")
+				.param("idUsuario", "2")
 				.contentType(MediaType.APPLICATION_JSON);
 		
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
@@ -472,7 +475,7 @@ public class FestaControllerTest {
 		Mockito.when(userService.funcionalidadeUsuarioFesta(Mockito.anyInt(), Mockito.anyInt())).thenReturn("ORGANIZADOR");
 		
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
-				.post(uri)
+				.put(uri)
 				.accept(MediaType.APPLICATION_JSON)
 				.param("idFesta", "2")
 				.param("idUsuario", "1")
@@ -500,7 +503,7 @@ public class FestaControllerTest {
 		Mockito.when(userService.funcionalidadeUsuarioFesta(Mockito.anyInt(), Mockito.anyInt())).thenReturn(null);
 		
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
-				.post(uri)
+				.put(uri)
 				.accept(MediaType.APPLICATION_JSON)
 				.param("idFesta", "2")
 				.param("idUsuario", "1")
