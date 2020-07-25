@@ -38,7 +38,7 @@ describe('StatusDialogComponent', () => {
         })
       ],
       providers: [
-        { provide: MAT_DIALOG_DATA, useValue: {festa: {codFesta: '1', status: 'F', painel: null}} },
+        { provide: MAT_DIALOG_DATA, useValue: {festa: {codFesta: '1', status: 'P', painel: null, codUsuario: '1'}} },
         { provide: MatDialog, useValue: dialogSpy },
       ]
     })
@@ -54,4 +54,5 @@ describe('StatusDialogComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
 });

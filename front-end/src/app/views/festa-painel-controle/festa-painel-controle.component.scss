@@ -160,3 +160,9 @@
 mat-button-toggle-group {
   margin-right: 12px;
 }
+
+::ng-deep mat-button-toggle :disabled{
+  opacity: 1!important;
+  font-weight: 500;
+  cursor: pointer!important;
+}
