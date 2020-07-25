@@ -150,12 +150,6 @@ export function provideConfig() {
       provide: MatPaginatorIntl,
       useClass: MatPaginatorPtBr
     }
-    /* Tentativa de solucao para traducao do paginator com ngx-translate
-    {
-      provide: MatPaginatorIntl, deps: [TranslateService],
-      useFactory:  (translateService: TranslateService) => new MatPaginatorPtBr(translateService).getPaginatorIntl()
-    }
-    */
   ],
   bootstrap: [AppComponent]
 })

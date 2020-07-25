@@ -146,7 +146,6 @@
         "NEXTPAGE": "Próxima página",
         "PREVIOUSPAGE": "Página anterior",
         "OF": "de"
-
     },
 
     "FESTA": {
@@ -167,7 +166,9 @@
         "MORE": "and more...",
         "P": "Em preparação",
         "I": "Festa iniciada",
-        "F": "Festa finalizada"
+        "F": "Festa finalizada",
+        "NONEPARTY": "Você não tem nenhuma festa associada a esta conta.",
+        "CLICKHERE": "Clique aqui para criar uma festa"
     },
 
     "CRIARFESTA": {

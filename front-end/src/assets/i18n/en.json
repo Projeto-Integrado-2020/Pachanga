@@ -146,7 +146,6 @@
         "NEXTPAGE": "Next page",
         "PREVIOUSPAGE": "Previous page",
         "OF": "of"
-
     },
 
     "FESTA": {
@@ -167,7 +166,9 @@
         "MORE": "and more...",
         "P": "Preparation phase",
         "I": "Party started",
-        "F": "Party finished"
+        "F": "Party finished",
+        "NONEPARTY": "You don't have any party associated to this account.",
+        "CLICKHERE": "Click here to create a new party"
     },
 
     "CRIARFESTA": {
@@ -210,8 +211,6 @@
         "DELETEFESTA": "Delete party",
         "CHANGESTATUS": "Change status"
     },
-
-    
 
     "404": {
         "MESSAGE": "Outch, I think the party is over! This content is unavailable."
