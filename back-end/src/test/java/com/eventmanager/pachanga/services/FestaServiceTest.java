@@ -64,7 +64,7 @@ public class FestaServiceTest {
 		festaTest.setHorarioFimFesta(LocalDateTime.of(2016, Month.JUNE, 23, 19, 10));
 		festaTest.setNomeFesta("festao");
 		festaTest.setOrganizador("Joao Neves");
-		festaTest.setStatusFesta("I");
+		festaTest.setStatusFesta("P");
 		festaTest.setDescricaoFesta("Bugago");
 		festaTest.setHorarioFimFestaReal(LocalDateTime.of(2016, Month.JUNE, 23, 19, 10));
 
@@ -93,7 +93,7 @@ public class FestaServiceTest {
 		festaTest.setHorarioFimFesta(LocalDateTime.of(2016, Month.JUNE, 23, 19, 10));
 		festaTest.setNomeFesta("festao");
 		festaTest.setOrganizador("Joao Neves");
-		festaTest.setStatusFesta("I");
+		festaTest.setStatusFesta("P");
 		festaTest.setDescricaoFesta("Bugago");
 		festaTest.setHorarioFimFestaReal(LocalDateTime.of(2016, Month.JUNE, 23, 19, 10));
 
@@ -126,8 +126,6 @@ public class FestaServiceTest {
 		Mockito.when(festaRepository.findAll()).thenReturn(festas);
 
 		List<Festa> retorno = festaService.procurarFestas();
-
-		System.out.println(retorno.size());
 
 		assertEquals(festas.size(), retorno.size());
 		assertEquals(true, retorno.containsAll(festas));
@@ -678,8 +676,6 @@ public class FestaServiceTest {
 		
 		Festa festaTest = festaTest();
 		
-		Mockito.when(festaRepository.findByCodFesta(Mockito.any(Integer.class))).thenReturn(festaTest);
-
 		Mockito.when(usuarioRepository.findBycodFestaAndUsuario(Mockito.any(Integer.class), Mockito.any(Integer.class))).thenReturn(UsuarioControllerTest.usuarioTest());
 		
 		Mockito.when(usuarioRepository.findById(Mockito.anyInt())).thenReturn(UsuarioControllerTest.usuarioTest());
@@ -691,7 +687,7 @@ public class FestaServiceTest {
 		String mensagemErro = null;
 		
 		try {
-			festaService.mudarStatusFesta(1,"I",2);
+			festaService.mudarStatusFesta(1,"p",2);
 		} catch (ValidacaoException e) {
 			erro = true;
 			mensagemErro = e.getMessage();
@@ -705,12 +701,38 @@ public class FestaServiceTest {
 	}
 	
 	@Test
+	public void mudarStatusFestaErroStatusColocadoFinalizarSucesso() throws Exception {// erro para quando o usuário tenta colocar de preparação para finalizado o status da festa
+		
+		Festa festaTest = festaTest();
+		
+		Mockito.when(usuarioRepository.findBycodFestaAndUsuario(Mockito.any(Integer.class), Mockito.any(Integer.class))).thenReturn(UsuarioControllerTest.usuarioTest());
+		
+		Mockito.when(usuarioRepository.findById(Mockito.anyInt())).thenReturn(UsuarioControllerTest.usuarioTest());
+		
+		Mockito.when(festaRepository.findByCodFesta(Mockito.anyInt())).thenReturn(festaTest);
+		
+		boolean erro = false;
+		
+		String mensagemErro = null;
+				
+		try {
+			festaService.mudarStatusFesta(1,"F",2);
+		} catch (ValidacaoException e) {
+			erro = true;
+			mensagemErro = e.getMessage();
+		}
+		
+		assertEquals(true, erro);	
+		
+		assertEquals("FSTANINI", mensagemErro);
+		
+	}
+	
+	@Test
 	public void mudarStatusFestaSucesso() throws Exception {
 		
 		Festa festaTest = festaTest();
 		
-		Mockito.when(festaRepository.findByCodFesta(Mockito.any(Integer.class))).thenReturn(festaTest);
-
 		Mockito.when(usuarioRepository.findBycodFestaAndUsuario(Mockito.any(Integer.class), Mockito.any(Integer.class))).thenReturn(UsuarioControllerTest.usuarioTest());
 		
 		Mockito.when(usuarioRepository.findById(Mockito.anyInt())).thenReturn(UsuarioControllerTest.usuarioTest());
@@ -720,7 +742,7 @@ public class FestaServiceTest {
 		boolean erro = false;
 				
 		try {
-			festaService.mudarStatusFesta(1,"F",2);
+			festaService.mudarStatusFesta(1,"I",2);
 		} catch (ValidacaoException e) {
 			erro = true;
 		}
