@@ -27,7 +27,7 @@ export class StatusFestaService {
       .append('idFesta', codFesta)
       .append('statusFesta', statusFesta)
       .append('idUsuario', this.loginService.usuarioInfo.codUsuario);
-      return this.http.put(this.urlStatusFesta, {params: httpParams}).pipe(
+      return this.http.put(this.urlStatusFesta, null, {params: httpParams}).pipe(
         take(1),
         catchError(error => {
           return this.handleError(error, this.logService);
