@@ -139,7 +139,10 @@ public class FestaService {
 		if(statusFestaMaiusculo.equals(festa.getStatusFesta())) {
 			throw new ValidacaoException("STANMUDA");// status não foi alterado
 		}
-		festaRepository.updateStatusFesta(statusFestaMaiusculo, idFesta);// para adicionar null no banco de dados
+		if(TipoStatusFesta.PREPARACAO.getValor().equals(festa.getStatusFesta()) && TipoStatusFesta.FINALIZADO.getValor().equals(statusFestaMaiusculo) ) {
+			throw new ValidacaoException("FSTANINI");// festa precisa estar iniciada para fazer essa ação
+		}
+		festaRepository.updateStatusFesta(statusFestaMaiusculo, idFesta);
 		festa.setStatusFesta(statusFestaMaiusculo);
 		return festa;
 	}
