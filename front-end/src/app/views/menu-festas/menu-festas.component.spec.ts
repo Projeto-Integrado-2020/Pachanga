@@ -14,6 +14,8 @@ import { CustomMaterialModule } from '../material/material.module';
 import { RouterModule } from '@angular/router';
 
 import { LoginService } from 'src/app/services/loginService/login.service';
+import { FormsModule } from '@angular/forms';
+import { FiltroFestaPipe } from './filtroFesta.pipe';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -25,11 +27,12 @@ describe('MenuFestasComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MenuFestasComponent ],
+      declarations: [ MenuFestasComponent, FiltroFestaPipe],
       imports: [
         CustomMaterialModule,
         HttpClientTestingModule,
         BrowserAnimationsModule,
+        FormsModule,
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,

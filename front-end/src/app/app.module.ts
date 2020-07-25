@@ -60,6 +60,7 @@ import { DeletarFestaComponent } from './views/deletar-festa/deletar-festa.compo
 import { CriarGrupoComponent } from './views/criar-grupo/criar-grupo.component';
 import { StatusDialogComponent } from './views/status-dialog/status-dialog.component';
 import { StatusFestaService } from './services/status-festa/status-festa.service';
+import { FiltroFestaPipe } from './views/menu-festas/filtroFesta.pipe';
 
 const config = new AuthServiceConfig([
   {
@@ -97,7 +98,8 @@ export function provideConfig() {
     NotFoundComponent,
     DeletarFestaComponent,
     CriarGrupoComponent,
-    StatusDialogComponent
+    StatusDialogComponent,
+    FiltroFestaPipe
   ],
   entryComponents: [
     LoginComponent,

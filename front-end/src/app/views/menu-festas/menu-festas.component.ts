@@ -15,6 +15,7 @@ export class MenuFestasComponent implements OnInit {
   pageSize = 5;
   festasMostradas = [];
   pageSizeOptions: number[] = [5, 10, 25, 100];
+  filtro = {admin: true};
   nenhumaFesta = false;
 
   // MatPaginator Output

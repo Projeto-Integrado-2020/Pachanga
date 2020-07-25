@@ -29,6 +29,7 @@ import { NotFoundComponent } from './views/not-found/not-found.component';
 
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 import { CriarGrupoComponent } from './views/criar-grupo/criar-grupo.component';
+import { FiltroFestaPipe } from './views/menu-festas/filtroFesta.pipe';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -68,7 +69,8 @@ describe('AppComponent', () => {
         CriarFestaComponent,
         EditarFestaComponent,
         NotFoundComponent,
-        CriarGrupoComponent
+        CriarGrupoComponent,
+        FiltroFestaPipe
       ],
       imports: [
         BrowserModule,
