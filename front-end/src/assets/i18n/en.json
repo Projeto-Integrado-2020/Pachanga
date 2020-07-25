@@ -65,7 +65,10 @@
         "USERSPER": "User without permission for this action.",
         "DATEINFE": "Party start or end invalid.",
         "FESTNEND": "Party without address.",
-        "FESTNOME": "Another party is using this name."
+        "FESTNOME": "Another party is using this name.",
+        "STATERRA": "This party status does not exist.",
+        "STANMUDA": "The party is already in that phase.",
+        "FSTANINI": "The party needs to be started to perform this action."
     },
 
     "SUCCESS": {
