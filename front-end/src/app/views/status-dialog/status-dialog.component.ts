@@ -1,7 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material';
-// import { SuccessDialogComponent } from '../success-dialog/success-dialog.component';
-import { Router } from '@angular/router';
 import { StatusFestaService } from 'src/app/services/status-festa/status-festa.service';
 import { FestaPainelControleComponent } from '../festa-painel-controle/festa-painel-controle.component';
 
@@ -31,6 +29,7 @@ export class StatusDialogComponent implements OnInit {
       this.painel.setFesta(resp);
       this.dialog.closeAll();
       this.statusService.setFarol(false);
+      window.location.reload();
     });
   }
 

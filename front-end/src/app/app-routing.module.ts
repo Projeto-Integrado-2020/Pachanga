@@ -9,6 +9,7 @@ import { CriarFestaComponent } from './views/criar-festa/criar-festa.component';
 import { EditarFestaComponent } from './views/editar-festa/editar-festa.component';
 import { NotFoundComponent } from './views/not-found/not-found.component';
 import { CriarGrupoComponent } from './views/criar-grupo/criar-grupo.component';
+import { GerenciadorMembrosComponent } from './views/gerenciador-membros/gerenciador-membros.component';
 
 const routes: Routes = [
 
@@ -27,6 +28,13 @@ const routes: Routes = [
       path: 'minhas-festas',
       component: MenuFestasComponent,
       canActivate: [AuthGuard]
+    },
+
+    {
+      path: 'gerenciador-membros',
+      component: GerenciadorMembrosComponent,
+     // canActivate: [AuthGuard] - comentado pra testar
+
     },
 
     {

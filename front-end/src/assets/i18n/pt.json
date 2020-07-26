@@ -65,7 +65,10 @@
         "USERSPER": "Usuário sem permissão para executar esta ação.",
         "DATEINFE": "Datas/Horários inválidos.",
         "FESTNEND": "Festa sem endereço.",
-        "FESTNOME": "Outra festa já está usando este nome."
+        "FESTNOME": "Outra festa já está usando este nome.",
+        "STATERRA": "Esse status de festa não existe.",
+        "STANMUDA": "A festa já se encontra nessa fase.",
+        "FSTANINI": "A festa precisa estar iniciada para realizar esta ação."
     },
 
     "SUCCESS": {
