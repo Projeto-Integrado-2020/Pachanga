@@ -202,7 +202,7 @@
         "MEMBROS": "Membros colaboradores",
         "NIVACESSO": "Nível de acesso",
         "CONVITESTATUS": "Status do convite",
-        "CONVIDARMEMBROS": "Convidar membros",
+        "GERENCIARMEMBROS": "Gerenciar membros",
         "CONSULTACESSO": "Consultar permissões",
         "STATSINGRESSOS": "Estatísticas de ingressos",
         "ACEITO": "Aceito",
@@ -227,7 +227,12 @@
 
     "GRUPO": {
         "CREATEGROUP": "Criar Grupo de Permissão",
-        "NAME": "Nome do Grupo"
+        "NAME": "Nome do Grupo",
+        "PARTYGROUPS": "Grupos de permissão da festa",
+        "MEMBERS": "Membro(s)",
+        "INVITE": "Convidar membros",
+        "EDIT": "Editar grupo",
+        "DELETE": "Deletar grupo"
     },
 
     "CONVITE": {

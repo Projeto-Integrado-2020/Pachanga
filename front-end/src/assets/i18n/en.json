@@ -202,7 +202,7 @@
         "MEMBROS": "Collaborating members",
         "NIVACESSO": "Access level",
         "CONVITESTATUS": "Status do convite",
-        "CONVIDARMEMBROS": "Invitation status",
+        "GERENCIARMEMBROS": "Manage members",
         "CONSULTACESSO": "See permissions",
         "STATSINGRESSOS": "Ticket statistics",
         "ACEITO": "Accepted",
@@ -227,7 +227,12 @@
 
     "GRUPO": {
         "CREATEGROUP": "Create Permission Role",
-        "NAME": "Role Name"
+        "NAME": "Role Name",
+        "PARTYGROUPS": "Party permission roles",
+        "MEMBERS": "Member(s)",
+        "INVITE": "Invite members",
+        "EDIT": "Editar grupo",
+        "DELETE": "Deletar grupo"
     },
 
     "CONVITE": {

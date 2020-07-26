@@ -31,13 +31,6 @@ const routes: Routes = [
     },
 
     {
-      path: 'gerenciador-membros',
-      component: GerenciadorMembrosComponent,
-     // canActivate: [AuthGuard] - comentado pra testar
-
-    },
-
-    {
       path: 'festas/:festa&:id/painel',
       component: FestaPainelControleComponent,
       canActivate: [AuthGuard]
@@ -52,6 +45,12 @@ const routes: Routes = [
     {
       path: 'festas/:festa&:id/editar',
       component: EditarFestaComponent,
+      canActivate: [AuthGuard]
+    },
+
+    {
+      path: 'festas/:festa&:id/membros',
+      component: GerenciadorMembrosComponent,
       canActivate: [AuthGuard]
     },
 

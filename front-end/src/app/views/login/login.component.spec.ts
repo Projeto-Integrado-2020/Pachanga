@@ -28,6 +28,7 @@ import { EditarFestaComponent } from '../editar-festa/editar-festa.component';
 import { NotFoundComponent } from '../not-found/not-found.component';
 import { CriarGrupoComponent } from '../criar-grupo/criar-grupo.component';
 import { FiltroFestaPipe } from '../menu-festas/filtroFesta.pipe';
+import { GerenciadorMembrosComponent } from '../gerenciador-membros/gerenciador-membros.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -68,7 +69,8 @@ describe('LoginComponent', () => {
         EditarFestaComponent,
         NotFoundComponent,
         CriarGrupoComponent,
-        FiltroFestaPipe
+        FiltroFestaPipe,
+        GerenciadorMembrosComponent
       ],
       imports: [
         CustomMaterialModule,

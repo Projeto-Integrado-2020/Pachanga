@@ -1,0 +1,87 @@
+@import '../material/paleta.scss';
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  border: 0;
+}
+
+.main-container {
+    top: 64px;
+    max-width: 1140px;
+    height: calc(100vh - 64px);
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 0 2rem 0 2rem;
+}
+
+header {
+    display: flex;
+    margin-top: 2rem;
+}
+
+.title {
+    font-size: 1.8rem;
+    font-weight: lighter;
+    width: 100%;
+    color: $color-primary;
+}
+
+.lista-grupos {
+    margin: 2rem 0 2rem 0;
+}
+
+.card-title {
+    font-size: 1.2rem;
+    font-weight: 500;
+    width: 88%;
+    color: $color-tertiary;
+    float: right;
+    padding-left: 3%;
+}
+
+.subtitle {
+    text-transform: capitalize;
+}
+
+.card-content {
+    padding: 0 3.3rem 1rem 3.3rem;
+}
+
+.button-main-action {
+    background-color: $color-tertiary;
+    opacity: 0.9;
+    color: #ffffff;
+    padding: 0;
+    padding-left: .2rem;
+    padding-right: .5rem;
+    font-weight: 400;
+}
+
+.btn-1 {
+    background-color: $color-primary;
+    color: #ffffff;
+    padding: .2rem;
+    padding-right: .3rem;
+}
+
+table {
+    width: 75%;
+    margin-top: 3rem;
+}
+
+.tabela{
+    margin-left: 12.5%;
+    border: 0;
+}
+
+.btn-invite {
+    position: relative;
+    margin-left: 72%;
+}
+
+.edit-delete-button {
+    margin-left: 2%;
+}

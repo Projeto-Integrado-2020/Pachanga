@@ -100,12 +100,9 @@ export function provideConfig() {
     NotFoundComponent,
     DeletarFestaComponent,
     CriarGrupoComponent,
-<<<<<<< HEAD
-    GerenciadorMembrosComponent
-=======
+    GerenciadorMembrosComponent,
     StatusDialogComponent,
     FiltroFestaPipe
->>>>>>> da73a46e3fe84be758591e06a604f8d537f0451d
   ],
   entryComponents: [
     LoginComponent,

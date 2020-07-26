@@ -61,12 +61,6 @@ describe('FestaPainelControleComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should open a invite dialog through a method', () => {
-    component.festa = {codFesta: '1'};
-    component.openDialogInvite();
-    expect(dialogSpy.open).toHaveBeenCalled();
-  });
-
   it('should open a delete dialog through a method', () => {
     component.openDialogDelete();
     expect(dialogSpy.open).toHaveBeenCalled();
