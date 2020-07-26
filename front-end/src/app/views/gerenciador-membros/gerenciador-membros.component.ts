@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-gerenciador-membros',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GerenciadorMembrosComponent implements OnInit {
 
-  constructor() { }
+  constructor(public formBuilder: FormBuilder, public getFestaService: GetFestaService) { }
 
   ngOnInit(): void {
   }
