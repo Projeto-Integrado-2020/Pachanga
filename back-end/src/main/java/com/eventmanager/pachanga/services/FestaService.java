@@ -5,19 +5,25 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.eventmanager.pachanga.domains.Festa;
 import com.eventmanager.pachanga.domains.Grupo;
+import com.eventmanager.pachanga.domains.Permissao;
 import com.eventmanager.pachanga.domains.Usuario;
 import com.eventmanager.pachanga.dtos.FestaTO;
 import com.eventmanager.pachanga.errors.ValidacaoException;
 import com.eventmanager.pachanga.factory.FestaFactory;
 import com.eventmanager.pachanga.repositories.FestaRepository;
 import com.eventmanager.pachanga.repositories.GrupoRepository;
+import com.eventmanager.pachanga.repositories.PermissaoRepository;
 import com.eventmanager.pachanga.repositories.UsuarioRepository;
 import com.eventmanager.pachanga.tipo.TipoGrupo;
+import com.eventmanager.pachanga.tipo.TipoPermissao;
+import com.eventmanager.pachanga.tipo.TipoStatusFesta;
 
 @Service
+@Transactional
 public class FestaService {
 
 	@Autowired
@@ -28,6 +34,9 @@ public class FestaService {
 
 	@Autowired
 	private GrupoRepository grupoRepository;
+	
+	@Autowired
+	private PermissaoRepository permissaoRepository;
 
 	public List<Festa> procurarFestas(){
 		return festaRepository.findAll();
@@ -43,12 +52,15 @@ public class FestaService {
 		this.validarUsuarioFesta(idUser, 0);
 		Usuario usuario = usuarioRepository.findById(idUser);
 		festaTo.setCodFesta(festaRepository.getNextValMySequence());
+		festaTo.setStatusFesta(TipoStatusFesta.PREPARACAO.getValor());
 		validarFesta(festaTo);
 		Festa festa =  FestaFactory.getFesta(festaTo);
 		Grupo grupo = new Grupo(grupoRepository.getNextValMySequence(), festa, TipoGrupo.ORGANIZADOR.getValor(), 1);
 		festaRepository.save(festa);
 		grupoRepository.save(grupo);
 		grupoRepository.saveUsuarioGrupo(usuario.getCodUsuario(), grupo.getCodGrupo());
+		List<Permissao> permissoes = (List<Permissao>) permissaoRepository.findAll();
+		permissoes.stream().forEach(p -> grupoRepository.saveGrupoPermissao(grupo.getCodGrupo(), p.getCodPermissao()));
 		return festa;
 	}
 
@@ -66,7 +78,7 @@ public class FestaService {
 	}
 
 	public void deleteFesta(int idFesta, int idUser) {
-		validarPermissaoUsuario(idUser, idFesta);
+		validarPermissaoUsuario(idUser, idFesta, TipoPermissao.DELEFEST.getCodigo());
 		List<Grupo> grupos = grupoRepository.findGruposFesta(idFesta);
 		for(Grupo grupo : grupos) {
 			grupoRepository.deleteUsuarioGrupo(grupo.getCodGrupo());
@@ -76,7 +88,7 @@ public class FestaService {
 	}
 
 	public Festa updateFesta(FestaTO festaTo, int idUser) {
-		validarPermissaoUsuario(idUser, festaTo.getCodFesta());
+		validarPermissaoUsuario(idUser, festaTo.getCodFesta(), TipoPermissao.EDITDFES.getCodigo());
 		Festa festa = festaRepository.findById(festaTo.getCodFesta());
 		if(festa == null) {
 			throw new ValidacaoException("FESTNFOU");//festa nn encontrada
@@ -87,9 +99,9 @@ public class FestaService {
 		return festa;
 	}
 
-	private void validarPermissaoUsuario(int idUser, int idFesta) {
-		Festa festa = festaRepository.findFestaByUsuarioResponsavel(idUser, idFesta);
-		if(festa == null) {
+	private void validarPermissaoUsuario(int idUser, int idFesta, int codPermissao) {
+		Grupo grupo = grupoRepository.findGrupoPermissaoUsuario(idFesta, idUser, codPermissao);
+		if(grupo == null) {
 			throw new ValidacaoException("USERSPER");//Usuário sem permissão de fazer essa ação
 		}
 	}
@@ -118,16 +130,20 @@ public class FestaService {
 	}
 
 	public Festa mudarStatusFesta(int idFesta, String statusFesta, int idUsuario) {
-		if(!"I".equals(statusFesta) && !"F".equals(statusFesta)) {
+		String statusFestaMaiusculo = statusFesta.toUpperCase();
+		if(!TipoStatusFesta.INICIADO.getValor().equals(statusFestaMaiusculo) && !TipoStatusFesta.FINALIZADO.getValor().equals(statusFestaMaiusculo) && !TipoStatusFesta.PREPARACAO.getValor().equals(statusFestaMaiusculo)) {
 			throw new ValidacaoException("STATERRA"); //status errado
 		}
 		this.validarUsuarioFesta(idUsuario, idFesta);
 		Festa festa = festaRepository.findByCodFesta(idFesta);
-		if(statusFesta.equals(festa.getStatusFesta())) {
+		if(statusFestaMaiusculo.equals(festa.getStatusFesta())) {
 			throw new ValidacaoException("STANMUDA");// status não foi alterado
 		}
-		festaRepository.updateStatusFesta(statusFesta, idFesta);
-		festa.setStatusFesta(statusFesta);
+		if(TipoStatusFesta.PREPARACAO.getValor().equals(festa.getStatusFesta()) && TipoStatusFesta.FINALIZADO.getValor().equals(statusFestaMaiusculo) ) {
+			throw new ValidacaoException("FSTANINI");// festa precisa estar iniciada para fazer essa ação
+		}
+		festaRepository.updateStatusFesta(statusFestaMaiusculo, idFesta);
+		festa.setStatusFesta(statusFestaMaiusculo);
 		return festa;
 	}
 }

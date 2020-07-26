@@ -65,7 +65,10 @@
         "USERSPER": "User without permission for this action.",
         "DATEINFE": "Party start or end invalid.",
         "FESTNEND": "Party without address.",
-        "FESTNOME": "Another party is using this name."
+        "FESTNOME": "Another party is using this name.",
+        "STATERRA": "This party status does not exist.",
+        "STANMUDA": "The party is already in that phase.",
+        "FSTANINI": "The party needs to be started to perform this action."
     },
 
     "SUCCESS": {
@@ -146,7 +149,6 @@
         "NEXTPAGE": "Next page",
         "PREVIOUSPAGE": "Previous page",
         "OF": "of"
-
     },
 
     "FESTA": {
@@ -164,7 +166,12 @@
         "PROGRESS": "In progress",
         "FINISHED": "Finished",
         "PREPARING": "In preparation",
-        "MORE": "and more..."
+        "MORE": "and more...",
+        "P": "Preparation phase",
+        "I": "Party started",
+        "F": "Party finished",
+        "NONEPARTY": "You don't have any party associated to this account.",
+        "CLICKHERE": "Click here to create a new party"
     },
 
     "CRIARFESTA": {
@@ -198,14 +205,14 @@
         "CONVIDARMEMBROS": "Invitation status",
         "CONSULTACESSO": "See permissions",
         "STATSINGRESSOS": "Ticket statistics",
-        "PREPARACAO": "Preparation phase",
         "ACEITO": "Accepted",
         "RECUSADO": "Declined",
         "PENDENTE": "Pending",
         "EDIT": "Edit collaborator permissions",
         "DELETE": "Delete collaborator",
         "EDITFESTA": "Edit party",
-        "DELETEFESTA": "Delete party"
+        "DELETEFESTA": "Delete party",
+        "CHANGESTATUS": "Change status"
     },
 
     "404": {
@@ -227,5 +234,15 @@
         "TITULO": "Invite the buddies",
         "ENVIARCONVITE": "Send invite",
         "LISTAEMAIL": "E-mails list"
+    },
+
+    "STATUSDIALOG": {
+        "MESSAGE": "Do you really want to change the status to ",
+        "CONFIRM": "Confirm",
+        "CANCEL": "Cancel"
+    },
+    
+    "UTILS": {
+        "RETURN": "Return"
     }
 }

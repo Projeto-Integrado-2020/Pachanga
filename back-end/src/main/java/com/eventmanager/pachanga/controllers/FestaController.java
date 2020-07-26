@@ -113,7 +113,7 @@ public class FestaController {
 	}
 	
 	@ResponseBody
-	@PostMapping(path = "/festaMudancaStatus")
+	@PutMapping(path = "/festaMudancaStatus")
 	public ResponseEntity<Object> alterarStatusFesta(@RequestParam(required = true)int idFesta, @RequestParam(required = true)String statusFesta, @RequestParam(required = true)int idUsuario) {
 		try {
 			Festa festa = festaService.mudarStatusFesta(idFesta, statusFesta, idUsuario);

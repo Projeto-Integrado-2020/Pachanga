@@ -1,34 +1,28 @@
-import {MatPaginatorIntl} from '@angular/material';
+import { MatPaginatorIntl } from '@angular/material';
 import { TranslateService } from '@ngx-translate/core';
 import { Inject } from '@angular/core';
 
-
 export class MatPaginatorPtBr extends MatPaginatorIntl {
 
-  itemsPerPageLabel = 'Itens por página';
-  nextPageLabel     = 'Próxima página';
-  previousPageLabel = 'Página anterior';
-/*
   constructor(@Inject(TranslateService) private readonly translate: TranslateService) {
     super();
+    this.getPaginatorIntl();
   }
 
-  getPaginatorIntl(): MatPaginatorIntl {
-    // tslint:disable-next-line: new-parens
-    const paginatorIntl = new MatPaginatorIntl;
-    paginatorIntl.itemsPerPageLabel = this.translate.instant('PAGINATOR.ITENSPPAGE');
-    paginatorIntl.nextPageLabel = this.translate.instant('PAGINATOR.NEXTPAGE');
-    paginatorIntl.previousPageLabel = this.translate.instant('PAGINATOR.PREVIOUSPAGE');
-    paginatorIntl.getRangeLabel = this.getRangeLabel.bind(this);
-
-    return paginatorIntl;
-
+  getPaginatorIntl() {
+    this.translate.get(['PAGINATOR.ITEMSPPAGE', 'PAGINATOR.NEXTPAGE', 'PAGINATOR.PREVIOUSPAGE'])
+    .subscribe(traducao => {
+      this.itemsPerPageLabel = traducao['PAGINATOR.ITEMSPPAGE'];
+      this.nextPageLabel = traducao['PAGINATOR.NEXTPAGE'];
+      this.previousPageLabel = traducao['PAGINATOR.PREVIOUSPAGE'];
+      this.changes.next();
+    });
   }
-  */
 
   getRangeLabel = (page, pageSize, length) => {
+    this.getPaginatorIntl();
     if (length === 0 || pageSize === 0) {
-      return '0 de ' /*this.translate.instant('PAGINATOR.OF')*/ + length;
+      return '0 ' + this.translate.instant('PAGINATOR.OF') + length;
     }
     length = Math.max(length, 0);
     const startIndex = page * pageSize;
@@ -36,7 +30,6 @@ export class MatPaginatorPtBr extends MatPaginatorIntl {
     const endIndex = startIndex < length ?
       Math.min(startIndex + pageSize, length) :
       startIndex + pageSize;
-    return startIndex + 1 + ' - ' + endIndex + ' de ' /* this.translate.instant('PAGINATOR.OF') */ + length;
+    return startIndex + 1 + ' - ' + endIndex + ' ' + this.translate.instant('PAGINATOR.OF') + ' ' + length;
   }
-
 }

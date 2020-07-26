@@ -6,8 +6,7 @@ import {PageEvent} from '@angular/material/paginator';
 @Component({
   selector: 'app-menu-festas',
   templateUrl: './menu-festas.component.html',
-  styleUrls: ['./menu-festas.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  styleUrls: ['./menu-festas.component.scss']
 })
 export class MenuFestasComponent implements OnInit {
 
@@ -16,7 +15,9 @@ export class MenuFestasComponent implements OnInit {
   pageSize = 5;
   festasMostradas = [];
   pageSizeOptions: number[] = [5, 10, 25, 100];
+  filtro = {admin: true};
   nenhumaFesta = false;
+  buscaPorNome: any;
 
   // MatPaginator Output
   pageEvent: PageEvent;

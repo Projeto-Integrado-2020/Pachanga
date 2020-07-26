@@ -43,6 +43,9 @@ public class Festa {
 	@OneToMany(fetch = FetchType.LAZY,
 			mappedBy = "festa")
 	private Set<Grupo> grupos;
+	@OneToMany(fetch = FetchType.LAZY,
+			mappedBy = "festa")
+	private Set<CategoriasFesta> categoriaFesta;
 	
 	public int getCodFesta() {
 		return codFesta;

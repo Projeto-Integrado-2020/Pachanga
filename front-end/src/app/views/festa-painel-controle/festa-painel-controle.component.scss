@@ -79,6 +79,7 @@
 
   table {
     width: 75%;
+    margin-top: 3rem;
   }
 
   .icon-edit{
@@ -139,7 +140,6 @@
   color: white;
   padding: 0;
   padding-left: .5rem;
-  margin-left: 3rem;
 }
 
 .botao-deletar {
@@ -150,4 +150,19 @@
   color: white;
   padding: 0;
   padding-left: .5rem;
+}
+
+.status-botao{
+  position: relative;
+  transform: translateX(-50%);
+}
+
+mat-button-toggle-group {
+  margin-right: 12px;
+}
+
+::ng-deep mat-button-toggle :disabled{
+  opacity: 1!important;
+  font-weight: 500;
+  cursor: pointer!important;
 }

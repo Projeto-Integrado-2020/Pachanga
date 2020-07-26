@@ -8,6 +8,16 @@
             </button>
         </a>
     </header>
+
+    <div class="filtros">
+        <h4>Filtros</h4>
+        <mat-checkbox>Festas em que sou Administrador</mat-checkbox>
+        <mat-form-field class="example-full-width">
+            <mat-label>Nome da Festa</mat-label>
+            <input matInput [(ngModel)]="buscaPorNome">
+        </mat-form-field>
+    </div>
+
     <mat-paginator 
         [length]="length"
         [pageSize]="pageSize"
@@ -17,9 +27,9 @@
     >
     </mat-paginator>
     <div class="nenhumafesta-msg" *ngIf="nenhumaFesta === true">
-        <p>Você não tem nenhuma festa associada a esta conta. <a routerLink="../criar-festa"   style="text-decoration: underline">Clique aqui para criar uma festa</a>.</p>
+        <p>{{ 'FESTA.NONEPARTY' | translate }} <a routerLink="../criar-festa"   style="text-decoration: underline">{{ 'FESTA.CLICKHERE' | translate }}</a>.</p>
     </div>
-    <div *ngFor="let festa of festasMostradas" class="lista-festas">
+    <div *ngFor="let festa of festasMostradas | filtroFesta: buscaPorNome" class="lista-festas">
         <a routerLink="{{createUrl(festa.nomeFesta, festa.codFesta)}}">
             <mat-card class="festa-tab">
                 <mat-card-header>
@@ -35,7 +45,7 @@
 
                     <div class="textos">
                         <div class="texto">
-                            <p><b>Status:</b> {{ 'FESTA.PREPARING' | translate }}</p>
+                            <p><b>Status:</b> {{ 'FESTA.' + festa.statusFesta | translate }}</p>
                             <p><b>{{ 'FESTA.PAPEL' | translate }}:</b> {{festa.funcionalidade}}</p>
                             <p><b>{{ 'FESTA.INICIODATA' | translate }}:</b> {{getDateFromDTF(festa.horarioInicioFesta)}}</p>
                             <p><b>{{ 'FESTA.FIMDATA' | translate }}:</b> {{getDateFromDTF(festa.horarioFimFesta)}}</p>

@@ -33,6 +33,12 @@ public class Grupo {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "cod_festa")
 	private Festa festa;
+	@ManyToMany(fetch = FetchType.LAZY,
+			cascade = CascadeType.ALL)
+	@JoinTable(name = "permissao_x_grupo",
+	joinColumns = @JoinColumn(name ="cod_grupo"),
+	inverseJoinColumns = @JoinColumn(name = "cod_permissao"))
+	private Set<Permissao> permissoes;
 	
 	public Grupo(int codGrupo, Festa festa, String nomeGrupo, int quant) {
 		this.codGrupo = codGrupo;
@@ -73,6 +79,14 @@ public class Grupo {
 	}
 	public void setFesta(Festa festa) {
 		this.festa = festa;
+	}
+
+	public Set<Permissao> getPermissoes() {
+		return permissoes;
+	}
+
+	public void setPermissoes(Set<Permissao> permissoes) {
+		this.permissoes = permissoes;
 	}
 
 }

@@ -65,7 +65,10 @@
         "USERSPER": "Usuário sem permissão para executar esta ação.",
         "DATEINFE": "Datas/Horários inválidos.",
         "FESTNEND": "Festa sem endereço.",
-        "FESTNOME": "Outra festa já está usando este nome."
+        "FESTNOME": "Outra festa já está usando este nome.",
+        "STATERRA": "Esse status de festa não existe.",
+        "STANMUDA": "A festa já se encontra nessa fase.",
+        "FSTANINI": "A festa precisa estar iniciada para realizar esta ação."
     },
 
     "SUCCESS": {
@@ -146,7 +149,6 @@
         "NEXTPAGE": "Próxima página",
         "PREVIOUSPAGE": "Página anterior",
         "OF": "de"
-
     },
 
     "FESTA": {
@@ -164,7 +166,12 @@
         "PROGRESS": "Em progresso",
         "FINISHED": "Terminado",
         "PREPARING": "Em preparação",
-        "MORE": "and more..."
+        "MORE": "and more...",
+        "P": "Em preparação",
+        "I": "Festa iniciada",
+        "F": "Festa finalizada",
+        "NONEPARTY": "Você não tem nenhuma festa associada a esta conta.",
+        "CLICKHERE": "Clique aqui para criar uma festa"
     },
 
     "CRIARFESTA": {
@@ -198,14 +205,14 @@
         "CONVIDARMEMBROS": "Convidar membros",
         "CONSULTACESSO": "Consultar permissões",
         "STATSINGRESSOS": "Estatísticas de ingressos",
-        "PREPARACAO": "Fase de preparação",
         "ACEITO": "Aceito",
         "RECUSADO": "Recusado",
         "PENDENTE": "Pendente",
         "EDIT": "Editar permissões do colaborador",
         "DELETE": "Deletar colaborador",
         "EDITFESTA": "Editar festa",
-        "DELETEFESTA": "Deletar festa"
+        "DELETEFESTA": "Deletar festa",
+        "CHANGESTATUS": "Alterar status da festa"
     },
 
     "404": {
@@ -227,5 +234,15 @@
         "TITULO": "Convidar a rapaziada",
         "ENVIARCONVITE": "Enviar convite",
         "LISTAEMAIL": "Lista de e-mails"
+    },
+
+    "STATUSDIALOG": {
+        "MESSAGE": "Você realmente deseja alterar o status para ",
+        "CONFIRM": "Confirmar",
+        "CANCEL": "Cancelar"
+    },
+    
+    "UTILS": {
+        "RETURN": "Retornar"
     }
 }

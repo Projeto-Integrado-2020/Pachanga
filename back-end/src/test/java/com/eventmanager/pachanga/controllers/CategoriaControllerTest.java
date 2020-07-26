@@ -2,9 +2,13 @@ package com.eventmanager.pachanga.controllers;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
+import org.skyscreamer.jsonassert.JSONAssert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -17,83 +21,75 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import com.eventmanager.pachanga.domains.Categoria;
 import com.eventmanager.pachanga.errors.ValidacaoException;
-import com.eventmanager.pachanga.services.GrupoService;
+import com.eventmanager.pachanga.services.CategoriaService;
 
 @RunWith(SpringRunner.class)
-@WebMvcTest(value=GrupoController.class)
-public class GrupoControllerTest {
+@WebMvcTest(value=CategoriaController.class)
+public class CategoriaControllerTest {
 	
 	@Autowired
 	private MockMvc mockMvc;
 	
 	@MockBean
-	private GrupoService grupoService;
+	private CategoriaService categoriaService;
 	
-	private StringBuilder criacaoStringEmails() {
-		StringBuilder emails = new StringBuilder();
-		emails.append("{guga.72@hotmail.com}");
-		return emails;
+	private Categoria categoriaTest() {
+		Categoria categoria = new Categoria();
+		categoria.setCodCategoria(1);
+		categoria.setNomeCategoria("teste");
+		return categoria;
 	}
 	
+	//listaCategorias_____________________________________________________________________________________________________________
 	
 	@Test
-	public void addUserFestaTest() throws Exception{
-		String uri = "/grupo/addUserFesta";
+	public void listaCategoriasSucesso() throws Exception {
+		String uri = "/categoria/lista";
 		
-		String emailsEnviados = "[\"luis_iruca@hotmail.com\",\"guga.72@hotmail.com\"]";
+		List<Categoria> categorias = new ArrayList<Categoria>();
+		categorias.add(categoriaTest());
 		
-		StringBuilder emailsRetorno = criacaoStringEmails(); 
-		
-		Mockito.when(grupoService.addUsuariosFesta(Mockito.anyList(), Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(emailsRetorno);
+		String expected = "[{\"codCategoria\":1,\"nomeCategoria\":\"teste\"}]";
+
+		Mockito.when(categoriaService.procurarCategorias()).thenReturn(categorias);
 		
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
-				.post(uri)
+				.get(uri)
 				.accept(MediaType.APPLICATION_JSON)
-				.param("codFesta", "14")
-				.param("idUsuario", "14")
-				.param("idGrupo", "14")
-				.content(emailsEnviados)
 				.contentType(MediaType.APPLICATION_JSON);
 		
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
-		
+
 		MockHttpServletResponse response = result.getResponse();
-		
-		String expected = "{guga.72@hotmail.com}";
 		
 		assertEquals(HttpStatus.OK.value(), response.getStatus());
 		
-		assertEquals(expected, result.getResponse().getContentAsString());
-		
+		JSONAssert.assertEquals(expected, result.getResponse().getContentAsString(), true);
 	}
 	
 	@Test
-	public void addUserFestaExceptionTest() throws Exception{
-		String uri = "/grupo/addUserFesta";
+	public void listaCategoriasErro() throws Exception {
+		String uri = "/categoria/lista";
 		
-		String expected = "addUserFesta";
+		List<Categoria> categorias = new ArrayList<Categoria>();
+		categorias.add(categoriaTest());
 		
-		String emailsEnviados = "[\"luis_iruca@hotmail.com\",\"guga.72@hotmail.com\"]";
-		
-		Mockito.when(grupoService.addUsuariosFesta(Mockito.anyList(), Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenThrow(new ValidacaoException(expected));
+		Mockito.when(categoriaService.procurarCategorias()).thenThrow(new ValidacaoException("teste"));
 		
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
-				.post(uri)
+				.get(uri)
 				.accept(MediaType.APPLICATION_JSON)
-				.param("codFesta", "14")
-				.param("idUsuario", "14")
-				.param("idGrupo", "14")
-				.content(emailsEnviados)
 				.contentType(MediaType.APPLICATION_JSON);
 		
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
-		
+
 		MockHttpServletResponse response = result.getResponse();
 		
-		assertEquals(400, response.getStatus());
-		assertEquals(expected, result.getResponse().getContentAsString());
+		assertEquals(HttpStatus.BAD_REQUEST.value(), response.getStatus());
 		
+		assertEquals("teste", result.getResponse().getContentAsString());
 	}
 
 }

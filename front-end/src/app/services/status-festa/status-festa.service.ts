@@ -2,36 +2,43 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { MatDialog } from '@angular/material/dialog';
-import { ErroDialogComponent } from '../../views/erro-dialog/erro-dialog.component';
 import { LogService } from '../logging/log.service';
 import { take, catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 import { LoginService } from '../loginService/login.service';
-import { Router } from '@angular/router';
-
+import { ErroDialogComponent } from 'src/app/views/erro-dialog/erro-dialog.component';
 
 @Injectable({
   providedIn: 'root'
 })
-export class EditarFestaService {
+export class StatusFestaService {
 
-  private readonly urlAtualizarFesta = `${environment.URL_BACK}festa/atualizar`;
+  private readonly urlStatusFesta = `${environment.URL_BACK}festa/festaMudancaStatus`;
+
+  public farol = false;
 
   constructor(private http: HttpClient, public logService: LogService, public dialog: MatDialog,
-              public loginService: LoginService, public router: Router) { }
+              public loginService: LoginService) { }
 
-  atualizarFesta(dadosFesta) {
-    const httpParams = new HttpParams()
-    .append('idUser', this.loginService.usuarioInfo.codUsuario);
-    return this.http.put(this.urlAtualizarFesta, dadosFesta, {params: httpParams}).pipe(
-      take(1),
-      catchError(error => {
-        return this.handleError(error, this.logService);
-      })
-    );
+  mudarStatusFesta(codFesta, statusFesta) {
+    if (!this.farol) {
+      this.setFarol(true);
+      const httpParams = new HttpParams()
+      .append('idFesta', codFesta)
+      .append('statusFesta', statusFesta)
+      .append('idUsuario', this.loginService.usuarioInfo.codUsuario);
+      return this.http.put(this.urlStatusFesta, null, {params: httpParams}).pipe(
+        take(1),
+        catchError(error => {
+          return this.handleError(error, this.logService);
+        })
+      );
+    }
   }
 
   handleError = (error: HttpErrorResponse, logService: LogService) => {
+    this.setFarol(false);
+    this.dialog.closeAll();
     this.openErrorDialog(error.error);
     logService.initialize();
     logService.logHttpInfo(JSON.stringify(error), 0, error.url);
@@ -45,4 +52,11 @@ export class EditarFestaService {
     });
   }
 
+  setFarol(flag: boolean) {
+    this.farol = flag;
+  }
+
+  getFarol() {
+    return this.farol;
+  }
 }
