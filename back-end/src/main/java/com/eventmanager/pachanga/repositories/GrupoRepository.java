@@ -21,12 +21,10 @@ public interface GrupoRepository extends CrudRepository<Grupo, Integer>{
 	//@Query(value = "SELECT g FROM xz g JOIN g.festa f WHERE f.codFesta = :codFesta")
 	//public List<Grupo> findGruposFesta(int codFesta);
 	
-	@Modifying
-	@Query(value = "SELECT g FROM usuario_x_grupo u JOIN u.grupo g WHERE u.cod_usuario = :codUsuario")
-	public List<Grupo> findGruposUsuario(int codUsuario);
+//	@Query(value = "SELECT g FROM usuario_x_grupo u JOIN u.grupo g WHERE u.cod_usuario = :codUsuario")
+//	public List<Grupo> findGruposUsuario(int codUsuario);
 	
-	@Modifying
-	@Query(value = "SELECT g FROM Grupo g JOIN g.festa f WHERE f.cod_festa = :codFesta")
+	@Query(value = "SELECT g FROM Grupo g JOIN g.festa f WHERE f.codFesta = :codFesta")
 	public List<Grupo> findGruposFesta(int codFesta);
 
 	@Modifying

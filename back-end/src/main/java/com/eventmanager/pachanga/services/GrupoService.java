@@ -61,10 +61,10 @@ public class GrupoService {
 		}
 	}
 	
-	public List<Grupo> procurarGruposPorUsuario(int idUser){
-		this.validarUsuario(idUser);
-		return grupoRepository.findGruposUsuario(idUser);
-	}
+//	public List<Grupo> procurarGruposPorUsuario(int idUser){
+//		this.validarUsuario(idUser);
+//		return grupoRepository.findGruposUsuario(idUser);
+//	}
 	
 	public List<Grupo> procurarGruposPorFesta(int idFesta){
 	

@@ -17,9 +17,9 @@ public class GrupoFactory {
 	private GrupoFactory() {
 	}
 	
-	public static GrupoTO getGrupoTO(Festa festa, List<UsuarioTO> usuarios, boolean enviarQuantidade) {
-		GrupoTOBuilder grupoToBuilder =  GrupoTOBuilder.getInstance().
-	}
+//	public static GrupoTO getGrupoTO(Festa festa, List<UsuarioTO> usuarios, boolean enviarQuantidade) {
+//		GrupoTOBuilder grupoToBuilder =  GrupoTOBuilder.getInstance().
+//	}
 	
 	
 	/*
