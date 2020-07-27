@@ -34,6 +34,7 @@ export class ErroDialogComponent implements OnInit {
       case 'STATERRA': this.erro = this.translate.instant('ERRO.STATERRA'); break;
       case 'STANMUDA': this.erro = this.translate.instant('ERRO.STANMUDA'); break;
       case 'FSTANINI': this.erro = this.translate.instant('ERRO.FSTANINI'); break;
+      case 'FESTINIC': this.erro = this.translate.instant('ERRO.FESTINIC'); break;
       default: this.erro = this.translate.instant('ERRO.SERVERRO');
     }
   }

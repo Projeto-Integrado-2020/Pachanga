@@ -68,7 +68,8 @@
         "FESTNOME": "Outra festa já está usando este nome.",
         "STATERRA": "Esse status de festa não existe.",
         "STANMUDA": "A festa já se encontra nessa fase.",
-        "FSTANINI": "A festa precisa estar iniciada para realizar esta ação."
+        "FSTANINI": "A festa precisa estar iniciada para realizar esta ação.",
+        "FESTINIC": "Os dados da festa não podem ser editados enquanto ela está iniciada."
     },
 
     "SUCCESS": {
