@@ -81,9 +81,8 @@ public class FestaService {
 		validarPermissaoUsuario(idUser, idFesta, TipoPermissao.DELEFEST.getCodigo());
 		List<Grupo> grupos = grupoRepository.findGruposFesta(idFesta);
 		for(Grupo grupo : grupos) {
-			grupoRepository.deleteUsuarioGrupo(grupo.getCodGrupo());
+			grupoRepository.deleteGrupo(grupo.getCodGrupo());
 		}
-		grupoRepository.deleteAll(grupos);
 		festaRepository.deleteById(idFesta);
 	}
 
@@ -105,7 +104,10 @@ public class FestaService {
 			throw new ValidacaoException("USERSPER");//Usuário sem permissão de fazer essa ação
 		}
 		Festa festa = festaRepository.findById(idFesta);
-		if(!TipoStatusFesta.PREPARACAO.getValor().equals(festa.getStatusFesta())) {
+		boolean festaFinalizadaDelete = TipoStatusFesta.FINALIZADO.getValor().equals(festa.getStatusFesta()) 
+				&& TipoPermissao.DELEFEST.getCodigo() == codPermissao;
+		if(!TipoStatusFesta.PREPARACAO.getValor().equals(festa.getStatusFesta())
+				&& !festaFinalizadaDelete) {
 			throw new ValidacaoException("FESTINIC");//Não pode ser feita essa operação com a festa iniciada
 		}
 	}

@@ -54,7 +54,7 @@ public class GrupoService {
 		for(String email : emails) {
 			Usuario usuario = usuarioRepository.findByEmail(email);
 			if(usuario != null) {
-				grupoRepository.deleteUsuarioGrupo(usuario.getCodUsuario(), grupo.getCodGrupo());
+//				grupoRepository.deleteUsuarioGrupo(usuario.getCodUsuario(), grupo.getCodGrupo());
 			}else {
 				emailMensagem.enviarEmail(email);				
 			}
