@@ -83,7 +83,7 @@ describe('EditarFestaComponent', () => {
   it('should callServiceGet when atualizarFesta', () => {
     component.festa = {codFesta: 'Teste'};
     spyOn(component, 'callServiceAtualizacao');
-    component.atualizarFesta('teste', 'teste', 'teste', 'teste', 'teste', 'teste', 'teste', 'teste', 'teste');
+    component.atualizarFesta('teste', 'teste', 'teste', 'teste', 'teste', 'teste', 'teste', 'teste', 'teste', 'teste', 'teste');
     expect(component.callServiceAtualizacao).toHaveBeenCalled();
   });
 

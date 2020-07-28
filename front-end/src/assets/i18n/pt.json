@@ -172,7 +172,9 @@
         "I": "Festa iniciada",
         "F": "Festa finalizada",
         "NONEPARTY": "Você não tem nenhuma festa associada a esta conta.",
-        "CLICKHERE": "Clique aqui para criar uma festa"
+        "CLICKHERE": "Clique aqui para criar uma festa",
+        "CATEGORIA1": "Categoria primária",
+        "CATEGORIA2": "Categoria secundária"
     },
 
     "CRIARFESTA": {
@@ -250,5 +252,24 @@
     
     "UTILS": {
         "RETURN": "Retornar"
+    },
+
+    "CATEGORIA": {
+        "NONE": "Nenhuma",
+        "SHOWMUSI": "Show Musical",
+        "RAVEAFIM": "Rave e afins",
+        "FESTAPOP": "Festa Pop",
+        "ELETRONC": "Festa Eletrônica",
+        "PAGOSAMB": "Pagode/Samba",
+        "SERTANEJ": "Sertanejo",
+        "FESTROCK": "Festa Rock",
+        "BAILFUNK": "Baile Funk",
+        "CERVEJAD": "Cervejada",
+        "FESTAUNI": "Festa Universitária",
+        "MULTIGNR": "Multi-Gênero",
+        "NIGHTCLB": "Night Club",
+        "CRMNFRML": "Encontro formal",
+        "TRAP/RAP": "Trap/Rap",
+        "BAILEBRG": "Baile Brega"
     }
 }

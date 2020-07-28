@@ -172,7 +172,9 @@
         "I": "Party started",
         "F": "Party finished",
         "NONEPARTY": "You don't have any party associated to this account.",
-        "CLICKHERE": "Click here to create a new party"
+        "CLICKHERE": "Click here to create a new party",
+        "CATEGORIA1": "Primary category",
+        "CATEGORIA2": "Secondary category"
     },
 
     "CRIARFESTA": {
@@ -250,5 +252,24 @@
     
     "UTILS": {
         "RETURN": "Return"
+    },
+
+    "CATEGORIA": {
+        "NONE": "None",
+        "SHOWMUSI": "Musical Concert",
+        "RAVEAFIM": "Rave and/or related",
+        "FESTAPOP": "Pop Party",
+        "ELETRONC": "Eletronic Party",
+        "PAGOSAMB": "Pagode/Samba",
+        "SERTANEJ": "Sertanejo",
+        "FESTROCK": "Rock Party",
+        "BAILFUNK": "Funk Prom",
+        "CERVEJAD": "Brewed",
+        "FESTAUNI": "College Party",
+        "MULTIGNR": "multi-genre",
+        "NIGHTCLB": "Night Club",
+        "CRMNFRML": "Formal Meet",
+        "TRAP/RAP": "Trap/Rap",
+        "BAILEBRG": "70's Prom"
     }
 }

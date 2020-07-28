@@ -1,14 +1,15 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpClientModule } from '@angular/common/http';
-import { DeletarFestaService } from './deletar-festa.service';
 import { CustomMaterialModule } from '../../views/material/material.module';
 import { MatDialog, MatDialogRef } from '@angular/material';
+import { GetCategoriasService } from './get-categorias.service';
 
-describe('DeletarFestaService', () => {
+describe('GetCategoriasService', () => {
   let dialogSpy: MatDialog;
 
   beforeEach(() => {
-    dialogSpy = jasmine.createSpyObj('MatDialog', ['open', 'closeAll']);
+    dialogSpy = jasmine.createSpyObj('MatDialog', ['open']);
+
     TestBed.configureTestingModule({
       imports: [
         HttpClientModule,
@@ -22,12 +23,12 @@ describe('DeletarFestaService', () => {
   });
 
   it('should be created', () => {
-    const service: DeletarFestaService = TestBed.get(DeletarFestaService);
+    const service: GetCategoriasService = TestBed.get(GetCategoriasService);
     expect(service).toBeTruthy();
   });
 
   it('should set farol', () => {
-    const service: DeletarFestaService = TestBed.get(DeletarFestaService);
+    const service: GetCategoriasService = TestBed.get(GetCategoriasService);
     service.setFarol(true);
     expect(service.getFarol()).toBeTruthy();
     service.setFarol(false);
@@ -35,14 +36,14 @@ describe('DeletarFestaService', () => {
   });
 
   it('should get farol', () => {
-    const service: DeletarFestaService = TestBed.get(DeletarFestaService);
+    const service: GetCategoriasService = TestBed.get(GetCategoriasService);
     expect(service.getFarol()).toBeFalsy();
     service.setFarol(true);
     expect(service.getFarol()).toBeTruthy();
   });
 
   it('should open a dialog through a method', () => {
-    const service: DeletarFestaService = TestBed.get(DeletarFestaService);
+    const service: GetCategoriasService = TestBed.get(GetCategoriasService);
     service.openErrorDialog('teste');
     expect(dialogSpy.open).toHaveBeenCalled();
   });

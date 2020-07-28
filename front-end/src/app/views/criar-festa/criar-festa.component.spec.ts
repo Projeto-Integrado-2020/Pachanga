@@ -59,7 +59,7 @@ describe('CriarFestaComponent', () => {
 
   it('should callService when adicionarFesta', () => {
     spyOn(component, 'callService');
-    component.adicionarFesta('teste', 'teste', 'teste', 'teste', 'teste', 'teste', 'teste', 'teste', 'teste');
+    component.adicionarFesta('teste', 'teste', 'teste', 'teste', 'teste', 'teste', 'teste', 'teste', 'teste', 'teste', 'teste');
     expect(component.callService).toHaveBeenCalled();
   });
 
