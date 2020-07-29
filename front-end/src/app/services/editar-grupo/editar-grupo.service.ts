@@ -8,21 +8,20 @@ import { take, catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 import { LoginService } from '../loginService/login.service';
 
-
 @Injectable({
   providedIn: 'root'
 })
-export class EditarFestaService {
+export class EditarGrupoService {
 
-  private readonly urlAtualizarFesta = `${environment.URL_BACK}festa/atualizar`;
+  private readonly urlAtualizarGrupo = `${environment.URL_BACK}grupo/atualizar`;
 
   constructor(private http: HttpClient, public logService: LogService, public dialog: MatDialog,
               public loginService: LoginService) { }
 
-  atualizarFesta(dadosFesta) {
+  editarGrupo(dadosGrupo) {
     const httpParams = new HttpParams()
     .append('idUser', this.loginService.usuarioInfo.codUsuario);
-    return this.http.put(this.urlAtualizarFesta, dadosFesta, {params: httpParams}).pipe(
+    return this.http.put(this.urlAtualizarGrupo, dadosGrupo, {params: httpParams}).pipe(
       take(1),
       catchError(error => {
         return this.handleError(error, this.logService);
@@ -43,5 +42,4 @@ export class EditarFestaService {
       data: {erro: error}
     });
   }
-
 }

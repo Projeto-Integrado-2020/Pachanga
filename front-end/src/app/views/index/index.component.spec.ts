@@ -26,6 +26,7 @@ import { LoginService } from 'src/app/services/loginService/login.service';
 import { CriarGrupoComponent } from '../criar-grupo/criar-grupo.component';
 import { FiltroFestaPipe } from '../menu-festas/filtroFesta.pipe';
 import { GerenciadorMembrosComponent } from '../gerenciador-membros/gerenciador-membros.component';
+import { EditarGrupoComponent } from '../editar-grupo/editar-grupo.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -51,7 +52,8 @@ describe('IndexComponent', () => {
         NotFoundComponent,
         CriarGrupoComponent,
         FiltroFestaPipe,
-        GerenciadorMembrosComponent
+        GerenciadorMembrosComponent,
+        EditarGrupoComponent
       ],
       imports: [
         CustomMaterialModule,

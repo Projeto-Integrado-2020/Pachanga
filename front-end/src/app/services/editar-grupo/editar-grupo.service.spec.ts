@@ -1,17 +1,12 @@
 import { TestBed } from '@angular/core/testing';
-
-import { EditarFestaService } from './editar-festa.service';
-
+import { EditarGrupoService } from './editar-grupo.service';
 import { HttpClientModule } from '@angular/common/http';
-
 import { CustomMaterialModule } from '../../views/material/material.module';
-
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-
 import { MatDialog } from '@angular/material';
 
-describe('EditarFestaService', () => {
+describe('EditarGrupoService', () => {
   let dialogSpy: MatDialog;
   const router = {
     navigate: jasmine.createSpy('navigate')
@@ -34,12 +29,12 @@ describe('EditarFestaService', () => {
   });
 
   it('should be created', () => {
-    const service: EditarFestaService = TestBed.get(EditarFestaService);
+    const service: EditarGrupoService = TestBed.get(EditarGrupoService);
     expect(service).toBeTruthy();
   });
 
   it('should open a dialog through a method', () => {
-    const service: EditarFestaService = TestBed.get(EditarFestaService);
+    const service: EditarGrupoService = TestBed.get(EditarGrupoService);
     service.openErrorDialog('teste');
     expect(dialogSpy.open).toHaveBeenCalled();
   });

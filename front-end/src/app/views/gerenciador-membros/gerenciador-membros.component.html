@@ -17,10 +17,12 @@
                <button (click)="openDialogInvite(grupo.codGrupo)" mat-icon-button class="btn-invite">
                   <mat-icon matTooltip="{{'GRUPO.INVITE' | translate}}">add</mat-icon>
                </button>
-               <button mat-icon-button class="edit-delete-button">
-                  <mat-icon matTooltip="{{'GRUPO.EDIT' | translate}}">edit</mat-icon>
-               </button>
-               <button mat-icon-button class="edit-delete-button">
+               <a routerLink="{{'./' + grupo.codGrupo + '/editar'}}">
+                  <button mat-icon-button class="edit-delete-button">
+                     <mat-icon matTooltip="{{'GRUPO.EDIT' | translate}}">edit</mat-icon>
+                  </button>
+               </a>
+               <button mat-icon-button class="edit-delete-button" (click)="openDialogDelete(grupo)">
                   <mat-icon matTooltip="{{'GRUPO.DELETE' | translate}}">delete</mat-icon>
                </button>
          </mat-card-header>

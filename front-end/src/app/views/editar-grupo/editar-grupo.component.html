@@ -1,11 +1,11 @@
 <div class="main-container">
     <header>
-        <h1 class="title">{{ 'GRUPO.CREATEGROUP' | translate }}</h1>
+        <h1 class="title">{{ 'GRUPO.EDIT' | translate }}</h1>
     </header>
     <div class="form-div">
         <mat-card class="form-tab">
             <mat-card-content class="card-content">
-                <form [formGroup]="form" (submit)="criarGrupo(nomeGrupo.value)">
+                <form [formGroup]="form" (submit)="editarGrupo(nomeGrupo.value)">
                     <mat-form-field class="texto-input">
                         <mat-label>{{'GRUPO.NAME' | translate}}</mat-label>
                         <input ng-class="{ f.nomeGrupo.errors }" #nomeGrupo formControlName="nomeGrupo" matInput required>
@@ -17,7 +17,7 @@
                     </div>
                     <br>
                     <button [disabled]="!form.valid" class="button-form" mat-raised-button>
-                        <mat-icon>add</mat-icon> {{'GRUPO.CREATEGROUP' | translate}}
+                        <mat-icon>editar</mat-icon> {{'GRUPO.EDIT' | translate}}
                     </button>
                 </form>
             </mat-card-content>

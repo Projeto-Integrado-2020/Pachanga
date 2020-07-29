@@ -214,7 +214,7 @@
         "EDIT": "Editar permissões do colaborador",
         "DELETE": "Deletar colaborador",
         "EDITFESTA": "Editar festa",
-        "DELETEFESTA": "Deletar festa",
+        "DELETEFESTA": "Apagar festa",
         "CHANGESTATUS": "Alterar status da festa"
     },
 
@@ -223,7 +223,8 @@
     },
 
     "DELETEDIALOG": {
-        "MESSAGE": "Você realmente deseja deletar a festa ",
+        "MESSAGEPARTY": "Você realmente deseja apagar a festa ",
+        "MESSAGEROLE": "Você realmente deseja apagar o grupo ",
         "CONFIRM": "Confirmar",
         "CANCEL": "Cancelar"
     },
@@ -235,7 +236,7 @@
         "MEMBERS": "Membro(s)",
         "INVITE": "Convidar membros",
         "EDIT": "Editar grupo",
-        "DELETE": "Deletar grupo"
+        "DELETE": "Excluir grupo"
     },
 
     "CONVITE": {

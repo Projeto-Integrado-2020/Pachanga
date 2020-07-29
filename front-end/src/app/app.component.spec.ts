@@ -31,6 +31,7 @@ import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 import { CriarGrupoComponent } from './views/criar-grupo/criar-grupo.component';
 import { FiltroFestaPipe } from './views/menu-festas/filtroFesta.pipe';
 import { GerenciadorMembrosComponent } from './views/gerenciador-membros/gerenciador-membros.component';
+import { EditarGrupoComponent } from './views/editar-grupo/editar-grupo.component';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -72,7 +73,8 @@ describe('AppComponent', () => {
         NotFoundComponent,
         CriarGrupoComponent,
         FiltroFestaPipe,
-        GerenciadorMembrosComponent
+        GerenciadorMembrosComponent,
+        EditarGrupoComponent
       ],
       imports: [
         BrowserModule,

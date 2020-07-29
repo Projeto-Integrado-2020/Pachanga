@@ -62,6 +62,8 @@ import { GerenciadorMembrosComponent } from './views/gerenciador-membros/gerenci
 import { StatusDialogComponent } from './views/status-dialog/status-dialog.component';
 import { StatusFestaService } from './services/status-festa/status-festa.service';
 import { FiltroFestaPipe } from './views/menu-festas/filtroFesta.pipe';
+import { DeletarGrupoComponent } from './views/deletar-grupo/deletar-grupo.component';
+import { EditarGrupoComponent } from './views/editar-grupo/editar-grupo.component';
 
 
 const config = new AuthServiceConfig([
@@ -102,7 +104,9 @@ export function provideConfig() {
     CriarGrupoComponent,
     GerenciadorMembrosComponent,
     StatusDialogComponent,
-    FiltroFestaPipe
+    FiltroFestaPipe,
+    DeletarGrupoComponent,
+    EditarGrupoComponent
   ],
   entryComponents: [
     LoginComponent,
@@ -112,7 +116,8 @@ export function provideConfig() {
     SuccessDialogComponent,
     InviteDialogComponent,
     DeletarFestaComponent,
-    StatusDialogComponent
+    StatusDialogComponent,
+    DeletarGrupoComponent
   ],
   imports: [
     BrowserModule,

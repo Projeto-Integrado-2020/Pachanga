@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { GetGruposService } from 'src/app/services/get-grupos/get-grupos.service';
 import { MatTableDataSource, MatDialog } from '@angular/material';
 import { InviteDialogComponent } from '../invite-dialog/invite-dialog.component';
+import { DeletarGrupoComponent } from '../deletar-grupo/deletar-grupo.component';
 
 export interface TabelaMembros {
   membro: string;
@@ -73,6 +74,16 @@ export class GerenciadorMembrosComponent implements OnInit {
       data: {
         idFesta: this.festa.codFesta,
         grupo
+      }
+    });
+  }
+
+  openDialogDelete(grupo) {
+    this.dialog.open(DeletarGrupoComponent, {
+      width: '20rem',
+      data: {
+        grupo,
+        codFesta: this.festa.codFesta
       }
     });
   }

@@ -223,7 +223,8 @@
     },
 
     "DELETDIALOG": {
-        "MESSAGE": "Do you really want to delete the party",
+        "MESSAGEPARTY": "Do you really want to delete the party ",
+        "MESSAGEROLE": "Do you really want to delete the role ",
         "CONFIRM": "Confirm",
         "CANCEL": "Cancel"
     },
@@ -234,8 +235,8 @@
         "PARTYGROUPS": "Party permission roles",
         "MEMBERS": "Member(s)",
         "INVITE": "Invite members",
-        "EDIT": "Editar grupo",
-        "DELETE": "Deletar grupo"
+        "EDIT": "Edit role",
+        "DELETE": "Delete role"
     },
 
     "CONVITE": {

@@ -1,35 +1,42 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { EditarGrupoComponent } from './editar-grupo.component';
+import { CustomMaterialModule } from '../material/material.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
+
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { HttpClient } from '@angular/common/http';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { CustomMaterialModule } from '../material/material.module';
-import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
+
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 import { RouterModule } from '@angular/router';
 import { MatDialog } from '@angular/material';
 import { LoginService } from 'src/app/services/loginService/login.service';
-import { GerenciadorMembrosComponent } from './gerenciador-membros.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
 }
 
-describe('GerenciadorMembrosComponent', () => {
-  let component: GerenciadorMembrosComponent;
-  let fixture: ComponentFixture<GerenciadorMembrosComponent>;
+describe('EditarGrupoComponent', () => {
+  let component: EditarGrupoComponent;
+  let fixture: ComponentFixture<EditarGrupoComponent>;
   let dialogSpy: MatDialog;
 
   beforeEach(async(() => {
     dialogSpy = jasmine.createSpyObj('MatDialog', ['open']);
+
     TestBed.configureTestingModule({
-      declarations: [ GerenciadorMembrosComponent ],
+      declarations: [ EditarGrupoComponent ],
       imports: [
         CustomMaterialModule,
+        NgxMaterialTimepickerModule,
+        FormsModule,
+        ReactiveFormsModule,
         HttpClientTestingModule,
         BrowserAnimationsModule,
-        ReactiveFormsModule,
-        RouterModule.forRoot([]),
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
@@ -37,6 +44,7 @@ describe('GerenciadorMembrosComponent', () => {
             deps: [HttpClient]
           }
         }),
+        RouterModule.forRoot([])
       ],
       providers: [
         { provide: MatDialog, useValue: dialogSpy },
@@ -46,11 +54,10 @@ describe('GerenciadorMembrosComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(GerenciadorMembrosComponent);
+    fixture = TestBed.createComponent(EditarGrupoComponent);
     component = fixture.componentInstance;
     const service: LoginService = TestBed.get(LoginService);
     service.usuarioInfo = {codUsuario: '1'};
-    component.festa = {codFesta: '1'};
     fixture.detectChanges();
   });
 
@@ -58,15 +65,22 @@ describe('GerenciadorMembrosComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should open a invite dialog through a method', () => {
-    component.festa = {codFesta: '1'};
-    component.openDialogInvite('teste');
+  it('should get f to get form controls', () => {
+    expect(component.f).toBe(component.form.controls);
+  });
+
+  it('should open a dialog through a method', () => {
+    component.openDialogSuccess('teste');
     expect(dialogSpy.open).toHaveBeenCalled();
   });
 
-  it('should open a delete dialog through a method', () => {
-    component.festa = {codFesta: '1'};
-    component.openDialogDelete({});
-    expect(dialogSpy.open).toHaveBeenCalled();
+  it('should setFormValues', () => {
+    component.grupo = {nomeGrupo: 'Teste'};
+    component.permissoesGrupo = ['teste2'];
+    component.permissoes = ['teste1', 'teste2'];
+    component.buildForm();
+    component.setFormValues();
+    expect(component.f.teste1.value).toBeFalsy();
+    expect(component.f.teste2.value).toBeTruthy();
   });
 });
