@@ -1,0 +1,40 @@
+.userlist {
+    height: auto;
+    width: 100%;
+    margin-top: calc(2rem + 64px);
+
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.title {
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+
+.linha {
+    padding: 1.25rem 1rem 0 1rem;
+    display: flex;
+    justify-content: space-evenly;
+
+    height: auto;
+
+    &:nth-child(even) {
+        background: #DCDCDC
+    }
+
+    &:nth-child(odd) {
+        background: #FFF
+    }
+
+    & .nome, .perfil {
+        display: block;
+        vertical-align: middle;
+    }
+}
+
+.nome {
+    margin-right: 2rem;
+}

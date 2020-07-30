@@ -61,6 +61,7 @@ import { CriarGrupoComponent } from './views/criar-grupo/criar-grupo.component';
 import { StatusDialogComponent } from './views/status-dialog/status-dialog.component';
 import { StatusFestaService } from './services/status-festa/status-festa.service';
 import { FiltroFestaPipe } from './views/menu-festas/filtroFesta.pipe';
+import { DistribuicaoPermissoesComponent } from './views/distribuicao-permissoes/distribuicao-permissoes.component';
 
 const config = new AuthServiceConfig([
   {
@@ -99,7 +100,8 @@ export function provideConfig() {
     DeletarFestaComponent,
     CriarGrupoComponent,
     StatusDialogComponent,
-    FiltroFestaPipe
+    FiltroFestaPipe,
+    DistribuicaoPermissoesComponent
   ],
   entryComponents: [
     LoginComponent,
