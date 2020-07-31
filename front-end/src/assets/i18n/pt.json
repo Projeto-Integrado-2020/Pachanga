@@ -65,7 +65,11 @@
         "USERSPER": "Usuário sem permissão para executar esta ação.",
         "DATEINFE": "Datas/Horários inválidos.",
         "FESTNEND": "Festa sem endereço.",
-        "FESTNOME": "Outra festa já está usando este nome."
+        "FESTNOME": "Outra festa já está usando este nome.",
+        "STATERRA": "Esse status de festa não existe.",
+        "STANMUDA": "A festa já se encontra nessa fase.",
+        "FSTANINI": "A festa precisa estar iniciada para realizar esta ação.",
+        "FESTINIC": "Os dados da festa não podem ser editados enquanto ela está iniciada."
     },
 
     "SUCCESS": {
@@ -146,7 +150,6 @@
         "NEXTPAGE": "Próxima página",
         "PREVIOUSPAGE": "Página anterior",
         "OF": "de"
-
     },
 
     "FESTA": {
@@ -164,7 +167,14 @@
         "PROGRESS": "Em progresso",
         "FINISHED": "Terminado",
         "PREPARING": "Em preparação",
-        "MORE": "and more..."
+        "MORE": "and more...",
+        "P": "Em preparação",
+        "I": "Festa iniciada",
+        "F": "Festa finalizada",
+        "NONEPARTY": "Você não tem nenhuma festa associada a esta conta.",
+        "CLICKHERE": "Clique aqui para criar uma festa",
+        "CATEGORIA1": "Categoria primária",
+        "CATEGORIA2": "Categoria secundária"
     },
 
     "CRIARFESTA": {
@@ -195,17 +205,17 @@
         "MEMBROS": "Membros colaboradores",
         "NIVACESSO": "Nível de acesso",
         "CONVITESTATUS": "Status do convite",
-        "CONVIDARMEMBROS": "Convidar membros",
+        "GERENCIARMEMBROS": "Gerenciar membros",
         "CONSULTACESSO": "Consultar permissões",
         "STATSINGRESSOS": "Estatísticas de ingressos",
-        "PREPARACAO": "Fase de preparação",
         "ACEITO": "Aceito",
         "RECUSADO": "Recusado",
         "PENDENTE": "Pendente",
         "EDIT": "Editar permissões do colaborador",
         "DELETE": "Deletar colaborador",
         "EDITFESTA": "Editar festa",
-        "DELETEFESTA": "Deletar festa"
+        "DELETEFESTA": "Apagar festa",
+        "CHANGESTATUS": "Alterar status da festa"
     },
 
     "404": {
@@ -213,14 +223,20 @@
     },
 
     "DELETEDIALOG": {
-        "MESSAGE": "Você realmente deseja deletar a festa ",
+        "MESSAGEPARTY": "Você realmente deseja apagar a festa ",
+        "MESSAGEROLE": "Você realmente deseja apagar o grupo ",
         "CONFIRM": "Confirmar",
         "CANCEL": "Cancelar"
     },
 
     "GRUPO": {
         "CREATEGROUP": "Criar Grupo de Permissão",
-        "NAME": "Nome do Grupo"
+        "NAME": "Nome do Grupo",
+        "PARTYGROUPS": "Grupos de permissão da festa",
+        "MEMBERS": "Membro(s)",
+        "INVITE": "Convidar membros",
+        "EDIT": "Editar grupo",
+        "DELETE": "Excluir grupo"
     },
 
     "CONVITE": {
@@ -229,7 +245,32 @@
         "LISTAEMAIL": "Lista de e-mails"
     },
 
+    "STATUSDIALOG": {
+        "MESSAGE": "Você realmente deseja alterar o status para ",
+        "CONFIRM": "Confirmar",
+        "CANCEL": "Cancelar"
+    },
+    
     "UTILS": {
         "RETURN": "Retornar"
+    },
+
+    "CATEGORIA": {
+        "NONE": "Nenhuma",
+        "SHOWMUSI": "Show Musical",
+        "RAVEAFIM": "Rave e afins",
+        "FESTAPOP": "Festa Pop",
+        "ELETRONC": "Festa Eletrônica",
+        "PAGOSAMB": "Pagode/Samba",
+        "SERTANEJ": "Sertanejo",
+        "FESTROCK": "Festa Rock",
+        "BAILFUNK": "Baile Funk",
+        "CERVEJAD": "Cervejada",
+        "FESTAUNI": "Festa Universitária",
+        "MULTIGNR": "Multi-Gênero",
+        "NIGHTCLB": "Night Club",
+        "CRMNFRML": "Encontro formal",
+        "TRAP/RAP": "Trap/Rap",
+        "BAILEBRG": "Baile Brega"
     }
 }

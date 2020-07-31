@@ -7,12 +7,10 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.eventmanager.pachanga.domains.Festa;
 
 @Repository
-@Transactional
 public interface FestaRepository extends JpaRepository<Festa, Integer>{
 	
 	@Query(value = "SELECT NEXTVAL('seq_festa');", nativeQuery = true)

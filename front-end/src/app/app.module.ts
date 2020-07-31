@@ -58,6 +58,13 @@ import { MatPaginatorPtBr } from './views/menu-festas/mat-paginator-ptbr';
 import { NotFoundComponent } from './views/not-found/not-found.component';
 import { DeletarFestaComponent } from './views/deletar-festa/deletar-festa.component';
 import { CriarGrupoComponent } from './views/criar-grupo/criar-grupo.component';
+import { GerenciadorMembrosComponent } from './views/gerenciador-membros/gerenciador-membros.component';
+import { StatusDialogComponent } from './views/status-dialog/status-dialog.component';
+import { StatusFestaService } from './services/status-festa/status-festa.service';
+import { FiltroFestaPipe } from './views/menu-festas/filtroFesta.pipe';
+import { DeletarGrupoComponent } from './views/deletar-grupo/deletar-grupo.component';
+import { EditarGrupoComponent } from './views/editar-grupo/editar-grupo.component';
+
 
 const config = new AuthServiceConfig([
   {
@@ -94,7 +101,12 @@ export function provideConfig() {
     EditarFestaComponent,
     NotFoundComponent,
     DeletarFestaComponent,
-    CriarGrupoComponent
+    CriarGrupoComponent,
+    GerenciadorMembrosComponent,
+    StatusDialogComponent,
+    FiltroFestaPipe,
+    DeletarGrupoComponent,
+    EditarGrupoComponent
   ],
   entryComponents: [
     LoginComponent,
@@ -103,7 +115,9 @@ export function provideConfig() {
     EditDialogComponent,
     SuccessDialogComponent,
     InviteDialogComponent,
-    DeletarFestaComponent
+    DeletarFestaComponent,
+    StatusDialogComponent,
+    DeletarGrupoComponent
   ],
   imports: [
     BrowserModule,
@@ -146,12 +160,6 @@ export function provideConfig() {
       provide: MatPaginatorIntl,
       useClass: MatPaginatorPtBr
     }
-    /* Tentativa de solucao para traducao do paginator com ngx-translate
-    {
-      provide: MatPaginatorIntl, deps: [TranslateService],
-      useFactory:  (translateService: TranslateService) => new MatPaginatorPtBr(translateService).getPaginatorIntl()
-    }
-    */
   ],
   bootstrap: [AppComponent]
 })

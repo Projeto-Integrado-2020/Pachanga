@@ -19,7 +19,11 @@
                         </div>
                     </mat-list-item>
                     <mat-list-item class="status-list"> 
-                        Status: {{'PAINELCONTROLE.PREPARACAO' | translate}} <mat-icon>access_time</mat-icon>
+                        <mat-button-toggle-group name="status" value="{{statusFesta}}" aria-label="Status da Festa">
+                            <mat-button-toggle (click)="openDialogStatus('P')" disabled value="P">{{'FESTA.P' | translate}}</mat-button-toggle>
+                            <mat-button-toggle (click)="openDialogStatus('I')" disabled value="I">{{'FESTA.I' | translate}}</mat-button-toggle>
+                            <mat-button-toggle (click)="openDialogStatus('F')" disabled value="F">{{'FESTA.F' | translate}}</mat-button-toggle>
+                        </mat-button-toggle-group>
                         <a routerLink="../editar">
                             <button mat-button class="botao-editar">
                                 {{'PAINELCONTROLE.EDITFESTA' | translate}} <mat-icon>edit</mat-icon>
@@ -39,12 +43,12 @@
                     </ng-container>
 
                     <ng-container matColumnDef="status">
-                    <th mat-header-cell *matHeaderCellDef>{{'PAINELCONTROLE.CONVITESTATUS' | translate}}</th>
-                    <td mat-cell *matCellDef="let element"> {{element.status}} </td>
+                        <th mat-header-cell *matHeaderCellDef>{{'PAINELCONTROLE.CONVITESTATUS' | translate}}</th>
+                        <td mat-cell *matCellDef="let element"> {{element.status}} </td>
                     </ng-container>
 
                     <ng-container matColumnDef="edit">
-                        <th mat-header-cell *matHeaderCellDef><button (click)="openDialogInvite()" mat-raised-button class="prp-btn-invite">{{'PAINELCONTROLE.CONVIDARMEMBROS' | translate}}</button></th>
+                        <th mat-header-cell *matHeaderCellDef><a routerLink="../membros"><button mat-raised-button class="prp-btn-member">{{'PAINELCONTROLE.GERENCIARMEMBROS' | translate}}</button></a></th>
                         <td mat-cell *matCellDef="let element">
                             <button mat-icon-button class="icon-delete">
                                 <mat-icon matTooltip="{{'PAINELCONTROLE.DELETE' | translate}}">delete</mat-icon>

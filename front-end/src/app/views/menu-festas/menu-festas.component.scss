@@ -29,6 +29,16 @@ header {
     color: $color-primary;
 }
 
+.filtros {
+    margin-top: 2rem;
+    & mat-form-field {
+        max-width: 40%;
+    }
+    & mat-checkbox, mat-form-field {
+        display: block;
+    }
+}
+
 .lista-festas {
     margin: 2rem 0 2rem 0;
 }

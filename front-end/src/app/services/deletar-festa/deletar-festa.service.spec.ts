@@ -1,9 +1,8 @@
 import { TestBed } from '@angular/core/testing';
-import { HttpErrorResponse, HttpClientModule } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { DeletarFestaService } from './deletar-festa.service';
 import { CustomMaterialModule } from '../../views/material/material.module';
 import { MatDialog, MatDialogRef } from '@angular/material';
-import { throwError } from 'rxjs';
 
 describe('DeletarFestaService', () => {
   let dialogSpy: MatDialog;

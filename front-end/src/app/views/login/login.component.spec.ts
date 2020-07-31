@@ -27,6 +27,9 @@ import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 import { EditarFestaComponent } from '../editar-festa/editar-festa.component';
 import { NotFoundComponent } from '../not-found/not-found.component';
 import { CriarGrupoComponent } from '../criar-grupo/criar-grupo.component';
+import { FiltroFestaPipe } from '../menu-festas/filtroFesta.pipe';
+import { GerenciadorMembrosComponent } from '../gerenciador-membros/gerenciador-membros.component';
+import { EditarGrupoComponent } from '../editar-grupo/editar-grupo.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -66,7 +69,10 @@ describe('LoginComponent', () => {
         CriarFestaComponent,
         EditarFestaComponent,
         NotFoundComponent,
-        CriarGrupoComponent
+        CriarGrupoComponent,
+        FiltroFestaPipe,
+        GerenciadorMembrosComponent,
+        EditarGrupoComponent
       ],
       imports: [
         CustomMaterialModule,

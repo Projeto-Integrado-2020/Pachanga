@@ -1,0 +1,8 @@
+<h1 mat-dialog-title>{{'PAINELCONTROLE.CHANGESTATUS' | translate}}</h1>
+<div mat-dialog-content>
+    <p>{{'STATUSDIALOG.MESSAGE' | translate}}"{{'FESTA.' + status | translate}}"?</p>
+</div>
+<div mat-dialog-actions class="buttons">
+    <button class="red-back" mat-button (click)="setStatusFesta()" cdkFocusInitial>{{'STATUSDIALOG.CONFIRM' | translate}}</button>
+    <button  mat-button mat-dialog-close cdkFocusInitial>{{'STATUSDIALOG.CANCEL' | translate}}</button>
+</div>

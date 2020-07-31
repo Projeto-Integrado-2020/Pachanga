@@ -6,8 +6,9 @@ import java.util.Date;
 public class UsuarioTO {
     private Date dtNasc;
     private int codUsuario;
-    private  String nomeUser;
+    private String nomeUser;
     private String tipConta;
+    private String conta;
     private String email; //email atual da pesoa
     private String emailNovo;
     private String senha;
@@ -93,6 +94,14 @@ public class UsuarioTO {
 
 	public void setFuncionalidade(String funcionalidade) {
 		this.funcionalidade = funcionalidade;
+	}
+
+	public String getConta() {
+		return conta;
+	}
+
+	public void setConta(String conta) {
+		this.conta = conta;
 	}
 	    
 }

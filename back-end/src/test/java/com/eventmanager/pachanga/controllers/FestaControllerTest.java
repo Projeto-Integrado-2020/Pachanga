@@ -398,9 +398,7 @@ public class FestaControllerTest {
 
 		MockHttpServletResponse response = result.getResponse();
 
-		String expected = "{\"codFesta\":2,\"nomeFesta\":\"festao\",\"statusFesta\":\"I\",\"organizador\":\"Joao Neves\",\"horarioInicioFesta\":\"2016-06-22T19:10:00\",\"horarioFimFesta\":\"2016-06-23T19:10:00\",\"descricaoFesta\":\"Bugago\",\"codEnderecoFesta\":\"https//:minhacasa.org\",\"descOrganizador\":\"sou demente\",\"horarioFimFestaReal\":\"2016-06-23T19:10:00\",\"funcionalidade\":null,\"quantidadeParticipantes\":0,\"usuarios\":["
-				         +"{\"dtNasc\":\"3900-09-27T00:00:00.000+0000\",\"codUsuario\":1,\"nomeUser\":\"Andrey\",\"tipConta\":\"P\",\"email\":\"gustavinhoTPD@fodasse.com.br\",\"emailNovo\":null,\"senha\":null,\"senhaNova\": null,\"sexo\":\"M\",\"funcionalidade\": null},"
-				         +"{\"dtNasc\":\"3900-09-27T00:00:00.000+0000\",\"codUsuario\":2,\"nomeUser\":\"Luis\",\"tipConta\":\"P\",\"email\":\"gustavinhoTPD@fodasse.com.br\",\"emailNovo\":null,\"senha\":null,\"senhaNova\": null,\"sexo\":\"M\",\"funcionalidade\": null}]}";
+		String expected = "{\"codFesta\":2,\"nomeFesta\":\"festao\",\"statusFesta\":\"I\",\"organizador\":\"Joao Neves\",\"horarioInicioFesta\":\"2016-06-22T19:10:00\",\"horarioFimFesta\":\"2016-06-23T19:10:00\",\"descricaoFesta\":\"Bugago\",\"codEnderecoFesta\":\"https//:minhacasa.org\",\"descOrganizador\":\"sou demente\",\"horarioFimFestaReal\":\"2016-06-23T19:10:00\",\"funcionalidade\":null,\"quantidadeParticipantes\":0,\"usuarios\":[{\"dtNasc\":\"3900-09-27T00:00:00.000+0000\",\"codUsuario\":1,\"nomeUser\":\"Andrey\",\"tipConta\":null,\"conta\":null,\"email\":\"gustavinhoTPD@fodasse.com.br\",\"emailNovo\":null,\"senha\":null,\"senhaNova\":null,\"sexo\":\"M\",\"funcionalidade\":null},{\"dtNasc\":\"3900-09-27T00:00:00.000+0000\",\"codUsuario\":2,\"nomeUser\":\"Luis\",\"tipConta\":null,\"conta\":null,\"email\":\"gustavinhoTPD@fodasse.com.br\",\"emailNovo\":null,\"senha\":null,\"senhaNova\":null,\"sexo\":\"M\",\"funcionalidade\":null}]}";
 		
 		assertEquals(HttpStatus.OK.value(), response.getStatus());
 
@@ -419,6 +417,8 @@ public class FestaControllerTest {
 
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.get(uri)
+				.param("idFesta", "2")
+				.param("idUsuario", "2")
 				.accept(MediaType.APPLICATION_JSON)
 				.contentType(MediaType.APPLICATION_JSON);
 		
@@ -426,7 +426,7 @@ public class FestaControllerTest {
 
 		MockHttpServletResponse response = result.getResponse();
 		
-		assertEquals(400, response.getStatus());
+		assertEquals(200, response.getStatus());
 		assertEquals(expected, result.getResponse().getContentAsString());
 	}
 	
@@ -444,6 +444,7 @@ public class FestaControllerTest {
 				.get(uri)
 				.accept(MediaType.APPLICATION_JSON)
 				.param("idFesta", "2")
+				.param("idUsuario", "2")
 				.contentType(MediaType.APPLICATION_JSON);
 		
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
@@ -472,7 +473,7 @@ public class FestaControllerTest {
 		Mockito.when(userService.funcionalidadeUsuarioFesta(Mockito.anyInt(), Mockito.anyInt())).thenReturn("ORGANIZADOR");
 		
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
-				.post(uri)
+				.put(uri)
 				.accept(MediaType.APPLICATION_JSON)
 				.param("idFesta", "2")
 				.param("idUsuario", "1")
@@ -500,7 +501,7 @@ public class FestaControllerTest {
 		Mockito.when(userService.funcionalidadeUsuarioFesta(Mockito.anyInt(), Mockito.anyInt())).thenReturn(null);
 		
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
-				.post(uri)
+				.put(uri)
 				.accept(MediaType.APPLICATION_JSON)
 				.param("idFesta", "2")
 				.param("idUsuario", "1")
