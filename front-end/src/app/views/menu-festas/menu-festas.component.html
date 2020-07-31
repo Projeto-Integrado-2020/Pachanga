@@ -8,6 +8,14 @@
             </button>
         </a>
     </header>
+    <div class="filtros-container" *ngIf="festas.length > 1">
+        <h5>Filtros</h5>
+        <mat-checkbox class="example-margin">Festas em que sou administrador</mat-checkbox>
+        <mat-form-field class="example-full-width">
+            <mat-label>Nome da Festa</mat-label>
+            <input matInput [(ngModel)]="buscaNomeFesta">
+          </mat-form-field>
+    </div>
     <mat-paginator 
         [length]="length"
         [pageSize]="pageSize"
