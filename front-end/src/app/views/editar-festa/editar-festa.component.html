@@ -5,7 +5,7 @@
     <div class="content">
         <mat-card class="formulario-card">
             <form [formGroup]="form" class="formulario" 
-            (submit)="atualizarFesta(nomeFesta.value, descricaoFesta.value, codEnderecoFesta.value, dataInicio.value, horaInicio.value, dataFim.value, horaFim.value, categoriaPrincipal.value, categoriaSecundaria.value, organizador.value, descOrganizador.value)">
+            (submit)="atualizarFesta(nomeFesta.value, descricaoFesta.value, codEnderecoFesta.value, dataInicio.value, horaInicio.value, dataFim.value, horaFim.value, organizador.value, descOrganizador.value)">
                 <mat-form-field class="texto-input">
                     <mat-label>{{'CRIARFESTA.NOMEFESTA' | translate}}</mat-label>
                     <input ng-class="{ f.nomeFesta.errors }" #nomeFesta formControlName="nomeFesta" matInput required>
@@ -54,7 +54,7 @@
                 <br>
                 <mat-form-field class="categoria categoria-principal">
                     <mat-label>{{'FESTA.CATEGORIA1' | translate}}</mat-label>
-                    <mat-select ng-class="{ f.categoriaPrincipal.errors }" formControlName="categoriaPrincipal" #categoriaPrincipal required>
+                    <mat-select ng-class="{ f.categoriaPrincipal.errors }" formControlName="categoriaPrincipal" required>
                         <div *ngFor="let categoria of categorias">
                             <mat-option value="{{categoria.codCategoria}}">{{'CATEGORIA.' + categoria.nomeCategoria | translate}}</mat-option>
                         </div>
@@ -63,7 +63,7 @@
                 </mat-form-field>
                 <mat-form-field class="categoria">
                     <mat-label>{{'FESTA.CATEGORIA2' | translate}}</mat-label>
-                    <mat-select formControlName="categoriaSecundaria" #categoriaSecundaria>
+                    <mat-select formControlName="categoriaSecundaria">
                         <mat-option>{{'CATEGORIA.NONE' | translate}}</mat-option>
                         <div *ngFor="let categoria of categorias">
                             <mat-option value="{{categoria.codCategoria}}">{{'CATEGORIA.' + categoria.nomeCategoria | translate}}</mat-option>

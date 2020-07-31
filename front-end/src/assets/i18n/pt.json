@@ -69,7 +69,10 @@
         "STATERRA": "Esse status de festa não existe.",
         "STANMUDA": "A festa já se encontra nessa fase.",
         "FSTANINI": "A festa precisa estar iniciada para realizar esta ação.",
-        "FESTINIC": "Os dados da festa não podem ser editados enquanto ela está iniciada."
+        "FESTINIC": "Os dados da festa não podem ser editados enquanto ela está iniciada.",
+        "FESTSCAT": "Festa sem categoria primária.",
+        "CATNFOUN": "Categoria não encontrada.",
+        "FESTMCAT": "Categoria principal e secundário identicas."
     },
 
     "SUCCESS": {
