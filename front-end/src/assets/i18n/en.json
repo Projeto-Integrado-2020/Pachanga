@@ -69,7 +69,10 @@
         "STATERRA": "This party status does not exist.",
         "STANMUDA": "The party is already in that phase.",
         "FSTANINI": "The party needs to be started to perform this action.",
-        "FESTINIC": "Party info can not be changed while the party is started."
+        "FESTINIC": "Party info can not be changed while the party is started.",
+        "FESTSCAT": "Party without category.",
+        "CATNFOUN": "Category not found.",
+        "FESTMCAT": "Identical principal and secondary category."
     },
 
     "SUCCESS": {

@@ -1,15 +1,29 @@
-.tabela-userxgrupo  {
+.main-container {
     position: absolute;
-    left: 50%;
-    top: 50%;
-
     transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+}
 
-    td, th {
-        padding: 1rem;
+.tabela {
+    width: 20rem;
+    height: 20rem;
+    border: 5px solid black;
+    display: grid;
+
+    &--00 {
+        height: 2rem;
+        width: 2rem;
+
+        background-color: black;
+
+        grid-column-start: 1;
+        grid-row-start: 1;        
     }
 
-    tr:nth-child(even) {
-        background-color: lightgray;
+    &--col-0 {
+        grid-column-start: 1;
+        grid-column-end: 1;
     }
+
 }

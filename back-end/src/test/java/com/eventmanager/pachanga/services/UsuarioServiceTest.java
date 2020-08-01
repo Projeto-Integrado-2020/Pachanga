@@ -64,43 +64,6 @@ public class UsuarioServiceTest {
 		return usuarioTest;
 	}
 
-	public static List<Usuario> colecaoDeUsuario(int quantidadeUsuarios) throws Exception {
-		List<Usuario> usuarios = null;
-
-		if(quantidadeUsuarios >= 1) {		
-			usuarios = new ArrayList<Usuario>();
-
-			Usuario usuarioTest1 = usuarioTest();
-			usuarioTest1.setCodUsuario(1);
-			usuarioTest1.setNomeUser("Andrey");
-
-			usuarios.add(usuarioTest1);
-
-			if(quantidadeUsuarios >= 2) {	
-				Usuario usuarioTest2 = usuarioTest();
-				usuarioTest2.setCodUsuario(2);
-				usuarioTest2.setNomeUser("Luis");
-
-				usuarios.add(usuarioTest2);
-			} 
-			if(quantidadeUsuarios >= 3) {		
-				Usuario usuarioTest3 = usuarioTest();
-				usuarioTest3.setCodUsuario(3);
-				usuarioTest3.setNomeUser("Tiago");
-
-				usuarios.add(usuarioTest3);
-			} 
-			if(quantidadeUsuarios >= 4) {		
-				Usuario usuarioTest4 = usuarioTest();
-				usuarioTest4.setCodUsuario(4);
-				usuarioTest4.setNomeUser("Guilherme");
-
-				usuarios.add(usuarioTest4);
-			}
-		}
-		return usuarios;
-	}	
-
 	//login______________________________________________________________________________________________________________	
 
 	@Test
@@ -118,6 +81,50 @@ public class UsuarioServiceTest {
 		assertEquals(usuarioTestLogin.getDtNasc(),usuarioRetorno.getDtNasc());
 		assertEquals(usuarioTestLogin.getSexo(),usuarioRetorno.getSexo());
 		assertEquals(usuarioTestLogin.getEmail(),usuarioRetorno.getEmail()); 
+	}
+	
+	@Test
+	public void loginErroContaGmailTest() throws Exception{
+
+		Usuario usuarioTestBanco = usuarioTest();
+		usuarioTestBanco.setGmail("123");
+
+		Mockito.when(usuarioRepository.findByEmail("gustavinhoTPD@fodasse.com.br")).thenReturn(usuarioTestBanco);
+
+		UsuarioTO usuarioTestLogin = usuarioToTest();
+		usuarioTestLogin.setTipConta(TipoConta.GMAIL.getDescricao());
+		usuarioTestLogin.setConta("1234");
+		
+		boolean erro = false;
+		try {
+			userService.logar(usuarioTestLogin);			
+		} catch (ValidacaoException e) {
+			erro = true;
+		}
+
+		assertEquals(true, erro);
+	}
+	
+	@Test
+	public void loginErroContaFacebookTest() throws Exception{
+
+		Usuario usuarioTestBanco = usuarioTest();
+		usuarioTestBanco.setFacebook("123");
+
+		Mockito.when(usuarioRepository.findByEmail("gustavinhoTPD@fodasse.com.br")).thenReturn(usuarioTestBanco);
+
+		UsuarioTO usuarioTestLogin = usuarioToTest();
+		usuarioTestLogin.setTipConta(TipoConta.FACEBOOK.getDescricao());
+		usuarioTestLogin.setConta("1234");
+		
+		boolean erro = false;
+		try {
+			userService.logar(usuarioTestLogin);			
+		} catch (ValidacaoException e) {
+			erro = true;
+		}
+
+		assertEquals(true, erro);
 	}
 
 	@Test

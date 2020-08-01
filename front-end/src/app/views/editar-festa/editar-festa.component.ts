@@ -61,7 +61,7 @@ export class EditarFestaComponent implements OnInit {
   }
 
   atualizarFesta(nomeFesta, descricaoFesta, codEnderecoFesta, dataInicio, horaInicio, dataFim,
-                 horaFim, categoriaPrincipal, categoriaSecundaria, organizador, descOrganizador) {
+                 horaFim, organizador, descOrganizador) {
     const dadosFesta = {
       codFesta: this.festa.codFesta,
       nomeFesta,
@@ -71,8 +71,8 @@ export class EditarFestaComponent implements OnInit {
       horarioFimFesta: dataFim.slice(6, 10) + '-' + dataFim.slice(3, 5) + '-' + dataFim.slice(0, 2) + 'T' + horaFim,
       descricaoFesta,
       codEnderecoFesta,
-      categoriaPrincipal,
-      categoriaSecundaria: categoriaSecundaria == null ? 0 : categoriaSecundaria,
+      codPrimaria: this.f.categoriaPrincipal.value,
+      codSecundaria: this.f.categoriaSecundaria.value == null ? 0 : this.f.categoriaSecundaria.value,
       descOrganizador
     };
     this.callServiceAtualizacao(dadosFesta);
@@ -109,8 +109,9 @@ export class EditarFestaComponent implements OnInit {
     this.f.endereco.setValue(this.festa.codEnderecoFesta);
     this.f.organizador.setValue(this.festa.organizador);
     this.f.descOrganizador.setValue(this.festa.descOrganizador);
-    this.f.categoriaPrincipal.setValue(this.festa.categoriaPrincipal);
-    this.f.categoriaSecundaria.setValue(this.festa.categoriaSecundaria === '0' ? undefined : this.festa.categoriaSecundaria);
+    this.f.categoriaPrincipal.setValue(this.festa.categoriaPrimaria.codCategoria.toString());
+    this.f.categoriaSecundaria.setValue(this.festa.categoriaSecundaria === null ?
+                                        undefined : this.festa.categoriaSecundaria.codCategoria.toString());
     this.f.inicioData.setValue(new Date(this.festa.horarioInicioFesta));
     this.f.fimData.setValue(new Date(this.festa.horarioFimFesta));
     this.f.inicioHora.setValue(this.getTimeFromDTF(this.festa.horarioInicioFesta));

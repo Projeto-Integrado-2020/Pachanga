@@ -25,12 +25,12 @@ public class UsuarioFactory {
 	
 	public static UsuarioTO getUsuarioTO(Usuario user) {
 		return UsuarioTOBuilder.getInstance().codUsuario(user.getCodUsuario()).dtNasc(user.getDtNasc()).email(user.getEmail())
-				.nomeUser(user.getNomeUser()).sexo(user.getSexo()).build();
+				.nomeUser(user.getNomeUser()).sexo(user.getSexo()).tipConta(user.getSenha() != null ? TipoConta.PACHANGA.getDescricao() : TipoConta.GMAIL.getDescricao()).build();
 	}
 
 	public static UsuarioTO getUsuarioTO(Usuario user, String funcionalidade) {
 		return UsuarioTOBuilder.getInstance().codUsuario(user.getCodUsuario()).dtNasc(user.getDtNasc()).email(user.getEmail())
-				.nomeUser(user.getNomeUser()).sexo(user.getSexo()).funcionalidade(funcionalidade).build();
+				.nomeUser(user.getNomeUser()).sexo(user.getSexo()).tipConta(user.getSenha() != null ? TipoConta.PACHANGA.getDescricao() : TipoConta.GMAIL.getDescricao()).funcionalidade(funcionalidade).build();
 	}
 
 }
