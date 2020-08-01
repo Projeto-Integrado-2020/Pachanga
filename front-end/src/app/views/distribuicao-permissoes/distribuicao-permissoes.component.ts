@@ -14,7 +14,7 @@ export class DistribuicaoPermissoesComponent implements OnInit {
   urlFesta: string;
   festa: any;
 
-  //dataSources: [];
+  // dataSources: [];
 
   nomesGrupos = [];
   nomesMembros = [];
@@ -32,7 +32,7 @@ export class DistribuicaoPermissoesComponent implements OnInit {
       membros: [
         {nomeUser: 'Andrey', status: 'Pendente'},
         {nomeUser: 'Gustavo', status: 'Pendente'},
-        {nomeUser: 'Luis', status: 'Pendente'}  
+        {nomeUser: 'Luis', status: 'Pendente'}
       ]
     };
 
@@ -42,12 +42,12 @@ export class DistribuicaoPermissoesComponent implements OnInit {
       {codGrupo: '2', nomeGrupo: 'Grupo 3', quantMaxPessoas: '14', usuarios: {nomeUser: 'Gustavo', status: 'Pendente'}}
     ];
 
-    for(let grupo of this.grupos) {
+    for (const grupo of this.grupos) {
       this.nomesGrupos.push(grupo.nomeGrupo);
     }
 
-    for(let membro of this.festa.membros) {
-      this.nomesMembros.push(membro.nomeUser)
+    for (const membro of this.festa.membros) {
+      this.nomesMembros.push(membro.nomeUser);
     }
   }
 
