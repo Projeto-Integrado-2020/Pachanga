@@ -29,7 +29,8 @@ import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 import { MatDialog } from '@angular/material';
 import { CriarGrupoComponent } from '../criar-grupo/criar-grupo.component';
 import { FiltroFestaPipe } from '../menu-festas/filtroFesta.pipe';
-
+import { GerenciadorMembrosComponent } from '../gerenciador-membros/gerenciador-membros.component';
+import { EditarGrupoComponent } from '../editar-grupo/editar-grupo.component';
 
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 100000;
 
@@ -73,7 +74,9 @@ describe('NavbarComponent', () => {
         EditarFestaComponent,
         NotFoundComponent,
         CriarGrupoComponent,
-        FiltroFestaPipe
+        FiltroFestaPipe,
+        GerenciadorMembrosComponent,
+        EditarGrupoComponent
        ],
       imports: [
         CustomMaterialModule,

@@ -18,12 +18,18 @@ public interface GrupoRepository extends CrudRepository<Grupo, Integer>{
 	
 	public Grupo findById(int codGrupo);
 	
+	//@Query(value = "SELECT g FROM xz g JOIN g.festa f WHERE f.codFesta = :codFesta")
+	//public List<Grupo> findGruposFesta(int codFesta);
+	
+//	@Query(value = "SELECT g FROM usuario_x_grupo u JOIN u.grupo g WHERE u.cod_usuario = :codUsuario")
+//	public List<Grupo> findGruposUsuario(int codUsuario);
+	
 	@Query(value = "SELECT g FROM Grupo g JOIN g.festa f WHERE f.codFesta = :codFesta")
 	public List<Grupo> findGruposFesta(int codFesta);
 	
 	@Modifying
-	@Query(value = "DELETE FROM usuario_x_grupo WHERE cod_grupo = :codGrupo", nativeQuery = true)
-	public void deleteUsuarioGrupo(@Param("codGrupo") int codGrupo);
+	@Query(value = "DELETE FROM Grupo WHERE codGrupo = :codGrupo")
+	public void deleteGrupo(@Param("codGrupo") int codGrupo);
 	
 	@Modifying
 	@Query(value = "INSERT INTO usuario_x_grupo(cod_usuario, cod_grupo) VALUES(:codUsuario, :codGrupo)", nativeQuery = true)

@@ -81,18 +81,17 @@ public class FestaService {
 		validarPermissaoUsuario(idUser, idFesta, TipoPermissao.DELEFEST.getCodigo());
 		List<Grupo> grupos = grupoRepository.findGruposFesta(idFesta);
 		for(Grupo grupo : grupos) {
-			grupoRepository.deleteUsuarioGrupo(grupo.getCodGrupo());
+			grupoRepository.deleteGrupo(grupo.getCodGrupo());
 		}
-		grupoRepository.deleteAll(grupos);
 		festaRepository.deleteById(idFesta);
 	}
 
 	public Festa updateFesta(FestaTO festaTo, int idUser) {
-		validarPermissaoUsuario(idUser, festaTo.getCodFesta(), TipoPermissao.EDITDFES.getCodigo());
 		Festa festa = festaRepository.findById(festaTo.getCodFesta());
 		if(festa == null) {
 			throw new ValidacaoException("FESTNFOU");//festa nn encontrada
 		}
+		validarPermissaoUsuario(idUser, festaTo.getCodFesta(), TipoPermissao.EDITDFES.getCodigo());
 		validarFesta(festaTo);
 		festa = FestaFactory.getFesta(festaTo);
 		festaRepository.save(festa);
@@ -103,6 +102,13 @@ public class FestaService {
 		Grupo grupo = grupoRepository.findGrupoPermissaoUsuario(idFesta, idUser, codPermissao);
 		if(grupo == null) {
 			throw new ValidacaoException("USERSPER");//Usuário sem permissão de fazer essa ação
+		}
+		Festa festa = festaRepository.findById(idFesta);
+		boolean festaFinalizadaDelete = TipoStatusFesta.FINALIZADO.getValor().equals(festa.getStatusFesta()) 
+				&& TipoPermissao.DELEFEST.getCodigo() == codPermissao;
+		if(!TipoStatusFesta.PREPARACAO.getValor().equals(festa.getStatusFesta())
+				&& !festaFinalizadaDelete) {
+			throw new ValidacaoException("FESTINIC");//Não pode ser feita essa operação com a festa iniciada
 		}
 	}
 

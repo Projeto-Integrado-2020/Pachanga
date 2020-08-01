@@ -54,7 +54,6 @@ public class GrupoServiceTest {
 		Usuario usuario = new Usuario();
 		usuario.setCodUsuario(1);
 		usuario.setEmail("guga.72@hotmail.com");
-		usuario.setTipConta("F");
 		return usuario;
 	}
 	

@@ -18,8 +18,10 @@ public class Usuario {
 	private int codUsuario;
 	@Column(name = "nome_user")
 	private  String nomeUser;
-	@Column(name = "tip_conta")
-	private String tipConta;
+	@Column(name = "facebook")
+	private String facebook;
+	@Column(name = "gmail")
+	private String gmail;
 	private String email;
 	@Column(name = "senha")
 	private String senha;
@@ -39,12 +41,6 @@ public class Usuario {
 	}
 	public void setNomeUser(String nomeUser) {
 		this.nomeUser = nomeUser;
-	}
-	public String getTipConta() {
-		return tipConta;
-	}
-	public void setTipConta(String tipConta) {
-		this.tipConta = tipConta;
 	}
 	public String getEmail() {
 		return email;
@@ -73,4 +69,17 @@ public class Usuario {
 	public int getCodUsuario() {
 		return codUsuario;
 	}
+	public String getFacebook() {
+		return facebook;
+	}
+	public void setFacebook(String facebook) {
+		this.facebook = facebook;
+	}
+	public String getGmail() {
+		return gmail;
+	}
+	public void setGmail(String gmail) {
+		this.gmail = gmail;
+	}
+	
 }

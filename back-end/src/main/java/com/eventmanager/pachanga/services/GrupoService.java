@@ -48,6 +48,29 @@ public class GrupoService {
 		return mensagemRetorno;
 	}
 	
+	public void deleteUsuariosFesta(List<String> emails, int codFesta, int idUsuario, int idGrupo) {
+		this.validarUsuario(idUsuario);
+		Grupo grupo = this.validarGrupoFesta(idGrupo, codFesta, idUsuario);
+		for(String email : emails) {
+			Usuario usuario = usuarioRepository.findByEmail(email);
+			if(usuario != null) {
+//				grupoRepository.deleteUsuarioGrupo(usuario.getCodUsuario(), grupo.getCodGrupo());
+			}else {
+				emailMensagem.enviarEmail(email);				
+			}
+		}
+	}
+	
+//	public List<Grupo> procurarGruposPorUsuario(int idUser){
+//		this.validarUsuario(idUser);
+//		return grupoRepository.findGruposUsuario(idUser);
+//	}
+	
+	public List<Grupo> procurarGruposPorFesta(int idFesta){
+	
+		return grupoRepository.findGruposFesta(idFesta);
+	}
+	
 	private Grupo validarGrupoFesta(int codGrupo, int codFesta, int idUsuario) {
 		Festa festa = festaRepository.findById(codFesta);
 		if(festa == null) {
@@ -68,6 +91,13 @@ public class GrupoService {
 		Usuario usuario = usuarioRepository.findById(idUsuario);
 		if(usuario == null) {
 			throw new ValidacaoException("USERNFOU");
+		}
+	}
+	
+	private void validarFesta(int idFesta) {
+		Festa festa = festaRepository.findById(idFesta);
+		if(festa == null) {
+			throw new ValidacaoException("FESTNFOU");
 		}
 	}
 

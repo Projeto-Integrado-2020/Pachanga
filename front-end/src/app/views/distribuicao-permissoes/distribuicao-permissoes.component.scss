@@ -1,40 +1,15 @@
-.userlist {
-    height: auto;
-    width: 100%;
-    margin-top: calc(2rem + 64px);
-
+.tabela-userxgrupo  {
     position: absolute;
     left: 50%;
-    transform: translateX(-50%);
-}
+    top: 50%;
 
-.title {
-    margin-bottom: 2rem;
-    text-align: center;
-}
+    transform: translate(-50%, -50%);
 
-
-.linha {
-    padding: 1.25rem 1rem 0 1rem;
-    display: flex;
-    justify-content: space-evenly;
-
-    height: auto;
-
-    &:nth-child(even) {
-        background: #DCDCDC
+    td, th {
+        padding: 1rem;
     }
 
-    &:nth-child(odd) {
-        background: #FFF
+    tr:nth-child(even) {
+        background-color: lightgray;
     }
-
-    & .nome, .perfil {
-        display: block;
-        vertical-align: middle;
-    }
-}
-
-.nome {
-    margin-right: 2rem;
 }

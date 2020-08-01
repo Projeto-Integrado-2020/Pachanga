@@ -7,7 +7,6 @@ import { LogService } from '../logging/log.service';
 import { take, catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 import { LoginService } from '../loginService/login.service';
-import { Router } from '@angular/router';
 
 
 @Injectable({
@@ -18,7 +17,7 @@ export class EditarFestaService {
   private readonly urlAtualizarFesta = `${environment.URL_BACK}festa/atualizar`;
 
   constructor(private http: HttpClient, public logService: LogService, public dialog: MatDialog,
-              public loginService: LoginService, public router: Router) { }
+              public loginService: LoginService) { }
 
   atualizarFesta(dadosFesta) {
     const httpParams = new HttpParams()
