@@ -16,5 +16,8 @@ public interface CategoriasFestaRepository extends JpaRepository<CategoriasFesta
 
 	@Query(value = "SELECT cf FROM Categoria c JOIN c.categoriaFesta cf JOIN cf.festa f WHERE f.codFesta = :codFesta")
 	public Set<CategoriasFesta> findCategoriasFesta(int codFesta);
+	
+	@Query(value = "SELECT cf FROM CategoriasFesta cf JOIN cf.festa f JOIN cf.categoria c WHERE f.codFesta = :codFesta AND cf.tipCategoria = :tipoCategoria")
+	public CategoriasFesta findCategoriasFestaTipoCategoria(int codFesta, String tipoCategoria);
 
 }

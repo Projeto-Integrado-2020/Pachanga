@@ -116,33 +116,59 @@ public class FestaService {
 		if(festa == null) {
 			throw new ValidacaoException("FESTNFOU");//festa nn encontrada
 		}
-		validarPermissaoUsuario(idUser, festaTo.getCodFesta(), TipoPermissao.EDITDFES.getCodigo());
-		validarFesta(festaTo);
-		festa = FestaFactory.getFesta(festaTo);
-		festa = mudarCategoriaFesta(festa, festaTo);
+		this.validarPermissaoUsuario(idUser, festaTo.getCodFesta(), TipoPermissao.EDITDFES.getCodigo());
+		this.validarFesta(festaTo);
+		festa = validarMudancas(festaTo, festa);
 		festaRepository.save(festa);
 		return festa;
 	}
 
-	private Festa mudarCategoriaFesta(Festa festa, FestaTO festaTo) {
-		Set<CategoriasFesta> categorias = categoriasFestaRepository.findCategoriasFesta(festaTo.getCodFesta());
-		this.validacaoCategorias(festaTo.getCodPrimaria(), festaTo.getCodSecundaria());
-		for(CategoriasFesta categoriaFesta : categorias) {
-			if(TipoCategoria.PRIMARIO.getDescricao().equals(categoriaFesta.getTipCategoria()) && categoriaFesta.getCategoria().getCodCategoria() != festaTo.getCodPrimaria()) {
-				Categoria categoria = validarCategoria(festaTo.getCodPrimaria());
-				categoriasFestaRepository.delete(categoriaFesta);
-				categoriaFesta.setCategoria(categoria);
-				categoriasFestaRepository.addCategoriasFesta(categoriaFesta.getFesta().getCodFesta(), categoriaFesta.getCategoria().getCodCategoria(), TipoCategoria.PRIMARIO.getDescricao());
-			}
-			if(TipoCategoria.SECUNDARIO.getDescricao().equals(categoriaFesta.getTipCategoria()) && categoriaFesta.getCategoria().getCodCategoria() != festaTo.getCodSecundaria() && festaTo.getCodSecundaria() != 0) {
-				Categoria categoria = validarCategoria(festaTo.getCodSecundaria());
-				categoriasFestaRepository.delete(categoriaFesta);
-				categoriaFesta.setCategoria(categoria);
-				categoriasFestaRepository.addCategoriasFesta(categoriaFesta.getFesta().getCodFesta(), categoriaFesta.getCategoria().getCodCategoria(), TipoCategoria.SECUNDARIO.getDescricao());
-			}
+	private Festa validarMudancas(FestaTO festaTo, Festa festa) {
+		if(!festa.getNomeFesta().equals(festaTo.getNomeFesta())) {
+			festa.setNomeFesta(festaTo.getNomeFesta());
 		}
+		if(!festa.getDescricaoFesta().equals(festaTo.getDescricaoFesta())) {
+			festa.setDescricaoFesta(festaTo.getDescricaoFesta());
+		}
+		if(!festa.getCodEnderecoFesta().equals(festaTo.getCodEnderecoFesta())) {
+			festa.setCodEnderecoFesta(festaTo.getCodEnderecoFesta());
+		}
+		if(festa.getHorarioFimFesta().compareTo(festaTo.getHorarioFimFesta()) != 0) {
+			festa.setHorarioFimFesta(festaTo.getHorarioFimFesta());
+		}
+		if(festa.getHorarioFimFesta().compareTo(festaTo.getHorarioFimFesta()) != 0) {
+			festa.setHorarioInicioFesta(festaTo.getHorarioInicioFesta());
+		}
+		if(festa.getOrganizador().equals(festaTo.getOrganizador())) {
+			festa.setOrganizador(festaTo.getOrganizador());
+		}
+		if(festa.getDescOrganizador().equals(festaTo.getDescOrganizador())) {
+			festa.setDescOrganizador(festaTo.getDescOrganizador());
+		}
+		mudarCategoriaFesta(festa, festaTo);
+		return festa;
+	}
 
-		festa.setCategoriaFesta(categorias);
+	private Festa mudarCategoriaFesta(Festa festa, FestaTO festaTo) {
+		this.validacaoCategorias(festaTo.getCodPrimaria(), festaTo.getCodSecundaria());
+		CategoriasFesta categoriasFesta = categoriasFestaRepository.findCategoriasFestaTipoCategoria(festa.getCodFesta(), TipoCategoria.PRIMARIO.getDescricao());
+		if(TipoCategoria.PRIMARIO.getDescricao().equals(categoriasFesta.getTipCategoria()) && categoriasFesta.getCategoria().getCodCategoria() != festaTo.getCodPrimaria()) {
+			Categoria categoria = validarCategoria(festaTo.getCodPrimaria());
+			categoriasFestaRepository.delete(categoriasFesta);
+			categoriasFesta.setCategoria(categoria);
+			categoriasFestaRepository.addCategoriasFesta(categoriasFesta.getFesta().getCodFesta(), categoriasFesta.getCategoria().getCodCategoria(), TipoCategoria.PRIMARIO.getDescricao());
+		}
+		categoriasFesta = categoriasFestaRepository.findCategoriasFestaTipoCategoria(festa.getCodFesta(), TipoCategoria.SECUNDARIO.getDescricao());
+		Categoria categoria = categoriaRepository.findByCodCategoria(festaTo.getCodSecundaria());
+		if(categoriasFesta != null) {
+			categoriasFestaRepository.delete(categoriasFesta);
+			if(categoria != null) {
+				categoriasFesta.setCategoria(categoria);
+				categoriasFestaRepository.addCategoriasFesta(categoriasFesta.getFesta().getCodFesta(), categoriasFesta.getCategoria().getCodCategoria(), TipoCategoria.SECUNDARIO.getDescricao());
+			}
+		}else if(categoriasFesta == null && categoria != null) {
+			categoriasFestaRepository.addCategoriasFesta(festa.getCodFesta(), festaTo.getCodSecundaria(), TipoCategoria.SECUNDARIO.getDescricao());
+		}
 		return festa;
 	}
 
@@ -153,7 +179,7 @@ public class FestaService {
 		}
 		return categoria;
 	}
-	
+
 	private void validacaoCategorias(int codCategoriaPrincipal, int codCategoriaSecundario) {
 		if(codCategoriaPrincipal == codCategoriaSecundario) {
 			throw new ValidacaoException("FESTMCAT"); //categoria principal e secundaria identicas

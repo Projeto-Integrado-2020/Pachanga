@@ -476,6 +476,8 @@ public class FestaServiceTest {
 		Mockito.when(festaRepository.save(festaTest)).thenReturn(festaTest2);
 		
 		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(new Grupo());
+		
+		Mockito.when(categoriasFestaRepository.findCategoriasFestaTipoCategoria(Mockito.anyInt(), Mockito.anyString())).thenReturn(categoriaFestaTest(), null);
 
 		Festa retorno = festaService.updateFesta(festaTO, idUser);
 
@@ -500,13 +502,6 @@ public class FestaServiceTest {
 		Usuario usuario1 = UsuarioServiceTest.usuarioTest();
 		usuario1.setCodUsuario(idUser);
 		usuario1.setNomeUser("Aires_qualquer_e_ficticio");
-		
-		Set<CategoriasFesta> categoriasFestas = new HashSet();
-		CategoriasFesta categoriasFesta = categoriaFestaTest();
-		categoriasFesta.getCategoria().setCodCategoria(4);
-		categoriasFesta.setTipCategoria(TipoCategoria.SECUNDARIO.getDescricao());
-		categoriasFestas.add(categoriaFestaTest());
-		categoriasFestas.add(categoriasFesta);
 
 		Mockito.when(festaRepository.findFestaByUsuarioResponsavel(idUser, festaTO.getCodFesta())).thenReturn(festaTest);
 		Mockito.when(festaRepository.findById(festaTO.getCodFesta())).thenReturn(festaTest);
@@ -519,11 +514,11 @@ public class FestaServiceTest {
 		doNothing().when(categoriasFestaRepository).addCategoriasFesta(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyString());
 		Mockito.when(categoriaRepository.findByCodCategoria(Mockito.anyInt())).thenReturn(categoriaTest(), categoriaTest());
 		
-		Mockito.when(categoriasFestaRepository.findCategoriasFesta(Mockito.anyInt())).thenReturn(categoriasFestas);
-
 		Mockito.when(festaRepository.save(festaTest)).thenReturn(festaTest2);
 		
 		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(new Grupo());
+		
+		Mockito.when(categoriasFestaRepository.findCategoriasFestaTipoCategoria(Mockito.anyInt(), Mockito.anyString())).thenReturn(categoriaFestaTest(), categoriaFestaTest());
 
 		Festa retorno = festaService.updateFesta(festaTO, idUser);
 
