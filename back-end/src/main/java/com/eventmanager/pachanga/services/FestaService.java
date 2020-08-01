@@ -2,11 +2,14 @@ package com.eventmanager.pachanga.services;
 
 import java.time.Duration;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.eventmanager.pachanga.domains.Categoria;
+import com.eventmanager.pachanga.domains.CategoriasFesta;
 import com.eventmanager.pachanga.domains.Festa;
 import com.eventmanager.pachanga.domains.Grupo;
 import com.eventmanager.pachanga.domains.Permissao;
@@ -14,10 +17,13 @@ import com.eventmanager.pachanga.domains.Usuario;
 import com.eventmanager.pachanga.dtos.FestaTO;
 import com.eventmanager.pachanga.errors.ValidacaoException;
 import com.eventmanager.pachanga.factory.FestaFactory;
+import com.eventmanager.pachanga.repositories.CategoriaRepository;
+import com.eventmanager.pachanga.repositories.CategoriasFestaRepository;
 import com.eventmanager.pachanga.repositories.FestaRepository;
 import com.eventmanager.pachanga.repositories.GrupoRepository;
 import com.eventmanager.pachanga.repositories.PermissaoRepository;
 import com.eventmanager.pachanga.repositories.UsuarioRepository;
+import com.eventmanager.pachanga.tipo.TipoCategoria;
 import com.eventmanager.pachanga.tipo.TipoGrupo;
 import com.eventmanager.pachanga.tipo.TipoPermissao;
 import com.eventmanager.pachanga.tipo.TipoStatusFesta;
@@ -34,9 +40,15 @@ public class FestaService {
 
 	@Autowired
 	private GrupoRepository grupoRepository;
-	
+
 	@Autowired
 	private PermissaoRepository permissaoRepository;
+
+	@Autowired
+	private CategoriasFestaRepository categoriasFestaRepository;
+
+	@Autowired
+	private CategoriaRepository categoriaRepository;
 
 	public List<Festa> procurarFestas(){
 		return festaRepository.findAll();
@@ -53,15 +65,26 @@ public class FestaService {
 		Usuario usuario = usuarioRepository.findById(idUser);
 		festaTo.setCodFesta(festaRepository.getNextValMySequence());
 		festaTo.setStatusFesta(TipoStatusFesta.PREPARACAO.getValor());
-		validarFesta(festaTo);
+		this.validarFesta(festaTo);
+		this.validacaoCategorias(festaTo.getCodPrimaria(), festaTo.getCodSecundaria());
 		Festa festa =  FestaFactory.getFesta(festaTo);
 		Grupo grupo = new Grupo(grupoRepository.getNextValMySequence(), festa, TipoGrupo.ORGANIZADOR.getValor(), 1);
 		festaRepository.save(festa);
 		grupoRepository.save(grupo);
 		grupoRepository.saveUsuarioGrupo(usuario.getCodUsuario(), grupo.getCodGrupo());
+		this.criacaoCategoriaFesta(festaTo);
 		List<Permissao> permissoes = (List<Permissao>) permissaoRepository.findAll();
 		permissoes.stream().forEach(p -> grupoRepository.saveGrupoPermissao(grupo.getCodGrupo(), p.getCodPermissao()));
 		return festa;
+	}
+
+	private void criacaoCategoriaFesta(FestaTO festaTo) {
+		this.validarCategoria(festaTo.getCodPrimaria());
+		categoriasFestaRepository.addCategoriasFesta(festaTo.getCodFesta(), festaTo.getCodPrimaria(), TipoCategoria.PRIMARIO.getDescricao());
+		if(festaTo.getCodSecundaria() != 0) {
+			this.validarCategoria(festaTo.getCodSecundaria());
+			categoriasFestaRepository.addCategoriasFesta(festaTo.getCodFesta(), festaTo.getCodSecundaria(), TipoCategoria.SECUNDARIO.getDescricao());
+		}
 	}
 
 	private void validarUsuarioFesta(int idUsuario, int idFesta) {
@@ -83,6 +106,8 @@ public class FestaService {
 		for(Grupo grupo : grupos) {
 			grupoRepository.deleteGrupo(grupo.getCodGrupo());
 		}
+		Set<CategoriasFesta> categorias = categoriasFestaRepository.findCategoriasFesta(idFesta);
+		categoriasFestaRepository.deleteAll(categorias);
 		festaRepository.deleteById(idFesta);
 	}
 
@@ -91,11 +116,74 @@ public class FestaService {
 		if(festa == null) {
 			throw new ValidacaoException("FESTNFOU");//festa nn encontrada
 		}
-		validarPermissaoUsuario(idUser, festaTo.getCodFesta(), TipoPermissao.EDITDFES.getCodigo());
-		validarFesta(festaTo);
-		festa = FestaFactory.getFesta(festaTo);
+		this.validarPermissaoUsuario(idUser, festaTo.getCodFesta(), TipoPermissao.EDITDFES.getCodigo());
+		this.validarFesta(festaTo);
+		festa = validarMudancas(festaTo, festa);
 		festaRepository.save(festa);
 		return festa;
+	}
+
+	private Festa validarMudancas(FestaTO festaTo, Festa festa) {
+		if(!festa.getNomeFesta().equals(festaTo.getNomeFesta())) {
+			festa.setNomeFesta(festaTo.getNomeFesta());
+		}
+		if(!festa.getDescricaoFesta().equals(festaTo.getDescricaoFesta())) {
+			festa.setDescricaoFesta(festaTo.getDescricaoFesta());
+		}
+		if(!festa.getCodEnderecoFesta().equals(festaTo.getCodEnderecoFesta())) {
+			festa.setCodEnderecoFesta(festaTo.getCodEnderecoFesta());
+		}
+		if(festa.getHorarioFimFesta().compareTo(festaTo.getHorarioFimFesta()) != 0) {
+			festa.setHorarioFimFesta(festaTo.getHorarioFimFesta());
+		}
+		if(festa.getHorarioFimFesta().compareTo(festaTo.getHorarioFimFesta()) != 0) {
+			festa.setHorarioInicioFesta(festaTo.getHorarioInicioFesta());
+		}
+		if(festa.getOrganizador().equals(festaTo.getOrganizador())) {
+			festa.setOrganizador(festaTo.getOrganizador());
+		}
+		if(festa.getDescOrganizador().equals(festaTo.getDescOrganizador())) {
+			festa.setDescOrganizador(festaTo.getDescOrganizador());
+		}
+		mudarCategoriaFesta(festa, festaTo);
+		return festa;
+	}
+
+	private Festa mudarCategoriaFesta(Festa festa, FestaTO festaTo) {
+		this.validacaoCategorias(festaTo.getCodPrimaria(), festaTo.getCodSecundaria());
+		CategoriasFesta categoriasFesta = categoriasFestaRepository.findCategoriasFestaTipoCategoria(festa.getCodFesta(), TipoCategoria.PRIMARIO.getDescricao());
+		if(TipoCategoria.PRIMARIO.getDescricao().equals(categoriasFesta.getTipCategoria()) && categoriasFesta.getCategoria().getCodCategoria() != festaTo.getCodPrimaria()) {
+			Categoria categoria = validarCategoria(festaTo.getCodPrimaria());
+			categoriasFestaRepository.delete(categoriasFesta);
+			categoriasFesta.setCategoria(categoria);
+			categoriasFestaRepository.addCategoriasFesta(categoriasFesta.getFesta().getCodFesta(), categoriasFesta.getCategoria().getCodCategoria(), TipoCategoria.PRIMARIO.getDescricao());
+		}
+		categoriasFesta = categoriasFestaRepository.findCategoriasFestaTipoCategoria(festa.getCodFesta(), TipoCategoria.SECUNDARIO.getDescricao());
+		Categoria categoria = categoriaRepository.findByCodCategoria(festaTo.getCodSecundaria());
+		if(categoriasFesta != null) {
+			categoriasFestaRepository.delete(categoriasFesta);
+			if(categoria != null) {
+				categoriasFesta.setCategoria(categoria);
+				categoriasFestaRepository.addCategoriasFesta(categoriasFesta.getFesta().getCodFesta(), categoriasFesta.getCategoria().getCodCategoria(), TipoCategoria.SECUNDARIO.getDescricao());
+			}
+		}else if(categoriasFesta == null && categoria != null) {
+			categoriasFestaRepository.addCategoriasFesta(festa.getCodFesta(), festaTo.getCodSecundaria(), TipoCategoria.SECUNDARIO.getDescricao());
+		}
+		return festa;
+	}
+
+	private Categoria validarCategoria(int codCategoria) {
+		Categoria categoria = categoriaRepository.findByCodCategoria(codCategoria);
+		if(categoria == null) {
+			throw new ValidacaoException("CATNFOUN");
+		}
+		return categoria;
+	}
+
+	private void validacaoCategorias(int codCategoriaPrincipal, int codCategoriaSecundario) {
+		if(codCategoriaPrincipal == codCategoriaSecundario) {
+			throw new ValidacaoException("FESTMCAT"); //categoria principal e secundaria identicas
+		}
 	}
 
 	private void validarPermissaoUsuario(int idUser, int idFesta, int codPermissao) {
@@ -123,6 +211,9 @@ public class FestaService {
 		}
 		if(festaTo.getCodEnderecoFesta() == null) {
 			throw new ValidacaoException("FESTNEND");//Festa sem código de endereço
+		}
+		if(festaTo.getCodPrimaria() == 0) {
+			throw new ValidacaoException("FESTSCAT");//festa sem categoria primaria
 		}
 	}
 

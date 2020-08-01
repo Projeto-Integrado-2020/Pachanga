@@ -18,6 +18,10 @@ public class FestaTO {
 	private String funcionalidade;
 	private int quantidadeParticipantes;
 	private List<UsuarioTO> usuarios;
+	private int codPrimaria;//codigo da categoria enviada pelo front
+	private int codSecundaria;//codigo da categoria enviada pelo front
+	private CategoriaTO categoriaPrimaria;
+	private CategoriaTO categoriaSecundaria;
 	
 	public int getCodFesta() {
 		return codFesta;
@@ -96,6 +100,30 @@ public class FestaTO {
 	}
 	public void setUsuarios(List<UsuarioTO> usuarios) {
 		this.usuarios = usuarios;
+	}
+	public int getCodPrimaria() {
+		return codPrimaria;
+	}
+	public void setCodPrimaria(int codPrimaria) {
+		this.codPrimaria = codPrimaria;
+	}
+	public int getCodSecundaria() {
+		return codSecundaria;
+	}
+	public void setCodSecundaria(int codSecundaria) {
+		this.codSecundaria = codSecundaria;
+	}
+	public CategoriaTO getCategoriaPrimaria() {
+		return categoriaPrimaria;
+	}
+	public void setCategoriaPrimaria(CategoriaTO categoriaPrimaria) {
+		this.categoriaPrimaria = categoriaPrimaria;
+	}
+	public CategoriaTO getCategoriaSecundaria() {
+		return categoriaSecundaria;
+	}
+	public void setCategoriaSecundaria(CategoriaTO categoriaSecundaria) {
+		this.categoriaSecundaria = categoriaSecundaria;
 	}
 
 }

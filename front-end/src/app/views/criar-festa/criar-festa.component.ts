@@ -58,8 +58,8 @@ export class CriarFestaComponent implements OnInit {
       horarioFimFesta: dataFim.slice(6, 10) + '-' + dataFim.slice(3, 5) + '-' + dataFim.slice(0, 2) + 'T' + horaFim,
       descricaoFesta,
       codEnderecoFesta,
-      categoriaPrincipal,
-      categoriaSecundaria: categoriaSecundaria == null ? 0 : categoriaSecundaria,
+      codPrimaria: categoriaPrincipal,
+      codSecundaria: categoriaSecundaria == null ? 0 : categoriaSecundaria,
       descOrganizador
     };
     this.callService(dadosFesta);

@@ -83,7 +83,7 @@ describe('EditarFestaComponent', () => {
   it('should callServiceGet when atualizarFesta', () => {
     component.festa = {codFesta: 'Teste'};
     spyOn(component, 'callServiceAtualizacao');
-    component.atualizarFesta('teste', 'teste', 'teste', 'teste', 'teste', 'teste', 'teste', 'teste', 'teste', 'teste', 'teste');
+    component.atualizarFesta('teste', 'teste', 'teste', 'teste', 'teste', 'teste', 'teste', 'teste', 'teste');
     expect(component.callServiceAtualizacao).toHaveBeenCalled();
   });
 
@@ -99,7 +99,12 @@ describe('EditarFestaComponent', () => {
       organizador: 'Teste',
       descOrganizador: 'Teste',
       horarioInicioFesta: '2020-02-01T12:00:00',
-      horarioFimFesta: '2020-02-06T18:00:00'
+      horarioFimFesta: '2020-02-06T18:00:00',
+      categoriaPrimaria: {
+        codCategoria: 2,
+        nomeCategoria: 'RAVEAFIM'
+      },
+      categoriaSecundaria: null
     };
 
     component.setFormValues();

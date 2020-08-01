@@ -49,6 +49,9 @@ public class UsuarioService {
 				userRepository.updateFacebookUsuario(usuarioExistente.getCodUsuario(), user.getConta());
 			}else {
 				usuarioExistente.setSenha(user.getSenha());
+				usuarioExistente.setSexo(user.getSexo());
+				usuarioExistente.setDtNasc(user.getDtNasc());
+				usuarioExistente.setNomeUser(user.getNomeUser());
 				userRepository.save(usuarioExistente);
 			}
 		}
@@ -94,6 +97,8 @@ public class UsuarioService {
 		Usuario usuarioExistente = userRepository.findByEmail(user.getEmail());
 		if(usuarioExistente == null && (TipoConta.GMAIL.getDescricao().equals(user.getTipConta()) || TipoConta.FACEBOOK.getDescricao().equals(user.getTipConta()))) {
 			return cadastrar(user);
+		}else if(usuarioExistente == null && TipoConta.PACHANGA.getDescricao().equals(user.getTipConta())) {
+			throw new ValidacaoException("EMALINCO");
 		}
 		validarLogin(usuarioExistente, user);
 		return usuarioExistente;
@@ -101,13 +106,19 @@ public class UsuarioService {
 
 	public void validarLogin(Usuario usuarioExistente, UsuarioTO userLogin){
 		boolean tipoContaPachanga = TipoConta.PACHANGA.getDescricao().equals(userLogin.getTipConta());
-		if(usuarioExistente != null && tipoContaPachanga) {
+		boolean tipoContaGmail = TipoConta.GMAIL.getDescricao().equals(userLogin.getTipConta());
+		boolean tipoFacebookGmail = TipoConta.FACEBOOK.getDescricao().equals(userLogin.getTipConta());
+		boolean valorFaceDiferente = usuarioExistente.getFacebook() != null && !usuarioExistente.getFacebook().equals(userLogin.getConta());
+		boolean valorGmailDiferente = usuarioExistente.getGmail() != null && !usuarioExistente.getGmail().equals(userLogin.getConta());
+		if(tipoContaPachanga) {
 			boolean senhasIguais = HashBuilder.compararSenha(userLogin.getSenha(), usuarioExistente.getSenha());
 			if(!senhasIguais) {
 				throw new ValidacaoException("PASSINC1");
 			}
-		}else if(usuarioExistente == null && tipoContaPachanga) {
-			throw new ValidacaoException("EMALINCO");
+		} else if(tipoContaGmail && valorGmailDiferente) {
+			throw new ValidacaoException("USERNGMA");
+		} else if(tipoFacebookGmail && valorFaceDiferente) {
+			throw new ValidacaoException("USERNFAC");
 		}
 	}
 
