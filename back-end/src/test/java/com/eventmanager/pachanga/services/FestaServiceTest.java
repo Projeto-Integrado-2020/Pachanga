@@ -369,7 +369,7 @@ public class FestaServiceTest {
 		usuario1.setCodUsuario(idUser);
 		usuario1.setNomeUser("Aires_qualquer_e_ficticio");
 		
-		Set<CategoriasFesta> categoriasFesta = new HashSet();
+		Set<CategoriasFesta> categoriasFesta = new HashSet<CategoriasFesta>();
 		categoriasFesta.add(categoriaFestaTest());
 
 		Mockito.when(festaRepository.findFestaByUsuarioResponsavel(idUser, festaTO.getCodFesta())).thenReturn(festaTest);
@@ -416,7 +416,7 @@ public class FestaServiceTest {
 		usuario1.setCodUsuario(idUser);
 		usuario1.setNomeUser("Aires_qualquer_e_ficticio");
 		
-		Set<CategoriasFesta> categoriasFesta = new HashSet();
+		Set<CategoriasFesta> categoriasFesta = new HashSet<CategoriasFesta>();
 		categoriasFesta.add(categoriaFestaTest());
 
 		Mockito.when(festaRepository.findFestaByUsuarioResponsavel(idUser, festaTO.getCodFesta())).thenReturn(festaTest);
@@ -464,6 +464,53 @@ public class FestaServiceTest {
 
 		Mockito.when(festaRepository.findFestaByUsuarioResponsavel(idUser, festaTO.getCodFesta())).thenReturn(festaTest);
 		Mockito.when(festaRepository.findById(festaTO.getCodFesta())).thenReturn(festaTest);
+		Mockito.when(festaRepository.findByNomeFesta(festaTO.getNomeFesta())).thenReturn(null);
+		Mockito.when(festaRepository.findById(Mockito.anyInt())).thenReturn(festaTest);
+
+		doNothing().when(grupoRepository).deleteAll(Mockito.<Grupo>anyList());
+		
+		doNothing().when(categoriasFestaRepository).delete(Mockito.any(CategoriasFesta.class));
+		doNothing().when(categoriasFestaRepository).addCategoriasFesta(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyString());
+		Mockito.when(categoriaRepository.findByCodCategoria(Mockito.anyInt())).thenReturn(categoriaTest(), categoriaTest());
+
+		Mockito.when(festaRepository.save(festaTest)).thenReturn(festaTest2);
+		
+		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(new Grupo());
+		
+		Mockito.when(categoriasFestaRepository.findCategoriasFestaTipoCategoria(Mockito.anyInt(), Mockito.anyString())).thenReturn(categoriaFestaTest(), null);
+
+		Festa retorno = festaService.updateFesta(festaTO, idUser);
+
+		//assertFalse(retorno.getNomeFesta().equals(festaTest.getNomeFesta()));  / do jeito que esta service atualmente, não tem como testar de fato
+		//assertFalse(retorno.getDescricaoFesta().equals(festaTest.getDescricaoFesta()));
+		assertEquals(retorno.getCodEnderecoFesta(), festaTest.getCodEnderecoFesta());
+		assertEquals(retorno.getOrganizador(), festaTest.getOrganizador());
+	}
+	
+	@Test
+	public void updateFestaAlterandoInfoTest() throws Exception {
+		FestaTO festaTO = festaTOTest();
+		festaTO.setNomeFesta("teste124215");
+		festaTO.setCodEnderecoFesta("jasdgudhashdasoidjhas8udhasi");
+		festaTO.setDescOrganizador("123214214214214214214");
+		festaTO.setOrganizador("teste1254152");
+		festaTO.setDescricaoFesta("askjdhasodhjasudhiasdauisdhaisduash");
+		festaTO.setHorarioInicioFesta(LocalDateTime.of(2016, Month.JUNE, 23, 19, 10));
+		festaTO.setHorarioFimFesta(LocalDateTime.of(2016, Month.JUNE, 24, 22, 11));
+		
+		Festa festaTest = festaTest();
+
+		Festa festaTest2 = festaTest();
+		festaTest2.setNomeFesta("loucura");
+		festaTest2.setDescricaoFesta("5x mais adrenalina!!!");
+
+		int idUser = 1;
+
+		Usuario usuario1 = UsuarioServiceTest.usuarioTest();
+		usuario1.setCodUsuario(idUser);
+		usuario1.setNomeUser("Aires_qualquer_e_ficticio");
+
+		Mockito.when(festaRepository.findFestaByUsuarioResponsavel(idUser, festaTO.getCodFesta())).thenReturn(festaTest);
 		Mockito.when(festaRepository.findByNomeFesta(festaTO.getNomeFesta())).thenReturn(null);
 		Mockito.when(festaRepository.findById(Mockito.anyInt())).thenReturn(festaTest);
 

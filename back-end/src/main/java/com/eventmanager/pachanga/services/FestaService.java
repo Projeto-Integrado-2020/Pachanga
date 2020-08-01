@@ -118,9 +118,9 @@ public class FestaService {
 		}
 		this.validarPermissaoUsuario(idUser, festaTo.getCodFesta(), TipoPermissao.EDITDFES.getCodigo());
 		this.validarFesta(festaTo);
-		festa = validarMudancas(festaTo, festa);
-		festaRepository.save(festa);
-		return festa;
+		Festa festaMudanca = validarMudancas(festaTo, festa);
+		festaRepository.save(festaMudanca);
+		return festaMudanca;
 	}
 
 	private Festa validarMudancas(FestaTO festaTo, Festa festa) {
@@ -133,16 +133,16 @@ public class FestaService {
 		if(!festa.getCodEnderecoFesta().equals(festaTo.getCodEnderecoFesta())) {
 			festa.setCodEnderecoFesta(festaTo.getCodEnderecoFesta());
 		}
+		if(festa.getHorarioInicioFesta().compareTo(festaTo.getHorarioInicioFesta()) != 0) {
+			festa.setHorarioInicioFesta(festaTo.getHorarioInicioFesta());
+		}
 		if(festa.getHorarioFimFesta().compareTo(festaTo.getHorarioFimFesta()) != 0) {
 			festa.setHorarioFimFesta(festaTo.getHorarioFimFesta());
 		}
-		if(festa.getHorarioFimFesta().compareTo(festaTo.getHorarioFimFesta()) != 0) {
-			festa.setHorarioInicioFesta(festaTo.getHorarioInicioFesta());
-		}
-		if(festa.getOrganizador().equals(festaTo.getOrganizador())) {
+		if(!festa.getOrganizador().equals(festaTo.getOrganizador())) {
 			festa.setOrganizador(festaTo.getOrganizador());
 		}
-		if(festa.getDescOrganizador().equals(festaTo.getDescOrganizador())) {
+		if(!festa.getDescOrganizador().equals(festaTo.getDescOrganizador())) {
 			festa.setDescOrganizador(festaTo.getDescOrganizador());
 		}
 		mudarCategoriaFesta(festa, festaTo);
@@ -166,7 +166,7 @@ public class FestaService {
 				categoriasFesta.setCategoria(categoria);
 				categoriasFestaRepository.addCategoriasFesta(categoriasFesta.getFesta().getCodFesta(), categoriasFesta.getCategoria().getCodCategoria(), TipoCategoria.SECUNDARIO.getDescricao());
 			}
-		}else if(categoriasFesta == null && categoria != null) {
+		}else if(categoria != null) {
 			categoriasFestaRepository.addCategoriasFesta(festa.getCodFesta(), festaTo.getCodSecundaria(), TipoCategoria.SECUNDARIO.getDescricao());
 		}
 		return festa;
@@ -192,8 +192,7 @@ public class FestaService {
 			throw new ValidacaoException("USERSPER");//Usuário sem permissão de fazer essa ação
 		}
 		Festa festa = festaRepository.findById(idFesta);
-		boolean festaFinalizadaDelete = TipoStatusFesta.FINALIZADO.getValor().equals(festa.getStatusFesta()) 
-				&& TipoPermissao.DELEFEST.getCodigo() == codPermissao;
+		boolean festaFinalizadaDelete = TipoStatusFesta.FINALIZADO.getValor().equals(festa.getStatusFesta()) && TipoPermissao.DELEFEST.getCodigo() == codPermissao;
 		if(!TipoStatusFesta.PREPARACAO.getValor().equals(festa.getStatusFesta())
 				&& !festaFinalizadaDelete) {
 			throw new ValidacaoException("FESTINIC");//Não pode ser feita essa operação com a festa iniciada
