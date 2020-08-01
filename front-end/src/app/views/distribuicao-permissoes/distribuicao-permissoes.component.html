@@ -1,0 +1,21 @@
+<div class="main-container">
+    <h1>url: {{this.urlFesta}}</h1>
+    <ul *ngFor="let grupo of nomesGrupos">
+        <li>grupo: {{grupo}}</li>
+    </ul>
+    <ul *ngFor="let membro of nomesMembros">
+        <li>membro: {{membro}}</li>
+    </ul>
+
+    <div class="tabela">
+        <div class="cell-00">
+            aaldasd
+        </div>
+        <div *ngFor="let membro of nomeMembros" class="col-1">
+             <div class="cell--col-0">
+                <span>{{membro}}</span>
+             </div>
+        </div>
+    </div>
+    
+</div>
