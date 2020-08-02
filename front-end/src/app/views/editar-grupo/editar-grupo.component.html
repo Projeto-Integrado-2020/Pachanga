@@ -13,7 +13,7 @@
                     </mat-form-field>
                     <br>
                     <div *ngFor="let permissao of permissoes">
-                        <mat-checkbox (click)='updateListaPermissao(permissao)' formControlName="{{permissao}}">{{ 'PERMISSAO.' + permissao | translate }}</mat-checkbox>
+                        <mat-checkbox (click)='updateListaPermissao(permissao)' formControlName="{{permissao.descPermissao}}">{{ 'PERMISSAO.' + permissao.descPermissao | translate }}</mat-checkbox>
                     </div>
                     <br>
                     <button [disabled]="!form.valid" class="button-form" mat-raised-button>

@@ -50,7 +50,9 @@ export class EditarGrupoComponent implements OnInit {
     console.log(idgrupo);
     this.getGrupo.getGrupoUnico(idgrupo).subscribe((resp: any) => {
       this.grupo = resp;
-      this.permissoesGrupo = resp.permissoes;
+      for (const permissao of resp.permissoes) {
+        this.permissoesGrupo.push(permissao.codPermissao);
+      }
       this.setFormValues();
     });
   }
@@ -65,17 +67,17 @@ export class EditarGrupoComponent implements OnInit {
   buildForm() {
     const group = {nomeGrupo: new FormControl('', Validators.required)};
     for (const permissao of this.permissoes) {
-      group[permissao] = new FormControl(false);
+      group[permissao.descPermissao] = new FormControl(false);
     }
     this.form = this.formBuilder.group(group);
   }
 
   updateListaPermissao(permissao) {
-    const field = this.form.get(permissao);
+    const field = this.form.get(permissao.descPermissao);
     if (!field.value) {
-      this.permissoesGrupo.push(permissao);
+      this.permissoesGrupo.push(permissao.codPermissao);
     } else {
-      const index = this.permissoesGrupo.indexOf(permissao);
+      const index = this.permissoesGrupo.indexOf(permissao.codPermissao);
       this.permissoesGrupo.splice(index, 1);
     }
   }
@@ -99,8 +101,10 @@ export class EditarGrupoComponent implements OnInit {
 
   setFormValues() {
     this.f.nomeGrupo.setValue(this.grupo.nomeGrupo);
-    for (const permissao of this.permissoesGrupo) {
-      this.form.get(permissao).setValue(true);
+    for (const permissao of this.permissoes) {
+      if (this.permissoesGrupo.indexOf(permissao.codPermissao) !== -1) {
+        this.form.get(permissao.descPermissao).setValue(true);
+      }
     }
   }
 }
