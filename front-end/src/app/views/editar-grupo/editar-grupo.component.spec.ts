@@ -76,8 +76,10 @@ describe('EditarGrupoComponent', () => {
 
   it('should setFormValues', () => {
     component.grupo = {nomeGrupo: 'Teste'};
-    component.permissoesGrupo = ['teste2'];
-    component.permissoes = ['teste1', 'teste2'];
+    component.permissoesGrupo = [2];
+    component.permissoes = [
+      {descPermissao: 'teste1', codPermissao: 1}, {descPermissao: 'teste2', codPermissao: 2}
+    ];
     component.buildForm();
     component.setFormValues();
     expect(component.f.teste1.value).toBeFalsy();

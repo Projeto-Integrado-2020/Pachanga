@@ -8,10 +8,10 @@ public class GrupoTOBuilder {
 	private String nomeGrupo;
     private int quantMaxPessoas;
     
-	public static GrupoBuilder getInstance() {
-		return new GrupoBuilder();
+	public static GrupoTOBuilder getInstance() {
+		return new GrupoTOBuilder();
 	}
-	
+    
 	public GrupoTOBuilder codGrupo(int codGrupo) {
 		this.codGrupo = codGrupo;
 		return this;

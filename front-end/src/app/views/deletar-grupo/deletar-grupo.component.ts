@@ -24,7 +24,7 @@ export class DeletarGrupoComponent implements OnInit {
   }
 
   deletarGrupo() {
-    this.deleteService.deleteGrupo(this.grupo.codGrupo, this.codFesta).subscribe((resp: string) => {
+    this.deleteService.deleteGrupo(this.grupo.codGrupo).subscribe((resp: string) => {
       this.dialog.closeAll();
       window.location.reload();
       this.openDialogSuccess(resp);

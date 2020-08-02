@@ -13,14 +13,14 @@ import { LoginService } from '../loginService/login.service';
 })
 export class EditarGrupoService {
 
-  private readonly urlAtualizarGrupo = `${environment.URL_BACK}grupo/atualizar`;
+  private readonly urlAtualizarGrupo = `${environment.URL_BACK}grupo/updateGrupoFesta`;
 
   constructor(private http: HttpClient, public logService: LogService, public dialog: MatDialog,
               public loginService: LoginService) { }
 
   editarGrupo(dadosGrupo) {
     const httpParams = new HttpParams()
-    .append('idUser', this.loginService.usuarioInfo.codUsuario);
+    .append('idUsuario', this.loginService.usuarioInfo.codUsuario);
     return this.http.put(this.urlAtualizarGrupo, dadosGrupo, {params: httpParams}).pipe(
       take(1),
       catchError(error => {

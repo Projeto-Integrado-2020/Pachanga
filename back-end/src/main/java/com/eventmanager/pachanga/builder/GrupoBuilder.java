@@ -5,7 +5,7 @@ import com.eventmanager.pachanga.domains.Grupo;
 
 public class GrupoBuilder {
 	private int codGrupo;
-	private int codFesta;
+	private Festa codFesta;
 	private String nomeGrupo;
     private int quantMaxPessoas;
     
@@ -17,16 +17,11 @@ public class GrupoBuilder {
 		this.codGrupo = codGrupo;
 		return this;
 	}
-	
-	public GrupoBuilder codFesta(int codFesta) {
-		this.codFesta = codFesta;
-		return this;
-	}
-	
+
 	public GrupoBuilder codFesta(Festa festa) {
-		this.codFesta = festa.getCodFesta();
+		this.codFesta = festa;
 		return this;
-	}
+    }
 	
 	public GrupoBuilder nomeGrupo(String nomeGrupo) {
 		this.nomeGrupo = nomeGrupo;
@@ -42,7 +37,7 @@ public class GrupoBuilder {
 		Grupo grupo = new Grupo();
 		
 		grupo.setCodGrupo(codGrupo);
-		grupo.setFesta(new Festa());
+		grupo.setFesta(codFesta);
 		grupo.setNomeGrupo(nomeGrupo);
 		grupo.setQuantMaxPessoas(quantMaxPessoas);
 		
