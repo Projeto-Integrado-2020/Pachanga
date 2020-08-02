@@ -1,11 +1,16 @@
 package com.eventmanager.pachanga.dtos;
 
+import java.util.List;
+
+
 public class GrupoTO {
     
 	private int codGrupo;
 	private int codFesta;
 	private String nomeGrupo;
     private int quantMaxPessoas;
+    private List<UsuarioTO> usuariosTO;
+    private List<PermissaoTO> permissoesTO;
 	
     public int getCodGrupo() {
 		return codGrupo;
@@ -30,5 +35,17 @@ public class GrupoTO {
 	}
 	public void setQuantMaxPessoas(int quantMaxPessoas) {
 		this.quantMaxPessoas = quantMaxPessoas;
+	}
+	public List<UsuarioTO> getUsuariosTO() {
+		return usuariosTO;
+	}
+	public void setUsuariosTO(List<UsuarioTO> usuariosTO) {
+		this.usuariosTO = usuariosTO;
+	}
+	public List<PermissaoTO> getPermissoesTO() {
+		return permissoesTO;
+	}
+	public void setPermissoesTO(List<PermissaoTO> permissoesTO) {
+		this.permissoesTO = permissoesTO;
 	}
 }
