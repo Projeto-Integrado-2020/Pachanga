@@ -65,41 +65,7 @@ public class GrupoService {
 		
 		return usuario;
 	}
-	/*
-	public StringBuilder addUsuariosFesta(List<String> emails, int codFesta, int idUsuario, int idGrupo) {
-		StringBuilder mensagemRetorno = new StringBuilder();
-		this.validarUsuario(idUsuario);
-		Grupo grupo = this.validarGrupoFesta(idGrupo, codFesta, idUsuario);
-		for(String email : emails) {
-			Usuario usuario = usuarioRepository.findByEmail(email);
-			if(usuario != null) {
-				grupoRepository.saveUsuarioGrupo(usuario.getCodUsuario(), grupo.getCodGrupo());
-			}else {
-				emailMensagem.enviarEmail(email);				
-				mensagemRetorno.append(email);
-				mensagemRetorno.append(" ");
-			}
-		}
-		return mensagemRetorno;
-	}
-	
-	public StringBuilder deleteUsuariosFesta(List<String> emails, int codFesta, int idUsuario, int idGrupo) {
-		StringBuilder mensagemRetorno = new StringBuilder();
-		this.validarUsuario(idUsuario);
-		Grupo grupo = this.validarGrupoFesta(idGrupo, codFesta, idUsuario);
-		for(String email : emails) {
-			Usuario usuario = usuarioRepository.findByEmail(email);
-			if(usuario != null) {
-				grupoRepository.deleteUsuarioGrupo(usuario.getCodUsuario(), grupo.getCodGrupo());
-			}else {
-				emailMensagem.enviarEmail(email);	
-				mensagemRetorno.append(email);
-				mensagemRetorno.append(" ");
-			}
-		}
-		return mensagemRetorno;
-	}
-	*/
+
 //grupo CRUD__________________________________________________________________________________________________________
 	public Grupo addGrupoFesta(GrupoTO grupoTO, int idUsuario) {
 		Festa festa = this.validarFesta(grupoTO.getCodFesta());
