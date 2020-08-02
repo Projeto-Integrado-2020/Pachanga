@@ -35,22 +35,28 @@ public class GrupoController {
 	private GrupoService grupoService;
 	
 	@ResponseBody
-	@PostMapping(path = "/addUserFesta")
-	public ResponseEntity<Object> addUsuarioFesta(@RequestParam(required = true)int codFesta, @RequestBody List<String> emails, @RequestParam(required = true)int idUsuario, @RequestParam(required = true)int idGrupo){
+	@GetMapping(path = "/addUserFesta")
+	public ResponseEntity<Object> addUsuarioFesta(@RequestParam(required = true)int codGrupo, @RequestParam(required = true)int idUsuario, @RequestParam(required = true)int idUsuarioPermissao){
 		try {
-			StringBuilder mensagem = grupoService.addUsuariosFesta(emails, codFesta,idUsuario,idGrupo);
-			return ResponseEntity.ok(mensagem);
+			Grupo grupo = grupoService.getByIdGrupo(codGrupo);
+			grupoService.validarPermissaoUsuario(grupo.getFesta().getCodFesta(), idUsuarioPermissao);
+			
+			Usuario retorno = grupoService.addUsuarioFesta(codGrupo, idUsuario);
+			return ResponseEntity.ok(UsuarioFactory.getUsuarioTO(retorno));
 		} catch (ValidacaoException e) {
 			return ResponseEntity.status(400).body(e.getMessage());
 		}
 	}
 	
 	@ResponseBody
-	@GetMapping(path = "/removeUserFesta")
-	public ResponseEntity<Object> removeUsuarioFesta(@RequestParam(required = true)int codFesta, @RequestBody List<String> emails, @RequestParam(required = true)int idUsuario, @RequestParam(required = true)int idGrupo){
+	@DeleteMapping(path = "/removeUserFesta")
+	public ResponseEntity<Object> removeUsuarioFesta(@RequestParam(required = true)int codGrupo, @RequestParam(required = true)int idUsuario, @RequestParam(required = true)int idUsuarioPermissao){
 		try {
-			StringBuilder mensagem = grupoService.deleteUsuariosFesta(emails, codFesta, idUsuario, idGrupo);
-			return ResponseEntity.ok(mensagem);
+			Grupo grupo = grupoService.getByIdGrupo(codGrupo);
+			grupoService.validarPermissaoUsuario(grupo.getFesta().getCodFesta(), idUsuarioPermissao);
+			
+			Usuario retorno = grupoService.removeUsuarioFesta(codGrupo, idUsuario);
+			return ResponseEntity.ok(UsuarioFactory.getUsuarioTO(retorno));
 		} catch (ValidacaoException e) {
 			return ResponseEntity.status(400).body(e.getMessage());
 		}
