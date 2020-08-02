@@ -14,7 +14,7 @@ import { LoginService } from '../loginService/login.service';
 export class CriarGrupoService {
 
   farol = false;
-  private readonly urlAddGrupo = `${environment.URL_BACK}grupo/adicionar`;
+  private readonly urlAddGrupo = `${environment.URL_BACK}grupo/addGrupoFesta`;
 
   constructor(private http: HttpClient, public logService: LogService, public dialog: MatDialog,
               public loginService: LoginService) { }
@@ -23,7 +23,7 @@ export class CriarGrupoService {
     if (!this.farol) {
       this.setFarol(true);
       const httpParams = new HttpParams()
-        .append('idUser', this.loginService.usuarioInfo.codUsuario);
+        .append('idUsuario', this.loginService.usuarioInfo.codUsuario);
       return this.http.post(this.urlAddGrupo, grupo, {params: httpParams, responseType: 'text'}).pipe(
         take(1),
         catchError(error => {

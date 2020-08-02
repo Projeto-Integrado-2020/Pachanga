@@ -29,7 +29,6 @@ export class GerenciadorMembrosComponent implements OnInit {
 
   ngOnInit() {
     this.resgatarFesta();
-    this.resgatarGrupo();
     /*
     this.festa = {codFesta: '47'};
     this.grupos = [
@@ -51,6 +50,7 @@ export class GerenciadorMembrosComponent implements OnInit {
     this.getFestaService.acessarFesta(idFesta).subscribe((resp: any) => {
       this.getFestaService.setFarol(false);
       this.festa = resp;
+      this.resgatarGrupo();
     });
   }
 
@@ -60,8 +60,8 @@ export class GerenciadorMembrosComponent implements OnInit {
       this.grupos = resp;
       for (const grupo of resp) {
         const membros = [];
-        for (const usuario of Object.keys(grupo.usuarios)) {
-          membros.push({membro: grupo.usuarios[usuario].nomeUser, status: grupo.usuarios[usuario].status});
+        for (const usuario of Object.keys(grupo.usuariosTO)) {
+          membros.push({membro: grupo.usuariosTO[usuario].nomeUser, status: 'Aceito (HARDCODED)'});
         }
         this.dataSources.push(new MatTableDataSource<TabelaMembros>(membros));
       }

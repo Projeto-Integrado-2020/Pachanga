@@ -71,6 +71,7 @@ export class CriarGrupoComponent implements OnInit {
   criarGrupo(nomeGrupo) {
     const grupo = {
       nomeGrupo,
+      codFesta: this.festa.codFesta,
       permissoes: this.permissoesGrupo
     };
     this.addGrupoService.adicionarGrupo(grupo).subscribe((resp: any) => {

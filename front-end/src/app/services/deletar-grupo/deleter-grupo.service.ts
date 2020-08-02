@@ -14,18 +14,17 @@ import { LoginService } from '../loginService/login.service';
 export class DeleterGrupoService {
 
   farol = false;
-  private readonly urlDeletarGrupo = `${environment.URL_BACK}grupo/delete`;
+  private readonly urlDeletarGrupo = `${environment.URL_BACK}grupo/deleteGrupoFesta`;
 
   constructor(private http: HttpClient, public logService: LogService, public dialog: MatDialog,
               public loginService: LoginService) { }
 
-  deleteGrupo(idfesta, idGrupo) {
+  deleteGrupo(idGrupo) {
     if (!this.farol) {
       this.setFarol(true);
       const httpParams = new HttpParams()
-        .append('idFesta', idfesta)
-        .append('idGrupo', idGrupo)
-        .append('idUser', this.loginService.usuarioInfo.codUsuario);
+        .append('codGrupo', idGrupo)
+        .append('idUsuario', this.loginService.usuarioInfo.codUsuario);
       return this.http.delete(this.urlDeletarGrupo, {params: httpParams, responseType: 'text'}).pipe(
         take(1),
         catchError(error => {

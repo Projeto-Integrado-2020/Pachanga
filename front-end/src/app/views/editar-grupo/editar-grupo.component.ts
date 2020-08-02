@@ -30,7 +30,6 @@ export class EditarGrupoComponent implements OnInit {
     this.resgatarFesta();
     this.resgatarPermissoes();
     this.buildForm();
-    this.resgatarGrupo();
   }
 
   get f() { return this.form.controls; }
@@ -41,16 +40,16 @@ export class EditarGrupoComponent implements OnInit {
     this.getFestaService.acessarFesta(idFesta).subscribe((resp: any) => {
       this.getFestaService.setFarol(false);
       this.festa = resp;
+      this.resgatarGrupo();
     });
   }
 
   resgatarGrupo() {
     let idgrupo = this.router.url;
     idgrupo = idgrupo.slice(idgrupo.indexOf('membros/') + 8, idgrupo.indexOf('/editar', idgrupo.indexOf('membros/')));
-    console.log(idgrupo);
     this.getGrupo.getGrupoUnico(idgrupo).subscribe((resp: any) => {
       this.grupo = resp;
-      for (const permissao of resp.permissoes) {
+      for (const permissao of resp.permissoesTO) {
         this.permissoesGrupo.push(permissao.codPermissao);
       }
       this.setFormValues();
@@ -84,6 +83,8 @@ export class EditarGrupoComponent implements OnInit {
 
   editarGrupo(nomeGrupo) {
     const grupo = {
+      codGrupo: this.grupo.codGrupo,
+      codFesta: this.festa.codFesta,
       nomeGrupo,
       permissoes: this.permissoesGrupo
     };
