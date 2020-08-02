@@ -233,7 +233,13 @@
         "MEMBERS": "Membro(s)",
         "INVITE": "Convidar membros",
         "EDIT": "Editar grupo",
-        "DELETE": "Deletar grupo"
+        "DELETE": "Deletar grupo",
+        "DELETEMEMBRO": "Deletar membro",
+        "EDITMEMBRO": "Editar grupo(s) do membro",
+        "CURRENTGROUP": "Grupo atual: ",
+        "NEWGROUP": "Grupo(s) novo(s)",
+        "CONFIRM": "Confirmar",
+        "CANCEL": "Cancelar"
     },
 
     "CONVITE": {
@@ -250,5 +256,12 @@
     
     "UTILS": {
         "RETURN": "Retornar"
+    },
+
+    "DELETEMEMBRO": {
+        "MESSAGE": "Você realmente deseja deletar este membro do grupo?",
+        "CONFIRM": "Confirmar",
+        "CANCEL": "Cancelar"
     }
+    
 }

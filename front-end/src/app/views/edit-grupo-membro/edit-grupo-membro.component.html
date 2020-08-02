@@ -1,0 +1,21 @@
+<h1 mat-dialog-title>{{'GRUPO.EDITMEMBRO' | translate}}</h1>
+<div mat-dialog-content>
+    <p>{{'GRUPO.CURRENTGROUP' | translate}}{{grupo.nomeGrupo}}</p>
+    <form [formGroup]="form" (submit)="editarGrupo(grupoSelect.value)">
+        <mat-form-field>
+            <mat-label>{{'GRUPO.NEWGROUP' | translate}}</mat-label>
+            <mat-select multiple #grupoSelect formControlName="grupoSelect">
+                <div *ngFor="let grupo of grupos">
+                    <mat-option value="{{grupo.codGrupo}}">{{grupo.nomeGrupo}}</mat-option>
+                </div>
+            </mat-select>
+            <mat-error *ngIf="f.grupoSelect.errors?.required">
+                {{'FORMERRORS.REQUIRED' | translate}}
+            </mat-error>
+        </mat-form-field><br>
+        <button class="red-back" mat-button [disabled]="!form.valid">{{'GRUPO.CONFIRM' | translate}}</button>
+    </form>
+</div>
+<div mat-dialog-actions class="buttons">
+    <button  mat-button mat-dialog-close>{{'GRUPO.CANCEL' | translate}}</button>
+</div>

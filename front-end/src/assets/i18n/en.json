@@ -233,7 +233,13 @@
         "MEMBERS": "Member(s)",
         "INVITE": "Invite members",
         "EDIT": "Editar grupo",
-        "DELETE": "Deletar grupo"
+        "DELETE": "Delete group",
+        "DELETEMEMBRO": "Delete member",
+        "EDITMEMBRO": "Edit member's group(s)",
+        "CURRENTGROUP": "Current group: ",
+        "NEWGROUP": "New groups(s)",
+        "CONFIRM": "Confirm",
+        "CANCEL": "Cancel"
     },
 
     "CONVITE": {
@@ -250,5 +256,11 @@
     
     "UTILS": {
         "RETURN": "Return"
+    },
+
+    "DELETEMEMBRO": {
+        "MESSAGE": "Do you really want to delete this member from the group?",
+        "CONFIRM": "Confirm",
+        "CANCEL": "Cancel"
     }
 }

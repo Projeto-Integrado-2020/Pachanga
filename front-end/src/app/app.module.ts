@@ -60,8 +60,9 @@ import { DeletarFestaComponent } from './views/deletar-festa/deletar-festa.compo
 import { CriarGrupoComponent } from './views/criar-grupo/criar-grupo.component';
 import { GerenciadorMembrosComponent } from './views/gerenciador-membros/gerenciador-membros.component';
 import { StatusDialogComponent } from './views/status-dialog/status-dialog.component';
-import { StatusFestaService } from './services/status-festa/status-festa.service';
 import { FiltroFestaPipe } from './views/menu-festas/filtroFesta.pipe';
+import { DeleteMembroDialogComponent } from './views/delete-membro-dialog/delete-membro-dialog.component';
+import { EditGrupoMembroComponent } from './views/edit-grupo-membro/edit-grupo-membro.component';
 
 
 const config = new AuthServiceConfig([
@@ -102,7 +103,9 @@ export function provideConfig() {
     CriarGrupoComponent,
     GerenciadorMembrosComponent,
     StatusDialogComponent,
-    FiltroFestaPipe
+    FiltroFestaPipe,
+    DeleteMembroDialogComponent,
+    EditGrupoMembroComponent
   ],
   entryComponents: [
     LoginComponent,
@@ -112,7 +115,9 @@ export function provideConfig() {
     SuccessDialogComponent,
     InviteDialogComponent,
     DeletarFestaComponent,
-    StatusDialogComponent
+    StatusDialogComponent,
+    DeleteMembroDialogComponent,
+    EditGrupoMembroComponent
   ],
   imports: [
     BrowserModule,
