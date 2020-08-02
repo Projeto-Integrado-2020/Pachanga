@@ -1,15 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-<<<<<<< HEAD
-import { GetFestaService } from 'src/app/services/get-festa/get-festa.service';
-import { GetPermissoesService } from 'src/app/services/get-permissoes/get-permissoes.service';
-import { GetGruposService } from 'src/app/services/get-grupos/get-grupos.service';
-import { Router } from '@angular/router';
-=======
 import { GetGruposService } from 'src/app/services/get-grupos/get-grupos.service';
 import { Router } from '@angular/router';
 import { GetFestaService } from 'src/app/services/get-festa/get-festa.service';
 import { MatTableDataSource } from '@angular/material';
->>>>>>> f29963daeb03faed6c016ec4aac951bfa0641820
+import { FormControl } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { startWith, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-distribuicao-permissoes',
@@ -18,32 +14,15 @@ import { MatTableDataSource } from '@angular/material';
 })
 export class DistribuicaoPermissoesComponent implements OnInit {
 
-<<<<<<< HEAD
-  membros: any = [];
-  gruposFesta: any = [];
-  idFesta: string;
-
-  constructor(public router: Router, public getFesta: GetFestaService, public getGrupos: GetGruposService) { }
-
-  ngOnInit() {
-    this.idFesta = this.router.url
-      .slice(
-        this.router.url.indexOf('&') + 1,
-        this.router.url.indexOf('/',
-        this.router.url.indexOf('&'))
-      );
-    
-    this.gruposFesta = this.getGrupos.getGrupos(this.idFesta);
-  }
-
-=======
   urlFesta: string;
   festa: any;
 
   // dataSources: [];
 
+  myControl = new FormControl();
   nomesGrupos = [];
   nomesMembros = [];
+  filteredMembros: Observable<string[]>;
 
   grupos: any;
 
@@ -51,8 +30,20 @@ export class DistribuicaoPermissoesComponent implements OnInit {
 
   constructor(public router: Router, public getGrupos: GetGruposService, public getFesta: GetFestaService) { }
 
+  private _filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
+
+    return this.nomesMembros.filter(membro => membro.toLowerCase().includes(filterValue));
+  }
+
   ngOnInit() {
     this.urlFesta = this.router.url;
+
+    this.filteredMembros = this.myControl.valueChanges
+      .pipe(
+        startWith(''),
+        map(value => this._filter(value))
+      );
 
     this.festa = {codFesta: '47',
       membros: [
@@ -63,9 +54,33 @@ export class DistribuicaoPermissoesComponent implements OnInit {
     };
 
     this.grupos = [
-      {codGrupo: '0', nomeGrupo: 'Grupo 1', quantMaxPessoas: '12', usuarios: {nomeUser: 'Andrey', status: 'Pendente'}},
-      {codGrupo: '1', nomeGrupo: 'Grupo 2', quantMaxPessoas: '13', usuarios: {nomeUser: 'Luis', status: 'Pendente'}},
-      {codGrupo: '2', nomeGrupo: 'Grupo 3', quantMaxPessoas: '14', usuarios: {nomeUser: 'Gustavo', status: 'Pendente'}}
+      {
+        codGrupo: '0',
+        nomeGrupo: 'Grupo 1',
+        quantMaxPessoas: '12',
+        usuarios: [
+          {nomeUser: 'Andrey', status: 'Pendente'},
+          {nomeUser: 'Luis', status: 'Pendente'}
+        ]
+      },
+      {
+        codGrupo: '1',
+        nomeGrupo: 'Grupo 2',
+        quantMaxPessoas: '13',
+        usuarios: [
+          {nomeUser: 'Luis', status: 'Pendente'},
+          {nomeUser: 'Gustavo', status: 'Pendente'}
+        ]
+      },
+      {
+        codGrupo: '2',
+        nomeGrupo: 'Grupo 3',
+        quantMaxPessoas: '14',
+        usuarios: [
+          {nomeUser: 'Gustavo', status: 'Pendente'},
+          {nomeUser: 'Andrey', status: 'Pendente'}
+        ]
+      }
     ];
 
     for (const grupo of this.grupos) {
@@ -86,7 +101,6 @@ export class DistribuicaoPermissoesComponent implements OnInit {
     });
   }
 
-
 /*
   resgatarGrupo() {
     this.getGrupos.getGrupos(this.festa.codFesta).subscribe((resp: any) => {
@@ -102,5 +116,4 @@ export class DistribuicaoPermissoesComponent implements OnInit {
     });
   }
 */
->>>>>>> f29963daeb03faed6c016ec4aac951bfa0641820
 }

@@ -1,32 +1,44 @@
-<ul *ngFor="let grupo of gruposFesta">
-    <li>{{grupo}}</li>
-</ul>
+<div class="main-container">
 
 
-<table class="tabela-userxgrupo">
-    <tr>
-        <th>Nome</th>
-        <th>Grupo 1</th>
-        <th>Grupo 2</th>
-        <th>Grupo 3</th>
-    </tr>
-    <tr>
-        <th>Fulano</th>
-        <th><mat-checkbox class="example-margin"></mat-checkbox></th>
-        <th><mat-checkbox class="example-margin"></mat-checkbox></th>
-        <th><mat-checkbox class="example-margin"></mat-checkbox></th>
-    </tr>
-    <tr>
-        <th>Sicrano</th>
-        <th><mat-checkbox class="example-margin"></mat-checkbox></th>
-        <th><mat-checkbox class="example-margin"></mat-checkbox></th>
-        <th><mat-checkbox class="example-margin"></mat-checkbox></th>
-    </tr>
-    <tr>
-        <th>Beltrano</th>
-        <th><mat-checkbox class="example-margin"></mat-checkbox></th>
-        <th><mat-checkbox class="example-margin"></mat-checkbox></th>
-        <th><mat-checkbox class="example-margin"></mat-checkbox></th>
-    </tr>
+    <h1 class="title">Grupos de Permissões</h1>
     
-</table>
+    <div class="grupo-panels" *ngFor="let grupo of grupos">
+        <mat-accordion>
+            <mat-expansion-panel hideToggle>
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  {{grupo.nomeGrupo}}
+                </mat-panel-title>
+                <mat-panel-description>
+                  Descrição breve das atribuições do {{grupo.nomeGrupo}}
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              <h4>Membros neste grupo</h4>
+              <ul class="lista-membros-grupo" *ngFor="let user of grupo.usuarios">
+                <li>{{user.nomeUser}}</li>
+              </ul>
+              <form class="example-form">
+                <mat-form-field class="example-full-width">
+                  <input type="text"
+                         placeholder="Nome do Usuário"
+                         aria-label="Number"
+                         matInput
+                         [formControl]="myControl"
+                         [matAutocomplete]="auto">
+                  <mat-autocomplete #auto="matAutocomplete">
+                    <mat-option *ngFor="let membro of filteredMembros | async" [value]="membro">
+                      {{membro}}
+                    </mat-option>
+                  </mat-autocomplete>
+                </mat-form-field>
+              </form>
+              <div class="adicionar-btn">
+                <mat-icon>add</mat-icon>
+                <span>Adicionar</span>
+              </div>
+            </mat-expansion-panel>
+          </mat-accordion>
+    </div>
+</div>
+
