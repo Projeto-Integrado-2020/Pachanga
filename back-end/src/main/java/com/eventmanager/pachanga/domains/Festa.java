@@ -113,5 +113,11 @@ public class Festa {
 	public void setGrupos(Set<Grupo> grupos) {
 		this.grupos = grupos;
 	}
+	public Set<CategoriasFesta> getCategoriaFesta() {
+		return categoriaFesta;
+	}
+	public void setCategoriaFesta(Set<CategoriasFesta> categoriaFesta) {
+		this.categoriaFesta = categoriaFesta;
+	}
 	
 }

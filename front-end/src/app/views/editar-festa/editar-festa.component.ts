@@ -5,6 +5,7 @@ import { GetFestaService } from 'src/app/services/get-festa/get-festa.service';
 import { SuccessDialogComponent } from '../../views/success-dialog/success-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { GetCategoriasService } from 'src/app/services/get-categorias/get-categorias.service';
 
 @Component({
   selector: 'app-editar-festa',
@@ -14,14 +15,17 @@ import { Router } from '@angular/router';
 export class EditarFestaComponent implements OnInit {
 
   constructor(public formBuilder: FormBuilder, public festaService: EditarFestaService,
-              public router: Router, public dialog: MatDialog, public getFestaService: GetFestaService) { }
+              public router: Router, public dialog: MatDialog, public getFestaService: GetFestaService,
+              public getCategoria: GetCategoriasService) { }
 
   public form: FormGroup;
   minDate: Date;
   festa: any;
+  categorias = [];
 
   ngOnInit() {
     this.resgatarFesta();
+    this.resgatarCategorias();
     this.gerarForm();
   }
 
@@ -34,8 +38,17 @@ export class EditarFestaComponent implements OnInit {
       fimData: new FormControl('', Validators.required),
       inicioHora: new FormControl('', Validators.required),
       fimHora: new FormControl('', Validators.required),
+      categoriaPrincipal: new FormControl('', Validators.required),
+      categoriaSecundaria: new FormControl(''),
       organizador: new FormControl('', Validators.required),
       descOrganizador: new FormControl('', Validators.required),
+    });
+  }
+
+  resgatarCategorias() {
+    this.getCategoria.getCategorias().subscribe((resp: any) => {
+      this.getCategoria.setFarol(false);
+      this.categorias = resp;
     });
   }
 
@@ -47,7 +60,8 @@ export class EditarFestaComponent implements OnInit {
     this.callServiceGet(idFesta);
   }
 
-  atualizarFesta(nomeFesta, descricaoFesta, codEnderecoFesta, dataInicio, horaInicio, dataFim, horaFim, organizador, descOrganizador) {
+  atualizarFesta(nomeFesta, descricaoFesta, codEnderecoFesta, dataInicio, horaInicio, dataFim,
+                 horaFim, organizador, descOrganizador) {
     const dadosFesta = {
       codFesta: this.festa.codFesta,
       nomeFesta,
@@ -57,6 +71,8 @@ export class EditarFestaComponent implements OnInit {
       horarioFimFesta: dataFim.slice(6, 10) + '-' + dataFim.slice(3, 5) + '-' + dataFim.slice(0, 2) + 'T' + horaFim,
       descricaoFesta,
       codEnderecoFesta,
+      codPrimaria: this.f.categoriaPrincipal.value,
+      codSecundaria: this.f.categoriaSecundaria.value == null ? 0 : this.f.categoriaSecundaria.value,
       descOrganizador
     };
     this.callServiceAtualizacao(dadosFesta);
@@ -93,6 +109,9 @@ export class EditarFestaComponent implements OnInit {
     this.f.endereco.setValue(this.festa.codEnderecoFesta);
     this.f.organizador.setValue(this.festa.organizador);
     this.f.descOrganizador.setValue(this.festa.descOrganizador);
+    this.f.categoriaPrincipal.setValue(this.festa.categoriaPrimaria.codCategoria.toString());
+    this.f.categoriaSecundaria.setValue(this.festa.categoriaSecundaria === null ?
+                                        undefined : this.festa.categoriaSecundaria.codCategoria.toString());
     this.f.inicioData.setValue(new Date(this.festa.horarioInicioFesta));
     this.f.fimData.setValue(new Date(this.festa.horarioFimFesta));
     this.f.inicioHora.setValue(this.getTimeFromDTF(this.festa.horarioInicioFesta));

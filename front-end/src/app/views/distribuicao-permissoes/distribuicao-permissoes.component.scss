@@ -1,0 +1,29 @@
+.main-container {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+}
+
+.tabela {
+    width: 20rem;
+    height: 20rem;
+    border: 5px solid black;
+    display: grid;
+
+    &--00 {
+        height: 2rem;
+        width: 2rem;
+
+        background-color: black;
+
+        grid-column-start: 1;
+        grid-row-start: 1;        
+    }
+
+    &--col-0 {
+        grid-column-start: 1;
+        grid-column-end: 1;
+    }
+
+}

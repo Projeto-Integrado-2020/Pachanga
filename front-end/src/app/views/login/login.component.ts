@@ -31,7 +31,8 @@ export class LoginComponent extends SocialLoginBaseComponent implements OnInit {
       const userJson = {
         tipConta: 'G',
         email: this.user.email,
-        nomeUser: this.user.name
+        nomeUser: this.user.name,
+        conta: this.user.id
       };
       this.autenticar(userJson);
     });
@@ -43,7 +44,8 @@ export class LoginComponent extends SocialLoginBaseComponent implements OnInit {
       const userJson = {
         tipConta: 'F',
         email: this.user.email,
-        nomeUser: this.user.name
+        nomeUser: this.user.name,
+        conta: this.user.id
       };
       this.autenticar(userJson);
     });

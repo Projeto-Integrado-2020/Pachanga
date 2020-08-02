@@ -1,11 +1,10 @@
 import { TestBed } from '@angular/core/testing';
 
 import { CadastrarFestaService } from './cadastrar-festa.service';
-import { HttpErrorResponse, HttpClientModule } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 
 import { CustomMaterialModule } from '../../views/material/material.module';
 import { MatDialog } from '@angular/material';
-import { throwError } from 'rxjs';
 
 describe('CadastrarFestaService', () => {
   let dialogSpy: MatDialog;

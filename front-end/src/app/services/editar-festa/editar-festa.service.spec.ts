@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 
 import { EditarFestaService } from './editar-festa.service';
 
-import { HttpErrorResponse, HttpClientModule } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 
 import { CustomMaterialModule } from '../../views/material/material.module';
 
@@ -10,7 +10,6 @@ import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { MatDialog } from '@angular/material';
-import { throwError } from 'rxjs';
 
 describe('EditarFestaService', () => {
   let dialogSpy: MatDialog;

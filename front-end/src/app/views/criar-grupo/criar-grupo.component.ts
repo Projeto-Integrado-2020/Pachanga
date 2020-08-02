@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms'
 import { GetFestaService } from 'src/app/services/get-festa/get-festa.service';
 import { Router } from '@angular/router';
 import { GetPermissoesService } from 'src/app/services/get-permissoes/get-permissoes.service';
+import { CriarGrupoService } from 'src/app/services/criar-grupo/criar-grupo.service';
 
 @Component({
   selector: 'app-criar-grupo',
@@ -18,7 +19,8 @@ export class CriarGrupoComponent implements OnInit {
   public permissoesGrupo = [];
 
   constructor(public formBuilder: FormBuilder, public getFestaService: GetFestaService,
-              public router: Router, public getPermissaoService: GetPermissoesService) { }
+              public router: Router, public getPermissaoService: GetPermissoesService,
+              public addGrupoService: CriarGrupoService) { }
 
   ngOnInit() {
     this.resgatarFesta();
@@ -36,6 +38,7 @@ export class CriarGrupoComponent implements OnInit {
 
   resgatarPermissoes() {
     this.getPermissaoService.getPermissoes().subscribe((resp: any) => {
+      this.getPermissaoService.setFarol(false);
       this.permissoes = resp;
     });
   }
@@ -63,6 +66,17 @@ export class CriarGrupoComponent implements OnInit {
       const index = this.permissoesGrupo.indexOf(permissao);
       this.permissoesGrupo.splice(index, 1);
     }
+  }
+
+  criarGrupo(nomeGrupo) {
+    const grupo = {
+      nomeGrupo,
+      permissoes: this.permissoesGrupo
+    };
+    this.addGrupoService.adicionarGrupo(grupo).subscribe((resp: any) => {
+      this.addGrupoService.setFarol(false);
+      this.router.navigate(['../']);
+    });
   }
 
 }

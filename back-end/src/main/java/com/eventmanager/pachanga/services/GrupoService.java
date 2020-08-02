@@ -58,7 +58,7 @@ public class GrupoService {
 		return mensagemRetorno;
 	}
 	
-	public StringBuilder  deleteUsuariosFesta(List<String> emails, int codFesta, int idUsuario, int idGrupo) {
+	public StringBuilder deleteUsuariosFesta(List<String> emails, int codFesta, int idUsuario, int idGrupo) {
 		StringBuilder mensagemRetorno = new StringBuilder();
 		this.validarUsuario(idUsuario);
 		Grupo grupo = this.validarGrupoFesta(idGrupo, codFesta, idUsuario);
@@ -186,6 +186,13 @@ public class GrupoService {
 	
 	
 //validadores__________________________________________________________________________________________________________	
+
+	
+//	public List<Grupo> procurarGruposPorUsuario(int idUser){
+//		this.validarUsuario(idUser);
+//		return grupoRepository.findGruposUsuario(idUser);
+//	}
+	
 	private Grupo validarGrupoFesta(int codGrupo, int codFesta, int idUsuario) {
 		Festa festa = festaRepository.findById(codFesta);
 		if(festa == null) {
@@ -233,7 +240,6 @@ public class GrupoService {
 	
 	public Festa validarFesta(int idFesta) {
 		Festa festa = festaRepository.findById(idFesta);
-		System.out.println(idFesta);
 		if(festa == null) {
 			throw new ValidacaoException("FESTNFOU");
 		}
@@ -260,4 +266,5 @@ public class GrupoService {
 		}
 		return retorno;
 	}
+
 }

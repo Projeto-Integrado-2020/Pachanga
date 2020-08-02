@@ -30,6 +30,12 @@ public interface GrupoRepository extends CrudRepository<Grupo, Integer>{
 	@Query(value = "SELECT g FROM usuario_x_grupo u JOIN u.grupo g WHERE u.codUsuario = :codUsuario", nativeQuery = true)
 	public List<Grupo> findGruposUsuario(@Param("codUsuario") int codUsuario);
 	
+	//@Query(value = "SELECT g FROM xz g JOIN g.festa f WHERE f.codFesta = :codFesta")
+	//public List<Grupo> findGruposFesta(int codFesta);
+	
+//	@Query(value = "SELECT g FROM usuario_x_grupo u JOIN u.grupo g WHERE u.cod_usuario = :codUsuario")
+//	public List<Grupo> findGruposUsuario(int codUsuario);
+	
 	@Query(value = "SELECT g FROM Grupo g JOIN g.festa f WHERE f.codFesta = :codFesta")
 	public List<Grupo> findGruposFesta(@Param("codFesta") int codFesta);
 	
@@ -37,8 +43,8 @@ public interface GrupoRepository extends CrudRepository<Grupo, Integer>{
 	public List<Grupo> findGruposDuplicados(@Param("codFesta") int codFesta, @Param("nomeGrupo") String nomeGrupo);
 
 	@Modifying
-	@Query(value = "DELETE FROM usuario_x_grupo WHERE cod_grupo = :codGrupo", nativeQuery = true)
-	public void deleteUsuarioGrupo(@Param("codGrupo") int codGrupo);
+	@Query(value = "DELETE FROM Grupo WHERE codGrupo = :codGrupo")
+	public void deleteGrupo(@Param("codGrupo") int codGrupo);
 	
 	@Modifying
 	@Query(value = "DELETE FROM usuario_x_grupo WHERE cod_grupo = :codGrupo AND codUsuario = :codUsuario", nativeQuery = true)

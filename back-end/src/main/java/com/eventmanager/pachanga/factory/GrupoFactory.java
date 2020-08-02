@@ -16,7 +16,7 @@ public class GrupoFactory {
 	public static GrupoTO getGrupoTO(Grupo grupo, Festa festa) {
 		GrupoTOBuilder grupoToBuilder =  GrupoTOBuilder.getInstance()
 				.codGrupo(grupo.getCodGrupo())
-				.codFesta(festa)
+				.codFesta(festa.getCodFesta())
 				.nomeGrupo(grupo.getNomeGrupo())
 				.quantMaxPessoas(grupo.getQuantMaxPessoas());
 		if(festa != null && grupo.getQuantMaxPessoas() >= 1) {
@@ -24,8 +24,8 @@ public class GrupoFactory {
 		}else {
 			throw new ValidacaoException("GRUPINVALID");	
 		}
-	}
-	
+	}			
+				
 	public static Grupo getGrupo(GrupoTO GrupoTo, Festa festa) {
 		return GrupoBuilder.getInstance()
 				.codGrupo(GrupoTo.getCodGrupo())
@@ -33,5 +33,6 @@ public class GrupoFactory {
 				.nomeGrupo(GrupoTo.getNomeGrupo())
 				.quantMaxPessoas(GrupoTo.getQuantMaxPessoas())
 				.build();
-	}
+	}			
+	
 }

@@ -70,7 +70,7 @@
     margin-left: 12.5%;
   }
 
-  .prp-btn-invite{
+  .prp-btn-member{
     background-color: $color-primary;
     color: #ffffff;
     width: 200px;
@@ -159,4 +159,10 @@
 
 mat-button-toggle-group {
   margin-right: 12px;
+}
+
+::ng-deep mat-button-toggle :disabled{
+  opacity: 1!important;
+  font-weight: 500;
+  cursor: pointer!important;
 }

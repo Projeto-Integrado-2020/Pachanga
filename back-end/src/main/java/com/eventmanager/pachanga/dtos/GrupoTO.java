@@ -2,6 +2,7 @@ package com.eventmanager.pachanga.dtos;
 
 import java.util.List;
 
+
 public class GrupoTO {
     
 	private int codGrupo;
@@ -47,6 +48,4 @@ public class GrupoTO {
 	public void setPermissoesTO(List<PermissaoTO> permissoesTO) {
 		this.permissoesTO = permissoesTO;
 	}
-	
-	
 }

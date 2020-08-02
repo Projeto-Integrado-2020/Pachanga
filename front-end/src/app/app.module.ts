@@ -58,9 +58,14 @@ import { MatPaginatorPtBr } from './views/menu-festas/mat-paginator-ptbr';
 import { NotFoundComponent } from './views/not-found/not-found.component';
 import { DeletarFestaComponent } from './views/deletar-festa/deletar-festa.component';
 import { CriarGrupoComponent } from './views/criar-grupo/criar-grupo.component';
+import { GerenciadorMembrosComponent } from './views/gerenciador-membros/gerenciador-membros.component';
 import { StatusDialogComponent } from './views/status-dialog/status-dialog.component';
 import { StatusFestaService } from './services/status-festa/status-festa.service';
 import { FiltroFestaPipe } from './views/menu-festas/filtroFesta.pipe';
+import { DeletarGrupoComponent } from './views/deletar-grupo/deletar-grupo.component';
+import { EditarGrupoComponent } from './views/editar-grupo/editar-grupo.component';
+import { DistribuicaoPermissoesComponent } from './views/distribuicao-permissoes/distribuicao-permissoes.component';
+
 
 const config = new AuthServiceConfig([
   {
@@ -98,8 +103,12 @@ export function provideConfig() {
     NotFoundComponent,
     DeletarFestaComponent,
     CriarGrupoComponent,
+    GerenciadorMembrosComponent,
     StatusDialogComponent,
-    FiltroFestaPipe
+    FiltroFestaPipe,
+    DeletarGrupoComponent,
+    EditarGrupoComponent,
+    DistribuicaoPermissoesComponent
   ],
   entryComponents: [
     LoginComponent,
@@ -109,7 +118,8 @@ export function provideConfig() {
     SuccessDialogComponent,
     InviteDialogComponent,
     DeletarFestaComponent,
-    StatusDialogComponent
+    StatusDialogComponent,
+    DeletarGrupoComponent
   ],
   imports: [
     BrowserModule,

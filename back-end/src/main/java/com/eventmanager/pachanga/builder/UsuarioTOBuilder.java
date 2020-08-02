@@ -28,21 +28,15 @@ public class UsuarioTOBuilder {
 		return this;
 	}
 
-
-
 	public UsuarioTOBuilder nomeUser(String nomeUser) {
 		this.nomeUser = nomeUser;
 		return this;
 	}
 
-
-
 	public UsuarioTOBuilder email(String email) {
 		this.email = email;
 		return this;
 	}
-
-
 
 	public UsuarioTOBuilder sexo(String sexo) {
 		this.sexo = sexo;

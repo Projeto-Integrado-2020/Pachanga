@@ -65,7 +65,14 @@
         "USERSPER": "User without permission for this action.",
         "DATEINFE": "Party start or end invalid.",
         "FESTNEND": "Party without address.",
-        "FESTNOME": "Another party is using this name."
+        "FESTNOME": "Another party is using this name.",
+        "STATERRA": "This party status does not exist.",
+        "STANMUDA": "The party is already in that phase.",
+        "FSTANINI": "The party needs to be started to perform this action.",
+        "FESTINIC": "Party info can not be changed while the party is started.",
+        "FESTSCAT": "Party without category.",
+        "CATNFOUN": "Category not found.",
+        "FESTMCAT": "Identical principal and secondary category."
     },
 
     "SUCCESS": {
@@ -168,7 +175,9 @@
         "I": "Party started",
         "F": "Party finished",
         "NONEPARTY": "You don't have any party associated to this account.",
-        "CLICKHERE": "Click here to create a new party"
+        "CLICKHERE": "Click here to create a new party",
+        "CATEGORIA1": "Primary category",
+        "CATEGORIA2": "Secondary category"
     },
 
     "CRIARFESTA": {
@@ -199,7 +208,7 @@
         "MEMBROS": "Collaborating members",
         "NIVACESSO": "Access level",
         "CONVITESTATUS": "Status do convite",
-        "CONVIDARMEMBROS": "Invitation status",
+        "GERENCIARMEMBROS": "Manage members",
         "CONSULTACESSO": "See permissions",
         "STATSINGRESSOS": "Ticket statistics",
         "ACEITO": "Accepted",
@@ -217,14 +226,20 @@
     },
 
     "DELETDIALOG": {
-        "MESSAGE": "Do you really want to delete the party",
+        "MESSAGEPARTY": "Do you really want to delete the party ",
+        "MESSAGEROLE": "Do you really want to delete the role ",
         "CONFIRM": "Confirm",
         "CANCEL": "Cancel"
     },
 
     "GRUPO": {
         "CREATEGROUP": "Create Permission Role",
-        "NAME": "Role Name"
+        "NAME": "Role Name",
+        "PARTYGROUPS": "Party permission roles",
+        "MEMBERS": "Member(s)",
+        "INVITE": "Invite members",
+        "EDIT": "Edit role",
+        "DELETE": "Delete role"
     },
 
     "CONVITE": {
@@ -241,5 +256,24 @@
     
     "UTILS": {
         "RETURN": "Return"
+    },
+
+    "CATEGORIA": {
+        "NONE": "None",
+        "SHOWMUSI": "Musical Concert",
+        "RAVEAFIM": "Rave and/or related",
+        "FESTAPOP": "Pop Party",
+        "ELETRONC": "Eletronic Party",
+        "PAGOSAMB": "Pagode/Samba",
+        "SERTANEJ": "Sertanejo",
+        "FESTROCK": "Rock Party",
+        "BAILFUNK": "Funk Prom",
+        "CERVEJAD": "Brewed",
+        "FESTAUNI": "College Party",
+        "MULTIGNR": "multi-genre",
+        "NIGHTCLB": "Night Club",
+        "CRMNFRML": "Formal Meet",
+        "TRAP/RAP": "Trap/Rap",
+        "BAILEBRG": "70's Prom"
     }
 }

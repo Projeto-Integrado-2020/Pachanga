@@ -30,6 +30,9 @@ import { NotFoundComponent } from './views/not-found/not-found.component';
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 import { CriarGrupoComponent } from './views/criar-grupo/criar-grupo.component';
 import { FiltroFestaPipe } from './views/menu-festas/filtroFesta.pipe';
+import { GerenciadorMembrosComponent } from './views/gerenciador-membros/gerenciador-membros.component';
+import { EditarGrupoComponent } from './views/editar-grupo/editar-grupo.component';
+import { DistribuicaoPermissoesComponent } from './views/distribuicao-permissoes/distribuicao-permissoes.component';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -70,7 +73,10 @@ describe('AppComponent', () => {
         EditarFestaComponent,
         NotFoundComponent,
         CriarGrupoComponent,
-        FiltroFestaPipe
+        FiltroFestaPipe,
+        GerenciadorMembrosComponent,
+        EditarGrupoComponent,
+        DistribuicaoPermissoesComponent
       ],
       imports: [
         BrowserModule,

@@ -17,17 +17,11 @@ public class GrupoBuilder {
 		this.codGrupo = codGrupo;
 		return this;
 	}
-	/*
-	public GrupoBuilder codFesta(int codFesta) {
-		Festa festa = fes
-		this.codFesta = codFesta;
-		return this;
-	}
-	*/
+
 	public GrupoBuilder codFesta(Festa festa) {
 		this.codFesta = festa;
 		return this;
-	}
+    }
 	
 	public GrupoBuilder nomeGrupo(String nomeGrupo) {
 		this.nomeGrupo = nomeGrupo;
