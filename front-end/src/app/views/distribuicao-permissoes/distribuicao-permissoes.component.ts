@@ -3,7 +3,7 @@ import { GetGruposService } from 'src/app/services/get-grupos/get-grupos.service
 import { Router } from '@angular/router';
 import { GetFestaService } from 'src/app/services/get-festa/get-festa.service';
 import { MatTableDataSource } from '@angular/material';
-import { FormControl } from '@angular/forms';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
 
