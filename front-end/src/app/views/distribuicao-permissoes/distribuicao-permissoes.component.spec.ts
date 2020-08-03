@@ -4,7 +4,7 @@ import { DistribuicaoPermissoesComponent } from './distribuicao-permissoes.compo
 import { RouterModule } from '@angular/router';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { CustomMaterialModule } from '../material/material.module';
-import { FormsModule, ReactiveFormsModule,} from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('DistribuicaoPermissoesComponent', () => {
