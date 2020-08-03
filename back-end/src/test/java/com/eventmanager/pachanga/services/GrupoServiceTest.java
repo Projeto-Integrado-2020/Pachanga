@@ -78,6 +78,7 @@ public class GrupoServiceTest {
 		return festaTest;
 	}
 	
+	
 	@Test
 	public void AddUserFestaTest() {
 		List<String> emails = new ArrayList<String>(); 
@@ -109,7 +110,7 @@ public class GrupoServiceTest {
 		
 		assertEquals("guga.72@hotmail.com ", retorno.toString());
 	}
-	
+
 	@Test
 	public void AddUserFestaEmailGrupoNulloTest() { // para quando o id do grupo passado retorna null
 		List<String> emails = new ArrayList<String>(); 

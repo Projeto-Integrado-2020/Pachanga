@@ -109,6 +109,7 @@ export function provideConfig() {
     FiltroFestaPipe,
     DeleteMembroDialogComponent,
     EditGrupoMembroComponent,
+    DistribuicaoPermissoesComponent,
     DeletarGrupoComponent,
     EditarGrupoComponent,
     DistribuicaoPermissoesComponent

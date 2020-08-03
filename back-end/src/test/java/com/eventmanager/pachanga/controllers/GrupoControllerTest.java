@@ -2,6 +2,9 @@ package com.eventmanager.pachanga.controllers;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
@@ -17,6 +20,7 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import com.eventmanager.pachanga.domains.Usuario;
 import com.eventmanager.pachanga.errors.ValidacaoException;
 import com.eventmanager.pachanga.services.GrupoService;
 
@@ -37,6 +41,7 @@ public class GrupoControllerTest {
 	}
 	
 	
+///addUserFesta_______________________________________________________________________________________________
 	@Test
 	public void addUserFestaTest() throws Exception{
 		String uri = "/grupo/addUserFesta";
@@ -95,5 +100,78 @@ public class GrupoControllerTest {
 		assertEquals(expected, result.getResponse().getContentAsString());
 		
 	}
-
+	
+///removeUserFesta___________________________________________________________________________________________________________________________________________________________
+	/*
+	@Test
+	public void removeUserFestaTest() throws Exception{
+		String uri = "/grupo/removeUserFesta";
+		
+		List<Usuario> retorno = new ArrayList<>();
+		
+		Usuario luis = UsuarioControllerTest.usuarioTest();
+		luis.setCodUsuario(101);
+		luis.setEmail("luis_iruca@hotmail.com");
+		retorno.add(luis);
+		
+		Usuario gustavo = UsuarioControllerTest.usuarioTest();
+		gustavo.setCodUsuario(102);
+		gustavo.setEmail("guga.72@hotmail.com");
+		retorno.add(gustavo);
+		
+		String emailsEnviados = "[\"luis_iruca@hotmail.com\",\"guga.72@hotmail.com\"]";
+		
+		Mockito.when(grupoService.deleteUsuariosFesta(Mockito.anyList(), Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(retorno);
+		
+		RequestBuilder requestBuilder = MockMvcRequestBuilders
+				.delete(uri)
+				.accept(MediaType.APPLICATION_JSON)
+				.param("codFesta", "14")
+				.param("idUsuario", "14")
+				.param("idGrupo", "14")
+				.content(emailsEnviados)
+				.contentType(MediaType.APPLICATION_JSON);
+		
+		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+		
+		MockHttpServletResponse response = result.getResponse();
+		
+		String expected = "[{\"dtNasc\":\"3900-09-27T03:00:00.000+0000\",\"codUsuario\":101,\"nomeUser\":\"Gustavo Barbosa\",\"tipConta\":\"P\",\"conta\":null,\"email\":\"luis_iruca@hotmail.com\",\"emailNovo\":null,\"senha\":null,\"senhaNova\":null,\"sexo\":\"M\",\"funcionalidade\":null},{\"dtNasc\":\"3900-09-27T03:00:00.000+0000\",\"codUsuario\":102,\"nomeUser\":\"Gustavo Barbosa\",\"tipConta\":\"P\",\"conta\":null,\"email\":\"guga.72@hotmail.com\",\"emailNovo\":null,\"senha\":null,\"senhaNova\":null,\"sexo\":\"M\",\"funcionalidade\":null}]";
+		
+		assertEquals(HttpStatus.OK.value(), response.getStatus());
+		
+		assertEquals(expected, result.getResponse().getContentAsString());
+		
+	}
+	
+	///addUserFestaById_______________________________________________________________________________________________
+	/* Ainda estou fazendo
+	@Test
+	public void addUserFestaByIdTest() throws Exception{
+		String uri = "/grupo/addUserFestaById";
+		
+		Usuario retorno = UsuarioControllerTest.usuarioTest();
+		
+		Mockito.when(grupoService.deleteUsuariosFesta(Mockito.anyList(), Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(retorno);
+		
+		RequestBuilder requestBuilder = MockMvcRequestBuilders
+				.delete(uri)
+				.accept(MediaType.APPLICATION_JSON)
+				.param("codGrupo", "14")
+				.param("idUsuario", "14")
+				.param("idUsuarioPermissao", "14")
+				.contentType(MediaType.APPLICATION_JSON);
+		
+		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+		
+		MockHttpServletResponse response = result.getResponse();
+		
+		String expected = "[{\"dtNasc\":\"3900-09-27T03:00:00.000+0000\",\"codUsuario\":101,\"nomeUser\":\"Gustavo Barbosa\",\"tipConta\":\"P\",\"conta\":null,\"email\":\"luis_iruca@hotmail.com\",\"emailNovo\":null,\"senha\":null,\"senhaNova\":null,\"sexo\":\"M\",\"funcionalidade\":null},{\"dtNasc\":\"3900-09-27T03:00:00.000+0000\",\"codUsuario\":102,\"nomeUser\":\"Gustavo Barbosa\",\"tipConta\":\"P\",\"conta\":null,\"email\":\"guga.72@hotmail.com\",\"emailNovo\":null,\"senha\":null,\"senhaNova\":null,\"sexo\":\"M\",\"funcionalidade\":null}]";
+		
+		assertEquals(HttpStatus.OK.value(), response.getStatus());
+		
+		assertEquals(expected, result.getResponse().getContentAsString());
+	
+	}
+	*/
 }

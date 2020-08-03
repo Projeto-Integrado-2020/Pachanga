@@ -1,8 +1,13 @@
 .main-container {
-    position: absolute;
-    transform: translate(-50%, -50%);
-    top: 50%;
+    max-width: 1140px;
+    position: relative;
     left: 50%;
+    transform: translateX(-50%);
+    margin-top: 64px;
+  }
+
+.title {
+    margin-top: 6.6rem;
 }
 
 .tabela {
@@ -26,4 +31,16 @@
         grid-column-end: 1;
     }
 
+}
+
+.adicionar-btn {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    cursor: pointer;
+
+    & mat-icon {
+        margin-left: 1rem;
+    }
 }

@@ -3,6 +3,9 @@ import { GetGruposService } from 'src/app/services/get-grupos/get-grupos.service
 import { Router } from '@angular/router';
 import { GetFestaService } from 'src/app/services/get-festa/get-festa.service';
 import { MatTableDataSource } from '@angular/material';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { startWith, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-distribuicao-permissoes',
@@ -16,8 +19,10 @@ export class DistribuicaoPermissoesComponent implements OnInit {
 
   // dataSources: [];
 
+  myControl = new FormControl();
   nomesGrupos = [];
   nomesMembros = [];
+  filteredMembros: Observable<string[]>;
 
   grupos: any;
 
@@ -25,8 +30,20 @@ export class DistribuicaoPermissoesComponent implements OnInit {
 
   constructor(public router: Router, public getGrupos: GetGruposService, public getFesta: GetFestaService) { }
 
+  private _filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
+
+    return this.nomesMembros.filter(membro => membro.toLowerCase().includes(filterValue));
+  }
+
   ngOnInit() {
     this.urlFesta = this.router.url;
+
+    this.filteredMembros = this.myControl.valueChanges
+      .pipe(
+        startWith(''),
+        map(value => this._filter(value))
+      );
 
     this.festa = {codFesta: '47',
       membros: [
@@ -37,9 +54,33 @@ export class DistribuicaoPermissoesComponent implements OnInit {
     };
 
     this.grupos = [
-      {codGrupo: '0', nomeGrupo: 'Grupo 1', quantMaxPessoas: '12', usuarios: {nomeUser: 'Andrey', status: 'Pendente'}},
-      {codGrupo: '1', nomeGrupo: 'Grupo 2', quantMaxPessoas: '13', usuarios: {nomeUser: 'Luis', status: 'Pendente'}},
-      {codGrupo: '2', nomeGrupo: 'Grupo 3', quantMaxPessoas: '14', usuarios: {nomeUser: 'Gustavo', status: 'Pendente'}}
+      {
+        codGrupo: '0',
+        nomeGrupo: 'Grupo 1',
+        quantMaxPessoas: '12',
+        usuarios: [
+          {nomeUser: 'Andrey', status: 'Pendente'},
+          {nomeUser: 'Luis', status: 'Pendente'}
+        ]
+      },
+      {
+        codGrupo: '1',
+        nomeGrupo: 'Grupo 2',
+        quantMaxPessoas: '13',
+        usuarios: [
+          {nomeUser: 'Luis', status: 'Pendente'},
+          {nomeUser: 'Gustavo', status: 'Pendente'}
+        ]
+      },
+      {
+        codGrupo: '2',
+        nomeGrupo: 'Grupo 3',
+        quantMaxPessoas: '14',
+        usuarios: [
+          {nomeUser: 'Gustavo', status: 'Pendente'},
+          {nomeUser: 'Andrey', status: 'Pendente'}
+        ]
+      }
     ];
 
     for (const grupo of this.grupos) {
@@ -59,7 +100,6 @@ export class DistribuicaoPermissoesComponent implements OnInit {
       this.festa = resp;
     });
   }
-
 
 /*
   resgatarGrupo() {

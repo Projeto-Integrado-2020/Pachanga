@@ -1,5 +1,6 @@
 package com.eventmanager.pachanga.services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -41,6 +42,46 @@ public class GrupoService {
 	private EmailMensagem emailMensagem;
 
 //usuarios__________________________________________________________________________________________________________
+	public Usuario addUsuarioFesta(int codGrupo, int idUsuario) {
+		this.validarGrupo(codGrupo);
+		Usuario usuario = this.validarUsuario(idUsuario);
+		
+		if(grupoRepository.findUsuarioNoGrupo(codGrupo, idUsuario) == null) {
+			grupoRepository.saveUsuarioGrupo(idUsuario, codGrupo);
+		}else {
+			throw new ValidacaoException("USERATRB");
+		}
+		
+		return usuario;
+	}
+
+	
+	public Usuario removeUsuarioFesta(int codGrupo, int idUsuario) {
+		this.validarGrupo(codGrupo);
+		Usuario usuario = this.validarUsuario(idUsuario);
+		
+		if(grupoRepository.findUsuarioNoGrupo(codGrupo, idUsuario) != null) {
+			grupoRepository.deleteUsuarioGrupo(idUsuario, codGrupo);
+		}else {
+			throw new ValidacaoException("USERNFOU");
+		}
+		
+		return usuario;
+	}
+	
+	public Grupo addUsuarioFestaAlternativo(int codGrupo, int idUsuario) {
+		Grupo grupo = this.validarGrupo(codGrupo);
+		this.validarUsuario(idUsuario);
+		
+		if(grupoRepository.findUsuarioNoGrupo(codGrupo, idUsuario) == null) {
+			grupoRepository.saveUsuarioGrupo(idUsuario, codGrupo);
+		}else {
+			throw new ValidacaoException("USERNFOU - G" + codGrupo);
+		}
+		
+		return grupo;
+	}
+	
 	public StringBuilder addUsuariosFesta(List<String> emails, int codFesta, int idUsuario, int idGrupo) {
 		StringBuilder mensagemRetorno = new StringBuilder();
 		this.validarUsuario(idUsuario);
@@ -58,21 +99,20 @@ public class GrupoService {
 		return mensagemRetorno;
 	}
 	
-	public StringBuilder deleteUsuariosFesta(List<String> emails, int codFesta, int idUsuario, int idGrupo) {
-		StringBuilder mensagemRetorno = new StringBuilder();
+	public List<Usuario> deleteUsuariosFesta(List<String> emails, int codFesta, int idUsuario, int idGrupo) {
+		List<Usuario> retorno = new ArrayList<>();
 		this.validarUsuario(idUsuario);
 		Grupo grupo = this.validarGrupoFesta(idGrupo, codFesta, idUsuario);
 		for(String email : emails) {
 			Usuario usuario = usuarioRepository.findByEmail(email);
 			if(usuario != null) {
 				grupoRepository.deleteUsuarioGrupo(usuario.getCodUsuario(), grupo.getCodGrupo());
+				retorno.add(usuario);
 			}else {
-				emailMensagem.enviarEmail(email);	
-				mensagemRetorno.append(email);
-				mensagemRetorno.append(" ");
+				throw new ValidacaoException("USERNFOU - G" + idGrupo);
 			}
 		}
-		return mensagemRetorno;
+		return retorno;
 	}
 	
 //grupo CRUD__________________________________________________________________________________________________________
@@ -202,11 +242,11 @@ public class GrupoService {
 		if(grupo == null) {
 			throw new ValidacaoException("GRUPNFOU");// grupo não encontrado
 		}
-		grupo = this.validarPermissaoUsuarioG(codFesta, idUsuario);
+		grupo = this.validarPermissaoUsuarioReturnGrupo(codFesta, idUsuario);
 		return grupo;
 	}
 	
-	public Grupo validarPermissaoUsuarioG(int codFesta, int idUsuario) {
+	public Grupo validarPermissaoUsuarioReturnGrupo(int codFesta, int idUsuario) {
 		Grupo grupo = grupoRepository.findGrupoPermissaoUsuario(codFesta, idUsuario, TipoPermissao.ADDMEMBE.getCodigo());
 		if(grupo == null) {
 			throw new ValidacaoException("USESPERM");// usuário sem permissão
@@ -222,15 +262,26 @@ public class GrupoService {
 			return true;
 		}
 	}
-	
-	private void validarUsuario(int idUsuario) {
+	/*
+	public boolean validarPermissaoUsuarioByGrupo(int codGrupo, int idUsuario) {
+		Grupo grupo = this.validarGrupo(codGrupo);
+		Grupo grupoOrganizador = grupoRepository.findGrupoPermissaoUsuario(grupo.getFesta().getCodFesta(), idUsuario, TipoPermissao.ADDMEMBE.getCodigo());
+		if(grupoOrganizador == null) {
+			throw new ValidacaoException("USESPERM");// usuário sem permissão
+		}else {
+			return true;
+		}
+	}
+	*/
+	private Usuario validarUsuario(int idUsuario) {
 		Usuario usuario = usuarioRepository.findById(idUsuario);
 		if(usuario == null) {
 			throw new ValidacaoException("USERNFOU");
 		}
+		return usuario;
 	}
 	
-	private Grupo validarGrupo(int codGrupo) {
+	public Grupo validarGrupo(int codGrupo) {
 		Grupo grupo = grupoRepository.findById(codGrupo);
 		if(grupo == null) {
 			throw new ValidacaoException("GRUPNFOU");
