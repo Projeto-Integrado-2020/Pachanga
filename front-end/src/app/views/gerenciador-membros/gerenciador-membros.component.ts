@@ -31,18 +31,6 @@ export class GerenciadorMembrosComponent implements OnInit {
 
   ngOnInit() {
     this.resgatarFesta();
-    this.resgatarGrupo();
-    /*this.festa = {codFesta: '1'};
-    this.grupos = [
-      {codGrupo: '0', nomeGrupo: 'Grupo 1', quantMaxPessoas: '12', usuarios: {nomeUser: 'Andrey', status: 'Pendente'}},
-      {codGrupo: '1', nomeGrupo: 'Grupo 2', quantMaxPessoas: '13', usuarios: {nomeUser: 'Luis', status: 'Pendente'}},
-      {codGrupo: '2', nomeGrupo: 'Grupo 3', quantMaxPessoas: '14', usuarios: {nomeUser: 'Gustavo', status: 'Pendente'}}
-    ];
-    this.dataSources = [
-      new MatTableDataSource<TabelaMembros>([{membro: 'Andrey', status: 'Pendente', id: 'idAndrey'}, {membro: 'Luis', status: 'Pendente', id: 'idLuis'}]),
-      new MatTableDataSource<TabelaMembros>([{membro: 'Luis', status: 'Pendente', id: 'idLuis'}, {membro: 'Gustavo', status: 'Pendente', id: 'idGustavo'}]),
-      new MatTableDataSource<TabelaMembros>([{membro: 'Gustavo', status: 'Pendente', id: 'idGustavo'}])
-    ];*/
   }
 
   resgatarFesta() {
@@ -51,6 +39,7 @@ export class GerenciadorMembrosComponent implements OnInit {
     this.getFestaService.acessarFesta(idFesta).subscribe((resp: any) => {
       this.getFestaService.setFarol(false);
       this.festa = resp;
+      this.resgatarGrupo();
     });
   }
 
@@ -60,8 +49,8 @@ export class GerenciadorMembrosComponent implements OnInit {
       this.grupos = resp;
       for (const grupo of resp) {
         const membros = [];
-        for (const usuario of Object.keys(grupo.usuarios)) {
-          membros.push({membro: grupo.usuarios[usuario].nomeUser, status: 'Aceito', id: grupo.usuarios[usuario].codUsuario});
+        for (const usuario of Object.keys(grupo.usuariosTO)) {
+          membros.push({membro: grupo.usuariosTO[usuario].nomeUser, status: 'Aceito (HARDCODED)'});
         }
         this.dataSources.push(new MatTableDataSource<TabelaMembros>(membros));
       }

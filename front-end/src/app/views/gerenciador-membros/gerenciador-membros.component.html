@@ -12,18 +12,22 @@
    <div *ngFor="let grupo of grupos; let i = index" class="lista-grupos">
       <mat-card class="grupo-tab">
          <mat-card-header>
-               <mat-card-title>{{grupo.nomeGrupo}}</mat-card-title>
-               <mat-card-subtitle><span class="subtitle">{{ 'GRUPO.MEMBERS' | translate }}: {{grupo.quantMaxPessoas}}</span></mat-card-subtitle>
-               <button (click)="openDialogInvite(grupo.codGrupo)" mat-icon-button class="btn-invite">
+            <mat-card-title>{{grupo.nomeGrupo}}</mat-card-title>
+            <mat-card-subtitle><span class="subtitle">{{ 'GRUPO.MEMBERS' | translate }}: {{grupo.quantMaxPessoas}}</span></mat-card-subtitle>
+            <div class="btn-invite">
+               <button (click)="openDialogInvite(grupo.codGrupo)" mat-icon-button>
                   <mat-icon matTooltip="{{'GRUPO.INVITE' | translate}}">add</mat-icon>
                </button>
-               <button mat-icon-button class="edit-delete-button">
-                  <mat-icon matTooltip="{{'GRUPO.EDIT' | translate}}">edit</mat-icon>
-               </button>
-               <button mat-icon-button class="edit-delete-button">
+               <a routerLink="{{'./' + grupo.codGrupo + '/editar'}}">
+                  <button mat-icon-button>
+                     <mat-icon matTooltip="{{'GRUPO.EDIT' | translate}}">edit</mat-icon>
+                  </button>
+               </a>
+               <button mat-icon-button (click)="openDialogDelete(grupo)">
                   <mat-icon matTooltip="{{'GRUPO.DELETE' | translate}}">delete</mat-icon>
                </button>
-         </mat-card-header>
+            </div>
+      </mat-card-header>
          
          <mat-card-content class="card-content">
             <table mat-table [dataSource]="dataSources[i]" class="tabela">

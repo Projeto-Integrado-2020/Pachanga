@@ -30,6 +30,7 @@ import { MatDialog } from '@angular/material';
 import { CriarGrupoComponent } from '../criar-grupo/criar-grupo.component';
 import { FiltroFestaPipe } from '../menu-festas/filtroFesta.pipe';
 import { GerenciadorMembrosComponent } from '../gerenciador-membros/gerenciador-membros.component';
+import { EditarGrupoComponent } from '../editar-grupo/editar-grupo.component';
 
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 100000;
 
@@ -74,7 +75,8 @@ describe('NavbarComponent', () => {
         NotFoundComponent,
         CriarGrupoComponent,
         FiltroFestaPipe,
-        GerenciadorMembrosComponent
+        GerenciadorMembrosComponent,
+        EditarGrupoComponent
        ],
       imports: [
         CustomMaterialModule,

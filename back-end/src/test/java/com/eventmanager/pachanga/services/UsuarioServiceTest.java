@@ -19,6 +19,7 @@ import com.eventmanager.pachanga.dtos.UsuarioTO;
 import com.eventmanager.pachanga.errors.ValidacaoException;
 import com.eventmanager.pachanga.repositories.GrupoRepository;
 import com.eventmanager.pachanga.repositories.UsuarioRepository;
+import com.eventmanager.pachanga.tipo.TipoConta;
 import com.eventmanager.pachanga.tipo.TipoGrupo;
 
 @RunWith(SpringRunner.class)
@@ -27,7 +28,7 @@ public class UsuarioServiceTest {
 
 	@MockBean
 	private UsuarioRepository usuarioRepository;
-	
+
 	@MockBean
 	private GrupoRepository grupoRepository;
 
@@ -59,47 +60,9 @@ public class UsuarioServiceTest {
 		usuarioTest.setDtNasc(new Date(2000, 8, 27));
 		usuarioTest.setSexo("M");
 		usuarioTest.setNomeUser("Gustavo Barbosa");
-		usuarioTest.setTipConta("P");
 
 		return usuarioTest;
 	}
-	
-	public static List<Usuario> colecaoDeUsuario(int quantidadeUsuarios) throws Exception {
-		List<Usuario> usuarios = null;
-		
-		if(quantidadeUsuarios >= 1) {		
-			usuarios = new ArrayList<Usuario>();
-			
-			Usuario usuarioTest1 = usuarioTest();
-			usuarioTest1.setCodUsuario(1);
-			usuarioTest1.setNomeUser("Andrey");
-	
-			usuarios.add(usuarioTest1);
-		 
-			if(quantidadeUsuarios >= 2) {	
-				Usuario usuarioTest2 = usuarioTest();
-				usuarioTest2.setCodUsuario(2);
-				usuarioTest2.setNomeUser("Luis");
-		
-				usuarios.add(usuarioTest2);
-			} 
-			if(quantidadeUsuarios >= 3) {		
-				Usuario usuarioTest3 = usuarioTest();
-				usuarioTest3.setCodUsuario(3);
-				usuarioTest3.setNomeUser("Tiago");
-		
-				usuarios.add(usuarioTest3);
-			} 
-			if(quantidadeUsuarios >= 4) {		
-				Usuario usuarioTest4 = usuarioTest();
-				usuarioTest4.setCodUsuario(4);
-				usuarioTest4.setNomeUser("Guilherme");
-		
-				usuarios.add(usuarioTest4);
-			}
-		}
-		return usuarios;
-	}	
 
 	//login______________________________________________________________________________________________________________	
 
@@ -109,7 +72,7 @@ public class UsuarioServiceTest {
 		Usuario usuarioTestBanco = usuarioTest();
 		usuarioTestBanco.setSenha("40a5791d6b15b858e233d889dce30778655d9e2b1a9e98db15f3af00d035368882f0aa002da9f2868f62b0d35adebca9d2362d8bbfaef2d2e68f2c51fdee3ea52b44902b824bc7e158a955f0a98f871b");
 
-		Mockito.when(usuarioRepository.findByEmailAndTipConta("gustavinhoTPD@fodasse.com.br", "P")).thenReturn(usuarioTestBanco);
+		Mockito.when(usuarioRepository.findByEmail("gustavinhoTPD@fodasse.com.br")).thenReturn(usuarioTestBanco);
 
 		UsuarioTO usuarioTestLogin = usuarioToTest();
 		Usuario usuarioRetorno = userService.logar(usuarioTestLogin);
@@ -117,8 +80,51 @@ public class UsuarioServiceTest {
 		assertEquals(usuarioTestLogin.getNomeUser(),usuarioRetorno.getNomeUser());
 		assertEquals(usuarioTestLogin.getDtNasc(),usuarioRetorno.getDtNasc());
 		assertEquals(usuarioTestLogin.getSexo(),usuarioRetorno.getSexo());
-		assertEquals(usuarioTestLogin.getTipConta(),usuarioRetorno.getTipConta());
 		assertEquals(usuarioTestLogin.getEmail(),usuarioRetorno.getEmail()); 
+	}
+	
+	@Test
+	public void loginErroContaGmailTest() throws Exception{
+
+		Usuario usuarioTestBanco = usuarioTest();
+		usuarioTestBanco.setGmail("123");
+
+		Mockito.when(usuarioRepository.findByEmail("gustavinhoTPD@fodasse.com.br")).thenReturn(usuarioTestBanco);
+
+		UsuarioTO usuarioTestLogin = usuarioToTest();
+		usuarioTestLogin.setTipConta(TipoConta.GMAIL.getDescricao());
+		usuarioTestLogin.setConta("1234");
+		
+		boolean erro = false;
+		try {
+			userService.logar(usuarioTestLogin);			
+		} catch (ValidacaoException e) {
+			erro = true;
+		}
+
+		assertEquals(true, erro);
+	}
+	
+	@Test
+	public void loginErroContaFacebookTest() throws Exception{
+
+		Usuario usuarioTestBanco = usuarioTest();
+		usuarioTestBanco.setFacebook("123");
+
+		Mockito.when(usuarioRepository.findByEmail("gustavinhoTPD@fodasse.com.br")).thenReturn(usuarioTestBanco);
+
+		UsuarioTO usuarioTestLogin = usuarioToTest();
+		usuarioTestLogin.setTipConta(TipoConta.FACEBOOK.getDescricao());
+		usuarioTestLogin.setConta("1234");
+		
+		boolean erro = false;
+		try {
+			userService.logar(usuarioTestLogin);			
+		} catch (ValidacaoException e) {
+			erro = true;
+		}
+
+		assertEquals(true, erro);
 	}
 
 	@Test
@@ -127,7 +133,7 @@ public class UsuarioServiceTest {
 		Usuario usuarioTestBanco = usuarioTest();
 		usuarioTestBanco.setSenha("40a5791d6b15b858e233d889dce30778655d9e2b1a9e98db15f3af00d035368882f0aa002da9f2868f62b0d35adebca9d2362d8bbfaef2d2e68f2c51fdee3ea52b44902b824bc7e158a955f0a98f871b");
 
-		Mockito.when(usuarioRepository.findByEmailAndTipConta("gustavinhoTPD@fodasse.com.br", "P")).thenReturn(usuarioTestBanco);
+		Mockito.when(usuarioRepository.findByEmail("gustavinhoTPD@fodasse.com.br")).thenReturn(usuarioTestBanco);
 
 		UsuarioTO usuarioTestLogin = usuarioToTest();
 		usuarioTestLogin.setSenha("12345");
@@ -146,9 +152,8 @@ public class UsuarioServiceTest {
 	public void loginUserTypeGSucessTest() throws Exception{
 
 		Usuario usuarioTestBanco = usuarioTest();
-		usuarioTestBanco.setTipConta("G");
 
-		Mockito.when(usuarioRepository.findByEmailAndTipConta("gustavinhoTPD@fodasse.com.br", "G")).thenReturn(usuarioTestBanco);
+		Mockito.when(usuarioRepository.findByEmail("gustavinhoTPD@fodasse.com.br")).thenReturn(usuarioTestBanco);
 
 		UsuarioTO usuarioTestLogin = usuarioToTest();
 		usuarioTestLogin.setTipConta("G");
@@ -157,7 +162,6 @@ public class UsuarioServiceTest {
 		assertEquals(usuarioTestLogin.getNomeUser(),usuarioRetorno.getNomeUser());
 		assertEquals(usuarioTestLogin.getDtNasc(),usuarioRetorno.getDtNasc());
 		assertEquals(usuarioTestLogin.getSexo(),usuarioRetorno.getSexo());
-		assertEquals(usuarioTestLogin.getTipConta(),usuarioRetorno.getTipConta());
 		assertEquals(usuarioTestLogin.getEmail(),usuarioRetorno.getEmail()); 
 	}
 
@@ -165,9 +169,8 @@ public class UsuarioServiceTest {
 	public void loginUserTypeFSucessTest() throws Exception{
 
 		Usuario usuarioTestBanco = usuarioTest();
-		usuarioTestBanco.setTipConta("F");
 
-		Mockito.when(usuarioRepository.findByEmailAndTipConta("gustavinhoTPD@fodasse.com.br", "F")).thenReturn(usuarioTestBanco);
+		Mockito.when(usuarioRepository.findByEmail("gustavinhoTPD@fodasse.com.br")).thenReturn(usuarioTestBanco);
 
 		UsuarioTO usuarioTestLogin = usuarioToTest();
 		usuarioTestLogin.setTipConta("F");
@@ -176,14 +179,13 @@ public class UsuarioServiceTest {
 		assertEquals(usuarioTestLogin.getNomeUser(),usuarioRetorno.getNomeUser());
 		assertEquals(usuarioTestLogin.getDtNasc(),usuarioRetorno.getDtNasc());
 		assertEquals(usuarioTestLogin.getSexo(),usuarioRetorno.getSexo());
-		assertEquals(usuarioTestLogin.getTipConta(),usuarioRetorno.getTipConta());
 		assertEquals(usuarioTestLogin.getEmail(),usuarioRetorno.getEmail()); 
 	}
 
 	@Test
 	public void loginUserTypeNotPFailTest() throws Exception{
 
-		Mockito.when(usuarioRepository.findByEmailAndTipConta("gustavinhoTPD@fodasse.com.br", "G")).thenReturn(null);
+		Mockito.when(usuarioRepository.findByEmail("gustavinhoTPD@fodasse.com.br")).thenReturn(usuarioTest());
 
 		UsuarioTO usuarioTestLogin = usuarioToTest();
 		usuarioTestLogin.setTipConta("G");
@@ -196,7 +198,7 @@ public class UsuarioServiceTest {
 	@Test
 	public void loginEmailNaoCadastradoTest() throws Exception{
 
-		Mockito.when(usuarioRepository.findByEmailAndTipConta("gustavinhoTPD@fodasse.com.br", "P")).thenReturn(null);
+		Mockito.when(usuarioRepository.findByEmail(Mockito.anyString())).thenReturn(null);
 
 		UsuarioTO usuarioTestLogin = usuarioToTest();
 
@@ -213,45 +215,229 @@ public class UsuarioServiceTest {
 	}
 
 	@Test
-	public void loginPeloCadastro() throws Exception{
+	public void loginCadastroTest() throws Exception{
 
-		Usuario usuarioTestBanco = usuarioTest();
-		usuarioTestBanco.setTipConta("F");
-
-		Mockito.when(usuarioRepository.findByEmailAndTipConta("gustavinhoTPD@fodasse.com.br", "F")).thenReturn(usuarioTestBanco);
+		Mockito.when(usuarioRepository.findByEmail(Mockito.anyString())).thenReturn(null);
 
 		UsuarioTO usuarioTestLogin = usuarioToTest();
-		usuarioTestLogin.setTipConta("F");
+		usuarioTestLogin.setTipConta(TipoConta.GMAIL.getDescricao());
+		usuarioTestLogin.setConta("1234");
 
-		Usuario usuarioRetorno;
+		Usuario usuarioRetorno = null;
+		boolean caiuException = false;
 
-		usuarioRetorno = userService.cadastrar(usuarioTestLogin);
+		usuarioRetorno = userService.logar(usuarioTestLogin);
 
-		assertEquals(false, usuarioRetorno == null); 
+		assertEquals(true, usuarioRetorno != null); 
+		assertEquals(true, caiuException != true); 
+
 	}
 
 
 	//cadastro______________________________________________________________________________________________________________	
 
 	@Test
-	public void cadastroSucessoTest() throws Exception{
-		Mockito.when(usuarioRepository.findByEmailAndTipConta("gustavinhoTPD@fodasse.com.br", "P")).thenReturn(null);
+	public void cadastroErroTest() throws Exception{
+		Mockito.when(usuarioRepository.findByEmail("gustavinhoTPD@fodasse.com.br")).thenReturn(usuarioTest());
 
 		UsuarioTO usuarioTestCadastro = usuarioToTest();
-		Usuario usuarioRetorno = userService.cadastrar(usuarioTestCadastro);
 
-		assertEquals(usuarioTestCadastro.getNomeUser(),usuarioRetorno.getNomeUser());
-		assertEquals(usuarioTestCadastro.getDtNasc(),usuarioRetorno.getDtNasc());
-		assertEquals(usuarioTestCadastro.getSexo(),usuarioRetorno.getSexo());
-		assertEquals(usuarioTestCadastro.getTipConta(),usuarioRetorno.getTipConta());
-		assertEquals(usuarioTestCadastro.getEmail(),usuarioRetorno.getEmail()); 
+		Usuario usuarioRetorno = null;
+		boolean caiuException = false;
+
+		try {
+			userService.cadastrar(usuarioTestCadastro);
+		} catch (Exception e) {
+			caiuException = true;
+		}
+
+		assertEquals(true, usuarioRetorno == null); 
+		assertEquals(true, caiuException == true); 
+	}
+
+	@Test
+	public void cadastroSemSenhaTest() throws Exception{
+		Mockito.when(usuarioRepository.findByEmail(Mockito.anyString())).thenReturn(usuarioTest());
+
+		UsuarioTO usuarioTestCadastro = usuarioToTest();
+
+		usuarioTestCadastro.setSenha(null);
+
+		Usuario usuarioRetorno = null;
+		boolean caiuException = false;
+
+		try {
+			userService.cadastrar(usuarioTestCadastro);
+		} catch (Exception e) {
+			caiuException = true;
+		}
+
+		assertEquals(true, usuarioRetorno == null); 
+		assertEquals(true, caiuException == true); 
+	}
+
+	@Test
+	public void cadastroValorGmailDiferenteTest() throws Exception{
+		Usuario usuario = usuarioTest();
+		usuario.setGmail("1234");
+
+		Mockito.when(usuarioRepository.findByEmail(Mockito.anyString())).thenReturn(usuario);
+
+		UsuarioTO usuarioTestCadastro = usuarioToTest();
+		usuarioTestCadastro.setTipConta(TipoConta.GMAIL.getDescricao());
+		usuarioTestCadastro.setConta("123");
+
+		Usuario usuarioRetorno = null;
+		boolean caiuException = false;
+
+		try {
+			userService.cadastrar(usuarioTestCadastro);
+		} catch (Exception e) {
+			caiuException = true;
+		}
+
+		assertEquals(true, usuarioRetorno == null); 
+		assertEquals(true, caiuException == true); 
+	}
+
+	@Test
+	public void cadastroValorFacebookDiferenteTest() throws Exception{
+		Usuario usuario = usuarioTest();
+		usuario.setFacebook("1234");
+
+		Mockito.when(usuarioRepository.findByEmail(Mockito.anyString())).thenReturn(usuario);
+
+		UsuarioTO usuarioTestCadastro = usuarioToTest();
+		usuarioTestCadastro.setTipConta(TipoConta.FACEBOOK.getDescricao());
+		usuarioTestCadastro.setConta("123");
+
+		Usuario usuarioRetorno = null;
+		boolean caiuException = false;
+
+		try {
+			userService.cadastrar(usuarioTestCadastro);
+		} catch (Exception e) {
+			caiuException = true;
+		}
+
+		assertEquals(true, usuarioRetorno == null); 
+		assertEquals(true, caiuException == true); 
+	}
+
+	@Test
+	public void cadastroFacebookTest() throws Exception{
+		Usuario usuario = usuarioTest();
+		usuario.setFacebook("1234");
+
+		Mockito.when(usuarioRepository.findByEmail(Mockito.anyString())).thenReturn(usuario, usuario);
+
+		UsuarioTO usuarioTestCadastro = usuarioToTest();
+		usuarioTestCadastro.setTipConta(TipoConta.FACEBOOK.getDescricao());
+		usuarioTestCadastro.setConta("1234");
+
+		Usuario usuarioRetorno = null;
+		boolean caiuException = false;
+
+		usuarioRetorno = userService.cadastrar(usuarioTestCadastro);
+
+		assertEquals(true, usuarioRetorno != null); 
+		assertEquals(true, caiuException != true); 
+	}
+	
+	@Test
+	public void cadastroGmailTest() throws Exception{
+		Usuario usuario = usuarioTest();
+		usuario.setGmail("1234");
+
+		Mockito.when(usuarioRepository.findByEmail(Mockito.anyString())).thenReturn(usuario, usuario);
+
+		UsuarioTO usuarioTestCadastro = usuarioToTest();
+		usuarioTestCadastro.setTipConta(TipoConta.GMAIL.getDescricao());
+		usuarioTestCadastro.setConta("1234");
+
+		Usuario usuarioRetorno = null;
+		boolean caiuException = false;
+
+		usuarioRetorno = userService.cadastrar(usuarioTestCadastro);
+
+		assertEquals(true, usuarioRetorno != null); 
+		assertEquals(true, caiuException != true); 
+	}
+
+	@Test
+	public void cadastroCorretoPachangaTest() throws Exception{
+		Mockito.when(usuarioRepository.findByEmail("gustavinhoTPD@fodasse.com.br")).thenReturn(null);
+
+		UsuarioTO usuarioTestCadastro = usuarioToTest();
+
+		Usuario usuarioRetorno = null;
+		boolean caiuException = false;
+
+		usuarioRetorno = userService.cadastrar(usuarioTestCadastro);
+
+		assertEquals(true, usuarioRetorno != null); 
+		assertEquals(true, caiuException != true); 
+	}
+
+	@Test
+	public void cadastroCorretoGmailTest() throws Exception{
+		Mockito.when(usuarioRepository.findByEmail("gustavinhoTPD@fodasse.com.br")).thenReturn(null);
+
+		UsuarioTO usuarioTestCadastro = usuarioToTest();
+		usuarioTestCadastro.setTipConta(TipoConta.GMAIL.getDescricao());
+		usuarioTestCadastro.setConta("1234");
+
+		Usuario usuarioRetorno = null;
+		boolean caiuException = false;
+
+		usuarioRetorno = userService.cadastrar(usuarioTestCadastro);
+
+		assertEquals(true, usuarioRetorno != null); 
+		assertEquals(true, caiuException != true); 
+	}
+
+	@Test
+	public void cadastroCorretoFacebookTest() throws Exception{
+		Mockito.when(usuarioRepository.findByEmail("gustavinhoTPD@fodasse.com.br")).thenReturn(null);
+
+		UsuarioTO usuarioTestCadastro = usuarioToTest();
+		usuarioTestCadastro.setTipConta(TipoConta.FACEBOOK.getDescricao());
+		usuarioTestCadastro.setConta("1234");
+
+		Usuario usuarioRetorno = null;
+		boolean caiuException = false;
+
+		usuarioRetorno = userService.cadastrar(usuarioTestCadastro);
+
+		assertEquals(true, usuarioRetorno != null); 
+		assertEquals(true, caiuException != true); 
+	}
+
+
+	@Test
+	public void cadastroCorretoPachangaUsuarioExistenteTest() throws Exception{
+		Usuario usuario = usuarioTest();
+		usuario.setFacebook("1234");
+		usuario.setSenha(null);
+		Mockito.when(usuarioRepository.findByEmail("gustavinhoTPD@fodasse.com.br")).thenReturn(usuario);
+
+		UsuarioTO usuarioTestCadastro = usuarioToTest();
+		usuarioTestCadastro.setSenha("1234");
+
+		Usuario usuarioRetorno = null;
+		boolean caiuException = false;
+
+		usuarioRetorno = userService.cadastrar(usuarioTestCadastro);
+
+		assertEquals(true, usuarioRetorno != null); 
+		assertEquals(true, caiuException != true); 
 	}
 
 	@Test
 	public void cadastroEmailDuplicadoTest() throws Exception{
 		Usuario usuarioTestBanco = usuarioTest();
 
-		Mockito.when(usuarioRepository.findByEmailAndTipConta("gustavinhoTPD@fodasse.com.br", "P")).thenReturn(usuarioTestBanco);
+		Mockito.when(usuarioRepository.findByEmail("gustavinhoTPD@fodasse.com.br")).thenReturn(usuarioTestBanco);
 
 		UsuarioTO usuarioTestCadastro = usuarioToTest();
 
@@ -269,26 +455,31 @@ public class UsuarioServiceTest {
 	}
 
 	@Test
-	public void cadastroUserTypeNotPSucessTest() throws Exception{
-		Mockito.when(usuarioRepository.findByEmailAndTipConta("gustavinhoTPD@fodasse.com.br", "G")).thenReturn(null);
+	public void cadastroUserGmail() throws Exception{
+		Mockito.when(usuarioRepository.findByEmail("gustavinhoTPD@fodasse.com.br")).thenReturn(usuarioTest());
 
 		UsuarioTO usuarioTestCadastro = usuarioToTest();
 		usuarioTestCadastro.setTipConta("G");
-		Usuario usuarioRetorno = userService.cadastrar(usuarioTestCadastro);
 
-		assertEquals(usuarioTestCadastro.getNomeUser(),usuarioRetorno.getNomeUser());
-		assertEquals(usuarioTestCadastro.getDtNasc(),usuarioRetorno.getDtNasc());
-		assertEquals(usuarioTestCadastro.getSexo(),usuarioRetorno.getSexo());
-		assertEquals(usuarioTestCadastro.getTipConta(),usuarioRetorno.getTipConta());
-		assertEquals(usuarioTestCadastro.getEmail(),usuarioRetorno.getEmail()); 
-		assertEquals(usuarioTestCadastro.getEmail(),usuarioRetorno.getEmail()); 
+		boolean erro = false;
+		String mensagemErro = null;
+
+		try {
+			userService.cadastrar(usuarioTestCadastro);			
+		} catch (Exception e) {
+			erro = true;
+			mensagemErro = e.getMessage();
+		}
+
+		assertEquals(true, erro);
+		assertEquals("USERNCON", mensagemErro);
 	}
 
 	@Test
 	public void cadastroTest() throws Exception{
 		Usuario usuarioTestBanco = usuarioTest();
 
-		Mockito.when(usuarioRepository.findByEmailAndTipConta("gustavinhoTPD@fodasse.com.br", "P")).thenReturn(usuarioTestBanco);
+		Mockito.when(usuarioRepository.findByEmail("gustavinhoTPD@fodasse.com.br")).thenReturn(usuarioTestBanco);
 
 		UsuarioTO usuarioTestCadastro = usuarioToTest();
 
@@ -312,7 +503,7 @@ public class UsuarioServiceTest {
 	public void atualizaTestException() throws Exception{ //Atualiza as senhas, mas as senhas são identicas então da erro
 		Usuario usuarioTestBanco = usuarioTest();
 
-		Mockito.when(usuarioRepository.findByEmailAndTipConta("gustavinhoTPD@fodasse.com.br", "P")).thenReturn(usuarioTestBanco);
+		Mockito.when(usuarioRepository.findByEmail("gustavinhoTPD@fodasse.com.br")).thenReturn(usuarioTestBanco);
 
 		UsuarioTO usuarioTestAtualizacao= usuarioToTest();
 		usuarioTestAtualizacao.setDtNasc(new Date(2002, 6, 27));
@@ -337,7 +528,7 @@ public class UsuarioServiceTest {
 	public void atualizaTest() throws Exception{
 		Usuario usuarioTestBanco = usuarioTest();
 
-		Mockito.when(usuarioRepository.findByEmailAndTipConta("gustavinhoTPD@fodasse.com.br", "P")).thenReturn(usuarioTestBanco);
+		Mockito.when(usuarioRepository.findByEmail("gustavinhoTPD@fodasse.com.br")).thenReturn(usuarioTestBanco);
 
 		UsuarioTO usuarioTestAtualizacao= usuarioToTest();
 		usuarioTestAtualizacao.setDtNasc(new Date(2002, 6, 27));
@@ -357,9 +548,8 @@ public class UsuarioServiceTest {
 	@Test
 	public void atualizaUserTypeNotPTest() throws Exception{
 		Usuario usuarioTestBanco = usuarioTest();
-		usuarioTestBanco.setTipConta("G");
 
-		Mockito.when(usuarioRepository.findByEmailAndTipConta("gustavinhoTPD@fodasse.com.br", "G")).thenReturn(usuarioTestBanco);
+		Mockito.when(usuarioRepository.findByEmail("gustavinhoTPD@fodasse.com.br")).thenReturn(usuarioTestBanco);
 
 		UsuarioTO usuarioTestAtualizacao= usuarioToTest();
 		usuarioTestAtualizacao.setTipConta("G");
@@ -379,9 +569,8 @@ public class UsuarioServiceTest {
 	@Test
 	public void atualizaUserNotExistTest() throws Exception{
 		Usuario usuarioTestBanco = usuarioTest();
-		usuarioTestBanco.setTipConta("G");
 
-		Mockito.when(usuarioRepository.findByEmailAndTipConta("gustavinhoTPD@fodasse.com.br", "G")).thenReturn(null);
+		Mockito.when(usuarioRepository.findByEmail("gustavinhoTPD@fodasse.com.br")).thenReturn(null,usuarioTestBanco);
 
 		UsuarioTO usuarioTestAtualizacao= usuarioToTest();
 		usuarioTestAtualizacao.setTipConta("G");
@@ -405,27 +594,25 @@ public class UsuarioServiceTest {
 	@Test
 	public void atualizaEmailTest() throws Exception{
 		Usuario usuarioTestBanco = usuarioTest();
-		usuarioTestBanco.setTipConta("P");
 
-		Mockito.when(usuarioRepository.findByEmailAndTipConta("gustavinhoTPD@fodasse.com.br", "P")).thenReturn(usuarioTestBanco);
+		Mockito.when(usuarioRepository.findByEmail("gustavinhoTPD@fodasse.com.br")).thenReturn(usuarioTestBanco);
 
 		UsuarioTO usuarioTestAtualizacao= usuarioToTest();
 		usuarioTestAtualizacao.setSenha("1234");
 		usuarioTestAtualizacao.setTipConta("P");
 		usuarioTestAtualizacao.setEmailNovo("gustavinhoTPD1@fodasse.com.br");
 
-		 Usuario usuarioRetorno = userService.atualizar(usuarioTestAtualizacao);
+		Usuario usuarioRetorno = userService.atualizar(usuarioTestAtualizacao);
 
 		assertEquals(true, usuarioRetorno != null); 
 
 	}
-	
+
 	@Test
 	public void atualizaSenhaTest() throws Exception{
 		Usuario usuarioTestBanco = usuarioTest();
-		usuarioTestBanco.setTipConta("P");
 
-		Mockito.when(usuarioRepository.findByEmailAndTipConta("gustavinhoTPD@fodasse.com.br", "P")).thenReturn(usuarioTestBanco);
+		Mockito.when(usuarioRepository.findByEmail("gustavinhoTPD@fodasse.com.br")).thenReturn(usuarioTestBanco);
 
 		UsuarioTO usuarioTestAtualizacao= usuarioToTest();
 		usuarioTestAtualizacao.setSenha("1234");
@@ -439,13 +626,12 @@ public class UsuarioServiceTest {
 		assertEquals(true, usuarioRetorno != null); 
 
 	}
-	
+
 	@Test
 	public void atualizaSenhaTestErro() throws Exception{
 		Usuario usuarioTestBanco = usuarioTest();
-		usuarioTestBanco.setTipConta("P");
 
-		Mockito.when(usuarioRepository.findByEmailAndTipConta("gustavinhoTPD@fodasse.com.br", "P")).thenReturn(usuarioTestBanco);
+		Mockito.when(usuarioRepository.findByEmail("gustavinhoTPD@fodasse.com.br")).thenReturn(usuarioTestBanco);
 
 		UsuarioTO usuarioTestAtualizacao= usuarioToTest();
 		usuarioTestAtualizacao.setSenha("12345");
@@ -465,14 +651,11 @@ public class UsuarioServiceTest {
 		assertEquals(true, caiuException == true); 
 
 	}
-	
+
 	@Test
 	public void atualizaEmailTestErro() throws Exception{
 		Usuario usuarioTestBanco = usuarioTest();
-		usuarioTestBanco.setTipConta("P");
-
-		Mockito.when(usuarioRepository.findByEmailAndTipConta("gustavinhoTPD@fodasse.com.br", "P")).thenReturn(usuarioTestBanco);
-		Mockito.when(usuarioRepository.findByEmailAndTipConta("gustavinhoTPD1@fodasse.com.br", "P")).thenReturn(usuarioTestBanco);
+		Mockito.when(usuarioRepository.findByEmail(Mockito.anyString())).thenReturn(usuarioTestBanco, usuarioTestBanco);
 
 		UsuarioTO usuarioTestAtualizacao= usuarioToTest();
 		usuarioTestAtualizacao.setSenha("1234");
@@ -492,38 +675,38 @@ public class UsuarioServiceTest {
 		assertEquals(true, caiuException == true); 
 
 	}
-	
+
 	@Test
 	public void getUsuarioFestaTest() throws Exception {
 		List<Usuario> usuarios = new ArrayList<Usuario>();
 		usuarios.add(usuarioTest());
 		Mockito.when(usuarioRepository.findByIdFesta(14)).thenReturn(usuarios);
-		
+
 		List<Usuario> usuariosResposta = userService.getUsuariosFesta(14);
-		
+
 		assertEquals(1, usuariosResposta.size());
 	}
-	
+
 	@Test
 	public void funcionalidadeUsuarioFestaSucessTest() throws Exception{
-		
+
 		Mockito.when(usuarioRepository.findById(1)).thenReturn(usuarioTest());
-		
+
 		Mockito.when(grupoRepository.findFuncionalidade(14, 1)).thenReturn(TipoGrupo.ORGANIZADOR.getValor());
-		
+
 		String funcionalidade = userService.funcionalidadeUsuarioFesta(14, 1);
-		
+
 		assertEquals(funcionalidade, TipoGrupo.ORGANIZADOR.getValor());
-		
+
 	}
-	
+
 	@Test
 	public void funcionalidadeUsuarioFestaFailedTest() throws Exception{
-		
+
 		Mockito.when(usuarioRepository.findById(1)).thenReturn(null);
-		
+
 		Mockito.when(grupoRepository.findFuncionalidade(14, 1)).thenReturn(TipoGrupo.ORGANIZADOR.getValor());
-		
+
 		boolean caiuException = false;
 		String funcionalidade = null;
 		try {
@@ -532,17 +715,17 @@ public class UsuarioServiceTest {
 			caiuException = true;
 		}
 		assertEquals(true, caiuException == true); 
-		
+
 		assertEquals(true, funcionalidade == null);
-		
+
 	}
-	
+
 	@Test
 	public void getUsuarioResponsavelFestaTest() throws Exception{
 		Mockito.when(usuarioRepository.findByFestaGrupo(14, TipoGrupo.ORGANIZADOR.getValor())).thenReturn(usuarioTest());
-		
+
 		Usuario usuarioResposta = userService.getUsuarioResponsavelFesta(14);
-		
+
 		assertEquals(true, usuarioResposta != null);
 	}
 

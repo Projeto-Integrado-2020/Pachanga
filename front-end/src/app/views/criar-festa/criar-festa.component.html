@@ -5,7 +5,7 @@
     <div class="content">
         <mat-card class="formulario-card">
             <form [formGroup]="form" class="formulario" 
-            (submit)="adicionarFesta(nomeFesta.value, descricaoFesta.value, codEnderecoFesta.value, dataInicio.value, horaInicio.value, dataFim.value, horaFim.value, organizador.value, descOrganizador.value)">
+            (submit)="adicionarFesta(nomeFesta.value, descricaoFesta.value, codEnderecoFesta.value, dataInicio.value, horaInicio.value, dataFim.value, horaFim.value, categoriaPrincipal.value, categoriaSecundaria.value, organizador.value, descOrganizador.value)">
                 <mat-form-field class="texto-input">
                     <mat-label>{{'CRIARFESTA.NOMEFESTA' | translate}}</mat-label>
                     <input ng-class="{ f.nomeFesta.errors }" #nomeFesta formControlName="nomeFesta" matInput required>
@@ -52,6 +52,25 @@
                     <mat-error *ngIf="f.fimHora.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
                 </mat-form-field>
                 <br>
+                <mat-form-field class="categoria categoria-principal">
+                    <mat-label>{{'FESTA.CATEGORIA1' | translate}}</mat-label>
+                    <mat-select ng-class="{ f.categoriaPrincipal.errors }" formControlName="categoriaPrincipal" #categoriaPrincipal required>
+                        <div *ngFor="let categoria of categorias">
+                            <mat-option value="{{categoria.codCategoria}}">{{'CATEGORIA.' + categoria.nomeCategoria | translate}}</mat-option>
+                        </div>
+                    </mat-select>
+                    <mat-error *ngIf="f.categoriaPrincipal.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
+                </mat-form-field>
+                <mat-form-field class="categoria">
+                    <mat-label>{{'FESTA.CATEGORIA2' | translate}}</mat-label>
+                    <mat-select formControlName="categoriaSecundaria" #categoriaSecundaria>
+                        <mat-option>{{'CATEGORIA.NONE' | translate}}</mat-option>
+                        <div *ngFor="let categoria of categorias">
+                            <mat-option value="{{categoria.codCategoria}}">{{'CATEGORIA.' + categoria.nomeCategoria | translate}}</mat-option>
+                        </div>
+                    </mat-select>
+                </mat-form-field>
+                <br>
                 <mat-form-field class="texto-input">
                     <mat-label>{{'CRIARFESTA.ORGANIZADOR' | translate}}</mat-label>
                     <input ng-class="{ f.organizador.errors }" #organizador formControlName="organizador" matInput required>
@@ -71,7 +90,7 @@
         </mat-card>
     </div>
     <a routerLink="../minhas-festas">
-        <button mat-button mat-dialog-close cdkFocusInitial class="button-return">
+        <button mat-button cdkFocusInitial class="button-return">
             <mat-icon>keyboard_return</mat-icon> {{'UTILS.RETURN' | translate}}
         </button>
     </a>

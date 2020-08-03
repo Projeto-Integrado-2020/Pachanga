@@ -25,10 +25,12 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import com.eventmanager.pachanga.domains.Categoria;
 import com.eventmanager.pachanga.domains.Festa;
 import com.eventmanager.pachanga.domains.Usuario;
 import com.eventmanager.pachanga.dtos.FestaTO;
 import com.eventmanager.pachanga.errors.ValidacaoException;
+import com.eventmanager.pachanga.services.CategoriaService;
 import com.eventmanager.pachanga.services.FestaService;
 import com.eventmanager.pachanga.services.UsuarioService;
 
@@ -44,6 +46,9 @@ public class FestaControllerTest {
 	
 	@MockBean
 	private UsuarioService userService;
+	
+	@MockBean
+	private CategoriaService categoriaService;
 	
 	
 //metodos auxiliares___________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________	
@@ -102,6 +107,13 @@ public class FestaControllerTest {
 		return festas;
 	}
 	
+	private Categoria categoriaTest() {
+		Categoria categoria = new Categoria();
+		categoria.setCodCategoria(1);
+		categoria.setNomeCategoria("teste");
+		return categoria;
+	}
+	
 	
 //Adicionar_____________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________	
 	@Test
@@ -113,6 +125,7 @@ public class FestaControllerTest {
 		String uri = "/festa/adicionar";
 
 		Mockito.when(festaService.addFesta(Mockito.any(FestaTO.class), Mockito.any(Integer.class))).thenReturn(festaTest);
+		Mockito.when(categoriaService.procurarCategoriaFesta(Mockito.anyInt(), Mockito.anyString())).thenReturn(categoriaTest(), null);
 
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.post(uri)
@@ -125,7 +138,7 @@ public class FestaControllerTest {
 
 		MockHttpServletResponse response = result.getResponse();
 
-		String expected = "{\"codFesta\":2,\"nomeFesta\":\"festao\",\"statusFesta\":\"I\",\"organizador\":\"Joao Neves\",\"horarioInicioFesta\":\"2016-06-22T19:10:00\",\"horarioFimFesta\":\"2016-06-23T19:10:00\",\"descricaoFesta\":\"Bugago\",\"codEnderecoFesta\":\"https//:minhacasa.org\",\"descOrganizador\":\"sou demente\",\"horarioFimFestaReal\":\"2016-06-23T19:10:00\",\"funcionalidade\":null,\"quantidadeParticipantes\":0,\"usuarios\":null}";
+		String expected = "{\"codFesta\":2,\"nomeFesta\":\"festao\",\"statusFesta\":\"I\",\"organizador\":\"Joao Neves\",\"horarioInicioFesta\":\"2016-06-22T19:10:00\",\"horarioFimFesta\":\"2016-06-23T19:10:00\",\"descricaoFesta\":\"Bugago\",\"codEnderecoFesta\":\"https//:minhacasa.org\",\"descOrganizador\":\"sou demente\",\"horarioFimFestaReal\":\"2016-06-23T19:10:00\",\"funcionalidade\":null,\"quantidadeParticipantes\":0,\"usuarios\":null,\"codPrimaria\":0,\"codSecundaria\":0,\"categoriaPrimaria\":{\"codCategoria\":1,\"nomeCategoria\":\"teste\"},\"categoriaSecundaria\":null}";
 		
 		assertEquals(HttpStatus.OK.value(), response.getStatus());
 
@@ -139,6 +152,7 @@ public class FestaControllerTest {
 		String uri = "/festa/adicionar";
 
 		Mockito.when(festaService.addFesta(Mockito.any(FestaTO.class), Mockito.any(Integer.class))).thenThrow(new ValidacaoException("addFesta"));
+		Mockito.when(categoriaService.procurarCategoriaFesta(Mockito.anyInt(), Mockito.anyString())).thenReturn(categoriaTest(), null);
 
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.post(uri)
@@ -167,6 +181,7 @@ public class FestaControllerTest {
 
 		Mockito.when(festaService.procurarFestasPorUsuario(Mockito.any(Integer.class))).thenReturn(festas);
 		Mockito.when(festaService.procurarFestas()).thenReturn(festasAll);
+		Mockito.when(categoriaService.procurarCategoriaFesta(Mockito.anyInt(), Mockito.anyString())).thenReturn(categoriaTest(), null);
 		
 		String uri = "/festa/lista";
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
@@ -179,7 +194,7 @@ public class FestaControllerTest {
 
 		MockHttpServletResponse response = result.getResponse();
 
-		String expected = "[{\"codFesta\":1,\"nomeFesta\":\"fest1\",\"statusFesta\":\"I\",\"organizador\":\"Joao Neves\",\"horarioInicioFesta\":\"2016-06-22T19:10:00\",\"horarioFimFesta\":\"2016-06-23T19:10:00\",\"descricaoFesta\":\"Bugago\",\"codEnderecoFesta\":\"https//:minhacasa.org\",\"descOrganizador\":\"sou demente\",\"horarioFimFestaReal\":\"2016-06-23T19:10:00\",\"funcionalidade\":null,\"quantidadeParticipantes\":0,\"usuarios\":null},{\"codFesta\":3,\"nomeFesta\":\"fest2\",\"statusFesta\":\"I\",\"organizador\":\"Joao Neves\",\"horarioInicioFesta\":\"2016-06-22T19:10:00\",\"horarioFimFesta\":\"2016-06-23T19:10:00\",\"descricaoFesta\":\"Bugago\",\"codEnderecoFesta\":\"https//:minhacasa.org\",\"descOrganizador\":\"sou demente\",\"horarioFimFestaReal\":\"2016-06-23T19:10:00\",\"funcionalidade\":null,\"quantidadeParticipantes\":0,\"usuarios\":null}]";
+		String expected = "[{\"codFesta\":1,\"nomeFesta\":\"fest1\",\"statusFesta\":\"I\",\"organizador\":\"Joao Neves\",\"horarioInicioFesta\":\"2016-06-22T19:10:00\",\"horarioFimFesta\":\"2016-06-23T19:10:00\",\"descricaoFesta\":\"Bugago\",\"codEnderecoFesta\":\"https//:minhacasa.org\",\"descOrganizador\":\"sou demente\",\"horarioFimFestaReal\":\"2016-06-23T19:10:00\",\"funcionalidade\":null,\"quantidadeParticipantes\":0,\"usuarios\":null,\"codPrimaria\":0,\"codSecundaria\":0,\"categoriaPrimaria\":{\"codCategoria\":1,\"nomeCategoria\":\"teste\"},\"categoriaSecundaria\":null},{\"codFesta\":3,\"nomeFesta\":\"fest2\",\"statusFesta\":\"I\",\"organizador\":\"Joao Neves\",\"horarioInicioFesta\":\"2016-06-22T19:10:00\",\"horarioFimFesta\":\"2016-06-23T19:10:00\",\"descricaoFesta\":\"Bugago\",\"codEnderecoFesta\":\"https//:minhacasa.org\",\"descOrganizador\":\"sou demente\",\"horarioFimFestaReal\":\"2016-06-23T19:10:00\",\"funcionalidade\":null,\"quantidadeParticipantes\":0,\"usuarios\":null,\"codPrimaria\":0,\"codSecundaria\":0,\"categoriaPrimaria\":null,\"categoriaSecundaria\":null}]";
 		
 		assertEquals(HttpStatus.OK.value(), response.getStatus());
 
@@ -193,7 +208,8 @@ public class FestaControllerTest {
 		
 		Mockito.when(festaService.procurarFestasPorUsuario(Mockito.any(Integer.class))).thenReturn(festas);
 		Mockito.when(festaService.procurarFestas()).thenReturn(festasAll);
-
+		Mockito.when(categoriaService.procurarCategoriaFesta(Mockito.anyInt(), Mockito.anyString())).thenReturn(categoriaTest(), null);
+		
 		String uri = "/festa/lista";
 		
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
@@ -205,10 +221,10 @@ public class FestaControllerTest {
 
 		MockHttpServletResponse response = result.getResponse();
 
-		String expected = "[{\"codFesta\":1,\"nomeFesta\":\"fest1\",\"statusFesta\":\"I\",\"organizador\":\"Joao Neves\",\"horarioInicioFesta\":\"2016-06-22T19:10:00\",\"horarioFimFesta\":\"2016-06-23T19:10:00\",\"descricaoFesta\":\"Bugago\",\"codEnderecoFesta\":\"https//:minhacasa.org\",\"descOrganizador\":\"sou demente\",\"horarioFimFestaReal\":\"2016-06-23T19:10:00\",\"funcionalidade\":null,\"quantidadeParticipantes\":0,\"usuarios\":null},"
-				          +"{\"codFesta\":3,\"nomeFesta\":\"fest2\",\"statusFesta\":\"I\",\"organizador\":\"Joao Neves\",\"horarioInicioFesta\":\"2016-06-22T19:10:00\",\"horarioFimFesta\":\"2016-06-23T19:10:00\",\"descricaoFesta\":\"Bugago\",\"codEnderecoFesta\":\"https//:minhacasa.org\",\"descOrganizador\":\"sou demente\",\"horarioFimFestaReal\":\"2016-06-23T19:10:00\",\"funcionalidade\":null,\"quantidadeParticipantes\":0,\"usuarios\":null},"
-		                  +"{\"codFesta\":4,\"nomeFesta\":\"fest4\",\"statusFesta\":\"I\",\"organizador\":\"Joao Neves\",\"horarioInicioFesta\":\"2016-06-22T19:10:00\",\"horarioFimFesta\":\"2016-06-23T19:10:00\",\"descricaoFesta\":\"Bugago\",\"codEnderecoFesta\":\"https//:minhacasa.org\",\"descOrganizador\":\"sou demente\",\"horarioFimFestaReal\":\"2016-06-23T19:10:00\",\"funcionalidade\":null,\"quantidadeParticipantes\":0,\"usuarios\":null},"
-                          +"{\"codFesta\":5,\"nomeFesta\":\"fest5\",\"statusFesta\":\"I\",\"organizador\":\"Joao Neves\",\"horarioInicioFesta\":\"2016-06-22T19:10:00\",\"horarioFimFesta\":\"2016-06-23T19:10:00\",\"descricaoFesta\":\"Bugago\",\"codEnderecoFesta\":\"https//:minhacasa.org\",\"descOrganizador\":\"sou demente\",\"horarioFimFestaReal\":\"2016-06-23T19:10:00\",\"funcionalidade\":null,\"quantidadeParticipantes\":0,\"usuarios\":null}]";
+		String expected = "[{\"codFesta\":1,\"nomeFesta\":\"fest1\",\"statusFesta\":\"I\",\"organizador\":\"Joao Neves\",\"horarioInicioFesta\":\"2016-06-22T19:10:00\",\"horarioFimFesta\":\"2016-06-23T19:10:00\",\"descricaoFesta\":\"Bugago\",\"codEnderecoFesta\":\"https//:minhacasa.org\",\"descOrganizador\":\"sou demente\",\"horarioFimFestaReal\":\"2016-06-23T19:10:00\",\"funcionalidade\":null,\"quantidadeParticipantes\":0,\"usuarios\":null,\"codPrimaria\":0,\"codSecundaria\":0,\"categoriaPrimaria\":{\"codCategoria\":1,\"nomeCategoria\":\"teste\"},\"categoriaSecundaria\":null},"
+				+ "{\"codFesta\":3,\"nomeFesta\":\"fest2\",\"statusFesta\":\"I\",\"organizador\":\"Joao Neves\",\"horarioInicioFesta\":\"2016-06-22T19:10:00\",\"horarioFimFesta\":\"2016-06-23T19:10:00\",\"descricaoFesta\":\"Bugago\",\"codEnderecoFesta\":\"https//:minhacasa.org\",\"descOrganizador\":\"sou demente\",\"horarioFimFestaReal\":\"2016-06-23T19:10:00\",\"funcionalidade\":null,\"quantidadeParticipantes\":0,\"usuarios\":null,\"codPrimaria\":0,\"codSecundaria\":0,\"categoriaPrimaria\":null,\"categoriaSecundaria\":null},"
+				+ "{\"codFesta\":4,\"nomeFesta\":\"fest4\",\"statusFesta\":\"I\",\"organizador\":\"Joao Neves\",\"horarioInicioFesta\":\"2016-06-22T19:10:00\",\"horarioFimFesta\":\"2016-06-23T19:10:00\",\"descricaoFesta\":\"Bugago\",\"codEnderecoFesta\":\"https//:minhacasa.org\",\"descOrganizador\":\"sou demente\",\"horarioFimFestaReal\":\"2016-06-23T19:10:00\",\"funcionalidade\":null,\"quantidadeParticipantes\":0,\"usuarios\":null,\"codPrimaria\":0,\"codSecundaria\":0,\"categoriaPrimaria\":null,\"categoriaSecundaria\":null},"
+				+ "{\"codFesta\":5,\"nomeFesta\":\"fest5\",\"statusFesta\":\"I\",\"organizador\":\"Joao Neves\",\"horarioInicioFesta\":\"2016-06-22T19:10:00\",\"horarioFimFesta\":\"2016-06-23T19:10:00\",\"descricaoFesta\":\"Bugago\",\"codEnderecoFesta\":\"https//:minhacasa.org\",\"descOrganizador\":\"sou demente\",\"horarioFimFestaReal\":\"2016-06-23T19:10:00\",\"funcionalidade\":null,\"quantidadeParticipantes\":0,\"usuarios\":null,\"codPrimaria\":0,\"codSecundaria\":0,\"categoriaPrimaria\":null,\"categoriaSecundaria\":null}]";
 
 		assertEquals(HttpStatus.OK.value(), response.getStatus());
 
@@ -219,7 +235,8 @@ public class FestaControllerTest {
 	public void listarFestaProcurarFestasPorUsuarioExceptionTest() throws Exception {
 
 		Mockito.when(festaService.procurarFestasPorUsuario(Mockito.any(Integer.class))).thenThrow(new ValidacaoException("procurarFestasPorUsuario"));
-		Mockito.when(festaService.procurarFestas()).thenThrow(new ValidacaoException("procurarFestas"));;
+		Mockito.when(festaService.procurarFestas()).thenThrow(new ValidacaoException("procurarFestas"));
+		Mockito.when(categoriaService.procurarCategoriaFesta(Mockito.anyInt(), Mockito.anyString())).thenReturn(categoriaTest(), null);
 		
 		String uri = "/festa/lista";
 		
@@ -246,6 +263,7 @@ public class FestaControllerTest {
 		
 		Mockito.when(festaService.procurarFestasPorUsuario(Mockito.any(Integer.class))).thenThrow(new ValidacaoException("procurarFestasPorUsuario"));
 		Mockito.when(festaService.procurarFestas()).thenThrow(new ValidacaoException("procurarFestas"));
+		Mockito.when(categoriaService.procurarCategoriaFesta(Mockito.anyInt(), Mockito.anyString())).thenReturn(categoriaTest(), null);
 		
 		String uri = "/festa/lista";
 		
@@ -326,6 +344,7 @@ public class FestaControllerTest {
 		String uri = "/festa/atualizar";
 
 		Mockito.when(festaService.updateFesta(Mockito.any(FestaTO.class), Mockito.any(Integer.class))).thenReturn(festaTest);
+		Mockito.when(categoriaService.procurarCategoriaFesta(Mockito.anyInt(), Mockito.anyString())).thenReturn(categoriaTest(), null);
 
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.put(uri)
@@ -338,7 +357,7 @@ public class FestaControllerTest {
 
 		MockHttpServletResponse response = result.getResponse();
 
-		String expected = "{\"codFesta\":2,\"nomeFesta\":\"festao\",\"statusFesta\":\"I\",\"organizador\":\"Joao Neves\",\"horarioInicioFesta\":\"2016-06-22T19:10:00\",\"horarioFimFesta\":\"2016-06-23T19:10:00\",\"descricaoFesta\":\"Bugago\",\"codEnderecoFesta\":\"https//:minhacasa.org\",\"descOrganizador\":\"sou demente\",\"horarioFimFestaReal\":\"2016-06-23T19:10:00\",\"funcionalidade\":null,\"quantidadeParticipantes\":0,\"usuarios\":null}";
+		String expected = "{\"codFesta\":2,\"nomeFesta\":\"festao\",\"statusFesta\":\"I\",\"organizador\":\"Joao Neves\",\"horarioInicioFesta\":\"2016-06-22T19:10:00\",\"horarioFimFesta\":\"2016-06-23T19:10:00\",\"descricaoFesta\":\"Bugago\",\"codEnderecoFesta\":\"https//:minhacasa.org\",\"descOrganizador\":\"sou demente\",\"horarioFimFestaReal\":\"2016-06-23T19:10:00\",\"funcionalidade\":null,\"quantidadeParticipantes\":0,\"usuarios\":null,\"codPrimaria\":0,\"codSecundaria\":0,\"categoriaPrimaria\":{\"codCategoria\":1,\"nomeCategoria\":\"teste\"},\"categoriaSecundaria\":null}";
 		
 		assertEquals(HttpStatus.OK.value(), response.getStatus());
 
@@ -355,6 +374,7 @@ public class FestaControllerTest {
 		String uri = "/festa/atualizar";
 
 		Mockito.when(festaService.updateFesta(Mockito.any(FestaTO.class), Mockito.any(Integer.class))).thenThrow(new ValidacaoException(expected));
+		Mockito.when(categoriaService.procurarCategoriaFesta(Mockito.anyInt(), Mockito.anyString())).thenReturn(categoriaTest(), null);
 
 
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
@@ -386,6 +406,7 @@ public class FestaControllerTest {
 
 		Mockito.when(festaService.procurarFesta(Mockito.any(Integer.class), Mockito.any(Integer.class))).thenReturn(festaTest);
 		Mockito.when(userService.getUsuariosFesta(Mockito.any(Integer.class))).thenReturn(UsuarioControllerTest.colecaoDeUsuario(2));
+		Mockito.when(categoriaService.procurarCategoriaFesta(Mockito.anyInt(), Mockito.anyString())).thenReturn(categoriaTest(), null);
 
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.get(uri)
@@ -398,9 +419,7 @@ public class FestaControllerTest {
 
 		MockHttpServletResponse response = result.getResponse();
 
-		String expected = "{\"codFesta\":2,\"nomeFesta\":\"festao\",\"statusFesta\":\"I\",\"organizador\":\"Joao Neves\",\"horarioInicioFesta\":\"2016-06-22T19:10:00\",\"horarioFimFesta\":\"2016-06-23T19:10:00\",\"descricaoFesta\":\"Bugago\",\"codEnderecoFesta\":\"https//:minhacasa.org\",\"descOrganizador\":\"sou demente\",\"horarioFimFestaReal\":\"2016-06-23T19:10:00\",\"funcionalidade\":null,\"quantidadeParticipantes\":0,\"usuarios\":["
-				         +"{\"dtNasc\":\"3900-09-27T00:00:00.000+0000\",\"codUsuario\":1,\"nomeUser\":\"Andrey\",\"tipConta\":\"P\",\"email\":\"gustavinhoTPD@fodasse.com.br\",\"emailNovo\":null,\"senha\":null,\"senhaNova\": null,\"sexo\":\"M\",\"funcionalidade\": null},"
-				         +"{\"dtNasc\":\"3900-09-27T00:00:00.000+0000\",\"codUsuario\":2,\"nomeUser\":\"Luis\",\"tipConta\":\"P\",\"email\":\"gustavinhoTPD@fodasse.com.br\",\"emailNovo\":null,\"senha\":null,\"senhaNova\": null,\"sexo\":\"M\",\"funcionalidade\": null}]}";
+		String expected = "{\"codFesta\":2,\"nomeFesta\":\"festao\",\"statusFesta\":\"I\",\"organizador\":\"Joao Neves\",\"horarioInicioFesta\":\"2016-06-22T19:10:00\",\"horarioFimFesta\":\"2016-06-23T19:10:00\",\"descricaoFesta\":\"Bugago\",\"codEnderecoFesta\":\"https//:minhacasa.org\",\"descOrganizador\":\"sou demente\",\"horarioFimFestaReal\":\"2016-06-23T19:10:00\",\"funcionalidade\":null,\"quantidadeParticipantes\":0,\"usuarios\":[{\"dtNasc\":\"3900-09-27T00:00:00.000+0000\",\"codUsuario\":1,\"nomeUser\":\"Andrey\",\"tipConta\":\"P\",\"conta\":null,\"email\":\"gustavinhoTPD@fodasse.com.br\",\"emailNovo\":null,\"senha\":null,\"senhaNova\":null,\"sexo\":\"M\",\"funcionalidade\":null},{\"dtNasc\":\"3900-09-27T00:00:00.000+0000\",\"codUsuario\":2,\"nomeUser\":\"Luis\",\"tipConta\":\"P\",\"conta\":null,\"email\":\"gustavinhoTPD@fodasse.com.br\",\"emailNovo\":null,\"senha\":null,\"senhaNova\":null,\"sexo\":\"M\",\"funcionalidade\":null}],\"codPrimaria\":0,\"codSecundaria\":0,\"categoriaPrimaria\":{\"codCategoria\":1,\"nomeCategoria\":\"teste\"},\"categoriaSecundaria\":null}";
 		
 		assertEquals(HttpStatus.OK.value(), response.getStatus());
 
@@ -416,6 +435,7 @@ public class FestaControllerTest {
 		
 		Mockito.when(festaService.procurarFesta(Mockito.any(Integer.class), Mockito.any(Integer.class))).thenReturn(null);
 		Mockito.when(userService.getUsuariosFesta(Mockito.any(Integer.class))).thenReturn(UsuarioControllerTest.colecaoDeUsuario(2));
+		Mockito.when(categoriaService.procurarCategoriaFesta(Mockito.anyInt(), Mockito.anyString())).thenReturn(categoriaTest(), null);
 
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.get(uri)
@@ -441,6 +461,7 @@ public class FestaControllerTest {
 
 		Mockito.when(festaService.procurarFesta(Mockito.any(Integer.class), Mockito.any(Integer.class))).thenThrow(new ValidacaoException(expected));
 		Mockito.when(userService.getUsuariosFesta(Mockito.any(Integer.class))).thenThrow(new ValidacaoException(expected));
+		Mockito.when(categoriaService.procurarCategoriaFesta(Mockito.anyInt(), Mockito.anyString())).thenReturn(categoriaTest(), null);
 
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.get(uri)
@@ -474,6 +495,8 @@ public class FestaControllerTest {
 		
 		Mockito.when(userService.funcionalidadeUsuarioFesta(Mockito.anyInt(), Mockito.anyInt())).thenReturn("ORGANIZADOR");
 		
+		Mockito.when(categoriaService.procurarCategoriaFesta(Mockito.anyInt(), Mockito.anyString())).thenReturn(categoriaTest(), null);
+		
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.put(uri)
 				.accept(MediaType.APPLICATION_JSON)
@@ -499,6 +522,8 @@ public class FestaControllerTest {
 		Mockito.when(festaService.mudarStatusFesta(Mockito.any(Integer.class), Mockito.any(String.class), Mockito.any(Integer.class))).thenThrow(new ValidacaoException("teste"));
 		
 		Mockito.when(userService.getUsuariosFesta(Mockito.any(Integer.class))).thenReturn(null);
+
+		Mockito.when(categoriaService.procurarCategoriaFesta(Mockito.anyInt(), Mockito.anyString())).thenReturn(categoriaTest(), null);
 		
 		Mockito.when(userService.funcionalidadeUsuarioFesta(Mockito.anyInt(), Mockito.anyInt())).thenReturn(null);
 		

@@ -9,7 +9,8 @@ public class UsuarioBuilder{
 	private Date dtNasc;
 	private int codUsuario;
 	private  String nomeUser;
-	private String tipConta;
+	private String facebook;
+	private String gmail;
 	private String email;
 	private String senha;
 	private String sexo;
@@ -33,8 +34,13 @@ public class UsuarioBuilder{
 		return this;
 	}
 
-	public UsuarioBuilder tipConta(String tipConta) {
-		this.tipConta = tipConta;
+	public UsuarioBuilder gmail(String gmail) {
+		this.gmail = gmail;
+		return this;
+	}
+	
+	public UsuarioBuilder facebook(String facebook) {
+		this.facebook = facebook;
 		return this;
 	}
 
@@ -61,7 +67,8 @@ public class UsuarioBuilder{
 		user.setNomeUser(nomeUser);
 		user.setSenha(senha);
 		user.setSexo(sexo);
-		user.setTipConta(tipConta);
+		user.setGmail(gmail);
+		user.setFacebook(facebook);
 		return user;
 	}
 

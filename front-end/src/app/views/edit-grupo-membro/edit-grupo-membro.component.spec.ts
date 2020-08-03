@@ -5,10 +5,11 @@ import { MatDialog, MAT_DIALOG_DATA } from '@angular/material';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { CustomMaterialModule } from '../material/material.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule, FormControl, Validators } from '@angular/forms';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient } from '@angular/common/http';
+import { LoginService } from 'src/app/services/loginService/login.service';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -37,13 +38,7 @@ describe('EditGrupoMembroComponent', () => {
         }
       })],
       providers: [
-        { provide: MAT_DIALOG_DATA, useValue: {grupos: [
-                                                {codGrupo: '1', nomeGrupo: 'Salve'},
-                                                {codGrupo: '2', nomeGrupo: 'Salve2'},
-                                                {codGrupo: '3', nomeGrupo: 'Salve3'},
-                                                {codGrupo: '4', nomeGrupo: 'Salve4'},
-                                                {codGrupo: '5', nomeGrupo: 'Salve5'}
-                                              ]}},
+        { provide: MAT_DIALOG_DATA, useValue: { codUsuario: '1', codFesta: '1', grupo: {codGrupo: '1', nomeGrupo: 'Salve'}} },
         { provide: MatDialog, useValue: dialogSpy }
     ]
     })
@@ -53,10 +48,19 @@ describe('EditGrupoMembroComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(EditGrupoMembroComponent);
     component = fixture.componentInstance;
+    const service: LoginService = TestBed.get(LoginService);
+    service.usuarioInfo = {codUsuario: '1'};
     fixture.detectChanges();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should gerarForm', () => {
+    component.gerarForm();
+    expect(component.form).toBeTruthy();
+    expect(component.form.get('grupoSelect')).toBeTruthy();
+  });
+
 });

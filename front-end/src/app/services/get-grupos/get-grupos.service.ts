@@ -13,7 +13,8 @@ import { ErroDialogComponent } from 'src/app/views/erro-dialog/erro-dialog.compo
 })
 export class GetGruposService {
 
-  private readonly urlGrupos = `${environment.URL_BACK}grupo/lista`;
+  private readonly urlGrupos = `${environment.URL_BACK}grupo/getAllGruposFesta`;
+  private readonly urlGrupoUnico = `${environment.URL_BACK}grupo/getGrupoFesta`;
 
   public farol = false;
 
@@ -24,9 +25,24 @@ export class GetGruposService {
     if (!this.farol) {
       this.setFarol(true);
       const httpParams = new HttpParams()
-      .append('idFesta', idFesta)
+      .append('codFesta', idFesta)
       .append('idUsuario', this.loginService.usuarioInfo.codUsuario);
       return this.http.get(this.urlGrupos, {params: httpParams}).pipe(
+        take(1),
+        catchError(error => {
+          return this.handleError(error, this.logService);
+        })
+      );
+    }
+  }
+
+  getGrupoUnico(idGrupo) {
+    if (!this.farol) {
+      this.setFarol(true);
+      const httpParams = new HttpParams()
+      .append('codGrupo', idGrupo)
+      .append('idUsuario', this.loginService.usuarioInfo.codUsuario);
+      return this.http.get(this.urlGrupoUnico, {params: httpParams}).pipe(
         take(1),
         catchError(error => {
           return this.handleError(error, this.logService);

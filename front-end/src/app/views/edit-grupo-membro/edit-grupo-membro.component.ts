@@ -26,14 +26,14 @@ export class EditGrupoMembroComponent implements OnInit {
   }
 
   ngOnInit() {
-    /*this.resgatarGrupo();*/
-    this.grupos = [
+    this.resgatarGrupo();
+    /*this.grupos = [
       {codGrupo: '1', nomeGrupo: 'Salve'},
       {codGrupo: '2', nomeGrupo: 'Salve2'},
       {codGrupo: '3', nomeGrupo: 'Salve3'},
       {codGrupo: '4', nomeGrupo: 'Salve4'},
       {codGrupo: '5', nomeGrupo: 'Salve5'}
-    ];
+    ];*/
     this.gerarForm();
   }
 

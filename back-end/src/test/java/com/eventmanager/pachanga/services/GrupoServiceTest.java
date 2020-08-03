@@ -21,6 +21,7 @@ import com.eventmanager.pachanga.domains.Usuario;
 import com.eventmanager.pachanga.errors.ValidacaoException;
 import com.eventmanager.pachanga.repositories.FestaRepository;
 import com.eventmanager.pachanga.repositories.GrupoRepository;
+import com.eventmanager.pachanga.repositories.PermissaoRepository;
 import com.eventmanager.pachanga.repositories.UsuarioRepository;
 import com.eventmanager.pachanga.utils.EmailMensagem;
 
@@ -41,6 +42,9 @@ public class GrupoServiceTest {
 	private GrupoService grupoService;
 	
 	@MockBean
+	private PermissaoRepository permissaoRepository;
+	
+	@MockBean
 	private EmailMensagem emailMensagem;
 	
 	public static Grupo criacaoGrupo() {
@@ -54,7 +58,6 @@ public class GrupoServiceTest {
 		Usuario usuario = new Usuario();
 		usuario.setCodUsuario(1);
 		usuario.setEmail("guga.72@hotmail.com");
-		usuario.setTipConta("F");
 		return usuario;
 	}
 	

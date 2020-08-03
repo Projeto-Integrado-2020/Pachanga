@@ -20,4 +20,8 @@ public class CategoriaService {
 		return categoriaRepository.findAll();
 	}
 	
+	public Categoria procurarCategoriaFesta(int codFesta, String tipoCategoria){
+		return categoriaRepository.findCategoriaFesta(codFesta, tipoCategoria);
+	}
+	
 }

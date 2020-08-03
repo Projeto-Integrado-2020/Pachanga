@@ -15,7 +15,7 @@ export class EditarMembroGrupoService {
 
   public farol = false;
 
-  private readonly urlDeletarMembro = `${environment.URL_BACK}grupo/editMembro`;
+  private readonly urlDeletarMembro = `${environment.URL_BACK}grupo/updateGrupoFesta`;
 
   constructor(private http: HttpClient, public logService: LogService, public dialog: MatDialog,
               public loginService: LoginService) { }

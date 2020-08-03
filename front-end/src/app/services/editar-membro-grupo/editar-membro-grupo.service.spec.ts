@@ -25,4 +25,25 @@ describe('EditarMembroGrupoService', () => {
     const service: EditarMembroGrupoService = TestBed.get(EditarMembroGrupoService);
     expect(service).toBeTruthy();
   });
+
+  it('should set farol', () => {
+    const service: EditarMembroGrupoService = TestBed.get(EditarMembroGrupoService);
+    service.setFarol(true);
+    expect(service.getFarol()).toBeTruthy();
+    service.setFarol(false);
+    expect(service.getFarol()).toBeFalsy();
+  });
+
+  it('should get farol', () => {
+    const service: EditarMembroGrupoService = TestBed.get(EditarMembroGrupoService);
+    expect(service.getFarol()).toBeFalsy();
+    service.setFarol(true);
+    expect(service.getFarol()).toBeTruthy();
+  });
+
+  it('should open a dialog through a method', () => {
+    const service: EditarMembroGrupoService = TestBed.get(EditarMembroGrupoService);
+    service.openErrorDialog('teste');
+    expect(dialogSpy.open).toHaveBeenCalled();
+  });
 });

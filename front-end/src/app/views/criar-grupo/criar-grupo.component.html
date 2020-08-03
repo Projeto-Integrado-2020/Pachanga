@@ -5,15 +5,15 @@
     <div class="form-div">
         <mat-card class="form-tab">
             <mat-card-content class="card-content">
-                <form [formGroup]="form">
+                <form [formGroup]="form" (submit)="criarGrupo(nomeGrupo.value)">
                     <mat-form-field class="texto-input">
                         <mat-label>{{'GRUPO.NAME' | translate}}</mat-label>
-                        <input ng-class="{ f.nomeGrupo.errors }" formControlName="nomeGrupo" matInput required>
+                        <input ng-class="{ f.nomeGrupo.errors }" #nomeGrupo formControlName="nomeGrupo" matInput required>
                         <mat-error *ngIf="f.nomeGrupo.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
                     </mat-form-field>
                     <br>
                     <div *ngFor="let permissao of permissoes">
-                        <mat-checkbox (click)='updateListaPermissao(permissao)' formControlName="{{permissao}}">{{ 'PERMISSAO.' + permissao | translate }}</mat-checkbox>
+                        <mat-checkbox (click)='updateListaPermissao(permissao)' formControlName="{{permissao.descPermissao}}">{{ 'PERMISSAO.' + permissao.descPermissao | translate }}</mat-checkbox>
                     </div>
                     <br>
                     <button [disabled]="!form.valid" class="button-form" mat-raised-button>
@@ -24,7 +24,7 @@
         </mat-card>
     </div>
     <a routerLink="../">
-        <button mat-button mat-dialog-close cdkFocusInitial class="button-return">
+        <button mat-button cdkFocusInitial class="button-return">
             <mat-icon>keyboard_return</mat-icon> {{'UTILS.RETURN' | translate}}
         </button>
     </a>

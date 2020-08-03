@@ -7,7 +7,6 @@ import { LogService } from '../logging/log.service';
 import { take, catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 import { LoginService } from '../loginService/login.service';
-import { Router } from '@angular/router';
 
 
 @Injectable({

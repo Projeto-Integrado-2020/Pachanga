@@ -69,7 +69,10 @@
         "STATERRA": "Esse status de festa não existe.",
         "STANMUDA": "A festa já se encontra nessa fase.",
         "FSTANINI": "A festa precisa estar iniciada para realizar esta ação.",
-        "FESTINIC": "Os dados da festa não podem ser editados enquanto ela está iniciada."
+        "FESTINIC": "Os dados da festa não podem ser editados enquanto ela está iniciada.",
+        "FESTSCAT": "Festa sem categoria primária.",
+        "CATNFOUN": "Categoria não encontrada.",
+        "FESTMCAT": "Categoria principal e secundário identicas."
     },
 
     "SUCCESS": {
@@ -172,7 +175,9 @@
         "I": "Festa iniciada",
         "F": "Festa finalizada",
         "NONEPARTY": "Você não tem nenhuma festa associada a esta conta.",
-        "CLICKHERE": "Clique aqui para criar uma festa"
+        "CLICKHERE": "Clique aqui para criar uma festa",
+        "CATEGORIA1": "Categoria primária",
+        "CATEGORIA2": "Categoria secundária"
     },
 
     "CRIARFESTA": {
@@ -212,7 +217,7 @@
         "EDIT": "Editar permissões do colaborador",
         "DELETE": "Deletar colaborador",
         "EDITFESTA": "Editar festa",
-        "DELETEFESTA": "Deletar festa",
+        "DELETEFESTA": "Apagar festa",
         "CHANGESTATUS": "Alterar status da festa"
     },
 
@@ -221,7 +226,8 @@
     },
 
     "DELETEDIALOG": {
-        "MESSAGE": "Você realmente deseja deletar a festa ",
+        "MESSAGEPARTY": "Você realmente deseja apagar a festa ",
+        "MESSAGEROLE": "Você realmente deseja apagar o grupo ",
         "CONFIRM": "Confirmar",
         "CANCEL": "Cancelar"
     },
@@ -233,13 +239,13 @@
         "MEMBERS": "Membro(s)",
         "INVITE": "Convidar membros",
         "EDIT": "Editar grupo",
-        "DELETE": "Deletar grupo",
         "DELETEMEMBRO": "Deletar membro",
         "EDITMEMBRO": "Editar grupo(s) do membro",
         "CURRENTGROUP": "Grupo atual: ",
         "NEWGROUP": "Grupo(s) novo(s)",
         "CONFIRM": "Confirmar",
-        "CANCEL": "Cancelar"
+        "CANCEL": "Cancelar",
+        "DELETE": "Excluir grupo"
     },
 
     "CONVITE": {
@@ -262,6 +268,25 @@
         "MESSAGE": "Você realmente deseja deletar este membro do grupo?",
         "CONFIRM": "Confirmar",
         "CANCEL": "Cancelar"
+    },
+    
+    "CATEGORIA": {
+        "NONE": "Nenhuma",
+        "SHOWMUSI": "Show Musical",
+        "RAVEAFIM": "Rave e afins",
+        "FESTAPOP": "Festa Pop",
+        "ELETRONC": "Festa Eletrônica",
+        "PAGOSAMB": "Pagode/Samba",
+        "SERTANEJ": "Sertanejo",
+        "FESTROCK": "Festa Rock",
+        "BAILFUNK": "Baile Funk",
+        "CERVEJAD": "Cervejada",
+        "FESTAUNI": "Festa Universitária",
+        "MULTIGNR": "Multi-Gênero",
+        "NIGHTCLB": "Night Club",
+        "CRMNFRML": "Encontro formal",
+        "TRAP/RAP": "Trap/Rap",
+        "BAILEBRG": "Baile Brega"
     }
     
 }

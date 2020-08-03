@@ -20,24 +20,31 @@ public class Grupo {
 	@Id
 	@Column(name = "cod_grupo")
 	private int codGrupo;
+	
 	@Column(name = "nome_grupo")
 	private String nomeGrupo;
+	
 	@Column(name = "quant_max_pessoas")
 	private int quantMaxPessoas;
+	
 	@ManyToMany(fetch = FetchType.LAZY,
 			cascade = CascadeType.ALL)
+	
 	@JoinTable(name = "usuario_x_grupo",
 	joinColumns = @JoinColumn(name ="cod_grupo"),
 	inverseJoinColumns = @JoinColumn(name = "cod_usuario"))
 	private Set<Usuario> usuarios;
+	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "cod_festa")
 	private Festa festa;
+	
 	@ManyToMany(fetch = FetchType.LAZY,
 			cascade = CascadeType.ALL)
 	@JoinTable(name = "permissao_x_grupo",
 	joinColumns = @JoinColumn(name ="cod_grupo"),
 	inverseJoinColumns = @JoinColumn(name = "cod_permissao"))
+	
 	private Set<Permissao> permissoes;
 	
 	public Grupo(int codGrupo, Festa festa, String nomeGrupo, int quant) {

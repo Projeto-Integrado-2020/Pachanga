@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms'
 import { GetFestaService } from 'src/app/services/get-festa/get-festa.service';
 import { Router } from '@angular/router';
 import { GetPermissoesService } from 'src/app/services/get-permissoes/get-permissoes.service';
+import { CriarGrupoService } from 'src/app/services/criar-grupo/criar-grupo.service';
 
 @Component({
   selector: 'app-criar-grupo',
@@ -18,7 +19,8 @@ export class CriarGrupoComponent implements OnInit {
   public permissoesGrupo = [];
 
   constructor(public formBuilder: FormBuilder, public getFestaService: GetFestaService,
-              public router: Router, public getPermissaoService: GetPermissoesService) { }
+              public router: Router, public getPermissaoService: GetPermissoesService,
+              public addGrupoService: CriarGrupoService) { }
 
   ngOnInit() {
     this.resgatarFesta();
@@ -36,6 +38,7 @@ export class CriarGrupoComponent implements OnInit {
 
   resgatarPermissoes() {
     this.getPermissaoService.getPermissoes().subscribe((resp: any) => {
+      this.getPermissaoService.setFarol(false);
       this.permissoes = resp;
     });
   }
@@ -43,7 +46,7 @@ export class CriarGrupoComponent implements OnInit {
   buildForm() {
     const group = {nomeGrupo: new FormControl('', Validators.required)};
     for (const permissao of this.permissoes) {
-      group[permissao] = new FormControl(false);
+      group[permissao.descPermissao] = new FormControl(false);
     }
     this.form = this.formBuilder.group(group);
   }
@@ -56,13 +59,25 @@ export class CriarGrupoComponent implements OnInit {
   }
 
   updateListaPermissao(permissao) {
-    const field = this.form.get(permissao);
+    const field = this.form.get(permissao.descPermissao);
     if (!field.value) {
-      this.permissoesGrupo.push(permissao);
+      this.permissoesGrupo.push(permissao.codPermissao);
     } else {
-      const index = this.permissoesGrupo.indexOf(permissao);
+      const index = this.permissoesGrupo.indexOf(permissao.codPermissao);
       this.permissoesGrupo.splice(index, 1);
     }
+  }
+
+  criarGrupo(nomeGrupo) {
+    const grupo = {
+      nomeGrupo,
+      codFesta: this.festa.codFesta,
+      permissoes: this.permissoesGrupo
+    };
+    this.addGrupoService.adicionarGrupo(grupo).subscribe((resp: any) => {
+      this.addGrupoService.setFarol(false);
+      this.router.navigate(['../']);
+    });
   }
 
 }

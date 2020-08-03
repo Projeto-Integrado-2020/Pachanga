@@ -69,7 +69,10 @@
         "STATERRA": "This party status does not exist.",
         "STANMUDA": "The party is already in that phase.",
         "FSTANINI": "The party needs to be started to perform this action.",
-        "FESTINIC": "Party info can not be changed while the party is started."
+        "FESTINIC": "Party info can not be changed while the party is started.",
+        "FESTSCAT": "Party without category.",
+        "CATNFOUN": "Category not found.",
+        "FESTMCAT": "Identical principal and secondary category."
     },
 
     "SUCCESS": {
@@ -172,7 +175,9 @@
         "I": "Party started",
         "F": "Party finished",
         "NONEPARTY": "You don't have any party associated to this account.",
-        "CLICKHERE": "Click here to create a new party"
+        "CLICKHERE": "Click here to create a new party",
+        "CATEGORIA1": "Primary category",
+        "CATEGORIA2": "Secondary category"
     },
 
     "CRIARFESTA": {
@@ -221,7 +226,8 @@
     },
 
     "DELETDIALOG": {
-        "MESSAGE": "Do you really want to delete the party",
+        "MESSAGEPARTY": "Do you really want to delete the party ",
+        "MESSAGEROLE": "Do you really want to delete the role ",
         "CONFIRM": "Confirm",
         "CANCEL": "Cancel"
     },
@@ -232,7 +238,7 @@
         "PARTYGROUPS": "Party permission roles",
         "MEMBERS": "Member(s)",
         "INVITE": "Invite members",
-        "EDIT": "Editar grupo",
+        "EDIT": "Edit group",
         "DELETE": "Delete group",
         "DELETEMEMBRO": "Delete member",
         "EDITMEMBRO": "Edit member's group(s)",
@@ -262,5 +268,23 @@
         "MESSAGE": "Do you really want to delete this member from the group?",
         "CONFIRM": "Confirm",
         "CANCEL": "Cancel"
+    },
+    "CATEGORIA": {
+        "NONE": "None",
+        "SHOWMUSI": "Musical Concert",
+        "RAVEAFIM": "Rave and/or related",
+        "FESTAPOP": "Pop Party",
+        "ELETRONC": "Eletronic Party",
+        "PAGOSAMB": "Pagode/Samba",
+        "SERTANEJ": "Sertanejo",
+        "FESTROCK": "Rock Party",
+        "BAILFUNK": "Funk Prom",
+        "CERVEJAD": "Brewed",
+        "FESTAUNI": "College Party",
+        "MULTIGNR": "multi-genre",
+        "NIGHTCLB": "Night Club",
+        "CRMNFRML": "Formal Meet",
+        "TRAP/RAP": "Trap/Rap",
+        "BAILEBRG": "70's Prom"
     }
 }
