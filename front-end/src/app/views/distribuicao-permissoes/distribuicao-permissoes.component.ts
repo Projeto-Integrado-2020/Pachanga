@@ -26,7 +26,9 @@ export class DistribuicaoPermissoesComponent implements OnInit {
 
   grupos: any;
 
+  //configuracao do accordion
 
+  isOpen: boolean;
 
   constructor(public router: Router, public getGrupos: GetGruposService, public getFesta: GetFestaService) { }
 
@@ -49,7 +51,22 @@ export class DistribuicaoPermissoesComponent implements OnInit {
       membros: [
         {nomeUser: 'Andrey', status: 'Pendente'},
         {nomeUser: 'Gustavo', status: 'Pendente'},
-        {nomeUser: 'Luis', status: 'Pendente'}
+        {nomeUser: 'Luis', status: 'Pendente'},
+        {nomeUser: 'Fulano', status: 'Pendente'},
+        {nomeUser: 'Fulano', status: 'Pendente'},
+        {nomeUser: 'Fulano', status: 'Pendente'},
+        {nomeUser: 'Fulano', status: 'Pendente'},
+        {nomeUser: 'Fulano', status: 'Pendente'},
+        {nomeUser: 'Fulano', status: 'Pendente'},
+        {nomeUser: 'Fulano', status: 'Pendente'},
+        {nomeUser: 'Fulano', status: 'Pendente'},
+        {nomeUser: 'Fulano', status: 'Pendente'},
+        {nomeUser: 'Fulano', status: 'Pendente'},
+        {nomeUser: 'Fulano', status: 'Pendente'},
+        {nomeUser: 'Fulano', status: 'Pendente'},
+        {nomeUser: 'Fulano', status: 'Pendente'},
+        {nomeUser: 'Fulano', status: 'Pendente'},
+        {nomeUser: 'Fulano', status: 'Pendente'}
       ]
     };
 

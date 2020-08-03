@@ -44,3 +44,24 @@
         margin-left: 1rem;
     }
 }
+
+.input_and_btn {
+    display: flex;
+}
+
+.membros-grid {
+    display: grid;
+    grid-template-rows: repeat(6, auto);
+    grid-template-columns: repeat(12, 1fr);
+    grid-gap: .2rem;
+    grid-auto-flow: column;
+    column-gap: 2rem;
+}
+
+.lista-membros {
+
+}
+
+.membro {
+    width: 4rem;
+}
