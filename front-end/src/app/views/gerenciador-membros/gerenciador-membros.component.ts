@@ -6,6 +6,7 @@ import { MatTableDataSource, MatDialog } from '@angular/material';
 import { DeleteMembroDialogComponent } from '../delete-membro-dialog/delete-membro-dialog.component';
 import { EditGrupoMembroComponent } from '../edit-grupo-membro/edit-grupo-membro.component';
 import { InviteDialogComponent } from '../invite-dialog/invite-dialog.component';
+import { DeletarGrupoComponent } from '../deletar-grupo/deletar-grupo.component';
 
 export interface TabelaMembros {
   membro: string;
@@ -67,13 +68,23 @@ export class GerenciadorMembrosComponent implements OnInit {
     });
   }
 
-  openDialogDelete(id, codGrupo, codFesta) {
+  openDialogDeleteMembro(id, codGrupo, codFesta) {
     this.dialog.open(DeleteMembroDialogComponent, {
       width: '20rem',
       data: {
         id,
         codGrupo,
         codFesta
+      }
+    });
+  }
+
+  openDialogDeleteGrupo(grupo) {
+    this.dialog.open(DeletarGrupoComponent, {
+      width: '20rem',
+      data: {
+        grupo,
+        codFesta: this.festa.codFesta
       }
     });
   }
