@@ -239,6 +239,12 @@
         "MEMBERS": "Membro(s)",
         "INVITE": "Convidar membros",
         "EDIT": "Editar grupo",
+        "DELETEMEMBRO": "Deletar membro",
+        "EDITMEMBRO": "Editar grupo(s) do membro",
+        "CURRENTGROUP": "Grupo atual: ",
+        "NEWGROUP": "Grupo(s) novo(s)",
+        "CONFIRM": "Confirmar",
+        "CANCEL": "Cancelar",
         "DELETE": "Excluir grupo"
     },
 
@@ -258,6 +264,12 @@
         "RETURN": "Retornar"
     },
 
+    "DELETEMEMBRO": {
+        "MESSAGE": "Você realmente deseja deletar este membro do grupo?",
+        "CONFIRM": "Confirmar",
+        "CANCEL": "Cancelar"
+    },
+    
     "CATEGORIA": {
         "NONE": "Nenhuma",
         "SHOWMUSI": "Show Musical",
@@ -276,4 +288,5 @@
         "TRAP/RAP": "Trap/Rap",
         "BAILEBRG": "Baile Brega"
     }
+    
 }

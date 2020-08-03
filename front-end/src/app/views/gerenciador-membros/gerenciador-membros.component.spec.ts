@@ -66,7 +66,20 @@ describe('GerenciadorMembrosComponent', () => {
 
   it('should open a delete dialog through a method', () => {
     component.festa = {codFesta: '1'};
-    component.openDialogDelete({});
+    component.openDialogDeleteMembro('teste', 'teste', 'teste');
     expect(dialogSpy.open).toHaveBeenCalled();
   });
+
+  it('should open a delete dialog through a method', () => {
+    component.festa = {codFesta: '1'};
+    component.openDialogEdit('teste', 'teste', 'teste');
+    expect(dialogSpy.open).toHaveBeenCalled();
+  });
+
+  it('should open a delete dialog through a method', () => {
+    component.festa = {codFesta: '1'};
+    component.openDialogDeleteGrupo('teste');
+    expect(dialogSpy.open).toHaveBeenCalled();
+  });
+
 });

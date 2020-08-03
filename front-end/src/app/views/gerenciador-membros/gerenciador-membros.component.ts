@@ -3,12 +3,15 @@ import { GetFestaService } from 'src/app/services/get-festa/get-festa.service';
 import { Router } from '@angular/router';
 import { GetGruposService } from 'src/app/services/get-grupos/get-grupos.service';
 import { MatTableDataSource, MatDialog } from '@angular/material';
+import { DeleteMembroDialogComponent } from '../delete-membro-dialog/delete-membro-dialog.component';
+import { EditGrupoMembroComponent } from '../edit-grupo-membro/edit-grupo-membro.component';
 import { InviteDialogComponent } from '../invite-dialog/invite-dialog.component';
 import { DeletarGrupoComponent } from '../deletar-grupo/deletar-grupo.component';
 
 export interface TabelaMembros {
   membro: string;
   status: string;
+  id: string;
 }
 
 @Component({
@@ -29,19 +32,6 @@ export class GerenciadorMembrosComponent implements OnInit {
 
   ngOnInit() {
     this.resgatarFesta();
-    /*
-    this.festa = {codFesta: '47'};
-    this.grupos = [
-      {codGrupo: '0', nomeGrupo: 'Grupo 1', quantMaxPessoas: '12', usuarios: {nomeUser: 'Andrey', status: 'Pendente'}},
-      {codGrupo: '1', nomeGrupo: 'Grupo 2', quantMaxPessoas: '13', usuarios: {nomeUser: 'Luis', status: 'Pendente'}},
-      {codGrupo: '2', nomeGrupo: 'Grupo 3', quantMaxPessoas: '14', usuarios: {nomeUser: 'Gustavo', status: 'Pendente'}}
-    ];
-    this.dataSources = [
-      new MatTableDataSource<TabelaMembros>([{membro: 'Andrey', status: 'Pendente'}, {membro: 'Luis', status: 'Pendente'}]),
-      new MatTableDataSource<TabelaMembros>([{membro: 'Luis', status: 'Pendente'}, {membro: 'Gustavo', status: 'Pendente'}]),
-      new MatTableDataSource<TabelaMembros>([{membro: 'Gustavo', status: 'Pendente'}])
-    ];
-    */
   }
 
   resgatarFesta() {
@@ -78,12 +68,34 @@ export class GerenciadorMembrosComponent implements OnInit {
     });
   }
 
-  openDialogDelete(grupo) {
+  openDialogDeleteMembro(id, codGrupo, codFesta) {
+    this.dialog.open(DeleteMembroDialogComponent, {
+      width: '20rem',
+      data: {
+        id,
+        codGrupo,
+        codFesta
+      }
+    });
+  }
+
+  openDialogDeleteGrupo(grupo) {
     this.dialog.open(DeletarGrupoComponent, {
       width: '20rem',
       data: {
         grupo,
         codFesta: this.festa.codFesta
+      }
+    });
+  }
+
+  openDialogEdit(id, grupo, codFesta) {
+    this.dialog.open(EditGrupoMembroComponent, {
+      width: '20rem',
+      data: {
+        id,
+        grupo,
+        codFesta
       }
     });
   }

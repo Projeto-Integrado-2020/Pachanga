@@ -48,6 +48,7 @@ export class EditarGrupoComponent implements OnInit {
     let idgrupo = this.router.url;
     idgrupo = idgrupo.slice(idgrupo.indexOf('membros/') + 8, idgrupo.indexOf('/editar', idgrupo.indexOf('membros/')));
     this.getGrupo.getGrupoUnico(idgrupo).subscribe((resp: any) => {
+      this.getGrupo.setFarol(false);
       this.grupo = resp;
       for (const permissao of resp.permissoesTO) {
         this.permissoesGrupo.push(permissao.codPermissao);

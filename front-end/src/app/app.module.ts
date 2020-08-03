@@ -60,8 +60,9 @@ import { DeletarFestaComponent } from './views/deletar-festa/deletar-festa.compo
 import { CriarGrupoComponent } from './views/criar-grupo/criar-grupo.component';
 import { GerenciadorMembrosComponent } from './views/gerenciador-membros/gerenciador-membros.component';
 import { StatusDialogComponent } from './views/status-dialog/status-dialog.component';
-import { StatusFestaService } from './services/status-festa/status-festa.service';
 import { FiltroFestaPipe } from './views/menu-festas/filtroFesta.pipe';
+import { DeleteMembroDialogComponent } from './views/delete-membro-dialog/delete-membro-dialog.component';
+import { EditGrupoMembroComponent } from './views/edit-grupo-membro/edit-grupo-membro.component';
 import { DeletarGrupoComponent } from './views/deletar-grupo/deletar-grupo.component';
 import { EditarGrupoComponent } from './views/editar-grupo/editar-grupo.component';
 import { DistribuicaoPermissoesComponent } from './views/distribuicao-permissoes/distribuicao-permissoes.component';
@@ -106,6 +107,8 @@ export function provideConfig() {
     GerenciadorMembrosComponent,
     StatusDialogComponent,
     FiltroFestaPipe,
+    DeleteMembroDialogComponent,
+    EditGrupoMembroComponent,
     DistribuicaoPermissoesComponent,
     DeletarGrupoComponent,
     EditarGrupoComponent,
@@ -120,6 +123,8 @@ export function provideConfig() {
     InviteDialogComponent,
     DeletarFestaComponent,
     StatusDialogComponent,
+    DeleteMembroDialogComponent,
+    EditGrupoMembroComponent,
     DeletarGrupoComponent
   ],
   imports: [

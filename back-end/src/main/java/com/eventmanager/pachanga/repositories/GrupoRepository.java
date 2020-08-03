@@ -47,7 +47,7 @@ public interface GrupoRepository extends CrudRepository<Grupo, Integer>{
 	public void deleteGrupo(@Param("codGrupo") int codGrupo);
 	
 	@Modifying
-	@Query(value = "DELETE FROM usuario_x_grupo WHERE cod_grupo = :codGrupo AND codUsuario = :codUsuario", nativeQuery = true)
+	@Query(value = "DELETE FROM usuario_x_grupo WHERE cod_grupo = :codGrupo AND cod_usuario = :codUsuario", nativeQuery = true)
 	public void deleteUsuarioGrupo(@Param("codUsuario") int codUsuario, @Param("codGrupo") int codGrupo);
 	
 	@Modifying
@@ -85,5 +85,8 @@ public interface GrupoRepository extends CrudRepository<Grupo, Integer>{
 	
 	@Query(value = "SELECT u FROM Grupo g JOIN g.usuarios u WHERE g.codGrupo = :codGrupo")
 	public List<Usuario> findUsuariosPorGrupo(@Param("codGrupo") int codGrupo);
+	
+	@Query(value = "SELECT u FROM Grupo g JOIN g.usuarios u WHERE g.codGrupo = :codGrupo AND u.codUsuario = :codUsuario ")
+	public Usuario findUsuarioNoGrupo(@Param("codGrupo") int codGrupo, @Param("codUsuario") int codUsuario);
 	
 }
