@@ -27,6 +27,7 @@ import { CriarGrupoComponent } from '../criar-grupo/criar-grupo.component';
 import { FiltroFestaPipe } from '../menu-festas/filtroFesta.pipe';
 import { GerenciadorMembrosComponent } from '../gerenciador-membros/gerenciador-membros.component';
 import { EditarGrupoComponent } from '../editar-grupo/editar-grupo.component';
+import { DistribuicaoPermissoesComponent } from '../distribuicao-permissoes/distribuicao-permissoes.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -53,7 +54,8 @@ describe('IndexComponent', () => {
         CriarGrupoComponent,
         FiltroFestaPipe,
         GerenciadorMembrosComponent,
-        EditarGrupoComponent
+        EditarGrupoComponent,
+        DistribuicaoPermissoesComponent
       ],
       imports: [
         CustomMaterialModule,
