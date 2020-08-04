@@ -44,8 +44,15 @@ public class Grupo {
 	@JoinTable(name = "permissao_x_grupo",
 	joinColumns = @JoinColumn(name ="cod_grupo"),
 	inverseJoinColumns = @JoinColumn(name = "cod_permissao"))
-	
 	private Set<Permissao> permissoes;
+	
+	@ManyToMany(mappedBy = "grupos",
+			fetch = FetchType.LAZY)
+	private Set<Notificacao> notificacoes;
+	
+	@ManyToMany(mappedBy = "grupos",
+			fetch = FetchType.LAZY)
+	private Set<Convidado> convidados;
 	
 	public Grupo(int codGrupo, Festa festa, String nomeGrupo, int quant) {
 		this.codGrupo = codGrupo;
@@ -94,6 +101,22 @@ public class Grupo {
 
 	public void setPermissoes(Set<Permissao> permissoes) {
 		this.permissoes = permissoes;
+	}
+
+	public Set<Notificacao> getNotificacoes() {
+		return notificacoes;
+	}
+
+	public void setNotificacoes(Set<Notificacao> notificacoes) {
+		this.notificacoes = notificacoes;
+	}
+
+	public Set<Convidado> getConvidados() {
+		return convidados;
+	}
+
+	public void setConvidados(Set<Convidado> convidados) {
+		this.convidados = convidados;
 	}
 
 }
