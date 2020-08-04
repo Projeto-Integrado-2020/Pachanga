@@ -1,4 +1,5 @@
 @import '../material/paleta.scss';
+@import '~@angular/material/theming';
 
 * {
   margin: 0;
@@ -31,11 +32,27 @@ header {
 
 .filtros {
     margin-top: 2rem;
+    margin-bottom: .5rem;
+    @include mat-elevation(0);
+    
     & mat-form-field {
         max-width: 40%;
     }
     & mat-checkbox, mat-form-field {
         display: block;
+    }
+
+    &  mat-card-header {
+        margin-bottom: 0;
+    }
+
+    & mat-card-content {
+        display: flex;
+        align-items: center;
+
+        & * {
+            margin-right: 1rem;
+        }
     }
 }
 
@@ -132,5 +149,4 @@ header {
 }
 
 .paginator {
-    margin-top: 2rem;
 }

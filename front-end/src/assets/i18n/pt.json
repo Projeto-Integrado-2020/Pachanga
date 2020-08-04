@@ -156,6 +156,8 @@
     },
 
     "FESTA": {
+        "AMIADM": "Mostrar apenas festas nas quais sou administrador",
+        "PARTYNAME": "Nome da Festa",
         "MYPARTIES": "Minhas Festas",
         "NEWPARTY": "Nova Festa",
         "DESCRIPTION": "Descrição",

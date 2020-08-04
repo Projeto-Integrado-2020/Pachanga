@@ -6,7 +6,7 @@
 }
 
 .button-index {
-    margin-right: 15px;
+    margin-right: 1.5rem;
 }
 
 .example-icon {
@@ -80,23 +80,33 @@ mat-toolbar{
 
 //CORES DA NAVBAR!
 
-//botao laranja
-.org-btn{
-  background-color: $color-tertiary;
-  color: #ffffff ;
-}
+//botao vermelho
+.btn {
 
-//botao verde
-.grn-btn {
-  background-color: $color-primary;
   color: #ffffff;
-}
+  margin-right: .7rem;
 
+  &--red{
+    background-color: $color-tertiary;
+  }
 //botao roxo
 
-.prp-btn {
-  background-color: $color-primary;
-  color: #ffffff;
+  &--prp {
+    background-color: $color-primary;
+  }
+
+  &--lang {
+    background-size: cover;
+    background-position: center;
+
+    &--en {
+      background: url("../../../assets/icons/united-states.svg");
+    }
+
+    &--pt {
+      background-image: url("../../../assets/icons/brazil\ \(1\).svg");
+    }
+  }
 }
 
 //COR DA NAVBAR

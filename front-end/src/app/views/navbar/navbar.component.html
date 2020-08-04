@@ -29,22 +29,25 @@
         <span id="logo"><a [routerLink] = "['']">Pachanga</a></span>
         <span class="example-spacer"></span>
         <div class="example-button-row">
-          <button *ngIf="!loginService.usuarioAutenticado" class="button-index prp-btn btn-navbar" mat-raised-button (click)="openDialogLogin()">{{'NAV.ENTRAR' | translate}}</button>
-          <button *ngIf="!loginService.usuarioAutenticado" class="button-index org-btn btn-navbar" mat-raised-button (click)="openDialogCadastro()">{{'NAV.CONTA' | translate}}</button>
-          <button *ngIf="loginService.usuarioAutenticado" class="button-index prp-btn btn-navbar" mat-raised-button >{{'NAV.INGRESSOS' | translate}}</button>
-          <a routerLink="../minhas-festas"><button *ngIf="loginService.usuarioAutenticado" class="button-index prp-btn btn-navbar" mat-raised-button >{{'NAV.FESTAS' | translate}}</button></a>
+          <button *ngIf="!loginService.usuarioAutenticado" class="button-index btn btn--prp btn-navbar" mat-raised-button (click)="openDialogLogin()">{{'NAV.ENTRAR' | translate}}</button>
+          <button *ngIf="!loginService.usuarioAutenticado" class="button-index btn btn-navbar" mat-raised-button (click)="openDialogCadastro()">{{'NAV.CONTA' | translate}}</button>
+          <button *ngIf="loginService.usuarioAutenticado" class="button-index btn btn--prp btn-navbar" mat-raised-button >{{'NAV.INGRESSOS' | translate}}</button>
+          <a routerLink="../minhas-festas"><button *ngIf="loginService.usuarioAutenticado" class="button-index btn btn--prp btn-navbar" mat-raised-button >{{'NAV.FESTAS' | translate}}</button></a>
 
-          <button *ngIf="loginService.usuarioAutenticado" class="button-index org-btn btn-navbar" mat-raised-button [matMenuTriggerFor]="myMenu">
+          <button *ngIf="loginService.usuarioAutenticado" class="nav-btn button-index btn btn--red btn-navbar" mat-raised-button [matMenuTriggerFor]="myMenu">
             {{ loginService.usuarioInfo.nomeUser }}
             <mat-icon>more_vert</mat-icon>
           </button>
+
           <mat-menu #myMenu="matMenu" class="my-menu">
             <a routerLink="../perfil"><button mat-menu-item class="botao-menu">{{'NAV.CONTA_L' | translate}}</button></a>
             <button mat-menu-item (click)="loginComponent.signOut()" class="botao-menu">{{'NAV.SAIR' | translate}}</button>
           </mat-menu>
 
-          <button id="pt-btn" class="button-index" mat-mini-fab color="accent" (click)="langPt()" [value]="'pt'">.</button>
-          <button id="en-btn" class="button-index" mat-mini-fab color="warn" (click)="langEn()" [value]="'en'">.</button>
+          <button class="btn btn--prp alertas btn" mat-mini-fab><mat-icon matBadge=":D" matBadgeColor="warn">notification_important</mat-icon></button>
+
+          <button class="btn btn--lang btn--lang--en" mat-mini-fab color="accent" (click)="langPt()" [value]="'pt'"></button>
+          <button class="btn btn--lang btn--lang--pt" mat-mini-fab color="warn" (click)="langEn()" [value]="'en'"></button>
         </div>
       </mat-toolbar-row>
     </mat-toolbar>

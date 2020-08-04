@@ -9,14 +9,17 @@
         </a>
     </header>
 
-    <div class="filtros">
-        <h4>Filtros</h4>
-        <mat-checkbox>Festas em que sou Administrador</mat-checkbox>
-        <mat-form-field class="example-full-width">
-            <mat-label>Nome da Festa</mat-label>
-            <input matInput [(ngModel)]="buscaPorNome">
-        </mat-form-field>
-    </div>
+    
+    
+    <mat-card class="filtros">
+            <mat-card-content  class="filtros">
+                <mat-form-field class="example-full-width">
+                <mat-label>{{'FESTA.PARTYNAME' | translate}}</mat-label>
+                <input matInput [(ngModel)]="buscaPorNome">
+            </mat-form-field>
+            <mat-checkbox>{{'FESTA.AMIADM' | translate}}</mat-checkbox>
+        </mat-card-content>
+    </mat-card>
 
     <mat-paginator 
         [length]="length"

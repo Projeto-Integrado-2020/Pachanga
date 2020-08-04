@@ -156,6 +156,8 @@
     },
 
     "FESTA": {
+        "AMIADM": "Show only those in which I'm administrator",
+        "PARTYNAME": "Party Name",
         "MYPARTIES": "My Parties",
         "NEWPARTY": "New party",
         "DESCRIPTION": "Description",
