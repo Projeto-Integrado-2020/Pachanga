@@ -1,3 +1,5 @@
+@import '../material/paleta.scss';
+
 .main-container {
     max-width: 1140px;
     position: relative;
@@ -7,7 +9,11 @@
   }
 
 .title {
-    margin-top: 6.6rem;
+    margin-top: calc(64px + 2rem);
+    font-size: 1.8rem;
+    font-weight: lighter;
+    width: 100%;
+    color: $color-primary;
 }
 
 .tabela {

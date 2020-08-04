@@ -11,6 +11,7 @@ import { NotFoundComponent } from './views/not-found/not-found.component';
 import { CriarGrupoComponent } from './views/criar-grupo/criar-grupo.component';
 import { GerenciadorMembrosComponent } from './views/gerenciador-membros/gerenciador-membros.component';
 import { EditarGrupoComponent } from './views/editar-grupo/editar-grupo.component';
+import { DistribuicaoPermissoesComponent } from './views/distribuicao-permissoes/distribuicao-permissoes.component';
 
 const routes: Routes = [
 
@@ -64,6 +65,12 @@ const routes: Routes = [
     {
       path: 'festas/:festa&:id/membros/:idGrupo/editar',
       component: EditarGrupoComponent,
+      canActivate: [AuthGuard]
+    },
+
+    {
+      path: 'festas/:festa&:id/membros/atribuirPermissoes',
+      component: DistribuicaoPermissoesComponent,
       canActivate: [AuthGuard]
     },
 

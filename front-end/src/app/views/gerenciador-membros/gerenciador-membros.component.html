@@ -7,8 +7,13 @@
                <mat-icon>add</mat-icon> {{ 'GRUPO.CREATEGROUP' | translate }}
            </button>
        </a>
+       <a routerLink="./atribuirPermissoes">
+         <button class="btn-1" mat-raised-button>
+             Atribuir Permissões
+         </button>
+      </a>
    </header>
-   
+
    <div *ngFor="let grupo of grupos; let i = index" class="lista-grupos">
       <mat-card class="grupo-tab">
          <mat-card-header>
