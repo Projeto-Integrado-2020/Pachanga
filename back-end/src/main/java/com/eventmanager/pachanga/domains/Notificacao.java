@@ -29,6 +29,13 @@ public class Notificacao {
 	joinColumns = @JoinColumn(name ="cod_notificacao"),
 	inverseJoinColumns = @JoinColumn(name = "cod_grupo"))
 	private Set<Grupo> grupos;
+	
+	@ManyToMany(fetch = FetchType.LAZY,
+			cascade = CascadeType.ALL)
+	@JoinTable(name = "convidado_x_notificacao",
+	joinColumns = @JoinColumn(name ="cod_notificacao"),
+	inverseJoinColumns = @JoinColumn(name = "cod_convidado"))
+	private Set<Convidado> convidados;
 
 	public int getCodNotificacao() {
 		return codNotificacao;

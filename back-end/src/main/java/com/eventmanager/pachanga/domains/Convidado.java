@@ -29,6 +29,10 @@ public class Convidado {
     joinColumns = @JoinColumn(name ="cod_convidado"),
     inverseJoinColumns = @JoinColumn(name = "cod_grupo"))
     private Set<Grupo> grupos;
+	
+	@ManyToMany(mappedBy = "convidados",
+			fetch = FetchType.LAZY)
+	private Set<Notificacao> notificacoes;
     
 	public int getCodConvidado() {
 		return codConvidado;

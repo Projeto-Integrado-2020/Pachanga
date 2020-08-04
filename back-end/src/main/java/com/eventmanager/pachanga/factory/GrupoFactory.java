@@ -26,12 +26,12 @@ public class GrupoFactory {
 		}
 	}			
 				
-	public static Grupo getGrupo(GrupoTO GrupoTo, Festa festa) {
+	public static Grupo getGrupo(GrupoTO grupoTo, Festa festa) {
 		return GrupoBuilder.getInstance()
-				.codGrupo(GrupoTo.getCodGrupo())
+				.codGrupo(grupoTo.getCodGrupo())
 				.codFesta(festa)
-				.nomeGrupo(GrupoTo.getNomeGrupo())
-				.quantMaxPessoas(GrupoTo.getQuantMaxPessoas())
+				.nomeGrupo(grupoTo.getNomeGrupo())
+				.quantMaxPessoas(grupoTo.getQuantMaxPessoas())
 				.build();
 	}			
 	

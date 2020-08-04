@@ -30,7 +30,6 @@ import com.eventmanager.pachanga.services.CategoriaService;
 import com.eventmanager.pachanga.services.FestaService;
 import com.eventmanager.pachanga.services.UsuarioService;
 import com.eventmanager.pachanga.tipo.TipoCategoria;
-import com.sun.istack.Nullable;
 
 @Controller
 @RequestMapping("/festa")
@@ -111,7 +110,6 @@ public class FestaController {
 
 	@ResponseBody
 	@GetMapping(path = "/festaUnica")
-	@Nullable
 	public ResponseEntity<Object> getFesta(@RequestParam(required = true)int idFesta, @RequestParam(required = true)int idUsuario){
 		try {			
 			FestaTO festaTo = null;
@@ -122,7 +120,7 @@ public class FestaController {
 				CategoriaTO categoriaSecundario = categoriaFesta(festa.getCodFesta(), TipoCategoria.SECUNDARIO.getDescricao());
 				return ResponseEntity.ok(FestaFactory.getFestaTO(festa, usuarios, false, categoriaPrimaria, categoriaSecundario));
 			}
-			return ResponseEntity.ok(festaTo);
+			return ResponseEntity.status(200).body(festaTo);
 		}catch (ValidacaoException e) {
 			return ResponseEntity.status(400).body(e.getMessage());
 		}
