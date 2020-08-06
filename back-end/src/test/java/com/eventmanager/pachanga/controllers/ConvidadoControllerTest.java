@@ -2,9 +2,6 @@ package com.eventmanager.pachanga.controllers;
 
 import static org.junit.Assert.assertEquals;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
@@ -20,19 +17,18 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import com.eventmanager.pachanga.domains.Usuario;
 import com.eventmanager.pachanga.errors.ValidacaoException;
-import com.eventmanager.pachanga.services.GrupoService;
+import com.eventmanager.pachanga.services.ConvidadoService;
 
 @RunWith(SpringRunner.class)
-@WebMvcTest(value=GrupoController.class)
-public class GrupoControllerTest {
+@WebMvcTest(value=ConvidadoController.class)
+public class ConvidadoControllerTest {
 	
 	@Autowired
 	private MockMvc mockMvc;
 	
 	@MockBean
-	private GrupoService grupoService;
+	private ConvidadoService convidadoService;
 	
 	private StringBuilder criacaoStringEmails() {
 		StringBuilder emails = new StringBuilder();
@@ -50,7 +46,7 @@ public class GrupoControllerTest {
 		
 		StringBuilder emailsRetorno = criacaoStringEmails(); 
 		
-		Mockito.when(grupoService.addUsuariosFesta(Mockito.anyList(), Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(emailsRetorno);
+		Mockito.when(convidadoService.addUsuariosFesta(Mockito.anyList(), Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(emailsRetorno);
 		
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.post(uri)
@@ -81,7 +77,7 @@ public class GrupoControllerTest {
 		
 		String emailsEnviados = "[\"luis_iruca@hotmail.com\",\"guga.72@hotmail.com\"]";
 		
-		Mockito.when(grupoService.addUsuariosFesta(Mockito.anyList(), Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenThrow(new ValidacaoException(expected));
+		Mockito.when(convidadoService.addUsuariosFesta(Mockito.anyList(), Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenThrow(new ValidacaoException(expected));
 		
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.post(uri)

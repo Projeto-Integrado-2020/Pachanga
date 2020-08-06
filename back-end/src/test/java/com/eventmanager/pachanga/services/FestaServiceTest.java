@@ -349,14 +349,14 @@ public class FestaServiceTest {
 
 		List<Grupo> grupos = new ArrayList<Grupo>();
 
-		Grupo grupo1 = GrupoServiceTest.criacaoGrupo();
+		Grupo grupo1 = ConvidadoServiceTest.criacaoGrupo();
 		grupo1.setCodGrupo(1);
 		grupo1.setFesta(festaTest);
 		grupo1.setQuantMaxPessoas(3);
 		grupo1.setNomeGrupo("Grupo1");
 		grupos.add(grupo1);
 
-		Grupo grupo2 = GrupoServiceTest.criacaoGrupo();
+		Grupo grupo2 = ConvidadoServiceTest.criacaoGrupo();
 		grupo2.setCodGrupo(2);
 		grupo2.setFesta(festaTest);
 		grupo2.setQuantMaxPessoas(3);
@@ -396,14 +396,14 @@ public class FestaServiceTest {
 
 		List<Grupo> grupos = new ArrayList<Grupo>();
 
-		Grupo grupo1 = GrupoServiceTest.criacaoGrupo();
+		Grupo grupo1 = ConvidadoServiceTest.criacaoGrupo();
 		grupo1.setCodGrupo(1);
 		grupo1.setFesta(festaTest);
 		grupo1.setQuantMaxPessoas(3);
 		grupo1.setNomeGrupo("Grupo1");
 		grupos.add(grupo1);
 
-		Grupo grupo2 = GrupoServiceTest.criacaoGrupo();
+		Grupo grupo2 = ConvidadoServiceTest.criacaoGrupo();
 		grupo2.setCodGrupo(2);
 		grupo2.setFesta(festaTest);
 		grupo2.setQuantMaxPessoas(3);
