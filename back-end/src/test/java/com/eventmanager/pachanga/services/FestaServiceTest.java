@@ -95,6 +95,13 @@ public class FestaServiceTest {
 
 		return festaTest;
 	}
+	
+	public Grupo criacaoGrupo() {
+		Grupo grupo = new Grupo();
+		grupo.setCodGrupo(1);
+		grupo.setNomeGrupo("CONVIDADO");
+		return grupo;
+	}
 
 	public Festa festaTest() throws Exception{
 		Festa festaTest = new Festa();
@@ -349,14 +356,14 @@ public class FestaServiceTest {
 
 		List<Grupo> grupos = new ArrayList<Grupo>();
 
-		Grupo grupo1 = ConvidadoServiceTest.criacaoGrupo();
+		Grupo grupo1 = this.criacaoGrupo();
 		grupo1.setCodGrupo(1);
 		grupo1.setFesta(festaTest);
 		grupo1.setQuantMaxPessoas(3);
 		grupo1.setNomeGrupo("Grupo1");
 		grupos.add(grupo1);
 
-		Grupo grupo2 = ConvidadoServiceTest.criacaoGrupo();
+		Grupo grupo2 = this.criacaoGrupo();
 		grupo2.setCodGrupo(2);
 		grupo2.setFesta(festaTest);
 		grupo2.setQuantMaxPessoas(3);
@@ -396,14 +403,14 @@ public class FestaServiceTest {
 
 		List<Grupo> grupos = new ArrayList<Grupo>();
 
-		Grupo grupo1 = ConvidadoServiceTest.criacaoGrupo();
+		Grupo grupo1 = this.criacaoGrupo();
 		grupo1.setCodGrupo(1);
 		grupo1.setFesta(festaTest);
 		grupo1.setQuantMaxPessoas(3);
 		grupo1.setNomeGrupo("Grupo1");
 		grupos.add(grupo1);
 
-		Grupo grupo2 = ConvidadoServiceTest.criacaoGrupo();
+		Grupo grupo2 = this.criacaoGrupo();
 		grupo2.setCodGrupo(2);
 		grupo2.setFesta(festaTest);
 		grupo2.setQuantMaxPessoas(3);

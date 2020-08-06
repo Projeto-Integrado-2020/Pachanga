@@ -19,9 +19,9 @@ import com.eventmanager.pachanga.domains.Festa;
 import com.eventmanager.pachanga.domains.Grupo;
 import com.eventmanager.pachanga.domains.Usuario;
 import com.eventmanager.pachanga.errors.ValidacaoException;
+import com.eventmanager.pachanga.repositories.ConvidadoRepository;
 import com.eventmanager.pachanga.repositories.FestaRepository;
 import com.eventmanager.pachanga.repositories.GrupoRepository;
-import com.eventmanager.pachanga.repositories.PermissaoRepository;
 import com.eventmanager.pachanga.repositories.UsuarioRepository;
 import com.eventmanager.pachanga.utils.EmailMensagem;
 
@@ -34,20 +34,20 @@ public class ConvidadoServiceTest {
 
 	@MockBean
 	private GrupoRepository grupoRepository;
+	
+	@MockBean
+	private ConvidadoRepository convidadoRepository;
 
 	@MockBean
 	private FestaRepository festaRepository;
 	
 	@Autowired
 	private ConvidadoService convidadoService;
-	
-	@MockBean
-	private PermissaoRepository permissaoRepository;
-	
+		
 	@MockBean
 	private EmailMensagem emailMensagem;
 	
-	public static Grupo criacaoGrupo() {
+	public Grupo criacaoGrupo() {
 		Grupo grupo = new Grupo();
 		grupo.setCodGrupo(1);
 		grupo.setNomeGrupo("CONVIDADO");

@@ -16,7 +16,7 @@ import com.eventmanager.pachanga.errors.ValidacaoException;
 import com.eventmanager.pachanga.services.ConvidadoService;
 
 @Controller
-@RequestMapping("/grupo")
+@RequestMapping("/convidado")
 @CrossOrigin
 public class ConvidadoController {
 	
