@@ -1,12 +1,13 @@
-<app-info-complete>
-</app-info-complete>
+<div class="main-container">
+    <app-info-complete>
+    </app-info-complete>
 
-
-<mat-grid-list cols="3" rowHeight="100vh">
-    <mat-grid-tile *ngFor="let tile of tiles"
-    [colspan] = "tile.cols"
-    [rowspan] = "tile.rows"
-    >
-        <h1>{{tile.text | translate}}</h1>
-    </mat-grid-tile>
-</mat-grid-list>
+    <mat-grid-list cols="3" rowHeight="100vh">
+        <mat-grid-tile *ngFor="let tile of tiles"
+        [colspan] = "tile.cols"
+        [rowspan] = "tile.rows"
+        >
+            <h1>{{tile.text | translate}}</h1>
+        </mat-grid-tile>
+    </mat-grid-list>
+</div>

@@ -33,6 +33,7 @@ import { FiltroFestaPipe } from './views/menu-festas/filtroFesta.pipe';
 import { GerenciadorMembrosComponent } from './views/gerenciador-membros/gerenciador-membros.component';
 import { EditarGrupoComponent } from './views/editar-grupo/editar-grupo.component';
 import { DistribuicaoPermissoesComponent } from './views/distribuicao-permissoes/distribuicao-permissoes.component';
+import { ClicarForaDirective } from './views/navbar/clicar-fora-fecha.directive';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -76,7 +77,8 @@ describe('AppComponent', () => {
         FiltroFestaPipe,
         GerenciadorMembrosComponent,
         EditarGrupoComponent,
-        DistribuicaoPermissoesComponent
+        DistribuicaoPermissoesComponent,
+        ClicarForaDirective
       ],
       imports: [
         BrowserModule,
