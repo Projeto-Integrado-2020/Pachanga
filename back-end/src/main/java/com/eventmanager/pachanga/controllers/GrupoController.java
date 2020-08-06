@@ -48,7 +48,7 @@ public class GrupoController {
 	}
 	
 	@ResponseBody
-	@PutMapping(path="/updateUser")
+	@PutMapping(path="/updateUsers")
 	public ResponseEntity<Object> editUsuarios(@RequestBody List<Integer> gruposId, @RequestParam (required = true) Integer idUsuario, @RequestParam (required = true) Integer idUsuarioPermissao){	
 		try {
 			
