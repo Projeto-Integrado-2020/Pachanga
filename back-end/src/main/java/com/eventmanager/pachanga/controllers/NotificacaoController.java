@@ -25,14 +25,15 @@ public class NotificacaoController {
 
 	@Autowired
 	private NotificacaoService notificacaoService;
-
+	
+	@Autowired
 	private NotificacaoFactory notificacaoFactory;
 
 	@ResponseBody
 	@GetMapping(path = "/lista")
 	public ResponseEntity<Object> listaNotificacao(@RequestParam(required = true) int idUser){
 		try {
-			List<Notificacao> notificacoes = notificacaoService.procurarNoticacaoUsuario(idUser);
+			List<Notificacao> notificacoes = notificacaoService.procurarNotificacaoUsuario(idUser);
 			List<NotificacaoTO> notificacoesTo = new ArrayList<>();
 			if(!notificacoes.isEmpty()) {
 				notificacoesTo = notificacaoFactory.getListNotificacaoTO(notificacoes);

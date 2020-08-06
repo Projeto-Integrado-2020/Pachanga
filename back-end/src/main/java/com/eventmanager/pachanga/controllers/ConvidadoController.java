@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.eventmanager.pachanga.errors.ValidacaoException;
-import com.eventmanager.pachanga.services.GrupoService;
+import com.eventmanager.pachanga.services.ConvidadoService;
 
 @Controller
 @RequestMapping("/grupo")
@@ -21,13 +21,13 @@ import com.eventmanager.pachanga.services.GrupoService;
 public class ConvidadoController {
 	
 	@Autowired
-	private GrupoService grupoService;
+	private ConvidadoService convidadoService;
 	
 	@ResponseBody
 	@PostMapping(path = "/addUserFesta")
 	public ResponseEntity<Object> addUsuarioFesta(@RequestParam(required = true)int codFesta, @RequestBody List<String> emails, @RequestParam(required = true)int idUsuario, @RequestParam(required = true)int idGrupo){
 		try {
-			StringBuilder mensagem = grupoService.addUsuariosFesta(emails, codFesta,idUsuario,idGrupo);
+			StringBuilder mensagem = convidadoService.addUsuariosFesta(emails, codFesta,idUsuario,idGrupo);
 			return ResponseEntity.ok(mensagem);
 		} catch (ValidacaoException e) {
 			return ResponseEntity.status(400).body(e.getMessage());

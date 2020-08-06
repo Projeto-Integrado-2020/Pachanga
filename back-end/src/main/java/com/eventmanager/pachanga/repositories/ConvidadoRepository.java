@@ -18,4 +18,9 @@ public interface ConvidadoRepository extends CrudRepository<Convidado, Integer>{
 	@Modifying
 	@Query(value = "INSERT INTO usuario_x_grupo(cod_usuario, cod_grupo) VALUES(:codUsuario, :codGrupo)", nativeQuery = true)
 	public void saveUsuarioGrupo(@Param("codUsuario") int codUsuario, @Param("codGrupo") int codGrupo);
+
+
+	@Query(value = "SELECT c FROM Convidado c WHERE c.email = :emailConvidado")
+	public Convidado findByEmail(String emailConvidado);
+
 }
