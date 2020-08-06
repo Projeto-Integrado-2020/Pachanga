@@ -47,6 +47,18 @@ public class GrupoController {
 		}
 	}
 	
+	@ResponseBody
+	@PutMapping(path="/updateUser")
+	public ResponseEntity<Object> editUsuarios(@RequestBody List<Integer> gruposId, @RequestParam (required = true) Integer idUsuario, @RequestParam (required = true) Integer idUsuarioPermissao){	
+		try {
+			
+			Usuario retorno = grupoService.editUsuariosFesta(gruposId, idUsuario, idUsuarioPermissao);
+			return ResponseEntity.ok(UsuarioFactory.getUsuarioTO(retorno));
+
+		} catch (ValidacaoException e) {
+			return ResponseEntity.status(400).body(e.getMessage());
+		}
+	}
 
 //Permissao____________________________________________________________________________________________________________	
 @ResponseBody

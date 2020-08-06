@@ -44,6 +44,11 @@ public class GrupoService {
 		
 		return null;
 	}
+	
+	public Usuario editUsuariosFesta(List<Integer> gruposId, Integer idUsuario, Integer idUsuarioPermissao) {
+		
+		return null;
+	}
 
 	public List<Usuario> deleteUsuariosFesta(List<String> emails, int codFesta, int idUsuario, int idGrupo) {
 		List<Usuario> retorno = new ArrayList<>();
