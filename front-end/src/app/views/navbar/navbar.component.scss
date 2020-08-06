@@ -95,6 +95,17 @@ mat-toolbar{
     background-color: $color-primary;
   }
 
+  &--notif {
+    color: #4e4e4e;
+    position: relative;
+    margin-right: 16px;
+    float: right;
+    top: 0;
+    transform: translateY(-50%);
+
+    cursor: pointer;
+  }
+
   &--lang {
     background-size: cover;
     background-position: center;
@@ -106,6 +117,7 @@ mat-toolbar{
     &--pt {
       background-image: url("../../../assets/icons/brazil\ \(1\).svg");
     }
+
   }
 }
 
@@ -122,3 +134,69 @@ mat-toolbar{
 .botao-menu {
   padding-left: 10%!important;
 }
+
+.fila_notificacoes {
+  height: auto;
+  max-height: 642px;
+  width: 480px;
+  max-width: 480px;
+  padding: 16px 0 16px 0; 
+
+  border-radius: 6px;
+
+  position: fixed;
+  right: 9.3rem;
+
+  color: black;
+
+
+  display: flex;
+  flex-direction: column;
+  &__flex {
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+  &__not-container {
+
+    margin-bottom: 0;
+
+    &:hover {
+      background-color: #f0f0f0;
+    }
+  }
+  &__notificacao {
+    width: 100%;
+    height: 100%;
+    max-height: 100%;
+    padding: 0 16px 0 16px;
+
+    &__texto {
+
+    }
+
+    &__horario p {
+      margin-bottom: 0;
+
+      font-weight: lighter;
+    }
+
+    &__alertaOpcoes {
+      width: auto;
+      position: absolute;
+      display: inline-block;
+      right: 0;
+
+      z-index: 1;
+
+      transform: translateY(-5rem);
+
+      & p {
+        display: inline-block;
+        cursor: pointer;
+      }
+    }
+  }
+}
+
