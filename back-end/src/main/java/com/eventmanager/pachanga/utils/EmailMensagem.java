@@ -51,7 +51,7 @@ public class EmailMensagem {
 	                 .parse(email);  
 	 
 	      message.setRecipients(Message.RecipientType.TO, toUser);
-	      message.setSubject("Enviando email com JavaMail");//Assunto
+	      message.setSubject("Novo convite para festa");//Assunto
 	      
 	      StringBuilder bodyEmail = new StringBuilder();
 	      DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
