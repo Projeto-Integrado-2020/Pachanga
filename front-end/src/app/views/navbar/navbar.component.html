@@ -86,7 +86,7 @@
                   <p (click)="alterarAlerta(alert)">Marcar como não lido</p>
                 </div>
                 <mat-divider></mat-divider>
-                <div class="apagar-notif">
+                <div (click)="deletarAlerta(alert)" class="apagar-notif">
                   <p>Apagar notificação</p>
                 </div>
               </mat-card>

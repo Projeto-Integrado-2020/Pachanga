@@ -28,7 +28,7 @@ export class NavbarComponent implements OnInit {
     {
       texto: 'Alô alô alô',
       tempo: '1 minuto atrás',
-      alertaOpcoes: false,
+      alertaOpcoes: false, //Nao mandar pro back-end; Esta propriedade deve ser usada exclusivamente no front
       lido: false,
       naolido: false
     },
@@ -153,6 +153,11 @@ export class NavbarComponent implements OnInit {
     alerta.naolido ? this.alertNumbers++ : this.alertNumbers--;
     alerta.naolido = !alerta.naolido;
     alerta.alertaOpcoes = false;
+  }
+
+  deletarAlerta(alerta): void {
+    let index = this.alerts.indexOf(alerta);
+    this.alerts.splice(index, 1);
   }
 
   // abrir janela de notificações
