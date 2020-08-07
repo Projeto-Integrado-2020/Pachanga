@@ -29,19 +29,57 @@ export class NavbarComponent implements OnInit {
       texto: 'Alô alô alô',
       tempo: '1 minuto atrás',
       alertaOpcoes: false,
-      lido: false
+      lido: false,
+      naolido: false
     },
     {
       texto: 'Salci fu fu',
       tempo: '3 minutos atrás',
       alertaOpcoes: false,
-      lido: false
+      lido: false,
+      naolido: false
     },
     {
       texto: 'Iê iê iê ',
       tempo: '5 minutos atrás',
       alertaOpcoes: false,
-      lido: false
+      lido: false,
+      naolido: false
+    },
+    {
+      texto: 'Iê iê iê ',
+      tempo: '5 minutos atrás',
+      alertaOpcoes: false,
+      lido: false,
+      naolido: false
+    },
+    {
+      texto: 'Iê iê iê ',
+      tempo: '5 minutos atrás',
+      alertaOpcoes: false,
+      lido: false,
+      naolido: false
+    },
+    {
+      texto: 'Iê iê iê ',
+      tempo: '5 minutos atrás',
+      alertaOpcoes: false,
+      lido: false,
+      naolido: false
+    },
+    {
+      texto: 'Iê iê iê ',
+      tempo: '5 minutos atrás',
+      alertaOpcoes: false,
+      lido: false,
+      naolido: false
+    },
+    {
+      texto: 'Iê iê iê ',
+      tempo: '5 minutos atrás',
+      alertaOpcoes: false,
+      lido: false,
+      naolido: false
     }
   ];
 
@@ -84,7 +122,8 @@ export class NavbarComponent implements OnInit {
         texto: xingamento,
         tempo: 'Agora mesmo',
         alertaOpcoes: false,
-        lido: false
+        lido: false,
+        naolido:false
       }
     )
   }
@@ -95,7 +134,7 @@ export class NavbarComponent implements OnInit {
     const source = interval(5000);
     source
       .subscribe(val => {
-        this.criarAlertaPROVISORIO()
+        //this.criarAlertaPROVISORIO()
         this.contarAlertasNaoLidos()
     });
    }
@@ -103,25 +142,23 @@ export class NavbarComponent implements OnInit {
   contarAlertasNaoLidos(): void {
     let count = 0;
     for(const i of this.alerts) {
-      if(!i.lido) {
+      if(!i.lido || i.naolido) {
         count++;
       }
     }
     this.alertNumbers = count;
   }
 
-  deslerAlerta(alerta): void {
-    if(alerta.alertaOpcoes) {
-      alerta.lido = false;
-    }
-    this.contarAlertasNaoLidos();
+  alterarAlerta(alerta): void {
+    alerta.naolido ? this.alertNumbers++ : this.alertNumbers--;
+    alerta.naolido = !alerta.naolido;
     alerta.alertaOpcoes = false;
   }
 
   // abrir janela de notificações
 
-  abrirNotificacoes(): void {
-    this.visibilidadeNotificacoes = true;
+  fecharNotificacoes(): void {
+    this.visibilidadeNotificacoes = false;
     this.alerts.forEach(alert => {
       alert.lido = true;
     });
