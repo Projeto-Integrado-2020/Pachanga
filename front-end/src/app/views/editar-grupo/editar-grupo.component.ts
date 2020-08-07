@@ -24,12 +24,15 @@ export class EditarGrupoComponent implements OnInit {
   constructor(public formBuilder: FormBuilder, public getFestaService: GetFestaService,
               public router: Router, public getPermissaoService: GetPermissoesService,
               public getGrupo: GetGruposService, public editGrupo: EditarGrupoService,
-              public dialog: MatDialog) { }
+              public dialog: MatDialog) {
+                this.form = this.formBuilder.group({
+                  nomeGrupo: new FormControl('', Validators.required)
+                });
+              }
 
   ngOnInit() {
     this.resgatarFesta();
     this.resgatarPermissoes();
-    this.buildForm();
   }
 
   get f() { return this.form.controls; }
@@ -61,6 +64,7 @@ export class EditarGrupoComponent implements OnInit {
     this.getPermissaoService.getPermissoes().subscribe((resp: any) => {
       this.getPermissaoService.setFarol(false);
       this.permissoes = resp;
+      this.buildForm();
     });
   }
 

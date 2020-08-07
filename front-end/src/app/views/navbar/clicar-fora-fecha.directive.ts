@@ -1,17 +1,18 @@
 import {
-  Directive, 
+  Directive,
   ElementRef,
   Output,
   HostListener,
   EventEmitter,
-  OnInit 
+  OnInit
 } from '@angular/core';
 import { fromEvent, from } from 'rxjs';
 import { take } from 'rxjs/operators';
-
+/* tslint:disable */
 @Directive({
   selector: '[clicarFora]'
 })
+/* tslint:enable */
 export class ClicarForaDirective implements OnInit {
 
   @Output()
@@ -19,7 +20,7 @@ export class ClicarForaDirective implements OnInit {
 
   captured = false;
 
-  constructor(private _elementRef: ElementRef) { }
+  constructor(private elementRef: ElementRef) { }
 
   @HostListener('document:click', ['$event.target'])
   onClick(target) {
@@ -27,13 +28,13 @@ export class ClicarForaDirective implements OnInit {
       return;
   }
 
-    if(!this._elementRef.nativeElement.contains(target)) {
+    if (!this.elementRef.nativeElement.contains(target)) {
       this.clicarFora.emit();
     }
   }
 
   ngOnInit() {
-    fromEvent(document, 'click', { capture: true}).pipe(take(1)).subscribe(() => this.captured = true)
+    fromEvent(document, 'click', { capture: true}).pipe(take(1)).subscribe(() => this.captured = true);
   }
 
 }

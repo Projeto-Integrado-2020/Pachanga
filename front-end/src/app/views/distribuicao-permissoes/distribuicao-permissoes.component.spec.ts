@@ -6,6 +6,14 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { CustomMaterialModule } from '../material/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { HttpClient } from '@angular/common/http';
+import { LoginService } from 'src/app/services/loginService/login.service';
+
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}
 
 describe('DistribuicaoPermissoesComponent', () => {
   let component: DistribuicaoPermissoesComponent;
@@ -20,7 +28,14 @@ describe('DistribuicaoPermissoesComponent', () => {
         CustomMaterialModule,
         FormsModule,
         ReactiveFormsModule,
-        BrowserAnimationsModule
+        BrowserAnimationsModule,
+        TranslateModule.forRoot({
+          loader: {
+            provide: TranslateLoader,
+            useFactory: HttpLoaderFactory,
+            deps: [HttpClient]
+          }
+        })
       ]
     })
     .compileComponents();
@@ -29,6 +44,8 @@ describe('DistribuicaoPermissoesComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(DistribuicaoPermissoesComponent);
     component = fixture.componentInstance;
+    const service: LoginService = TestBed.get(LoginService);
+    service.usuarioInfo = {codUsuario: '1'};
     fixture.detectChanges();
   });
 

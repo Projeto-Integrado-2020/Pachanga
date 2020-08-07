@@ -14,7 +14,7 @@ import { LoginService } from '../loginService/login.service';
 export class CriarGrupoService {
 
   farol = false;
-  private readonly urlAddGrupo = `${environment.URL_BACK}grupo/addGrupoFesta`;
+  private readonly urlAddGrupo = `${environment.URL_BACK}grupo/addGrupo`;
 
   constructor(private http: HttpClient, public logService: LogService, public dialog: MatDialog,
               public loginService: LoginService) { }

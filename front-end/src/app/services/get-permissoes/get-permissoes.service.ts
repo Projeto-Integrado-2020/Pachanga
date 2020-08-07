@@ -14,7 +14,7 @@ import { LoginService } from '../loginService/login.service';
 export class GetPermissoesService {
 
   farol = false;
-  private readonly urlGetPermissao = `${environment.URL_BACK}permissao/lista`;
+  private readonly urlGetPermissao = `${environment.URL_BACK}permissao/getAllPermissao`;
 
   constructor(private http: HttpClient, public logService: LogService, public dialog: MatDialog,
               public loginService: LoginService) { }

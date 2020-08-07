@@ -13,7 +13,7 @@ import { LoginService } from '../loginService/login.service';
 })
 export class EditarGrupoService {
 
-  private readonly urlAtualizarGrupo = `${environment.URL_BACK}grupo/updateGrupoFesta`;
+  private readonly urlAtualizarGrupo = `${environment.URL_BACK}grupo/updateGrupo`;
 
   constructor(private http: HttpClient, public logService: LogService, public dialog: MatDialog,
               public loginService: LoginService) { }

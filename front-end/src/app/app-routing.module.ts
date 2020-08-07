@@ -69,7 +69,7 @@ const routes: Routes = [
     },
 
     {
-      path: 'festas/:festa&:id/membros/atribuirPermissoes',
+      path: 'festas/:festa&:id/membros/atribuir-grupos',
       component: DistribuicaoPermissoesComponent,
       canActivate: [AuthGuard]
     },

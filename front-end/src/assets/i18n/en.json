@@ -288,5 +288,24 @@
         "CRMNFRML": "Formal Meet",
         "TRAP/RAP": "Trap/Rap",
         "BAILEBRG": "70's Prom"
+    },
+
+    "PERMISSAO": {
+        "EDITDFES": "Edit party",
+        "CREGRPER": "Create permission role",
+        "DELGRPER": "Delete permission role",
+        "EDIGRPER": "Edit permission role",
+        "ADDMEMBE": "Add new member",
+        "DELMEMBE": "Delete member",
+        "DISMEMBE": "Distribute permission role",
+        "CADAESTO": "Insert stock",
+        "DELEESTO": "Delete stock",
+        "EDITESTO": "Edit stock",
+        "CADMESTO": "Insert product in stock",
+        "DELMESTO": "Delete product in stock",
+        "EDIMESTO": "Edit product in stock",
+        "ADDMESTO": "Recharge product in stock",
+        "BAIMESTO": "Discharge product in stock",
+        "DELEFEST": "Delete party"
     }
 }

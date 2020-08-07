@@ -8,12 +8,12 @@
                   {{grupo.nomeGrupo}}
                 </mat-panel-title>
                 <mat-panel-description>
-                  Descrição breve das atribuições do {{grupo.nomeGrupo}}
+                  {{ 'FESTA.MEMBERS' | translate }}: {{grupo.quantMaxPessoas}}
                 </mat-panel-description>
               </mat-expansion-panel-header>
-              <h4>Membros neste grupo</h4>
+              <h4>{{ 'PAINELCONTROLE.MEMBROS' | translate }}</h4>
               <div class="membros-grid">
-                <div class="membro" *ngFor="let user of festa.membros">
+                <div class="membro" *ngFor="let user of festa.usuarios">
                   <mat-checkbox class="example-margin">{{user.nomeUser}}</mat-checkbox>
                 </div>
               </div>
