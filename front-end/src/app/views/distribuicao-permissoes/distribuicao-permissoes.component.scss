@@ -64,8 +64,13 @@
     column-gap: 2rem;
 }
 
-.lista-membros {
-
+.btn-1 {
+    position: absolute;
+    right: 5rem;
+    background-color: $color-tertiary;
+    color: #ffffff;
+    padding: .2rem;
+    padding-right: .4rem;
 }
 
 .membro {

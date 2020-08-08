@@ -209,7 +209,7 @@
         "TITULO": "Control panel",
         "MEMBROS": "Collaborating members",
         "NIVACESSO": "Access level",
-        "CONVITESTATUS": "Status do convite",
+        "CONVITESTATUS": "Invite status",
         "GERENCIARMEMBROS": "Manage members",
         "CONSULTACESSO": "See permissions",
         "STATSINGRESSOS": "Ticket statistics",
@@ -247,7 +247,8 @@
         "CURRENTGROUP": "Current group: ",
         "NEWGROUP": "New groups(s)",
         "CONFIRM": "Confirm",
-        "CANCEL": "Cancel"
+        "CANCEL": "Cancel",
+        "ASSIGN": "Assign permission"
     },
 
     "CONVITE": {
@@ -307,5 +308,12 @@
         "ADDMESTO": "Recharge product in stock",
         "BAIMESTO": "Discharge product in stock",
         "DELEFEST": "Delete party"
+    },
+
+    "ASSIGNDIALOG": {
+        "TITLE": "Permission Assign",
+        "MESSAGE": "Do you really want to save this assign configuration for the group",
+        "CONFIRM": "Confirm",
+        "CANCEL": "Cancel"
     }
 }

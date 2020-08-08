@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { GetGruposService } from 'src/app/services/get-grupos/get-grupos.service';
 import { Router } from '@angular/router';
 import { GetFestaService } from 'src/app/services/get-festa/get-festa.service';
-import { FormControl } from '@angular/forms';
-import { Observable } from 'rxjs';
-import { startWith, map } from 'rxjs/operators';
+import { FormBuilder, FormControl } from '@angular/forms';
+import { MatDialog } from '@angular/material';
+import { DistribuicaoDialogComponent } from '../distribuicao-dialog/distribuicao-dialog.component';
 
 @Component({
   selector: 'app-distribuicao-permissoes',
@@ -13,35 +13,20 @@ import { startWith, map } from 'rxjs/operators';
 })
 export class DistribuicaoPermissoesComponent implements OnInit {
 
-  festa = { usuarios: [] };
-
-  myControl = new FormControl();
-  nomesGrupos = [];
-  nomesMembros = [];
-  filteredMembros: Observable<string[]>;
-
+  form = this.formBuilder.group({});
+  festa = { usuarios: [], codFesta: null };
   grupos: any;
+  relacaoGrupoMembros = [];
 
   // configuracao do accordion
 
   isOpen: boolean;
 
-  constructor(public router: Router, public getGrupos: GetGruposService, public getFesta: GetFestaService) { }
-
-  private _filter(value: string): string[] {
-    const filterValue = value.toLowerCase();
-
-    return this.nomesMembros.filter(membro => membro.toLowerCase().includes(filterValue));
-  }
+  constructor(public router: Router, public getGrupos: GetGruposService, public getFesta: GetFestaService,
+              public formBuilder: FormBuilder, public dialog: MatDialog) { }
 
   ngOnInit() {
     this.resgatarFesta();
-    this.resgatarGrupo();
-    this.filteredMembros = this.myControl.valueChanges
-      .pipe(
-        startWith(''),
-        map(value => this._filter(value))
-      );
   }
 
   resgatarFesta() {
@@ -50,6 +35,7 @@ export class DistribuicaoPermissoesComponent implements OnInit {
     this.getFesta.acessarFesta(idFesta).subscribe((resp: any) => {
       this.getFesta.setFarol(false);
       this.festa = resp;
+      this.resgatarGrupo();
     });
   }
 
@@ -59,8 +45,48 @@ export class DistribuicaoPermissoesComponent implements OnInit {
     this.getGrupos.getGrupos(idFesta).subscribe((resp: any) => {
       this.getGrupos.setFarol(false);
       this.grupos = resp;
-      for (const grupo of this.grupos) {
-        this.nomesGrupos.push(grupo.usuariosTO);
+      this.buildForm();
+    });
+  }
+
+  buildForm() {
+    const group = {};
+    for (const grupo of this.grupos) {
+      for (const usuario of this.festa.usuarios) {
+        group[grupo.codGrupo.toString() + usuario.codUsuario.toString()] = new FormControl(false);
+      }
+    }
+    this.form = this.formBuilder.group(group);
+    this.gerarRelacao();
+  }
+
+  gerarRelacao() {
+    for (const grupo of this.grupos) {
+      const listUser = [];
+      for (const usuario of grupo.usuariosTO) {
+        listUser.push(usuario.codUsuario);
+        this.form.get(grupo.codGrupo + '' + usuario.codUsuario).setValue(true);
+      }
+      this.relacaoGrupoMembros.push(listUser);
+    }
+  }
+
+  updateRelacao(index, codUsuario) {
+    if (this.relacaoGrupoMembros[index].indexOf(codUsuario) === -1) {
+      this.relacaoGrupoMembros[index].push(codUsuario);
+    } else {
+      const i = this.relacaoGrupoMembros[index].indexOf(codUsuario);
+      this.relacaoGrupoMembros[index].splice(i, 1);
+    }
+  }
+
+  openAssingDialog(index, grupo) {
+    this.dialog.open(DistribuicaoDialogComponent, {
+      width: '20rem',
+      data: {
+        grupo,
+        codFesta: this.festa.codFesta,
+        listaUser: this.relacaoGrupoMembros[index]
       }
     });
   }

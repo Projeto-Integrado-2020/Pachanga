@@ -1,7 +1,7 @@
 <div class="main-container">
       <h1 class="title">Atribuição de Permissões</h1>
       <mat-accordion>
-        <div class="grupo-panels" *ngFor="let grupo of grupos">
+        <div class="grupo-panels" *ngFor="let grupo of grupos; let i = index">
             <mat-expansion-panel hideToggle >
               <mat-expansion-panel-header>
                 <mat-panel-title>
@@ -13,9 +13,16 @@
               </mat-expansion-panel-header>
               <h4>{{ 'PAINELCONTROLE.MEMBROS' | translate }}</h4>
               <div class="membros-grid">
-                <div class="membro" *ngFor="let user of festa.usuarios">
-                  <mat-checkbox class="example-margin">{{user.nomeUser}}</mat-checkbox>
-                </div>
+                <form [formGroup]="form">
+                  <div class="membro" *ngFor="let user of festa.usuarios">
+                    <mat-checkbox formControlName="{{grupo.codGrupo}}{{user.codUsuario}}" (click)="updateRelacao(i, user.codUsuario)" class="example-margin">
+                      {{user.nomeUser}}
+                    </mat-checkbox>
+                  </div>
+                </form>
+                <button class="btn-1" mat-raised-button (click)="openAssingDialog(i, grupo)">
+                  {{ 'GRUPO.CONFIRM' | translate }}
+                </button>
               </div>
               <!--
               <div class="input_and_btn">
@@ -43,5 +50,10 @@
             </mat-expansion-panel>
           </div>
         </mat-accordion>
+        <a routerLink="../">
+          <button mat-button cdkFocusInitial class="button-return">
+              <mat-icon>keyboard_return</mat-icon> {{'UTILS.RETURN' | translate}}
+          </button>
+      </a>
 </div>
 

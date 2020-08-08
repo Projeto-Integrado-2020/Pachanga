@@ -247,7 +247,8 @@
         "NEWGROUP": "Grupo(s) novo(s)",
         "CONFIRM": "Confirmar",
         "CANCEL": "Cancelar",
-        "DELETE": "Excluir grupo"
+        "DELETE": "Excluir grupo",
+        "ASSIGN": "Atribuir permissão"
     },
 
     "CONVITE": {
@@ -308,6 +309,12 @@
         "ADDMESTO": "Abastecer produto em estoque",
         "BAIMESTO": "Executa baixa em produto em estoque",
         "DELEFEST": "Deletar festa"
+    },
+
+    "ASSIGNDIALOG": {
+        "TITLE": "Atribuição de permissão",
+        "MESSAGE": "Você realmente deseja salvar esta configuração de atribuição para o grupo",
+        "CONFIRM": "Confirmar",
+        "CANCEL": "Cancelar"
     }
-    
 }

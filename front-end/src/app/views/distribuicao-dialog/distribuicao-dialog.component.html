@@ -1,0 +1,8 @@
+<h1 mat-dialog-title>{{'ASSIGNDIALOG.TITLE' | translate}}</h1>
+<div mat-dialog-content>
+    <p>{{'ASSIGNDIALOG.MESSAGE' | translate}} "{{ grupo.nomeGrupo }}"?</p>
+</div>
+<div mat-dialog-actions class="buttons">
+    <button class="red-back" mat-button (click)="atribuirPermissoes()" cdkFocusInitial>{{'ASSIGNDIALOG.CONFIRM' | translate}}</button>
+    <button  mat-button mat-dialog-close cdkFocusInitial>{{'ASSIGNDIALOG.CANCEL' | translate}}</button>
+</div>
