@@ -12,6 +12,7 @@ import { CriarGrupoComponent } from './views/criar-grupo/criar-grupo.component';
 import { GerenciadorMembrosComponent } from './views/gerenciador-membros/gerenciador-membros.component';
 import { EditarGrupoComponent } from './views/editar-grupo/editar-grupo.component';
 import { DistribuicaoPermissoesComponent } from './views/distribuicao-permissoes/distribuicao-permissoes.component';
+import { EstoquePainelComponent } from './views/estoque-painel/estoque-painel.component';
 
 const routes: Routes = [
 
@@ -35,6 +36,12 @@ const routes: Routes = [
     {
       path: 'festas/:festa&:id/painel',
       component: FestaPainelControleComponent,
+      canActivate: [AuthGuard]
+    },
+
+    {
+      path: 'festas/:festa&:id/estoque',
+      component: EstoquePainelComponent,
       canActivate: [AuthGuard]
     },
 

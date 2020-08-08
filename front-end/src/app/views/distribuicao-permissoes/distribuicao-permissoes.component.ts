@@ -26,7 +26,7 @@ export class DistribuicaoPermissoesComponent implements OnInit {
 
   grupos: any;
 
-  //configuracao do accordion
+  // configuracao do accordion
 
   isOpen: boolean;
 

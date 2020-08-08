@@ -66,6 +66,7 @@ import { EditGrupoMembroComponent } from './views/edit-grupo-membro/edit-grupo-m
 import { DeletarGrupoComponent } from './views/deletar-grupo/deletar-grupo.component';
 import { EditarGrupoComponent } from './views/editar-grupo/editar-grupo.component';
 import { DistribuicaoPermissoesComponent } from './views/distribuicao-permissoes/distribuicao-permissoes.component';
+import { EstoquePainelComponent } from './views/estoque-painel/estoque-painel.component';
 
 
 const config = new AuthServiceConfig([
@@ -112,7 +113,8 @@ export function provideConfig() {
     DistribuicaoPermissoesComponent,
     DeletarGrupoComponent,
     EditarGrupoComponent,
-    DistribuicaoPermissoesComponent
+    DistribuicaoPermissoesComponent,
+    EstoquePainelComponent
   ],
   entryComponents: [
     LoginComponent,

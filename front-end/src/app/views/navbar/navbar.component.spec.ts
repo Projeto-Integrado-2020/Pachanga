@@ -32,6 +32,7 @@ import { FiltroFestaPipe } from '../menu-festas/filtroFesta.pipe';
 import { GerenciadorMembrosComponent } from '../gerenciador-membros/gerenciador-membros.component';
 import { EditarGrupoComponent } from '../editar-grupo/editar-grupo.component';
 import { DistribuicaoPermissoesComponent } from '../distribuicao-permissoes/distribuicao-permissoes.component';
+import { EstoquePainelComponent } from '../estoque-painel/estoque-painel.component';
 
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 100000;
 
@@ -78,7 +79,8 @@ describe('NavbarComponent', () => {
         FiltroFestaPipe,
         GerenciadorMembrosComponent,
         EditarGrupoComponent,
-        DistribuicaoPermissoesComponent
+        DistribuicaoPermissoesComponent,
+        EstoquePainelComponent
        ],
       imports: [
         CustomMaterialModule,
