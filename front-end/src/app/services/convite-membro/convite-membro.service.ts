@@ -14,7 +14,7 @@ import { LoginService } from '../loginService/login.service';
 export class ConviteMembroService {
 
   farol = false;
-  private readonly urlAddMembro = `${environment.URL_BACK}grupo/addUserFesta`;
+  private readonly urlAddMembro = `${environment.URL_BACK}convidado/addUserFesta`;
 
   constructor(private http: HttpClient, public logService: LogService, public dialog: MatDialog,
               public loginService: LoginService) { }
@@ -23,10 +23,10 @@ export class ConviteMembroService {
     if (!this.farol) {
       this.setFarol(true);
       const httpParams = new HttpParams()
-        .append('idFesta', idFesta)
-        .append('grupo', grupo)
-        .append('idUser', this.loginService.usuarioInfo.codUsuario);
-      return this.http.post(this.urlAddMembro, emails, {params: httpParams}).pipe(
+        .append('codFesta', idFesta)
+        .append('idGrupo', grupo)
+        .append('idUsuario', this.loginService.usuarioInfo.codUsuario);
+      return this.http.post(this.urlAddMembro, emails, {params: httpParams, responseType: 'text'}).pipe(
         take(1),
         catchError(error => {
           return this.handleError(error, this.logService);
