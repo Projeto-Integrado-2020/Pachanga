@@ -39,7 +39,7 @@ export class MenuFestasComponent implements OnInit {
   }
 
   isAdmin(festa) {
-    return festa.funcionalidade === 'ORGANIZADOR';
+    return festa.isOrganizador === true;
   }
 
   getDateFromDTF(date) {

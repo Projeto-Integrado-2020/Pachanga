@@ -60,8 +60,8 @@ describe('MenuFestasComponent', () => {
   });
 
   it('should check funcionalidade is equal ORGANIZADOR', () => {
-    expect(component.isAdmin({funcionalidade: 'ORGANIZADOR'})).toBeTruthy();
-    expect(component.isAdmin({funcionalidade: ''})).toBeFalsy();
+    expect(component.isAdmin({isOrganizador: true})).toBeTruthy();
+    expect(component.isAdmin({isOrganizador: false})).toBeFalsy();
   });
 
   it('should format date from datetime', () => {
