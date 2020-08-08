@@ -722,7 +722,7 @@ public class UsuarioServiceTest {
 
 	@Test
 	public void getUsuarioResponsavelFestaTest() throws Exception{
-		Mockito.when(usuarioRepository.findByFestaGrupo(14, TipoGrupo.ORGANIZADOR.getValor())).thenReturn(usuarioTest());
+		Mockito.when(usuarioRepository.findByFestaGrupo(Mockito.anyInt(), Mockito.anyBoolean())).thenReturn(usuarioTest());
 
 		Usuario usuarioResposta = userService.getUsuarioResponsavelFesta(14);
 

@@ -24,6 +24,9 @@ public class Grupo {
 	@Column(name = "nome_grupo")
 	private String nomeGrupo;
 	
+	@Column(name = "organizador")
+	private boolean organizador;
+	
 	@Column(name = "quant_max_pessoas")
 	private int quantMaxPessoas;
 	
@@ -54,11 +57,12 @@ public class Grupo {
 			fetch = FetchType.LAZY)
 	private Set<Convidado> convidados;
 	
-	public Grupo(int codGrupo, Festa festa, String nomeGrupo, int quant) {
+	public Grupo(int codGrupo, Festa festa, String nomeGrupo, int quant, boolean organizador) {
 		this.codGrupo = codGrupo;
 		this.nomeGrupo = nomeGrupo;
 		this.quantMaxPessoas = quant;
 		this.festa = festa;
+		this.organizador = organizador;
 	}
 	
 	public Grupo() {
@@ -117,6 +121,14 @@ public class Grupo {
 
 	public void setConvidados(Set<Convidado> convidados) {
 		this.convidados = convidados;
+	}
+
+	public Boolean getOrganizador() {
+		return organizador;
+	}
+
+	public void setOrganizador(Boolean organizador) {
+		this.organizador = organizador;
 	}
 
 }
