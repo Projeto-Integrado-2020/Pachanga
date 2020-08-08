@@ -72,7 +72,15 @@
         "FESTINIC": "Party info can not be changed while the party is started.",
         "FESTSCAT": "Party without category.",
         "CATNFOUN": "Category not found.",
-        "FESTMCAT": "Identical principal and secondary category."
+        "FESTMCAT": "Identical principal and secondary category.",
+        "GRUPORGN": "Role Organizador cannot suffer this action.",
+        "PERMINVA": "Permission invalid.",
+        "GRUPNFOU": "Role not found.",
+        "USESPERM": "User without permission.",
+        "PERMNFOU": "Permission not found.",
+        "USERORGN": "Manager user",
+        "GRPONVAZ": "The role is not empty.",
+        "PERMDUPL": "Duplicate permission."
     },
 
     "SUCCESS": {

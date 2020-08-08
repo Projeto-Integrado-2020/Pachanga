@@ -72,7 +72,15 @@
         "FESTINIC": "Os dados da festa não podem ser editados enquanto ela está iniciada.",
         "FESTSCAT": "Festa sem categoria primária.",
         "CATNFOUN": "Categoria não encontrada.",
-        "FESTMCAT": "Categoria principal e secundário identicas."
+        "FESTMCAT": "Categoria principal e secundário identicas.",
+        "GRUPORGN": "Grupo Organizador não pode sofrer tal ação.",
+        "PERMINVA": "Permissão inválida.",
+        "GRUPNFOU": "Grupo não encontrado.",
+        "USESPERM": "Usuário sem permissão.",
+        "PERMNFOU": "Permissão não encontrada.",
+        "USERORGN": "Usuário é o organizador da festa.",
+        "GRPONVAZ": "O grupo não está vazio.",
+        "PERMDUPL": "Permissão duplicada."
     },
 
     "SUCCESS": {
