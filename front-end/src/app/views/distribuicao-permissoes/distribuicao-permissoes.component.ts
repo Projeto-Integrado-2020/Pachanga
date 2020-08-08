@@ -2,10 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { GetGruposService } from 'src/app/services/get-grupos/get-grupos.service';
 import { Router } from '@angular/router';
 import { GetFestaService } from 'src/app/services/get-festa/get-festa.service';
-import { MatTableDataSource } from '@angular/material';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { Observable } from 'rxjs';
-import { startWith, map } from 'rxjs/operators';
+import { FormBuilder, FormControl } from '@angular/forms';
+import { MatDialog } from '@angular/material';
+import { DistribuicaoDialogComponent } from '../distribuicao-dialog/distribuicao-dialog.component';
 
 @Component({
   selector: 'app-distribuicao-permissoes',
@@ -14,99 +13,20 @@ import { startWith, map } from 'rxjs/operators';
 })
 export class DistribuicaoPermissoesComponent implements OnInit {
 
-  urlFesta: string;
-  festa: any;
-
-  // dataSources: [];
-
-  myControl = new FormControl();
-  nomesGrupos = [];
-  nomesMembros = [];
-  filteredMembros: Observable<string[]>;
-
+  form = this.formBuilder.group({});
+  festa = { usuarios: [], codFesta: null };
   grupos: any;
+  relacaoGrupoMembros = [];
 
   // configuracao do accordion
 
   isOpen: boolean;
 
-  constructor(public router: Router, public getGrupos: GetGruposService, public getFesta: GetFestaService) { }
-
-  private _filter(value: string): string[] {
-    const filterValue = value.toLowerCase();
-
-    return this.nomesMembros.filter(membro => membro.toLowerCase().includes(filterValue));
-  }
+  constructor(public router: Router, public getGrupos: GetGruposService, public getFesta: GetFestaService,
+              public formBuilder: FormBuilder, public dialog: MatDialog) { }
 
   ngOnInit() {
-    this.urlFesta = this.router.url;
-
-    this.filteredMembros = this.myControl.valueChanges
-      .pipe(
-        startWith(''),
-        map(value => this._filter(value))
-      );
-
-    this.festa = {codFesta: '47',
-      membros: [
-        {nomeUser: 'Andrey', status: 'Pendente'},
-        {nomeUser: 'Gustavo', status: 'Pendente'},
-        {nomeUser: 'Luis', status: 'Pendente'},
-        {nomeUser: 'Fulano', status: 'Pendente'},
-        {nomeUser: 'Fulano', status: 'Pendente'},
-        {nomeUser: 'Fulano', status: 'Pendente'},
-        {nomeUser: 'Fulano', status: 'Pendente'},
-        {nomeUser: 'Fulano', status: 'Pendente'},
-        {nomeUser: 'Fulano', status: 'Pendente'},
-        {nomeUser: 'Fulano', status: 'Pendente'},
-        {nomeUser: 'Fulano', status: 'Pendente'},
-        {nomeUser: 'Fulano', status: 'Pendente'},
-        {nomeUser: 'Fulano', status: 'Pendente'},
-        {nomeUser: 'Fulano', status: 'Pendente'},
-        {nomeUser: 'Fulano', status: 'Pendente'},
-        {nomeUser: 'Fulano', status: 'Pendente'},
-        {nomeUser: 'Fulano', status: 'Pendente'},
-        {nomeUser: 'Fulano', status: 'Pendente'}
-      ]
-    };
-
-    this.grupos = [
-      {
-        codGrupo: '0',
-        nomeGrupo: 'Grupo 1',
-        quantMaxPessoas: '12',
-        usuarios: [
-          {nomeUser: 'Andrey', status: 'Pendente'},
-          {nomeUser: 'Luis', status: 'Pendente'}
-        ]
-      },
-      {
-        codGrupo: '1',
-        nomeGrupo: 'Grupo 2',
-        quantMaxPessoas: '13',
-        usuarios: [
-          {nomeUser: 'Luis', status: 'Pendente'},
-          {nomeUser: 'Gustavo', status: 'Pendente'}
-        ]
-      },
-      {
-        codGrupo: '2',
-        nomeGrupo: 'Grupo 3',
-        quantMaxPessoas: '14',
-        usuarios: [
-          {nomeUser: 'Gustavo', status: 'Pendente'},
-          {nomeUser: 'Andrey', status: 'Pendente'}
-        ]
-      }
-    ];
-
-    for (const grupo of this.grupos) {
-      this.nomesGrupos.push(grupo.nomeGrupo);
-    }
-
-    for (const membro of this.festa.membros) {
-      this.nomesMembros.push(membro.nomeUser);
-    }
+    this.resgatarFesta();
   }
 
   resgatarFesta() {
@@ -115,22 +35,59 @@ export class DistribuicaoPermissoesComponent implements OnInit {
     this.getFesta.acessarFesta(idFesta).subscribe((resp: any) => {
       this.getFesta.setFarol(false);
       this.festa = resp;
+      this.resgatarGrupo();
     });
   }
 
-/*
   resgatarGrupo() {
-    this.getGrupos.getGrupos(this.festa.codFesta).subscribe((resp: any) => {
+    let idFesta = this.router.url;
+    idFesta = idFesta.slice(idFesta.indexOf('&') + 1, idFesta.indexOf('/', idFesta.indexOf('&')));
+    this.getGrupos.getGrupos(idFesta).subscribe((resp: any) => {
       this.getGrupos.setFarol(false);
       this.grupos = resp;
-      for (const grupo of resp) {
-        const membros = [];
-        for (const usuario of Object.keys(grupo.usuarios)) {
-          membros.push({membro: grupo.usuarios[usuario].nomeUser, status: grupo.usuarios[usuario].status});
-        }
-        //this.dataSources.push(new MatTableDataSource<TabelaMembros>(membros));
+      this.buildForm();
+    });
+  }
+
+  buildForm() {
+    const group = {};
+    for (const grupo of this.grupos) {
+      for (const usuario of this.festa.usuarios) {
+        group[grupo.codGrupo.toString() + usuario.codUsuario.toString()] = new FormControl(false);
+      }
+    }
+    this.form = this.formBuilder.group(group);
+    this.gerarRelacao();
+  }
+
+  gerarRelacao() {
+    for (const grupo of this.grupos) {
+      const listUser = [];
+      for (const usuario of grupo.usuariosTO) {
+        listUser.push(usuario.codUsuario);
+        this.form.get(grupo.codGrupo + '' + usuario.codUsuario).setValue(true);
+      }
+      this.relacaoGrupoMembros.push(listUser);
+    }
+  }
+
+  updateRelacao(index, codUsuario) {
+    if (this.relacaoGrupoMembros[index].indexOf(codUsuario) === -1) {
+      this.relacaoGrupoMembros[index].push(codUsuario);
+    } else {
+      const i = this.relacaoGrupoMembros[index].indexOf(codUsuario);
+      this.relacaoGrupoMembros[index].splice(i, 1);
+    }
+  }
+
+  openAssingDialog(index, grupo) {
+    this.dialog.open(DistribuicaoDialogComponent, {
+      width: '20rem',
+      data: {
+        grupo,
+        codFesta: this.festa.codFesta,
+        listaUser: this.relacaoGrupoMembros[index]
       }
     });
   }
-*/
 }

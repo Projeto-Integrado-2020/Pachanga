@@ -1,5 +1,6 @@
 package com.eventmanager.pachanga.utils;
 
+import java.time.format.DateTimeFormatter;
 import java.util.Properties;
 
 import javax.mail.Address;
@@ -13,12 +14,13 @@ import javax.mail.internet.MimeMessage;
 
 import org.springframework.stereotype.Component;
 
+import com.eventmanager.pachanga.domains.Festa;
 import com.eventmanager.pachanga.errors.ValidacaoException;
 
 @Component(value = "emailMensagem")
 public class EmailMensagem {
 	
-	public void enviarEmail(String email) {
+	public void enviarEmail(String email, String nomeGrupo, Festa festa) {
 		Properties props = new Properties();
 	    props.put("mail.smtp.host", "smtp.gmail.com");
 	    props.put("mail.smtp.socketFactory.port", "465");
@@ -49,8 +51,28 @@ public class EmailMensagem {
 	                 .parse(email);  
 	 
 	      message.setRecipients(Message.RecipientType.TO, toUser);
-	      message.setSubject("Enviando email com JavaMail");//Assunto
-	      message.setText("Enviei este email utilizando JavaMail com minha conta GMail!");
+	      message.setSubject("Novo convite para festa");//Assunto
+	      
+	      StringBuilder bodyEmail = new StringBuilder();
+	      DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+	      bodyEmail.append("<h1><strong>Pachanga tem uma festa para voc&ecirc;!</strong></h1>\r\n" + 
+		      		"\r\n" + 
+		      		"<p>Voc&ecirc; foi convidado para participar de uma festa, como membro coladorador. Segue detalhes da festa:</p>\r\n" + 
+		      		"\r\n" + 
+		      		"<ul>\r\n" + 
+		      		"    <li>Festa: "+ festa.getNomeFesta() +"; </li>\r\n" + 
+		      		"    <li>Fun&ccedil;&atilde;o: "+nomeGrupo +"; </li>\r\n" + 
+		      		"    <li>Data: "+ festa.getHorarioInicioFesta().format(formatter) +";</li>\r\n" + 
+		      		"    <li>Local: "+ festa.getCodEnderecoFesta() +".</li>\r\n" + 
+		      		"</ul>\r\n" + 
+		      		"\r\n" + 
+		      		"<p>Para aceitar ou recusar, basta se logar/cadastrar na aplica&ccedil;&atilde;o (clicando <a href=\"https://pachanga.herokuapp.com/\" target=\"_blank\">aqui</a>),&nbsp;acessar as notifica&ccedil;&otilde;es, e fazer a sua escolha.</p>\r\n" + 
+		      		"\r\n" + 
+		      		"<p>Esperamos&nbsp;que aproveite a festa!</p>\r\n" + 
+		      		"\r\n" + 
+		      		"<p><strong>Equipe Pachanga</strong></p>");
+	      
+	      message.setContent(bodyEmail.toString(), "text/html");
 	      Transport.send(message);
 	 	 
 	     } catch (MessagingException e) {

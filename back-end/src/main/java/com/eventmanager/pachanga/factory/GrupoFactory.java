@@ -19,7 +19,7 @@ public class GrupoFactory {
 				.codFesta(festa.getCodFesta())
 				.nomeGrupo(grupo.getNomeGrupo())
 				.quantMaxPessoas(grupo.getQuantMaxPessoas());
-		if(festa != null && grupo.getQuantMaxPessoas() >= 1) {
+		if(grupo.getQuantMaxPessoas() >= 1) {
 			return grupoToBuilder.build();
 		}else {
 			throw new ValidacaoException("GRUPINVALID");	

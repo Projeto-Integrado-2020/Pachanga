@@ -15,7 +15,7 @@ export class DeletarMembroGrupo {
 
   public farol = false;
 
-  private readonly urlDeletarMembro = `${environment.URL_BACK}grupo/deleteGrupoFesta`;
+  private readonly urlDeletarMembro = `${environment.URL_BACK}grupo/deleteUser`;
 
   constructor(private http: HttpClient, public logService: LogService, public dialog: MatDialog,
               public loginService: LoginService) { }

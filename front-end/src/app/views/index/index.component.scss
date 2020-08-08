@@ -29,8 +29,7 @@ html {
   background-color: black;
 }
 
-
-#video-cover {
-  min-height: 100%;
-  min-width: 100%;
+.main-container {
+  max-height: calc(100vh - 64px);
+  overflow: hidden;
 }

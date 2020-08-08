@@ -1,37 +1,38 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
-import { take, catchError } from 'rxjs/operators';
-import { throwError } from 'rxjs';
 import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
-import { LogService } from '../logging/log.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ErroDialogComponent } from '../../views/erro-dialog/erro-dialog.component';
+import { LogService } from '../logging/log.service';
+import { take, catchError } from 'rxjs/operators';
+import { throwError } from 'rxjs';
 import { LoginService } from '../loginService/login.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class GetPermissoesService {
+export class AtribuicaoGrupoService {
 
   farol = false;
-  private readonly urlGetPermissao = `${environment.URL_BACK}permissao/getAllPermissao`;
+  private readonly urlAtribuicao = `${environment.URL_BACK}grupo/updateUsers`;
 
   constructor(private http: HttpClient, public logService: LogService, public dialog: MatDialog,
               public loginService: LoginService) { }
 
-  getPermissoes() {
-    if (!this.farol) {
-      this.setFarol(true);
-      return this.http.get(this.urlGetPermissao).pipe(
-        take(1),
-        catchError(error => {
-          return this.handleError(error, this.logService);
-        })
-      );
-    }
+  atribuirMembros(listaUser, codGrupo) {
+    const httpParams = new HttpParams()
+    .append('idUsuario', this.loginService.usuarioInfo.codUsuario)
+    .append('codGrupo', codGrupo);
+    return this.http.put(this.urlAtribuicao, listaUser, {params: httpParams}).pipe(
+      take(1),
+      catchError(error => {
+        return this.handleError(error, this.logService);
+      })
+    );
   }
 
   handleError = (error: HttpErrorResponse, logService: LogService) => {
+    this.dialog.closeAll();
     this.openErrorDialog(error.error);
     logService.initialize();
     logService.logHttpInfo(JSON.stringify(error), 0, error.url);

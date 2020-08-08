@@ -19,35 +19,35 @@ import com.eventmanager.pachanga.domains.Festa;
 import com.eventmanager.pachanga.domains.Grupo;
 import com.eventmanager.pachanga.domains.Usuario;
 import com.eventmanager.pachanga.errors.ValidacaoException;
+import com.eventmanager.pachanga.repositories.ConvidadoRepository;
 import com.eventmanager.pachanga.repositories.FestaRepository;
 import com.eventmanager.pachanga.repositories.GrupoRepository;
-import com.eventmanager.pachanga.repositories.PermissaoRepository;
 import com.eventmanager.pachanga.repositories.UsuarioRepository;
 import com.eventmanager.pachanga.utils.EmailMensagem;
 
 @RunWith(SpringRunner.class)
-@WebMvcTest(value=GrupoService.class)
-public class GrupoServiceTest {
+@WebMvcTest(value=ConvidadoService.class)
+public class ConvidadoServiceTest {
 	
 	@MockBean
 	private UsuarioRepository usuarioRepository;
 
 	@MockBean
 	private GrupoRepository grupoRepository;
+	
+	@MockBean
+	private ConvidadoRepository convidadoRepository;
 
 	@MockBean
 	private FestaRepository festaRepository;
 	
 	@Autowired
-	private GrupoService grupoService;
-	
-	@MockBean
-	private PermissaoRepository permissaoRepository;
-	
+	private ConvidadoService convidadoService;
+		
 	@MockBean
 	private EmailMensagem emailMensagem;
 	
-	public static Grupo criacaoGrupo() {
+	public Grupo criacaoGrupo() {
 		Grupo grupo = new Grupo();
 		grupo.setCodGrupo(1);
 		grupo.setNomeGrupo("CONVIDADO");
@@ -90,7 +90,7 @@ public class GrupoServiceTest {
 		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(criacaoGrupo());
 		Mockito.when(usuarioRepository.findByEmail("guga.72@hotmail.com")).thenReturn(criacaoUsuario());
 		
-		StringBuilder retorno = grupoService.addUsuariosFesta(emails, 14, 1, 13);
+		StringBuilder retorno = convidadoService.addUsuariosFesta(emails, 14, 1, 13);
 		
 		assertEquals(0, retorno.length());
 	}
@@ -106,7 +106,7 @@ public class GrupoServiceTest {
 		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(criacaoGrupo());
 		Mockito.when(usuarioRepository.findByEmail("guga.72@hotmail.com")).thenReturn(null);
 		
-		StringBuilder retorno = grupoService.addUsuariosFesta(emails, 14, 1, 13);
+		StringBuilder retorno = convidadoService.addUsuariosFesta(emails, 14, 1, 13);
 		
 		assertEquals("guga.72@hotmail.com ", retorno.toString());
 	}
@@ -125,7 +125,7 @@ public class GrupoServiceTest {
 		boolean erro = false;
 		String msgErro = "";
 		try {			
-			grupoService.addUsuariosFesta(emails, 14, 1, 13);
+			convidadoService.addUsuariosFesta(emails, 14, 1, 13);
 		} catch (ValidacaoException e) {
 			erro = true;
 			msgErro = e.getMessage();
@@ -150,7 +150,7 @@ public class GrupoServiceTest {
 		boolean erro = false;
 		String msgErro = "";
 		try {			
-			grupoService.addUsuariosFesta(emails, 14, 1, 13);
+			convidadoService.addUsuariosFesta(emails, 14, 1, 13);
 		} catch (ValidacaoException e) {
 			erro = true;
 			msgErro = e.getMessage();
@@ -174,7 +174,7 @@ public class GrupoServiceTest {
 		boolean erro = false;
 		String msgErro = "";
 		try {			
-			grupoService.addUsuariosFesta(emails, 14, 1, 13);
+			convidadoService.addUsuariosFesta(emails, 14, 1, 13);
 		} catch (ValidacaoException e) {
 			erro = true;
 			msgErro = e.getMessage();
@@ -198,7 +198,7 @@ public class GrupoServiceTest {
 		boolean erro = false;
 		String msgErro = "";
 		try {			
-			grupoService.addUsuariosFesta(emails, 14, 1, 13);
+			convidadoService.addUsuariosFesta(emails, 14, 1, 13);
 		} catch (ValidacaoException e) {
 			erro = true;
 			msgErro = e.getMessage();

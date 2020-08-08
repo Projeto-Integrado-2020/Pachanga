@@ -43,8 +43,56 @@
             <a routerLink="../perfil"><button mat-menu-item class="botao-menu">{{'NAV.CONTA_L' | translate}}</button></a>
             <button mat-menu-item (click)="loginComponent.signOut()" class="botao-menu">{{'NAV.SAIR' | translate}}</button>
           </mat-menu>
+          
+          <!-- BOTAO ALERT -->
+          <button class="btn btn--prp btnAlertas" 
+            mat-mini-fab
+            (click)="visibilidadeNotificacoes = !visibilidadeNotificacoes"
+            >
+            <mat-icon matBadge={{alertNumbers}} matBadgeColor="warn" [matBadgeHidden]="alertNumbers == 0">notification_important</mat-icon>
+          </button>
+          
+          <!-- JANELINHA DE NOTIFICACOES -->
+          <mat-card 
+            class="fila_notificacoes"
+            *ngIf="visibilidadeNotificacoes"
+            (clicarFora)="fecharNotificacoes()"
+            >
+            <mat-card-header>
+              Notificações
+            </mat-card-header>
+            <mat-card-content class="fila_notificacoes__not-container" *ngFor="let alert of alerts let i = index">
+              <mat-divider></mat-divider>
+              <div class="fila_notificacoes__flex">
+                <div class="fila_notificacoes__notificacao">
+                <div class="fila_notificacoes__notificacao__texto">
+                  <p [ngStyle]="{'font-weight': (!alert.lido || alert.naolido) ? 'bold' : 'normal'}">{{alert.texto}}</p>
+                </div>
+                <div class="fila_notificacoes__notificacao__horario">
+                  <p>{{alert.tempo}}</p>
+                
+                </div>
+              </div>
+              <mat-icon class="btn--notif" (click)="abrirAlertaOpcoes(alert)">more_horiz</mat-icon>
+              </div>
+              <mat-card class="fila_notificacoes__notificacao__alertaOpcoes"
+                *ngIf="alert.alertaOpcoes"
+                (clicarFora)="alert.alertaOpcoes = false"
+                >
+                <div *ngIf="alert.naolido" class="desler">
+                  <p (click)="alterarAlerta(alert)">Marcar como lido</p>
+                </div>
+                <div *ngIf="!alert.naolido" class="desler">
+                  <p (click)="alterarAlerta(alert)">Marcar como não lido</p>
+                </div>
+                <mat-divider></mat-divider>
+                <div (click)="deletarAlerta(alert)" class="apagar-notif">
+                  <p>Apagar notificação</p>
+                </div>
+              </mat-card>
+            </mat-card-content>
+          </mat-card>
 
-          <button class="btn btn--prp alertas btn" mat-mini-fab><mat-icon matBadge=":D" matBadgeColor="warn">notification_important</mat-icon></button>
 
           <button class="btn btn--lang btn--lang--pt" mat-mini-fab color="accent" (click)="langPt()" [value]="'pt'"></button>
           <button class="btn btn--lang btn--lang--en" mat-mini-fab color="warn" (click)="langEn()" [value]="'en'"></button>

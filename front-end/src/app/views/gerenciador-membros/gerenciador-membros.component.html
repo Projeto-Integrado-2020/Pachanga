@@ -7,9 +7,9 @@
                <mat-icon>add</mat-icon> {{ 'GRUPO.CREATEGROUP' | translate }}
            </button>
        </a>
-       <a routerLink="./atribuirPermissoes">
+       <a routerLink="./atribuir-grupos">
          <button class="btn-1" mat-raised-button>
-             Atribuir Permissões
+            {{ 'GRUPO.ASSIGN' | translate }}
          </button>
       </a>
    </header>
@@ -63,4 +63,9 @@
          </mat-card-content>
       </mat-card>
    </div>
+   <a routerLink="../painel">
+      <button mat-button cdkFocusInitial class="button-return">
+          <mat-icon>keyboard_return</mat-icon> {{'UTILS.RETURN' | translate}}
+      </button>
+  </a>
 </div>

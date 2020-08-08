@@ -14,7 +14,7 @@ import { LoginService } from '../loginService/login.service';
 export class DeleterGrupoService {
 
   farol = false;
-  private readonly urlDeletarGrupo = `${environment.URL_BACK}grupo/deleteGrupoFesta`;
+  private readonly urlDeletarGrupo = `${environment.URL_BACK}grupo/deleteGrupo`;
 
   constructor(private http: HttpClient, public logService: LogService, public dialog: MatDialog,
               public loginService: LoginService) { }

@@ -131,9 +131,4 @@ describe('NavbarComponent', () => {
     expect(dialogSpy.open).toHaveBeenCalled();
   });
 
-  it('should open a dialog invite through a method', () => {
-    component.openDialogPROVISORIO();
-    expect(dialogSpy.open).toHaveBeenCalled();
-  });
-
 });

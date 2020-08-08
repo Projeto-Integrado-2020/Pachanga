@@ -72,7 +72,15 @@
         "FESTINIC": "Party info can not be changed while the party is started.",
         "FESTSCAT": "Party without category.",
         "CATNFOUN": "Category not found.",
-        "FESTMCAT": "Identical principal and secondary category."
+        "FESTMCAT": "Identical principal and secondary category.",
+        "GRUPORGN": "Role Organizador cannot suffer this action.",
+        "PERMINVA": "Permission invalid.",
+        "GRUPNFOU": "Role not found.",
+        "USESPERM": "User without permission.",
+        "PERMNFOU": "Permission not found.",
+        "USERORGN": "Manager user",
+        "GRPONVAZ": "The role is not empty.",
+        "PERMDUPL": "Duplicate permission."
     },
 
     "SUCCESS": {
@@ -209,7 +217,7 @@
         "TITULO": "Control panel",
         "MEMBROS": "Collaborating members",
         "NIVACESSO": "Access level",
-        "CONVITESTATUS": "Status do convite",
+        "CONVITESTATUS": "Invite status",
         "GERENCIARMEMBROS": "Manage members",
         "CONSULTACESSO": "See permissions",
         "STATSINGRESSOS": "Ticket statistics",
@@ -247,7 +255,8 @@
         "CURRENTGROUP": "Current group: ",
         "NEWGROUP": "New groups(s)",
         "CONFIRM": "Confirm",
-        "CANCEL": "Cancel"
+        "CANCEL": "Cancel",
+        "ASSIGN": "Assign permission"
     },
 
     "CONVITE": {
@@ -288,5 +297,31 @@
         "CRMNFRML": "Formal Meet",
         "TRAP/RAP": "Trap/Rap",
         "BAILEBRG": "70's Prom"
+    },
+
+    "PERMISSAO": {
+        "EDITDFES": "Edit party",
+        "CREGRPER": "Create permission role",
+        "DELGRPER": "Delete permission role",
+        "EDIGRPER": "Edit permission role",
+        "ADDMEMBE": "Add new member",
+        "DELMEMBE": "Delete member",
+        "DISMEMBE": "Distribute permission role",
+        "CADAESTO": "Insert stock",
+        "DELEESTO": "Delete stock",
+        "EDITESTO": "Edit stock",
+        "CADMESTO": "Insert product in stock",
+        "DELMESTO": "Delete product in stock",
+        "EDIMESTO": "Edit product in stock",
+        "ADDMESTO": "Recharge product in stock",
+        "BAIMESTO": "Discharge product in stock",
+        "DELEFEST": "Delete party"
+    },
+
+    "ASSIGNDIALOG": {
+        "TITLE": "Permission Assign",
+        "MESSAGE": "Do you really want to save this assign configuration for the group",
+        "CONFIRM": "Confirm",
+        "CANCEL": "Cancel"
     }
 }
