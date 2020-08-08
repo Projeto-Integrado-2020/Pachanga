@@ -123,11 +123,11 @@ public class Grupo {
 		this.convidados = convidados;
 	}
 
-	public Boolean getOrganizador() {
+	public boolean getOrganizador() {
 		return organizador;
 	}
 
-	public void setOrganizador(Boolean organizador) {
+	public void setOrganizador(boolean organizador) {
 		this.organizador = organizador;
 	}
 

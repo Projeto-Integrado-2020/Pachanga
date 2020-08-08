@@ -52,9 +52,12 @@ public class ConvidadoService {
 					mensagemRetorno.append(email);
 					mensagemRetorno.append(" ");
 				}
-				Convidado convidado = new Convidado(convidadoRepository.getNextValMySequence(), email);
-				convidadoRepository.save(convidado);
-				convidadoRepository.saveConvidadoGrupo(convidado.getCodConvidado(), idGrupo);
+				Usuario usuarioFesta = usuarioRepository.findBycodFestaAndEmail(codFesta, email);
+				if(usuarioFesta == null) {
+					Convidado convidado = new Convidado(convidadoRepository.getNextValMySequence(), email);
+					convidadoRepository.save(convidado);
+					convidadoRepository.saveConvidadoGrupo(convidado.getCodConvidado(), idGrupo);
+				}
 			}
 		}
 		return mensagemRetorno;
@@ -72,6 +75,9 @@ public class ConvidadoService {
 		Grupo grupo = grupoRepository.findById(codGrupo);
 		if(grupo == null) {
 			throw new ValidacaoException("GRUPNFOU");// grupo não encontrado
+		}
+		if(grupo.getOrganizador()) {
+			throw new ValidacaoException("GRUPORGN");//Grupo organizador não pode ser adicionado ninguém
 		}
 		this.validarPermissaoUsuario(codFesta, idUsuario);
 		return grupo;
