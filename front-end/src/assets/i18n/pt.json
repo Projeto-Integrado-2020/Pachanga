@@ -80,7 +80,8 @@
         "PERMNFOU": "Permissão não encontrada.",
         "USERORGN": "Usuário é o organizador da festa.",
         "GRPONVAZ": "O grupo não está vazio.",
-        "PERMDUPL": "Permissão duplicada."
+        "PERMDUPL": "Permissão duplicada.",
+        "GRPEXIST": "Já existe um grupo com este nome." 
     },
 
     "SUCCESS": {
