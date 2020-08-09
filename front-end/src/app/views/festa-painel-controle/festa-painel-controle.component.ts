@@ -26,7 +26,7 @@ export class FestaPainelControleComponent implements OnInit {
   public statusFesta: any;
 
   membros: TabelaMembros[] = [];
-  displayedColumns: string[] = ['membro', 'status', 'permissao', 'edit'];
+  displayedColumns: string[] = ['membro', 'status', 'edit'];
   dataSource = new MatTableDataSource<TabelaMembros>(this.membros);
 
   constructor(fb: FormBuilder, public dialog: MatDialog, public getFestaService: GetFestaService,
@@ -45,9 +45,11 @@ export class FestaPainelControleComponent implements OnInit {
       this.festa = resp;
       this.festaNome = resp.nomeFesta;
       this.statusFesta = resp.statusFesta;
-      let usuario: any;
-      for (usuario of Object.keys(resp.usuarios)) {
-        this.membros.push({membro: resp.usuarios[usuario].nomeUser, status: 'Pendente'});
+      for (const usuario of Object.keys(resp.usuarios)) {
+        this.membros.push({membro: resp.usuarios[usuario].nomeUser, status: 'Aceito'});
+      }
+      for (const convidado of Object.keys(resp.convidados)) {
+        this.membros.push({membro: resp.convidados[convidado].email, status: 'Pendente'});
       }
       this.dataSource.data = this.membros;
     });

@@ -315,7 +315,8 @@
         "EDIMESTO": "Edit product in stock",
         "ADDMESTO": "Recharge product in stock",
         "BAIMESTO": "Discharge product in stock",
-        "DELEFEST": "Delete party"
+        "DELEFEST": "Delete party",
+        "VISUESTO": "Check stock"
     },
 
     "ASSIGNDIALOG": {
