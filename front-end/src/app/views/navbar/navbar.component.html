@@ -48,6 +48,7 @@
           <button class="btn btn--prp btnAlertas" 
             mat-mini-fab
             (click)="visibilidadeNotificacoes = !visibilidadeNotificacoes"
+            *ngIf="loginService.usuarioAutenticado"
             >
             <mat-icon matBadge={{alertNumbers}} matBadgeColor="warn" [matBadgeHidden]="alertNumbers == 0">notification_important</mat-icon>
           </button>
