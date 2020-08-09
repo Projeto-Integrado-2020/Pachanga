@@ -28,20 +28,58 @@ export class NavbarComponent implements OnInit {
     {
       texto: 'Alô alô alô',
       tempo: '1 minuto atrás',
-      alertaOpcoes: false,
-      lido: false
+      alertaOpcoes: false, // Nao mandar pro back-end; Esta propriedade deve ser usada exclusivamente no front
+      lido: false,
+      naolido: false
     },
     {
       texto: 'Salci fu fu',
       tempo: '3 minutos atrás',
       alertaOpcoes: false,
-      lido: false
+      lido: false,
+      naolido: false
     },
     {
       texto: 'Iê iê iê ',
       tempo: '5 minutos atrás',
       alertaOpcoes: false,
-      lido: false
+      lido: false,
+      naolido: false
+    },
+    {
+      texto: 'Iê iê iê ',
+      tempo: '5 minutos atrás',
+      alertaOpcoes: false,
+      lido: false,
+      naolido: false
+    },
+    {
+      texto: 'Iê iê iê ',
+      tempo: '5 minutos atrás',
+      alertaOpcoes: false,
+      lido: false,
+      naolido: false
+    },
+    {
+      texto: 'Iê iê iê ',
+      tempo: '5 minutos atrás',
+      alertaOpcoes: false,
+      lido: false,
+      naolido: false
+    },
+    {
+      texto: 'Iê iê iê ',
+      tempo: '5 minutos atrás',
+      alertaOpcoes: false,
+      lido: false,
+      naolido: false
+    },
+    {
+      texto: 'Iê iê iê ',
+      tempo: '5 minutos atrás',
+      alertaOpcoes: false,
+      lido: false,
+      naolido: false
     }
   ];
 
@@ -66,7 +104,7 @@ export class NavbarComponent implements OnInit {
     translate.use(browserLang.match(/pt|en/) ? browserLang : 'pt');
 
   }
-  //MOCK DE CRIACAO DE ALERTA(APAGAR DEPOIS)
+  // MOCK DE CRIACAO DE ALERTA(APAGAR DEPOIS)
 
   criarAlertaPROVISORIO() {
     const xingamentos = [
@@ -76,17 +114,18 @@ export class NavbarComponent implements OnInit {
       'É isso msm otário',
       'F***-se',
       'Chupa aqui'
-    ]
+    ];
     const xingamento = xingamentos[Math.floor(Math.random() * xingamentos.length)];
-    
+
     this.alerts.unshift(
       {
         texto: xingamento,
         tempo: 'Agora mesmo',
         alertaOpcoes: false,
-        lido: false
+        lido: false,
+        naolido: false
       }
-    )
+    );
   }
   // usar esta função para puxar novos alertas; Rodar de 5 em 5 segundos
 
@@ -95,33 +134,36 @@ export class NavbarComponent implements OnInit {
     const source = interval(5000);
     source
       .subscribe(val => {
-        this.criarAlertaPROVISORIO()
-        this.contarAlertasNaoLidos()
+        // this.criarAlertaPROVISORIO()
+        this.contarAlertasNaoLidos();
     });
    }
 
   contarAlertasNaoLidos(): void {
     let count = 0;
-    for(const i of this.alerts) {
-      if(!i.lido) {
+    for (const i of this.alerts) {
+      if (!i.lido || i.naolido) {
         count++;
       }
     }
     this.alertNumbers = count;
   }
 
-  deslerAlerta(alerta): void {
-    if(alerta.alertaOpcoes) {
-      alerta.lido = false;
-    }
-    this.contarAlertasNaoLidos();
+  alterarAlerta(alerta): void {
+    alerta.naolido ? this.alertNumbers++ : this.alertNumbers--;
+    alerta.naolido = !alerta.naolido;
     alerta.alertaOpcoes = false;
+  }
+
+  deletarAlerta(alerta): void {
+    const index = this.alerts.indexOf(alerta);
+    this.alerts.splice(index, 1);
   }
 
   // abrir janela de notificações
 
-  abrirNotificacoes(): void {
-    this.visibilidadeNotificacoes = true;
+  fecharNotificacoes(): void {
+    this.visibilidadeNotificacoes = false;
     this.alerts.forEach(alert => {
       alert.lido = true;
     });
@@ -142,13 +184,13 @@ export class NavbarComponent implements OnInit {
   }
 
  // método para abrir modal de login
-  openDialogLogin(): void{
+  openDialogLogin(): void {
     this.login.open(LoginComponent, {
       width: '20rem',
     });
   }
  // método para abrir modal de cadastro
-  openDialogCadastro(): void{
+  openDialogCadastro(): void {
     this.cadastro.open(CadastroComponent, {
       width: '20rem'
     });

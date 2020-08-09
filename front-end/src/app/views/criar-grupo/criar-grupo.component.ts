@@ -20,12 +20,15 @@ export class CriarGrupoComponent implements OnInit {
 
   constructor(public formBuilder: FormBuilder, public getFestaService: GetFestaService,
               public router: Router, public getPermissaoService: GetPermissoesService,
-              public addGrupoService: CriarGrupoService) { }
+              public addGrupoService: CriarGrupoService) {
+                this.form = this.formBuilder.group({
+                  nomeGrupo: new FormControl('', Validators.required)
+                });
+              }
 
   ngOnInit() {
     this.resgatarFesta();
     this.resgatarPermissoes();
-    this.buildForm();
   }
 
   get f() { return this.form.controls; }
@@ -40,6 +43,7 @@ export class CriarGrupoComponent implements OnInit {
     this.getPermissaoService.getPermissoes().subscribe((resp: any) => {
       this.getPermissaoService.setFarol(false);
       this.permissoes = resp;
+      this.buildForm();
     });
   }
 

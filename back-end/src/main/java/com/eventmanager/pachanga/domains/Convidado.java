@@ -21,7 +21,7 @@ public class Convidado {
 	private int codConvidado;
 	
 	@Column(name = "email")
-	private int email;
+	private String email;
 	
 	@ManyToMany(fetch = FetchType.LAZY,
 			cascade = CascadeType.ALL)
@@ -33,6 +33,14 @@ public class Convidado {
 	@ManyToMany(mappedBy = "convidados",
 			fetch = FetchType.LAZY)
 	private Set<Notificacao> notificacoes;
+	
+	public Convidado(int codConvidado, String email) {
+		this.email = email;
+		this.codConvidado = codConvidado;
+	}
+	
+	public Convidado() {
+	}
     
 	public int getCodConvidado() {
 		return codConvidado;
@@ -42,11 +50,11 @@ public class Convidado {
 		this.codConvidado = codConvidado;
 	}
 
-	public int getEmail() {
+	public String getEmail() {
 		return email;
 	}
 
-	public void setEmail(int email) {
+	public void setEmail(String email) {
 		this.email = email;
 	}
 

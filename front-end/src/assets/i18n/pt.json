@@ -72,7 +72,15 @@
         "FESTINIC": "Os dados da festa não podem ser editados enquanto ela está iniciada.",
         "FESTSCAT": "Festa sem categoria primária.",
         "CATNFOUN": "Categoria não encontrada.",
-        "FESTMCAT": "Categoria principal e secundário identicas."
+        "FESTMCAT": "Categoria principal e secundário identicas.",
+        "GRUPORGN": "Grupo Organizador não pode sofrer tal ação.",
+        "PERMINVA": "Permissão inválida.",
+        "GRUPNFOU": "Grupo não encontrado.",
+        "USESPERM": "Usuário sem permissão.",
+        "PERMNFOU": "Permissão não encontrada.",
+        "USERORGN": "Usuário é o organizador da festa.",
+        "GRPONVAZ": "O grupo não está vazio.",
+        "PERMDUPL": "Permissão duplicada."
     },
 
     "SUCCESS": {
@@ -247,7 +255,8 @@
         "NEWGROUP": "Grupo(s) novo(s)",
         "CONFIRM": "Confirmar",
         "CANCEL": "Cancelar",
-        "DELETE": "Excluir grupo"
+        "DELETE": "Excluir grupo",
+        "ASSIGN": "Atribuir permissão"
     },
 
     "CONVITE": {
@@ -289,6 +298,31 @@
         "CRMNFRML": "Encontro formal",
         "TRAP/RAP": "Trap/Rap",
         "BAILEBRG": "Baile Brega"
+    },
+
+    "PERMISSAO": {
+        "EDITDFES": "Editar festa",
+        "CREGRPER": "Criar grupo de permissão",
+        "DELGRPER": "Excluir grupo de permissão",
+        "EDIGRPER": "Editar grupo de permissão",
+        "ADDMEMBE": "Adicionar novo membro",
+        "DELMEMBE": "Deletar membro",
+        "DISMEMBE": "Distribuir grupos de permissão",
+        "CADAESTO": "Cadastrar estoque",
+        "DELEESTO": "Excluir estoque",
+        "EDITESTO": "Editar estoque",
+        "CADMESTO": "Cadastrar produto em estoque",
+        "DELMESTO": "Excluir produto em estoque",
+        "EDIMESTO": "Editar produto em estoque",
+        "ADDMESTO": "Abastecer produto em estoque",
+        "BAIMESTO": "Executa baixa em produto em estoque",
+        "DELEFEST": "Deletar festa"
+    },
+
+    "ASSIGNDIALOG": {
+        "TITLE": "Atribuição de permissão",
+        "MESSAGE": "Você realmente deseja salvar esta configuração de atribuição para o grupo",
+        "CONFIRM": "Confirmar",
+        "CANCEL": "Cancelar"
     }
-    
 }

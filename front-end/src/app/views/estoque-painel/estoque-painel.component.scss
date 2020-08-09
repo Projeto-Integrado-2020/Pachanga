@@ -1,0 +1,232 @@
+@import "../material/paleta.scss";
+
+  .titulo2 {
+    height: 5vh;
+    width: 100%;
+    display: block;
+    margin: 31px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 30px;
+    padding-top: 0%;
+    white-space: nowrap;
+  }
+
+  .main-container {
+    max-width: 1140px;
+    margin-left: 10vh;
+  }
+
+  .example-container {
+    position: absolute;
+    top: 56px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+  
+  .example-sidenav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 8.7%;
+    background: #DADADA  ;
+  }
+  
+  .example-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+  }
+  
+  .example-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+  
+  .toggle{
+    top: 50%;
+    transform: translateY(-50%);
+    position: fixed;
+    padding: 0;
+  }
+//5.32
+//1.064
+  .botao-sidenav{
+    padding-top: 5.32vh;
+    padding-bottom: 5.32vh;
+    width: 100%;
+    padding-right: 1.064vh;
+    text-align: center;
+    position: relative
+  }
+
+  .example-card {
+    //max-width: 42.56vh;
+    width: 73%;
+    margin-left: 12.5%;
+  }
+
+  .prp-btn-member{
+    background-color: $color-primary;
+    color: #ffffff;
+    width: 200px;
+    float: right;
+  }
+
+  table {
+    width: 75%;
+    margin-top: 3rem;
+  }
+
+  .icon-edit{
+    position: relative;
+    //transform: translateX(-50%);
+    float: right;
+  }
+
+  .icon-delete{
+    position: relative;
+    float: right;
+    //width: 100px;
+    margin-left: 2.5rem;
+    margin-right: 2.5rem;
+  }
+
+  th{
+    padding: auto;
+  }
+
+  a{
+    text-decoration: underline;
+  }
+
+  .status-list{
+    margin-top: 1.5rem;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    margin-bottom: 1rem;
+  }
+
+  .status-list mat-icon{
+    margin-left: .3rem;
+  }
+
+  .card-header{
+    margin-bottom: 1rem;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+  }
+
+  .card-content{
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+  }
+  
+
+.tabela{
+    margin-left: 12.5%;
+    margin-right: 12.5%;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+.painel{
+  margin-left: 20%;
+  margin-right: 20%;
+}
+
+.botao-editar {
+  float: right;
+  background-color: $color-tertiary;
+  color: white;
+  padding: 0;
+  padding-left: .5rem;
+}
+
+.botao-deletar {
+  margin-top: 1.5rem;
+  margin-right: 18%;
+  float: right;
+  background-color: $color-tertiary;
+  color: white;
+  padding: 0;
+  padding-left: .5rem;
+}
+
+.status-botao{
+  position: relative;
+  transform: translateX(-50%);
+}
+
+mat-button-toggle-group {
+  margin-right: 12px;
+}
+
+::ng-deep mat-button-toggle :disabled{
+  opacity: 1!important;
+  font-weight: 500;
+  cursor: pointer!important;
+}
+
+
+tr.example-detail-row {
+  height: 0;
+}
+
+tr.example-element-row:not(.example-expanded-row):hover {
+  background: whitesmoke;
+}
+
+tr.example-element-row:not(.example-expanded-row):active {
+  background: #efefef;
+}
+
+.example-element-row td {
+  border-bottom-width: 0;
+}
+
+.example-element-detail {
+  overflow: hidden;
+  display: flex;
+}
+
+.example-element-diagram {
+  min-width: 80px;
+  border: 2px solid black;
+  padding: 8px;
+  font-weight: lighter;
+  margin: 8px 0;
+  height: 104px;
+}
+
+.example-element-symbol {
+  font-weight: bold;
+  font-size: 40px;
+  line-height: normal;
+}
+
+.example-element-description {
+  padding: 16px;
+}
+
+.example-element-description-attribution {
+  opacity: 0.5;
+}
+
+.remove{
+  width: 3.5rem;
+  position: relative;
+  margin-top: 1rem;
+}
+
+.red-back{
+  margin-left: 4rem;
+  margin-top: 1.25rem;
+}

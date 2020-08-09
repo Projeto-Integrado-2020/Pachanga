@@ -33,6 +33,7 @@ import { FiltroFestaPipe } from './views/menu-festas/filtroFesta.pipe';
 import { GerenciadorMembrosComponent } from './views/gerenciador-membros/gerenciador-membros.component';
 import { EditarGrupoComponent } from './views/editar-grupo/editar-grupo.component';
 import { DistribuicaoPermissoesComponent } from './views/distribuicao-permissoes/distribuicao-permissoes.component';
+import { EstoquePainelComponent } from './views/estoque-painel/estoque-painel.component';
 import { ClicarForaDirective } from './views/navbar/clicar-fora-fecha.directive';
 
 
@@ -78,6 +79,7 @@ describe('AppComponent', () => {
         GerenciadorMembrosComponent,
         EditarGrupoComponent,
         DistribuicaoPermissoesComponent,
+        EstoquePainelComponent,
         ClicarForaDirective
       ],
       imports: [

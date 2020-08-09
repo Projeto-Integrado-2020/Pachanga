@@ -120,4 +120,16 @@ public class Festa {
 		this.categoriaFesta = categoriaFesta;
 	}
 	
+	public Boolean isOrganizador(int codUsuario) {
+		for(Grupo grupo: this.grupos) {
+			if(grupo.getOrganizador()) {
+				long usuario = grupo.getUsuarios().stream().filter(u -> u.getCodUsuario() == codUsuario).count();
+				if(usuario != 0l) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	
 }

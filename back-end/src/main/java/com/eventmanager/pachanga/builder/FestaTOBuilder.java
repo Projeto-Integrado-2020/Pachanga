@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import com.eventmanager.pachanga.dtos.CategoriaTO;
+import com.eventmanager.pachanga.dtos.ConvidadoTO;
 import com.eventmanager.pachanga.dtos.FestaTO;
 import com.eventmanager.pachanga.dtos.UsuarioTO;
 
@@ -24,6 +25,8 @@ public class FestaTOBuilder {
 	private List<UsuarioTO> usuarios;
 	private CategoriaTO categoriaPrimaria;
 	private CategoriaTO categoriaSecundaria;
+	private Boolean isOrganizador;
+	private List<ConvidadoTO> convidados; 
 	
 	public static FestaTOBuilder getInstance() {
 		return new FestaTOBuilder();
@@ -102,6 +105,16 @@ public class FestaTOBuilder {
 		this.categoriaSecundaria = categoriaSecundaria;
 		return this;
 	}
+	
+	public FestaTOBuilder isOrganizador(Boolean isOrganizador) {
+		this.isOrganizador = isOrganizador;
+		return this;
+	}
+	
+	public FestaTOBuilder convidados(List<ConvidadoTO> convidados) {
+		this.convidados = convidados;
+		return this;
+	}
 
 	public FestaTO build() {
 		FestaTO festaTo = new FestaTO();
@@ -120,6 +133,8 @@ public class FestaTOBuilder {
 		festaTo.setUsuarios(usuarios);
 		festaTo.setCategoriaPrimaria(categoriaPrimaria);
 		festaTo.setCategoriaSecundaria(categoriaSecundaria);
+		festaTo.setIsOrganizador(isOrganizador);
+		festaTo.setConvidados(convidados);
 		return festaTo;
 	}
 

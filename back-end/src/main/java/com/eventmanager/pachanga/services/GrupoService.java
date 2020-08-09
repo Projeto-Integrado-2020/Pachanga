@@ -140,7 +140,7 @@ public class GrupoService {
 		if(this.grupoTemPermissao(codPermissao, codGrupo)) {
 			grupoRepository.deleteGrupoPermissao(codGrupo, codPermissao);
 		}else {
-			throw new ValidacaoException("PERMINVALD");// permissao invalida
+			throw new ValidacaoException("PERMINVA");// permissao invalida
 		}
 	}
 

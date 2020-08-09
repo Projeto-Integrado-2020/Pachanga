@@ -14,7 +14,6 @@ import com.eventmanager.pachanga.factory.UsuarioFactory;
 import com.eventmanager.pachanga.repositories.GrupoRepository;
 import com.eventmanager.pachanga.repositories.UsuarioRepository;
 import com.eventmanager.pachanga.tipo.TipoConta;
-import com.eventmanager.pachanga.tipo.TipoGrupo;
 import com.eventmanager.pachanga.utils.HashBuilder;
 
 @Service
@@ -174,7 +173,7 @@ public class UsuarioService {
 	}
 
 	public Usuario getUsuarioResponsavelFesta(int codFesta) {
-		return userRepository.findByFestaGrupo(codFesta, TipoGrupo.ORGANIZADOR.getValor());
+		return userRepository.findByFestaGrupo(codFesta, true);
 	}
 
 

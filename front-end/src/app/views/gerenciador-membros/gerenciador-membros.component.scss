@@ -30,7 +30,7 @@ header {
 }
 
 .lista-grupos {
-    margin: 2rem 0 2rem 0;
+    margin: 2rem 0 0 0;
 }
 
 .card-title {
@@ -81,4 +81,8 @@ table {
 .btn-invite {
     position: absolute;
     right: 2rem;
+}
+
+.button-return {
+    margin-top: .5%;
 }

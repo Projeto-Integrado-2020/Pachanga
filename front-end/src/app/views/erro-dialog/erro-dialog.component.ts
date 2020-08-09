@@ -38,6 +38,14 @@ export class ErroDialogComponent implements OnInit {
       case 'FESTSCAT': this.erro = this.translate.instant('ERRO.FESTSCAT'); break;
       case 'CATNFOUN': this.erro = this.translate.instant('ERRO.CATNFOUN'); break;
       case 'FESTMCAT': this.erro = this.translate.instant('ERRO.FESTMCAT'); break;
+      case 'GRUPORGN': this.erro = this.translate.instant('ERRO.GRUPORGN'); break;
+      case 'PERMINVA': this.erro = this.translate.instant('ERRO.PERMINVA'); break;
+      case 'GRUPNFOU': this.erro = this.translate.instant('ERRO.GRUPNFOU'); break;
+      case 'USESPERM': this.erro = this.translate.instant('ERRO.USESPERM'); break;
+      case 'PERMNFOU': this.erro = this.translate.instant('ERRO.PERMNFOU'); break;
+      case 'USERORGN': this.erro = this.translate.instant('ERRO.USERORGN'); break;
+      case 'GRPONVAZ': this.erro = this.translate.instant('ERRO.GRPONVAZ'); break;
+      case 'PERMDUPL': this.erro = this.translate.instant('ERRO.PERMDUPL'); break;
       default: this.erro = this.translate.instant('ERRO.SERVERRO');
     }
   }

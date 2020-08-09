@@ -136,11 +136,11 @@ mat-toolbar{
 }
 
 .fila_notificacoes {
-  height: auto;
-  max-height: 642px;
+  max-height: 70%;
   width: 480px;
   max-width: 480px;
   padding: 16px 0 16px 0; 
+  overflow: auto;
 
   border-radius: 6px;
 
@@ -187,6 +187,7 @@ mat-toolbar{
       position: absolute;
       display: inline-block;
       right: 0;
+      padding: 0 16px 0 16px;
 
       z-index: 1;
 
