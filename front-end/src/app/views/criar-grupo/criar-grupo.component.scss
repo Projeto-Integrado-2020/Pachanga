@@ -30,13 +30,12 @@ header {
 }
 
 .form-div {
-    margin: 2rem 0 2rem 0;
+    margin: 2rem 0 0 0;
 }
 
 .form-tab {
     margin-top: 1%;
     width: 100%;
-    margin-bottom: 2%;
     padding-bottom: 0!important;
     display: flex;
     align-items: center;
@@ -61,7 +60,14 @@ header {
 }
 
 .button-return {
-    margin-left: 10%;
-    margin-top: .5%;
     margin-bottom: 2%;
+}
+
+.esq {
+    float: left;
+    margin-right: 15%;
+}
+
+.lista-permissoes {
+    margin-left: 2rem;
 }

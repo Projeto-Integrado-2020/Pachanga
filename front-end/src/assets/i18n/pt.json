@@ -316,7 +316,8 @@
         "EDIMESTO": "Editar produto em estoque",
         "ADDMESTO": "Abastecer produto em estoque",
         "BAIMESTO": "Executa baixa em produto em estoque",
-        "DELEFEST": "Deletar festa"
+        "DELEFEST": "Deletar festa",
+        "VISUESTO": "Visualizar estoque"
     },
 
     "ASSIGNDIALOG": {
