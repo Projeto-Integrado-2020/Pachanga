@@ -1,5 +1,7 @@
 package com.eventmanager.pachanga.repositories;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -31,5 +33,8 @@ public interface ConvidadoRepository extends CrudRepository<Convidado, Integer>{
 	
 	@Query(value = "SELECT c FROM Convidado c JOIN c.grupos g WHERE c.email = :email AND g.codGrupo = :codGrupo")
 	public Convidado findByEmailByGrupo(String email, int codGrupo);
+
+	@Query(value = "SELECT c FROM Convidado c JOIN c.grupos g JOIN g.festa f WHERE f.codFesta = :codFesta")
+	public List<Convidado> findConvidadosByCodFesta(int codFesta);
 
 }

@@ -62,6 +62,10 @@ public class ConvidadoService {
 		}
 		return mensagemRetorno;
 	}
+	
+	public List<Convidado> pegarConvidadosFesta(int codFesta){
+		return convidadoRepository.findConvidadosByCodFesta(codFesta);
+	}
 
 	private Usuario validarUsuario(int idUsuario) {
 		Usuario usuario = usuarioRepository.findById(idUsuario);

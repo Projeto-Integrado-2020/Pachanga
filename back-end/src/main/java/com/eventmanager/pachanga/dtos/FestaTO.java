@@ -22,6 +22,8 @@ public class FestaTO {
 	private int codSecundaria;//codigo da categoria enviada pelo front
 	private CategoriaTO categoriaPrimaria;
 	private CategoriaTO categoriaSecundaria;
+	private Boolean isOrganizador;
+	private List<ConvidadoTO> convidados;
 	
 	public int getCodFesta() {
 		return codFesta;
@@ -124,6 +126,18 @@ public class FestaTO {
 	}
 	public void setCategoriaSecundaria(CategoriaTO categoriaSecundaria) {
 		this.categoriaSecundaria = categoriaSecundaria;
+	}
+	public Boolean getIsOrganizador() {
+		return isOrganizador;
+	}
+	public void setIsOrganizador(Boolean isOrganizador) {
+		this.isOrganizador = isOrganizador;
+	}
+	public List<ConvidadoTO> getConvidados() {
+		return convidados;
+	}
+	public void setConvidados(List<ConvidadoTO> convidados) {
+		this.convidados = convidados;
 	}
 
 }

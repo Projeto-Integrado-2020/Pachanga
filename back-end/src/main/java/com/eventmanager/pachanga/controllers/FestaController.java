@@ -20,13 +20,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.eventmanager.pachanga.domains.Categoria;
 import com.eventmanager.pachanga.domains.Festa;
 import com.eventmanager.pachanga.dtos.CategoriaTO;
+import com.eventmanager.pachanga.dtos.ConvidadoTO;
 import com.eventmanager.pachanga.dtos.FestaTO;
 import com.eventmanager.pachanga.dtos.UsuarioTO;
 import com.eventmanager.pachanga.errors.ValidacaoException;
 import com.eventmanager.pachanga.factory.CategoriaTOFactory;
+import com.eventmanager.pachanga.factory.ConvidadoFactory;
 import com.eventmanager.pachanga.factory.FestaFactory;
 import com.eventmanager.pachanga.factory.UsuarioFactory;
 import com.eventmanager.pachanga.services.CategoriaService;
+import com.eventmanager.pachanga.services.ConvidadoService;
 import com.eventmanager.pachanga.services.FestaService;
 import com.eventmanager.pachanga.services.UsuarioService;
 import com.eventmanager.pachanga.tipo.TipoCategoria;
@@ -44,24 +47,32 @@ public class FestaController {
 
 	@Autowired
 	private CategoriaService categoriaService;
+	
+	@Autowired
+	private ConvidadoService convidadoService;
+	
+	@Autowired
+	private ConvidadoFactory convidadoFactory;
+	
 
 	@ResponseBody
 	@GetMapping(path = "/lista")
-	public ResponseEntity<Object> listaFesta(@RequestParam(required = false) String idUser){
+	public ResponseEntity<Object> listaFesta(@RequestParam(required = true) int idUser){
 		List<Festa> festas = new ArrayList<>();
 		try {
-			if(idUser == null ) {
+			if(idUser == 0 ) {
 				festas =  festaService.procurarFestas();
 			}else {
-				festas =  festaService.procurarFestasPorUsuario(Integer.parseInt(idUser));
+				festas =  festaService.procurarFestasPorUsuario(idUser);
 			}
 			List<FestaTO> festasTo = festas.stream().map(f -> {
 				List<UsuarioTO> usuarios = listUsuarioTO(f);
+				List<ConvidadoTO> convidados = convidadoFactory.getConvidadosTO(convidadoService.pegarConvidadosFesta(f.getCodFesta()));
 				CategoriaTO categoriaPrimaria = categoriaFesta(f.getCodFesta(), TipoCategoria.PRIMARIO.getDescricao());
 				CategoriaTO categoriaSecundario = categoriaFesta(f.getCodFesta(), TipoCategoria.SECUNDARIO.getDescricao());
-				FestaTO festaTo = FestaFactory.getFestaTO(f, usuarios, true, categoriaPrimaria, categoriaSecundario);
-				if(idUser != null) {
-					festaTo.setFuncionalidade(festaService.funcionalidadeFesta(festaTo.getCodFesta(), Integer.parseInt(idUser)));
+				FestaTO festaTo = FestaFactory.getFestaTO(f, usuarios, true, categoriaPrimaria, categoriaSecundario, convidados, idUser);
+				if(idUser != 0) {
+					festaTo.setFuncionalidade(festaService.funcionalidadeFesta(festaTo.getCodFesta(), idUser));
 				}
 				return festaTo;
 			}).collect(Collectors.toList());
@@ -78,7 +89,7 @@ public class FestaController {
 			Festa festa = festaService.addFesta(festaTo, idUser);
 			CategoriaTO categoriaPrimaria = categoriaFesta(festa.getCodFesta(), TipoCategoria.PRIMARIO.getDescricao());
 			CategoriaTO categoriaSecundario = categoriaFesta(festa.getCodFesta(), TipoCategoria.SECUNDARIO.getDescricao());
-			return ResponseEntity.ok(FestaFactory.getFestaTO(festa, null, false, categoriaPrimaria, categoriaSecundario));
+			return ResponseEntity.ok(FestaFactory.getFestaTO(festa, null, false, categoriaPrimaria, categoriaSecundario, null));
 		}catch(ValidacaoException e) {
 			return ResponseEntity.status(400).body(e.getMessage());
 		}
@@ -102,7 +113,7 @@ public class FestaController {
 			Festa festa = festaService.updateFesta(festaTo, idUser);
 			CategoriaTO categoriaPrimaria = categoriaFesta(festa.getCodFesta(), TipoCategoria.PRIMARIO.getDescricao());
 			CategoriaTO categoriaSecundario = categoriaFesta(festa.getCodFesta(), TipoCategoria.SECUNDARIO.getDescricao());
-			return ResponseEntity.ok(FestaFactory.getFestaTO(festa, null, false, categoriaPrimaria, categoriaSecundario));
+			return ResponseEntity.ok(FestaFactory.getFestaTO(festa, null, false, categoriaPrimaria, categoriaSecundario, null));
 		}catch(ValidacaoException e) {
 			return ResponseEntity.status(400).body(e.getMessage());
 		}
@@ -118,7 +129,8 @@ public class FestaController {
 				List<UsuarioTO> usuarios = listUsuarioTO(festa);
 				CategoriaTO categoriaPrimaria = categoriaFesta(festa.getCodFesta(), TipoCategoria.PRIMARIO.getDescricao());
 				CategoriaTO categoriaSecundario = categoriaFesta(festa.getCodFesta(), TipoCategoria.SECUNDARIO.getDescricao());
-				return ResponseEntity.ok(FestaFactory.getFestaTO(festa, usuarios, false, categoriaPrimaria, categoriaSecundario));
+				List<ConvidadoTO> convidados = convidadoFactory.getConvidadosTO(convidadoService.pegarConvidadosFesta(festa.getCodFesta()));
+				return ResponseEntity.ok(FestaFactory.getFestaTO(festa, usuarios, false, categoriaPrimaria, categoriaSecundario, convidados, idUsuario));
 			}
 			return ResponseEntity.status(200).body(festaTo);
 		}catch (ValidacaoException e) {
@@ -133,7 +145,7 @@ public class FestaController {
 			Festa festa = festaService.mudarStatusFesta(idFesta, statusFesta, idUsuario);
 			CategoriaTO categoriaPrimaria = categoriaFesta(festa.getCodFesta(), TipoCategoria.PRIMARIO.getDescricao());
 			CategoriaTO categoriaSecundario = categoriaFesta(festa.getCodFesta(), TipoCategoria.SECUNDARIO.getDescricao());
-			return ResponseEntity.ok(FestaFactory.getFestaTO(festa, null, false, categoriaPrimaria, categoriaSecundario));//festa mudada com sucesso
+			return ResponseEntity.ok(FestaFactory.getFestaTO(festa, null, false, categoriaPrimaria, categoriaSecundario, null));//festa mudada com sucesso
 		} catch (ValidacaoException e) {
 			return ResponseEntity.status(400).body(e.getMessage());
 		}
