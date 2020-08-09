@@ -38,7 +38,7 @@ public class GrupoService {
 	@Autowired
 	private PermissaoRepository permissaoRepository;
 
-	//usuarios__________________________________________________________________________________________________________
+	//usuarios______**********************************____________________________________________________________________________________________________
 
 	public Usuario editUsuarioFesta(List<Integer> gruposId, Integer grupoIdAtual, Integer idUsuario, Integer idUsuarioPermissao) {
 		
@@ -68,6 +68,7 @@ public class GrupoService {
 
 	//grupo CRUD__________________________________________________________________________________________________________
 	public Grupo addGrupoFesta(GrupoTO grupoTO, int idUsuario) {
+		
 		Festa festa = this.validarFesta(grupoTO.getCodFesta());
 		this.validarPermissaoUsuario(grupoTO.getCodFesta(), idUsuario);
 		List<Grupo> gruposPreExistentes = grupoRepository.findGruposDuplicados(grupoTO.getCodFesta(), grupoTO.getNomeGrupo());

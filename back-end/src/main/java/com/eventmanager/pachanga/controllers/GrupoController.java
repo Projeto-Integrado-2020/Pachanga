@@ -94,7 +94,6 @@ public ResponseEntity<Object> removePermissaoGrupo(@RequestParam(required = true
 @PostMapping(path = "/addGrupo")
 public ResponseEntity<Object> addGrupoFesta(@RequestBody GrupoTO grupoTO, @RequestParam Integer idUsuario){
 	try {
-		grupoService.validarPermissaoUsuario(grupoTO.getCodFesta(), idUsuario);
 
 		Grupo grupo = grupoService.addGrupoFesta(grupoTO, idUsuario);
 
