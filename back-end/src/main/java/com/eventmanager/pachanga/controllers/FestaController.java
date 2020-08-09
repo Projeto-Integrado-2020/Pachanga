@@ -24,7 +24,7 @@ import com.eventmanager.pachanga.dtos.ConvidadoTO;
 import com.eventmanager.pachanga.dtos.FestaTO;
 import com.eventmanager.pachanga.dtos.UsuarioTO;
 import com.eventmanager.pachanga.errors.ValidacaoException;
-import com.eventmanager.pachanga.factory.CategoriaTOFactory;
+import com.eventmanager.pachanga.factory.CategoriaFactory;
 import com.eventmanager.pachanga.factory.ConvidadoFactory;
 import com.eventmanager.pachanga.factory.FestaFactory;
 import com.eventmanager.pachanga.factory.UsuarioFactory;
@@ -161,7 +161,7 @@ public class FestaController {
 	private CategoriaTO categoriaFesta(int codFesta, String tipoCategoria) {
 		Categoria categoria = categoriaService.procurarCategoriaFesta(codFesta, tipoCategoria);
 		if(categoria != null) {
-			return CategoriaTOFactory.getCategoriaTo(categoria);
+			return CategoriaFactory.getCategoriaTO(categoria);
 		}else {
 			return null;
 		}
