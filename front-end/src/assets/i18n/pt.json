@@ -86,10 +86,12 @@
 
     "SUCCESS": {
         "TITULO": "Sucesso!",
-        "ALTERSUC": "Seus dados foram alterados com sucesso",
+        "ALTERSUC": "Seus dados foram alterados com sucesso.",
         "FESTDELE": "Festa deletada com sucesso",
-        "FESTAALT": "Os dados da festa foram alterados com sucesso",
-        "MEMBROAD": "Membros convidados"
+        "FESTAALT": "Os dados da festa foram alterados com sucesso.",
+        "MEMBROAD": "Membros convidados.",
+        "GRUPDELE": "Grupo deletado com sucesso.",
+        "GRUPOALT": "Grupo alterado com sucesso."
     },
     
     "PERFIL":{

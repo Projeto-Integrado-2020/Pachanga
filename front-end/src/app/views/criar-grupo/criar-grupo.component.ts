@@ -4,6 +4,7 @@ import { GetFestaService } from 'src/app/services/get-festa/get-festa.service';
 import { Router } from '@angular/router';
 import { GetPermissoesService } from 'src/app/services/get-permissoes/get-permissoes.service';
 import { CriarGrupoService } from 'src/app/services/criar-grupo/criar-grupo.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-criar-grupo',
@@ -20,7 +21,7 @@ export class CriarGrupoComponent implements OnInit {
 
   constructor(public formBuilder: FormBuilder, public getFestaService: GetFestaService,
               public router: Router, public getPermissaoService: GetPermissoesService,
-              public addGrupoService: CriarGrupoService) {
+              public addGrupoService: CriarGrupoService, public location: Location) {
                 this.form = this.formBuilder.group({
                   nomeGrupo: new FormControl('', Validators.required)
                 });
@@ -80,7 +81,7 @@ export class CriarGrupoComponent implements OnInit {
     };
     this.addGrupoService.adicionarGrupo(grupo).subscribe((resp: any) => {
       this.addGrupoService.setFarol(false);
-      this.router.navigate(['../']);
+      this.location.back();
     });
   }
 

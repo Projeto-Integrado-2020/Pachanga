@@ -51,7 +51,10 @@ export class GerenciadorMembrosComponent implements OnInit {
       for (const grupo of resp) {
         const membros = [];
         for (const usuario of Object.keys(grupo.usuariosTO)) {
-          membros.push({membro: grupo.usuariosTO[usuario].nomeUser, status: 'Aceito (HARDCODED)'});
+          membros.push({membro: grupo.usuariosTO[usuario].nomeUser, status: 'Aceito'});
+        }
+        for (const convidado of Object.keys(grupo.convidadosTO)) {
+          membros.push({membro: grupo.convidadosTO[convidado].email, status: 'Pendente'});
         }
         this.dataSources.push(new MatTableDataSource<TabelaMembros>(membros));
       }
