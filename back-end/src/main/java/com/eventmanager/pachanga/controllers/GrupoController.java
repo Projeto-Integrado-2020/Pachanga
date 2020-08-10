@@ -36,10 +36,10 @@ public class GrupoController {
 
 	@Autowired
 	private GrupoService grupoService;
-	
+
 	@Autowired 
 	private ConvidadoService convidadoService;
-	
+
 	@Autowired
 	private ConvidadoFactory convidadoFactory;
 
@@ -47,7 +47,7 @@ public class GrupoController {
 	@PutMapping(path="/updateUser")
 	public ResponseEntity<Object> editUsuario(@RequestBody List<Integer> gruposId, @RequestParam (required = true) Integer grupoIdAtual, @RequestParam (required = true) Integer idUsuario, @RequestParam (required = true) Integer idUsuarioPermissao){	
 		try {
-			
+
 			Usuario retorno = grupoService.editUsuarioFesta(gruposId, grupoIdAtual, idUsuario, idUsuarioPermissao);
 			return ResponseEntity.ok(UsuarioFactory.getUsuarioTO(retorno));
 
@@ -55,12 +55,12 @@ public class GrupoController {
 			return ResponseEntity.status(400).body(e.getMessage());
 		}
 	}
-	
+
 	@ResponseBody
 	@PutMapping(path="/updateUsers")
 	public ResponseEntity<Object> editUsuarios(@RequestBody List<Integer> gruposId, @RequestParam (required = true) Integer idUsuario, @RequestParam (required = true) Integer idUsuarioPermissao){	
 		try {
-			
+
 			Usuario retorno = grupoService.editUsuariosFesta(gruposId, idUsuario, idUsuarioPermissao);
 			return ResponseEntity.ok(UsuarioFactory.getUsuarioTO(retorno));
 
@@ -69,134 +69,134 @@ public class GrupoController {
 		}
 	}
 
-//Permissao____________________________________________________________________________________________________________	
-@ResponseBody
-@GetMapping(path = "/addPermissaoGrupo")
-public ResponseEntity<Object> addPermissaoGrupo(@RequestParam(required = true)int idGrupo, @RequestParam(required = true)int idPermissao, @RequestParam(required = true) int idUsuario){
-	try {
-		Grupo grupo = grupoService.validarGrupo(idGrupo);
-		grupoService.validarPermissaoUsuario(grupo.getFesta().getCodFesta(), idUsuario);
+	//Permissao____________________________________________________________________________________________________________	
+	@ResponseBody
+	@GetMapping(path = "/addPermissaoGrupo")
+	public ResponseEntity<Object> addPermissaoGrupo(@RequestParam(required = true)int idGrupo, @RequestParam(required = true)int idPermissao, @RequestParam(required = true) int idUsuario){
+		try {
+			Grupo grupo = grupoService.validarGrupo(idGrupo);
+			grupoService.validarPermissaoUsuario(grupo.getFesta().getCodFesta(), idUsuario);
 
-		grupoService.addPermissaoGrupo(idPermissao, idGrupo);
-		return ResponseEntity.ok("SUCESSO");
-	} catch (ValidacaoException e) {
-		return ResponseEntity.status(400).body(e.getMessage());
-	}
-}
-
-@ResponseBody
-@DeleteMapping(path = "/removePermissaoGrupo")
-public ResponseEntity<Object> removePermissaoGrupo(@RequestParam(required = true)int idGrupo, @RequestParam(required = true)int idPermissao, @RequestParam(required = true) int idUsuario){
-	try {
-		Grupo grupo = grupoService.validarGrupo(idGrupo);
-		grupoService.validarPermissaoUsuario(grupo.getFesta().getCodFesta(), idUsuario);
-
-		grupoService.deletePermissaoGrupo(idPermissao, idGrupo);
-		return ResponseEntity.ok("SUCESSO");
-	} catch (ValidacaoException e) {
-		return ResponseEntity.status(400).body(e.getMessage());
-	}
-}
-
-
-@ResponseBody
-@PostMapping(path = "/addGrupo")
-public ResponseEntity<Object> addGrupoFesta(@RequestBody GrupoTO grupoTO, @RequestParam (required = true) Integer idUsuario){
-	try {
-		
-		Grupo grupo = grupoService.addGrupoFesta(grupoTO, idUsuario);
-		GrupoTO retorno = GrupoFactory.getGrupoTO(grupo, grupo.getFesta());
-		return ResponseEntity.ok(retorno);
-
-	} catch (ValidacaoException e) {
-		return ResponseEntity.status(400).body(e.getMessage());
-	}
-}
-
-@ResponseBody
-@DeleteMapping(path = "/deleteGrupo")
-public ResponseEntity<Object> deleteGrupoFesta(@RequestParam Integer codGrupo, @RequestParam Integer idUsuario){
-	try {
-		Grupo grupo = grupoService.deleteGrupo(codGrupo, idUsuario);
-		return ResponseEntity.ok(GrupoFactory.getGrupoTO(grupo, grupo.getFesta()));
-	} catch (ValidacaoException e) {
-		return ResponseEntity.status(400).body(e.getMessage());
-	}
-}
-
-@ResponseBody
-@PutMapping(path = "/updateGrupo")
-public ResponseEntity<Object> updateGrupoFesta(@RequestBody GrupoTO grupoTO, @RequestParam Integer idUsuario){
-	try {
-		Grupo grupo = grupoService.atualizar(grupoTO, idUsuario);
-		GrupoTO retorno = GrupoFactory.getGrupoTO(grupo, grupo.getFesta());
-		return ResponseEntity.ok(retorno);
-
-	} catch (ValidacaoException e) {
-		return ResponseEntity.status(400).body(e.getMessage());
-	}
-}
-
-//listagem__________________________________________________________________________________________________________________________________
-
-@ResponseBody
-@GetMapping(path = "/getAllGruposFesta")
-public ResponseEntity<Object> getAllGruposFesta(@RequestParam(required = true)int codFesta, @RequestParam(required = true) int idUsuario){
-	try {
-		grupoService.validarPermissaoUsuario(codFesta, idUsuario);
-		GrupoTO grupoTO;
-		List<Usuario> usuarios = null;
-		List<Grupo> grupos = grupoService.procurarGruposPorFesta(codFesta);
-		List<GrupoTO> retorno = new ArrayList<>();
-		List<Convidado> convidados = null;
-		
-
-		for(Grupo grupo : grupos) {
-			grupoTO = GrupoFactory.getGrupoTO(grupo, grupo.getFesta());
-			convidados = convidadoService.pegarConvidadosGrupo(grupo.getCodGrupo());
-			usuarios = grupoService.procurarUsuariosPorGrupo(grupo.getCodGrupo());
-			grupoTO.setUsuariosTO(UsuarioFactory.getUsuariosTO(usuarios));
-			grupoTO.setConvidadosTO(convidadoFactory.getConvidadosTO(convidados));
-			retorno.add(grupoTO);
+			grupoService.addPermissaoGrupo(idPermissao, idGrupo);
+			return ResponseEntity.ok("SUCESSO");
+		} catch (ValidacaoException e) {
+			return ResponseEntity.status(400).body(e.getMessage());
 		}
-		return ResponseEntity.ok(retorno);
-	} catch (ValidacaoException e) {
-		return ResponseEntity.status(400).body(e.getMessage());
 	}
-}
 
-@ResponseBody        
-@GetMapping(path = "/getGrupoFesta")
-public ResponseEntity<Object> getGrupoFesta(@RequestParam(required = true)int codGrupo,  @RequestParam(required = true) int idUsuario){
-	try {
-		Grupo grupo = grupoService.validarGrupo(codGrupo);
-		grupoService.validarPermissaoUsuario(grupo.getFesta().getCodFesta(), idUsuario);
+	@ResponseBody
+	@DeleteMapping(path = "/removePermissaoGrupo")
+	public ResponseEntity<Object> removePermissaoGrupo(@RequestParam(required = true)int idGrupo, @RequestParam(required = true)int idPermissao, @RequestParam(required = true) int idUsuario){
+		try {
+			Grupo grupo = grupoService.validarGrupo(idGrupo);
+			grupoService.validarPermissaoUsuario(grupo.getFesta().getCodFesta(), idUsuario);
 
-		GrupoTO grupoTO = null;
-		List<Permissao> permissoes = null;
-		List<Usuario> usuarios = null;
-		List<Convidado> convidados = null;
-
-		grupo = grupoService.validarGrupo(codGrupo);
-
-		if(grupo != null) {
-			grupoTO = GrupoFactory.getGrupoTO(grupo, grupo.getFesta());
-
-			permissoes = grupoService.procurarPermissoesPorGrupo(codGrupo);
-			usuarios = grupoService.procurarUsuariosPorGrupo(codGrupo);
-			convidados = convidadoService.pegarConvidadosGrupo(codGrupo);
-
-			grupoTO.setPermissoesTO(PermissaoFactory.getPermissoesTO(permissoes));
-			grupoTO.setUsuariosTO(UsuarioFactory.getUsuariosTO(usuarios));
-			grupoTO.setConvidadosTO(convidadoFactory.getConvidadosTO(convidados));
-
-			return ResponseEntity.ok(grupoTO);
+			grupoService.deletePermissaoGrupo(idPermissao, idGrupo);
+			return ResponseEntity.ok("SUCESSO");
+		} catch (ValidacaoException e) {
+			return ResponseEntity.status(400).body(e.getMessage());
 		}
-		return ResponseEntity.ok("GRUPNFOU");
-	} catch (ValidacaoException e) {
-		return ResponseEntity.status(400).body(e.getMessage());
 	}
-}
+
+
+	@ResponseBody
+	@PostMapping(path = "/addGrupo")
+	public ResponseEntity<Object> addGrupoFesta(@RequestBody GrupoTO grupoTO, @RequestParam (required = true) Integer idUsuario){
+		try {
+
+			Grupo grupo = grupoService.addGrupoFesta(grupoTO, idUsuario);
+			GrupoTO retorno = GrupoFactory.getGrupoTO(grupo, grupo.getFesta());
+			return ResponseEntity.ok(retorno);
+
+		} catch (ValidacaoException e) {
+			return ResponseEntity.status(400).body(e.getMessage());
+		}
+	}
+
+	@ResponseBody
+	@DeleteMapping(path = "/deleteGrupo")
+	public ResponseEntity<Object> deleteGrupoFesta(@RequestParam Integer codGrupo, @RequestParam Integer idUsuario){
+		try {
+			Grupo grupo = grupoService.deleteGrupo(codGrupo, idUsuario);
+			return ResponseEntity.ok(GrupoFactory.getGrupoTO(grupo, grupo.getFesta()));
+		} catch (ValidacaoException e) {
+			return ResponseEntity.status(400).body(e.getMessage());
+		}
+	}
+
+	@ResponseBody
+	@PutMapping(path = "/updateGrupo")
+	public ResponseEntity<Object> updateGrupoFesta(@RequestBody GrupoTO grupoTO, @RequestParam Integer idUsuario){
+		try {
+			Grupo grupo = grupoService.atualizar(grupoTO, idUsuario);
+			GrupoTO retorno = GrupoFactory.getGrupoTO(grupo, grupo.getFesta());
+			return ResponseEntity.ok(retorno);
+
+		} catch (ValidacaoException e) {
+			return ResponseEntity.status(400).body(e.getMessage());
+		}
+	}
+
+	//listagem__________________________________________________________________________________________________________________________________
+
+	@ResponseBody
+	@GetMapping(path = "/getAllGruposFesta")
+	public ResponseEntity<Object> getAllGruposFesta(@RequestParam(required = true)int codFesta, @RequestParam(required = true) int idUsuario){
+		try {
+			grupoService.validarPermissaoUsuario(codFesta, idUsuario);
+			GrupoTO grupoTO;
+			List<Usuario> usuarios = null;
+			List<Grupo> grupos = grupoService.procurarGruposPorFesta(codFesta);
+			List<GrupoTO> retorno = new ArrayList<>();
+			List<Convidado> convidados = null;
+
+
+			for(Grupo grupo : grupos) {
+				grupoTO = GrupoFactory.getGrupoTO(grupo, grupo.getFesta());
+				convidados = convidadoService.pegarConvidadosGrupo(grupo.getCodGrupo());
+				usuarios = grupoService.procurarUsuariosPorGrupo(grupo.getCodGrupo());
+				grupoTO.setUsuariosTO(UsuarioFactory.getUsuariosTO(usuarios));
+				grupoTO.setConvidadosTO(convidadoFactory.getConvidadosTO(convidados));
+				retorno.add(grupoTO);
+			}
+			return ResponseEntity.ok(retorno);
+		} catch (ValidacaoException e) {
+			return ResponseEntity.status(400).body(e.getMessage());
+		}
+	}
+
+	@ResponseBody        
+	@GetMapping(path = "/getGrupoFesta")
+	public ResponseEntity<Object> getGrupoFesta(@RequestParam(required = true)int codGrupo,  @RequestParam(required = true) int idUsuario){
+		try {
+			Grupo grupo = grupoService.validarGrupo(codGrupo);
+			grupoService.validarPermissaoUsuario(grupo.getFesta().getCodFesta(), idUsuario);
+
+			GrupoTO grupoTO = null;
+			List<Permissao> permissoes = null;
+			List<Usuario> usuarios = null;
+			List<Convidado> convidados = null;
+
+			grupo = grupoService.validarGrupo(codGrupo);
+
+			if(grupo != null) {
+				grupoTO = GrupoFactory.getGrupoTO(grupo, grupo.getFesta());
+
+				permissoes = grupoService.procurarPermissoesPorGrupo(codGrupo);
+				usuarios = grupoService.procurarUsuariosPorGrupo(codGrupo);
+				convidados = convidadoService.pegarConvidadosGrupo(codGrupo);
+
+				grupoTO.setPermissoesTO(PermissaoFactory.getPermissoesTO(permissoes));
+				grupoTO.setUsuariosTO(UsuarioFactory.getUsuariosTO(usuarios));
+				grupoTO.setConvidadosTO(convidadoFactory.getConvidadosTO(convidados));
+
+				return ResponseEntity.ok(grupoTO);
+			}
+			return ResponseEntity.ok("GRUPNFOU");
+		} catch (ValidacaoException e) {
+			return ResponseEntity.status(400).body(e.getMessage());
+		}
+	}
 
 
 }
