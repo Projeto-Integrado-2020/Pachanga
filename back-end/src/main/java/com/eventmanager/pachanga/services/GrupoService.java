@@ -105,11 +105,15 @@ public class GrupoService {
 	}
 
 	public Grupo atualizar(GrupoTO grupoTO, int idUsuario) {
-
+		
 		Festa festa = this.validarFesta(grupoTO.getCodFesta());
 		Grupo grupo = validarGrupo(grupoTO.getCodGrupo());
 		this.validarPermissaoUsuario(festa.getCodFesta(), idUsuario);
-
+		
+		if(grupo.getOrganizador()) {
+			throw new ValidacaoException("EDITORGN");
+		}
+		
 		if(grupoTO.getNomeGrupo() != null || grupoTO.getNomeGrupo().length() >= 1) {
 			grupo.setNomeGrupo(grupoTO.getNomeGrupo());
 		}
@@ -244,7 +248,7 @@ public class GrupoService {
 
 	private Grupo validarOrganizador(Grupo grupo) {
 		if(grupo.getOrganizador()) {
-			throw new ValidacaoException("USERORGN"); // usuário é organizador
+			throw new ValidacaoException("GRPOORGN"); // grupo é organizador
 		}
 		return grupo;
 	}
