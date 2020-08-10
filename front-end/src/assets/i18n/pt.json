@@ -73,7 +73,7 @@
         "FESTSCAT": "Festa sem categoria primária.",
         "CATNFOUN": "Categoria não encontrada.",
         "FESTMCAT": "Categoria principal e secundário identicas.",
-        "GRUPORGN": "Grupo Organizador não pode sofrer tal ação.",
+        "GRPOORGN": "Grupo Organizador não pode sofrer tal ação.",
         "PERMINVA": "Permissão inválida.",
         "GRUPNFOU": "Grupo não encontrado.",
         "USESPERM": "Usuário sem permissão.",
@@ -81,7 +81,8 @@
         "USERORGN": "Usuário é o organizador da festa.",
         "GRPONVAZ": "O grupo não está vazio.",
         "PERMDUPL": "Permissão duplicada.",
-        "GRPEXIST": "Já existe um grupo com este nome." 
+        "GRPEXIST": "Já existe um grupo com este nome.",
+        "EDITORGN": "Não é possível editar o grupo Organizador."
     },
 
     "SUCCESS": {

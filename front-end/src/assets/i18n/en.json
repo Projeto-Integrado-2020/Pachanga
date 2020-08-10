@@ -73,7 +73,7 @@
         "FESTSCAT": "Party without category.",
         "CATNFOUN": "Category not found.",
         "FESTMCAT": "Identical principal and secondary category.",
-        "GRUPORGN": "Role Organizador cannot suffer this action.",
+        "GRPOORGN": "Role Organizador cannot suffer this action.",
         "PERMINVA": "Permission invalid.",
         "GRUPNFOU": "Role not found.",
         "USESPERM": "User without permission.",
@@ -81,7 +81,8 @@
         "USERORGN": "Manager user",
         "GRPONVAZ": "The role is not empty.",
         "PERMDUPL": "Duplicate permission.",
-        "GRPEXIST": "Role name already used." 
+        "GRPEXIST": "Role name already used.",
+        "EDITORGN": "Edit Role Organizador is not allowed."
     },
 
     "SUCCESS": {
