@@ -46,6 +46,7 @@ export class ErroDialogComponent implements OnInit {
       case 'USERORGN': this.erro = this.translate.instant('ERRO.USERORGN'); break;
       case 'GRPONVAZ': this.erro = this.translate.instant('ERRO.GRPONVAZ'); break;
       case 'PERMDUPL': this.erro = this.translate.instant('ERRO.PERMDUPL'); break;
+      case 'GRPEXIST': this.erro = this.translate.instant('ERRO.GRPEXIST'); break;
       default: this.erro = this.translate.instant('ERRO.SERVERRO');
     }
   }

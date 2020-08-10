@@ -80,7 +80,8 @@
         "PERMNFOU": "Permission not found.",
         "USERORGN": "Manager user",
         "GRPONVAZ": "The role is not empty.",
-        "PERMDUPL": "Duplicate permission."
+        "PERMDUPL": "Duplicate permission.",
+        "GRPEXIST": "Role name already used." 
     },
 
     "SUCCESS": {

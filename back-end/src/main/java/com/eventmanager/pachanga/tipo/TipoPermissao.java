@@ -17,7 +17,8 @@ public enum TipoPermissao {
 	EDIMESTO(13,"EDIMESTO"),//permissão para editar marca do estoque
 	ADDMESTO(14,"ADDMESTO"),//permissão para adicionar quantidade à marca
 	BAIMESTO(15,"BAIMESTO"),//permissão para dar baixa em produto no estoque
-	DELEFEST(16,"DELEFEST");//deletar festa
+	DELEFEST(16,"DELEFEST"),//deletar festa
+	VISUESTO(17,"VISUESTO");//deletar festa
 
 	private String valor;
 	private int codigo;
