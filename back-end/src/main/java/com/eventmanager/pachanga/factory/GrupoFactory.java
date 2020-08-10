@@ -17,13 +17,13 @@ public class GrupoFactory {
 		GrupoTOBuilder grupoToBuilder =  GrupoTOBuilder.getInstance()
 				.codGrupo(grupo.getCodGrupo())
 				.codFesta(festa.getCodFesta())
-				.nomeGrupo(grupo.getNomeGrupo())
-				.quantMaxPessoas(grupo.getQuantMaxPessoas());
-		if(grupo.getQuantMaxPessoas() >= 1) {
+				.nomeGrupo(grupo.getNomeGrupo());
+//				.quantMaxPessoas(grupo.getQuantMaxPessoas());
+	//	if(grupo.getQuantMaxPessoas() >= 1) {
 			return grupoToBuilder.build();
-		}else {
-			throw new ValidacaoException("GRUPINVALID");	
-		}
+//		}else {
+//			throw new ValidacaoException("GRUPINVALID");	
+//		}
 	}			
 				
 	public static Grupo getGrupo(GrupoTO grupoTo, Festa festa) {

@@ -10,13 +10,28 @@ public class GrupoTO {
 	private String nomeGrupo;
     private int quantMaxPessoas;
     private List<UsuarioTO> usuariosTO;
+    private List<ConvidadoTO> convidadosTO;
     private List<PermissaoTO> permissoesTO;
-	
+	private List<Integer> permissoes;
+    
+	public List<PermissaoTO> getPermissoesTO() {
+		return permissoesTO;
+	}
+	public void setPermissoesTO(List<PermissaoTO> permissoesTO) {
+		this.permissoesTO = permissoesTO;
+	}
+
     public int getCodGrupo() {
 		return codGrupo;
 	}
 	public void setCodGrupo(int codGrupo) {
 		this.codGrupo = codGrupo;
+	}
+	public List<ConvidadoTO> getConvidadosTO() {
+		return convidadosTO;
+	}
+	public void setConvidadosTO(List<ConvidadoTO> convidadosTO) {
+		this.convidadosTO = convidadosTO;
 	}
 	public int getCodFesta() {
 		return codFesta;
@@ -42,10 +57,11 @@ public class GrupoTO {
 	public void setUsuariosTO(List<UsuarioTO> usuariosTO) {
 		this.usuariosTO = usuariosTO;
 	}
-	public List<PermissaoTO> getPermissoesTO() {
-		return permissoesTO;
+	public List<Integer> getPermissoes() {
+		return permissoes;
 	}
-	public void setPermissoesTO(List<PermissaoTO> permissoesTO) {
-		this.permissoesTO = permissoesTO;
+	public void setPermissoes(List<Integer> permissoes) {
+		this.permissoes = permissoes;
 	}
+
 }

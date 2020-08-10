@@ -16,14 +16,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.eventmanager.pachanga.domains.Convidado;
+import com.eventmanager.pachanga.domains.Festa;
 import com.eventmanager.pachanga.domains.Grupo;
 import com.eventmanager.pachanga.domains.Permissao;
 import com.eventmanager.pachanga.domains.Usuario;
 import com.eventmanager.pachanga.dtos.GrupoTO;
 import com.eventmanager.pachanga.errors.ValidacaoException;
+import com.eventmanager.pachanga.factory.ConvidadoFactory;
 import com.eventmanager.pachanga.factory.GrupoFactory;
 import com.eventmanager.pachanga.factory.PermissaoFactory;
 import com.eventmanager.pachanga.factory.UsuarioFactory;
+import com.eventmanager.pachanga.services.ConvidadoService;
 import com.eventmanager.pachanga.services.GrupoService;
 
 @Controller
@@ -33,6 +37,12 @@ public class GrupoController {
 
 	@Autowired
 	private GrupoService grupoService;
+	
+	@Autowired 
+	private ConvidadoService convidadoService;
+	
+	@Autowired
+	private ConvidadoFactory convidadoFactory;
 
 	@ResponseBody
 	@PutMapping(path="/updateUser")
@@ -92,11 +102,10 @@ public ResponseEntity<Object> removePermissaoGrupo(@RequestParam(required = true
 
 @ResponseBody
 @PostMapping(path = "/addGrupo")
-public ResponseEntity<Object> addGrupoFesta(@RequestBody GrupoTO grupoTO, @RequestParam Integer idUsuario){
+public ResponseEntity<Object> addGrupoFesta(@RequestBody GrupoTO grupoTO, @RequestParam (required = true) Integer idUsuario){
 	try {
-
+		
 		Grupo grupo = grupoService.addGrupoFesta(grupoTO, idUsuario);
-
 		GrupoTO retorno = GrupoFactory.getGrupoTO(grupo, grupo.getFesta());
 		return ResponseEntity.ok(retorno);
 
@@ -120,10 +129,7 @@ public ResponseEntity<Object> deleteGrupoFesta(@RequestParam Integer codGrupo, @
 @PutMapping(path = "/updateGrupo")
 public ResponseEntity<Object> updateGrupoFesta(@RequestBody GrupoTO grupoTO, @RequestParam Integer idUsuario){
 	try {
-		grupoService.validarPermissaoUsuario(grupoTO.getCodFesta(), idUsuario);
-
 		Grupo grupo = grupoService.atualizar(grupoTO, idUsuario);
-
 		GrupoTO retorno = GrupoFactory.getGrupoTO(grupo, grupo.getFesta());
 		return ResponseEntity.ok(retorno);
 
@@ -143,11 +149,16 @@ public ResponseEntity<Object> getAllGruposFesta(@RequestParam(required = true)in
 		List<Usuario> usuarios = null;
 		List<Grupo> grupos = grupoService.procurarGruposPorFesta(codFesta);
 		List<GrupoTO> retorno = new ArrayList<>();
+		List<Convidado> convidados = null;
+		
 
 		for(Grupo grupo : grupos) {
 			grupoTO = GrupoFactory.getGrupoTO(grupo, grupo.getFesta());
+			Festa festa = grupo.getFesta();
+			convidados = convidadoService.pegarConvidadosFesta(festa.getCodFesta());
 			usuarios = grupoService.procurarUsuariosPorGrupo(grupo.getCodGrupo());
 			grupoTO.setUsuariosTO(UsuarioFactory.getUsuariosTO(usuarios));
+			grupoTO.setConvidadosTO(convidadoFactory.getConvidadosTO(convidados));
 			retorno.add(grupoTO);
 		}
 		return ResponseEntity.ok(retorno);
@@ -164,8 +175,10 @@ public ResponseEntity<Object> getGrupoFesta(@RequestParam(required = true)int co
 		grupoService.validarPermissaoUsuario(grupo.getFesta().getCodFesta(), idUsuario);
 
 		GrupoTO grupoTO = null;
+		Festa festa = grupo.getFesta();
 		List<Permissao> permissoes = null;
-		List<Usuario> usuarios = null; 
+		List<Usuario> usuarios = null;
+		List<Convidado> convidados = null;
 
 		grupo = grupoService.validarGrupo(codGrupo);
 
@@ -174,9 +187,11 @@ public ResponseEntity<Object> getGrupoFesta(@RequestParam(required = true)int co
 
 			permissoes = grupoService.procurarPermissoesPorGrupo(codGrupo);
 			usuarios = grupoService.procurarUsuariosPorGrupo(codGrupo);
+			convidados = convidadoService.pegarConvidadosFesta(festa.getCodFesta());
 
 			grupoTO.setPermissoesTO(PermissaoFactory.getPermissoesTO(permissoes));
 			grupoTO.setUsuariosTO(UsuarioFactory.getUsuariosTO(usuarios));
+			grupoTO.setConvidadosTO(convidadoFactory.getConvidadosTO(convidados));
 
 			return ResponseEntity.ok(grupoTO);
 		}
