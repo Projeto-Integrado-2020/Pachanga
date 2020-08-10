@@ -66,6 +66,10 @@ public class ConvidadoService {
 	public List<Convidado> pegarConvidadosFesta(int codFesta){
 		return convidadoRepository.findConvidadosByCodFesta(codFesta);
 	}
+	
+	public List<Convidado> pegarConvidadosGrupo(int codGrupo){
+		return convidadoRepository.findConvidadosNoGrupo(codGrupo);
+	}
 
 	private Usuario validarUsuario(int idUsuario) {
 		Usuario usuario = usuarioRepository.findById(idUsuario);

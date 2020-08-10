@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.eventmanager.pachanga.domains.Convidado;
-import com.eventmanager.pachanga.domains.Festa;
 import com.eventmanager.pachanga.domains.Grupo;
 import com.eventmanager.pachanga.domains.Permissao;
 import com.eventmanager.pachanga.domains.Usuario;
@@ -154,8 +153,7 @@ public ResponseEntity<Object> getAllGruposFesta(@RequestParam(required = true)in
 
 		for(Grupo grupo : grupos) {
 			grupoTO = GrupoFactory.getGrupoTO(grupo, grupo.getFesta());
-			Festa festa = grupo.getFesta();
-			convidados = convidadoService.pegarConvidadosFesta(festa.getCodFesta());
+			convidados = convidadoService.pegarConvidadosGrupo(grupo.getCodGrupo());
 			usuarios = grupoService.procurarUsuariosPorGrupo(grupo.getCodGrupo());
 			grupoTO.setUsuariosTO(UsuarioFactory.getUsuariosTO(usuarios));
 			grupoTO.setConvidadosTO(convidadoFactory.getConvidadosTO(convidados));
@@ -175,7 +173,6 @@ public ResponseEntity<Object> getGrupoFesta(@RequestParam(required = true)int co
 		grupoService.validarPermissaoUsuario(grupo.getFesta().getCodFesta(), idUsuario);
 
 		GrupoTO grupoTO = null;
-		Festa festa = grupo.getFesta();
 		List<Permissao> permissoes = null;
 		List<Usuario> usuarios = null;
 		List<Convidado> convidados = null;
@@ -187,7 +184,7 @@ public ResponseEntity<Object> getGrupoFesta(@RequestParam(required = true)int co
 
 			permissoes = grupoService.procurarPermissoesPorGrupo(codGrupo);
 			usuarios = grupoService.procurarUsuariosPorGrupo(codGrupo);
-			convidados = convidadoService.pegarConvidadosFesta(festa.getCodFesta());
+			convidados = convidadoService.pegarConvidadosGrupo(codGrupo);
 
 			grupoTO.setPermissoesTO(PermissaoFactory.getPermissoesTO(permissoes));
 			grupoTO.setUsuariosTO(UsuarioFactory.getUsuariosTO(usuarios));

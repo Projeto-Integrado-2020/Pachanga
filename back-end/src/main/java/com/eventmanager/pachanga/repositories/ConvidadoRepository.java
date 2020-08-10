@@ -36,5 +36,8 @@ public interface ConvidadoRepository extends CrudRepository<Convidado, Integer>{
 
 	@Query(value = "SELECT c FROM Convidado c JOIN c.grupos g JOIN g.festa f WHERE f.codFesta = :codFesta")
 	public List<Convidado> findConvidadosByCodFesta(int codFesta);
+	
+	@Query(value = "SELECT u FROM Grupo g JOIN g.convidados u WHERE g.codGrupo = :codGrupo")
+	public List<Convidado> findConvidadosNoGrupo(@Param("codGrupo") int codGrupo);
 
 }
