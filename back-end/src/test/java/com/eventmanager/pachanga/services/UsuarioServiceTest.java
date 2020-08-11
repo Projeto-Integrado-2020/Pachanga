@@ -84,6 +84,28 @@ public class UsuarioServiceTest {
 	}
 	
 	@Test
+	public void loginSemSenhaBancoTest() throws Exception{
+
+		Usuario usuarioTestBanco = usuarioTest();
+		usuarioTestBanco.setSenha(null);
+
+		Mockito.when(usuarioRepository.findByEmail("gustavinhoTPD@fodasse.com.br")).thenReturn(usuarioTestBanco);
+
+		UsuarioTO usuarioTestLogin = usuarioToTest();
+		boolean erro = false;
+		String mensagemErro = null;
+		try {
+			userService.logar(usuarioTestLogin);			
+		} catch (ValidacaoException e) {
+			mensagemErro = e.getMessage();
+			erro = true;
+		}
+
+		assertEquals(true, erro);
+		assertEquals("PASSINC1", mensagemErro);
+	}
+	
+	@Test
 	public void loginErroContaGmailTest() throws Exception{
 
 		Usuario usuarioTestBanco = usuarioTest();
