@@ -329,5 +329,9 @@
         "MESSAGE": "Você realmente deseja salvar esta configuração de atribuição para o grupo",
         "CONFIRM": "Confirmar",
         "CANCEL": "Cancelar"
+    },
+
+    "ASSIGN": {
+        "MEMBERS": "Número de membros colaboradores confirmados"
     }
 }

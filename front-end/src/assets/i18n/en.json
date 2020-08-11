@@ -328,5 +328,9 @@
         "MESSAGE": "Do you really want to save this assign configuration for the group",
         "CONFIRM": "Confirm",
         "CANCEL": "Cancel"
+    },
+
+    "ASSIGN": {
+        "MEMBERS": "Number of confirmed members"
     }
 }

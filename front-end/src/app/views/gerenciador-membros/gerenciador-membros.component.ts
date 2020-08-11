@@ -12,6 +12,7 @@ export interface TabelaMembros {
   membro: string;
   status: string;
   id: string;
+  convidado: boolean;
 }
 
 @Component({
@@ -51,10 +52,20 @@ export class GerenciadorMembrosComponent implements OnInit {
       for (const grupo of resp) {
         const membros = [];
         for (const usuario of Object.keys(grupo.usuariosTO)) {
-          membros.push({membro: grupo.usuariosTO[usuario].nomeUser, status: 'Aceito'});
+          membros.push({
+            membro: grupo.usuariosTO[usuario].nomeUser,
+            status: 'PAINELCONTROLE.ACEITO',
+            id: grupo.usuariosTO[usuario].codUsuario,
+            convidado: false
+          });
         }
         for (const convidado of Object.keys(grupo.convidadosTO)) {
-          membros.push({membro: grupo.convidadosTO[convidado].email, status: 'Pendente'});
+          membros.push({
+            membro: grupo.convidadosTO[convidado].email,
+            status: 'PAINELCONTROLE.PENDENTE',
+            id: grupo.convidadosTO[convidado].codConvidado,
+            convidado: true
+          });
         }
         this.dataSources.push(new MatTableDataSource<TabelaMembros>(membros));
       }

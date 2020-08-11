@@ -2,13 +2,13 @@
       <h1 class="title">Atribuição de Permissões</h1>
       <mat-accordion>
         <div class="grupo-panels" *ngFor="let grupo of grupos; let i = index">
-            <mat-expansion-panel hideToggle >
+            <mat-expansion-panel hideToggle *ngIf="!grupo.isOrganizador">
               <mat-expansion-panel-header>
                 <mat-panel-title>
                   {{grupo.nomeGrupo}}
                 </mat-panel-title>
                 <mat-panel-description>
-                  {{ 'FESTA.MEMBERS' | translate }}: {{grupo.quantMaxPessoas}}
+                  {{ 'ASSIGN.MEMBERS' | translate }}: {{relacaoGrupoMembros[i]?.length}}
                 </mat-panel-description>
               </mat-expansion-panel-header>
               <h4>{{ 'PAINELCONTROLE.MEMBROS' | translate }}</h4>
