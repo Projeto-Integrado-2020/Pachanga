@@ -12,7 +12,6 @@ import com.eventmanager.pachanga.domains.Categoria;
 import com.eventmanager.pachanga.domains.CategoriasFesta;
 import com.eventmanager.pachanga.domains.Festa;
 import com.eventmanager.pachanga.domains.Grupo;
-import com.eventmanager.pachanga.domains.Permissao;
 import com.eventmanager.pachanga.domains.Usuario;
 import com.eventmanager.pachanga.dtos.FestaTO;
 import com.eventmanager.pachanga.errors.ValidacaoException;
@@ -21,7 +20,6 @@ import com.eventmanager.pachanga.repositories.CategoriaRepository;
 import com.eventmanager.pachanga.repositories.CategoriasFestaRepository;
 import com.eventmanager.pachanga.repositories.FestaRepository;
 import com.eventmanager.pachanga.repositories.GrupoRepository;
-import com.eventmanager.pachanga.repositories.PermissaoRepository;
 import com.eventmanager.pachanga.repositories.UsuarioRepository;
 import com.eventmanager.pachanga.tipo.TipoCategoria;
 import com.eventmanager.pachanga.tipo.TipoGrupo;
@@ -42,13 +40,13 @@ public class FestaService {
 	private GrupoRepository grupoRepository;
 
 	@Autowired
-	private PermissaoRepository permissaoRepository;
-
-	@Autowired
 	private CategoriasFestaRepository categoriasFestaRepository;
 
 	@Autowired
 	private CategoriaRepository categoriaRepository;
+	
+	@Autowired
+	private GrupoService grupoService;
 
 	public List<Festa> procurarFestas(){
 		return festaRepository.findAll();
@@ -68,13 +66,10 @@ public class FestaService {
 		this.validarFesta(festaTo);
 		this.validacaoCategorias(festaTo.getCodPrimaria(), festaTo.getCodSecundaria());
 		Festa festa =  FestaFactory.getFesta(festaTo);
-		Grupo grupo = new Grupo(grupoRepository.getNextValMySequence(), festa, TipoGrupo.ORGANIZADOR.getValor(), 1, true);
 		festaRepository.save(festa);
-		grupoRepository.save(grupo);
+		Grupo grupo = grupoService.addGrupo(festa.getCodFesta(), TipoGrupo.ORGANIZADOR.getValor(), true, null);
 		grupoRepository.saveUsuarioGrupo(usuario.getCodUsuario(), grupo.getCodGrupo());
 		this.criacaoCategoriaFesta(festaTo);
-		List<Permissao> permissoes = (List<Permissao>) permissaoRepository.findAll();
-		permissoes.stream().forEach(p -> grupoRepository.saveGrupoPermissao(grupo.getCodGrupo(), p.getCodPermissao()));
 		return festa;
 	}
 

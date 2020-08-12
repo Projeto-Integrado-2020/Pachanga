@@ -6,6 +6,7 @@ public class GrupoTOBuilder {
 	private int codGrupo;
 	private int codFesta;
 	private String nomeGrupo;
+	private boolean organizador;
     private int quantMaxPessoas;
     
 	public static GrupoTOBuilder getInstance() {
@@ -32,6 +33,11 @@ public class GrupoTOBuilder {
 		return this;
 	}
 	
+	public GrupoTOBuilder isOrganizador(boolean organizador) {
+		this.organizador = organizador;
+		return this;
+	}
+	
 	public GrupoTO build() {
 		GrupoTO grupoTO = new GrupoTO();
 		
@@ -39,7 +45,8 @@ public class GrupoTOBuilder {
 		grupoTO.setCodFesta(codFesta);
 		grupoTO.setNomeGrupo(nomeGrupo);
 		grupoTO.setQuantMaxPessoas(quantMaxPessoas);
-		
+		grupoTO.setIsOrganizador(organizador);
 		return grupoTO;
 	}
+
 }

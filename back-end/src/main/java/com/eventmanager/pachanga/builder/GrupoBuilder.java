@@ -8,6 +8,7 @@ public class GrupoBuilder {
 	private Festa codFesta;
 	private String nomeGrupo;
     private int quantMaxPessoas;
+    private boolean organizador;
     
 	public static GrupoBuilder getInstance() {
 		return new GrupoBuilder();
@@ -32,6 +33,10 @@ public class GrupoBuilder {
 		this.quantMaxPessoas = quantMaxPessoas;
 		return this;
 	}
+	public GrupoBuilder organizador(boolean organizador) {
+		this.organizador = organizador;
+		return this;
+	}
 	
 	public Grupo build() {
 		Grupo grupo = new Grupo();
@@ -40,9 +45,11 @@ public class GrupoBuilder {
 		grupo.setFesta(codFesta);
 		grupo.setNomeGrupo(nomeGrupo);
 		grupo.setQuantMaxPessoas(quantMaxPessoas);
+		grupo.setOrganizador(organizador);
 		
 		return grupo;
 	}
+
 	
 	
 	

@@ -67,24 +67,28 @@ public class GrupoService {
 
 
 	public Grupo addGrupoFesta(GrupoTO grupoTO, int idUsuario) {
-
-		Festa festa = this.validarFesta(grupoTO.getCodFesta());
 		this.validarPermissaoUsuario(grupoTO.getCodFesta(), idUsuario);
 		List<Grupo> gruposPreExistentes = grupoRepository.findGruposDuplicados(grupoTO.getCodFesta(), grupoTO.getNomeGrupo());
 
 		if(gruposPreExistentes.isEmpty()) {
-
-			grupoTO.setCodGrupo(grupoRepository.getNextValMySequence() + 1);
-			Grupo grupoNew = GrupoFactory.getGrupo(grupoTO, festa);
-			grupoRepository.save(grupoNew);
-			List<Permissao> permissoes = permissaoRepository.findPermissoes(grupoTO.getPermissoes());
-			for(Permissao permissao: permissoes) {
-				grupoRepository.saveGrupoPermissao(grupoNew.getCodGrupo(), permissao.getCodPermissao());
-			}
-			return grupoNew;
+			return this.addGrupo(grupoTO.getCodFesta(), grupoTO.getNomeGrupo(), false, grupoTO.getPermissoes());
 		}else {
 			throw new ValidacaoException("GRPEXIST");
 		}
+	}
+
+	public Grupo addGrupo(int codFesta, String nomeGrupo, boolean organizador, List<Integer> permissoes) {
+		Festa festa = this.validarFesta(codFesta);
+		Grupo grupo = GrupoFactory.getGrupo(nomeGrupo,grupoRepository.getNextValMySequence(), festa, organizador);
+		grupoRepository.save(grupo);
+		if(organizador) {
+			permissaoRepository.findAll().forEach(p -> grupoRepository.saveGrupoPermissao(grupo.getCodGrupo(), p.getCodPermissao()));
+		} else {
+			permissaoRepository.findPermissoes(permissoes).stream().forEach(permissao -> 
+			grupoRepository.saveGrupoPermissao(grupo.getCodGrupo(), permissao.getCodPermissao())				
+					);
+		}
+		return grupo;
 	}
 
 	public Grupo getByIdGrupo(int idGrupo) {
@@ -105,15 +109,15 @@ public class GrupoService {
 	}
 
 	public Grupo atualizar(GrupoTO grupoTO, int idUsuario) {
-		
+
 		Festa festa = this.validarFesta(grupoTO.getCodFesta());
 		Grupo grupo = validarGrupo(grupoTO.getCodGrupo());
 		this.validarPermissaoUsuario(festa.getCodFesta(), idUsuario);
-		
+
 		if(grupo.getOrganizador()) {
 			throw new ValidacaoException("EDITORGN");
 		}
-		
+
 		if(grupoTO.getNomeGrupo() != null || grupoTO.getNomeGrupo().length() >= 1) {
 			grupo.setNomeGrupo(grupoTO.getNomeGrupo());
 		}
