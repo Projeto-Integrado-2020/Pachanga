@@ -23,7 +23,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import {HttpClient } from '@angular/common/http';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule, FormBuilder } from '@angular/forms';
 import { PerfilComponent } from '../perfil/perfil.component';
 import { InfoCompleteComponent } from '../info-complete/info-complete.component';
 import { EditarFestaComponent } from '../editar-festa/editar-festa.component';
@@ -114,6 +114,7 @@ describe('CadastroComponent', () => {
     jasmine.DEFAULT_TIMEOUT_INTERVAL = 100000;
     fixture = TestBed.createComponent(CadastroComponent);
     component = fixture.componentInstance;
+    component.formBuilder = new FormBuilder();
     fixture.detectChanges();
   });
 
