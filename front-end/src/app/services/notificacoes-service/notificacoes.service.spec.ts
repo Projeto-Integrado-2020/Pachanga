@@ -7,7 +7,7 @@ import { MatDialog } from '@angular/material';
 
 describe('Service: Notificacoes', () => {
   beforeEach(() => {
-    let dialogSpy = jasmine.createSpyObj('MatDialog', ['open']);
+    const dialogSpy = jasmine.createSpyObj('MatDialog', ['open']);
     TestBed.configureTestingModule({
 
       imports: [
