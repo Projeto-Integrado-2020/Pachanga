@@ -38,8 +38,15 @@ export class NotificacoesService {
   }
 
   atualizarNotificacoes(notifState) {
-    return this.http.put(this.URL, notifState);
+    return this.http.put(this.URL, notifState).pipe(
+        take(1),
+        catchError(error => {
+          return this.handleError(error, this.logService);
+      }),
+    );
   }
+
+  //METODO PARA DELETAR E MODIFICAR ESTADO!
 
   handleError(error: HttpErrorResponse, logService: LogService) {
     this.openErrorDialog(error.error);

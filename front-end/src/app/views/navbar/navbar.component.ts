@@ -7,6 +7,7 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable, interval, Subscription } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { LoginService } from 'src/app/services/loginService/login.service';
+import { NotificacoesService } from 'src/app/services/notificacoes-service/notificacoes.service';
 
 @Component({
   selector: 'app-navbar',
@@ -96,7 +97,8 @@ export class NavbarComponent implements OnInit {
     public invite: MatDialog,
     private breakpointObserver: BreakpointObserver,
     public loginComponent: LoginComponent,
-    public loginService: LoginService
+    public loginService: LoginService,
+    public notifService: NotificacoesService
     ) {
     translate.addLangs(['pt', 'en']);
     translate.setDefaultLang('pt');
@@ -134,7 +136,7 @@ export class NavbarComponent implements OnInit {
     const source = interval(5000);
     source
       .subscribe(val => {
-        // this.criarAlertaPROVISORIO()
+        //this.alerts = this.notifService.getNotificacoes();
         this.contarAlertasNaoLidos();
     });
    }
@@ -158,6 +160,7 @@ export class NavbarComponent implements OnInit {
   deletarAlerta(alerta): void {
     const index = this.alerts.indexOf(alerta);
     this.alerts.splice(index, 1);
+    //CHAMAR METODO DELETAR ALERTA DO NOTIFICACAO-SERVICE!
   }
 
   // abrir janela de notificações
