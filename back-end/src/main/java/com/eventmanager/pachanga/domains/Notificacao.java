@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -23,12 +24,13 @@ public class Notificacao {
 	@Column(name="desc_notificacao")
 	private String descNotificacao;
 	
-	@ManyToMany(fetch = FetchType.LAZY,
-			cascade = CascadeType.ALL)
-	@JoinTable(name = "notificacao_x_grupo",
-	joinColumns = @JoinColumn(name ="cod_notificacao"),
-	inverseJoinColumns = @JoinColumn(name = "cod_grupo"))
-	private Set<Grupo> grupos;
+	@OneToMany(fetch = FetchType.LAZY,
+			mappedBy = "notificacao")
+	private Set<NotificacaoGrupo> notificacaoGrupo;
+	
+	@OneToMany(fetch = FetchType.LAZY,
+			mappedBy = "notificacao")
+	private Set<NotificacaoUsuario> notificacaoUsuario;
 	
 	@ManyToMany(fetch = FetchType.LAZY,
 			cascade = CascadeType.ALL)
@@ -53,12 +55,20 @@ public class Notificacao {
 		this.descNotificacao = descNotificacao;
 	}
 
-	public Set<Grupo> getGrupos() {
-		return grupos;
+	public Set<NotificacaoGrupo> getNotificacaoGrupo() {
+		return notificacaoGrupo;
 	}
 
-	public void setGrupos(Set<Grupo> grupos) {
-		this.grupos = grupos;
+	public void setNotificacaoGrupo(Set<NotificacaoGrupo> notificacaoGrupo) {
+		this.notificacaoGrupo = notificacaoGrupo;
+	}
+
+	public Set<Convidado> getConvidados() {
+		return convidados;
+	}
+
+	public void setConvidados(Set<Convidado> convidados) {
+		this.convidados = convidados;
 	}
 	
 }

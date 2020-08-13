@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -49,9 +50,9 @@ public class Grupo {
 	inverseJoinColumns = @JoinColumn(name = "cod_permissao"))
 	private Set<Permissao> permissoes;
 	
-	@ManyToMany(mappedBy = "grupos",
-			fetch = FetchType.LAZY)
-	private Set<Notificacao> notificacoes;
+	@OneToMany(fetch = FetchType.LAZY,
+			mappedBy = "grupo")
+	private Set<NotificacaoGrupo> notificacaoGrupo;
 	
 	@ManyToMany(mappedBy = "grupos",
 			fetch = FetchType.LAZY)
@@ -107,14 +108,6 @@ public class Grupo {
 		this.permissoes = permissoes;
 	}
 
-	public Set<Notificacao> getNotificacoes() {
-		return notificacoes;
-	}
-
-	public void setNotificacoes(Set<Notificacao> notificacoes) {
-		this.notificacoes = notificacoes;
-	}
-
 	public Set<Convidado> getConvidados() {
 		return convidados;
 	}
@@ -129,6 +122,14 @@ public class Grupo {
 
 	public void setOrganizador(boolean organizador) {
 		this.organizador = organizador;
+	}
+
+	public Set<NotificacaoGrupo> getNotificacaoGrupo() {
+		return notificacaoGrupo;
+	}
+
+	public void setNotificacaoGrupo(Set<NotificacaoGrupo> notificacaoGrupo) {
+		this.notificacaoGrupo = notificacaoGrupo;
 	}
 
 }

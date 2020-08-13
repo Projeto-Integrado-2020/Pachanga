@@ -98,7 +98,7 @@ public class UsuarioService {
 			return cadastrar(user);
 		}else if(usuarioExistente == null && TipoConta.PACHANGA.getDescricao().equals(user.getTipConta())) {
 			throw new ValidacaoException("EMALINCO");
-		}else if(usuarioExistente != null && (usuarioExistente.getSenha() == null || usuarioExistente.getSenha().isEmpty())) {
+		}else if(usuarioExistente != null && (usuarioExistente.getSenha() == null || usuarioExistente.getSenha().isEmpty()) && TipoConta.PACHANGA.getDescricao().equals(user.getTipConta()) ) {
 			throw new ValidacaoException("PASSINC1");
 		}
 		validarLogin(usuarioExistente, user);
