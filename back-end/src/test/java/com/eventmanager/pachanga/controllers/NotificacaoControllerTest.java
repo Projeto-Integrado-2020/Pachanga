@@ -21,8 +21,8 @@ import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import com.eventmanager.pachanga.domains.Notificacao;
+import com.eventmanager.pachanga.dtos.NotificacaoTO;
 import com.eventmanager.pachanga.errors.ValidacaoException;
-import com.eventmanager.pachanga.factory.NotificacaoFactory;
 import com.eventmanager.pachanga.services.NotificacaoService;
 
 @RunWith(SpringRunner.class)
@@ -34,9 +34,6 @@ public class NotificacaoControllerTest {
 	
 	@MockBean
 	private NotificacaoService notificacaoService;
-	
-	@MockBean
-	private NotificacaoFactory notificacaoFactory;
 	
 	
 	private Notificacao NotificacaoTest() {
@@ -51,10 +48,9 @@ public class NotificacaoControllerTest {
 		
 		String uri = "/notificacao/lista";
 		
-		List<Notificacao> notificacoes = new ArrayList<Notificacao>();
-		notificacoes.add(NotificacaoTest());
+		NotificacaoTO notificacaoTo = new NotificacaoTO();
 		
-		Mockito.when(notificacaoService.procurarNotificacaoUsuario(Mockito.anyInt())).thenReturn(notificacoes);
+		Mockito.when(notificacaoService.procurarNotificacaoUsuario(Mockito.anyInt())).thenReturn(notificacaoTo);
 		
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.get(uri)
