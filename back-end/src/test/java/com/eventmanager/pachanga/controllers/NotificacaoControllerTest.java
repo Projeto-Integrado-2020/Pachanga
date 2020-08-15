@@ -89,5 +89,143 @@ public class NotificacaoControllerTest {
 		
 		assertEquals("teste", result.getResponse().getContentAsString());
 	}
+	
+	@Test
+	public void mudarStatusSucesso() throws Exception {
+		
+		String uri = "/notificacao/mudarStatus";
+		
+		String jsonContent = "[1]";
+		
+		Mockito.doNothing().when(notificacaoService).alterarStatus(Mockito.anyInt(),Mockito.anyInt());
+				
+		RequestBuilder requestBuilder = MockMvcRequestBuilders
+				.put(uri)
+				.param("idUser", "1")
+				.content(jsonContent)
+				.accept(MediaType.APPLICATION_JSON)
+				.contentType(MediaType.APPLICATION_JSON);
+		
+		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+
+		MockHttpServletResponse response = result.getResponse();
+		
+		assertEquals(HttpStatus.OK.value(), response.getStatus());
+	}
+	
+	@Test
+	public void mudarStatusError() throws Exception {
+		
+		String uri = "/notificacao/mudarStatus";
+		
+		String jsonContent = "[1]";
+			
+		Mockito.doThrow(new ValidacaoException("teste")).when(notificacaoService).alterarStatus(Mockito.anyInt(),Mockito.anyInt());
+				
+		RequestBuilder requestBuilder = MockMvcRequestBuilders
+				.put(uri)
+				.param("idUser", "1")
+				.content(jsonContent)
+				.accept(MediaType.APPLICATION_JSON)
+				.contentType(MediaType.APPLICATION_JSON);
+		
+		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+
+		MockHttpServletResponse response = result.getResponse();
+		
+		assertEquals(400, response.getStatus());
+		
+		assertEquals("teste", result.getResponse().getContentAsString());
+	}
+	
+	@Test
+	public void destaqueSucesso() throws Exception {
+		
+		String uri = "/notificacao/destaque";
+		
+		Mockito.doNothing().when(notificacaoService).destaqueNotificacao(Mockito.anyInt(),Mockito.anyInt());
+				
+		RequestBuilder requestBuilder = MockMvcRequestBuilders
+				.put(uri)
+				.param("idUser", "1")
+				.param("idNotificacao", "1")
+				.accept(MediaType.APPLICATION_JSON)
+				.contentType(MediaType.APPLICATION_JSON);
+		
+		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+
+		MockHttpServletResponse response = result.getResponse();
+		
+		assertEquals(HttpStatus.OK.value(), response.getStatus());
+	}
+	
+	@Test
+	public void destaqueError() throws Exception {
+		
+		String uri = "/notificacao/destaque";
+		
+			
+		Mockito.doThrow(new ValidacaoException("teste")).when(notificacaoService).destaqueNotificacao(Mockito.anyInt(),Mockito.anyInt());
+				
+		RequestBuilder requestBuilder = MockMvcRequestBuilders
+				.put(uri)
+				.param("idUser", "1")
+				.param("idNotificacao", "1")
+				.accept(MediaType.APPLICATION_JSON)
+				.contentType(MediaType.APPLICATION_JSON);
+		
+		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+
+		MockHttpServletResponse response = result.getResponse();
+		
+		assertEquals(400, response.getStatus());
+		
+		assertEquals("teste", result.getResponse().getContentAsString());
+	}
+	
+	@Test
+	public void deleteNotificacoesSucesso() throws Exception {
+		
+		String uri = "/notificacao/delete";
+		
+		Mockito.doNothing().when(notificacaoService).deleteNotificacao(Mockito.anyInt(),Mockito.anyInt());
+				
+		RequestBuilder requestBuilder = MockMvcRequestBuilders
+				.delete(uri)
+				.param("idUser", "1")
+				.param("idNotificacao", "1")
+				.accept(MediaType.APPLICATION_JSON)
+				.contentType(MediaType.APPLICATION_JSON);
+		
+		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+
+		MockHttpServletResponse response = result.getResponse();
+		
+		assertEquals(HttpStatus.OK.value(), response.getStatus());
+	}
+	
+	@Test
+	public void deleteNotificacoesError() throws Exception {
+		
+		String uri = "/notificacao/delete";
+		
+			
+		Mockito.doThrow(new ValidacaoException("teste")).when(notificacaoService).deleteNotificacao(Mockito.anyInt(),Mockito.anyInt());
+				
+		RequestBuilder requestBuilder = MockMvcRequestBuilders
+				.delete(uri)
+				.param("idUser", "1")
+				.param("idNotificacao", "1")
+				.accept(MediaType.APPLICATION_JSON)
+				.contentType(MediaType.APPLICATION_JSON);
+		
+		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+
+		MockHttpServletResponse response = result.getResponse();
+		
+		assertEquals(400, response.getStatus());
+		
+		assertEquals("teste", result.getResponse().getContentAsString());
+	}
 
 }

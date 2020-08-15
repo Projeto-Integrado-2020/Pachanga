@@ -46,7 +46,10 @@ public class EstoqueController {
 	@PostMapping(path = "/adicionar")
 	public ResponseEntity<Object> addEstoque(@RequestBody EstoqueTO estoque, @RequestParam(required = true) int codFesta, @RequestParam(required = true) int codUsuario){
 		try {
-			EstoqueTO estoqueTo = estoqueFactory.getEstoqueTO(estoqueService.addEstoque(estoqueFactory.getEstoque(estoque, false), codFesta, codUsuario));
+			EstoqueTO estoqueTo = estoqueFactory.getEstoqueTO(
+					estoqueService.addEstoque(
+							estoque.getNomeEstoque(), codFesta, false, codUsuario)
+					);
 			return ResponseEntity.ok().body(estoqueTo);
 		} catch (ValidacaoException e) {
 			return ResponseEntity.status(400).body(e.getMessage());
@@ -66,7 +69,7 @@ public class EstoqueController {
 	
 	@ResponseBody
 	@PutMapping(path = "/atualizar")
-	public ResponseEntity<Object> deleteEstoque(@RequestBody EstoqueTO estoque, @RequestParam(required = true) int codFesta, @RequestParam(required = true) int codUsuario){
+	public ResponseEntity<Object> atualizarEstoque(@RequestBody EstoqueTO estoque, @RequestParam(required = true) int codFesta, @RequestParam(required = true) int codUsuario){
 		try {
 			
 			EstoqueTO estoqueTo = estoqueFactory.getEstoqueTO(estoqueService.updateEstoque(estoque, codFesta, codUsuario));
