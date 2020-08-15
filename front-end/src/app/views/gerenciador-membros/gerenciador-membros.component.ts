@@ -77,7 +77,8 @@ export class GerenciadorMembrosComponent implements OnInit {
       width: '55rem',
       data: {
         idFesta: this.festa.codFesta,
-        grupo
+        grupo,
+        component: this
       }
     });
   }
@@ -88,7 +89,8 @@ export class GerenciadorMembrosComponent implements OnInit {
       data: {
         id,
         codGrupo,
-        codFesta
+        codFesta,
+        component: this
       }
     });
   }
@@ -98,7 +100,8 @@ export class GerenciadorMembrosComponent implements OnInit {
       width: '20rem',
       data: {
         grupo,
-        codFesta: this.festa.codFesta
+        codFesta: this.festa.codFesta,
+        component: this
       }
     });
   }
