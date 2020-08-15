@@ -26,10 +26,10 @@ export class StatusDialogComponent implements OnInit {
 
   setStatusFesta() {
     this.statusService.mudarStatusFesta(this.codFesta, this.status).subscribe((resp: any) => {
-      this.painel.setFesta(resp);
-      this.dialog.closeAll();
       this.statusService.setFarol(false);
-      window.location.reload();
+      this.painel.setFesta(resp);
+      this.painel.ngOnInit();
+      this.dialog.closeAll();
     });
   }
 

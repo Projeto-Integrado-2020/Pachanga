@@ -22,6 +22,7 @@ export class InviteDialogComponent implements OnInit {
   addOnBlur = true;
   idFesta: string;
   grupo: string;
+  component: any;
 
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
   maillist: Email[] = [];
@@ -32,6 +33,7 @@ export class InviteDialogComponent implements OnInit {
               public modal: MatDialog) {
     this.idFesta = data.idFesta;
     this.grupo = data.grupo;
+    this.component = data.component;
   }
 
   ngOnInit() {
@@ -86,6 +88,7 @@ export class InviteDialogComponent implements OnInit {
     this.conviteService.convidarMembro(this.idFesta, this.grupo, emails).subscribe((resp: any) => {
       this.conviteService.setFarol(false);
       this.modal.closeAll();
+      this.component.ngOnInit();
       this.openDialogSuccess('MEMBROAD');
     });
   }
