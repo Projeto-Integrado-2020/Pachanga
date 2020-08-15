@@ -58,4 +58,10 @@ describe('EditEstoqueDialogComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should gerarForm', () => {
+    component.gerarForm();
+    expect(component.form).toBeTruthy();
+    expect(component.form.get('nomeEstoque')).toBeTruthy();
+  });
 });

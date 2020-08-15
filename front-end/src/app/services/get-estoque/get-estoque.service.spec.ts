@@ -26,4 +26,19 @@ describe('GetEstoqueService', () => {
     const service: GetEstoqueService = TestBed.get(GetEstoqueService);
     expect(service).toBeTruthy();
   });
+
+  it('should set farol', () => {
+    const service: GetEstoqueService = TestBed.get(GetEstoqueService);
+    service.setFarol(true);
+    expect(service.getFarol()).toBeTruthy();
+    service.setFarol(false);
+    expect(service.getFarol()).toBeFalsy();
+  });
+
+  it('should get farol', () => {
+    const service: GetEstoqueService = TestBed.get(GetEstoqueService);
+    expect(service.getFarol()).toBeFalsy();
+    service.setFarol(true);
+    expect(service.getFarol()).toBeTruthy();
+  });
 });

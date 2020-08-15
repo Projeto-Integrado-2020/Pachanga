@@ -47,10 +47,33 @@ describe('EstoquePainelComponent', () => {
     component = fixture.componentInstance;
     const service: LoginService = TestBed.get(LoginService);
     service.usuarioInfo = {codUsuario: '1'};
+    component.festa = {codFesta: '1'};
     fixture.detectChanges();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should open a delete dialog through a method', () => {
+    component.openDialogDelete(component.festa.codFesta);
+    expect(dialogSpy.open).toHaveBeenCalled();
+  });
+
+  it('should open a edit dialog through a method', () => {
+    component.openDialogEdit(component.festa.codFesta);
+    expect(dialogSpy.open).toHaveBeenCalled();
+  });
+
+  it('should open a add dialog through a method', () => {
+    component.openDialogAdd();
+    expect(dialogSpy.open).toHaveBeenCalled();
+  });
+
+  it('should gerarForm', () => {
+    component.gerarForm();
+    expect(component.form).toBeTruthy();
+    expect(component.form.get('grupoSelect')).toBeTruthy();
+  });
+
 });

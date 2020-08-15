@@ -18,7 +18,6 @@ import { CriarEstoqueDialogComponent } from '../criar-estoque-dialog/criar-estoq
 
 export class EstoquePainelComponent implements OnInit {
 
-  // dataSource = ELEMENT_DATA;
   displayedColumns: string[] = ['nome', 'qtd', 'status', 'teste'];
   expandedElement: TabelaEstoque | null;
 
