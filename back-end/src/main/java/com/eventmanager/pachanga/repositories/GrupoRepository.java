@@ -109,8 +109,7 @@ public interface GrupoRepository extends CrudRepository<Grupo, Integer>{
 	@Query(value = "DELETE FROM usuario_x_grupo WHERE cod_grupo = :codGrupo", nativeQuery = true)
 	public void deleteAllMembrosGrupo(Integer codGrupo);
 	
-	@Modifying
-	@Query(value = "select g.codGrupos from Grupo g JOIN Usuario u WHERE g.codGrupo NOT IN (:codGrupos) AND u.codUsuario = :codUsuario", nativeQuery = true)
+	@Query(value = "select g.codGrupo from Grupo g JOIN Usuario u WHERE g.codGrupo NOT IN (:codGrupos) AND u.codUsuario = :codUsuario")
 	public List<Integer> findGruposUsuarioNotIn(List<Integer> codGrupos, Integer codUsuario);
 	
 }

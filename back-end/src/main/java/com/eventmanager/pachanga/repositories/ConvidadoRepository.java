@@ -45,7 +45,7 @@ public interface ConvidadoRepository extends CrudRepository<Convidado, Integer>{
 	public List<Convidado> findConvidadosNoGrupo(@Param("codGrupo") int codGrupo);
 	
 	@Modifying
-	@Query(value = "DELETE FROM Convidado WHERE cod_convidado = :codConvidado")
-	public void deleteConvidado(@Param("codConvidado") int codConvidado);
+	@Query(value = "DELETE FROM Convidado WHERE cod_convidado = :codConvidado", nativeQuery = true)
+	public void deleteConvidado(Integer codConvidado);
 	
 }
