@@ -14,13 +14,24 @@ import { ErroDialogComponent } from 'src/app/views/erro-dialog/erro-dialog.compo
 export class NotificacoesService {
 
   /*
-  FORMATO DA RESPONSE:
-  - cod_notificacao (int)
-  - desc_notificacao (string)
-  - notificacao_grupo (set) {
-  }
-  - notificacao_usuario (set) {
-  }
+{
+    "notificacoesUsuario": [
+        {
+            "codUsuario": 1,
+            "destaque": true,
+            "status": "ok",
+            "mensagem": "notificacao de usuario",
+            "notificacao": 1
+        }
+    ],
+    "notificacoesGrupo": [],
+    "notificacaoConvidado": [
+        {
+            "codNotificacao": 1,
+            "descNotificacao": "usuario"
+        }
+    ]
+}
   */
 
 
