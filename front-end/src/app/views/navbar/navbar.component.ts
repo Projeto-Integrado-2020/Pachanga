@@ -104,6 +104,7 @@ export class NavbarComponent implements OnInit {
     return observavel.subscribe(
       (response: any) => {
         console.log(JSON.stringify(response))
+        this.notifService.farol = false;
         this.alerts = response;
       }
     )
