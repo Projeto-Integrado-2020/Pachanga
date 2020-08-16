@@ -131,7 +131,7 @@ export class NavbarComponent implements OnInit {
   deletarAlerta(alerta): void {
     const index = this.alerts.indexOf(alerta);
     this.alerts.splice(index, 1);
-    //CHAMAR METODO DELETAR ALERTA DO NOTIFICACAO-SERVICE!
+    // CHAMAR METODO DELETAR ALERTA DO NOTIFICACAO-SERVICE!
   }
 
   // abrir janela de notificações

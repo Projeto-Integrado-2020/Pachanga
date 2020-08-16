@@ -12,6 +12,7 @@ import com.eventmanager.pachanga.domains.Festa;
 import com.eventmanager.pachanga.domains.Grupo;
 import com.eventmanager.pachanga.dtos.EstoqueTO;
 import com.eventmanager.pachanga.errors.ValidacaoException;
+import com.eventmanager.pachanga.factory.EstoqueFactory;
 import com.eventmanager.pachanga.repositories.EstoqueRepository;
 import com.eventmanager.pachanga.repositories.FestaRepository;
 import com.eventmanager.pachanga.repositories.GrupoRepository;
@@ -29,6 +30,9 @@ public class EstoqueService {
 
 	@Autowired
 	private EstoqueRepository estoqueRepository;
+	
+	@Autowired
+	private EstoqueFactory estoqueFactory;
 
 
 	public List<Estoque> estoquesFesta(int codFesta, int idUsuario){
@@ -36,9 +40,10 @@ public class EstoqueService {
 		this.validarUsuario(idUsuario, codFesta, TipoPermissao.VISUESTO.getCodigo());
 		return estoqueRepository.findEstoqueByCodFesta(codFesta);
 	}
-
-	public Estoque addEstoque(Estoque estoque, int codFesta, int codUsuario) {
+	
+	public Estoque addEstoque(String nomeEstoque, int codFesta, boolean principal, int codUsuario) {
 		Festa festa = this.validarFesta(codFesta);
+		Estoque estoque = estoqueFactory.getEstoque(nomeEstoque, principal);
 		this.validarUsuario(codUsuario, codFesta, TipoPermissao.CADAESTO.getCodigo());
 		estoque.setCodEstoque(estoqueRepository.getNextValMySequence());
 		estoque.setFesta(festa);

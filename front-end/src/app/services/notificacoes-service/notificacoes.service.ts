@@ -15,16 +15,12 @@ export class NotificacoesService {
 
   /*
   FORMATO DA RESPONSE:
-  
   - cod_notificacao (int)
   - desc_notificacao (string)
   - notificacao_grupo (set) {
-
   }
   - notificacao_usuario (set) {
-
   }
-
   */
 
 
@@ -60,7 +56,7 @@ export class NotificacoesService {
       this.farol = true;
       const httpParams = new HttpParams();
       httpParams.append('idUser', this.loginService.usuarioInfo.codUsuario);
-    return this.http.put(this.URL, notifIds).pipe(
+      return this.http.put(this.URL, notifIds).pipe(
         take(1),
         catchError(error => {
           return this.handleError(error, this.logService);
@@ -75,7 +71,7 @@ export class NotificacoesService {
       const httpParams = new HttpParams();
       httpParams.append('idUser', this.loginService.usuarioInfo.codUsuario);
       httpParams.append('idNotificacao', notifId);
-    return this.http.put(this.URL, {params: httpParams}).pipe(
+      return this.http.put(this.URL, {params: httpParams}).pipe(
         take(1),
         catchError(error => {
           return this.handleError(error, this.logService);
@@ -84,7 +80,7 @@ export class NotificacoesService {
     }
   }
 
-  //METODO PARA DELETAR E MODIFICAR ESTADO!
+  // METODO PARA DELETAR E MODIFICAR ESTADO!
 
   handleError(error: HttpErrorResponse, logService: LogService) {
     this.openErrorDialog(error.error);

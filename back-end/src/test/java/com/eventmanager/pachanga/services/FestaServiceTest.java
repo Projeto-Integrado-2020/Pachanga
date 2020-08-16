@@ -67,6 +67,9 @@ public class FestaServiceTest {
 	@MockBean
 	private CategoriaRepository categoriaRepository;
 	
+	@MockBean
+	private EstoqueService estoqueService;
+	
 
 	//metodos auxiliares___________________________________________________________________________________________________________________________________	
 	@Before

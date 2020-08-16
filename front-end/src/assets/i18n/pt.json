@@ -333,5 +333,27 @@
 
     "ASSIGN": {
         "MEMBERS": "Número de membros colaboradores confirmados"
+    },
+
+    "DELETEESTOQUE": {
+        "MESSAGE": "Você realmente deseja deletar este estoque da festa?",
+        "CONFIRM": "Confirmar",
+        "CANCEL": "Cancelar"
+    },
+
+    "ESTOQUE": {
+        "DESCRIPTION": "Clique aqui para vizualizar os produtos do estoque.",
+        "PRODUTO": "Produto",
+        "PRINCIPAL": "Estoque principal",
+        "QUANTIDADE": "Quantidade",
+        "STATUS": "Status",
+        "REMOVE1": "Remoção",
+        "REMOVE2": "Remover",
+        "DELETE": "Deletar estoque",
+        "EDITESTOQUE": "Editar estoque",
+        "NOMEESTOQUE": "Nome do estoque:",
+        "CONFIRM": "Confirmar",
+        "CANCEL": "Cancelar",
+        "ADDESTOQUE": "Adicionar estoque"
     }
 }

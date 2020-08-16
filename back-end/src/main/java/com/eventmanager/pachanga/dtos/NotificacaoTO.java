@@ -1,45 +1,38 @@
 package com.eventmanager.pachanga.dtos;
 
+import java.util.List;
+
 public class NotificacaoTO {
 	
-	private int codNotificacao;
+	private List<NotificacaoUsuarioTO> notificacoesUsuario;
 	
-	private String descNotificacao;
+	private List<NotificacaoGrupoTO> notificacoesGrupo;
 	
-	private String status;
+	private List<NotificacaoConvidadoTO> notificacaoConvidado;
 	
-	private boolean destaque;
-
-	public int getCodNotificacao() {
-		return codNotificacao;
+	
+	public List<NotificacaoUsuarioTO> getNotificacoesUsuario() {
+		return notificacoesUsuario;
 	}
 
-	public void setCodNotificacao(int codNotificacao) {
-		this.codNotificacao = codNotificacao;
+	public void setNotificacoesUsuario(List<NotificacaoUsuarioTO> notificacoesUsuario) {
+		this.notificacoesUsuario = notificacoesUsuario;
 	}
 
-	public String getDescNotificacao() {
-		return descNotificacao;
+	public List<NotificacaoGrupoTO> getNotificacoesGrupo() {
+		return notificacoesGrupo;
 	}
 
-	public void setDescNotificacao(String descNotificacao) {
-		this.descNotificacao = descNotificacao;
+	public void setNotificacoesGrupo(List<NotificacaoGrupoTO> notificacoesGrupo) {
+		this.notificacoesGrupo = notificacoesGrupo;
 	}
 
-	public String getStatus() {
-		return status;
+	public List<NotificacaoConvidadoTO> getNotificacaoConvidado() {
+		return notificacaoConvidado;
 	}
 
-	public void setStatus(String status) {
-		this.status = status;
-	}
-
-	public boolean isDestaque() {
-		return destaque;
-	}
-
-	public void setDestaque(boolean destaque) {
-		this.destaque = destaque;
+	public void setNotificacaoConvidado(List<NotificacaoConvidadoTO> notificacaoConvidado) {
+		this.notificacaoConvidado = notificacaoConvidado;
 	}
 
 }

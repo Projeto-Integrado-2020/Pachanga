@@ -18,12 +18,18 @@ import org.springframework.test.context.junit4.SpringRunner;
 import com.eventmanager.pachanga.domains.Convidado;
 import com.eventmanager.pachanga.domains.Grupo;
 import com.eventmanager.pachanga.domains.Notificacao;
+import com.eventmanager.pachanga.domains.NotificacaoUsuario;
 import com.eventmanager.pachanga.domains.Usuario;
+import com.eventmanager.pachanga.dtos.NotificacaoTO;
 import com.eventmanager.pachanga.errors.ValidacaoException;
+import com.eventmanager.pachanga.factory.NotificacaoFactory;
 import com.eventmanager.pachanga.repositories.ConvidadoRepository;
 import com.eventmanager.pachanga.repositories.GrupoRepository;
+import com.eventmanager.pachanga.repositories.NotificacaoGrupoRepository;
 import com.eventmanager.pachanga.repositories.NotificacaoRepository;
+import com.eventmanager.pachanga.repositories.NotificacaoUsuarioRepository;
 import com.eventmanager.pachanga.repositories.UsuarioRepository;
+import com.eventmanager.pachanga.tipo.TipoStatusNotificacao;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(value=NotificacaoService.class)
@@ -44,6 +50,15 @@ public class NotificacaoServiceTest {
 	@MockBean
 	private GrupoRepository grupoRepository;
 
+	@MockBean
+	private NotificacaoUsuarioRepository notificacaoUsuarioRepository;
+
+	@MockBean
+	private NotificacaoGrupoRepository notificacaoGrupoRepository;
+
+	@MockBean
+	private NotificacaoFactory notificacaoFactory;
+
 	@SuppressWarnings("deprecation")
 	private Usuario usuarioTest(){
 		Usuario usuarioTest = new Usuario();
@@ -56,12 +71,20 @@ public class NotificacaoServiceTest {
 
 		return usuarioTest;
 	}
-	
+
 	private Notificacao notificacaoTest() {
 		Notificacao notificacao = new Notificacao();
 		notificacao.setCodNotificacao(1);
 		notificacao.setDescNotificacao("teste");
 		return notificacao;
+	}
+
+	private NotificacaoUsuario notificacaoUsuarioTest() {
+		NotificacaoUsuario notificacaoUsuario = new NotificacaoUsuario();
+		notificacaoUsuario.setDestaque(false);
+		notificacaoUsuario.setMensagem("teste");
+		notificacaoUsuario.setStatus(TipoStatusNotificacao.NAOLIDA.getDescricao());
+		return notificacaoUsuario;
 	}
 
 	@Test
@@ -70,14 +93,17 @@ public class NotificacaoServiceTest {
 		List<Notificacao> notificacoesRetorno = new ArrayList<Notificacao>(); 
 
 		Mockito.when(notificacaoRepository.findNotificacaoGrupoByUserId(Mockito.anyInt())).thenReturn(notificacoesRetorno);
-		
+
 		Mockito.when(notificacaoRepository.findConvidadoNotificacaoByUserId(Mockito.anyInt())).thenReturn(notificacoesRetorno);
 
 		Mockito.when(usuarioRepository.findById(Mockito.anyInt())).thenReturn(usuarioTest());
 
-		List<Notificacao> notificacoes = notificacaoService.procurarNotificacaoUsuario(100);
+		Mockito.when(notificacaoFactory.getNotificacaoTO(Mockito.anyList(), Mockito.anyList(), Mockito.anyList())).thenReturn(new NotificacaoTO());
 
-		assertEquals(true, notificacoes.isEmpty());
+		NotificacaoTO notificacaoTo = notificacaoService.procurarNotificacaoUsuario(100);
+
+		assertEquals(true, notificacaoTo.getNotificacaoConvidado() == null);
+		assertEquals(true, notificacaoTo.getNotificacoesGrupo() == null);
 
 	}
 
@@ -201,7 +227,7 @@ public class NotificacaoServiceTest {
 		assertEquals("GRUPNFOU", mensagemErro);
 
 	}
-	
+
 	@Test
 	public void inserirNotificacaoGrupo() {
 
@@ -214,10 +240,10 @@ public class NotificacaoServiceTest {
 		notificacaoService.inserirNotificacaoGrupo(1,100);
 
 	}
-	
+
 	@Test
 	public void inserirNotificacaoConvidado() {
-		
+
 		Mockito.when(notificacaoRepository.findByCodNotificacao(Mockito.anyInt())).thenReturn(new Notificacao());
 
 		Mockito.when(convidadoRepository.findByEmail(Mockito.anyString())).thenReturn(new Convidado());
@@ -227,6 +253,45 @@ public class NotificacaoServiceTest {
 		doNothing().when(notificacaoRepository).insertConvidadoNotificacao(Mockito.anyInt(), Mockito.anyInt());
 
 		notificacaoService.inserirNotificacaoConvidado("teste@teste.com",100);
+
+	}
+
+	@Test
+	public void alterarStatusNotificacaoUsuarioTest() {
+
+		Mockito.when(notificacaoUsuarioRepository.getNotificacaoUsuario(Mockito.anyInt(), Mockito.anyInt())).thenReturn(notificacaoUsuarioTest());
+
+		Mockito.when(usuarioRepository.findById(Mockito.anyInt())).thenReturn(usuarioTest());
+
+		Mockito.when(notificacaoUsuarioRepository.save(Mockito.any())).thenReturn(null);
+
+		notificacaoService.alterarStatus(1,1);
+
+	}
+
+	@Test
+	public void deleteNotificacaoUsuarioTest() {
+
+		Mockito.when(notificacaoUsuarioRepository.getNotificacaoUsuario(Mockito.anyInt(), Mockito.anyInt())).thenReturn(notificacaoUsuarioTest());
+
+		Mockito.when(usuarioRepository.findById(Mockito.anyInt())).thenReturn(usuarioTest());
+
+		doNothing().when(notificacaoUsuarioRepository).delete(Mockito.any());
+
+		notificacaoService.deleteNotificacao(1,1);
+
+	}
+
+	@Test
+	public void destaqueNotificacaoUsuarioTest() {
+
+		Mockito.when(notificacaoUsuarioRepository.getNotificacaoUsuario(Mockito.anyInt(), Mockito.anyInt())).thenReturn(notificacaoUsuarioTest());
+
+		Mockito.when(usuarioRepository.findById(Mockito.anyInt())).thenReturn(usuarioTest());
+
+		Mockito.when(notificacaoUsuarioRepository.save(Mockito.any())).thenReturn(null);
+
+		notificacaoService.destaqueNotificacao(1,1);
 
 	}
 

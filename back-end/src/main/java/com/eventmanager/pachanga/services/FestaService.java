@@ -47,6 +47,9 @@ public class FestaService {
 	
 	@Autowired
 	private GrupoService grupoService;
+	
+	@Autowired
+	private EstoqueService estoqueService;
 
 	public List<Festa> procurarFestas(){
 		return festaRepository.findAll();
@@ -69,6 +72,7 @@ public class FestaService {
 		festaRepository.save(festa);
 		Grupo grupo = grupoService.addGrupo(festa.getCodFesta(), TipoGrupo.ORGANIZADOR.getValor(), true, null);
 		grupoRepository.saveUsuarioGrupo(usuario.getCodUsuario(), grupo.getCodGrupo());
+		estoqueService.addEstoque(festa.getNomeFesta(), festa.getCodFesta(), true, idUser);
 		this.criacaoCategoriaFesta(festaTo);
 		return festa;
 	}
