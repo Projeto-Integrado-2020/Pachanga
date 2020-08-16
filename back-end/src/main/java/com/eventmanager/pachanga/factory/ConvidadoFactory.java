@@ -18,4 +18,5 @@ public class ConvidadoFactory {
 		convidadosTo.addAll(convidados.stream().map(c-> ConvidadoTOBuilder.getInstance().email(c.getEmail()).codConvidado(c.getCodConvidado()).build()).collect(Collectors.toList()));
 		return convidadosTo;
 	}
+	
 }
