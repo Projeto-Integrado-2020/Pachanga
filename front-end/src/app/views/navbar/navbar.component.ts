@@ -26,16 +26,10 @@ export class NavbarComponent implements OnInit {
   alertaOpcoes: boolean;
   selected: number;
   alerts: any[] = [];
-  /*
-  alerts = [
-    {
-      texto: 'Alô alô alô',
-      tempo: '1 minuto atrás',
-      alertaOpcoes: false, // Nao mandar pro back-end; Esta propriedade deve ser usada exclusivamente no front
-      lido: false,
-      naolido: false
-    },
-*/
+  notificacoesUsuario: any[] = [];
+  notificacoesGrupo: any[] = [];
+  notificacaoConvidado: any[] = [];
+
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
       map(result => result.matches),
@@ -59,36 +53,6 @@ export class NavbarComponent implements OnInit {
     this.puxarNovosAlertas();
 
   }
-  // MOCK DE CRIACAO DE ALERTA(APAGAR DEPOIS)
-/*
-  criarAlertaPROVISORIO() {
-    const xingamentos = [
-      'Vai troxa',
-      'Seu merda',
-      'Vai à merda',
-      'É isso msm otário',
-      'F***-se',
-      'Chupa aqui'
-    ];
-    const xingamento = xingamentos[Math.floor(Math.random() * xingamentos.length)];
-
-    this.alerts.unshift(
-      {
-        texto: xingamento,
-        tempo: 'Agora mesmo',
-        alertaOpcoes: false,
-        lido: false,
-        naolido: false
-      }
-    );
-  }
-
-
-        this.notifService.getNotificacoes().subscribe(
-        response => 
-        this.alerts.push(response)
-  */
-  // usar esta função para puxar novos alertas; Rodar de 5 em 5 segundos
 
   puxarNovosAlertas() {
     const source = interval(5000);
@@ -103,9 +67,17 @@ export class NavbarComponent implements OnInit {
   carregarArray(observavel: Observable<Object>) {
     return observavel.subscribe(
       (response: any) => {
-        console.log(JSON.stringify(response))
         this.notifService.farol = false;
-        this.alerts = response;
+        for(let notif of response.notificacoesUsuario) {
+          if( this.alerts.filter( e => e.notificacao === notif.notificacao).length === 0){
+            this.alerts.push(Object.assign(notif,{tipoUser: true, tempo: "agora mesmo"}))
+          }
+        }
+        for(let notif of response.notificacoesGrupo) {
+        if( this.alerts.filter( e => e.notificacao === notif.notificacao).length === 0){
+          this.alerts.push(Object.assign(notif,{tipo: false, tempo: "agora mesmo"}))
+          }
+        }
       }
     )
   }
