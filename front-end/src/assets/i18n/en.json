@@ -260,7 +260,8 @@
         "NEWGROUP": "New groups(s)",
         "CONFIRM": "Confirm",
         "CANCEL": "Cancel",
-        "ASSIGN": "Assign permission"
+        "ASSIGN": "Assign permission",
+        "DELETECONVIDADO": "Delete guest"
     },
 
     "CONVITE": {
@@ -354,5 +355,11 @@
         "CONFIRM": "Confirm",
         "CANCEL": "Cancel",
         "ADDESTOQUE": "Add stock"
+    },
+
+    "DELETECONVIDADO": {
+        "MESSAGE": "Do you really want to delete this guest?",
+        "CONFIRM": "Confirm",
+        "CANCEL": "Cancel"
     }
 }

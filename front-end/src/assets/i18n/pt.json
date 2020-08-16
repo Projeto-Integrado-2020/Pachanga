@@ -260,7 +260,8 @@
         "CONFIRM": "Confirmar",
         "CANCEL": "Cancelar",
         "DELETE": "Excluir grupo",
-        "ASSIGN": "Atribuir permissão"
+        "ASSIGN": "Atribuir permissão",
+        "DELETECONVIDADO": "Deletar convidado"
     },
 
     "CONVITE": {
@@ -355,5 +356,11 @@
         "CONFIRM": "Confirmar",
         "CANCEL": "Cancelar",
         "ADDESTOQUE": "Adicionar estoque"
+    },
+
+    "DELETECONVIDADO": {
+        "MESSAGE": "Você realmente deseja deletar este convidado?",
+        "CONFIRM": "Confirmar",
+        "CANCEL": "Cancelar"
     }
 }

@@ -66,7 +66,7 @@ describe('GerenciadorMembrosComponent', () => {
 
   it('should open a delete dialog through a method', () => {
     component.festa = {codFesta: '1'};
-    component.openDialogDeleteMembro('teste', 'teste', 'teste');
+    component.openDialogDeleteMembro('teste', 'teste');
     expect(dialogSpy.open).toHaveBeenCalled();
   });
 

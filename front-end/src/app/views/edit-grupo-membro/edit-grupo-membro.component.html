@@ -6,7 +6,7 @@
             <mat-label>{{'GRUPO.NEWGROUP' | translate}}</mat-label>
             <mat-select multiple #grupoSelect formControlName="grupoSelect">
                 <div *ngFor="let grupo of grupos">
-                    <mat-option value="{{grupo.codGrupo}}">{{grupo.nomeGrupo}}</mat-option>
+                    <mat-option *ngIf="!grupo.isOrganizador" value="{{grupo.codGrupo}}">{{grupo.nomeGrupo}}</mat-option>
                 </div>
             </mat-select>
             <mat-error *ngIf="f.grupoSelect.errors?.required">

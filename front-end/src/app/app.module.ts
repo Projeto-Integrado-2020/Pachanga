@@ -72,6 +72,7 @@ import { DistribuicaoDialogComponent } from './views/distribuicao-dialog/distrib
 import { DeleteEstoqueDialogComponent } from './views/delete-estoque-dialog/delete-estoque-dialog.component';
 import { EditEstoqueDialogComponent } from './views/edit-estoque-dialog/edit-estoque-dialog.component';
 import { CriarEstoqueDialogComponent } from './views/criar-estoque-dialog/criar-estoque-dialog.component';
+import { DeletarConvidadoDialogComponent } from './views/deletar-convidado-dialog/deletar-convidado-dialog.component';
 
 
 const config = new AuthServiceConfig([
@@ -124,7 +125,8 @@ export function provideConfig() {
     DistribuicaoDialogComponent,
     DeleteEstoqueDialogComponent,
     EditEstoqueDialogComponent,
-    CriarEstoqueDialogComponent
+    CriarEstoqueDialogComponent,
+    DeletarConvidadoDialogComponent
   ],
   entryComponents: [
     LoginComponent,
@@ -141,7 +143,8 @@ export function provideConfig() {
     DistribuicaoDialogComponent,
     DeleteEstoqueDialogComponent,
     EditEstoqueDialogComponent,
-    CriarEstoqueDialogComponent
+    CriarEstoqueDialogComponent,
+    DeletarConvidadoDialogComponent
   ],
   imports: [
     BrowserModule,

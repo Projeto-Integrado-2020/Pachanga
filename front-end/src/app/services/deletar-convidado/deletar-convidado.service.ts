@@ -11,23 +11,23 @@ import { ErroDialogComponent } from 'src/app/views/erro-dialog/erro-dialog.compo
 @Injectable({
   providedIn: 'root'
 })
-export class DeletarMembroGrupo {
+export class DeletarConvidadoService {
 
   public farol = false;
 
-  private readonly urlDeletarMembro = `${environment.URL_BACK}grupo/deleteMembro`;
+  private readonly urlDeletarConvidado = `${environment.URL_BACK}grupo/deleteConvidado`;
 
   constructor(private http: HttpClient, public logService: LogService, public dialog: MatDialog,
               public loginService: LoginService) { }
 
-  deletarMembroColaborador(id, grupo) {
+  deletarConvidado(id, grupo) {
     if (!this.farol) {
       this.setFarol(true);
       const httpParams = new HttpParams()
-      .append('idMembro', id)
+      .append('idConvidado', id)
       .append('idGrupo', grupo)
       .append('idUsuarioPermissao', this.loginService.usuarioInfo.codUsuario);
-      return this.http.delete(this.urlDeletarMembro, {params: httpParams}).pipe(
+      return this.http.delete(this.urlDeletarConvidado, {params: httpParams}).pipe(
         take(1),
         catchError(error => {
           return this.handleError(error, this.logService);

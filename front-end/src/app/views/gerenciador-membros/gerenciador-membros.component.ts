@@ -7,6 +7,7 @@ import { DeleteMembroDialogComponent } from '../delete-membro-dialog/delete-memb
 import { EditGrupoMembroComponent } from '../edit-grupo-membro/edit-grupo-membro.component';
 import { InviteDialogComponent } from '../invite-dialog/invite-dialog.component';
 import { DeletarGrupoComponent } from '../deletar-grupo/deletar-grupo.component';
+import { DeletarConvidadoDialogComponent } from '../deletar-convidado-dialog/deletar-convidado-dialog.component';
 
 export interface TabelaMembros {
   membro: string;
@@ -32,6 +33,7 @@ export class GerenciadorMembrosComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.dataSources = [];
     this.resgatarFesta();
   }
 
@@ -83,16 +85,26 @@ export class GerenciadorMembrosComponent implements OnInit {
     });
   }
 
-  openDialogDeleteMembro(id, codGrupo, codFesta) {
-    this.dialog.open(DeleteMembroDialogComponent, {
-      width: '20rem',
-      data: {
-        id,
-        codGrupo,
-        codFesta,
-        component: this
-      }
-    });
+  openDialogDeleteMembro(element, codGrupo) {
+    if (!element.convidado) {
+      this.dialog.open(DeleteMembroDialogComponent, {
+        width: '20rem',
+        data: {
+          codUsuario: element.id,
+          codGrupo,
+          component: this
+        }
+      });
+    } else {
+      this.dialog.open(DeletarConvidadoDialogComponent, {
+        width: '20rem',
+        data: {
+          codConvidado: element.id,
+          codGrupo,
+          component: this
+        }
+      });
+    }
   }
 
   openDialogDeleteGrupo(grupo) {
@@ -106,13 +118,14 @@ export class GerenciadorMembrosComponent implements OnInit {
     });
   }
 
-  openDialogEdit(id, grupo, codFesta) {
+  openDialogEdit(codUsuario, grupo, codFesta) {
     this.dialog.open(EditGrupoMembroComponent, {
       width: '20rem',
       data: {
-        id,
+        codUsuario,
         grupo,
-        codFesta
+        codFesta,
+        component: this
       }
     });
   }

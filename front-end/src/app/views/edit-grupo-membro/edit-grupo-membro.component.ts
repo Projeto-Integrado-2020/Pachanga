@@ -17,12 +17,14 @@ export class EditGrupoMembroComponent implements OnInit {
   public form: FormGroup;
   public codUsuario: any;
   public grupo: any;
+  component: any;
 
   constructor(public getGruposService: GetGruposService, public formBuilder: FormBuilder, @Inject(MAT_DIALOG_DATA) data,
               public editMembroService: EditarMembroGrupoService, public dialog: MatDialog) {
     this.codFesta = data.codFesta;
     this.codUsuario = data.codUsuario;
     this.grupo = data.grupo;
+    this.component = data.component;
   }
 
   ngOnInit() {
@@ -53,10 +55,10 @@ export class EditGrupoMembroComponent implements OnInit {
   }
 
   editarGrupo(novosGrupos) {
+    console.log(novosGrupos);
     this.editMembroService.editarMembroColaborador(this.codUsuario, this.grupo.codGrupo, novosGrupos).subscribe((resp: any) => {
       this.dialog.closeAll();
       this.editMembroService.setFarol(false);
-      window.location.reload();
     });
   }
 

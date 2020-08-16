@@ -59,27 +59,27 @@ export class NavbarComponent implements OnInit {
     source.subscribe(
       () => {
         this.carregarArray(this.notifService.getNotificacoes());
-        this.contarAlertasNaoLidos()
+        this.contarAlertasNaoLidos();
       }
-    )
+    );
   }
 
-  carregarArray(observavel: Observable<Object>) {
+  carregarArray(observavel: Observable<object>) {
     return observavel.subscribe(
       (response: any) => {
         this.notifService.farol = false;
-        for(let notif of response.notificacoesUsuario) {
-          if( this.alerts.filter( e => e.notificacao === notif.notificacao).length === 0){
-            this.alerts.push(Object.assign(notif,{tipoUser: true, tempo: "agora mesmo"}))
+        for (const notif of response.notificacoesUsuario) {
+          if ( this.alerts.filter( e => e.notificacao === notif.notificacao).length === 0) {
+            this.alerts.push(Object.assign(notif, {tipoUser: true, tempo: 'agora mesmo'}));
           }
         }
-        for(let notif of response.notificacoesGrupo) {
-        if( this.alerts.filter( e => e.notificacao === notif.notificacao).length === 0){
-          this.alerts.push(Object.assign(notif,{tipo: false, tempo: "agora mesmo"}))
+        for (const notif of response.notificacoesGrupo) {
+        if ( this.alerts.filter( e => e.notificacao === notif.notificacao).length === 0) {
+          this.alerts.push(Object.assign(notif, {tipo: false, tempo: 'agora mesmo'}));
           }
         }
       }
-    )
+    );
   }
 
 
@@ -100,7 +100,7 @@ export class NavbarComponent implements OnInit {
     alerta.naolido = !alerta.naolido;
     alerta.alertaOpcoes = false;
   }
- 
+
   deletarAlerta(alerta): void {
     const index = this.alerts.indexOf(alerta);
     this.alerts.splice(index, 1);
