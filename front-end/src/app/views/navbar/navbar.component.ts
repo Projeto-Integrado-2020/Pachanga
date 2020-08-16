@@ -15,6 +15,7 @@ import { NotificacoesService } from 'src/app/services/notificacoes-service/notif
   styleUrls: ['./navbar.component.scss'],
   providers: [LoginComponent],
 })
+
 export class NavbarComponent implements OnInit {
 
   // variáveis para sistema de alerta
@@ -24,7 +25,8 @@ export class NavbarComponent implements OnInit {
 
   alertaOpcoes: boolean;
   selected: number;
-
+  alerts: any[] = [];
+  /*
   alerts = [
     {
       texto: 'Alô alô alô',
@@ -33,57 +35,7 @@ export class NavbarComponent implements OnInit {
       lido: false,
       naolido: false
     },
-    {
-      texto: 'Salci fu fu',
-      tempo: '3 minutos atrás',
-      alertaOpcoes: false,
-      lido: false,
-      naolido: false
-    },
-    {
-      texto: 'Iê iê iê ',
-      tempo: '5 minutos atrás',
-      alertaOpcoes: false,
-      lido: false,
-      naolido: false
-    },
-    {
-      texto: 'Iê iê iê ',
-      tempo: '5 minutos atrás',
-      alertaOpcoes: false,
-      lido: false,
-      naolido: false
-    },
-    {
-      texto: 'Iê iê iê ',
-      tempo: '5 minutos atrás',
-      alertaOpcoes: false,
-      lido: false,
-      naolido: false
-    },
-    {
-      texto: 'Iê iê iê ',
-      tempo: '5 minutos atrás',
-      alertaOpcoes: false,
-      lido: false,
-      naolido: false
-    },
-    {
-      texto: 'Iê iê iê ',
-      tempo: '5 minutos atrás',
-      alertaOpcoes: false,
-      lido: false,
-      naolido: false
-    },
-    {
-      texto: 'Iê iê iê ',
-      tempo: '5 minutos atrás',
-      alertaOpcoes: false,
-      lido: false,
-      naolido: false
-    }
-  ];
-
+*/
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
       map(result => result.matches),
@@ -104,10 +56,11 @@ export class NavbarComponent implements OnInit {
     translate.setDefaultLang('pt');
     const browserLang = translate.getBrowserLang();
     translate.use(browserLang.match(/pt|en/) ? browserLang : 'pt');
+    this.puxarNovosAlertas();
 
   }
   // MOCK DE CRIACAO DE ALERTA(APAGAR DEPOIS)
-
+/*
   criarAlertaPROVISORIO() {
     const xingamentos = [
       'Vai troxa',
@@ -129,17 +82,35 @@ export class NavbarComponent implements OnInit {
       }
     );
   }
-  // usar esta função para puxar novos alertas; Rodar de 5 em 5 segundos
 
+
+        this.notifService.getNotificacoes().subscribe(
+        response => 
+        this.alerts.push(response)
+  */
+  // usar esta função para puxar novos alertas; Rodar de 5 em 5 segundos
 
   puxarNovosAlertas() {
     const source = interval(5000);
-    source
-      .subscribe(val => {
-        //this.alerts = this.notifService.getNotificacoes();
-        this.contarAlertasNaoLidos();
-    });
-   }
+    source.subscribe(
+      () => {
+        this.carregarArray(this.notifService.getNotificacoes());
+        this.contarAlertasNaoLidos()
+      }
+    )
+  }
+
+  carregarArray(observavel: Observable<Object>) {
+    return observavel.subscribe(
+      (response: any) => {
+        console.log(JSON.stringify(response))
+        this.alerts = response;
+      }
+    )
+  }
+
+
+
 
   contarAlertasNaoLidos(): void {
     let count = 0;
@@ -156,7 +127,7 @@ export class NavbarComponent implements OnInit {
     alerta.naolido = !alerta.naolido;
     alerta.alertaOpcoes = false;
   }
-
+ 
   deletarAlerta(alerta): void {
     const index = this.alerts.indexOf(alerta);
     this.alerts.splice(index, 1);
@@ -202,7 +173,6 @@ export class NavbarComponent implements OnInit {
   ngOnInit() {
     this.contarAlertasNaoLidos();
     this.visibilidadeAlerta = this.alerts.length === 0;
-    this.puxarNovosAlertas();
   }
 
 }

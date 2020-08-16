@@ -41,9 +41,12 @@ export class NotificacoesService {
   getNotificacoes() {
     if (!this.farol) {
       this.farol = true;
+
       const httpParams = new HttpParams()
       .append('idUser', this.loginService.usuarioInfo.codUsuario);
-      return this.http.get(this.URL, {params: httpParams}).pipe(
+
+      return this.http.get(this.URL, {params: httpParams})
+        .pipe(
         take(1),
         catchError(error => {
           return this.handleError(error, this.logService);
