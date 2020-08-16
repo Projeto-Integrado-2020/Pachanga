@@ -52,7 +52,7 @@ public interface GrupoRepository extends CrudRepository<Grupo, Integer>{
 	public void deleteUsuarioGrupo(@Param("codUsuario") int codUsuario, @Param("codGrupo") int codGrupo);
 
 	@Query(value = "SELECT g.nomeGrupo FROM Grupo g JOIN g.usuarios u WHERE u.codUsuario = :codUsuario AND g.festa.codFesta = :codFesta")
-	public String findFuncionalidade(@Param("codFesta")int codFesta,@Param("codUsuario") int codUsuario);
+	public List<String> findFuncionalidade(@Param("codFesta")int codFesta,@Param("codUsuario") int codUsuario);
 	
 	//@Query(value = "SELECT g FROM Grupo g JOIN g.usuarios u JOIN g.permissoes p JOIN g.festa f WHERE u.codUsuario = :codUsuario AND f.codFesta = :codFesta AND p.codGrupo = :codPermissao")
 	//public Grupo findGrupoPermissaoUsuario(int codFesta, int codUsuario, int codPermissao);

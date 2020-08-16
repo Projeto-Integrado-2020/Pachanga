@@ -966,13 +966,14 @@ public class FestaServiceTest {
 	// funcionalidade Festa____________________________________________________________________________________________________________________________________
 	@Test
 	public void funcionalidadeFesta() throws Exception {
-		String expected = "Estagiário senior em iluminação";
+		List<String> expected = new ArrayList<>();
+		expected.add("Estagiário senior em iluminação");
 
 		Mockito.when(grupoRepository.findFuncionalidade(Mockito.any(Integer.class), Mockito.any(Integer.class))).thenReturn(expected);
 
 		String retorno = festaService.funcionalidadeFesta(1, 1);
 
-		assertEquals(retorno, expected);
+		assertEquals(retorno, expected.get(0));
 	}
 	
 	// mudar Status festa_______________________________________________________________________________________________________________________________________

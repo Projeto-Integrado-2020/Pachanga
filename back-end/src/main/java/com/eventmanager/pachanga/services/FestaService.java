@@ -44,10 +44,10 @@ public class FestaService {
 
 	@Autowired
 	private CategoriaRepository categoriaRepository;
-	
+
 	@Autowired
 	private GrupoService grupoService;
-	
+
 	@Autowired
 	private EstoqueService estoqueService;
 
@@ -221,7 +221,13 @@ public class FestaService {
 	}
 
 	public String funcionalidadeFesta(int codFesta, int codUsuario) {
-		return grupoRepository.findFuncionalidade(codFesta, codUsuario);
+		List<String> funcionalidades = grupoRepository.findFuncionalidade(codFesta, codUsuario);
+		StringBuilder listFuncionalidade = new StringBuilder();
+		for(String funcionalidade: funcionalidades) {
+			listFuncionalidade.append(funcionalidade + ",");
+		}
+		listFuncionalidade.delete(listFuncionalidade.length() -1, listFuncionalidade.length());
+		return listFuncionalidade.toString();
 	}
 
 	public Festa mudarStatusFesta(int idFesta, String statusFesta, int idUsuario) {
