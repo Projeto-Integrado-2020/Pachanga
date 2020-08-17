@@ -56,7 +56,7 @@ export class NavbarComponent implements OnInit {
   }
 
   puxarNovosAlertas() {
-    const source = interval(1000);
+    const source = interval(5000);
     source.subscribe(
       () => {
         this.carregarArray(this.notifService.getNotificacoes());
@@ -105,7 +105,7 @@ export class NavbarComponent implements OnInit {
   deletarAlerta(alerta): void {
     const index = this.alerts.indexOf(alerta);
     this.alerts.splice(index, 1);
-    this.notifService.deletarNotificacao(alerta.notificacao);
+    this.notifService.deletarNotificacao(alerta.notificacao).subscribe();
     // CHAMAR METODO DELETAR ALERTA DO NOTIFICACAO-SERVICE!
   }
 
@@ -114,7 +114,7 @@ export class NavbarComponent implements OnInit {
   fecharNotificacoes(): void {
     this.visibilidadeNotificacoes = false;
     this.alerts.forEach(alert => {
-      alert.lido = true;
+      alert.status = 'L';
       this.alertIds.push(alert.notificacao);
     });
     this.contarAlertasNaoLidos();

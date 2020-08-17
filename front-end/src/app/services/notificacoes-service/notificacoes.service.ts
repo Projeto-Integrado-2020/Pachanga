@@ -69,9 +69,9 @@ export class NotificacoesService {
   }
 
   destacarNotificacao(notifId: number) {
-      const httpParams = new HttpParams();
-      httpParams.append('idUser', this.loginService.usuarioInfo.codUsuario);
-      httpParams.append('idNotificacao', notifId.toString());
+      const httpParams = new HttpParams()
+      .append('idUser', this.loginService.usuarioInfo.codUsuario)
+      .append('idNotificacao', notifId.toString());
       return this.http.put(this.URL + '/destaque', null, {params: httpParams}).pipe(
         take(1),
         catchError(error => {
@@ -81,10 +81,10 @@ export class NotificacoesService {
   }
 
   deletarNotificacao(notifId: number) {
-      const httpParams = new HttpParams();
-      httpParams.append('idUser', this.loginService.usuarioInfo.codUsuario);
-      httpParams.append('idNotificacao', notifId.toString());
-      return this.http.put(this.URL + '/delete', null, {params: httpParams}).pipe(
+      const httpParams = new HttpParams()
+      .append('idUser', this.loginService.usuarioInfo.codUsuario)
+      .append('idNotificacao', notifId.toString());
+      return this.http.delete(this.URL + '/delete', {params: httpParams}).pipe(
         take(1),
         catchError(error => {
           return this.handleError(error, this.logService);

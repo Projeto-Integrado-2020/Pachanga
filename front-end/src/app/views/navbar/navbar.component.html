@@ -80,10 +80,10 @@
                 *ngIf="alert.alertaOpcoes"
                 (clicarFora)="alert.alertaOpcoes = false"
                 >
-                <div *ngIf="alert.destaque" class="desler">
+                <div *ngIf="!alert.destaque" class="desler">
                   <p (click)="alterarAlerta(alert)">Marcar como lido</p>
                 </div>
-                <div *ngIf="!alert.destaque" class="desler">
+                <div *ngIf="alert.destaque" class="desler">
                   <p (click)="alterarAlerta(alert)">Marcar como não lido</p>
                 </div>
                 <mat-divider></mat-divider>
