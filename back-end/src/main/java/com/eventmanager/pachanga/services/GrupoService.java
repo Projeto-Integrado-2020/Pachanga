@@ -117,8 +117,8 @@ public class GrupoService {
 		Festa festa = grupo.getFesta();
 		this.validarPermissaoUsuarioGrupo(festa.getCodFesta(), idUsuarioPermissao, TipoPermissao.DISMEMBE.getCodigo());
 		grupoRepository.deleteConvidadoGrupo(idUsuario, grupoIdAtual);
-		List<Integer> grupos = grupoRepository.findGruposUsuarioNotIn(gruposId, idUsuario);
-		
+		List<Integer> grupos = grupoRepository.findGruposFestaIn(gruposId, festa.getCodFesta());
+		grupos.removeAll(grupoRepository.findGruposUsuarioByGrupos(grupos, idUsuario));
 		for(Integer grup : grupos) {
 			grupoRepository.saveUsuarioGrupo(idUsuario, grup);
 		}

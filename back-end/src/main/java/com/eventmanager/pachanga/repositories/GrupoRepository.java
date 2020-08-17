@@ -22,7 +22,7 @@ public interface GrupoRepository extends CrudRepository<Grupo, Integer>{
     public Grupo findById(int codGrupo);
 	
 	
-	@Query(value = "SELECT * FROM Grupo WHERE cod_grupo = :codGrupo", nativeQuery = true)
+	@Query(value = "SELECT g FROM Grupo g JOIN g.festa f WHERE g.codGrupo = :codGrupo")
 	public Grupo findByCod(@Param("codGrupo") int codGrupo);
 	
 	//@Query(value = "SELECT g FROM xz g JOIN g.festa f WHERE f.codFesta = :codFesta")
@@ -108,7 +108,10 @@ public interface GrupoRepository extends CrudRepository<Grupo, Integer>{
 	@Query(value = "DELETE FROM usuario_x_grupo WHERE cod_grupo = :codGrupo", nativeQuery = true)
 	public void deleteAllMembrosGrupo(Integer codGrupo);
 	
-	@Query(value = "SELECT g.codGrupo from Grupo g JOIN g.usuarios u WHERE g.codGrupo NOT IN (:codGrupos) AND u.codUsuario = :codUsuario")
-	public List<Integer> findGruposUsuarioNotIn(List<Integer> codGrupos, Integer codUsuario);
+	@Query(value = "SELECT g.codGrupo FROM Grupo g JOIN g.festa f WHERE f.codFesta = :codFesta AND g.codGrupo IN :codGrupos")
+	public List<Integer> findGruposFestaIn(List<Integer> codGrupos, int codFesta);
+	
+	@Query(value = "SELECT g.codGrupo FROM Grupo g JOIN g.usuarios u WHERE g.codGrupo IN :codGrupos AND u.codUsuario = :codUsuario")
+	public List<Integer> findGruposUsuarioByGrupos(List<Integer> codGrupos, int codUsuario);
 	
 }
