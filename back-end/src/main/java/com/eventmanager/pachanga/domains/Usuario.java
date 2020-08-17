@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -32,6 +33,10 @@ public class Usuario {
 	@ManyToMany(mappedBy = "usuarios",
 			fetch = FetchType.LAZY)
 	private Set<Grupo> grupos;
+	
+	@OneToMany(fetch = FetchType.LAZY,
+			mappedBy = "usuario")
+	private Set<NotificacaoUsuario> notificacaoUsuario;
 
 	public void setCodUsuario(int codUsuario) {
 		this.codUsuario = codUsuario;

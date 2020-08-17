@@ -9,25 +9,25 @@ import { DeletarMembroGrupo } from '../../services/deletar-membro-grupo/deletar-
 })
 export class DeleteMembroDialogComponent implements OnInit {
 
-  public codFesta: any;
   public codUsuario: any;
   public codGrupo: any;
+  component: any;
 
   constructor(@Inject(MAT_DIALOG_DATA) data, public dialog: MatDialog,
               public membroExcluirService: DeletarMembroGrupo) {
-    this.codFesta = data.codFesta;
     this.codUsuario = data.codUsuario;
     this.codGrupo = data.codGrupo;
+    this.component = data.component;
   }
 
   ngOnInit() {
   }
 
   deleteMembroGrupo() {
-    this.membroExcluirService.deletarMembroColaborador(this.codFesta, this.codUsuario, this.codGrupo).subscribe((resp: any) => {
-      this.dialog.closeAll();
+    this.membroExcluirService.deletarMembroColaborador(this.codUsuario, this.codGrupo).subscribe((resp: any) => {
       this.membroExcluirService.setFarol(false);
-      window.location.reload();
+      this.dialog.closeAll();
+      this.component.ngOnInit();
     });
   }
 

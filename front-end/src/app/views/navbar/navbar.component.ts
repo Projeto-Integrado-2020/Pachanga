@@ -7,6 +7,7 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable, interval, Subscription } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { LoginService } from 'src/app/services/loginService/login.service';
+import { NotificacoesService } from 'src/app/services/notificacoes-service/notificacoes.service';
 
 @Component({
   selector: 'app-navbar',
@@ -14,6 +15,7 @@ import { LoginService } from 'src/app/services/loginService/login.service';
   styleUrls: ['./navbar.component.scss'],
   providers: [LoginComponent],
 })
+
 export class NavbarComponent implements OnInit {
 
   // variáveis para sistema de alerta
@@ -23,65 +25,10 @@ export class NavbarComponent implements OnInit {
 
   alertaOpcoes: boolean;
   selected: number;
-
-  alerts = [
-    {
-      texto: 'Alô alô alô',
-      tempo: '1 minuto atrás',
-      alertaOpcoes: false, // Nao mandar pro back-end; Esta propriedade deve ser usada exclusivamente no front
-      lido: false,
-      naolido: false
-    },
-    {
-      texto: 'Salci fu fu',
-      tempo: '3 minutos atrás',
-      alertaOpcoes: false,
-      lido: false,
-      naolido: false
-    },
-    {
-      texto: 'Iê iê iê ',
-      tempo: '5 minutos atrás',
-      alertaOpcoes: false,
-      lido: false,
-      naolido: false
-    },
-    {
-      texto: 'Iê iê iê ',
-      tempo: '5 minutos atrás',
-      alertaOpcoes: false,
-      lido: false,
-      naolido: false
-    },
-    {
-      texto: 'Iê iê iê ',
-      tempo: '5 minutos atrás',
-      alertaOpcoes: false,
-      lido: false,
-      naolido: false
-    },
-    {
-      texto: 'Iê iê iê ',
-      tempo: '5 minutos atrás',
-      alertaOpcoes: false,
-      lido: false,
-      naolido: false
-    },
-    {
-      texto: 'Iê iê iê ',
-      tempo: '5 minutos atrás',
-      alertaOpcoes: false,
-      lido: false,
-      naolido: false
-    },
-    {
-      texto: 'Iê iê iê ',
-      tempo: '5 minutos atrás',
-      alertaOpcoes: false,
-      lido: false,
-      naolido: false
-    }
-  ];
+  alerts: any[] = [];
+  notificacoesUsuario: any[] = [];
+  notificacoesGrupo: any[] = [];
+  notificacaoConvidado: any[] = [];
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
@@ -96,48 +43,47 @@ export class NavbarComponent implements OnInit {
     public invite: MatDialog,
     private breakpointObserver: BreakpointObserver,
     public loginComponent: LoginComponent,
-    public loginService: LoginService
+    public loginService: LoginService,
+    public notifService: NotificacoesService
     ) {
     translate.addLangs(['pt', 'en']);
     translate.setDefaultLang('pt');
     const browserLang = translate.getBrowserLang();
     translate.use(browserLang.match(/pt|en/) ? browserLang : 'pt');
+    this.puxarNovosAlertas();
 
   }
-  // MOCK DE CRIACAO DE ALERTA(APAGAR DEPOIS)
-
-  criarAlertaPROVISORIO() {
-    const xingamentos = [
-      'Vai troxa',
-      'Seu merda',
-      'Vai à merda',
-      'É isso msm otário',
-      'F***-se',
-      'Chupa aqui'
-    ];
-    const xingamento = xingamentos[Math.floor(Math.random() * xingamentos.length)];
-
-    this.alerts.unshift(
-      {
-        texto: xingamento,
-        tempo: 'Agora mesmo',
-        alertaOpcoes: false,
-        lido: false,
-        naolido: false
-      }
-    );
-  }
-  // usar esta função para puxar novos alertas; Rodar de 5 em 5 segundos
-
 
   puxarNovosAlertas() {
     const source = interval(5000);
-    source
-      .subscribe(val => {
-        // this.criarAlertaPROVISORIO()
+    source.subscribe(
+      () => {
+        this.carregarArray(this.notifService.getNotificacoes());
         this.contarAlertasNaoLidos();
-    });
-   }
+      }
+    );
+  }
+
+  carregarArray(observavel: Observable<object>) {
+    return observavel.subscribe(
+      (response: any) => {
+        this.notifService.farol = false;
+        for (const notif of response.notificacoesUsuario) {
+          if ( this.alerts.filter( e => e.notificacao === notif.notificacao).length === 0) {
+            this.alerts.push(Object.assign(notif, {tipoUser: true, tempo: 'agora mesmo'}));
+          }
+        }
+        for (const notif of response.notificacoesGrupo) {
+        if ( this.alerts.filter( e => e.notificacao === notif.notificacao).length === 0) {
+          this.alerts.push(Object.assign(notif, {tipo: false, tempo: 'agora mesmo'}));
+          }
+        }
+      }
+    );
+  }
+
+
+
 
   contarAlertasNaoLidos(): void {
     let count = 0;
@@ -158,6 +104,7 @@ export class NavbarComponent implements OnInit {
   deletarAlerta(alerta): void {
     const index = this.alerts.indexOf(alerta);
     this.alerts.splice(index, 1);
+    // CHAMAR METODO DELETAR ALERTA DO NOTIFICACAO-SERVICE!
   }
 
   // abrir janela de notificações
@@ -199,7 +146,6 @@ export class NavbarComponent implements OnInit {
   ngOnInit() {
     this.contarAlertasNaoLidos();
     this.visibilidadeAlerta = this.alerts.length === 0;
-    this.puxarNovosAlertas();
   }
 
 }

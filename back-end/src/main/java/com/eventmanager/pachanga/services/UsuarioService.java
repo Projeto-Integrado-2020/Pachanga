@@ -11,7 +11,6 @@ import com.eventmanager.pachanga.domains.Usuario;
 import com.eventmanager.pachanga.dtos.UsuarioTO;
 import com.eventmanager.pachanga.errors.ValidacaoException;
 import com.eventmanager.pachanga.factory.UsuarioFactory;
-import com.eventmanager.pachanga.repositories.GrupoRepository;
 import com.eventmanager.pachanga.repositories.UsuarioRepository;
 import com.eventmanager.pachanga.tipo.TipoConta;
 import com.eventmanager.pachanga.utils.HashBuilder;
@@ -24,8 +23,8 @@ public class UsuarioService {
 	private UsuarioRepository userRepository;
 
 	@Autowired
-	private GrupoRepository grupoRepository;
-
+	private FestaService festaService;
+	
 	//cadastro_________________________________________________________________________________________________________	
 
 	public Usuario cadastrar(UsuarioTO user){
@@ -98,6 +97,8 @@ public class UsuarioService {
 			return cadastrar(user);
 		}else if(usuarioExistente == null && TipoConta.PACHANGA.getDescricao().equals(user.getTipConta())) {
 			throw new ValidacaoException("EMALINCO");
+		}else if(usuarioExistente != null && (usuarioExistente.getSenha() == null || usuarioExistente.getSenha().isEmpty()) && TipoConta.PACHANGA.getDescricao().equals(user.getTipConta()) ) {
+			throw new ValidacaoException("PASSINC1");
 		}
 		validarLogin(usuarioExistente, user);
 		return usuarioExistente;
@@ -169,7 +170,7 @@ public class UsuarioService {
 		if(usuario == null) {
 			throw new ValidacaoException("USERNFOU");
 		}
-		return grupoRepository.findFuncionalidade(codFesta, codUsuario);
+		return festaService.funcionalidadeFesta(codFesta, codUsuario);
 	}
 
 	public Usuario getUsuarioResponsavelFesta(int codFesta) {

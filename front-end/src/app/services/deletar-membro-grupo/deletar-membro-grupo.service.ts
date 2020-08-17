@@ -15,19 +15,18 @@ export class DeletarMembroGrupo {
 
   public farol = false;
 
-  private readonly urlDeletarMembro = `${environment.URL_BACK}grupo/deleteUser`;
+  private readonly urlDeletarMembro = `${environment.URL_BACK}grupo/deleteMembro`;
 
   constructor(private http: HttpClient, public logService: LogService, public dialog: MatDialog,
               public loginService: LoginService) { }
 
-  deletarMembroColaborador(festa, id, grupo) {
+  deletarMembroColaborador(id, grupo) {
     if (!this.farol) {
       this.setFarol(true);
       const httpParams = new HttpParams()
-      .append('idUsuarioDel', id)
-      .append('codGrupo', grupo)
-      .append('codFesta', festa)
-      .append('idUsuario', this.loginService.usuarioInfo.codUsuario);
+      .append('idMembro', id)
+      .append('idGrupo', grupo)
+      .append('idUsuarioPermissao', this.loginService.usuarioInfo.codUsuario);
       return this.http.delete(this.urlDeletarMembro, {params: httpParams}).pipe(
         take(1),
         catchError(error => {

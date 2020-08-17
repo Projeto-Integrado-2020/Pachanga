@@ -15,19 +15,19 @@ export class EditarMembroGrupoService {
 
   public farol = false;
 
-  private readonly urlDeletarMembro = `${environment.URL_BACK}grupo/updateUser`;
+  private readonly urlEditarMembro = `${environment.URL_BACK}grupo/updateUser`;
 
   constructor(private http: HttpClient, public logService: LogService, public dialog: MatDialog,
               public loginService: LoginService) { }
 
-  editarMembroColaborador(id, grupo, novosGrupos) {
+  editarMembroColaborador(id, grupo, gruposId) {
     if (!this.farol) {
       this.setFarol(true);
       const httpParams = new HttpParams()
-      .append('idUsuarioEdit', id)
-      .append('codGrupo', grupo)
-      .append('idUsuario', this.loginService.usuarioInfo.codUsuario);
-      return this.http.put(this.urlDeletarMembro, novosGrupos, {params: httpParams}).pipe(
+      .append('idUsuario', id)
+      .append('grupoIdAtual', grupo)
+      .append('idUsuarioPermissao', this.loginService.usuarioInfo.codUsuario);
+      return this.http.put(this.urlEditarMembro, gruposId, {params: httpParams}).pipe(
         take(1),
         catchError(error => {
           return this.handleError(error, this.logService);

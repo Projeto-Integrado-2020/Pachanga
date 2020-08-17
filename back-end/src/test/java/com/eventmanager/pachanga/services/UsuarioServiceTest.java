@@ -17,7 +17,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import com.eventmanager.pachanga.domains.Usuario;
 import com.eventmanager.pachanga.dtos.UsuarioTO;
 import com.eventmanager.pachanga.errors.ValidacaoException;
-import com.eventmanager.pachanga.repositories.GrupoRepository;
 import com.eventmanager.pachanga.repositories.UsuarioRepository;
 import com.eventmanager.pachanga.tipo.TipoConta;
 import com.eventmanager.pachanga.tipo.TipoGrupo;
@@ -30,7 +29,7 @@ public class UsuarioServiceTest {
 	private UsuarioRepository usuarioRepository;
 
 	@MockBean
-	private GrupoRepository grupoRepository;
+	private FestaService festaService;
 
 	@Autowired
 	private UsuarioService userService;
@@ -81,6 +80,28 @@ public class UsuarioServiceTest {
 		assertEquals(usuarioTestLogin.getDtNasc(),usuarioRetorno.getDtNasc());
 		assertEquals(usuarioTestLogin.getSexo(),usuarioRetorno.getSexo());
 		assertEquals(usuarioTestLogin.getEmail(),usuarioRetorno.getEmail()); 
+	}
+	
+	@Test
+	public void loginSemSenhaBancoTest() throws Exception{
+
+		Usuario usuarioTestBanco = usuarioTest();
+		usuarioTestBanco.setSenha(null);
+
+		Mockito.when(usuarioRepository.findByEmail("gustavinhoTPD@fodasse.com.br")).thenReturn(usuarioTestBanco);
+
+		UsuarioTO usuarioTestLogin = usuarioToTest();
+		boolean erro = false;
+		String mensagemErro = null;
+		try {
+			userService.logar(usuarioTestLogin);			
+		} catch (ValidacaoException e) {
+			mensagemErro = e.getMessage();
+			erro = true;
+		}
+
+		assertEquals(true, erro);
+		assertEquals("PASSINC1", mensagemErro);
 	}
 	
 	@Test
@@ -692,7 +713,7 @@ public class UsuarioServiceTest {
 
 		Mockito.when(usuarioRepository.findById(1)).thenReturn(usuarioTest());
 
-		Mockito.when(grupoRepository.findFuncionalidade(14, 1)).thenReturn(TipoGrupo.ORGANIZADOR.getValor());
+		Mockito.when(festaService.funcionalidadeFesta(Mockito.anyInt(), Mockito.anyInt())).thenReturn(TipoGrupo.ORGANIZADOR.getValor());
 
 		String funcionalidade = userService.funcionalidadeUsuarioFesta(14, 1);
 
@@ -702,10 +723,13 @@ public class UsuarioServiceTest {
 
 	@Test
 	public void funcionalidadeUsuarioFestaFailedTest() throws Exception{
+		
+		List<String> expected = new ArrayList<>();
+		expected.add("Estagiário senior em iluminação");
 
 		Mockito.when(usuarioRepository.findById(1)).thenReturn(null);
 
-		Mockito.when(grupoRepository.findFuncionalidade(14, 1)).thenReturn(TipoGrupo.ORGANIZADOR.getValor());
+		Mockito.when(festaService.funcionalidadeFesta(Mockito.anyInt(), Mockito.anyInt())).thenReturn(TipoGrupo.ORGANIZADOR.getValor());
 
 		boolean caiuException = false;
 		String funcionalidade = null;

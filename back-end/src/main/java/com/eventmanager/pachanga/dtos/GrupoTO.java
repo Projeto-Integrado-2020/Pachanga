@@ -9,6 +9,7 @@ public class GrupoTO {
 	private int codFesta;
 	private String nomeGrupo;
     private int quantMaxPessoas;
+    private Boolean isOrganizador;
     private List<UsuarioTO> usuariosTO;
     private List<ConvidadoTO> convidadosTO;
     private List<PermissaoTO> permissoesTO;
@@ -62,6 +63,12 @@ public class GrupoTO {
 	}
 	public void setPermissoes(List<Integer> permissoes) {
 		this.permissoes = permissoes;
+	}
+	public Boolean getIsOrganizador() {
+		return isOrganizador;
+	}
+	public void setIsOrganizador(Boolean isOrganizador) {
+		this.isOrganizador = isOrganizador;
 	}
 
 }

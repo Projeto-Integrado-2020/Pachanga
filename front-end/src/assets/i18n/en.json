@@ -260,7 +260,8 @@
         "NEWGROUP": "New groups(s)",
         "CONFIRM": "Confirm",
         "CANCEL": "Cancel",
-        "ASSIGN": "Assign permission"
+        "ASSIGN": "Assign permission",
+        "DELETECONVIDADO": "Delete guest"
     },
 
     "CONVITE": {
@@ -326,6 +327,38 @@
     "ASSIGNDIALOG": {
         "TITLE": "Permission Assign",
         "MESSAGE": "Do you really want to save this assign configuration for the group",
+        "CONFIRM": "Confirm",
+        "CANCEL": "Cancel"
+    },
+
+    "ASSIGN": {
+        "MEMBERS": "Number of confirmed members"
+    },
+
+    "DELETEESTOQUE": {
+        "MESSAGE": "Are you sure you want to delete this stock from the party?",
+        "CONFIRM": "Confirm",
+        "CANCEL": "Cancel"
+    },
+
+    "ESTOQUE": {
+        "DESCRIPTION": "Click here to view the products in stock.",
+        "PRODUTO": "Product",
+        "PRINCIPAL": "Main stock",
+        "QUANTIDADE": "Amount",
+        "STATUS": "Status",
+        "REMOVE1": "Removal",
+        "REMOVE2": "Remove",
+        "DELETE": "Delete estock",
+        "EDITESTOQUE": "Edit stock",
+        "NOMEESTOQUE": "Stock name",
+        "CONFIRM": "Confirm",
+        "CANCEL": "Cancel",
+        "ADDESTOQUE": "Add stock"
+    },
+
+    "DELETECONVIDADO": {
+        "MESSAGE": "Do you really want to delete this guest?",
         "CONFIRM": "Confirm",
         "CANCEL": "Cancel"
     }

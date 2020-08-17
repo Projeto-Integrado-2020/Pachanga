@@ -38,6 +38,7 @@ export class FestaPainelControleComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.membros = [];
     let idFesta = this.router.url;
     idFesta = idFesta.substring(idFesta.indexOf('&') + 1, idFesta.indexOf('/', idFesta.indexOf('&')));
     this.getFestaService.acessarFesta(idFesta).subscribe((resp: any) => {
@@ -46,10 +47,10 @@ export class FestaPainelControleComponent implements OnInit {
       this.festaNome = resp.nomeFesta;
       this.statusFesta = resp.statusFesta;
       for (const usuario of Object.keys(resp.usuarios)) {
-        this.membros.push({membro: resp.usuarios[usuario].nomeUser, status: 'Aceito'});
+        this.membros.push({membro: resp.usuarios[usuario].nomeUser, status: 'PAINELCONTROLE.ACEITO'});
       }
       for (const convidado of Object.keys(resp.convidados)) {
-        this.membros.push({membro: resp.convidados[convidado].email, status: 'Pendente'});
+        this.membros.push({membro: resp.convidados[convidado].email, status: 'PAINELCONTROLE.PENDENTE'});
       }
       this.dataSource.data = this.membros;
     });

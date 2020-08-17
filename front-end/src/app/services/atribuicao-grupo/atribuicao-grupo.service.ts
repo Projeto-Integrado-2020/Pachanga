@@ -21,8 +21,8 @@ export class AtribuicaoGrupoService {
 
   atribuirMembros(listaUser, codGrupo) {
     const httpParams = new HttpParams()
-    .append('idUsuario', this.loginService.usuarioInfo.codUsuario)
-    .append('codGrupo', codGrupo);
+    .append('idUsuarioPermissao', this.loginService.usuarioInfo.codUsuario)
+    .append('idGrupo', codGrupo);
     return this.http.put(this.urlAtribuicao, listaUser, {params: httpParams}).pipe(
       take(1),
       catchError(error => {

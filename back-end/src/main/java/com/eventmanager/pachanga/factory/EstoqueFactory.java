@@ -16,11 +16,6 @@ public class EstoqueFactory {
 	private EstoqueFactory() {
 	}
 	
-	public Estoque getEstoque(EstoqueTO estoqueTo, boolean principal) {
-		return EstoqueBuilder.getInstance().codEstoque(estoqueTo.getCodEstoque()).nomeEstoque(estoqueTo.getNomeEstoque())
-				.principal(principal).build();
-	}
-	
 	public EstoqueTO getEstoqueTO(Estoque estoque) {
 		return EstoqueTOBuilder.getInstance().codEstoque(estoque.getCodEstoque()).nomeEstoque(estoque.getNomeEstoque())
 				.principal(estoque.isPrincipal()).build();
@@ -28,6 +23,10 @@ public class EstoqueFactory {
 	
 	public List<EstoqueTO> getListEstoqueTO(List<Estoque> estoques){
 		return estoques.stream().map(e -> this.getEstoqueTO(e)).collect(Collectors.toList());
+	}
+
+	public Estoque getEstoque(String nomeEstoque, boolean principal) {
+		return EstoqueBuilder.getInstance().nomeEstoque(nomeEstoque).principal(principal).build();
 	}
 
 }

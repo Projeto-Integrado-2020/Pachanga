@@ -1,5 +1,6 @@
 package com.eventmanager.pachanga.services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -61,6 +62,22 @@ public class ConvidadoService {
 			}
 		}
 		return mensagemRetorno;
+	}
+	
+	public List<Usuario> deleteUsuariosFesta(List<String> emails, int codFesta, int idUsuario, int idGrupo) {
+		List<Usuario> retorno = new ArrayList<>();
+		this.validarUsuario(idUsuario);
+		Grupo grupo = this.validarGrupoFesta(idGrupo, codFesta, idUsuario);
+		for(String email : emails) {
+			Usuario usuario = usuarioRepository.findByEmail(email);
+			if(usuario != null) {
+				grupoRepository.deleteUsuarioGrupo(usuario.getCodUsuario(), grupo.getCodGrupo());
+				retorno.add(usuario);
+			}else {
+				throw new ValidacaoException("USERNFOU - G" + idGrupo);
+			}
+		}
+		return retorno;
 	}
 	
 	public List<Convidado> pegarConvidadosFesta(int codFesta){

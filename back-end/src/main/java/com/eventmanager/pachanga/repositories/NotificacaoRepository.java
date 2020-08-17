@@ -12,7 +12,7 @@ import com.eventmanager.pachanga.domains.Notificacao;
 @Repository
 public interface NotificacaoRepository extends JpaRepository<Notificacao, Integer>{
 
-	@Query(value = "SELECT n FROM Notificacao n JOIN n.grupos g JOIN g.usuarios u WHERE u.codUsuario = :idUser")
+	@Query(value = "SELECT n FROM Notificacao n JOIN n.notificacaoGrupo ng JOIN ng.grupo g JOIN g.usuarios u WHERE u.codUsuario = :idUser")
 	public List<Notificacao> findNotificacaoGrupoByUserId(int idUser);
 	
 	@Query(value = "SELECT n FROM Notificacao n JOIN n.convidados c JOIN c.grupos g JOIN g.usuarios u WHERE u.codUsuario = :idUser")

@@ -69,6 +69,10 @@ import { DistribuicaoPermissoesComponent } from './views/distribuicao-permissoes
 import { EstoquePainelComponent } from './views/estoque-painel/estoque-painel.component';
 import { ClicarForaDirective } from './views/navbar/clicar-fora-fecha.directive';
 import { DistribuicaoDialogComponent } from './views/distribuicao-dialog/distribuicao-dialog.component';
+import { DeleteEstoqueDialogComponent } from './views/delete-estoque-dialog/delete-estoque-dialog.component';
+import { EditEstoqueDialogComponent } from './views/edit-estoque-dialog/edit-estoque-dialog.component';
+import { CriarEstoqueDialogComponent } from './views/criar-estoque-dialog/criar-estoque-dialog.component';
+import { DeletarConvidadoDialogComponent } from './views/deletar-convidado-dialog/deletar-convidado-dialog.component';
 
 
 const config = new AuthServiceConfig([
@@ -118,7 +122,11 @@ export function provideConfig() {
     DistribuicaoPermissoesComponent,
     EstoquePainelComponent,
     ClicarForaDirective,
-    DistribuicaoDialogComponent
+    DistribuicaoDialogComponent,
+    DeleteEstoqueDialogComponent,
+    EditEstoqueDialogComponent,
+    CriarEstoqueDialogComponent,
+    DeletarConvidadoDialogComponent
   ],
   entryComponents: [
     LoginComponent,
@@ -132,7 +140,11 @@ export function provideConfig() {
     DeleteMembroDialogComponent,
     EditGrupoMembroComponent,
     DeletarGrupoComponent,
-    DistribuicaoDialogComponent
+    DistribuicaoDialogComponent,
+    DeleteEstoqueDialogComponent,
+    EditEstoqueDialogComponent,
+    CriarEstoqueDialogComponent,
+    DeletarConvidadoDialogComponent
   ],
   imports: [
     BrowserModule,

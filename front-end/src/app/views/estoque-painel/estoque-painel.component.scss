@@ -33,20 +33,6 @@
     background: #DADADA  ;
   }
   
-  .example-header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-  }
-  
-  .example-footer {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-  }
-  
   .toggle{
     top: 50%;
     transform: translateY(-50%);
@@ -64,19 +50,6 @@
     position: relative
   }
 
-  .example-card {
-    //max-width: 42.56vh;
-    width: 73%;
-    margin-left: 12.5%;
-  }
-
-  .prp-btn-member{
-    background-color: $color-primary;
-    color: #ffffff;
-    width: 200px;
-    float: right;
-  }
-
   table {
     width: 75%;
     margin-top: 3rem;
@@ -88,32 +61,12 @@
     float: right;
   }
 
-  .icon-delete{
-    position: relative;
-    float: right;
-    //width: 100px;
-    margin-left: 2.5rem;
-    margin-right: 2.5rem;
-  }
-
   th{
     padding: auto;
   }
 
   a{
     text-decoration: underline;
-  }
-
-  .status-list{
-    margin-top: 1.5rem;
-    display: flex !important;
-    justify-content: center !important;
-    align-items: center !important;
-    margin-bottom: 1rem;
-  }
-
-  .status-list mat-icon{
-    margin-left: .3rem;
   }
 
   .card-header{
@@ -148,21 +101,6 @@
   color: white;
   padding: 0;
   padding-left: .5rem;
-}
-
-.botao-deletar {
-  margin-top: 1.5rem;
-  margin-right: 18%;
-  float: right;
-  background-color: $color-tertiary;
-  color: white;
-  padding: 0;
-  padding-left: .5rem;
-}
-
-.status-botao{
-  position: relative;
-  transform: translateX(-50%);
 }
 
 mat-button-toggle-group {
@@ -229,4 +167,25 @@ tr.example-element-row:not(.example-expanded-row):active {
 .red-back{
   margin-left: 4rem;
   margin-top: 1.25rem;
+}
+
+.prp-btn-delete {
+  background-color: $color-primary;
+  color: #ffffff;
+  width: 125px;
+  float: left;
+  margin-right: 1rem;
+}
+
+.prp-btn-edit {
+  background-color: $color-secondary;
+  color: #ffffff;
+  width: 125px;
+  float: left;
+}
+
+.prp-btn-add {
+  background-color: $color-secondary;
+  color: #ffffff;
+  width: 150px;
 }

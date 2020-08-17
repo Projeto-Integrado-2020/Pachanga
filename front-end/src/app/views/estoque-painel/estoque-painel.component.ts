@@ -1,9 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatTableDataSource } from '@angular/material';
 import { GetFestaService } from 'src/app/services/get-festa/get-festa.service';
 import { Router } from '@angular/router';
 import { StatusFestaService } from 'src/app/services/status-festa/status-festa.service';
+import { GetEstoqueService } from 'src/app/services/get-estoque/get-estoque.service';
+import { DeleteEstoqueDialogComponent } from '../delete-estoque-dialog/delete-estoque-dialog.component';
+import { EditarEstoqueService } from 'src/app/services/editar-estoque/editar-estoque.service';
+import { EditEstoqueDialogComponent } from '../edit-estoque-dialog/edit-estoque-dialog.component';
+import { CriarEstoqueDialogComponent } from '../criar-estoque-dialog/criar-estoque-dialog.component';
 
 @Component({
   selector: 'app-estoque-painel',
@@ -13,9 +18,8 @@ import { StatusFestaService } from 'src/app/services/status-festa/status-festa.s
 
 export class EstoquePainelComponent implements OnInit {
 
-  dataSource = ELEMENT_DATA;
   displayedColumns: string[] = ['nome', 'qtd', 'status', 'teste'];
-  expandedElement: PeriodicElement | null;
+  expandedElement: TabelaEstoque | null;
 
   public festaNome: string;
   options: FormGroup;
@@ -23,9 +27,11 @@ export class EstoquePainelComponent implements OnInit {
   public statusFesta: any;
   panelOpenState = false;
   public form: FormGroup;
+  estoques: any;
+  dataSources = [];
 
   constructor(public fb: FormBuilder, public dialog: MatDialog, public getFestaService: GetFestaService,
-              public router: Router, public statusService: StatusFestaService) {
+              public router: Router, public statusService: StatusFestaService, public getEstoque: GetEstoqueService) {
       this.options = fb.group({
         bottom: 55,
         top: 0
@@ -40,7 +46,12 @@ export class EstoquePainelComponent implements OnInit {
 
   get f() { return this.form.controls; }
 
-
+  resgatarEstoquePanel() {
+    this.getEstoque.getEstoque(this.festa.codFesta).subscribe((resp: any) => {
+      this.getEstoque.setFarol(false);
+      this.estoques = resp;
+    });
+  }
 
   ngOnInit() {
     let idFesta = this.router.url;
@@ -50,19 +61,53 @@ export class EstoquePainelComponent implements OnInit {
       this.festa = resp;
       this.festaNome = resp.nomeFesta;
       this.statusFesta = resp.statusFesta;
+      this.resgatarEstoquePanel();
     });
     this.gerarForm();
   }
+
+  openDialogDelete(codEstoque) {
+    this.dialog.open(DeleteEstoqueDialogComponent, {
+      width: '20rem',
+      data: {
+        codFesta: this.festa.codFesta,
+        codEstoque,
+        component: this
+      }
+    });
+  }
+
+  openDialogEdit(estoque) {
+    this.dialog.open(EditEstoqueDialogComponent, {
+      width: '20rem',
+      data: {
+        codFesta: this.festa.codFesta,
+        component: this,
+        estoque
+      }
+    });
+  }
+
+  openDialogAdd() {
+    this.dialog.open(CriarEstoqueDialogComponent, {
+      width: '20rem',
+      data: {
+        codFesta: this.festa.codFesta,
+        component: this
+      }
+    });
+  }
+
 }
 
-export interface PeriodicElement {
+export interface TabelaEstoque {
   nome: string;
   qtd: number;
   status: string;
   teste: any;
 }
 
-const ELEMENT_DATA: PeriodicElement[] = [
+const ELEMENT_DATA: TabelaEstoque[] = [
   {
     nome: 'Skol 350ml',
     qtd: 1.0079,

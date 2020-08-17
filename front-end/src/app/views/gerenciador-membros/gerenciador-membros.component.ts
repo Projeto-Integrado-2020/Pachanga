@@ -7,11 +7,13 @@ import { DeleteMembroDialogComponent } from '../delete-membro-dialog/delete-memb
 import { EditGrupoMembroComponent } from '../edit-grupo-membro/edit-grupo-membro.component';
 import { InviteDialogComponent } from '../invite-dialog/invite-dialog.component';
 import { DeletarGrupoComponent } from '../deletar-grupo/deletar-grupo.component';
+import { DeletarConvidadoDialogComponent } from '../deletar-convidado-dialog/deletar-convidado-dialog.component';
 
 export interface TabelaMembros {
   membro: string;
   status: string;
   id: string;
+  convidado: boolean;
 }
 
 @Component({
@@ -31,6 +33,7 @@ export class GerenciadorMembrosComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.dataSources = [];
     this.resgatarFesta();
   }
 
@@ -51,10 +54,20 @@ export class GerenciadorMembrosComponent implements OnInit {
       for (const grupo of resp) {
         const membros = [];
         for (const usuario of Object.keys(grupo.usuariosTO)) {
-          membros.push({membro: grupo.usuariosTO[usuario].nomeUser, status: 'Aceito'});
+          membros.push({
+            membro: grupo.usuariosTO[usuario].nomeUser,
+            status: 'PAINELCONTROLE.ACEITO',
+            id: grupo.usuariosTO[usuario].codUsuario,
+            convidado: false
+          });
         }
         for (const convidado of Object.keys(grupo.convidadosTO)) {
-          membros.push({membro: grupo.convidadosTO[convidado].email, status: 'Pendente'});
+          membros.push({
+            membro: grupo.convidadosTO[convidado].email,
+            status: 'PAINELCONTROLE.PENDENTE',
+            id: grupo.convidadosTO[convidado].codConvidado,
+            convidado: true
+          });
         }
         this.dataSources.push(new MatTableDataSource<TabelaMembros>(membros));
       }
@@ -66,20 +79,32 @@ export class GerenciadorMembrosComponent implements OnInit {
       width: '55rem',
       data: {
         idFesta: this.festa.codFesta,
-        grupo
+        grupo,
+        component: this
       }
     });
   }
 
-  openDialogDeleteMembro(id, codGrupo, codFesta) {
-    this.dialog.open(DeleteMembroDialogComponent, {
-      width: '20rem',
-      data: {
-        id,
-        codGrupo,
-        codFesta
-      }
-    });
+  openDialogDeleteMembro(element, codGrupo) {
+    if (!element.convidado) {
+      this.dialog.open(DeleteMembroDialogComponent, {
+        width: '20rem',
+        data: {
+          codUsuario: element.id,
+          codGrupo,
+          component: this
+        }
+      });
+    } else {
+      this.dialog.open(DeletarConvidadoDialogComponent, {
+        width: '20rem',
+        data: {
+          codConvidado: element.id,
+          codGrupo,
+          component: this
+        }
+      });
+    }
   }
 
   openDialogDeleteGrupo(grupo) {
@@ -87,18 +112,20 @@ export class GerenciadorMembrosComponent implements OnInit {
       width: '20rem',
       data: {
         grupo,
-        codFesta: this.festa.codFesta
+        codFesta: this.festa.codFesta,
+        component: this
       }
     });
   }
 
-  openDialogEdit(id, grupo, codFesta) {
+  openDialogEdit(codUsuario, grupo, codFesta) {
     this.dialog.open(EditGrupoMembroComponent, {
       width: '20rem',
       data: {
-        id,
+        codUsuario,
         grupo,
-        codFesta
+        codFesta,
+        component: this
       }
     });
   }

@@ -260,7 +260,8 @@
         "CONFIRM": "Confirmar",
         "CANCEL": "Cancelar",
         "DELETE": "Excluir grupo",
-        "ASSIGN": "Atribuir permissão"
+        "ASSIGN": "Atribuir permissão",
+        "DELETECONVIDADO": "Deletar convidado"
     },
 
     "CONVITE": {
@@ -327,6 +328,38 @@
     "ASSIGNDIALOG": {
         "TITLE": "Atribuição de permissão",
         "MESSAGE": "Você realmente deseja salvar esta configuração de atribuição para o grupo",
+        "CONFIRM": "Confirmar",
+        "CANCEL": "Cancelar"
+    },
+
+    "ASSIGN": {
+        "MEMBERS": "Número de membros colaboradores confirmados"
+    },
+
+    "DELETEESTOQUE": {
+        "MESSAGE": "Você realmente deseja deletar este estoque da festa?",
+        "CONFIRM": "Confirmar",
+        "CANCEL": "Cancelar"
+    },
+
+    "ESTOQUE": {
+        "DESCRIPTION": "Clique aqui para vizualizar os produtos do estoque.",
+        "PRODUTO": "Produto",
+        "PRINCIPAL": "Estoque principal",
+        "QUANTIDADE": "Quantidade",
+        "STATUS": "Status",
+        "REMOVE1": "Remoção",
+        "REMOVE2": "Remover",
+        "DELETE": "Deletar estoque",
+        "EDITESTOQUE": "Editar estoque",
+        "NOMEESTOQUE": "Nome do estoque:",
+        "CONFIRM": "Confirmar",
+        "CANCEL": "Cancelar",
+        "ADDESTOQUE": "Adicionar estoque"
+    },
+
+    "DELETECONVIDADO": {
+        "MESSAGE": "Você realmente deseja deletar este convidado?",
         "CONFIRM": "Confirmar",
         "CANCEL": "Cancelar"
     }
