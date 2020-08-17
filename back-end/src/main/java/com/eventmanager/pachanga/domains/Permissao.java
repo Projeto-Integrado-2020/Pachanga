@@ -23,12 +23,14 @@ public class Permissao {
 	private String descPermissao;
 	@Column(name = "tip_permissao")
 	private String tipPermissao;
+	
 	@ManyToMany(fetch = FetchType.LAZY,
 			cascade = CascadeType.ALL)
 	@JoinTable(name = "permissao_x_grupo",
 	joinColumns = @JoinColumn(name ="cod_permissao"),
 	inverseJoinColumns = @JoinColumn(name = "cod_grupo"))
 	private Set<Grupo> grupos;
+	
 	public int getCodPermissao() {
 		return codPermissao;
 	}

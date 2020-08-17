@@ -1,6 +1,8 @@
 package com.eventmanager.pachanga.services;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.transaction.Transactional;
 
@@ -10,11 +12,13 @@ import org.springframework.stereotype.Service;
 import com.eventmanager.pachanga.domains.Estoque;
 import com.eventmanager.pachanga.domains.Festa;
 import com.eventmanager.pachanga.domains.Grupo;
+import com.eventmanager.pachanga.domains.Produto;
 import com.eventmanager.pachanga.dtos.EstoqueTO;
 import com.eventmanager.pachanga.errors.ValidacaoException;
 import com.eventmanager.pachanga.repositories.EstoqueRepository;
 import com.eventmanager.pachanga.repositories.FestaRepository;
 import com.eventmanager.pachanga.repositories.GrupoRepository;
+import com.eventmanager.pachanga.repositories.ProdutoRepository;
 import com.eventmanager.pachanga.tipo.TipoPermissao;
 
 @Service
@@ -29,12 +33,28 @@ public class EstoqueService {
 
 	@Autowired
 	private EstoqueRepository estoqueRepository;
+	
+	@Autowired
+	private ProdutoRepository produtoRepository;
 
 
 	public List<Estoque> estoquesFesta(int codFesta, int idUsuario){
 		this.validarFesta(codFesta);
 		this.validarUsuario(idUsuario, codFesta, TipoPermissao.VISUESTO.getCodigo());
 		return estoqueRepository.findEstoqueByCodFesta(codFesta);
+	}
+	
+	public List<Estoque> estoquesFestaComProdutos(int codFesta, int idUsuario){
+		this.validarFesta(codFesta);
+		this.validarUsuario(idUsuario, codFesta, TipoPermissao.VISUESTO.getCodigo());
+		List<Estoque> estoques = estoqueRepository.findEstoqueByCodFesta(codFesta);
+		for(Estoque estoque : estoques) {
+			Set<Produto> produtosEstoque = new HashSet<>();
+			produtosEstoque.addAll(produtoRepository.findProdutosPorEstoque(estoque.getCodEstoque()));
+			estoque.setProdutos(produtosEstoque);
+		}
+		
+		return estoques;
 	}
 
 	public Estoque addEstoque(Estoque estoque, int codFesta, int codUsuario) {

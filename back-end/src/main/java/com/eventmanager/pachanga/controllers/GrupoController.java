@@ -47,7 +47,6 @@ public class GrupoController {
 	@PutMapping(path="/updateUser")
 	public ResponseEntity<Object> editUsuario(@RequestBody List<Integer> gruposId, @RequestParam (required = true) Integer grupoIdAtual, @RequestParam (required = true) Integer idUsuario, @RequestParam (required = true) Integer idUsuarioPermissao){	
 		try {
-
 			Usuario retorno = grupoService.editUsuarioFesta(gruposId, grupoIdAtual, idUsuario, idUsuarioPermissao);
 			return ResponseEntity.ok(UsuarioFactory.getUsuarioTO(retorno));
 

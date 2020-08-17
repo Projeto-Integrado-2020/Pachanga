@@ -1,9 +1,15 @@
 package com.eventmanager.pachanga.domains;
 
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -25,6 +31,13 @@ public class Estoque {
 	@JoinColumn(name = "cod_festa")
 	private Festa festa;
 
+	@ManyToMany(fetch = FetchType.LAZY,
+			cascade = CascadeType.ALL)
+	@JoinTable(name = "produto_x_estoque",
+	joinColumns = @JoinColumn(name ="cod_estoque"),
+	inverseJoinColumns = @JoinColumn(name = "cod_produto"))
+	private Set<Produto> produtos;
+	
 	public int getCodEstoque() {
 		return codEstoque;
 	}
@@ -55,6 +68,14 @@ public class Estoque {
 
 	public void setFesta(Festa festa) {
 		this.festa = festa;
+	}
+
+	public Set<Produto> getProdutos() {
+		return produtos;
+	}
+
+	public void setProdutos(Set<Produto> produtos) {
+		this.produtos = produtos;
 	}
 
 }
