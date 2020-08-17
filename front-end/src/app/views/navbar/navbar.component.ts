@@ -25,6 +25,7 @@ export class NavbarComponent implements OnInit {
 
   alertaOpcoes: boolean;
   selected: number;
+  alertIds: number[] = [];
   alerts: any[] = [];
   notificacoesUsuario: any[] = [];
   notificacoesGrupo: any[] = [];
@@ -55,7 +56,7 @@ export class NavbarComponent implements OnInit {
   }
 
   puxarNovosAlertas() {
-    const source = interval(5000);
+    const source = interval(1000);
     source.subscribe(
       () => {
         this.carregarArray(this.notifService.getNotificacoes());
@@ -67,10 +68,9 @@ export class NavbarComponent implements OnInit {
   carregarArray(observavel: Observable<object>) {
     return observavel.subscribe(
       (response: any) => {
-        this.notifService.farol = false;
         for (const notif of response.notificacoesUsuario) {
           if ( this.alerts.filter( e => e.notificacao === notif.notificacao).length === 0) {
-            this.alerts.push(Object.assign(notif, {tipoUser: true, tempo: 'agora mesmo'}));
+            this.alerts.push(Object.assign(notif, {tipoUser: true, tempo: 'agora mesmo', alertaOpcoes: false}));
           }
         }
         for (const notif of response.notificacoesGrupo) {
@@ -88,7 +88,7 @@ export class NavbarComponent implements OnInit {
   contarAlertasNaoLidos(): void {
     let count = 0;
     for (const i of this.alerts) {
-      if (!i.lido || i.naolido) {
+      if (i.status === 'N' || i.destaque) {
         count++;
       }
     }
@@ -96,14 +96,16 @@ export class NavbarComponent implements OnInit {
   }
 
   alterarAlerta(alerta): void {
-    alerta.naolido ? this.alertNumbers++ : this.alertNumbers--;
-    alerta.naolido = !alerta.naolido;
+    alerta.destaque ? this.alertNumbers++ : this.alertNumbers--;
+    this.notifService.destacarNotificacao(alerta.notificacao);
+    alerta.destaque = !alerta.destaque;
     alerta.alertaOpcoes = false;
   }
 
   deletarAlerta(alerta): void {
     const index = this.alerts.indexOf(alerta);
     this.alerts.splice(index, 1);
+    this.notifService.deletarNotificacao(alerta.notificacao);
     // CHAMAR METODO DELETAR ALERTA DO NOTIFICACAO-SERVICE!
   }
 
@@ -113,8 +115,10 @@ export class NavbarComponent implements OnInit {
     this.visibilidadeNotificacoes = false;
     this.alerts.forEach(alert => {
       alert.lido = true;
+      this.alertIds.push(alert.notificacao);
     });
     this.contarAlertasNaoLidos();
+    this.notifService.atualizarNotificacoes(this.alertIds);
   }
 
   abrirAlertaOpcoes(alert): void {

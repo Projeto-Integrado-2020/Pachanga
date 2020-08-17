@@ -67,7 +67,7 @@
               <div class="fila_notificacoes__flex">
                 <div class="fila_notificacoes__notificacao">
                 <div class="fila_notificacoes__notificacao__texto">
-                  <p [ngStyle]="{'font-weight': (!alert.lido || alert.naolido) ? 'bold' : 'normal'}">{{alert.mensagem}}</p>
+                  <p [ngStyle]="{'font-weight': (alert.status == 'N' || alert.destaque == true) ? 'bold' : 'normal'}">{{alert.mensagem}}</p>
                 </div>
                 <div class="fila_notificacoes__notificacao__horario">
                   <p>{{alert.tempo}}</p>
@@ -80,10 +80,10 @@
                 *ngIf="alert.alertaOpcoes"
                 (clicarFora)="alert.alertaOpcoes = false"
                 >
-                <div *ngIf="alert.naolido" class="desler">
+                <div *ngIf="alert.destaque" class="desler">
                   <p (click)="alterarAlerta(alert)">Marcar como lido</p>
                 </div>
-                <div *ngIf="!alert.naolido" class="desler">
+                <div *ngIf="!alert.destaque" class="desler">
                   <p (click)="alterarAlerta(alert)">Marcar como não lido</p>
                 </div>
                 <mat-divider></mat-divider>
