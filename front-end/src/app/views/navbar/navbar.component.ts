@@ -113,12 +113,14 @@ export class NavbarComponent implements OnInit {
 
   fecharNotificacoes(): void {
     this.visibilidadeNotificacoes = false;
+    console.log('this.visibilidadeNotificacoes = false;');
     this.alerts.forEach(alert => {
+      console.log('this.alerts.forEach');
       alert.status = 'L';
       this.alertIds.push(alert.notificacao);
     });
     this.contarAlertasNaoLidos();
-    this.notifService.atualizarNotificacoes(this.alertIds);
+    this.notifService.atualizarNotificacoes(this.alertIds).subscribe();
   }
 
   abrirAlertaOpcoes(alert): void {

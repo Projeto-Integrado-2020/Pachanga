@@ -58,8 +58,8 @@ export class NotificacoesService {
   }
 
   atualizarNotificacoes(notifIds: number[] ) {
-      const httpParams = new HttpParams();
-      httpParams.append('idUser', this.loginService.usuarioInfo.codUsuario);
+      const httpParams = new HttpParams()
+        .append('idUser', this.loginService.usuarioInfo.codUsuario);
       return this.http.put(this.URL + '/mudarStatus', notifIds, {params: httpParams}).pipe(
         take(1),
         catchError(error => {
