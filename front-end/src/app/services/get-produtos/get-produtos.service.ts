@@ -27,8 +27,8 @@ export class GetProdutosService {
     if (!this.farol) {
       this.setFarol(true);
       const httpParams = new HttpParams()
-      .append('idFesta', idFesta)
-      .append('idUsuario', this.loginService.usuarioInfo.codUsuario);
+      .append('codFesta', idFesta)
+      .append('codUsuario', this.loginService.usuarioInfo.codUsuario);
       return this.http.get(this.urlProdutos, {params: httpParams}).pipe(
         take(1),
         catchError(error => {
@@ -58,7 +58,6 @@ export class GetProdutosService {
     logService.initialize();
     logService.logHttpInfo(JSON.stringify(error), 0, error.url);
     this.setFarol(false);
-    this.location.back();
     return throwError(error);
   }
 

@@ -9,7 +9,7 @@ import { CriarProdutoDialogComponent } from '../criar-produto-dialog/criar-produ
 export interface TabelaProdutos {
   codProduto: string;
   marca: string;
-  preco: boolean;
+  preco: string;
 }
 
 @Component({
@@ -37,16 +37,18 @@ export class GerenciadorProdutosComponent implements OnInit {
     this.getProdutos.getProdutos(this.codFesta).subscribe((resp: any) => {
       this.getProdutos.setFarol(false);
       for (const produto of resp) {
-        this.produtos.push({codProduto: resp.codProduto, marca: resp.marca, preco: resp.precoMedio});
+        this.produtos.push({codProduto: produto.codProduto, marca: produto.marca, preco: parseFloat(produto.precoMedio).toFixed(2)});
       }
+      this.dataSource.data = this.produtos;
     });
   }
 
-  openDialogDelete(codProduto) {
+  openDialogDelete(produto) {
     this.dialog.open(DeletarProdutoDialogComponent, {
-      width: '55rem',
+      width: '20rem',
       data: {
-        codProduto,
+        produto,
+        codFesta: this.codFesta,
         component: this
       }
     });
@@ -54,7 +56,7 @@ export class GerenciadorProdutosComponent implements OnInit {
 
   openDialogEdit(produto) {
     this.dialog.open(EditarProdutoDialogComponent, {
-      width: '70rem',
+      width: '20rem',
       data: {
         produto,
         codFesta: this.codFesta,
@@ -65,7 +67,7 @@ export class GerenciadorProdutosComponent implements OnInit {
 
   openDialogAdd() {
     this.dialog.open(CriarProdutoDialogComponent, {
-      width: '70rem',
+      width: '20rem',
       data: {
         codFesta: this.codFesta,
         component: this

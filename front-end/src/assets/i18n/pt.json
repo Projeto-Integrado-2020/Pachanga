@@ -86,7 +86,9 @@
         "PRODUUSO": "Produto está registrado em um  estoque.",
         "PRODNFOU": "Produto não encontrado.",
         "PRODCADA": "Produto já cadastrado.",
-        "PRODNEST": "Produto não pertence à essa mesma festa."
+        "PRODNEST": "Produto não pertence à essa mesma festa.",
+        "QATMESTO": "Valor de baixa maior que quantidade presente no estoque.",
+        "QATMMAXI": "Recarga fará que o estoque fique com uma quantidade maior que a máxima."
     },
 
     "SUCCESS": {

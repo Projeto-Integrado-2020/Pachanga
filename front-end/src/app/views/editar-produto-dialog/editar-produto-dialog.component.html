@@ -6,16 +6,14 @@
             <input ng-class="{ f.marca.errors }" #marca formControlName="marca" matInput required>
             <mat-error *ngIf="f.marca.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
         </mat-form-field>
-        <br>
         <mat-form-field>
             <mat-label>{{'PRODUTO.PRICE' | translate}}</mat-label>
             <input ng-class="{ f.preco.errors }" #preco formControlName="preco" type="number" min="0" matInput required>
             <mat-error *ngIf="f.preco.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
         </mat-form-field>
         <br>
-        <button class="red-back" mat-button [disabled]="!form.valid">{{'PRODUTO.CONFIRM' | translate}}</button>
+        <button class="button-form" mat-raised-button [disabled]="!form.valid">{{'PRODUTO.CONFIRM' | translate}}</button>
     </form>
+    <button class="cancel-button" mat-button mat-dialog-close>{{'PRODUTO.CANCEL' | translate}}</button>
 </div>
-<div mat-dialog-actions class="buttons">
-    <button  mat-button mat-dialog-close>{{'PRODUTO.CANCEL' | translate}}</button>
-</div>
+    
