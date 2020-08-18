@@ -7,9 +7,11 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+@SuppressWarnings("serial")
 @Entity
 @Table(name = "produto_x_estoque")
 public class ItemEstoque implements Serializable{
+	
 	@Id
 	@Column(name = "cod_produto")
 	private int codProduto;
@@ -24,8 +26,8 @@ public class ItemEstoque implements Serializable{
 	@Column(name = "quantidade_max")
 	private int quantidadeMax;
 	
-	@Column(name = "quantiadade_atual")
-	private int quantiadadeAtual;
+	@Column(name = "quantidade_atual")
+	private int quantidadeAtual;
 	
 	@Column(name = "porcentagem_min")
 	private int porcentagemMin;
@@ -62,12 +64,12 @@ public class ItemEstoque implements Serializable{
 		this.quantidadeMax = quantidadeMax;
 	}
 
-	public int getQuantiadadeAtual() {
-		return quantiadadeAtual;
+	public int getQuantidadeAtual() {
+		return quantidadeAtual;
 	}
 
-	public void setQuantiadadeAtual(int quantiadadeAtual) {
-		this.quantiadadeAtual = quantiadadeAtual;
+	public void setQuantidadeAtual(int quantiadadeAtual) {
+		this.quantidadeAtual = quantiadadeAtual;
 	}
 
 	public int getPorcentagemMin() {

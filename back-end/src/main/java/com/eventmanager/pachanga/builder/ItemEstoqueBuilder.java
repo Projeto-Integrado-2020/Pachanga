@@ -7,7 +7,7 @@ public class ItemEstoqueBuilder {
 	private int codEstoque;
 	private int codFesta;
 	private int quantidadeMax;
-	private int quantiadadeAtual;
+	private int quantidadeAtual;
 	private int porcentagemMin;
 	
 	public static ItemEstoqueBuilder getInstance() {
@@ -34,8 +34,8 @@ public class ItemEstoqueBuilder {
 		return this;
 	}
 
-	public ItemEstoqueBuilder quantiadadeAtual(int quantiadadeAtual) {
-		this.quantiadadeAtual = quantiadadeAtual;
+	public ItemEstoqueBuilder quantidadeAtual(int quantiadadeAtual) {
+		this.quantidadeAtual = quantiadadeAtual;
 		return this;
 	}
 
@@ -50,7 +50,7 @@ public class ItemEstoqueBuilder {
 		itemEstoque.setCodProduto(codProduto);
 		itemEstoque.setCodFesta(codFesta);
 		itemEstoque.setQuantidadeMax(quantidadeMax);
-		itemEstoque.setQuantiadadeAtual(quantiadadeAtual);
+		itemEstoque.setQuantidadeAtual(quantidadeAtual);
 		itemEstoque.setPorcentagemMin(porcentagemMin);
 		
 		return itemEstoque;

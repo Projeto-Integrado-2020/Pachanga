@@ -16,7 +16,7 @@ public class ItemEstoqueFactory {
 																	  .codEstoque(ItemEstoqueTO.getCodEstoque())
 																	  .codFesta(ItemEstoqueTO.getCodFesta())
 																	  .quantidadeMax(ItemEstoqueTO.getQuantidadeMax())
-																	  .quantiadadeAtual(ItemEstoqueTO.getQuantiadadeAtual())
+																	  .quantidadeAtual(ItemEstoqueTO.getQuantidadeAtual())
 																	  .porcentagemMin(ItemEstoqueTO.getPorcentagemMin());
 		
 		
@@ -29,7 +29,7 @@ public class ItemEstoqueFactory {
 																	  .codEstoque(ItemEstoque.getCodEstoque())
 																	  .codFesta(ItemEstoque.getCodFesta())
 																	  .quantidadeMax(ItemEstoque.getQuantidadeMax())
-																	  .quantiadadeAtual(ItemEstoque.getQuantiadadeAtual())
+																	  .quantidadeAtual(ItemEstoque.getQuantidadeAtual())
 																	  .porcentagemMin(ItemEstoque.getPorcentagemMin());
 		
 		

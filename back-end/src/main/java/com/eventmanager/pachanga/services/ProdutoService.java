@@ -51,7 +51,7 @@ public class ProdutoService {
 	
 	public ItemEstoque addProdutoEstoque(ItemEstoqueTO itemEstoqueTO, int codProduto, int codEstoque) throws ValidacaoException {
 		int quantidadeMax = itemEstoqueTO.getQuantidadeMax();
-		int quantidadeAtual = itemEstoqueTO.getQuantiadadeAtual();
+		int quantidadeAtual = itemEstoqueTO.getQuantidadeAtual();
 		int porcentagemMin = itemEstoqueTO.getPorcentagemMin();
 		
 		Estoque estoque = this.validarEstoque(codEstoque);
@@ -71,7 +71,7 @@ public class ProdutoService {
 		itemEstoque.setCodFesta(produto.getCodFesta()); 
 		itemEstoque.setCodProduto(codProduto);
 		itemEstoque.setQuantidadeMax(quantidadeMax);   //eu sei, mal escrito
-		itemEstoque.setQuantiadadeAtual(quantidadeAtual);
+		itemEstoque.setQuantidadeAtual(quantidadeAtual);
 		itemEstoque.setPorcentagemMin(porcentagemMin);
 		
 		return itemEstoque;
@@ -82,7 +82,8 @@ public class ProdutoService {
 		Produto produto = this.validarProduto(codProduto);
 		
 		List<Estoque> estoques = produtoRepository.findEstoquesComProduto(codProduto);
-		if(estoques != null) throw new ValidacaoException("PRODEMUSO"); // PRODUTO EM USO
+		//List<ItemEstoque> itensestoque = produtoRepository.findProdutoEstoqueX(codProduto);
+		if(estoques != null ) throw new ValidacaoException("PRODUSO"); // PRODUTO EM USO
 		
 		produtoRepository.delete(produto);
 		return produto;	
@@ -112,13 +113,13 @@ public class ProdutoService {
 		
 		retorno.setQuantidadeMax(itemEstoqueTO.getQuantidadeMax());
 		retorno.setPorcentagemMin(itemEstoqueTO.getPorcentagemMin());
-		retorno.setQuantiadadeAtual(itemEstoqueTO.getQuantiadadeAtual());
+		retorno.setQuantidadeAtual(itemEstoqueTO.getQuantidadeAtual());
 		
-		if(retorno.getQuantidadeMax() < 0 || retorno.getQuantidadeMax() < retorno.getQuantiadadeAtual()) throw new ValidacaoException("QMAXINV"); //quantidade máxima inválida
+		if(retorno.getQuantidadeMax() < 0 || retorno.getQuantidadeMax() < retorno.getQuantidadeAtual()) throw new ValidacaoException("QMAXINV"); //quantidade máxima inválida
 		if(retorno.getPorcentagemMin() < 0)  throw new ValidacaoException("PMININV"); //porcentagemMin inválida
-		if(retorno.getQuantiadadeAtual() < 0)  throw new ValidacaoException("QATUAINV"); //quantidadeAtual inválida
+		if(retorno.getQuantidadeAtual() < 0)  throw new ValidacaoException("QATUAINV"); //quantidadeAtual inválida
 		
-		produtoRepository.updateProdutoEstoque(codProduto, codEstoque, retorno.getQuantidadeMax(), retorno.getQuantiadadeAtual(), retorno.getPorcentagemMin());
+		produtoRepository.updateProdutoEstoque(codProduto, codEstoque, retorno.getQuantidadeMax(), retorno.getQuantidadeAtual(), retorno.getPorcentagemMin());
 		return retorno;
 	}
 
@@ -128,11 +129,11 @@ public class ProdutoService {
 		if(quantidade <=0 ) throw new ValidacaoException("OPERAINV"); //quantidade inválida;
 		
 		ItemEstoque itemEstoque = this.validarProdutoEstoque(codEstoque, codProduto);
-		int quantidadeAtual = itemEstoque.getQuantiadadeAtual() - quantidade;
+		int quantidadeAtual = itemEstoque.getQuantidadeAtual() - quantidade;
 		if(quantidadeAtual < 0) throw new ValidacaoException("QATUAINV"); //quantidadeAtual inválida
 		
 		produtoRepository.updateProdutoEstoqueQuantidade(codProduto, codEstoque, quantidadeAtual);
-		itemEstoque.setQuantiadadeAtual(quantidadeAtual);
+		itemEstoque.setQuantidadeAtual(quantidadeAtual);
 		return itemEstoque;
 	}
 	
@@ -140,11 +141,11 @@ public class ProdutoService {
 		if(quantidade <=0 ) throw new ValidacaoException("OPERAINV"); //quantidade inválida;
 		
 		ItemEstoque itemEstoque = this.validarProdutoEstoque(codEstoque, codProduto);
-		int quantidadeAtual = itemEstoque.getQuantiadadeAtual() + quantidade;
+		int quantidadeAtual = itemEstoque.getQuantidadeAtual() + quantidade;
 		if(quantidadeAtual > itemEstoque.getQuantidadeMax()) throw new ValidacaoException("QATUAINV"); //quantidade inválida
 		
 		produtoRepository.updateProdutoEstoqueQuantidade(codProduto, codEstoque, quantidadeAtual);
-		itemEstoque.setQuantiadadeAtual(quantidadeAtual);
+		itemEstoque.setQuantidadeAtual(quantidadeAtual);
 		return itemEstoque;
 	}
 
@@ -196,16 +197,16 @@ public class ProdutoService {
 		return itemEstoque;
 	}
 	
-	public void validarUsuarioPorFesta(int codUsuario, int codFesta) {
-		Grupo grupo = grupoRepository.findGrupoPermissaoUsuario(codFesta, codUsuario, TipoPermissao.ADDMEMBE.getCodigo());
+	public void validarUsuarioPorFesta(int codUsuario, int codFesta, int tipoPermissao) { //TipoPermissao.CADAESTO.getCodigo()
+		Grupo grupo = grupoRepository.findGrupoPermissaoUsuario(codFesta, codUsuario, tipoPermissao);
 		if(grupo == null) {
 			throw new ValidacaoException("USESPERM");// usuário sem permissão
 		}
 	}
 	
-	public void validarUsuarioPorEstoque(int codUsuario, int codEstoque) {
+	public void validarUsuarioPorEstoque(int codUsuario, int codEstoque, int tipoPermissao) {
 		Estoque estoque = this.validarEstoque(codEstoque);
-		this.validarUsuarioPorFesta(codUsuario, estoque.getFesta().getCodFesta());
+		this.validarUsuarioPorFesta(codUsuario, estoque.getFesta().getCodFesta(), tipoPermissao);
 	}
 	
 }
