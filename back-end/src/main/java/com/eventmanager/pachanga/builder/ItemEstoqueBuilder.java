@@ -1,11 +1,13 @@
 package com.eventmanager.pachanga.builder;
 
+import com.eventmanager.pachanga.domains.Estoque;
 import com.eventmanager.pachanga.domains.ItemEstoque;
+import com.eventmanager.pachanga.domains.Produto;
 
 public class ItemEstoqueBuilder {
-	private int codProduto;
-	private int codEstoque;
-	private int codFesta;
+	private Produto produto;
+	private Estoque estoque;
+//	private int codFesta;
 	private int quantidadeMax;
 	private int quantidadeAtual;
 	private int porcentagemMin;
@@ -14,20 +16,20 @@ public class ItemEstoqueBuilder {
 		return new ItemEstoqueBuilder();
 	}
 
-	public ItemEstoqueBuilder codProduto(int codProduto) {
-		this.codProduto = codProduto;
+	public ItemEstoqueBuilder codProduto(Produto produto) {
+		this.produto = produto;
 		return this;
 	}
 
-	public ItemEstoqueBuilder codEstoque(int codEstoque) {
-		this.codEstoque = codEstoque;
+	public ItemEstoqueBuilder codEstoque(Estoque estoque) {
+		this.estoque = estoque;
 		return this;
 	}
 
-	public ItemEstoqueBuilder codFesta(int codFesta) {
-		this.codFesta = codFesta;
-		return this;
-	}
+//	public ItemEstoqueBuilder codFesta(int codFesta) {
+//		this.codFesta = codFesta;
+//		return this;
+//	}
 
 	public ItemEstoqueBuilder quantidadeMax(int quantidadeMax) {
 		this.quantidadeMax = quantidadeMax;
@@ -46,9 +48,9 @@ public class ItemEstoqueBuilder {
 	
 	public ItemEstoque build() {
 		ItemEstoque itemEstoque = new ItemEstoque();
-		itemEstoque.setCodEstoque(codEstoque);
-		itemEstoque.setCodProduto(codProduto);
-		itemEstoque.setCodFesta(codFesta);
+		itemEstoque.setEstoque(estoque);
+		itemEstoque.setProduto(produto);
+//		itemEstoque.setCodFesta(codFesta);
 		itemEstoque.setQuantidadeMax(quantidadeMax);
 		itemEstoque.setQuantidadeAtual(quantidadeAtual);
 		itemEstoque.setPorcentagemMin(porcentagemMin);

@@ -3,14 +3,12 @@ package com.eventmanager.pachanga.repositories;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
-
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
 import com.eventmanager.pachanga.domains.Estoque;
-import com.eventmanager.pachanga.domains.Grupo;
 import com.eventmanager.pachanga.domains.ItemEstoque;
 import com.eventmanager.pachanga.domains.Produto;
 
@@ -24,23 +22,23 @@ public interface ProdutoRepository extends JpaRepository<Produto, Integer>{
 	@Query(value = "SELECT NEXTVAL('seq_usuario');", nativeQuery = true)
 	public int getNextValMySequence();
 	
-	@Query(value = "SELECT p FROM Estoque e JOIN e.produtos p WHERE e.codEstoque = :codEstoque")
+	@Query(value = "SELECT p FROM Estoque e JOIN e.itemEstoque ie JOIN ie.produto p WHERE e.codEstoque = :codEstoque")
 	public List<Produto> findProdutosPorEstoque(@Param("codEstoque") int codEstoque);
 	
-	@Query(value = "SELECT p FROM Estoque e JOIN e.produtos p WHERE e.codEstoque = :codEstoque AND p.codProduto = :codProduto")
+	@Query(value = "SELECT p FROM Estoque e JOIN e.itemEstoque ie JOIN ie.produto p WHERE e.codEstoque = :codEstoque AND p.codProduto = :codProduto")
 	public Produto findProdutoEstoque(@Param("codEstoque") int codEstoque, @Param("codProduto") int codProduto);
 
-	@Query(value = "SELECT e FROM Estoque e JOIN e.produtos p WHERE p.codProduto = :codProduto")
+	@Query(value = "SELECT e FROM Estoque e JOIN e.itemEstoque ie JOIN ie.produto p WHERE p.codProduto = :codProduto")
 	public List<Estoque> findEstoquesComProduto(@Param("codProduto") int codProduto);
 	
 	//@Query(value = "SELECT g FROM usuario_x_grupo u JOIN u.grupo g WHERE u.codUsuario = :codUsuario", nativeQuery = true)
 	//public List<Grupo> findGruposUsuario(@Param("codUsuario") int codUsuario);
 
 	
-	@Query(value = "SELECT i FROM ItemEstoque i WHERE i.codEstoque = :codEstoque AND codProduto = :codProduto")
+	@Query(value = "SELECT i FROM ItemEstoque i JOIN i.estoque e JOIN i.produto p WHERE e.codEstoque = :codEstoque AND p.codProduto = :codProduto")
 	public ItemEstoque findItemEstoque(@Param("codEstoque") int codEstoque, @Param("codProduto") int codProduto);
 
-	@Query(value = "SELECT i FROM ItemEstoque i WHERE i.codProduto = :codProduto")
+	@Query(value = "SELECT i FROM ItemEstoque i JOIN i.produto p WHERE p.codProduto = :codProduto")
 	public List<ItemEstoque> findItemEstoquePorProduto(@Param("codProduto") int codProduto);
 	
 	//@Query(value = "SELECT x.quantidade_atual FROM produto_x_estoque x WHERE x.cod_produto = :codProduto", nativeQuery = true)

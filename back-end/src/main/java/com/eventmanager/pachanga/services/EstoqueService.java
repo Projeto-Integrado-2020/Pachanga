@@ -55,7 +55,7 @@ public class EstoqueService {
 		for(Estoque estoque : estoques) {
 			Set<Produto> produtosEstoque = new HashSet<>();
 			produtosEstoque.addAll(produtoRepository.findProdutosPorEstoque(estoque.getCodEstoque()));
-			estoque.setProdutos(produtosEstoque);
+//			estoque.setProdutos(produtosEstoque);
 		}
 		
 		return estoques;

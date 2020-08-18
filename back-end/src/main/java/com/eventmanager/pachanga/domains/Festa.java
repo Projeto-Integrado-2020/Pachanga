@@ -40,15 +40,22 @@ public class Festa {
 	@Column(name = "horario_fim_real")
 	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm:ss")
 	private LocalDateTime horarioFimFestaReal;
+	
 	@OneToMany(fetch = FetchType.LAZY,
 			mappedBy = "festa")
 	private Set<Grupo> grupos;
+	
 	@OneToMany(fetch = FetchType.LAZY,
 			mappedBy = "festa")
 	private Set<CategoriasFesta> categoriaFesta;
+	
 	@OneToMany(fetch = FetchType.LAZY,
 			mappedBy = "festa")
 	private Set<Estoque> estoques;
+	
+	@OneToMany(fetch = FetchType.LAZY,
+			mappedBy = "festa")
+	private Set<ItemEstoque> itemEstoque;
 	
 	public int getCodFesta() {
 		return codFesta;
@@ -121,6 +128,22 @@ public class Festa {
 	}
 	public void setCategoriaFesta(Set<CategoriasFesta> categoriaFesta) {
 		this.categoriaFesta = categoriaFesta;
+	}
+	
+	public Set<Estoque> getEstoques() {
+		return estoques;
+	}
+	
+	public void setEstoques(Set<Estoque> estoques) {
+		this.estoques = estoques;
+	}
+	
+	public Set<ItemEstoque> getItemEstoque() {
+		return itemEstoque;
+	}
+	
+	public void setItemEstoque(Set<ItemEstoque> itemEstoque) {
+		this.itemEstoque = itemEstoque;
 	}
 	
 	public Boolean isOrganizador(int codUsuario) {

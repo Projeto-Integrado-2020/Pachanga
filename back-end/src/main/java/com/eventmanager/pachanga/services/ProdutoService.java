@@ -19,7 +19,6 @@ import com.eventmanager.pachanga.repositories.EstoqueRepository;
 import com.eventmanager.pachanga.repositories.FestaRepository;
 import com.eventmanager.pachanga.repositories.GrupoRepository;
 import com.eventmanager.pachanga.repositories.ProdutoRepository;
-import com.eventmanager.pachanga.tipo.TipoPermissao;
 
 @Service
 @Transactional
@@ -35,7 +34,7 @@ public class ProdutoService {
 	private EstoqueRepository estoqueRepository;
 	
 	@Autowired
-	GrupoRepository grupoRepository;
+	private GrupoRepository grupoRepository;
 
 //add_____________________________________________________________________________________________________
 	public Produto addProduto(ProdutoTO produtoTO, int codFesta) {		
@@ -67,9 +66,9 @@ public class ProdutoService {
 		
 		produtoRepository.saveProdutoEstoque(codProduto, codEstoque, produto.getCodFesta(), quantidadeMax, quantidadeAtual, porcentagemMin);
 		itemEstoque = new ItemEstoque();
-		itemEstoque.setCodEstoque(codEstoque);
-		itemEstoque.setCodFesta(produto.getCodFesta()); 
-		itemEstoque.setCodProduto(codProduto);
+//		itemEstoque.setCodEstoque(codEstoque);
+//		itemEstoque.setCodFesta(produto.getCodFesta()); 
+//		itemEstoque.setCodProduto(codProduto);
 		itemEstoque.setQuantidadeMax(quantidadeMax);   //eu sei, mal escrito
 		itemEstoque.setQuantidadeAtual(quantidadeAtual);
 		itemEstoque.setPorcentagemMin(porcentagemMin);
@@ -126,7 +125,8 @@ public class ProdutoService {
 //baixa/recarga_____________________________________________________________________________________________________
 
 	public ItemEstoque baixaProduto(int codProduto, int codEstoque, int quantidade) {
-		if(quantidade <=0 ) throw new ValidacaoException("OPERAINV"); //quantidade inválida;
+		if(quantidade <=0 ) 
+			throw new ValidacaoException("OPERAINV"); //quantidade inválida;
 		
 		ItemEstoque itemEstoque = this.validarProdutoEstoque(codEstoque, codProduto);
 		int quantidadeAtual = itemEstoque.getQuantidadeAtual() - quantidade;
@@ -138,7 +138,8 @@ public class ProdutoService {
 	}
 	
 	public ItemEstoque recargaProduto(int codProduto, int codEstoque, int quantidade) {
-		if(quantidade <=0 ) throw new ValidacaoException("OPERAINV"); //quantidade inválida;
+		if(quantidade <=0 )
+			throw new ValidacaoException("OPERAINV"); //quantidade inválida;
 		
 		ItemEstoque itemEstoque = this.validarProdutoEstoque(codEstoque, codProduto);
 		int quantidadeAtual = itemEstoque.getQuantidadeAtual() + quantidade;

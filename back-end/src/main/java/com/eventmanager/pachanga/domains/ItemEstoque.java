@@ -1,27 +1,33 @@
 package com.eventmanager.pachanga.domains;
 
-import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-@SuppressWarnings("serial")
+import com.eventmanager.pachanga.idclass.ItemEstoqueId;
+
 @Entity
 @Table(name = "produto_x_estoque")
-public class ItemEstoque implements Serializable{
+@IdClass(ItemEstoqueId.class)
+public class ItemEstoque{
 	
 	@Id
-	@Column(name = "cod_produto")
-	private int codProduto;
+	@ManyToOne
+	@JoinColumn(name = "cod_produto")
+	private Produto produto;
 	
 	@Id
-	@Column(name = "cod_estoque")
-	private int codEstoque;
+	@ManyToOne
+	@JoinColumn(name = "cod_estoque")
+	private Estoque estoque;
 	
-	@Column(name = "cod_festa")
-	private int codFesta;
+	@ManyToOne
+	@JoinColumn(name = "cod_festa")
+	private Festa festa;
 	
 	@Column(name = "quantidade_max")
 	private int quantidadeMax;
@@ -32,28 +38,20 @@ public class ItemEstoque implements Serializable{
 	@Column(name = "porcentagem_min")
 	private int porcentagemMin;
 
-	public int getCodProduto() {
-		return codProduto;
+	public Produto getProduto() {
+		return produto;
 	}
 
-	public void setCodProduto(int codProduto) {
-		this.codProduto = codProduto;
+	public void setProduto(Produto produto) {
+		this.produto = produto;
 	}
 
-	public int getCodEstoque() {
-		return codEstoque;
+	public Estoque getEstoque() {
+		return estoque;
 	}
 
-	public void setCodEstoque(int codEstoque) {
-		this.codEstoque = codEstoque;
-	}
-
-	public int getCodFesta() {
-		return codFesta;
-	}
-
-	public void setCodFesta(int codFesta) {
-		this.codFesta = codFesta;
+	public void setEstoque(Estoque estoque) {
+		this.estoque = estoque;
 	}
 
 	public int getQuantidadeMax() {
@@ -79,7 +77,13 @@ public class ItemEstoque implements Serializable{
 	public void setPorcentagemMin(int porcentagemMin) {
 		this.porcentagemMin = porcentagemMin;
 	}
-	
-	
+
+	public Festa getFesta() {
+		return festa;
+	}
+
+	public void setFesta(Festa festa) {
+		this.festa = festa;
+	}
 
 }
