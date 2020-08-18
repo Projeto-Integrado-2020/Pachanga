@@ -35,6 +35,7 @@ import { EditarGrupoComponent } from './views/editar-grupo/editar-grupo.componen
 import { DistribuicaoPermissoesComponent } from './views/distribuicao-permissoes/distribuicao-permissoes.component';
 import { EstoquePainelComponent } from './views/estoque-painel/estoque-painel.component';
 import { ClicarForaDirective } from './views/navbar/clicar-fora-fecha.directive';
+import { GerenciadorProdutosComponent } from './views/gerenciador-produtos/gerenciador-produtos.component';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -80,7 +81,8 @@ describe('AppComponent', () => {
         EditarGrupoComponent,
         DistribuicaoPermissoesComponent,
         EstoquePainelComponent,
-        ClicarForaDirective
+        ClicarForaDirective,
+        GerenciadorProdutosComponent
       ],
       imports: [
         BrowserModule,

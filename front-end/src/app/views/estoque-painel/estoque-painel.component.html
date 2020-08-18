@@ -12,15 +12,20 @@
         
         <mat-sidenav-content [formGroup]="options">
             <button mat-icon-button class="toggle" (click)="sidenav.toggle()"><mat-icon>keyboard_arrow_right</mat-icon></button>
-            <mat-list>
+            <mat-list class="header-mat-list">
                 <mat-list-item>
                     <div class="titulo2">
                         <span>{{festaNome}}</span><br>
                     </div>
                 </mat-list-item>
                 <mat-list-item>
-                    <div class="titulo2">
+                    <div class="bot-head-add">
                         <button class="prp-btn-add" mat-button (click)="openDialogAdd()">{{'ESTOQUE.ADDESTOQUE' | translate}}</button>
+                    </div>
+                    <div>
+                        <a routerLink="./produtos">
+                            <button class="prp-btn-prod" mat-button>{{'ESTOQUE.GERENCIARPROD' | translate}}</button>
+                        </a>
                     </div>
                 </mat-list-item>
             </mat-list>

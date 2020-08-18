@@ -80,6 +80,7 @@ export class EditarFestaComponent implements OnInit {
 
   callServiceAtualizacao(dadosFesta) {
     this.festaService.atualizarFesta(dadosFesta).subscribe((resp: any) => {
+      this.festaService.setFarol(false);
       this.openDialogSuccess('FESTAALT');
     });
   }

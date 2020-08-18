@@ -12,6 +12,11 @@
     white-space: nowrap;
   }
 
+  .bot-head-add {
+    margin-left: 25%;
+    margin-right: 16%;
+  }
+
   .main-container {
     max-width: 1140px;
     margin-left: 10vh;
@@ -187,5 +192,15 @@ tr.example-element-row:not(.example-expanded-row):active {
 .prp-btn-add {
   background-color: $color-secondary;
   color: #ffffff;
-  width: 150px;
+  width: 200px;
+}
+
+.prp-btn-prod {
+  background-color: $color-tertiary;
+  color: #ffffff;
+  width: 200px;
+}
+
+.header-mat-list {
+  margin-bottom: 1rem;
 }

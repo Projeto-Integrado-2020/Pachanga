@@ -33,6 +33,7 @@ import { GerenciadorMembrosComponent } from '../gerenciador-membros/gerenciador-
 import { EditarGrupoComponent } from '../editar-grupo/editar-grupo.component';
 import { DistribuicaoPermissoesComponent } from '../distribuicao-permissoes/distribuicao-permissoes.component';
 import { EstoquePainelComponent } from '../estoque-painel/estoque-painel.component';
+import { GerenciadorProdutosComponent } from '../gerenciador-produtos/gerenciador-produtos.component';
 
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 100000;
 
@@ -80,7 +81,8 @@ describe('NavbarComponent', () => {
         GerenciadorMembrosComponent,
         EditarGrupoComponent,
         DistribuicaoPermissoesComponent,
-        EstoquePainelComponent
+        EstoquePainelComponent,
+        GerenciadorProdutosComponent
        ],
       imports: [
         CustomMaterialModule,

@@ -1,30 +1,50 @@
 import { Injectable } from '@angular/core';
+import {Location} from '@angular/common';
 import { environment } from '../../../environments/environment';
 import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
-import { MatDialog } from '@angular/material/dialog';
-import { ErroDialogComponent } from '../../views/erro-dialog/erro-dialog.component';
 import { LogService } from '../logging/log.service';
 import { take, catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
+import { Router } from '@angular/router';
 import { LoginService } from '../loginService/login.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ErroDialogComponent } from '../../views/erro-dialog/erro-dialog.component';
 
 @Injectable({
   providedIn: 'root'
 })
-export class EditarGrupoService {
+export class GetProdutosService {
 
-  farol = false;
-  private readonly urlAtualizarGrupo = `${environment.URL_BACK}grupo/updateGrupo`;
+  private readonly urlProdutos = `${environment.URL_BACK}produto/lista`;
+  private readonly urlProdutoUnico = `${environment.URL_BACK}produto/produtoUnico`;
 
-  constructor(private http: HttpClient, public logService: LogService, public dialog: MatDialog,
-              public loginService: LoginService) { }
+  public farol = false;
 
-  editarGrupo(dadosGrupo) {
+  constructor(private http: HttpClient, public logService: LogService, public router: Router,
+              public loginService: LoginService, public location: Location, public dialog: MatDialog) { }
+
+  getProdutos(idFesta) {
     if (!this.farol) {
       this.setFarol(true);
       const httpParams = new HttpParams()
+      .append('idFesta', idFesta)
       .append('idUsuario', this.loginService.usuarioInfo.codUsuario);
-      return this.http.put(this.urlAtualizarGrupo, dadosGrupo, {params: httpParams}).pipe(
+      return this.http.get(this.urlProdutos, {params: httpParams}).pipe(
+        take(1),
+        catchError(error => {
+          return this.handleError(error, this.logService);
+        })
+      );
+    }
+  }
+
+  getProdutoUnico(codProduto) {
+    if (!this.farol) {
+      this.setFarol(true);
+      const httpParams = new HttpParams()
+      .append('codProduto', codProduto)
+      .append('idUsuario', this.loginService.usuarioInfo.codUsuario);
+      return this.http.get(this.urlProdutoUnico, {params: httpParams}).pipe(
         take(1),
         catchError(error => {
           return this.handleError(error, this.logService);
@@ -38,6 +58,7 @@ export class EditarGrupoService {
     logService.initialize();
     logService.logHttpInfo(JSON.stringify(error), 0, error.url);
     this.setFarol(false);
+    this.location.back();
     return throwError(error);
   }
 

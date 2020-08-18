@@ -94,6 +94,7 @@ export class EditarGrupoComponent implements OnInit {
       permissoes: this.permissoesGrupo
     };
     this.editGrupo.editarGrupo(grupo).subscribe((resp: any) => {
+      this.editGrupo.setFarol(false);
       this.openDialogSuccess('GRUPOALT');
     });
   }

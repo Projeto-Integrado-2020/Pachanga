@@ -82,7 +82,11 @@
         "GRPONVAZ": "The role is not empty.",
         "PERMDUPL": "Duplicate permission.",
         "GRPEXIST": "Role name already used.",
-        "EDITORGN": "Edit Role Organizador is not allowed."
+        "EDITORGN": "Edit Role Organizador is not allowed.",
+        "PRODUUSO": "Product is registered in a stock.",
+        "PRODNFOU": "Product not found.",
+        "PRODCADA": "Product already registered.",
+        "PRODNEST": "Product is not in the same party."
     },
 
     "SUCCESS": {
@@ -92,7 +96,9 @@
         "FESTAALT": "The party data has been successfully changed.",
         "MEMBROAD": "Members invited.",
         "GRUPDELE": "Role deleted.",
-        "GRUPOALT": "Role updated."
+        "GRUPOALT": "Role updated.",
+        "ATRIBSUC": "Distribution successfully saved.",
+        "PRODDELE": "Product successfully deleted."
     },
 
     "PERFIL":{
@@ -354,11 +360,28 @@
         "NOMEESTOQUE": "Stock name",
         "CONFIRM": "Confirm",
         "CANCEL": "Cancel",
-        "ADDESTOQUE": "Add stock"
+        "ADDESTOQUE": "Add stock",
+        "GERENCIARPROD": "Products Management"
     },
 
     "DELETECONVIDADO": {
         "MESSAGE": "Do you really want to delete this guest?",
+        "CONFIRM": "Confirm",
+        "CANCEL": "Cancel"
+    },
+
+    "PRODUTO": {
+        "PRODUCT": "Product",
+        "PRICE": "Average price",
+        "ADDPROD": "Add product",
+        "EDIT": "Edit product",
+        "DELETE": "Delete product",
+        "CONFIRM": "Confirm",
+        "CANCEL": "Cancel"
+    },
+
+    "DELETEPRODUTO": {
+        "MESSAGE": "Do you really want to delete the product",
         "CONFIRM": "Confirm",
         "CANCEL": "Cancel"
     }

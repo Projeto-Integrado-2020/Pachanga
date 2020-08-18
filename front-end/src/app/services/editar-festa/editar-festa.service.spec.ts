@@ -43,4 +43,19 @@ describe('EditarFestaService', () => {
     service.openErrorDialog('teste');
     expect(dialogSpy.open).toHaveBeenCalled();
   });
+
+  it('should set farol', () => {
+    const service: EditarFestaService = TestBed.get(EditarFestaService);
+    service.setFarol(true);
+    expect(service.getFarol()).toBeTruthy();
+    service.setFarol(false);
+    expect(service.getFarol()).toBeFalsy();
+  });
+
+  it('should get farol', () => {
+    const service: EditarFestaService = TestBed.get(EditarFestaService);
+    expect(service.getFarol()).toBeFalsy();
+    service.setFarol(true);
+    expect(service.getFarol()).toBeTruthy();
+  });
 });

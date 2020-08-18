@@ -38,4 +38,19 @@ describe('EditarGrupoService', () => {
     service.openErrorDialog('teste');
     expect(dialogSpy.open).toHaveBeenCalled();
   });
+
+  it('should set farol', () => {
+    const service: EditarGrupoService = TestBed.get(EditarGrupoService);
+    service.setFarol(true);
+    expect(service.getFarol()).toBeTruthy();
+    service.setFarol(false);
+    expect(service.getFarol()).toBeFalsy();
+  });
+
+  it('should get farol', () => {
+    const service: EditarGrupoService = TestBed.get(EditarGrupoService);
+    expect(service.getFarol()).toBeFalsy();
+    service.setFarol(true);
+    expect(service.getFarol()).toBeTruthy();
+  });
 });

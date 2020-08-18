@@ -11,20 +11,20 @@ import { LoginService } from '../loginService/login.service';
 @Injectable({
   providedIn: 'root'
 })
-export class EditarGrupoService {
+export class EditarProdutoService {
 
   farol = false;
-  private readonly urlAtualizarGrupo = `${environment.URL_BACK}grupo/updateGrupo`;
+  private readonly urlEditarProduto = `${environment.URL_BACK}produto/editarProduto`;
 
   constructor(private http: HttpClient, public logService: LogService, public dialog: MatDialog,
               public loginService: LoginService) { }
 
-  editarGrupo(dadosGrupo) {
+  editarProduto(produto) {
     if (!this.farol) {
       this.setFarol(true);
       const httpParams = new HttpParams()
-      .append('idUsuario', this.loginService.usuarioInfo.codUsuario);
-      return this.http.put(this.urlAtualizarGrupo, dadosGrupo, {params: httpParams}).pipe(
+      .append('idUsuarioPermissao', this.loginService.usuarioInfo.codUsuario);
+      return this.http.put(this.urlEditarProduto, produto, {params: httpParams}).pipe(
         take(1),
         catchError(error => {
           return this.handleError(error, this.logService);
@@ -34,6 +34,7 @@ export class EditarGrupoService {
   }
 
   handleError = (error: HttpErrorResponse, logService: LogService) => {
+    this.dialog.closeAll();
     this.openErrorDialog(error.error);
     logService.initialize();
     logService.logHttpInfo(JSON.stringify(error), 0, error.url);

@@ -82,7 +82,11 @@
         "GRPONVAZ": "O grupo não está vazio.",
         "PERMDUPL": "Permissão duplicada.",
         "GRPEXIST": "Já existe um grupo com este nome.",
-        "EDITORGN": "Não é possível editar o grupo Organizador."
+        "EDITORGN": "Não é possível editar o grupo Organizador.",
+        "PRODUUSO": "Produto está registrado em um  estoque.",
+        "PRODNFOU": "Produto não encontrado.",
+        "PRODCADA": "Produto já cadastrado.",
+        "PRODNEST": "Produto não pertence à essa mesma festa."
     },
 
     "SUCCESS": {
@@ -92,7 +96,9 @@
         "FESTAALT": "Os dados da festa foram alterados com sucesso.",
         "MEMBROAD": "Membros convidados.",
         "GRUPDELE": "Grupo deletado com sucesso.",
-        "GRUPOALT": "Grupo alterado com sucesso."
+        "GRUPOALT": "Grupo alterado com sucesso.",
+        "ATRIBSUC": "Atribuição salva com sucesso.",
+        "PRODDELE": "Produto deletado com sucesso."
     },
     
     "PERFIL":{
@@ -355,11 +361,28 @@
         "NOMEESTOQUE": "Nome do estoque:",
         "CONFIRM": "Confirmar",
         "CANCEL": "Cancelar",
-        "ADDESTOQUE": "Adicionar estoque"
+        "ADDESTOQUE": "Adicionar estoque",
+        "GERENCIARPROD": "Gerenciamento de Produtos"
     },
 
     "DELETECONVIDADO": {
         "MESSAGE": "Você realmente deseja deletar este convidado?",
+        "CONFIRM": "Confirmar",
+        "CANCEL": "Cancelar"
+    },
+
+    "PRODUTO": {
+        "PRODUCT": "Produto",
+        "PRICE": "Preço Médio",
+        "ADDPROD": "Adicionar produto",
+        "EDIT": "Editar produto",
+        "DELETE": "Excluir produto",
+        "CONFIRM": "Confirmar",
+        "CANCEL": "Cancelar"
+    },
+
+    "DELETEPRODUTO": {
+        "MESSAGE": "Você realmente deseja deletar o produto",
         "CONFIRM": "Confirmar",
         "CANCEL": "Cancelar"
     }

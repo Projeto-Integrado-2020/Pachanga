@@ -13,6 +13,7 @@ import { GerenciadorMembrosComponent } from './views/gerenciador-membros/gerenci
 import { EditarGrupoComponent } from './views/editar-grupo/editar-grupo.component';
 import { DistribuicaoPermissoesComponent } from './views/distribuicao-permissoes/distribuicao-permissoes.component';
 import { EstoquePainelComponent } from './views/estoque-painel/estoque-painel.component';
+import { GerenciadorProdutosComponent } from './views/gerenciador-produtos/gerenciador-produtos.component';
 
 const routes: Routes = [
 
@@ -42,6 +43,12 @@ const routes: Routes = [
     {
       path: 'festas/:festa&:id/estoque',
       component: EstoquePainelComponent,
+      canActivate: [AuthGuard]
+    },
+
+    {
+      path: 'festas/:festa&:id/estoque/produtos',
+      component: GerenciadorProdutosComponent,
       canActivate: [AuthGuard]
     },
 
