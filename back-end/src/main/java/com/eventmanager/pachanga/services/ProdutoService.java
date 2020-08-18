@@ -11,6 +11,7 @@ import com.eventmanager.pachanga.domains.Festa;
 import com.eventmanager.pachanga.domains.Grupo;
 import com.eventmanager.pachanga.domains.ItemEstoque;
 import com.eventmanager.pachanga.domains.Produto;
+import com.eventmanager.pachanga.domains.Usuario;
 import com.eventmanager.pachanga.dtos.ItemEstoqueTO;
 import com.eventmanager.pachanga.dtos.ProdutoTO;
 import com.eventmanager.pachanga.errors.ValidacaoException;
@@ -19,6 +20,8 @@ import com.eventmanager.pachanga.repositories.EstoqueRepository;
 import com.eventmanager.pachanga.repositories.FestaRepository;
 import com.eventmanager.pachanga.repositories.GrupoRepository;
 import com.eventmanager.pachanga.repositories.ProdutoRepository;
+import com.eventmanager.pachanga.repositories.UsuarioRepository;
+import com.eventmanager.pachanga.tipo.TipoPermissao;
 
 @Service
 @Transactional
@@ -35,10 +38,16 @@ public class ProdutoService {
 	
 	@Autowired
 	private GrupoRepository grupoRepository;
+	
+	@Autowired
+	private UsuarioRepository usuarioRepository;
+	
+	@Autowired
+	private ProdutoFactory produtoFactory;
 
 //add_____________________________________________________________________________________________________
 	public Produto addProduto(ProdutoTO produtoTO, int codFesta) {		
-		Produto produto = ProdutoFactory.getProduto(produtoTO);
+		Produto produto = produtoFactory.getProduto(produtoTO);
 		produto.setCodProduto(produtoRepository.getNextValMySequence());
 		produto.setCodFesta(codFesta);
 		
@@ -167,7 +176,8 @@ public class ProdutoService {
 	
 	public Produto validarProduto(int codProduto) {
 		Produto produto = produtoRepository.findById(codProduto);
-		if(produto == null) throw new ValidacaoException("PRODNFOU");
+		if(produto == null) 
+			throw new ValidacaoException("PRODNFOU");
 		return produto;
 	}
 	
@@ -208,6 +218,24 @@ public class ProdutoService {
 	public void validarUsuarioPorEstoque(int codUsuario, int codEstoque, int tipoPermissao) {
 		Estoque estoque = this.validarEstoque(codEstoque);
 		this.validarUsuarioPorFesta(codUsuario, estoque.getFesta().getCodFesta(), tipoPermissao);
+	}
+
+	public List<Produto> listaProduto(Integer codFesta, Integer codUsuario) {
+		this.validarPermissaoUsuario(codFesta, codUsuario, TipoPermissao.VISUESTO.getCodigo());
+		return produtoRepository.findAll();
+	}
+
+	private void validarPermissaoUsuario(Integer codFesta, Integer codUsuario, int codPermissao) {
+		Usuario usuario = usuarioRepository.findUsuarioComPermissao(codFesta, codUsuario, codPermissao);
+		if(usuario == null) {
+			throw new ValidacaoException("USESPERM");
+		}
+		
+	}
+
+	public Produto getProduto(Integer codFesta, Integer codUsuario, Integer codProduto) {
+		this.validarPermissaoUsuario(codFesta, codUsuario, TipoPermissao.VISUESTO.getCodigo());
+		return this.validarProduto(codProduto);
 	}
 	
 }

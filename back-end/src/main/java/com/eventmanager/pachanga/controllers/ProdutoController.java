@@ -1,10 +1,13 @@
 package com.eventmanager.pachanga.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -30,6 +33,9 @@ public class ProdutoController {
 	@Autowired
 	private ProdutoService produtoService;
 	
+	@Autowired
+	private ProdutoFactory produtoFactory;
+	
 //add_____________________________________________________________________________________________________	
 	@ResponseBody
 	@PostMapping(path="/addProduto")
@@ -37,7 +43,7 @@ public class ProdutoController {
 		try {
 			produtoService.validarUsuarioPorFesta(idUsuarioPermissao, codFesta, TipoPermissao.CADAESTO.getCodigo());
 			Produto produto = produtoService.addProduto(produtoTO, codFesta);
-			return ResponseEntity.ok(ProdutoFactory.getProdutoTO(produto));
+			return ResponseEntity.ok(produtoFactory.getProdutoTO(produto));
 		} catch (ValidacaoException e) {
 			return ResponseEntity.status(400).body(e.getMessage());
 		}
@@ -63,7 +69,7 @@ public class ProdutoController {
 		try {
 			produtoService.validarUsuarioPorFesta(idUsuarioPermissao, codFesta, TipoPermissao.CADAESTO.getCodigo());
 			Produto produto = produtoService.removerProduto(codProduto);
-			return ResponseEntity.ok(ProdutoFactory.getProdutoTO(produto));
+			return ResponseEntity.ok(produtoFactory.getProdutoTO(produto));
 		} catch (ValidacaoException e) {
 			return ResponseEntity.status(400).body(e.getMessage());
 		}
@@ -89,7 +95,7 @@ public class ProdutoController {
 		try {
 			produtoService.validarUsuarioPorFesta(idUsuarioPermissao, produtoTO.getCodFesta(), TipoPermissao.CADAESTO.getCodigo());
 			Produto produto = produtoService.editarProduto(produtoTO);
-			return ResponseEntity.ok(ProdutoFactory.getProdutoTO(produto));
+			return ResponseEntity.ok(produtoFactory.getProdutoTO(produto));
 		} catch (ValidacaoException e) {
 			return ResponseEntity.status(400).body(e.getMessage());
 		}
@@ -102,6 +108,30 @@ public class ProdutoController {
 			produtoService.validarUsuarioPorEstoque(idUsuarioPermissao, itemEstoqueTO.getCodEstoque(), TipoPermissao.CADAESTO.getCodigo());
 			ItemEstoque itemEstoque = produtoService.editarProdutoEstoque(itemEstoqueTO);
 			return ResponseEntity.ok(ItemEstoqueFactory.getItemEstoqueTO(itemEstoque));
+		} catch (ValidacaoException e) {
+			return ResponseEntity.status(400).body(e.getMessage());
+		}
+	}
+	
+//getters_____________________________________________________________________________________________________________
+	
+	@ResponseBody
+	@GetMapping(path="/lista")
+	public ResponseEntity<Object> listaProduto(@RequestParam (required = true) Integer codFesta, @RequestParam (required = true) Integer codUsuario){	
+		try {
+			List<ProdutoTO> produtosTO = produtoFactory.getProdutosTO(produtoService.listaProduto(codFesta, codUsuario));
+			return ResponseEntity.ok(produtosTO);
+		} catch (ValidacaoException e) {
+			return ResponseEntity.status(400).body(e.getMessage());
+		}
+	}
+	
+	@ResponseBody
+	@GetMapping(path="/produtoUnico")
+	public ResponseEntity<Object> getProduto(@RequestParam (required = true) Integer codFesta, @RequestParam (required = true) Integer codUsuario, @RequestParam (required = true) Integer codProduto){	
+		try {
+			ProdutoTO produtoTO = produtoFactory.getProdutoTO(produtoService.getProduto(codFesta, codUsuario, codProduto));
+			return ResponseEntity.ok(produtoTO);
 		} catch (ValidacaoException e) {
 			return ResponseEntity.status(400).body(e.getMessage());
 		}
