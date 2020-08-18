@@ -113,5 +113,4 @@ public interface GrupoRepository extends CrudRepository<Grupo, Integer>{
 	
 	@Query(value = "SELECT g.codGrupo FROM Grupo g JOIN g.usuarios u WHERE g.codGrupo IN :codGrupos AND u.codUsuario = :codUsuario")
 	public List<Integer> findGruposUsuarioByGrupos(List<Integer> codGrupos, int codUsuario);
-	
 }

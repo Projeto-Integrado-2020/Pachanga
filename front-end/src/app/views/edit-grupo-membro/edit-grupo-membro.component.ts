@@ -57,8 +57,9 @@ export class EditGrupoMembroComponent implements OnInit {
   editarGrupo(novosGrupos) {
     console.log(novosGrupos);
     this.editMembroService.editarMembroColaborador(this.codUsuario, this.grupo.codGrupo, novosGrupos).subscribe((resp: any) => {
-      this.dialog.closeAll();
       this.editMembroService.setFarol(false);
+      this.dialog.closeAll();
+      this.component.ngOnInit();
     });
   }
 

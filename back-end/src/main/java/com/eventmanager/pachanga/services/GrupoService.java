@@ -116,7 +116,7 @@ public class GrupoService {
 		Grupo grupo = grupoRepository.findByCod(grupoIdAtual);
 		Festa festa = grupo.getFesta();
 		this.validarPermissaoUsuarioGrupo(festa.getCodFesta(), idUsuarioPermissao, TipoPermissao.DISMEMBE.getCodigo());
-		grupoRepository.deleteConvidadoGrupo(idUsuario, grupoIdAtual);
+		grupoRepository.deleteMembroGrupo(grupoIdAtual, idUsuario);
 		List<Integer> grupos = grupoRepository.findGruposFestaIn(gruposId, festa.getCodFesta());
 		grupos.removeAll(grupoRepository.findGruposUsuarioByGrupos(grupos, idUsuario));
 		for(Integer grup : grupos) {
