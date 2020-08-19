@@ -51,7 +51,9 @@ export class NavbarComponent implements OnInit {
     translate.setDefaultLang('pt');
     const browserLang = translate.getBrowserLang();
     translate.use(browserLang.match(/pt|en/) ? browserLang : 'pt');
-    this.puxarNovosAlertas();
+    if (loginService.usuarioAutenticado) {
+      this.puxarNovosAlertas();
+    }
 
   }
 
