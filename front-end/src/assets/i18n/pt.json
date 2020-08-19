@@ -88,7 +88,15 @@
         "PRODCADA": "Produto já cadastrado.",
         "PRODNEST": "Produto não pertence à essa mesma festa.",
         "QATMESTO": "Valor de baixa maior que quantidade presente no estoque.",
-        "QATMMAXI": "Recarga fará que o estoque fique com uma quantidade maior que a máxima."
+        "QATMMAXI": "Recarga fará que o estoque fique com uma quantidade maior que a máxima.",
+        "PROMIGUA": "Produto já cadastrado na festa.",
+        "QATUAINV": "Quantidade atual inválida.",
+        "OPERAINV": "Quantidade inválida.",
+        "ESTONOME": "Este nome já está sendo utilizado.",
+        "PCMININV": "Porcentagem mínima inválida.",
+        "ESTNPROD": "Estoque não possui este produto.",
+        "PRODEUSO": "Produto em uso.",
+        "ESTONFOU": "Estoque não encontrado."
     },
 
     "SUCCESS": {
