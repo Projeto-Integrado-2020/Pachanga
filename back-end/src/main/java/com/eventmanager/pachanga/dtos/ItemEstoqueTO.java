@@ -7,6 +7,7 @@ public class ItemEstoqueTO {
 	private int quantidadeMax;
 	private int quantidadeAtual;
 	private int porcentagemMin;
+	private ProdutoTO produto;
 	
 	public int getCodProduto() {
 		return codProduto;
@@ -44,9 +45,10 @@ public class ItemEstoqueTO {
 	public void setPorcentagemMin(int porcentagemMin) {
 		this.porcentagemMin = porcentagemMin;
 	}
-	
-	
-	
-	
-
+	public ProdutoTO getProduto() {
+		return produto;
+	}
+	public void setProduto(ProdutoTO produto) {
+		this.produto = produto;
+	}
 }

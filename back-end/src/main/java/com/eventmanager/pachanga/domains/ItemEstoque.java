@@ -25,9 +25,8 @@ public class ItemEstoque{
 	@JoinColumn(name = "cod_estoque")
 	private Estoque estoque;
 	
-	@ManyToOne
-	@JoinColumn(name = "cod_festa")
-	private Festa festa;
+	@Column(name = "cod_festa")
+	private int codFesta;
 	
 	@Column(name = "quantidade_max")
 	private int quantidadeMax;
@@ -78,12 +77,12 @@ public class ItemEstoque{
 		this.porcentagemMin = porcentagemMin;
 	}
 
-	public Festa getFesta() {
-		return festa;
+	public int getCodFesta() {
+		return codFesta;
 	}
 
-	public void setFesta(Festa festa) {
-		this.festa = festa;
+	public void setCodFesta(int codFesta) {
+		this.codFesta = codFesta;
 	}
 
 }

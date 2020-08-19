@@ -16,7 +16,7 @@ export class DeletarProdutoDialogComponent implements OnInit {
 
   constructor(@Inject(MAT_DIALOG_DATA) data, public deleteService: DeletarProdutoService,
               public dialog: MatDialog) {
-    this.produto = data.grupo;
+    this.produto = data.produto;
     this.codFesta = data.codFesta;
     this.component = data.component;
   }

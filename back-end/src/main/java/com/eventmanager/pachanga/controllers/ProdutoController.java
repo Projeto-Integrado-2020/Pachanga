@@ -23,7 +23,6 @@ import com.eventmanager.pachanga.errors.ValidacaoException;
 import com.eventmanager.pachanga.factory.ItemEstoqueFactory;
 import com.eventmanager.pachanga.factory.ProdutoFactory;
 import com.eventmanager.pachanga.services.ProdutoService;
-import com.eventmanager.pachanga.tipo.TipoPermissao;
 
 @Controller
 @RequestMapping("/produto")
@@ -36,13 +35,15 @@ public class ProdutoController {
 	@Autowired
 	private ProdutoFactory produtoFactory;
 	
+	@Autowired
+	private ItemEstoqueFactory itemEstoqueFactory;
+	
 //add_____________________________________________________________________________________________________	
 	@ResponseBody
 	@PostMapping(path="/addProduto")
 	public ResponseEntity<Object> addProduto(@RequestBody ProdutoTO produtoTO, @RequestParam (required = true) Integer codFesta, @RequestParam (required = true) Integer idUsuarioPermissao){	
 		try {
-			produtoService.validarUsuarioPorFesta(idUsuarioPermissao, codFesta, TipoPermissao.CADAESTO.getCodigo());
-			Produto produto = produtoService.addProduto(produtoTO, codFesta);
+			Produto produto = produtoService.addProduto(produtoTO, codFesta, idUsuarioPermissao);
 			return ResponseEntity.ok(produtoFactory.getProdutoTO(produto));
 		} catch (ValidacaoException e) {
 			return ResponseEntity.status(400).body(e.getMessage());
@@ -51,11 +52,10 @@ public class ProdutoController {
 	
 	@ResponseBody
 	@PostMapping(path="/addProdutoEstoque")
-	public ResponseEntity<Object> addProdutoEstoque(@RequestBody ItemEstoqueTO itemEstoqueTO, @RequestParam (required = true) Integer codProduto, @RequestParam (required = true) Integer codEstoque, @RequestParam (required = true) Integer idUsuarioPermissao){	
+	public ResponseEntity<Object> addProdutoEstoque(@RequestBody ItemEstoqueTO itemEstoqueTO, @RequestParam (required = true) Integer codEstoque, @RequestParam (required = true) Integer idUsuarioPermissao){	
 		try {
-			produtoService.validarUsuarioPorEstoque(idUsuarioPermissao, codEstoque, TipoPermissao.CADAESTO.getCodigo());
-			ItemEstoque itemEstoque = produtoService.addProdutoEstoque(itemEstoqueTO, codProduto, codEstoque);
-			return ResponseEntity.ok(ItemEstoqueFactory.getItemEstoqueTO(itemEstoque));
+			ItemEstoque itemEstoque = produtoService.addProdutoEstoque(itemEstoqueTO, codEstoque, idUsuarioPermissao);
+			return ResponseEntity.ok(itemEstoqueFactory.getItemEstoqueTO(itemEstoque));
 		} catch (ValidacaoException e) {
 			return ResponseEntity.status(400).body(e.getMessage());
 		}
@@ -67,9 +67,8 @@ public class ProdutoController {
 	@DeleteMapping(path="/removerProduto")
 	public ResponseEntity<Object> removerProduto(@RequestParam (required = true) Integer codProduto, @RequestParam (required = true) Integer codFesta, @RequestParam (required = true) Integer idUsuarioPermissao){	
 		try {
-			produtoService.validarUsuarioPorFesta(idUsuarioPermissao, codFesta, TipoPermissao.CADAESTO.getCodigo());
-			Produto produto = produtoService.removerProduto(codProduto);
-			return ResponseEntity.ok(produtoFactory.getProdutoTO(produto));
+			produtoService.removerProduto(idUsuarioPermissao, codFesta, codProduto);
+			return ResponseEntity.ok().build();
 		} catch (ValidacaoException e) {
 			return ResponseEntity.status(400).body(e.getMessage());
 		}
@@ -79,9 +78,8 @@ public class ProdutoController {
 	@DeleteMapping(path="/removerProdutoEstoque")
 	public ResponseEntity<Object> removerProdutoEstoque(@RequestParam (required = true) Integer codProduto, @RequestParam (required = true) Integer codEstoque, @RequestParam (required = true) Integer idUsuarioPermissao){	
 		try {
-			produtoService.validarUsuarioPorEstoque(idUsuarioPermissao, codEstoque, TipoPermissao.CADAESTO.getCodigo());
-			ItemEstoque itemEstoque = produtoService.removerProdutoEstoque(codProduto, codEstoque);
-			return ResponseEntity.ok(ItemEstoqueFactory.getItemEstoqueTO(itemEstoque));
+			produtoService.removerProdutoEstoque(codProduto, codEstoque, idUsuarioPermissao);
+			return ResponseEntity.ok().build();
 		} catch (ValidacaoException e) {
 			return ResponseEntity.status(400).body(e.getMessage());
 		}
@@ -93,8 +91,7 @@ public class ProdutoController {
 	@PutMapping(path="/editarProduto")
 	public ResponseEntity<Object> editarProduto(@RequestBody ProdutoTO produtoTO, @RequestParam (required = true) Integer idUsuarioPermissao){	
 		try {
-			produtoService.validarUsuarioPorFesta(idUsuarioPermissao, produtoTO.getCodFesta(), TipoPermissao.CADAESTO.getCodigo());
-			Produto produto = produtoService.editarProduto(produtoTO);
+			Produto produto = produtoService.editarProduto(produtoTO, idUsuarioPermissao);
 			return ResponseEntity.ok(produtoFactory.getProdutoTO(produto));
 		} catch (ValidacaoException e) {
 			return ResponseEntity.status(400).body(e.getMessage());
@@ -105,9 +102,8 @@ public class ProdutoController {
 	@PutMapping(path="/editarProdutoEstoque")
 	public ResponseEntity<Object> editarProdutoEstoque(@RequestBody ItemEstoqueTO itemEstoqueTO, @RequestParam (required = true) Integer idUsuarioPermissao){	
 		try {
-			produtoService.validarUsuarioPorEstoque(idUsuarioPermissao, itemEstoqueTO.getCodEstoque(), TipoPermissao.CADAESTO.getCodigo());
-			ItemEstoque itemEstoque = produtoService.editarProdutoEstoque(itemEstoqueTO);
-			return ResponseEntity.ok(ItemEstoqueFactory.getItemEstoqueTO(itemEstoque));
+			ItemEstoque itemEstoque = produtoService.editarProdutoEstoque(itemEstoqueTO, idUsuarioPermissao);
+			return ResponseEntity.ok(itemEstoqueFactory.getItemEstoqueTO(itemEstoque));
 		} catch (ValidacaoException e) {
 			return ResponseEntity.status(400).body(e.getMessage());
 		}

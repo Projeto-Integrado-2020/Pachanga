@@ -86,7 +86,9 @@
         "PRODUUSO": "Product is registered in a stock.",
         "PRODNFOU": "Product not found.",
         "PRODCADA": "Product already registered.",
-        "PRODNEST": "Product is not in the same party."
+        "PRODNEST": "Product is not in the same party.",
+        "QATMESTO": "Retirement value greater than quantity present in stock.",
+        "QATMMAXI": "Reload will cause the stock to be larger than the maximum."
     },
 
     "SUCCESS": {

@@ -1,7 +1,16 @@
 @import "../material/paleta.scss";
 
-.buttons {
-    display: flex;
-    justify-content: left;
-    align-items: left;
+.button-form {
+    margin-left: 2rem;
+    background-color: $color-primary;
+    color: #ffffff;
+    margin-top: 1rem;
+}
+
+mat-form-field {
+    width: 15rem!important;
+}
+
+.cancel-button {
+    transform: translate(8rem, -2.1rem)!important;
 }

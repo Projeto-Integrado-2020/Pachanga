@@ -7,7 +7,7 @@ import com.eventmanager.pachanga.domains.Produto;
 public class ItemEstoqueBuilder {
 	private Produto produto;
 	private Estoque estoque;
-//	private int codFesta;
+	private int codFesta;
 	private int quantidadeMax;
 	private int quantidadeAtual;
 	private int porcentagemMin;
@@ -16,20 +16,20 @@ public class ItemEstoqueBuilder {
 		return new ItemEstoqueBuilder();
 	}
 
-	public ItemEstoqueBuilder codProduto(Produto produto) {
+	public ItemEstoqueBuilder produto(Produto produto) {
 		this.produto = produto;
 		return this;
 	}
 
-	public ItemEstoqueBuilder codEstoque(Estoque estoque) {
+	public ItemEstoqueBuilder estoque(Estoque estoque) {
 		this.estoque = estoque;
 		return this;
 	}
 
-//	public ItemEstoqueBuilder codFesta(int codFesta) {
-//		this.codFesta = codFesta;
-//		return this;
-//	}
+	public ItemEstoqueBuilder codFesta(int codFesta) {
+		this.codFesta = codFesta;
+		return this;
+	}
 
 	public ItemEstoqueBuilder quantidadeMax(int quantidadeMax) {
 		this.quantidadeMax = quantidadeMax;
@@ -50,7 +50,7 @@ public class ItemEstoqueBuilder {
 		ItemEstoque itemEstoque = new ItemEstoque();
 		itemEstoque.setEstoque(estoque);
 		itemEstoque.setProduto(produto);
-//		itemEstoque.setCodFesta(codFesta);
+		itemEstoque.setCodFesta(codFesta);
 		itemEstoque.setQuantidadeMax(quantidadeMax);
 		itemEstoque.setQuantidadeAtual(quantidadeAtual);
 		itemEstoque.setPorcentagemMin(porcentagemMin);
