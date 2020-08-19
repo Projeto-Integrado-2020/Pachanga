@@ -53,10 +53,6 @@ public class Festa {
 			mappedBy = "festa")
 	private Set<Estoque> estoques;
 	
-	@OneToMany(fetch = FetchType.LAZY,
-			mappedBy = "festa")
-	private Set<ItemEstoque> itemEstoque;
-	
 	public int getCodFesta() {
 		return codFesta;
 	}
@@ -136,14 +132,6 @@ public class Festa {
 	
 	public void setEstoques(Set<Estoque> estoques) {
 		this.estoques = estoques;
-	}
-	
-	public Set<ItemEstoque> getItemEstoque() {
-		return itemEstoque;
-	}
-	
-	public void setItemEstoque(Set<ItemEstoque> itemEstoque) {
-		this.itemEstoque = itemEstoque;
 	}
 	
 	public Boolean isOrganizador(int codUsuario) {
