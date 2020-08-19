@@ -37,6 +37,9 @@ public interface ProdutoRepository extends JpaRepository<Produto, Integer>{
 	@Query(value = "SELECT p FROM Produto p WHERE p.marca = :marca AND p.codFesta = :codFesta")
 	public Produto findByMarca(String marca, Integer codFesta);
 
+	@Query(value = "SELECT p FROM Produto p WHERE p.codFesta = :codFesta")
+	public List<Produto> findProdutoByCodFesta(Integer codFesta);
+
 
 }
 

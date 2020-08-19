@@ -86,7 +86,7 @@ public class ProdutoService {
 	public void removerProduto(Integer idUsuarioPermissao, Integer codFesta, Integer codProduto) {
 		Produto produto = this.validarProduto(codProduto);
 		
-		this.validarUsuarioPorFesta(idUsuarioPermissao, codFesta, TipoPermissao.DELMESTO.getCodigo());
+		this.validarUsuarioPorFesta(codFesta, idUsuarioPermissao, TipoPermissao.DELMESTO.getCodigo());
 
 		List<Produto> produtos = produtoRepository.findEstoquesComProduto(codProduto);
 		if(!produtos.isEmpty()) { 
@@ -104,7 +104,7 @@ public class ProdutoService {
 
 	//editar_____________________________________________________________________________________________________
 	public Produto editarProduto(ProdutoTO produtoTO, Integer idUsuarioPermissao) {
-		validarUsuarioPorFesta(idUsuarioPermissao, produtoTO.getCodFesta(), TipoPermissao.EDIMESTO.getCodigo());
+		this.validarUsuarioPorFesta(produtoTO.getCodFesta(), idUsuarioPermissao, TipoPermissao.EDIMESTO.getCodigo());
 		Produto produto = this.validarProduto(produtoTO.getCodProduto());
 		produto.setPrecoMedio(produtoTO.getPrecoMedio());
 		this.validarProduto(produtoTO.getMarca(), produtoTO.getCodFesta());
@@ -114,7 +114,7 @@ public class ProdutoService {
 	}
 
 	public ItemEstoque editarProdutoEstoque(ItemEstoqueTO itemEstoqueTO, Integer idUsuarioPermissao) {
-		validarUsuarioPorEstoque(idUsuarioPermissao, itemEstoqueTO.getCodEstoque(), TipoPermissao.EDIMESTO.getCodigo());
+		this.validarUsuarioPorEstoque(idUsuarioPermissao, itemEstoqueTO.getCodEstoque(), TipoPermissao.EDIMESTO.getCodigo());
 		int codProduto = itemEstoqueTO.getCodProduto();
 		int codEstoque = itemEstoqueTO.getCodEstoque();
 		ItemEstoque retorno = this.validarProdutoEstoque(codEstoque, codProduto);
@@ -168,7 +168,7 @@ public class ProdutoService {
 
 	public List<Produto> listaProduto(Integer codFesta, Integer codUsuario) {
 		this.validarUsuarioPorFesta(codFesta, codUsuario, TipoPermissao.VISUESTO.getCodigo());
-		return produtoRepository.findAll();
+		return produtoRepository.findProdutoByCodFesta(codFesta);
 	}
 
 	public Produto getProduto(Integer codFesta, Integer codUsuario, Integer codProduto) {
