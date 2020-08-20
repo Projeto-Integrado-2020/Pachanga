@@ -1,6 +1,7 @@
 package com.eventmanager.pachanga.repositories;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -17,5 +18,8 @@ public interface ItemEstoqueRepository extends JpaRepository<ItemEstoque, Intege
 
 	@Query(value = "SELECT i FROM ItemEstoque i JOIN i.produto p WHERE p.codProduto = :codProduto")
 	public List<ItemEstoque> findItemEstoquePorProduto(@Param("codProduto") int codProduto);
+	
+	@Query(value = "SELECT i FROM ItemEstoque i JOIN i.produto p JOIN i.estoque e JOIN e.festa f WHERE f.codFesta = :codFesta AND e.codEstoque = :codEstoque")
+	public Set<ItemEstoque> findItensEstoqueByFestaAndEstoque(int codFesta, int codEstoque);
 
 }

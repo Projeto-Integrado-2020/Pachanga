@@ -23,7 +23,7 @@ public class EstoqueFactory {
 	public EstoqueTO getEstoqueTO(Estoque estoque) {
 		EstoqueTOBuilder estoqueTO = EstoqueTOBuilder.getInstance().codEstoque(estoque.getCodEstoque()).nomeEstoque(estoque.getNomeEstoque())
 				.principal(estoque.isPrincipal());
-		if(!estoque.getItemEstoque().isEmpty()) {
+		if(estoque.getItemEstoque() != null && !estoque.getItemEstoque().isEmpty()) {
 			estoqueTO.itensEstoque(itemEstoqueFactory.getListItemEstoqueTO(estoque.getItemEstoque()));
 		}
 		return estoqueTO.build();

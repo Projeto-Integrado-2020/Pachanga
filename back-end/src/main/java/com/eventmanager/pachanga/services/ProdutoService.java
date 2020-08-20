@@ -50,7 +50,7 @@ public class ProdutoService {
 
 	//add_____________________________________________________________________________________________________
 	public Produto addProduto(ProdutoTO produtoTO, Integer codFesta, Integer idUsuarioPermissao) {
-		this.validarUsuarioPorFesta(idUsuarioPermissao, codFesta, TipoPermissao.CADAESTO.getCodigo());
+		this.validarUsuarioPorFesta(codFesta,idUsuarioPermissao, TipoPermissao.CADAESTO.getCodigo());
 		this.validarProduto(produtoTO.getMarca(), produtoTO.getCodFesta());
 		Produto produto = produtoFactory.getProduto(produtoTO);
 		produto.setCodProduto(produtoRepository.getNextValMySequence());
@@ -86,11 +86,11 @@ public class ProdutoService {
 	public void removerProduto(Integer idUsuarioPermissao, Integer codFesta, Integer codProduto) {
 		Produto produto = this.validarProduto(codProduto);
 		
-		this.validarUsuarioPorFesta(idUsuarioPermissao, codFesta, TipoPermissao.DELMESTO.getCodigo());
+		this.validarUsuarioPorFesta(codFesta, idUsuarioPermissao, TipoPermissao.DELMESTO.getCodigo());
 
 		List<Produto> produtos = produtoRepository.findEstoquesComProduto(codProduto);
 		if(!produtos.isEmpty()) { 
-			throw new ValidacaoException("PRODUSO"); // PRODUTO EM USO
+			throw new ValidacaoException("PRODEUSO"); // PRODUTO EM USO
 		}
 
 		produtoRepository.delete(produto);
@@ -104,7 +104,7 @@ public class ProdutoService {
 
 	//editar_____________________________________________________________________________________________________
 	public Produto editarProduto(ProdutoTO produtoTO, Integer idUsuarioPermissao) {
-		validarUsuarioPorFesta(idUsuarioPermissao, produtoTO.getCodFesta(), TipoPermissao.EDIMESTO.getCodigo());
+		this.validarUsuarioPorFesta(produtoTO.getCodFesta(), idUsuarioPermissao, TipoPermissao.EDIMESTO.getCodigo());
 		Produto produto = this.validarProduto(produtoTO.getCodProduto());
 		produto.setPrecoMedio(produtoTO.getPrecoMedio());
 		this.validarProduto(produtoTO.getMarca(), produtoTO.getCodFesta());
@@ -114,7 +114,7 @@ public class ProdutoService {
 	}
 
 	public ItemEstoque editarProdutoEstoque(ItemEstoqueTO itemEstoqueTO, Integer idUsuarioPermissao) {
-		validarUsuarioPorEstoque(idUsuarioPermissao, itemEstoqueTO.getCodEstoque(), TipoPermissao.EDIMESTO.getCodigo());
+		this.validarUsuarioPorEstoque(idUsuarioPermissao, itemEstoqueTO.getCodEstoque(), TipoPermissao.EDIMESTO.getCodigo());
 		int codProduto = itemEstoqueTO.getCodProduto();
 		int codEstoque = itemEstoqueTO.getCodEstoque();
 		ItemEstoque retorno = this.validarProdutoEstoque(codEstoque, codProduto);
@@ -122,7 +122,7 @@ public class ProdutoService {
 		retorno.setQuantidadeMax(itemEstoqueTO.getQuantidadeMax());
 		retorno.setPorcentagemMin(itemEstoqueTO.getPorcentagemMin());
 
-		this.validaQuantAndPorcent(retorno.getQuantidadeMax(), retorno.getPorcentagemMin(), retorno.getQuantidadeAtual());
+		this.validaQuantAndPorcent(retorno.getQuantidadeMax(), retorno.getQuantidadeAtual(), retorno.getPorcentagemMin());
 
 		itemEstoqueRepository.save(retorno);
 
@@ -140,9 +140,7 @@ public class ProdutoService {
 		int quantidadeAtual = itemEstoque.getQuantidadeAtual() - quantidade;
 
 		this.validaQuantAndPorcent(itemEstoque.getQuantidadeMax(), quantidadeAtual, itemEstoque.getPorcentagemMin());
-		if(quantidadeAtual < 0) 
-			throw new ValidacaoException("QATMESTO"); //quantidade informada maior que tem no estoque
-
+		
 		itemEstoque.setQuantidadeAtual(quantidadeAtual);
 		
 		itemEstoqueRepository.save(itemEstoque);
@@ -170,7 +168,7 @@ public class ProdutoService {
 
 	public List<Produto> listaProduto(Integer codFesta, Integer codUsuario) {
 		this.validarUsuarioPorFesta(codFesta, codUsuario, TipoPermissao.VISUESTO.getCodigo());
-		return produtoRepository.findAll();
+		return produtoRepository.findProdutoByCodFesta(codFesta);
 	}
 
 	public Produto getProduto(Integer codFesta, Integer codUsuario, Integer codProduto) {
@@ -206,7 +204,7 @@ public class ProdutoService {
 		this.validarProduto(codProduto);
 		ItemEstoque itemEstoque = itemEstoqueRepository.findItemEstoque(codEstoque, codProduto);
 		if(itemEstoque == null) {
-			throw new ValidacaoException("ESTNPRD");// estoque não possui o produto
+			throw new ValidacaoException("ESTNPROD");// estoque não possui o produto
 		}
 		return itemEstoque;
 	}
@@ -218,7 +216,7 @@ public class ProdutoService {
 		
 	}
 
-	private void validarUsuarioPorFesta(int codUsuario, int codFesta, int tipoPermissao) { //TipoPermissao.CADAESTO.getCodigo()
+	private void validarUsuarioPorFesta(int codFesta, int codUsuario, int tipoPermissao) { //TipoPermissao.CADAESTO.getCodigo()
 		Grupo grupo = grupoRepository.findGrupoPermissaoUsuario(codFesta, codUsuario, tipoPermissao);
 		if(grupo == null) {
 			throw new ValidacaoException("USESPERM");// usuário sem permissão
@@ -227,7 +225,7 @@ public class ProdutoService {
 
 	private void validarUsuarioPorEstoque(int codUsuario, int codEstoque, int tipoPermissao) {
 		Estoque estoque = this.validarEstoque(codEstoque);
-		this.validarUsuarioPorFesta(codUsuario, estoque.getFesta().getCodFesta(), tipoPermissao);
+		this.validarUsuarioPorFesta(estoque.getFesta().getCodFesta(), codUsuario , tipoPermissao);
 	}
 
 	private ItemEstoque validarEstoqueProduto(int codEstoque, int codProduto) {
@@ -254,8 +252,8 @@ public class ProdutoService {
 		if(quantidadeMax <= 0 || quantidadeMax < quantidadeAtual) 
 			throw new ValidacaoException("QMAXINV"); //quantidade máxima inválida
 
-		if(porcentagemMin < 0) 
-			throw new ValidacaoException("PMININV"); //porcentagemMin inválida
+		if(porcentagemMin <= 0) 
+			throw new ValidacaoException("PCMININV"); //porcentagemMin inválida
 
 		if(quantidadeAtual < 0)
 			throw new ValidacaoException("QATUAINV"); //quantidadeAtual inválida
