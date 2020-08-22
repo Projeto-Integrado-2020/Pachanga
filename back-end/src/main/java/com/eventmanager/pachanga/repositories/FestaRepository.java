@@ -38,5 +38,8 @@ public interface FestaRepository extends JpaRepository<Festa, Integer>{
 	@Modifying
 	@Query(value = "UPDATE Festa f SET statusFesta = :statusFesta where codFesta = :codFesta")
 	public void updateStatusFesta(String statusFesta, int codFesta);
+
+	@Query(value = "SELECT f FROM Festa f JOIN f.grupos g JOIN g.convidados c WHERE g.codGrupo = :codGrupo AND c.codConvidado = :codConvidado")
+	public Festa findFestaByCodConvidadoAndCodGrupo(Integer codConvidado, Integer codGrupo);
 	
 }

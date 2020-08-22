@@ -28,6 +28,7 @@ import com.eventmanager.pachanga.domains.Usuario;
 import com.eventmanager.pachanga.dtos.FestaTO;
 import com.eventmanager.pachanga.dtos.UsuarioTO;
 import com.eventmanager.pachanga.errors.ValidacaoException;
+import com.eventmanager.pachanga.factory.FestaFactory;
 import com.eventmanager.pachanga.repositories.CategoriaRepository;
 import com.eventmanager.pachanga.repositories.CategoriasFestaRepository;
 import com.eventmanager.pachanga.repositories.FestaRepository;
@@ -67,6 +68,9 @@ class FestaServiceTest {
 	
 	@MockBean
 	private EstoqueService estoqueService;
+	
+	@MockBean
+	private FestaFactory festaFactory;
 	
 
 	//metodos auxiliares___________________________________________________________________________________________________________________________________	

@@ -50,6 +50,9 @@ public class FestaService {
 
 	@Autowired
 	private EstoqueService estoqueService;
+	
+	@Autowired
+	private FestaFactory festaFactory;
 
 	public List<Festa> procurarFestas(){
 		return festaRepository.findAll();
@@ -68,7 +71,7 @@ public class FestaService {
 		festaTo.setStatusFesta(TipoStatusFesta.PREPARACAO.getValor());
 		this.validarFesta(festaTo);
 		this.validacaoCategorias(festaTo.getCodPrimaria(), festaTo.getCodSecundaria());
-		Festa festa =  FestaFactory.getFesta(festaTo);
+		Festa festa =  festaFactory.getFesta(festaTo);
 		festaRepository.save(festa);
 		Grupo grupo = grupoService.addGrupo(festa.getCodFesta(), TipoGrupo.ORGANIZADOR.getValor(), true, null);
 		grupoRepository.saveUsuarioGrupo(usuario.getCodUsuario(), grupo.getCodGrupo());
@@ -246,5 +249,9 @@ public class FestaService {
 		festaRepository.updateStatusFesta(statusFestaMaiusculo, idFesta);
 		festa.setStatusFesta(statusFestaMaiusculo);
 		return festa;
+	}
+
+	public Festa procurarFestaConvidado(Integer codConvidado, Integer codGrupo) {
+		return festaRepository.findFestaByCodConvidadoAndCodGrupo(codConvidado, codGrupo);
 	}
 }
