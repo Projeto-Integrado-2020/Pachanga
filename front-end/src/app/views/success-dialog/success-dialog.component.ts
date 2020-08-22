@@ -23,6 +23,8 @@ export class SuccessDialogComponent implements OnInit {
       case 'MEMBROAD': this.message = this.translate.instant('SUCCESS.MEMBROAD'); break;
       case 'GRUPDELE': this.message = this.translate.instant('SUCCESS.GRUPDELE'); break;
       case 'GRUPOALT': this.message = this.translate.instant('SUCCESS.GRUPOALT'); break;
+      case 'PRODDELE': this.message = this.translate.instant('SUCCESS.PRODDELE'); break;
+      case 'ATRIBSUC': this.message = this.translate.instant('SUCCESS.ATRIBSUC'); break;
     }
   }
 

@@ -32,4 +32,6 @@ public interface EstoqueRepository extends CrudRepository<Estoque, Integer>{
 	@Query(value = "DELETE FROM produto_x_estoque WHERE cod_festa = :codFesta AND cod_estoque = :codEstoque", nativeQuery = true)
 	public void deleteProdEstoque(int codFesta, int codEstoque);
 	
+	@Query(value = "SELECT e FROM Estoque e JOIN e.festa f WHERE e.nomeEstoque = :nomeEstoque AND f.codFesta = :codFesta")
+	public Estoque findByNomeEstoque(String nomeEstoque, Integer codFesta);
 }

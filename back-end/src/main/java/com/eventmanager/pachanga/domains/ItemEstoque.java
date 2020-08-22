@@ -1,22 +1,29 @@
 package com.eventmanager.pachanga.domains;
 
-import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.eventmanager.pachanga.idclass.ItemEstoqueId;
 
 @Entity
 @Table(name = "produto_x_estoque")
-public class ItemEstoque implements Serializable{
-	@Id
-	@Column(name = "cod_produto")
-	private int codProduto;
+@IdClass(ItemEstoqueId.class)
+public class ItemEstoque{
 	
 	@Id
-	@Column(name = "cod_estoque")
-	private int codEstoque;
+	@ManyToOne
+	@JoinColumn(name = "cod_produto")
+	private Produto produto;
+	
+	@Id
+	@ManyToOne
+	@JoinColumn(name = "cod_estoque")
+	private Estoque estoque;
 	
 	@Column(name = "cod_festa")
 	private int codFesta;
@@ -24,34 +31,26 @@ public class ItemEstoque implements Serializable{
 	@Column(name = "quantidade_max")
 	private int quantidadeMax;
 	
-	@Column(name = "quantiadade_atual")
-	private int quantiadadeAtual;
+	@Column(name = "quantidade_atual")
+	private int quantidadeAtual;
 	
 	@Column(name = "porcentagem_min")
 	private int porcentagemMin;
 
-	public int getCodProduto() {
-		return codProduto;
+	public Produto getProduto() {
+		return produto;
 	}
 
-	public void setCodProduto(int codProduto) {
-		this.codProduto = codProduto;
+	public void setProduto(Produto produto) {
+		this.produto = produto;
 	}
 
-	public int getCodEstoque() {
-		return codEstoque;
+	public Estoque getEstoque() {
+		return estoque;
 	}
 
-	public void setCodEstoque(int codEstoque) {
-		this.codEstoque = codEstoque;
-	}
-
-	public int getCodFesta() {
-		return codFesta;
-	}
-
-	public void setCodFesta(int codFesta) {
-		this.codFesta = codFesta;
+	public void setEstoque(Estoque estoque) {
+		this.estoque = estoque;
 	}
 
 	public int getQuantidadeMax() {
@@ -62,12 +61,12 @@ public class ItemEstoque implements Serializable{
 		this.quantidadeMax = quantidadeMax;
 	}
 
-	public int getQuantiadadeAtual() {
-		return quantiadadeAtual;
+	public int getQuantidadeAtual() {
+		return quantidadeAtual;
 	}
 
-	public void setQuantiadadeAtual(int quantiadadeAtual) {
-		this.quantiadadeAtual = quantiadadeAtual;
+	public void setQuantidadeAtual(int quantiadadeAtual) {
+		this.quantidadeAtual = quantiadadeAtual;
 	}
 
 	public int getPorcentagemMin() {
@@ -77,7 +76,13 @@ public class ItemEstoque implements Serializable{
 	public void setPorcentagemMin(int porcentagemMin) {
 		this.porcentagemMin = porcentagemMin;
 	}
-	
-	
+
+	public int getCodFesta() {
+		return codFesta;
+	}
+
+	public void setCodFesta(int codFesta) {
+		this.codFesta = codFesta;
+	}
 
 }

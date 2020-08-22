@@ -12,6 +12,11 @@
     white-space: nowrap;
   }
 
+  .bot-head-add {
+    margin-left: 25%;
+    margin-right: 16%;
+  }
+
   .main-container {
     max-width: 1140px;
     margin-left: 10vh;
@@ -159,7 +164,7 @@ tr.example-element-row:not(.example-expanded-row):active {
 }
 
 .remove{
-  width: 3.5rem;
+  width: 4rem;
   position: relative;
   margin-top: 1rem;
 }
@@ -182,10 +187,37 @@ tr.example-element-row:not(.example-expanded-row):active {
   color: #ffffff;
   width: 125px;
   float: left;
+  margin-right: 1rem;
 }
 
 .prp-btn-add {
   background-color: $color-secondary;
   color: #ffffff;
+  width: 200px;
+}
+
+.prp-btn-addprod {
+  background-color: $color-secondary;
+  color: #ffffff;
   width: 150px;
+  float: right;
+}
+
+.prp-btn-prod {
+  background-color: $color-tertiary;
+  color: #ffffff;
+  width: 200px;
+}
+
+.header-mat-list {
+  margin-bottom: 1rem;
+}
+
+.icons-actions{
+  float: right;
+  margin-top: 1rem;
+}
+
+.icons-remove{
+  transform: translate(2rem);
 }

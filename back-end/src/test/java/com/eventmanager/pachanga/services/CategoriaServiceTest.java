@@ -18,7 +18,7 @@ import com.eventmanager.pachanga.repositories.CategoriaRepository;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(value=CategoriaService.class)
-public class CategoriaServiceTest {
+class CategoriaServiceTest {
 	
 	@MockBean
 	private CategoriaRepository categoriaRepository;
@@ -34,7 +34,7 @@ public class CategoriaServiceTest {
 	}
 	
 	@Test
-	public void procurarCategoriasTest() {
+	void procurarCategoriasTest() {
 		List<Categoria> categorias = new ArrayList<Categoria>();
 		categorias.add(categoriaTest());
 		
@@ -44,6 +44,18 @@ public class CategoriaServiceTest {
 		
 		assertEquals(categorias.size(), categoriasRetorno.size());
 		assertEquals(true, categoriasRetorno.containsAll(categorias));		
+		
+	}
+	
+	@Test
+	void procurarCategoriaFestaTest() {
+		
+		Mockito.when(categoriaRepository.findCategoriaFesta(Mockito.anyInt(), Mockito.anyString())).thenReturn(categoriaTest());
+		
+		Categoria categoriaRetorno = categoriaService.procurarCategoriaFesta(1, "teste");
+		
+		assertEquals(categoriaRetorno.getCodCategoria(), categoriaTest().getCodCategoria());
+		assertEquals(categoriaRetorno.getNomeCategoria(), categoriaTest().getNomeCategoria());		
 		
 	}
 

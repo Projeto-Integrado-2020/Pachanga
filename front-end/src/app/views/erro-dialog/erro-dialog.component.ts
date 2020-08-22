@@ -48,6 +48,22 @@ export class ErroDialogComponent implements OnInit {
       case 'PERMDUPL': this.erro = this.translate.instant('ERRO.PERMDUPL'); break;
       case 'GRPEXIST': this.erro = this.translate.instant('ERRO.GRPEXIST'); break;
       case 'EDITORGN': this.erro = this.translate.instant('ERRO.EDITORGN'); break;
+      case 'PRODUUSO': this.erro = this.translate.instant('ERRO.PRODUUSO'); break;
+      case 'PRODNFOU': this.erro = this.translate.instant('ERRO.PRODNFOU'); break;
+      case 'PRODCADA': this.erro = this.translate.instant('ERRO.PRODCADA'); break;
+      case 'PRODNEST': this.erro = this.translate.instant('ERRO.PRODNEST'); break;
+      case 'QATMESTO': this.erro = this.translate.instant('ERRO.QATMESTO'); break;
+      case 'QATMMAXI': this.erro = this.translate.instant('ERRO.QATMMAXI'); break;
+      case 'PROMIGUA': this.erro = this.translate.instant('ERRO.PROMIGUA'); break;
+      case 'QATUAINV': this.erro = this.translate.instant('ERRO.QATUAINV'); break;
+      case 'OPERAINV': this.erro = this.translate.instant('ERRO.OPERAINV'); break;
+      case 'ESTONFOU': this.erro = this.translate.instant('ERRO.ESTONFOU'); break;
+      case 'ESTONOME': this.erro = this.translate.instant('ERRO.ESTONOME'); break;
+      case 'PCMININV': this.erro = this.translate.instant('ERRO.PCMININV'); break;
+      case 'ESTNPROD': this.erro = this.translate.instant('ERRO.ESTNPROD'); break;
+      case 'PRODEUSO': this.erro = this.translate.instant('ERRO.PRODEUSO'); break;
+      case 'CONVNGRU': this.erro = this.translate.instant('ERRO.CONVNGRU'); break;
+      case 'FESTNPRE': this.erro = this.translate.instant('ERRO.FESTNPRE'); break;
       default: this.erro = this.translate.instant('ERRO.SERVERRO');
     }
   }

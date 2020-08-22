@@ -9,8 +9,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CriarGrupoComponent } from './criar-grupo.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
-import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+import { FormControl, Validators } from '@angular/forms';
 import { LoginService } from 'src/app/services/loginService/login.service';
 
 export function HttpLoaderFactory(http: HttpClient) {

@@ -36,6 +36,7 @@ import { GerenciadorMembrosComponent } from '../gerenciador-membros/gerenciador-
 import { EditarGrupoComponent } from '../editar-grupo/editar-grupo.component';
 import { DistribuicaoPermissoesComponent } from '../distribuicao-permissoes/distribuicao-permissoes.component';
 import { EstoquePainelComponent } from '../estoque-painel/estoque-painel.component';
+import { GerenciadorProdutosComponent } from '../gerenciador-produtos/gerenciador-produtos.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -80,7 +81,8 @@ describe('CadastroComponent', () => {
         GerenciadorMembrosComponent,
         EditarGrupoComponent,
         DistribuicaoPermissoesComponent,
-        EstoquePainelComponent
+        EstoquePainelComponent,
+        GerenciadorProdutosComponent
       ],
       imports: [
         CustomMaterialModule,

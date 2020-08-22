@@ -1,6 +1,6 @@
 package com.eventmanager.pachanga.services;
 
-import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
@@ -19,7 +19,7 @@ import com.eventmanager.pachanga.repositories.PermissaoRepository;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(value=PermissaoService.class)
-public class PermissaoServiceTest {
+class PermissaoServiceTest {
 
 	@MockBean
 	private PermissaoRepository permissaoRepository;	
@@ -60,12 +60,12 @@ public class PermissaoServiceTest {
 	}
 	
 	@Test
-	public void  getAllPermissaoSucessoTest() throws Exception {
+	void  getAllPermissaoSucessoTest() throws Exception {
 		Mockito.when(permissaoRepository.findAllPermissao()).thenReturn(ColecaoDePermissaoTest());
 		List<Permissao> permissoes = permissaoService.getAllPermissao();
 	
-		assertFalse(permissoes == null);
-		assertEquals(permissoes.size(), 16);
+		assertNotNull(permissoes);
+		assertEquals(16, permissoes.size());
 	}
 	
 }

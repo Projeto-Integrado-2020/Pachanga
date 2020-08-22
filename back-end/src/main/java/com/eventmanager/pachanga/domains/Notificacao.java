@@ -2,14 +2,10 @@ package com.eventmanager.pachanga.domains;
 
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -30,14 +26,11 @@ public class Notificacao {
 	
 	@OneToMany(fetch = FetchType.LAZY,
 			mappedBy = "notificacao")
-	private Set<NotificacaoUsuario> notificacaoUsuario;
+	private Set<NotificacaoConvidado> notificacaoConvidado;
 	
-	@ManyToMany(fetch = FetchType.LAZY,
-			cascade = CascadeType.ALL)
-	@JoinTable(name = "convidado_x_notificacao",
-	joinColumns = @JoinColumn(name ="cod_notificacao"),
-	inverseJoinColumns = @JoinColumn(name = "cod_convidado"))
-	private Set<Convidado> convidados;
+	@OneToMany(fetch = FetchType.LAZY,
+			mappedBy = "notificacao")
+	private Set<NotificacaoUsuario> notificacaoUsuario;
 
 	public int getCodNotificacao() {
 		return codNotificacao;
@@ -63,12 +56,20 @@ public class Notificacao {
 		this.notificacaoGrupo = notificacaoGrupo;
 	}
 
-	public Set<Convidado> getConvidados() {
-		return convidados;
+	public Set<NotificacaoConvidado> getNotificacaoConvidado() {
+		return notificacaoConvidado;
 	}
 
-	public void setConvidados(Set<Convidado> convidados) {
-		this.convidados = convidados;
+	public void setNotificacaoConvidado(Set<NotificacaoConvidado> notificacaoConvidado) {
+		this.notificacaoConvidado = notificacaoConvidado;
+	}
+
+	public Set<NotificacaoUsuario> getNotificacaoUsuario() {
+		return notificacaoUsuario;
+	}
+
+	public void setNotificacaoUsuario(Set<NotificacaoUsuario> notificacaoUsuario) {
+		this.notificacaoUsuario = notificacaoUsuario;
 	}
 	
 }

@@ -1,5 +1,7 @@
 package com.eventmanager.pachanga.dtos;
 
+import java.util.List;
+
 public class EstoqueTO {
 
 	private int codEstoque;
@@ -7,6 +9,8 @@ public class EstoqueTO {
 	private boolean principal;
 
 	private String nomeEstoque;
+	
+	private List<ItemEstoqueTO> itemEstoque;
 
 	public int getCodEstoque() {
 		return codEstoque;
@@ -30,6 +34,14 @@ public class EstoqueTO {
 
 	public void setNomeEstoque(String nomeEstoque) {
 		this.nomeEstoque = nomeEstoque;
+	}
+
+	public List<ItemEstoqueTO> getItemEstoque() {
+		return itemEstoque;
+	}
+
+	public void setItemEstoque(List<ItemEstoqueTO> itemEstoque) {
+		this.itemEstoque = itemEstoque;
 	}
 
 }

@@ -49,7 +49,9 @@
         "PASSPATTERN": "A senha deve ter pelo menos 8 caracteres, contendo letras maiúsculas e minúsculas, números e caracteres especiais",
         "EMAIL": "E-mail inválido",
         "TERMOS": "Aceitar os Termos de Uso é obrigatório",
-        "MATCH": "Senhas devem coincidir"
+        "MATCH": "Senhas devem coincidir",
+        "MINQTDERROR": "A quantidade mínima permidita é de 1.",
+        "MAXQTDERROR": "A procentagem máxima permitida é de 100%."
     },
 
     "ERRO": {
@@ -82,7 +84,23 @@
         "GRPONVAZ": "O grupo não está vazio.",
         "PERMDUPL": "Permissão duplicada.",
         "GRPEXIST": "Já existe um grupo com este nome.",
-        "EDITORGN": "Não é possível editar o grupo Organizador."
+        "EDITORGN": "Não é possível editar o grupo Organizador.",
+        "PRODUUSO": "Produto está registrado em um  estoque.",
+        "PRODNFOU": "Produto não encontrado.",
+        "PRODCADA": "Produto já cadastrado.",
+        "PRODNEST": "Produto não pertence à essa mesma festa.",
+        "QATMESTO": "Valor de baixa maior que quantidade presente no estoque.",
+        "QATMMAXI": "Recarga fará que o estoque fique com uma quantidade maior que a máxima.",
+        "PROMIGUA": "Produto já cadastrado na festa.",
+        "QATUAINV": "Quantidade atual inválida.",
+        "OPERAINV": "Quantidade inválida.",
+        "ESTONOME": "Este nome já está sendo utilizado.",
+        "PCMININV": "Porcentagem mínima inválida.",
+        "ESTNPROD": "Estoque não possui este produto.",
+        "PRODEUSO": "Produto em uso.",
+        "ESTONFOU": "Estoque não encontrado.",
+        "FESTNPRE": "A festa deve estar na fase de preparação para realizar esta ação.",
+        "CONVNGRU": "Este convidado não esta no grupo."
     },
 
     "SUCCESS": {
@@ -92,7 +110,9 @@
         "FESTAALT": "Os dados da festa foram alterados com sucesso.",
         "MEMBROAD": "Membros convidados.",
         "GRUPDELE": "Grupo deletado com sucesso.",
-        "GRUPOALT": "Grupo alterado com sucesso."
+        "GRUPOALT": "Grupo alterado com sucesso.",
+        "ATRIBSUC": "Atribuição salva com sucesso.",
+        "PRODDELE": "Produto deletado com sucesso."
     },
     
     "PERFIL":{
@@ -355,11 +375,48 @@
         "NOMEESTOQUE": "Nome do estoque:",
         "CONFIRM": "Confirmar",
         "CANCEL": "Cancelar",
-        "ADDESTOQUE": "Adicionar estoque"
+        "ADDESTOQUE": "Adicionar estoque",
+        "GERENCIARPROD": "Gerenciamento de Produtos",
+        "ADDPRODUTO": "Adicionar produto"
     },
 
     "DELETECONVIDADO": {
         "MESSAGE": "Você realmente deseja deletar este convidado?",
+        "CONFIRM": "Confirmar",
+        "CANCEL": "Cancelar"
+    },
+
+    "PRODUTO": {
+        "PRODUCT": "Produto",
+        "PRICE": "Preço Médio",
+        "ADDPROD": "Adicionar produto",
+        "EDIT": "Editar produto",
+        "DELETE": "Excluir produto",
+        "CONFIRM": "Confirmar",
+        "CANCEL": "Cancelar"
+    },
+
+    "DELETEPRODUTO": {
+        "MESSAGE": "Você realmente deseja deletar o produto",
+        "CONFIRM": "Confirmar",
+        "CANCEL": "Cancelar"
+    },
+
+    "ESTOQUEPROD": {
+        "ADDPRODESTOQUE": "Adicionar produto ao estoque",
+        "EDITPRODUTOESTOQUE": "Editar produto do estoque",
+        "DELETEPRODUTOESTOQUE": "Deletar produto do estoque",
+        "MARCA": "Marca",
+        "QTDMAX": "Quantidade máxima",
+        "QTDATUAL": "Quantidade atual",
+        "PROTCENTAGEMMIN": "Procentagem mínima",
+        "CONFIRM": "Confirmar",
+        "CANCEL": "Cancelar"
+    },
+
+    "DELETEPRODUTOESTOQUE": {
+        "DELETE": "Deletar produto do estoque",
+        "MESSAGE": "Você realmente deseja deletar o produto do estoque",
         "CONFIRM": "Confirmar",
         "CANCEL": "Cancelar"
     }

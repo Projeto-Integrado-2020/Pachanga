@@ -14,26 +14,31 @@ import { LoginService } from '../loginService/login.service';
 })
 export class EditarFestaService {
 
+  farol = false;
   private readonly urlAtualizarFesta = `${environment.URL_BACK}festa/atualizar`;
 
   constructor(private http: HttpClient, public logService: LogService, public dialog: MatDialog,
               public loginService: LoginService) { }
 
   atualizarFesta(dadosFesta) {
-    const httpParams = new HttpParams()
-    .append('idUser', this.loginService.usuarioInfo.codUsuario);
-    return this.http.put(this.urlAtualizarFesta, dadosFesta, {params: httpParams}).pipe(
-      take(1),
-      catchError(error => {
-        return this.handleError(error, this.logService);
-      })
-    );
+    if (!this.farol) {
+      this.setFarol(true);
+      const httpParams = new HttpParams()
+      .append('idUser', this.loginService.usuarioInfo.codUsuario);
+      return this.http.put(this.urlAtualizarFesta, dadosFesta, {params: httpParams}).pipe(
+        take(1),
+        catchError(error => {
+          return this.handleError(error, this.logService);
+        })
+      );
+    }
   }
 
   handleError = (error: HttpErrorResponse, logService: LogService) => {
     this.openErrorDialog(error.error);
     logService.initialize();
     logService.logHttpInfo(JSON.stringify(error), 0, error.url);
+    this.setFarol(false);
     return throwError(error);
   }
 
@@ -42,6 +47,14 @@ export class EditarFestaService {
       width: '250px',
       data: {erro: error}
     });
+  }
+
+  setFarol(flag: boolean) {
+    this.farol = flag;
+  }
+
+  getFarol() {
+    return this.farol;
   }
 
 }

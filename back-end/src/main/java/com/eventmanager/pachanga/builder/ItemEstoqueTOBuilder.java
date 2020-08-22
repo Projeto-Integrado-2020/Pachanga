@@ -1,8 +1,7 @@
 package com.eventmanager.pachanga.builder;
 
-import com.eventmanager.pachanga.domains.Estoque;
-import com.eventmanager.pachanga.domains.Produto;
 import com.eventmanager.pachanga.dtos.ItemEstoqueTO;
+import com.eventmanager.pachanga.dtos.ProdutoTO;
 
 public class ItemEstoqueTOBuilder {
 	
@@ -10,8 +9,9 @@ public class ItemEstoqueTOBuilder {
 	private int codEstoque;
 	private int codFesta;
 	private int quantidadeMax;
-	private int quantiadadeAtual;
+	private int quantidadeAtual;
 	private int porcentagemMin;
+	private ProdutoTO produto; 
 	
 	public static ItemEstoqueTOBuilder getInstance() {
 		return new ItemEstoqueTOBuilder();
@@ -31,14 +31,19 @@ public class ItemEstoqueTOBuilder {
 		this.codFesta = codFesta;
 		return this;
 	}
+	
+	public ItemEstoqueTOBuilder produto(ProdutoTO produto) {
+		this.produto = produto;
+		return this;
+	}
 
 	public ItemEstoqueTOBuilder quantidadeMax(int quantidadeMax) {
 		this.quantidadeMax = quantidadeMax;
 		return this;
 	}
 
-	public ItemEstoqueTOBuilder quantiadadeAtual(int quantiadadeAtual) {
-		this.quantiadadeAtual = quantiadadeAtual;
+	public ItemEstoqueTOBuilder quantidadeAtual(int quantiadadeAtual) {
+		this.quantidadeAtual = quantiadadeAtual;
 		return this;
 	}
 
@@ -49,11 +54,12 @@ public class ItemEstoqueTOBuilder {
 	
 	public ItemEstoqueTO build() {
 		ItemEstoqueTO itemEstoqueTO = new ItemEstoqueTO();
+		itemEstoqueTO.setProduto(produto);
 		itemEstoqueTO.setCodEstoque(codEstoque);
 		itemEstoqueTO.setCodProduto(codProduto);
 		itemEstoqueTO.setCodFesta(codFesta);
 		itemEstoqueTO.setQuantidadeMax(quantidadeMax);
-		itemEstoqueTO.setQuantiadadeAtual(quantiadadeAtual);
+		itemEstoqueTO.setQuantidadeAtual(quantidadeAtual);
 		itemEstoqueTO.setPorcentagemMin(porcentagemMin);
 		
 		return itemEstoqueTO;

@@ -19,6 +19,7 @@ import com.eventmanager.pachanga.factory.EstoqueFactory;
 import com.eventmanager.pachanga.repositories.EstoqueRepository;
 import com.eventmanager.pachanga.repositories.FestaRepository;
 import com.eventmanager.pachanga.repositories.GrupoRepository;
+import com.eventmanager.pachanga.repositories.ItemEstoqueRepository;
 import com.eventmanager.pachanga.repositories.ProdutoRepository;
 import com.eventmanager.pachanga.tipo.TipoPermissao;
 
@@ -39,13 +40,20 @@ public class EstoqueService {
 	private ProdutoRepository produtoRepository;
 	
 	@Autowired
+	private ItemEstoqueRepository itemEstoqueRepository;
+	
+	@Autowired
 	private EstoqueFactory estoqueFactory;
 
 
 	public List<Estoque> estoquesFesta(int codFesta, int idUsuario){
 		this.validarFesta(codFesta);
 		this.validarUsuario(idUsuario, codFesta, TipoPermissao.VISUESTO.getCodigo());
-		return estoqueRepository.findEstoqueByCodFesta(codFesta);
+		List<Estoque> estoques = estoqueRepository.findEstoqueByCodFesta(codFesta);
+		estoques.stream().forEach(e ->{
+			e.setItemEstoque(itemEstoqueRepository.findItensEstoqueByFestaAndEstoque(codFesta, e.getCodEstoque()));
+		});
+		return estoques;
 	}
 
 	public List<Estoque> estoquesFestaComProdutos(int codFesta, int idUsuario){
@@ -55,7 +63,7 @@ public class EstoqueService {
 		for(Estoque estoque : estoques) {
 			Set<Produto> produtosEstoque = new HashSet<>();
 			produtosEstoque.addAll(produtoRepository.findProdutosPorEstoque(estoque.getCodEstoque()));
-			estoque.setProdutos(produtosEstoque);
+//			estoque.setProdutos(produtosEstoque);
 		}
 		
 		return estoques;
@@ -65,17 +73,26 @@ public class EstoqueService {
 		Festa festa = this.validarFesta(codFesta);
 		Estoque estoque = estoqueFactory.getEstoque(nomeEstoque, principal);
 		this.validarUsuario(codUsuario, codFesta, TipoPermissao.CADAESTO.getCodigo());
+		this.validarEstoqueNome(nomeEstoque, codFesta);
 		estoque.setCodEstoque(estoqueRepository.getNextValMySequence());
 		estoque.setFesta(festa);
 		estoqueRepository.save(estoque);
 		return estoque;
 	}
 
+	private void validarEstoqueNome(String nomeEstoque, int codFesta) {
+		Estoque estoque = estoqueRepository.findByNomeEstoque(nomeEstoque, codFesta);
+		if(estoque != null) {
+			throw new ValidacaoException("ESTOMNOM");// estoque existente com o msm nome
+		}
+		
+	}
+
 	public Estoque updateEstoque(EstoqueTO estoqueTo, int codFesta, int codUsuario) {
 		this.validarFesta(codFesta);
 		this.validarUsuario(codUsuario, codFesta, TipoPermissao.EDITESTO.getCodigo());
 		Estoque estoque = this.validarEstoque(estoqueTo.getCodEstoque());
-		Estoque estoqueNome = estoqueRepository.findByNomeEstoque(estoqueTo.getNomeEstoque());
+		Estoque estoqueNome = estoqueRepository.findByNomeEstoque(estoqueTo.getNomeEstoque(), codFesta);
 		if(estoqueNome != null) {
 			throw new ValidacaoException("ESTONOME");// estoque com o mesmo nome
 		}

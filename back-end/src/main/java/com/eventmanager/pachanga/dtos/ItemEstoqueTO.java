@@ -5,8 +5,9 @@ public class ItemEstoqueTO {
 	private int codEstoque;
 	private int codFesta;
 	private int quantidadeMax;
-	private int quantiadadeAtual;
+	private int quantidadeAtual;
 	private int porcentagemMin;
+	private ProdutoTO produto;
 	
 	public int getCodProduto() {
 		return codProduto;
@@ -32,11 +33,11 @@ public class ItemEstoqueTO {
 	public void setQuantidadeMax(int quantidadeMax) {
 		this.quantidadeMax = quantidadeMax;
 	}
-	public int getQuantiadadeAtual() {
-		return quantiadadeAtual;
+	public int getQuantidadeAtual() {
+		return quantidadeAtual;
 	}
-	public void setQuantiadadeAtual(int quantiadadeAtual) {
-		this.quantiadadeAtual = quantiadadeAtual;
+	public void setQuantidadeAtual(int quantiadadeAtual) {
+		this.quantidadeAtual = quantiadadeAtual;
 	}
 	public int getPorcentagemMin() {
 		return porcentagemMin;
@@ -44,9 +45,10 @@ public class ItemEstoqueTO {
 	public void setPorcentagemMin(int porcentagemMin) {
 		this.porcentagemMin = porcentagemMin;
 	}
-	
-	
-	
-	
-
+	public ProdutoTO getProduto() {
+		return produto;
+	}
+	public void setProduto(ProdutoTO produto) {
+		this.produto = produto;
+	}
 }

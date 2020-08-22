@@ -7,7 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -26,18 +26,9 @@ public class Produto {
     @Column(name = "marca")
     private String marca;
     
-	@ManyToMany(mappedBy = "produtos",
-			fetch = FetchType.LAZY)
-	private Set<Estoque> estoques;
-	
-	
-	public Set<Estoque> getEstoques() {
-		return estoques;
-	}
-
-	public void setEstoques(Set<Estoque> estoques) {
-		this.estoques = estoques;
-	}
+    @OneToMany(fetch = FetchType.LAZY,
+			mappedBy = "produto")
+	private Set<ItemEstoque> itemEstoque;
 
 	public int getCodProduto() {
 		return codProduto;
@@ -70,6 +61,13 @@ public class Produto {
 	public void setMarca(String marca) {
 		this.marca = marca;
 	}
-    
+
+	public Set<ItemEstoque> getItemEstoque() {
+		return itemEstoque;
+	}
+
+	public void setItemEstoque(Set<ItemEstoque> itemEstoque) {
+		this.itemEstoque = itemEstoque;
+	}
     
 }

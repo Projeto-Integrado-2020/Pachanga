@@ -82,7 +82,21 @@
         "GRPONVAZ": "The role is not empty.",
         "PERMDUPL": "Duplicate permission.",
         "GRPEXIST": "Role name already used.",
-        "EDITORGN": "Edit Role Organizador is not allowed."
+        "EDITORGN": "Edit Role Organizador is not allowed.",
+        "PRODUUSO": "Product is registered in a stock.",
+        "PRODNFOU": "Product not found.",
+        "PRODCADA": "Product already registered.",
+        "PRODNEST": "Product is not in the same party.",
+        "QATMESTO": "Retirement value greater than quantity present in stock.",
+        "QATMMAXI": "Reload will cause the stock to be larger than the maximum.",
+        "PROMIGUA": "Product already registered.",
+        "QATUAINV": "Invalid current quantity.",
+        "OPERAINV": "Invalid quantity.",
+        "ESTONOME": "This name is already been used.",
+        "PCMININV": "Minimum percentage invalid.",
+        "ESTNPROD": "The stock do not contain this product.",
+        "PRODEUSO": "Product in use.",
+        "ESTONFOU": "Stock not found."
     },
 
     "SUCCESS": {
@@ -92,7 +106,9 @@
         "FESTAALT": "The party data has been successfully changed.",
         "MEMBROAD": "Members invited.",
         "GRUPDELE": "Role deleted.",
-        "GRUPOALT": "Role updated."
+        "GRUPOALT": "Role updated.",
+        "ATRIBSUC": "Distribution successfully saved.",
+        "PRODDELE": "Product successfully deleted."
     },
 
     "PERFIL":{
@@ -354,11 +370,48 @@
         "NOMEESTOQUE": "Stock name",
         "CONFIRM": "Confirm",
         "CANCEL": "Cancel",
-        "ADDESTOQUE": "Add stock"
+        "ADDESTOQUE": "Add stock",
+        "GERENCIARPROD": "Products Management",
+        "ADDPRODUTO": "Add product"
     },
 
     "DELETECONVIDADO": {
         "MESSAGE": "Do you really want to delete this guest?",
+        "CONFIRM": "Confirm",
+        "CANCEL": "Cancel"
+    },
+
+    "PRODUTO": {
+        "PRODUCT": "Product",
+        "PRICE": "Average price",
+        "ADDPROD": "Add product",
+        "EDIT": "Edit product",
+        "DELETE": "Delete product",
+        "CONFIRM": "Confirm",
+        "CANCEL": "Cancel"
+    },
+
+    "DELETEPRODUTO": {
+        "MESSAGE": "Do you really want to delete the product",
+        "CONFIRM": "Confirm",
+        "CANCEL": "Cancel"
+    },
+
+    "ESTOQUEPROD": {
+        "ADDPRODESTOQUE": "Add product to stock",
+        "EDITPRODUTOESTOQUE": "Edit a stock product",
+        "DELETEPRODUTOESTOQUE": "Delete product from stock",
+        "MARCA": "Brand",
+        "QTDMAX": "Maximum quantity",
+        "QTDMIN": "Minimum quantity",
+        "ATUAL": "Current percentage",
+        "CONFIRM": "Confirm",
+        "CANCEL": "Cancel"
+    },
+
+    "DELETEPRODUTOESTOQUE": {
+        "DELETE": "Delete product from stock",
+        "MESSAGE": "Do you really want to delete the product",
         "CONFIRM": "Confirm",
         "CANCEL": "Cancel"
     }

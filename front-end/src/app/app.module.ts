@@ -73,6 +73,13 @@ import { DeleteEstoqueDialogComponent } from './views/delete-estoque-dialog/dele
 import { EditEstoqueDialogComponent } from './views/edit-estoque-dialog/edit-estoque-dialog.component';
 import { CriarEstoqueDialogComponent } from './views/criar-estoque-dialog/criar-estoque-dialog.component';
 import { DeletarConvidadoDialogComponent } from './views/deletar-convidado-dialog/deletar-convidado-dialog.component';
+import { GerenciadorProdutosComponent } from './views/gerenciador-produtos/gerenciador-produtos.component';
+import { CriarProdutoDialogComponent } from './views/criar-produto-dialog/criar-produto-dialog.component';
+import { EditarProdutoDialogComponent } from './views/editar-produto-dialog/editar-produto-dialog.component';
+import { DeletarProdutoDialogComponent } from './views/deletar-produto-dialog/deletar-produto-dialog.component';
+import { CriarProdutoEstoqueDialogComponent } from './views/criar-produto-estoque-dialog/criar-produto-estoque-dialog.component';
+import { DeletarProdutoEstoqueDialogComponent } from './views/deletar-produto-estoque-dialog/deletar-produto-estoque-dialog.component';
+import { EditarProdutoEstoqueDialogComponent } from './views/editar-produto-estoque-dialog/editar-produto-estoque-dialog.component';
 
 
 const config = new AuthServiceConfig([
@@ -126,7 +133,14 @@ export function provideConfig() {
     DeleteEstoqueDialogComponent,
     EditEstoqueDialogComponent,
     CriarEstoqueDialogComponent,
-    DeletarConvidadoDialogComponent
+    DeletarConvidadoDialogComponent,
+    GerenciadorProdutosComponent,
+    CriarProdutoDialogComponent,
+    EditarProdutoDialogComponent,
+    DeletarProdutoDialogComponent,
+    CriarProdutoEstoqueDialogComponent,
+    DeletarProdutoEstoqueDialogComponent,
+    EditarProdutoEstoqueDialogComponent
   ],
   entryComponents: [
     LoginComponent,
@@ -144,7 +158,13 @@ export function provideConfig() {
     DeleteEstoqueDialogComponent,
     EditEstoqueDialogComponent,
     CriarEstoqueDialogComponent,
-    DeletarConvidadoDialogComponent
+    DeletarConvidadoDialogComponent,
+    CriarProdutoDialogComponent,
+    EditarProdutoDialogComponent,
+    DeletarProdutoDialogComponent,
+    CriarProdutoEstoqueDialogComponent,
+    DeletarProdutoEstoqueDialogComponent,
+    EditarProdutoEstoqueDialogComponent
   ],
   imports: [
     BrowserModule,
