@@ -5,8 +5,10 @@ import com.eventmanager.pachanga.dtos.NotificacaoConvidadoTO;
 public class NotificacaoConvidadoTOBuilder {
 
 	private int codNotificacao;
-
-	private String descNotificacao;
+	
+	private int codConvidado;
+	
+	private String mensagem;
 
 	public static NotificacaoConvidadoTOBuilder getInstance() {
 		return new NotificacaoConvidadoTOBuilder();
@@ -17,17 +19,25 @@ public class NotificacaoConvidadoTOBuilder {
 		return this;
 	}
 
-	public NotificacaoConvidadoTOBuilder descNotificacao(String descNotificacao) {
-		this.descNotificacao = descNotificacao;
+	public NotificacaoConvidadoTOBuilder codConvidado(int codConvidado) {
+		this.codConvidado = codConvidado;
+		return this;
+	}
+	
+	public NotificacaoConvidadoTOBuilder mensagem(String mensagem) {
+		this.mensagem = mensagem;
 		return this;
 	}
 
 	public NotificacaoConvidadoTO build() {
 		NotificacaoConvidadoTO notificacaoConvidadoTo = new NotificacaoConvidadoTO();
 		notificacaoConvidadoTo.setCodNotificacao(codNotificacao);
-		notificacaoConvidadoTo.setDescNotificacao(descNotificacao);
+		notificacaoConvidadoTo.setCodConvidado(codConvidado);
+		notificacaoConvidadoTo.setMensagem(mensagem);
 		return notificacaoConvidadoTo;
 	}
+
+
 
 
 }

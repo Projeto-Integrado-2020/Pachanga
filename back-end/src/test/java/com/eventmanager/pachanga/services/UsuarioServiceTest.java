@@ -23,7 +23,7 @@ import com.eventmanager.pachanga.tipo.TipoGrupo;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(value=UsuarioService.class)
-public class UsuarioServiceTest {
+class UsuarioServiceTest {
 
 	@MockBean
 	private UsuarioRepository usuarioRepository;
@@ -66,7 +66,7 @@ public class UsuarioServiceTest {
 	//login______________________________________________________________________________________________________________	
 
 	@Test
-	public void loginSucessoTest() throws Exception{
+	void loginSucessoTest() throws Exception{
 
 		Usuario usuarioTestBanco = usuarioTest();
 		usuarioTestBanco.setSenha("40a5791d6b15b858e233d889dce30778655d9e2b1a9e98db15f3af00d035368882f0aa002da9f2868f62b0d35adebca9d2362d8bbfaef2d2e68f2c51fdee3ea52b44902b824bc7e158a955f0a98f871b");
@@ -83,7 +83,7 @@ public class UsuarioServiceTest {
 	}
 	
 	@Test
-	public void loginSemSenhaBancoTest() throws Exception{
+	void loginSemSenhaBancoTest() throws Exception{
 
 		Usuario usuarioTestBanco = usuarioTest();
 		usuarioTestBanco.setSenha(null);
@@ -105,7 +105,7 @@ public class UsuarioServiceTest {
 	}
 	
 	@Test
-	public void loginErroContaGmailTest() throws Exception{
+	void loginErroContaGmailTest() throws Exception{
 
 		Usuario usuarioTestBanco = usuarioTest();
 		usuarioTestBanco.setGmail("123");
@@ -127,7 +127,7 @@ public class UsuarioServiceTest {
 	}
 	
 	@Test
-	public void loginErroContaFacebookTest() throws Exception{
+	void loginErroContaFacebookTest() throws Exception{
 
 		Usuario usuarioTestBanco = usuarioTest();
 		usuarioTestBanco.setFacebook("123");
@@ -149,7 +149,7 @@ public class UsuarioServiceTest {
 	}
 
 	@Test
-	public void loginSenhaErradaTest() throws Exception{
+	void loginSenhaErradaTest() throws Exception{
 
 		Usuario usuarioTestBanco = usuarioTest();
 		usuarioTestBanco.setSenha("40a5791d6b15b858e233d889dce30778655d9e2b1a9e98db15f3af00d035368882f0aa002da9f2868f62b0d35adebca9d2362d8bbfaef2d2e68f2c51fdee3ea52b44902b824bc7e158a955f0a98f871b");
@@ -170,7 +170,7 @@ public class UsuarioServiceTest {
 	}
 
 	@Test
-	public void loginUserTypeGSucessTest() throws Exception{
+	void loginUserTypeGSucessTest() throws Exception{
 
 		Usuario usuarioTestBanco = usuarioTest();
 
@@ -187,7 +187,7 @@ public class UsuarioServiceTest {
 	}
 
 	@Test
-	public void loginUserTypeFSucessTest() throws Exception{
+	void loginUserTypeFSucessTest() throws Exception{
 
 		Usuario usuarioTestBanco = usuarioTest();
 
@@ -204,7 +204,7 @@ public class UsuarioServiceTest {
 	}
 
 	@Test
-	public void loginUserTypeNotPFailTest() throws Exception{
+	void loginUserTypeNotPFailTest() throws Exception{
 
 		Mockito.when(usuarioRepository.findByEmail("gustavinhoTPD@fodasse.com.br")).thenReturn(usuarioTest());
 
@@ -217,7 +217,7 @@ public class UsuarioServiceTest {
 	}
 
 	@Test
-	public void loginEmailNaoCadastradoTest() throws Exception{
+	void loginEmailNaoCadastradoTest() throws Exception{
 
 		Mockito.when(usuarioRepository.findByEmail(Mockito.anyString())).thenReturn(null);
 
@@ -236,7 +236,7 @@ public class UsuarioServiceTest {
 	}
 
 	@Test
-	public void loginCadastroTest() throws Exception{
+	void loginCadastroTest() throws Exception{
 
 		Mockito.when(usuarioRepository.findByEmail(Mockito.anyString())).thenReturn(null);
 
@@ -258,7 +258,7 @@ public class UsuarioServiceTest {
 	//cadastro______________________________________________________________________________________________________________	
 
 	@Test
-	public void cadastroErroTest() throws Exception{
+	void cadastroErroTest() throws Exception{
 		Mockito.when(usuarioRepository.findByEmail("gustavinhoTPD@fodasse.com.br")).thenReturn(usuarioTest());
 
 		UsuarioTO usuarioTestCadastro = usuarioToTest();
@@ -277,7 +277,7 @@ public class UsuarioServiceTest {
 	}
 
 	@Test
-	public void cadastroSemSenhaTest() throws Exception{
+	void cadastroSemSenhaTest() throws Exception{
 		Mockito.when(usuarioRepository.findByEmail(Mockito.anyString())).thenReturn(usuarioTest());
 
 		UsuarioTO usuarioTestCadastro = usuarioToTest();
@@ -298,7 +298,7 @@ public class UsuarioServiceTest {
 	}
 
 	@Test
-	public void cadastroValorGmailDiferenteTest() throws Exception{
+	void cadastroValorGmailDiferenteTest() throws Exception{
 		Usuario usuario = usuarioTest();
 		usuario.setGmail("1234");
 
@@ -322,7 +322,7 @@ public class UsuarioServiceTest {
 	}
 
 	@Test
-	public void cadastroValorFacebookDiferenteTest() throws Exception{
+	void cadastroValorFacebookDiferenteTest() throws Exception{
 		Usuario usuario = usuarioTest();
 		usuario.setFacebook("1234");
 
@@ -346,7 +346,7 @@ public class UsuarioServiceTest {
 	}
 
 	@Test
-	public void cadastroFacebookTest() throws Exception{
+	void cadastroFacebookTest() throws Exception{
 		Usuario usuario = usuarioTest();
 		usuario.setFacebook("1234");
 
@@ -366,7 +366,7 @@ public class UsuarioServiceTest {
 	}
 	
 	@Test
-	public void cadastroGmailTest() throws Exception{
+	void cadastroGmailTest() throws Exception{
 		Usuario usuario = usuarioTest();
 		usuario.setGmail("1234");
 
@@ -386,7 +386,7 @@ public class UsuarioServiceTest {
 	}
 
 	@Test
-	public void cadastroCorretoPachangaTest() throws Exception{
+	void cadastroCorretoPachangaTest() throws Exception{
 		Mockito.when(usuarioRepository.findByEmail("gustavinhoTPD@fodasse.com.br")).thenReturn(null);
 
 		UsuarioTO usuarioTestCadastro = usuarioToTest();
@@ -401,7 +401,7 @@ public class UsuarioServiceTest {
 	}
 
 	@Test
-	public void cadastroCorretoGmailTest() throws Exception{
+	void cadastroCorretoGmailTest() throws Exception{
 		Mockito.when(usuarioRepository.findByEmail("gustavinhoTPD@fodasse.com.br")).thenReturn(null);
 
 		UsuarioTO usuarioTestCadastro = usuarioToTest();
@@ -418,7 +418,7 @@ public class UsuarioServiceTest {
 	}
 
 	@Test
-	public void cadastroCorretoFacebookTest() throws Exception{
+	void cadastroCorretoFacebookTest() throws Exception{
 		Mockito.when(usuarioRepository.findByEmail("gustavinhoTPD@fodasse.com.br")).thenReturn(null);
 
 		UsuarioTO usuarioTestCadastro = usuarioToTest();
@@ -436,7 +436,7 @@ public class UsuarioServiceTest {
 
 
 	@Test
-	public void cadastroCorretoPachangaUsuarioExistenteTest() throws Exception{
+	void cadastroCorretoPachangaUsuarioExistenteTest() throws Exception{
 		Usuario usuario = usuarioTest();
 		usuario.setFacebook("1234");
 		usuario.setSenha(null);
@@ -455,7 +455,7 @@ public class UsuarioServiceTest {
 	}
 
 	@Test
-	public void cadastroEmailDuplicadoTest() throws Exception{
+	void cadastroEmailDuplicadoTest() throws Exception{
 		Usuario usuarioTestBanco = usuarioTest();
 
 		Mockito.when(usuarioRepository.findByEmail("gustavinhoTPD@fodasse.com.br")).thenReturn(usuarioTestBanco);
@@ -476,7 +476,7 @@ public class UsuarioServiceTest {
 	}
 
 	@Test
-	public void cadastroUserGmail() throws Exception{
+	void cadastroUserGmail() throws Exception{
 		Mockito.when(usuarioRepository.findByEmail("gustavinhoTPD@fodasse.com.br")).thenReturn(usuarioTest());
 
 		UsuarioTO usuarioTestCadastro = usuarioToTest();
@@ -497,7 +497,7 @@ public class UsuarioServiceTest {
 	}
 
 	@Test
-	public void cadastroTest() throws Exception{
+	void cadastroTest() throws Exception{
 		Usuario usuarioTestBanco = usuarioTest();
 
 		Mockito.when(usuarioRepository.findByEmail("gustavinhoTPD@fodasse.com.br")).thenReturn(usuarioTestBanco);
@@ -521,7 +521,7 @@ public class UsuarioServiceTest {
 
 	@SuppressWarnings("deprecation")
 	@Test
-	public void atualizaTestException() throws Exception{ //Atualiza as senhas, mas as senhas são identicas então da erro
+	void atualizaTestException() throws Exception{ //Atualiza as senhas, mas as senhas são identicas então da erro
 		Usuario usuarioTestBanco = usuarioTest();
 
 		Mockito.when(usuarioRepository.findByEmail("gustavinhoTPD@fodasse.com.br")).thenReturn(usuarioTestBanco);
@@ -546,7 +546,7 @@ public class UsuarioServiceTest {
 
 	@SuppressWarnings("deprecation")
 	@Test
-	public void atualizaTest() throws Exception{
+	void atualizaTest() throws Exception{
 		Usuario usuarioTestBanco = usuarioTest();
 
 		Mockito.when(usuarioRepository.findByEmail("gustavinhoTPD@fodasse.com.br")).thenReturn(usuarioTestBanco);
@@ -567,7 +567,7 @@ public class UsuarioServiceTest {
 
 	@SuppressWarnings("deprecation")
 	@Test
-	public void atualizaUserTypeNotPTest() throws Exception{
+	void atualizaUserTypeNotPTest() throws Exception{
 		Usuario usuarioTestBanco = usuarioTest();
 
 		Mockito.when(usuarioRepository.findByEmail("gustavinhoTPD@fodasse.com.br")).thenReturn(usuarioTestBanco);
@@ -588,7 +588,7 @@ public class UsuarioServiceTest {
 
 	@SuppressWarnings("deprecation")
 	@Test
-	public void atualizaUserNotExistTest() throws Exception{
+	void atualizaUserNotExistTest() throws Exception{
 		Usuario usuarioTestBanco = usuarioTest();
 
 		Mockito.when(usuarioRepository.findByEmail("gustavinhoTPD@fodasse.com.br")).thenReturn(null,usuarioTestBanco);
@@ -613,7 +613,7 @@ public class UsuarioServiceTest {
 	}
 
 	@Test
-	public void atualizaEmailTest() throws Exception{
+	void atualizaEmailTest() throws Exception{
 		Usuario usuarioTestBanco = usuarioTest();
 
 		Mockito.when(usuarioRepository.findByEmail("gustavinhoTPD@fodasse.com.br")).thenReturn(usuarioTestBanco);
@@ -630,7 +630,7 @@ public class UsuarioServiceTest {
 	}
 
 	@Test
-	public void atualizaSenhaTest() throws Exception{
+	void atualizaSenhaTest() throws Exception{
 		Usuario usuarioTestBanco = usuarioTest();
 
 		Mockito.when(usuarioRepository.findByEmail("gustavinhoTPD@fodasse.com.br")).thenReturn(usuarioTestBanco);
@@ -649,7 +649,7 @@ public class UsuarioServiceTest {
 	}
 
 	@Test
-	public void atualizaSenhaTestErro() throws Exception{
+	void atualizaSenhaTestErro() throws Exception{
 		Usuario usuarioTestBanco = usuarioTest();
 
 		Mockito.when(usuarioRepository.findByEmail("gustavinhoTPD@fodasse.com.br")).thenReturn(usuarioTestBanco);
@@ -674,7 +674,7 @@ public class UsuarioServiceTest {
 	}
 
 	@Test
-	public void atualizaEmailTestErro() throws Exception{
+	void atualizaEmailTestErro() throws Exception{
 		Usuario usuarioTestBanco = usuarioTest();
 		Mockito.when(usuarioRepository.findByEmail(Mockito.anyString())).thenReturn(usuarioTestBanco, usuarioTestBanco);
 
@@ -698,7 +698,7 @@ public class UsuarioServiceTest {
 	}
 
 	@Test
-	public void getUsuarioFestaTest() throws Exception {
+	void getUsuarioFestaTest() throws Exception {
 		List<Usuario> usuarios = new ArrayList<Usuario>();
 		usuarios.add(usuarioTest());
 		Mockito.when(usuarioRepository.findByIdFesta(14)).thenReturn(usuarios);
@@ -709,7 +709,7 @@ public class UsuarioServiceTest {
 	}
 
 	@Test
-	public void funcionalidadeUsuarioFestaSucessTest() throws Exception{
+	void funcionalidadeUsuarioFestaSucessTest() throws Exception{
 
 		Mockito.when(usuarioRepository.findById(1)).thenReturn(usuarioTest());
 
@@ -722,7 +722,7 @@ public class UsuarioServiceTest {
 	}
 
 	@Test
-	public void funcionalidadeUsuarioFestaFailedTest() throws Exception{
+	void funcionalidadeUsuarioFestaFailedTest() throws Exception{
 		
 		List<String> expected = new ArrayList<>();
 		expected.add("Estagiário senior em iluminação");
@@ -745,7 +745,7 @@ public class UsuarioServiceTest {
 	}
 
 	@Test
-	public void getUsuarioResponsavelFestaTest() throws Exception{
+	void getUsuarioResponsavelFestaTest() throws Exception{
 		Mockito.when(usuarioRepository.findByFestaGrupo(Mockito.anyInt(), Mockito.anyBoolean())).thenReturn(usuarioTest());
 
 		Usuario usuarioResposta = userService.getUsuarioResponsavelFesta(14);

@@ -37,7 +37,7 @@ import com.eventmanager.pachanga.services.GrupoService;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(value=GrupoController.class)
-public class GrupoControllerTest {
+class GrupoControllerTest {
 	
 	@Autowired
 	private MockMvc mockMvc;
@@ -163,7 +163,7 @@ public class GrupoControllerTest {
 //getAllGruposFesta______________________________________________________________________________________________	
 
 	@Test
-	public void getAllGruposFestaSucessoTest() throws Exception {
+	void getAllGruposFestaSucessoTest() throws Exception {
 		String uri = "/grupo/getAllGruposFesta";
 		
 		List<Convidado> convidados = colecaoConvidadosTest();
@@ -192,7 +192,7 @@ public class GrupoControllerTest {
 	}
 	
 	@Test
-	public void getAllGruposFestaExceptionTest() throws Exception {
+	void getAllGruposFestaExceptionTest() throws Exception {
 		String uri = "/grupo/getAllGruposFesta";
 		String expected = "erro";
 		

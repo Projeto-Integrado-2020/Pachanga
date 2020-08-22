@@ -1,7 +1,6 @@
 package com.eventmanager.pachanga.controllers;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -30,7 +29,7 @@ import com.eventmanager.pachanga.services.UsuarioService;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(value=UsuarioController.class)
-public class UsuarioControllerTest {
+class UsuarioControllerTest {
 
 	@Autowired
 	private MockMvc mockMvc;
@@ -39,7 +38,7 @@ public class UsuarioControllerTest {
 	private UsuarioService userService;
 	
 	@SuppressWarnings("deprecation")
-	public static Usuario usuarioTest() throws Exception{
+	public Usuario usuarioTest() throws Exception{
 		Usuario usuarioTest = new Usuario();
 		
 		usuarioTest.setCodUsuario(100);
@@ -52,7 +51,7 @@ public class UsuarioControllerTest {
 		return usuarioTest;
 	}
 	
-	public static List<Usuario> colecaoDeUsuario(int quantidadeUsuarios) throws Exception {
+	public List<Usuario> colecaoDeUsuario(int quantidadeUsuarios) throws Exception {
 		List<Usuario> usuarios = null;
 		
 		if(quantidadeUsuarios >= 1) {		
@@ -93,7 +92,7 @@ public class UsuarioControllerTest {
 //login__________________________________________________________________________________________________________	
 	
 	@Test
-	public void loginSucessoTest() throws Exception{
+	void loginSucessoTest() throws Exception{
 
 		String usuarioLoginJson = "{\"email\":\"gustavinhoTPD@fodasse.com.br\",\"senha\":\"1234\",\"tipConta\": \"P\"}";
 
@@ -121,7 +120,7 @@ public class UsuarioControllerTest {
 	}
 
 	@Test
-	public void loginSenhaIncorretaTest() throws Exception{
+	void loginSenhaIncorretaTest() throws Exception{
 
 		String usuarioLoginJson = "{\"email\":\"gustavinhoTPD@fodasse.com.br\",\"senha\":\"123456\",\"tipConta\": \"P\"}";
 
@@ -151,7 +150,7 @@ public class UsuarioControllerTest {
 	}
 	
 	@Test
-	public void loginEmailInesistenteTest() throws Exception{
+	void loginEmailInesistenteTest() throws Exception{
 
 		String usuarioLoginJson = "{\"email\":\"gustavinhoTPDnaoexiste@fodasse.com.br\",\"senha\":\"1234\",\"tipConta\": \"P\"}";
 		
@@ -171,7 +170,7 @@ public class UsuarioControllerTest {
 
 		String expected = "3";
 
-		assertTrue(400 == response.getStatus());
+		assertEquals(true, 400 == response.getStatus());
 		
 		assertEquals(expected, result.getResponse().getContentAsString());
 		
@@ -180,7 +179,7 @@ public class UsuarioControllerTest {
 //cadastro__________________________________________________________________________________________________________	
 	
 	@Test
-	public void CadastroSucessoTest() throws Exception{
+	void CadastroSucessoTest() throws Exception{
 		String usuarioCadastroJson = "{\"dtNasc\":\"3900-09-27\",\"codUsuario\":100,\"nomeUser\":\"Gustavo Barbosa\",\"tipConta\":\"P\",\"email\":\"gustavinhoTPD@fodasse.com.br\",\"senha\":\"1234\",\"sexo\":\"M\"}";
 
 		Usuario usuarioTest = usuarioTest();
@@ -208,7 +207,7 @@ public class UsuarioControllerTest {
 	}
 
 	@Test
-	public void CadastroValidacaoExceptionTest() throws Exception{
+	void CadastroValidacaoExceptionTest() throws Exception{
 		String usuarioCadastroJson = "{\"dtNasc\":\"3900-09-27\",\"codUsuario\":100,\"nomeUser\":\"Gustavo Barbosa\",\"tipConta\":\"P\",\"email\":\"gustavinhoTPD@fodasse.com.br\",\"senha\":\"1234\",\"sexo\":\"M\"}";
 		
 		String uri = "/usuario/cadastro";
@@ -227,7 +226,7 @@ public class UsuarioControllerTest {
 
 		String expected = "1";
 	
-		assertTrue(400 == response.getStatus());
+		assertEquals(true, 400 == response.getStatus());
 		
 		assertEquals(expected, result.getResponse().getContentAsString());
 		
@@ -237,7 +236,7 @@ public class UsuarioControllerTest {
 	
 	@SuppressWarnings("deprecation")
 	@Test
-	public void AtualizacaoSucessoTest() throws Exception{
+	void AtualizacaoSucessoTest() throws Exception{
 		String usuarioAtualizacaoJson = "{\"dtNasc\":\"3900-09-26\",\"codUsuario\":100,\"nomeUser\":\"Gustavo Barbosa\",\"tipConta\":\"P\",\"email\":\"gustavinhoTPD@fodasse.com.br\",\"senha\":\"1234567\",\"sexo\":\"F\"}";
 
 		Usuario usuarioTest = usuarioTest();
@@ -267,7 +266,7 @@ public class UsuarioControllerTest {
 	}
 
 	@Test
-	public void AtualizacaoValidacaoExceptionTest() throws Exception{
+	void AtualizacaoValidacaoExceptionTest() throws Exception{
 		String usuarioAtualizacaoJson = "{\"dtNasc\":\"3900-09-26\",\"codUsuario\":100,\"nomeUser\":\"Gustavo Barbosa\",\"tipConta\":\"P\",\"email\":\"luisinhofoda1234@fodasse.com.br\",\"senha\":\"1234567\",\"sexo\":\"F\"}";
 		
 		String uri = "/usuario/atualizacao";
@@ -286,7 +285,7 @@ public class UsuarioControllerTest {
 
 		String expected = "3";
 		
-		assertTrue(400 == response.getStatus());
+		assertEquals(true, 400 == response.getStatus());
 		
 		System.out.println(result.getResponse().getContentAsString());
 		
