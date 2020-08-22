@@ -10,6 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.eventmanager.pachanga.domains.Categoria;
 import com.eventmanager.pachanga.domains.CategoriasFesta;
+import com.eventmanager.pachanga.domains.Convidado;
+import com.eventmanager.pachanga.domains.Estoque;
 import com.eventmanager.pachanga.domains.Festa;
 import com.eventmanager.pachanga.domains.Grupo;
 import com.eventmanager.pachanga.domains.Usuario;
@@ -18,8 +20,11 @@ import com.eventmanager.pachanga.errors.ValidacaoException;
 import com.eventmanager.pachanga.factory.FestaFactory;
 import com.eventmanager.pachanga.repositories.CategoriaRepository;
 import com.eventmanager.pachanga.repositories.CategoriasFestaRepository;
+import com.eventmanager.pachanga.repositories.ConvidadoRepository;
+import com.eventmanager.pachanga.repositories.EstoqueRepository;
 import com.eventmanager.pachanga.repositories.FestaRepository;
 import com.eventmanager.pachanga.repositories.GrupoRepository;
+import com.eventmanager.pachanga.repositories.ProdutoRepository;
 import com.eventmanager.pachanga.repositories.UsuarioRepository;
 import com.eventmanager.pachanga.tipo.TipoCategoria;
 import com.eventmanager.pachanga.tipo.TipoGrupo;
@@ -38,12 +43,21 @@ public class FestaService {
 
 	@Autowired
 	private GrupoRepository grupoRepository;
+	
+	@Autowired
+	private ConvidadoRepository convidadoRepository;
 
 	@Autowired
 	private CategoriasFestaRepository categoriasFestaRepository;
 
 	@Autowired
 	private CategoriaRepository categoriaRepository;
+	
+	@Autowired 
+	private EstoqueRepository estoqueRepository;
+	
+	@Autowired
+	private ProdutoRepository produtoRepository;
 
 	@Autowired
 	private GrupoService grupoService;
@@ -105,11 +119,27 @@ public class FestaService {
 	public void deleteFesta(int idFesta, int idUser) {
 		validarPermissaoUsuario(idUser, idFesta, TipoPermissao.DELEFEST.getCodigo());
 		List<Grupo> grupos = grupoRepository.findGruposFesta(idFesta);
+		List<Convidado> convidados = convidadoRepository.findConvidadosByCodFesta(idFesta);
 		for(Grupo grupo : grupos) {
+			for(Convidado conv : convidados) {
+				grupoRepository.deleteConvidadoGrupo(conv.getCodConvidado(), grupo.getCodGrupo());
+				Integer convxgrup = grupoRepository.existsConvidadoGrupo(conv.getCodConvidado());
+				if(convxgrup == null) {
+					convidadoRepository.deleteConvidado(conv.getCodConvidado());
+				}
+			}
 			grupoRepository.deleteGrupo(grupo.getCodGrupo());
 		}
 		Set<CategoriasFesta> categorias = categoriasFestaRepository.findCategoriasFesta(idFesta);
 		categoriasFestaRepository.deleteAll(categorias);
+		
+		List<Estoque> estoques = estoqueRepository.findEstoqueByCodFesta(idFesta);
+		
+		for(Estoque estoque : estoques) {
+		estoqueRepository.deleteProdEstoque(idFesta, estoque.getCodEstoque());
+		}
+		produtoRepository.deleteProdFesta(idFesta);
+		estoqueRepository.deleteEstoque(idFesta);
 		festaRepository.deleteById(idFesta);
 	}
 

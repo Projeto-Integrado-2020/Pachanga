@@ -6,9 +6,9 @@
             <input #nomeEstoque formControlName="nomeEstoque" required matInput>
             <mat-error *ngIf="f.nomeEstoque.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
         </mat-form-field><br>
-        <button class="red-back" mat-button [disabled]="!form.valid">{{'ESTOQUE.CONFIRM' | translate}}</button>
+        <button class="button-form" mat-raised-button [disabled]="!form.valid">{{'ESTOQUE.CONFIRM' | translate}}</button>
     </form>
 </div>
 <div mat-dialog-actions class="buttons">
-    <button  mat-button mat-dialog-close>{{'ESTOQUE.CANCEL' | translate}}</button>
+    <button class="cancel-button" mat-button mat-dialog-close>{{'ESTOQUE.CANCEL' | translate}}</button>
 </div>

@@ -77,6 +77,9 @@ import { GerenciadorProdutosComponent } from './views/gerenciador-produtos/geren
 import { CriarProdutoDialogComponent } from './views/criar-produto-dialog/criar-produto-dialog.component';
 import { EditarProdutoDialogComponent } from './views/editar-produto-dialog/editar-produto-dialog.component';
 import { DeletarProdutoDialogComponent } from './views/deletar-produto-dialog/deletar-produto-dialog.component';
+import { CriarProdutoEstoqueDialogComponent } from './views/criar-produto-estoque-dialog/criar-produto-estoque-dialog.component';
+import { DeletarProdutoEstoqueDialogComponent } from './views/deletar-produto-estoque-dialog/deletar-produto-estoque-dialog.component';
+import { EditarProdutoEstoqueDialogComponent } from './views/editar-produto-estoque-dialog/editar-produto-estoque-dialog.component';
 
 
 const config = new AuthServiceConfig([
@@ -134,7 +137,10 @@ export function provideConfig() {
     GerenciadorProdutosComponent,
     CriarProdutoDialogComponent,
     EditarProdutoDialogComponent,
-    DeletarProdutoDialogComponent
+    DeletarProdutoDialogComponent,
+    CriarProdutoEstoqueDialogComponent,
+    DeletarProdutoEstoqueDialogComponent,
+    EditarProdutoEstoqueDialogComponent
   ],
   entryComponents: [
     LoginComponent,
@@ -155,7 +161,10 @@ export function provideConfig() {
     DeletarConvidadoDialogComponent,
     CriarProdutoDialogComponent,
     EditarProdutoDialogComponent,
-    DeletarProdutoDialogComponent
+    DeletarProdutoDialogComponent,
+    CriarProdutoEstoqueDialogComponent,
+    DeletarProdutoEstoqueDialogComponent,
+    EditarProdutoEstoqueDialogComponent
   ],
   imports: [
     BrowserModule,

@@ -13,8 +13,6 @@ import com.eventmanager.pachanga.domains.Produto;
 @Repository
 public interface ProdutoRepository extends JpaRepository<Produto, Integer>{
 	
-	
-//selects______________________________________________________________________________
 	public Produto findById(int codProduto);
 	
 	@Query(value = "SELECT NEXTVAL('seq_usuario');", nativeQuery = true)
@@ -40,7 +38,22 @@ public interface ProdutoRepository extends JpaRepository<Produto, Integer>{
 	@Query(value = "SELECT p FROM Produto p WHERE p.codFesta = :codFesta")
 	public List<Produto> findProdutoByCodFesta(Integer codFesta);
 
+	@Modifying
+	@Query(value = "INSERT INTO produto_x_estoque(cod_produto, cod_estoque, cod_festa, quantidade_max, quantiadde_atual, porcentagem_min) VALUES(:codProduto ,:codEstoque, :codFesta, :quantidadeMax, :quantiaddeAtual, :porcentagemMin)", nativeQuery = true)
+	public void saveProdutoEstoque(@Param("codProduto") int codProduto, @Param("codEstoque") int codEstoque, @Param("codFesta") int codFesta, @Param("quantidadeMax") int quantidadeMax, @Param("quantiaddeAtual") int quantiaddeAtual, @Param("porcentagemMin") int porcentagemMin);
+	//(@Param("codProduto") int codProduto, @Param("codEstoque") int codEstoque, @Param("codFesta") int codFesta, @Param("quantidadeMax") int quantidadeMax, @Param("quantiaddeAtual") int quantiaddeAtual, @Param("porcentagemMin") int porcentagemMin)
 
+	@Modifying
+	@Query(value = "UPDATE produto_x_estoque x SET x.quantidade_max = :quantidadeMax, x.quantidade_atual = :quantidadeAtual, x.porcentagem_min = :porcentagemMin WHERE x.cod_produto = :codProduto AND x.cod_estoque = :codEstoque", nativeQuery = true)
+	public void updateProdutoEstoque(@Param("codProduto") int codProduto, @Param("codEstoque") int codEstoque, @Param("quantidadeMax") int quantidadeMax, @Param("quantidadeAtual") int quantidadeAtual, @Param("porcentagemMin") int porcentagemMin);
+	
+	@Modifying
+	@Query(value = "UPDATE produto_x_estoque x SET x.quantidade_atual = :quantidadeAtual WHERE x.cod_produto = :codProduto AND x.cod_estoque = :codEstoque", nativeQuery = true)
+	public void updateProdutoEstoqueQuantidade(@Param("codProduto") int codProduto, @Param("codEstoque") int codEstoque, @Param("quantidadeAtual") int quantidadeAtual);
+	
+	@Modifying
+	@Query(value = "DELETE FROM produto WHERE cod_festa = :codFesta", nativeQuery = true)
+	public void deleteProdFesta(int codFesta);
 }
 
 
