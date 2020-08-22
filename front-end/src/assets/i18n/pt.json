@@ -49,7 +49,9 @@
         "PASSPATTERN": "A senha deve ter pelo menos 8 caracteres, contendo letras maiúsculas e minúsculas, números e caracteres especiais",
         "EMAIL": "E-mail inválido",
         "TERMOS": "Aceitar os Termos de Uso é obrigatório",
-        "MATCH": "Senhas devem coincidir"
+        "MATCH": "Senhas devem coincidir",
+        "MINQTDERROR": "A quantidade mínima permidita é de 1.",
+        "MAXQTDERROR": "A procentagem máxima permitida é de 100%."
     },
 
     "ERRO": {
@@ -96,7 +98,9 @@
         "PCMININV": "Porcentagem mínima inválida.",
         "ESTNPROD": "Estoque não possui este produto.",
         "PRODEUSO": "Produto em uso.",
-        "ESTONFOU": "Estoque não encontrado."
+        "ESTONFOU": "Estoque não encontrado.",
+        "FESTNPRE": "A festa deve estar na fase de preparação para realizar esta ação.",
+        "CONVNGRU": "Este convidado não esta no grupo."
     },
 
     "SUCCESS": {
@@ -372,7 +376,8 @@
         "CONFIRM": "Confirmar",
         "CANCEL": "Cancelar",
         "ADDESTOQUE": "Adicionar estoque",
-        "GERENCIARPROD": "Gerenciamento de Produtos"
+        "GERENCIARPROD": "Gerenciamento de Produtos",
+        "ADDPRODUTO": "Adicionar produto"
     },
 
     "DELETECONVIDADO": {
@@ -393,6 +398,25 @@
 
     "DELETEPRODUTO": {
         "MESSAGE": "Você realmente deseja deletar o produto",
+        "CONFIRM": "Confirmar",
+        "CANCEL": "Cancelar"
+    },
+
+    "ESTOQUEPROD": {
+        "ADDPRODESTOQUE": "Adicionar produto ao estoque",
+        "EDITPRODUTOESTOQUE": "Editar produto do estoque",
+        "DELETEPRODUTOESTOQUE": "Deletar produto do estoque",
+        "MARCA": "Marca",
+        "QTDMAX": "Quantidade máxima",
+        "QTDATUAL": "Quantidade atual",
+        "PROTCENTAGEMMIN": "Procentagem mínima",
+        "CONFIRM": "Confirmar",
+        "CANCEL": "Cancelar"
+    },
+
+    "DELETEPRODUTOESTOQUE": {
+        "DELETE": "Deletar produto do estoque",
+        "MESSAGE": "Você realmente deseja deletar o produto do estoque",
         "CONFIRM": "Confirmar",
         "CANCEL": "Cancelar"
     }

@@ -55,18 +55,33 @@ describe('EstoquePainelComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should open a delete dialog through a method', () => {
+  it('should open a delete stock dialog through a method', () => {
     component.openDialogDelete(component.festa.codFesta);
     expect(dialogSpy.open).toHaveBeenCalled();
   });
 
-  it('should open a edit dialog through a method', () => {
+  it('should open a edit stock dialog through a method', () => {
     component.openDialogEdit(component.festa.codFesta);
     expect(dialogSpy.open).toHaveBeenCalled();
   });
 
-  it('should open a add dialog through a method', () => {
+  it('should open a add stock dialog through a method', () => {
     component.openDialogAdd();
+    expect(dialogSpy.open).toHaveBeenCalled();
+  });
+
+  it('should open a delete stock product dialog through a method', () => {
+    component.openDialogDeleteProdEstoque(component.festa.codFesta, component.festa.codFesta);
+    expect(dialogSpy.open).toHaveBeenCalled();
+  });
+
+  it('should open a edit stock product dialog through a method', () => {
+    component.openDialogEditProdEstoque(component.festa.codFesta, component.festa.codFesta);
+    expect(dialogSpy.open).toHaveBeenCalled();
+  });
+
+  it('should open a add stock product dialog through a method', () => {
+    component.openDialogAddProdEstoque(component.festa.codFesta);
     expect(dialogSpy.open).toHaveBeenCalled();
   });
 

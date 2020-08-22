@@ -1,5 +1,11 @@
 @import "../material/paleta.scss";
 
+.cancel-button {
+    transform: translate(8rem, -3.25rem)!important;
+    margin-right: 0!important;
+    width: 150px;
+}
+
 .button-form {
     margin-left: 1rem;
     background-color: $color-tertiary;
@@ -9,8 +15,4 @@
 
 mat-form-field {
     width: 15rem!important;
-}
-
-.cancel-button {
-    transform: translate(8rem, -3.25rem)!important;
 }
