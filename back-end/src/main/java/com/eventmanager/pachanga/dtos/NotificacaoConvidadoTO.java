@@ -3,8 +3,10 @@ package com.eventmanager.pachanga.dtos;
 public class NotificacaoConvidadoTO {
 
 	private int codNotificacao;
-
-	private String descNotificacao;
+	
+	private int codConvidado;
+	
+	private String mensagem;
 
 	public int getCodNotificacao() {
 		return codNotificacao;
@@ -14,12 +16,20 @@ public class NotificacaoConvidadoTO {
 		this.codNotificacao = codNotificacao;
 	}
 
-	public String getDescNotificacao() {
-		return descNotificacao;
+	public int getCodConvidado() {
+		return codConvidado;
 	}
 
-	public void setDescNotificacao(String descNotificacao) {
-		this.descNotificacao = descNotificacao;
+	public void setCodConvidado(int codConvidado) {
+		this.codConvidado = codConvidado;
+	}
+
+	public String getMensagem() {
+		return mensagem;
+	}
+
+	public void setMensagem(String mensagem) {
+		this.mensagem = mensagem;
 	}
 
 }

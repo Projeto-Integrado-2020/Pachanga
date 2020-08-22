@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -23,16 +24,16 @@ public class Convidado {
 	@Column(name = "email")
 	private String email;
 	
+	@OneToMany(fetch = FetchType.LAZY,
+			mappedBy = "convidado")
+	private Set<NotificacaoConvidado> notificacaoConvidado;
+	
 	@ManyToMany(fetch = FetchType.LAZY,
 			cascade = CascadeType.ALL)
 	@JoinTable(name = "convidado_x_grupo",
     joinColumns = @JoinColumn(name ="cod_convidado"),
     inverseJoinColumns = @JoinColumn(name = "cod_grupo"))
     private Set<Grupo> grupos;
-	
-	@ManyToMany(mappedBy = "convidados",
-			fetch = FetchType.LAZY)
-	private Set<Notificacao> notificacoes;
 	
 	public Convidado(int codConvidado, String email) {
 		this.email = email;

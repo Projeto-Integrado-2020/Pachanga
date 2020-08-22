@@ -33,6 +33,28 @@ public class ConvidadoController {
 			return ResponseEntity.status(400).body(e.getMessage());
 		}
 	}
+	
+	@ResponseBody
+	@PostMapping(path = "/accConvite")
+	public ResponseEntity<Object> aceitarConvite(@RequestParam(required = true)Integer codConvidado, @RequestParam(required = true)Integer idGrupo, @RequestParam(required = true) String mensagem){
+		try {
+			convidadoService.aceitarConvite(codConvidado,idGrupo, mensagem);
+			return ResponseEntity.ok().build();
+		} catch (ValidacaoException e) {
+			return ResponseEntity.status(400).body(e.getMessage());
+		}
+	}
+	
+	@ResponseBody
+	@PostMapping(path = "/recuConvite")
+	public ResponseEntity<Object> recusarConvite(@RequestParam(required = true)Integer codConvidado, @RequestParam(required = true)Integer idGrupo, @RequestParam(required = true) String mensagem){
+		try {
+			convidadoService.recusarConvite(codConvidado,idGrupo, mensagem);
+			return ResponseEntity.ok().build();
+		} catch (ValidacaoException e) {
+			return ResponseEntity.status(400).body(e.getMessage());
+		}
+	}
 
 	
 }

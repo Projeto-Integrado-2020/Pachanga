@@ -27,7 +27,7 @@ import com.eventmanager.pachanga.services.PermissaoService;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(value=PermissaoController.class)
-public class PermissaoControllerTest {
+class PermissaoControllerTest {
 	
 	@Autowired
 	private MockMvc mockMvc;
@@ -68,7 +68,7 @@ public class PermissaoControllerTest {
 	}
 	
 	@Test
-	public void getAllPermissaoSucessoTest() throws Exception {
+	void getAllPermissaoSucessoTest() throws Exception {
 		//String festaJson = "{\"codFesta\":\"2\",\"nomeFesta\":\"festao\",\"statusFesta\":\"I\",\"organizador\":\"Joao Neves\",\"horarioInicioFesta\":\"2016-06-22T19:10:00\",\"horarioFimFesta\":\"2016-06-23T19:10:00\",\"descricaoFesta\":\"Bugago\",\"codEnderecoFesta\":\"https//:minhacasa.org\",\"descOrganizador\":\"sou demente\"}";
 		String uri = "/permissao/getAllPermissao";
 		
@@ -93,7 +93,7 @@ public class PermissaoControllerTest {
 	}
 	
 	@Test
-	public void getAllPermissaoExceptionTest() throws Exception {
+	void getAllPermissaoExceptionTest() throws Exception {
 		String uri = "/permissao/getAllPermissao";
 		
 		String expected = "errox";	 

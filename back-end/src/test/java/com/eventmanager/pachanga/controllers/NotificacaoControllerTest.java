@@ -27,7 +27,7 @@ import com.eventmanager.pachanga.services.NotificacaoService;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(value=NotificacaoController.class)
-public class NotificacaoControllerTest {
+class NotificacaoControllerTest {
 	
 	@Autowired
 	private MockMvc mockMvc;
@@ -44,7 +44,7 @@ public class NotificacaoControllerTest {
 	}
 	
 	@Test
-	public void listaNotificacaoSucesso() throws Exception {
+	void listaNotificacaoSucesso() throws Exception {
 		
 		String uri = "/notificacao/lista";
 		
@@ -66,7 +66,7 @@ public class NotificacaoControllerTest {
 	}
 	
 	@Test
-	public void listaNotificacaoError() throws Exception {
+	void listaNotificacaoError() throws Exception {
 		
 		String uri = "/notificacao/lista";
 		
@@ -91,7 +91,7 @@ public class NotificacaoControllerTest {
 	}
 	
 	@Test
-	public void mudarStatusSucesso() throws Exception {
+	void mudarStatusSucesso() throws Exception {
 		
 		String uri = "/notificacao/mudarStatus";
 		
@@ -114,7 +114,7 @@ public class NotificacaoControllerTest {
 	}
 	
 	@Test
-	public void mudarStatusError() throws Exception {
+	void mudarStatusError() throws Exception {
 		
 		String uri = "/notificacao/mudarStatus";
 		
@@ -139,7 +139,7 @@ public class NotificacaoControllerTest {
 	}
 	
 	@Test
-	public void destaqueSucesso() throws Exception {
+	void destaqueSucesso() throws Exception {
 		
 		String uri = "/notificacao/destaque";
 		
@@ -160,7 +160,7 @@ public class NotificacaoControllerTest {
 	}
 	
 	@Test
-	public void destaqueError() throws Exception {
+	void destaqueError() throws Exception {
 		
 		String uri = "/notificacao/destaque";
 		
@@ -184,16 +184,17 @@ public class NotificacaoControllerTest {
 	}
 	
 	@Test
-	public void deleteNotificacoesSucesso() throws Exception {
+	void deleteNotificacoesSucesso() throws Exception {
 		
 		String uri = "/notificacao/delete";
 		
-		Mockito.doNothing().when(notificacaoService).deleteNotificacao(Mockito.anyInt(),Mockito.anyInt());
+		Mockito.doNothing().when(notificacaoService).deleteNotificacao(Mockito.anyInt(),Mockito.anyInt(), Mockito.anyString());
 				
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.delete(uri)
 				.param("idUser", "1")
 				.param("idNotificacao", "1")
+				.param("mensagem", "teste")
 				.accept(MediaType.APPLICATION_JSON)
 				.contentType(MediaType.APPLICATION_JSON);
 		
@@ -205,17 +206,18 @@ public class NotificacaoControllerTest {
 	}
 	
 	@Test
-	public void deleteNotificacoesError() throws Exception {
+	void deleteNotificacoesError() throws Exception {
 		
 		String uri = "/notificacao/delete";
 		
 			
-		Mockito.doThrow(new ValidacaoException("teste")).when(notificacaoService).deleteNotificacao(Mockito.anyInt(),Mockito.anyInt());
+		Mockito.doThrow(new ValidacaoException("teste")).when(notificacaoService).deleteNotificacao(Mockito.anyInt(),Mockito.anyInt(), Mockito.anyString());
 				
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.delete(uri)
 				.param("idUser", "1")
 				.param("idNotificacao", "1")
+				.param("mensagem", "teste")
 				.accept(MediaType.APPLICATION_JSON)
 				.contentType(MediaType.APPLICATION_JSON);
 		

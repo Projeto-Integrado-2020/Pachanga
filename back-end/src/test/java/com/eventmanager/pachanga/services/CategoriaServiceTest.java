@@ -18,7 +18,7 @@ import com.eventmanager.pachanga.repositories.CategoriaRepository;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(value=CategoriaService.class)
-public class CategoriaServiceTest {
+class CategoriaServiceTest {
 	
 	@MockBean
 	private CategoriaRepository categoriaRepository;
@@ -34,7 +34,7 @@ public class CategoriaServiceTest {
 	}
 	
 	@Test
-	public void procurarCategoriasTest() {
+	void procurarCategoriasTest() {
 		List<Categoria> categorias = new ArrayList<Categoria>();
 		categorias.add(categoriaTest());
 		

@@ -22,7 +22,7 @@ import com.eventmanager.pachanga.services.ConvidadoService;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(value=ConvidadoController.class)
-public class ConvidadoControllerTest {
+class ConvidadoControllerTest {
 	
 	@Autowired
 	private MockMvc mockMvc;
@@ -39,7 +39,7 @@ public class ConvidadoControllerTest {
 	
 ///addUserFesta_______________________________________________________________________________________________
 	@Test
-	public void addUserFestaTest() throws Exception{
+	void addUserFestaTest() throws Exception{
 		String uri = "/convidado/addUserFesta";
 		
 		String emailsEnviados = "[\"luis_iruca@hotmail.com\",\"guga.72@hotmail.com\"]";
@@ -70,7 +70,7 @@ public class ConvidadoControllerTest {
 	}
 	
 	@Test
-	public void addUserFestaExceptionTest() throws Exception{
+	void addUserFestaExceptionTest() throws Exception{
 		String uri = "/convidado/addUserFesta";
 		
 		String expected = "addUserFesta";

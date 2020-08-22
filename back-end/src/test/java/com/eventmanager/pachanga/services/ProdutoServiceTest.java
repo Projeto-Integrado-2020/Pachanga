@@ -38,7 +38,7 @@ import com.eventmanager.pachanga.repositories.ProdutoRepository;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(value=ProdutoService.class)
-public class ProdutoServiceTest {
+class ProdutoServiceTest {
 
 	@MockBean
 	private ProdutoRepository produtoRepository;
@@ -164,7 +164,7 @@ public class ProdutoServiceTest {
 
 	//addProduto_______________________________________________________________________________________	
 	@Test
-	public void addProdutoSucessoTest() throws Exception {
+	void addProdutoSucessoTest() throws Exception {
 		Festa festa = festaTest();
 		ProdutoTO produtoTO = produtoTOTest();
 		int codProduto = 1;
@@ -186,7 +186,7 @@ public class ProdutoServiceTest {
 	}
 
 	@Test
-	public void addProdutoMesmoNomeTest() throws Exception {
+	void addProdutoMesmoNomeTest() throws Exception {
 		Festa festa = festaTest();
 		ProdutoTO produtoTO = produtoTOTest();
 		int codProduto = 1;
@@ -211,7 +211,7 @@ public class ProdutoServiceTest {
 	}
 
 	@Test
-	public void addProdutoProdutoJaCadastradoTest() throws Exception {
+	void addProdutoProdutoJaCadastradoTest() throws Exception {
 		Festa festa = festaTest();
 		ProdutoTO produtoTO = produtoTOTest();
 		int codProduto = 1;
@@ -234,7 +234,7 @@ public class ProdutoServiceTest {
 
 	//addProdutoEstoque_________________________________________________________________________________________
 	@Test
-	public void addProdutoEstoqueSucessoTest() throws Exception {
+	void addProdutoEstoqueSucessoTest() throws Exception {
 		ItemEstoqueTO itemEstoqueTO = itemEstoqueTOTest();
 		Produto produto = produtoTest();
 		Estoque estoque = estoqueTest();
@@ -261,7 +261,7 @@ public class ProdutoServiceTest {
 	}
 
 	@Test
-	public void addProdutoEstoquePercentagemInvalidaTest() throws Exception {
+	void addProdutoEstoquePercentagemInvalidaTest() throws Exception {
 		ItemEstoqueTO itemEstoqueTO = itemEstoqueTOTest();
 		Produto produto = produtoTest();
 		Estoque estoque = estoqueTest();
@@ -290,7 +290,7 @@ public class ProdutoServiceTest {
 	}
 
 	@Test
-	public void addProdutoEstoqueJaCadastradoTest() throws Exception {
+	void addProdutoEstoqueJaCadastradoTest() throws Exception {
 		ItemEstoqueTO itemEstoqueTO = itemEstoqueTOTest();
 		Produto produto = produtoTest();
 		Estoque estoque = estoqueTest();
@@ -318,7 +318,7 @@ public class ProdutoServiceTest {
 	}
 
 	@Test
-	public void addProdutoEstoqueCodFestaDiferenteTest() throws Exception {
+	void addProdutoEstoqueCodFestaDiferenteTest() throws Exception {
 		ItemEstoqueTO itemEstoqueTO = itemEstoqueTOTest();
 		Produto produto = produtoTest();
 		Estoque estoque = estoqueTest();
@@ -349,7 +349,7 @@ public class ProdutoServiceTest {
 	}
 
 	@Test
-	public void addProdutoEstoqueNaoEncontradoTest() throws Exception {
+	void addProdutoEstoqueNaoEncontradoTest() throws Exception {
 		ItemEstoqueTO itemEstoqueTO = itemEstoqueTOTest();
 		Produto produto = produtoTest();
 		Estoque estoque = estoqueTest();
@@ -380,7 +380,7 @@ public class ProdutoServiceTest {
 	}
 
 	@Test
-	public void addProdutoEstoqueFestaNaoExistenteTest() throws Exception {
+	void addProdutoEstoqueFestaNaoExistenteTest() throws Exception {
 		ItemEstoqueTO itemEstoqueTO = itemEstoqueTOTest();
 		Produto produto = produtoTest();
 		Estoque estoque = estoqueTest();
@@ -407,7 +407,7 @@ public class ProdutoServiceTest {
 	}
 
 	@Test
-	public void addProdutoEstoqueFestaInvalidaTest() throws Exception {
+	void addProdutoEstoqueFestaInvalidaTest() throws Exception {
 		ItemEstoqueTO itemEstoqueTO = itemEstoqueTOTest();
 		ItemEstoque itemEstoque = itemEstoqueTest();
 		Produto produto = produtoTest();
@@ -440,7 +440,7 @@ public class ProdutoServiceTest {
 	}
 
 	@Test
-	public void addProdutoEstoqueProdutoJaNoEstoqueTest() throws Exception {
+	void addProdutoEstoqueProdutoJaNoEstoqueTest() throws Exception {
 		ItemEstoqueTO itemEstoqueTO = itemEstoqueTOTest();
 		ItemEstoque itemEstoque = itemEstoqueTest();
 		Produto produto = produtoTest();
@@ -467,7 +467,7 @@ public class ProdutoServiceTest {
 	}
 
 	@Test
-	public void addProdutoEstoqueQuantidadeMaxInvalidTest() throws Exception {
+	void addProdutoEstoqueQuantidadeMaxInvalidTest() throws Exception {
 		ItemEstoqueTO itemEstoqueTO = itemEstoqueTOTest();
 		itemEstoqueTO.setQuantidadeMax(-20);
 		Produto produto = produtoTest();
@@ -494,7 +494,7 @@ public class ProdutoServiceTest {
 	}
 
 	@Test
-	public void addProdutoEstoqueQuantidadeMaxPequenaInvalidTest() throws Exception {
+	void addProdutoEstoqueQuantidadeMaxPequenaInvalidTest() throws Exception {
 		ItemEstoqueTO itemEstoqueTO = itemEstoqueTOTest();
 		itemEstoqueTO.setQuantidadeMax(100);
 		itemEstoqueTO.setQuantidadeAtual(200);
@@ -522,7 +522,7 @@ public class ProdutoServiceTest {
 	}
 
 	@Test
-	public void addProdutoEstoquePorcentagemMinTest() throws Exception {
+	void addProdutoEstoquePorcentagemMinTest() throws Exception {
 		ItemEstoqueTO itemEstoqueTO = itemEstoqueTOTest();
 		itemEstoqueTO.setPorcentagemMin(-10);
 		Produto produto = produtoTest();
@@ -549,7 +549,7 @@ public class ProdutoServiceTest {
 	}
 
 	@Test
-	public void addProdutoEstoqueQuantidadeAtualTest() throws Exception {
+	void addProdutoEstoqueQuantidadeAtualTest() throws Exception {
 		ItemEstoqueTO itemEstoqueTO = itemEstoqueTOTest();
 		itemEstoqueTO.setQuantidadeAtual(-2);
 		Produto produto = produtoTest();
@@ -578,7 +578,7 @@ public class ProdutoServiceTest {
 
 	//removerProduto____________________________________________________________________________________________
 	@Test
-	public void removerProdutoSucessoTest() throws Exception {
+	void removerProdutoSucessoTest() throws Exception {
 		Produto produto = produtoTest();
 		int codProduto = produto.getCodProduto();
 
@@ -593,7 +593,7 @@ public class ProdutoServiceTest {
 	}
 
 	@Test
-	public void removerProdutoNaoEncontradoTest() throws Exception {
+	void removerProdutoNaoEncontradoTest() throws Exception {
 		Produto produto = produtoTest();
 		int codProduto = produto.getCodProduto();
 
@@ -616,7 +616,7 @@ public class ProdutoServiceTest {
 	}
 
 	@Test
-	public void removerProdutoEmUsoExceptionTest() throws Exception {
+	void removerProdutoEmUsoExceptionTest() throws Exception {
 		Produto produto = produtoTest();
 		int codProduto = produto.getCodProduto();
 
@@ -640,7 +640,7 @@ public class ProdutoServiceTest {
 	}
 
 	@Test
-	public void removerProdutoErroUsuarioSemPermissaoTest() throws Exception {
+	void removerProdutoErroUsuarioSemPermissaoTest() throws Exception {
 		Produto produto = produtoTest();
 		int codProduto = produto.getCodProduto();
 
@@ -661,7 +661,7 @@ public class ProdutoServiceTest {
 	}
 
 	@Test
-	public void removerProdutoEmUsoTest() throws Exception {
+	void removerProdutoEmUsoTest() throws Exception {
 		Produto produto = produtoTest();
 		int codProduto = produto.getCodProduto();
 		List<Estoque> estoques = new ArrayList<>();
@@ -685,7 +685,7 @@ public class ProdutoServiceTest {
 	}
 	//removerProdutoEstoque______________________________________________________________________________________
 	@Test
-	public void removerProdutoEstoqueSucessoTest() throws Exception {
+	void removerProdutoEstoqueSucessoTest() throws Exception {
 		ItemEstoque itemEstoque = itemEstoqueTest();
 		Produto produto = produtoTest();
 		Estoque estoque = estoqueTest();
@@ -703,7 +703,7 @@ public class ProdutoServiceTest {
 	}
 
 	@Test
-	public void removerProdutoEstoqueNaoPossuiProdutoTest() throws Exception {
+	void removerProdutoEstoqueNaoPossuiProdutoTest() throws Exception {
 		Produto produto = produtoTest();
 		Estoque estoque = estoqueTest();
 		int codProduto = produto.getCodProduto();
@@ -727,7 +727,7 @@ public class ProdutoServiceTest {
 
 	//editarProduto_______________________________________________________________________________________________
 	@Test
-	public void editarProdutoSucessoTest() throws Exception {
+	void editarProdutoSucessoTest() throws Exception {
 		ProdutoTO produtoTO = produtoTOTest();
 		produtoTO.setMarca("ItubainexNotPlagio");
 		produtoTO.setPrecoMedio(new BigDecimal("73.90"));
@@ -747,7 +747,7 @@ public class ProdutoServiceTest {
 	}
 	//editarProdutoEstoque________________________________________________________________________________________
 	@Test
-	public void editarProdutoEstoqueSucessoTest() throws Exception {
+	void editarProdutoEstoqueSucessoTest() throws Exception {
 		ItemEstoqueTO itemEstoqueTO = itemEstoqueTOTest();
 		itemEstoqueTO.setQuantidadeMax(200);
 		itemEstoqueTO.setQuantidadeAtual(10);
@@ -777,7 +777,7 @@ public class ProdutoServiceTest {
 	}
 
 	@Test
-	public void editarProdutoEstoqueQuantidadeMaxTest() throws Exception {
+	void editarProdutoEstoqueQuantidadeMaxTest() throws Exception {
 		ItemEstoqueTO itemEstoqueTO = itemEstoqueTOTest();
 		itemEstoqueTO.setQuantidadeMax(-200);
 		itemEstoqueTO.setQuantidadeAtual(100);
@@ -805,7 +805,7 @@ public class ProdutoServiceTest {
 	}
 
 	@Test
-	public void editarProdutoEstoqueQuantidadeMaxPequenaTest() throws Exception {
+	void editarProdutoEstoqueQuantidadeMaxPequenaTest() throws Exception {
 		ItemEstoqueTO itemEstoqueTO = itemEstoqueTOTest();
 		itemEstoqueTO.setQuantidadeMax(200);
 		itemEstoqueTO.setQuantidadeAtual(300);
@@ -833,7 +833,7 @@ public class ProdutoServiceTest {
 	}
 
 	@Test
-	public void editarProdutoEstoquePorcentagemMinTest() throws Exception {
+	void editarProdutoEstoquePorcentagemMinTest() throws Exception {
 		ItemEstoqueTO itemEstoqueTO = itemEstoqueTOTest();
 		itemEstoqueTO.setQuantidadeMax(200);
 		itemEstoqueTO.setQuantidadeAtual(100);
@@ -861,7 +861,7 @@ public class ProdutoServiceTest {
 	}
 
 	@Test
-	public void editarProdutoEstoqueQuantidadeAtualTest() throws Exception {
+	void editarProdutoEstoqueQuantidadeAtualTest() throws Exception {
 		ItemEstoqueTO itemEstoqueTO = itemEstoqueTOTest();
 		itemEstoqueTO.setQuantidadeMax(200);
 		itemEstoqueTO.setQuantidadeAtual(-100);
@@ -892,7 +892,7 @@ public class ProdutoServiceTest {
 
 	//baixa_______________________________________________________________________________________________________
 	@Test
-	public void baixaProdutoSucessoTest() throws Exception {
+	void baixaProdutoSucessoTest() throws Exception {
 		ItemEstoque itemEstoque = itemEstoqueTest();
 		Produto produto = produtoTest();
 		Estoque estoque = estoqueTest();
@@ -914,7 +914,7 @@ public class ProdutoServiceTest {
 	}
 
 	@Test
-	public void baixaProdutoQuantidadeMaximaTest() throws Exception {
+	void baixaProdutoQuantidadeMaximaTest() throws Exception {
 		ItemEstoque itemEstoque = itemEstoqueTest();
 		Produto produto = produtoTest();
 		Estoque estoque = estoqueTest();
@@ -938,7 +938,7 @@ public class ProdutoServiceTest {
 	}
 
 	@Test
-	public void baixaProdutoQuantidadeInvalidaTest() throws Exception {
+	void baixaProdutoQuantidadeInvalidaTest() throws Exception {
 		ItemEstoque itemEstoque = itemEstoqueTest();
 		Produto produto = produtoTest();
 		Estoque estoque = estoqueTest();
@@ -961,7 +961,7 @@ public class ProdutoServiceTest {
 	}
 
 	@Test
-	public void baixaProdutoValorNegativoTest() throws Exception {
+	void baixaProdutoValorNegativoTest() throws Exception {
 		ItemEstoque itemEstoque = itemEstoqueTest();
 		Produto produto = produtoTest();
 		Estoque estoque = estoqueTest();
@@ -984,7 +984,7 @@ public class ProdutoServiceTest {
 	}
 
 	@Test
-	public void baixaProdutoBaixaExcessivaTest() throws Exception {  //retirar mais do que tem no estoque
+	void baixaProdutoBaixaExcessivaTest() throws Exception {  //retirar mais do que tem no estoque
 		ItemEstoque itemEstoque = itemEstoqueTest();
 		Produto produto = produtoTest();
 		Estoque estoque = estoqueTest();
@@ -1009,7 +1009,7 @@ public class ProdutoServiceTest {
 
 	//recarga_____________________________________________________________________________________________________
 	@Test
-	public void recargaProdutoSucessoTest() throws Exception {
+	void recargaProdutoSucessoTest() throws Exception {
 		ItemEstoque itemEstoque = itemEstoqueTest();
 		Produto produto = produtoTest();
 		Estoque estoque = estoqueTest();
@@ -1030,7 +1030,7 @@ public class ProdutoServiceTest {
 	}
 
 	@Test
-	public void recargaProdutoValorNegativoTest() throws Exception {
+	void recargaProdutoValorNegativoTest() throws Exception {
 		ItemEstoque itemEstoque = itemEstoqueTest();
 		Produto produto = produtoTest();
 		Estoque estoque = estoqueTest();
@@ -1054,7 +1054,7 @@ public class ProdutoServiceTest {
 	}
 
 	@Test
-	public void recargaProdutoExcessivaTest() throws Exception {  //adicionar mais do que o estoque comporta
+	void recargaProdutoExcessivaTest() throws Exception {  //adicionar mais do que o estoque comporta
 		ItemEstoque itemEstoque = itemEstoqueTest();
 		Produto produto = produtoTest();
 		Estoque estoque = estoqueTest();
@@ -1079,7 +1079,7 @@ public class ProdutoServiceTest {
 	}
 	
 	@Test
-	public void getListaProdutos() throws Exception{
+	void getListaProdutos() throws Exception{
 		List<Produto> produtos = new ArrayList<>();
 		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(grupoOrganizadorTest());
 		Mockito.when(produtoRepository.findAll()).thenReturn(produtos);
@@ -1088,7 +1088,7 @@ public class ProdutoServiceTest {
 	}
 	
 	@Test
-	public void getProduto() throws Exception{
+	void getProduto() throws Exception{
 		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(grupoOrganizadorTest());
 		Mockito.when(produtoRepository.findById(Mockito.anyInt())).thenReturn(produtoTest());
 		
