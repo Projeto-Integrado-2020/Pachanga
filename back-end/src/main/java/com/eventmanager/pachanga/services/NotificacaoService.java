@@ -1,5 +1,8 @@
 package com.eventmanager.pachanga.services;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,23 +72,22 @@ public class NotificacaoService {
 		notificacaoRepository.deleteNotificacaoGrupo(codGrupo, codNotificacao);
 	}
 
-	public void inserirNotificacaoGrupo(int codGrupo, int codNotificacao) {
+	public void inserirNotificacaoGrupo(int codGrupo, int codNotificacao, String mensagem) {
 		this.validarNotificacao(codNotificacao);
 		this.validarGrupo(codGrupo);
-		notificacaoRepository.insertNotificacaoGrupo(codGrupo, codNotificacao);
+		notificacaoRepository.insertNotificacaoGrupo(codGrupo, codNotificacao, mensagem, this.getDataAtual());
 	}
 
 	public void inserirNotificacaoConvidado(Integer codConvidado, int codNotificacao, String mensagem) {
 		this.validarNotificacao(codNotificacao);
 		Convidado convidado = this.validarConvidado(codConvidado);
-		this.validacaoUsuario(0, convidado.getEmail());
-		notificacaoConvidadoRepository.insertConvidadoNotificacao(convidado.getCodConvidado(), codNotificacao, mensagem);
+		notificacaoConvidadoRepository.insertConvidadoNotificacao(convidado.getCodConvidado(), codNotificacao, mensagem, this.getDataAtual());
 	}
 
 	public void inserirNotificacaoUsuario(Integer codUsuario, Integer codNotificacao, String mensagem) {
 		this.validarNotificacao(codNotificacao);
 		this.validacaoUsuario(codUsuario, null);
-		notificacaoUsuarioRepository.insertNotificacaoUsuario(codUsuario, codNotificacao, false, TipoStatusNotificacao.NAOLIDA.getDescricao(), mensagem);
+		notificacaoUsuarioRepository.insertNotificacaoUsuario(codUsuario, codNotificacao, false, TipoStatusNotificacao.NAOLIDA.getDescricao(), mensagem, this.getDataAtual());
 	}
 
 	private Convidado validarConvidado(Integer codConvidado) {
@@ -160,6 +162,10 @@ public class NotificacaoService {
 		if(notificacaoGrupo != null) retorno = true;
 
 		return retorno;
+	}
+	
+	public LocalDateTime getDataAtual() {
+		return LocalDateTime.now(ZoneId.of("America/Sao_Paulo"));
 	}
 
 }

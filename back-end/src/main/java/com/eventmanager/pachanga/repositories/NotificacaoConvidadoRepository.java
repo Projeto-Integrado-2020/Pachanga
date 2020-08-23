@@ -1,5 +1,6 @@
 package com.eventmanager.pachanga.repositories;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -14,7 +15,7 @@ public interface NotificacaoConvidadoRepository extends JpaRepository<Notificaca
 	public List<NotificacaoConvidado> findConvidadoNotificacaoByEmail(String email);
 	
 	@Modifying
-	@Query(value = "INSERT INTO convidado_x_notificacao (cod_convidado, cod_notificacao, mensagem) VALUES(:codConvidado, :codNotificacao, :mensagem)", nativeQuery = true)
-	public void insertConvidadoNotificacao(int codConvidado, int codNotificacao, String mensagem);
+	@Query(value = "INSERT INTO convidado_x_notificacao (cod_convidado, cod_notificacao, mensagem, data_emissao) VALUES(:codConvidado, :codNotificacao, :mensagem, :dataEmissao)", nativeQuery = true)
+	public void insertConvidadoNotificacao(int codConvidado, int codNotificacao, String mensagem, LocalDateTime dataEmissao);
 
 }

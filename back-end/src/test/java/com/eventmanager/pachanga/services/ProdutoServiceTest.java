@@ -1071,6 +1071,7 @@ class ProdutoServiceTest {
 		int quantidade = 3;
 		itemEstoque.setQuantidadeAtual(10);
 		itemEstoque.setEstoque(estoque);
+		itemEstoque.setProduto(produto);
 		
 		//notificacaoGrupoRepository.findNotificacaoGrupo(codGrupo, codNotificacao)
 

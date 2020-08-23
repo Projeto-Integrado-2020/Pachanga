@@ -1,5 +1,6 @@
 package com.eventmanager.pachanga.repositories;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -17,8 +18,8 @@ public interface NotificacaoUsuarioRepository extends JpaRepository<NotificacaoU
 	public List<NotificacaoUsuario> getNotificacoesUsuario(int codUsuario);
 
 	@Modifying
-	@Query(value = "INSERT INTO notificacao_x_usuario (cod_usuario, cod_notificacao, destaque, status,mensagem) VALUES(:codUsuario, :codNotificacao, :destaque, :status, :mensagem)", nativeQuery = true)
-	public void insertNotificacaoUsuario(Integer codUsuario, Integer codNotificacao, boolean destaque, String status, String mensagem);
+	@Query(value = "INSERT INTO notificacao_x_usuario (cod_usuario, cod_notificacao, destaque, status, mensagem, data_emissao) VALUES(:codUsuario, :codNotificacao, :destaque, :status, :mensagem, :dataEmissao)", nativeQuery = true)
+	public void insertNotificacaoUsuario(Integer codUsuario, Integer codNotificacao, boolean destaque, String status, String mensagem, LocalDateTime dataEmissao);
 
 	@Query(value = "SELECT nu FROM NotificacaoUsuario nu JOIN nu.usuario u JOIN nu.notificacao n WHERE u.codUsuario = :idUser AND n.codNotificacao = :codNotificacao AND nu.mensagem = :mensagem")
 	public NotificacaoUsuario getNotificacaoUsuarioByMensagem(int idUser, int codNotificacao, String mensagem);

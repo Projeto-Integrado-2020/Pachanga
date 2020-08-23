@@ -21,7 +21,7 @@ public class NotificacaoFactory {
 
 	public NotificacaoConvidadoTO getNotificacaoTO(NotificacaoConvidado notificacaoConvidado) {
 		return NotificacaoConvidadoTOBuilder.getInstance().codNotificacao(notificacaoConvidado.getNotificacao().getCodNotificacao()).codConvidado(notificacaoConvidado.getConvidado().getCodConvidado())
-				.mensagem(notificacaoConvidado.getMensagem()).build();
+				.mensagem(notificacaoConvidado.getMensagem()).dataEmissao(notificacaoConvidado.getDataEmissao()).build();
 	}
 	
 	public NotificacaoTO getNotificacaoTO(List<NotificacaoUsuario> notificacoesUsuario, List<NotificacaoGrupo> notificacoesGrupo, List<NotificacaoConvidado> notificacoesConvidado){
@@ -34,13 +34,13 @@ public class NotificacaoFactory {
 	
 	public NotificacaoGrupoTO getNotificacaoGrupoTO(NotificacaoGrupo notificacaoGrupo) {
 		return NotificacaoGrupoTOBuilder.getInstance().codGrupo(notificacaoGrupo.getGrupo().getCodGrupo()).codNotificacao(notificacaoGrupo.getNotificacao().getCodNotificacao())
-				.mensagem(notificacaoGrupo.getMensagem()).build();
+				.mensagem(notificacaoGrupo.getMensagem()).dataEmissao(notificacaoGrupo.getDataEmissao()).build();
 	}
 	
 	public NotificacaoUsuarioTO getNotificacaoUsuarioTO(NotificacaoUsuario notificacaoUsuario) {
 		return NotificacaoUsuarioTOBuilder.getInstance().codNotificacao(notificacaoUsuario.getNotificacao().getCodNotificacao())
 				.codUsuario(notificacaoUsuario.getUsuario().getCodUsuario()).destaque(notificacaoUsuario.isDestaque()).mensagem(notificacaoUsuario.getMensagem())
-				.status(notificacaoUsuario.getStatus()).build();
+				.status(notificacaoUsuario.getStatus()).dataEmissao(notificacaoUsuario.getDataEmissao()).build();
 	}
 	
 }

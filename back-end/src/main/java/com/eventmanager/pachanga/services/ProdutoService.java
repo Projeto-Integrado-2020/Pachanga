@@ -1,6 +1,5 @@
 package com.eventmanager.pachanga.services;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +10,6 @@ import com.eventmanager.pachanga.domains.Estoque;
 import com.eventmanager.pachanga.domains.Festa;
 import com.eventmanager.pachanga.domains.Grupo;
 import com.eventmanager.pachanga.domains.ItemEstoque;
-import com.eventmanager.pachanga.domains.NotificacaoGrupo;
 import com.eventmanager.pachanga.domains.Produto;
 import com.eventmanager.pachanga.dtos.ItemEstoqueTO;
 import com.eventmanager.pachanga.dtos.ProdutoTO;
@@ -25,6 +23,7 @@ import com.eventmanager.pachanga.repositories.ItemEstoqueRepository;
 import com.eventmanager.pachanga.repositories.NotificacaoGrupoRepository;
 import com.eventmanager.pachanga.repositories.NotificacaoRepository;
 import com.eventmanager.pachanga.repositories.ProdutoRepository;
+import com.eventmanager.pachanga.tipo.TipoNotificacao;
 import com.eventmanager.pachanga.tipo.TipoPermissao;
 
 @Service
@@ -295,7 +294,7 @@ public class ProdutoService {
 			
 			for(Grupo grupo : grupos) {
 				if(notificacaoService.verificarNotificacaoGrupo(grupo.getCodGrupo(), 3) == false) {
-					notificacaoService.inserirNotificacaoGrupo(grupo.getCodGrupo(), 3);	
+					notificacaoService.inserirNotificacaoGrupo(grupo.getCodGrupo(), 3, TipoNotificacao.ESTBAIXO + "?" + codFesta + "&" + itemEstoque.getEstoque().getCodEstoque() + "&" + itemEstoque.getProduto().getCodProduto());	
 				}
 			}
 		}

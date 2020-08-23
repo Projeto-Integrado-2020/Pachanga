@@ -1,5 +1,7 @@
 package com.eventmanager.pachanga.builder;
 
+import java.time.LocalDateTime;
+
 import com.eventmanager.pachanga.dtos.NotificacaoConvidadoTO;
 
 public class NotificacaoConvidadoTOBuilder {
@@ -9,6 +11,8 @@ public class NotificacaoConvidadoTOBuilder {
 	private int codConvidado;
 	
 	private String mensagem;
+	
+	private LocalDateTime dataEmissao;
 
 	public static NotificacaoConvidadoTOBuilder getInstance() {
 		return new NotificacaoConvidadoTOBuilder();
@@ -28,12 +32,18 @@ public class NotificacaoConvidadoTOBuilder {
 		this.mensagem = mensagem;
 		return this;
 	}
+	
+	public NotificacaoConvidadoTOBuilder dataEmissao(LocalDateTime dataEmissao) {
+		this.dataEmissao = dataEmissao;
+		return this;
+	}
 
 	public NotificacaoConvidadoTO build() {
 		NotificacaoConvidadoTO notificacaoConvidadoTo = new NotificacaoConvidadoTO();
 		notificacaoConvidadoTo.setCodNotificacao(codNotificacao);
 		notificacaoConvidadoTo.setCodConvidado(codConvidado);
 		notificacaoConvidadoTo.setMensagem(mensagem);
+		notificacaoConvidadoTo.setDataEmissao(dataEmissao);
 		return notificacaoConvidadoTo;
 	}
 
