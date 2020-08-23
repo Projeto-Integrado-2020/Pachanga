@@ -27,6 +27,9 @@ public interface GrupoRepository extends CrudRepository<Grupo, Integer>{
 	@Query(value = "SELECT g FROM usuario_x_grupo u JOIN u.grupo g WHERE u.codUsuario = :codUsuario", nativeQuery = true)
 	public List<Grupo> findGruposUsuario(@Param("codUsuario") int codUsuario);
 	
+	@Query(value = "SELECT g.codGrupo FROM Grupo g JOIN g.festa f WHERE f.codFesta = :codFesta")
+	public List<Integer> findCodGruposFesta(@Param("codFesta") int codFesta);
+	
 	@Query(value = "SELECT g FROM Grupo g JOIN g.festa f WHERE f.codFesta = :codFesta")
 	public List<Grupo> findGruposFesta(@Param("codFesta") int codFesta);
 	
@@ -49,7 +52,7 @@ public interface GrupoRepository extends CrudRepository<Grupo, Integer>{
 	public List<String> findFuncionalidade(@Param("codFesta")int codFesta,@Param("codUsuario") int codUsuario);
 	
 	@Query(value = "SELECT g FROM Grupo g JOIN g.usuarios u JOIN g.permissoes p JOIN g.festa f WHERE u.codUsuario = :codUsuario AND f.codFesta = :codFesta AND p.codPermissao = :codPermissao")
-	public Grupo findGrupoPermissaoUsuario(int codFesta, int codUsuario, int codPermissao);
+	public List<Grupo> findGrupoPermissaoUsuario(int codFesta, int codUsuario, int codPermissao);
 	
 	@Query(value = "SELECT g FROM Grupo g JOIN g.usuarios u JOIN g.permissoes p JOIN g.festa f WHERE f.codFesta = :codFesta AND p.codPermissao = :codPermissao")
 	public List<Grupo> findGruposPermissaoFesta(int codFesta, int codPermissao);
@@ -111,4 +114,12 @@ public interface GrupoRepository extends CrudRepository<Grupo, Integer>{
 	@Modifying
 	@Query(value = "DELETE FROM convidado_x_grupo WHERE cod_grupo = :codGrupo", nativeQuery = true)
 	public void deleteAllConvidadoGrupo(Integer codGrupo);
+	
+	@Modifying
+	@Query(value = "DELETE FROM permissao_x_grupo WHERE cod_grupo IN :codGrupos", nativeQuery = true)
+	public void deletePermissoesGrupos(List<Integer> codGrupos);
+
+	@Modifying
+	@Query(value = "DELETE FROM grupo WHERE cod_festa = :codFesta", nativeQuery = true)
+	public void deleteByCodFesta(int codFesta);
 }

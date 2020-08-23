@@ -3,13 +3,9 @@ package com.eventmanager.pachanga.services;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.doNothing;
 
-import java.time.LocalDateTime;
-import java.time.Month;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -20,7 +16,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.eventmanager.pachanga.domains.Convidado;
-import com.eventmanager.pachanga.domains.Festa;
 import com.eventmanager.pachanga.domains.Grupo;
 import com.eventmanager.pachanga.domains.Notificacao;
 import com.eventmanager.pachanga.domains.NotificacaoGrupo;

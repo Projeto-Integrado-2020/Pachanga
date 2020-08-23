@@ -86,6 +86,12 @@ class ProdutoServiceTest {
 		return produtoTO;
 
 	}
+	
+	private List<Grupo> criacaoGrupos(){
+		List<Grupo> grupos = new ArrayList<>();
+		grupos.add(grupoOrganizadorTest());
+		return grupos;
+	}
 
 	private Produto produtoTest() {
 		Produto produto = new Produto();
@@ -187,7 +193,7 @@ class ProdutoServiceTest {
 		Mockito.when(festaRepository.findById(codFesta)).thenReturn(festa);
 		Mockito.when(produtoRepository.save(Mockito.any(Produto.class))).thenReturn(null);
 		Mockito.when(produtoRepository.save(Mockito.any())).thenReturn(null);
-		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(grupoOrganizadorTest());
+		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(criacaoGrupos());
 		Mockito.when(produtoFactory.getProduto(Mockito.any())).thenReturn(produtoTest());
 
 		Produto produto = produtoService.addProduto(produtoTO, codFesta, 1);
@@ -209,7 +215,7 @@ class ProdutoServiceTest {
 		Mockito.when(festaRepository.findById(codFesta)).thenReturn(festa);
 		Mockito.when(produtoRepository.save(Mockito.any(Produto.class))).thenReturn(null);
 		Mockito.when(produtoRepository.save(Mockito.any())).thenReturn(null);
-		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(grupoOrganizadorTest());
+		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(criacaoGrupos());
 		Mockito.when(produtoFactory.getProduto(Mockito.any())).thenReturn(produtoTest());
 		Mockito.when(produtoRepository.findByMarca(Mockito.anyString(), Mockito.anyInt())).thenReturn(produtoTest());
 
@@ -235,7 +241,7 @@ class ProdutoServiceTest {
 		Mockito.when(produtoRepository.save(Mockito.any(Produto.class))).thenReturn(null);
 		Mockito.when(produtoRepository.save(Mockito.any())).thenReturn(null);
 		Mockito.when(produtoFactory.getProduto(Mockito.any())).thenReturn(produtoTest());
-		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(grupoOrganizadorTest());
+		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(criacaoGrupos());
 
 		Produto produto = produtoService.addProduto(produtoTO, codFesta, 1);
 
@@ -264,7 +270,7 @@ class ProdutoServiceTest {
 		Mockito.when(itemEstoqueRepository.findItemEstoque(codEstoque, codProduto)).thenReturn(null);
 		Mockito.when(itemEstoqueRepository.save(Mockito.any())).thenReturn(null);
 		Mockito.when(itemEstoqueFactory.getItemEstoque(Mockito.any(), Mockito.any(), Mockito.any())).thenReturn(itemEstoqueTest());
-		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(grupoOrganizadorTest());
+		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(criacaoGrupos());
 
 		ItemEstoque retorno = produtoService.addProdutoEstoque(itemEstoqueTO, codProduto, codEstoque);
 
@@ -290,7 +296,7 @@ class ProdutoServiceTest {
 		Mockito.when(itemEstoqueRepository.findItemEstoque(codEstoque, codProduto)).thenReturn(null);
 		Mockito.when(itemEstoqueRepository.save(Mockito.any())).thenReturn(null);
 		Mockito.when(itemEstoqueFactory.getItemEstoque(Mockito.any(), Mockito.any(), Mockito.any())).thenReturn(itemEstoqueTest());
-		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(grupoOrganizadorTest());
+		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(criacaoGrupos());
 
 		boolean erroException = false;
 		try {
@@ -318,7 +324,7 @@ class ProdutoServiceTest {
 		Mockito.when(itemEstoqueRepository.findItemEstoque(codEstoque, codProduto)).thenReturn(itemEstoqueTest());
 		Mockito.when(itemEstoqueRepository.save(Mockito.any())).thenReturn(null);
 		Mockito.when(itemEstoqueFactory.getItemEstoque(Mockito.any(), Mockito.any(), Mockito.any())).thenReturn(itemEstoqueTest());
-		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(grupoOrganizadorTest());
+		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(criacaoGrupos());
 
 		boolean erroException = false;
 		try {
@@ -348,7 +354,7 @@ class ProdutoServiceTest {
 		Mockito.when(itemEstoqueRepository.findItemEstoque(codEstoque, codProduto)).thenReturn(null);
 		Mockito.when(itemEstoqueRepository.save(Mockito.any())).thenReturn(null);
 		Mockito.when(itemEstoqueFactory.getItemEstoque(Mockito.any(), Mockito.any(), Mockito.any())).thenReturn(itemEstoqueTest());
-		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(grupoOrganizadorTest());
+		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(criacaoGrupos());
 
 		boolean erroException = false;
 		try {
@@ -379,7 +385,7 @@ class ProdutoServiceTest {
 		Mockito.when(itemEstoqueRepository.findItemEstoque(codEstoque, codProduto)).thenReturn(null);
 		Mockito.when(itemEstoqueRepository.save(Mockito.any())).thenReturn(null);
 		Mockito.when(itemEstoqueFactory.getItemEstoque(Mockito.any(), Mockito.any(), Mockito.any())).thenReturn(itemEstoqueTest());
-		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(grupoOrganizadorTest());
+		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(criacaoGrupos());
 
 		boolean erroException = false;
 		try {
@@ -407,7 +413,7 @@ class ProdutoServiceTest {
 		Mockito.when(itemEstoqueRepository.findItemEstoque(codEstoque, codProduto)).thenReturn(null);
 		Mockito.when(itemEstoqueRepository.save(Mockito.any())).thenReturn(null);
 		Mockito.when(itemEstoqueFactory.getItemEstoque(Mockito.any(), Mockito.any(), Mockito.any())).thenReturn(itemEstoqueTest());
-		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(grupoOrganizadorTest());
+		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(criacaoGrupos());
 
 		boolean erroException = false;
 		try {
@@ -599,7 +605,7 @@ class ProdutoServiceTest {
 
 		Mockito.when(produtoRepository.findById(codProduto)).thenReturn(produto);
 		Mockito.when(produtoRepository.findEstoquesComProduto(Mockito.anyInt())).thenReturn(produtos);
-		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(grupoOrganizadorTest());
+		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(criacaoGrupos());
 		doNothing().when(produtoRepository).delete(produto);
 
 		produtoService.removerProduto(codProduto, 2, 1);
@@ -614,7 +620,7 @@ class ProdutoServiceTest {
 
 		Mockito.when(produtoRepository.findById(codProduto)).thenReturn(null);
 		Mockito.when(produtoRepository.findEstoquesComProduto(Mockito.anyInt())).thenReturn(produtos);
-		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(grupoOrganizadorTest());
+		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(criacaoGrupos());
 		doNothing().when(produtoRepository).delete(produto);
 
 		boolean erro = false;
@@ -638,7 +644,7 @@ class ProdutoServiceTest {
 
 		Mockito.when(produtoRepository.findById(codProduto)).thenReturn(produto);
 		Mockito.when(produtoRepository.findEstoquesComProduto(Mockito.anyInt())).thenReturn(produtos);
-		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(grupoOrganizadorTest());
+		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(criacaoGrupos());
 		doNothing().when(produtoRepository).delete(produto);
 
 		boolean erro = false;
@@ -708,7 +714,7 @@ class ProdutoServiceTest {
 		Mockito.when(produtoRepository.findById(codProduto)).thenReturn(produto);
 		Mockito.when(estoqueRepository.findByEstoqueCodEstoque(codEstoque)).thenReturn(estoque);
 		Mockito.when(itemEstoqueRepository.findItemEstoque(codEstoque, codProduto)).thenReturn(itemEstoque);
-		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(grupoOrganizadorTest());
+		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(criacaoGrupos());
 		doNothing().when(produtoRepository).deleteProdutoEstoque(codProduto, codEstoque);
 
 		produtoService.removerProdutoEstoque(codProduto, codEstoque, 2);
@@ -725,7 +731,7 @@ class ProdutoServiceTest {
 		Mockito.when(produtoRepository.findById(codProduto)).thenReturn(produto);
 		Mockito.when(estoqueRepository.findByEstoqueCodEstoque(codEstoque)).thenReturn(estoque);
 		Mockito.when(itemEstoqueRepository.findItemEstoque(codEstoque, codProduto)).thenReturn(null);
-		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(grupoOrganizadorTest());
+		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(criacaoGrupos());
 		doNothing().when(produtoRepository).deleteProdutoEstoque(codProduto, codEstoque);
 
 		boolean erro = false;
@@ -749,7 +755,7 @@ class ProdutoServiceTest {
 
 		Mockito.when(produtoRepository.findById(codProduto)).thenReturn(produto);
 		Mockito.when(produtoRepository.save(Mockito.any(Produto.class))).thenReturn(null);
-		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(grupoOrganizadorTest());
+		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(criacaoGrupos());
 
 		Produto retorno = produtoService.editarProduto(produtoTO, 1);
 
@@ -780,7 +786,7 @@ class ProdutoServiceTest {
 		Mockito.when(estoqueRepository.findByEstoqueCodEstoque(codEstoque)).thenReturn(estoque);
 		Mockito.when(itemEstoqueRepository.findItemEstoque(codEstoque, codProduto)).thenReturn(itemEstoque);
 		Mockito.when(itemEstoqueRepository.save(Mockito.any())).thenReturn(null);
-		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(grupoOrganizadorTest());
+		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(criacaoGrupos());
 
 		ItemEstoque retorno = produtoService.editarProdutoEstoque(itemEstoqueTO, 1);
 
@@ -907,8 +913,7 @@ class ProdutoServiceTest {
 	
 	@Test
 
-	public void baixaProdutoSucessoTest() throws Exception {
-		Grupo grupo = grupoTest(); 
+	void baixaProdutoSucessoTest() throws Exception {
 		Usuario usuario = usuarioTest();
 		ItemEstoque itemEstoque = itemEstoqueTest();
 		Produto produto = produtoTest();
@@ -927,7 +932,7 @@ class ProdutoServiceTest {
 		Mockito.when(estoqueRepository.findByEstoqueCodEstoque(codEstoque)).thenReturn(estoque);
 		Mockito.when(itemEstoqueRepository.findItemEstoque(codEstoque, codProduto)).thenReturn(itemEstoque);
 		Mockito.when(itemEstoqueRepository.save(Mockito.any())).thenReturn(null);
-		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(codFesta, codUsuario, TipoPermissao.EDIMESTO.getCodigo())).thenReturn(grupo);
+		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(codFesta, codUsuario, TipoPermissao.EDIMESTO.getCodigo())).thenReturn(criacaoGrupos());
 		Mockito.when(notificacaoService.verificarNotificacaoGrupo( Mockito.any(Integer.class), Mockito.any(Integer.class))).thenReturn(false);
 		
 		
@@ -937,7 +942,7 @@ class ProdutoServiceTest {
 	}
 
 	@Test
-	public void baixaProdutoQuantidadeMaximaTest() throws Exception {
+	void baixaProdutoQuantidadeMaximaTest() throws Exception {
 		Usuario usuario = usuarioTest();
 		ItemEstoque itemEstoque = itemEstoqueTest();
 		Produto produto = produtoTest();
@@ -967,7 +972,7 @@ class ProdutoServiceTest {
 	}
 
 	@Test
-	public void baixaProdutoQuantidadeInvalidaTest() throws Exception {
+	void baixaProdutoQuantidadeInvalidaTest() throws Exception {
 		Usuario usuario = usuarioTest();
 		ItemEstoque itemEstoque = itemEstoqueTest();
 		Produto produto = produtoTest();
@@ -995,7 +1000,7 @@ class ProdutoServiceTest {
 	}
 
 	@Test
-	public void baixaProdutoValorNegativoTest() throws Exception {
+	void baixaProdutoValorNegativoTest() throws Exception {
 		Usuario usuario = usuarioTest();
 		ItemEstoque itemEstoque = itemEstoqueTest();
 		Produto produto = produtoTest();
@@ -1053,7 +1058,7 @@ class ProdutoServiceTest {
 	}
 	
 	@Test
-	public void baixaProdutoEstoqueBaixoTest() throws Exception {
+	void baixaProdutoEstoqueBaixoTest() throws Exception {
 		Grupo grupo = grupoTest(); 
 		List<Grupo> grupos = new ArrayList<>();
 		grupos.add(grupo);
@@ -1079,7 +1084,7 @@ class ProdutoServiceTest {
 		Mockito.when(estoqueRepository.findByEstoqueCodEstoque(codEstoque)).thenReturn(estoque);
 		Mockito.when(itemEstoqueRepository.findItemEstoque(codEstoque, codProduto)).thenReturn(itemEstoque);
 		Mockito.when(itemEstoqueRepository.save(Mockito.any())).thenReturn(null);
-		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(codFesta, codUsuario, TipoPermissao.EDIMESTO.getCodigo())).thenReturn(grupo);
+		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(codFesta, codUsuario, TipoPermissao.EDIMESTO.getCodigo())).thenReturn(criacaoGrupos());
 		Mockito.when(notificacaoService.verificarNotificacaoGrupo(codGrupo, 3)).thenReturn(false);
 		Mockito.when(grupoRepository.findGruposPermissaoEstoque(codFesta)).thenReturn(grupos);
 		
@@ -1089,7 +1094,7 @@ class ProdutoServiceTest {
 	}
 	
 	@Test
-	public void baixaProdutoEstoqueBaixoDNVTest() throws Exception {
+	void baixaProdutoEstoqueBaixoDNVTest() throws Exception {
 		Grupo grupo = grupoTest(); 
 		List<Grupo> grupos = new ArrayList<>();
 		grupos.add(grupo);
@@ -1114,7 +1119,7 @@ class ProdutoServiceTest {
 		Mockito.when(estoqueRepository.findByEstoqueCodEstoque(codEstoque)).thenReturn(estoque);
 		Mockito.when(itemEstoqueRepository.findItemEstoque(codEstoque, codProduto)).thenReturn(itemEstoque);
 		Mockito.when(itemEstoqueRepository.save(Mockito.any())).thenReturn(null);
-		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(codFesta, codUsuario, TipoPermissao.EDIMESTO.getCodigo())).thenReturn(grupo);
+		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(codFesta, codUsuario, TipoPermissao.EDIMESTO.getCodigo())).thenReturn(criacaoGrupos());
 		Mockito.when(notificacaoService.verificarNotificacaoGrupo(codGrupo, 3)).thenReturn(true);
 		Mockito.when(grupoRepository.findGruposPermissaoEstoque(codFesta)).thenReturn(grupos);
 		
@@ -1126,7 +1131,6 @@ class ProdutoServiceTest {
 	//recarga_____________________________________________________________________________________________________
 	@Test
 	void recargaProdutoSucessoTest() throws Exception {
-		Grupo grupo = grupoTest(); 
 		Usuario usuario = usuarioTest();
 		ItemEstoque itemEstoque = itemEstoqueTest();
 		Produto produto = produtoTest();
@@ -1142,7 +1146,7 @@ class ProdutoServiceTest {
 		Mockito.when(estoqueRepository.findByEstoqueCodEstoque(codEstoque)).thenReturn(estoque);
 		Mockito.when(itemEstoqueRepository.findItemEstoque(codEstoque, codProduto)).thenReturn(itemEstoque);
 		Mockito.when(produtoRepository.save(Mockito.any())).thenReturn(null);
-		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(codFesta, codUsuario, TipoPermissao.EDIMESTO.getCodigo())).thenReturn(grupo);
+		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(codFesta, codUsuario, TipoPermissao.EDIMESTO.getCodigo())).thenReturn(criacaoGrupos());
 		
 		ItemEstoque retorno = produtoService.recargaProduto(codProduto, codEstoque, quantidade, codUsuario);
 
@@ -1151,7 +1155,6 @@ class ProdutoServiceTest {
 
 	@Test
 	void recargaProdutoValorNegativoTest() throws Exception {
-		Grupo grupo = grupoTest(); 
 		Usuario usuario = usuarioTest();
 		ItemEstoque itemEstoque = itemEstoqueTest();
 		Produto produto = produtoTest();
@@ -1167,7 +1170,7 @@ class ProdutoServiceTest {
 		Mockito.when(estoqueRepository.findByEstoqueCodEstoque(codEstoque)).thenReturn(estoque);
 		Mockito.when(itemEstoqueRepository.findItemEstoque(codEstoque, codProduto)).thenReturn(itemEstoque);
 		Mockito.when(produtoRepository.save(Mockito.any())).thenReturn(null);
-		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(codFesta, codUsuario, TipoPermissao.EDIMESTO.getCodigo())).thenReturn(grupo);
+		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(codFesta, codUsuario, TipoPermissao.EDIMESTO.getCodigo())).thenReturn(criacaoGrupos());
 		
 		boolean erro = false;
 		try {
@@ -1181,7 +1184,6 @@ class ProdutoServiceTest {
 
 	@Test
 	void recargaProdutoExcessivaTest() throws Exception {  //adicionar mais do que o estoque comporta
-		Grupo grupo = grupoTest();
 		ItemEstoque itemEstoque = itemEstoqueTest();
 		Usuario usuario = usuarioTest();
 		Produto produto = produtoTest();
@@ -1197,7 +1199,7 @@ class ProdutoServiceTest {
 		Mockito.when(estoqueRepository.findByEstoqueCodEstoque(codEstoque)).thenReturn(estoque);
 		Mockito.when(itemEstoqueRepository.findItemEstoque(codEstoque, codProduto)).thenReturn(itemEstoque);
 		Mockito.when(itemEstoqueRepository.save(Mockito.any())).thenReturn(null);
-		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(codFesta, codUsuario, TipoPermissao.EDIMESTO.getCodigo())).thenReturn(grupo);
+		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(codFesta, codUsuario, TipoPermissao.EDIMESTO.getCodigo())).thenReturn(criacaoGrupos());
 		
 		boolean erro = false;
 		try {
@@ -1212,7 +1214,7 @@ class ProdutoServiceTest {
 	@Test
 	void getListaProdutos() throws Exception{
 		List<Produto> produtos = new ArrayList<>();
-		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(grupoOrganizadorTest());
+		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(criacaoGrupos());
 		Mockito.when(produtoRepository.findAll()).thenReturn(produtos);
 		
 		produtoService.listaProduto(1, 1);
@@ -1220,7 +1222,7 @@ class ProdutoServiceTest {
 	
 	@Test
 	void getProduto() throws Exception{
-		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(grupoOrganizadorTest());
+		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(criacaoGrupos());
 		Mockito.when(produtoRepository.findById(Mockito.anyInt())).thenReturn(produtoTest());
 		
 		produtoService.getProduto(1, 1, 2);

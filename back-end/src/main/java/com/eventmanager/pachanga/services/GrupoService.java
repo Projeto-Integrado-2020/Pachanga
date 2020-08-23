@@ -205,19 +205,9 @@ public class GrupoService {
 
 	//validadores__________________________________________________________________________________________________________	
 
-
-
-	public Grupo validarPermissaoUsuarioReturnGrupo(int codFesta, int idUsuario) {
-		Grupo grupo = grupoRepository.findGrupoPermissaoUsuario(codFesta, idUsuario, TipoPermissao.ADDMEMBE.getCodigo());
-		if(grupo == null) {
-			throw new ValidacaoException("USESPERM");// usuário sem permissão
-		}
-		return grupo;
-	}
-
 	public boolean validarPermissaoUsuario(int codFesta, int idUsuario) {
-		Grupo grupo = grupoRepository.findGrupoPermissaoUsuario(codFesta, idUsuario, TipoPermissao.ADDMEMBE.getCodigo());
-		if(grupo == null) {
+		List<Grupo> grupos = grupoRepository.findGrupoPermissaoUsuario(codFesta, idUsuario, TipoPermissao.ADDMEMBE.getCodigo());
+		if(grupos.isEmpty()) {
 			throw new ValidacaoException("USESPERM");// usuário sem permissão
 		}else {
 			return true;
@@ -225,8 +215,8 @@ public class GrupoService {
 	}
 	
 	public boolean validarPermissaoUsuarioGrupo(int codFesta, int idUsuario, int tipoPermissao) {
-		Grupo grupo = grupoRepository.findGrupoPermissaoUsuario(codFesta, idUsuario, tipoPermissao);
-		if(grupo == null) {
+		List<Grupo> grupos = grupoRepository.findGrupoPermissaoUsuario(codFesta, idUsuario, tipoPermissao);
+		if(grupos.isEmpty()) {
 			throw new ValidacaoException("USESPERM");// usuário sem permissão
 		}else {
 			return true;

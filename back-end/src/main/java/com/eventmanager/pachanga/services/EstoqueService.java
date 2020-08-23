@@ -120,8 +120,8 @@ public class EstoqueService {
 	}
 
 	private void validarUsuario(int idUsuario, int codFesta, int tipoPermissao) {
-		Grupo grupo = grupoRepository.findGrupoPermissaoUsuario(codFesta, idUsuario, tipoPermissao);
-		if(grupo == null) {
+		List<Grupo> grupos = grupoRepository.findGrupoPermissaoUsuario(codFesta, idUsuario, tipoPermissao);
+		if(grupos.isEmpty()) {
 			throw new ValidacaoException("USESPERM");// usuário sem permissão
 		}
 

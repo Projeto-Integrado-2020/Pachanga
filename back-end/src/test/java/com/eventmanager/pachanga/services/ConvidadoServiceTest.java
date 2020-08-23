@@ -87,6 +87,12 @@ class ConvidadoServiceTest {
 		return festaTest;
 	}
 	
+	private List<Grupo> criacaoGrupos(){
+		List<Grupo> grupos = new ArrayList<>();
+		grupos.add(criacaoGrupo());
+		return grupos;
+	}
+	
 	private Convidado criacaoConvidado() {
 		Set<Grupo> grupos = new HashSet<>();
 		grupos.add(criacaoGrupo());
@@ -106,7 +112,7 @@ class ConvidadoServiceTest {
 		Mockito.when(usuarioRepository.findById(Mockito.anyInt())).thenReturn(criacaoUsuario());
 		Mockito.when(festaRepository.findById(Mockito.anyInt())).thenReturn(criacaoFesta());
 		Mockito.when(grupoRepository.findById(Mockito.anyInt())).thenReturn(criacaoGrupo());
-		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(criacaoGrupo());
+		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(criacaoGrupos());
 		Mockito.when(usuarioRepository.findByEmail("guga.72@hotmail.com")).thenReturn(criacaoUsuario());
 
 		StringBuilder retorno = convidadoService.addUsuariosFesta(emails, 14, 1, 13);
@@ -122,7 +128,7 @@ class ConvidadoServiceTest {
 		Mockito.when(usuarioRepository.findById(Mockito.anyInt())).thenReturn(criacaoUsuario());
 		Mockito.when(festaRepository.findById(Mockito.anyInt())).thenReturn(criacaoFesta());
 		Mockito.when(grupoRepository.findById(Mockito.anyInt())).thenReturn(criacaoGrupo());
-		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(criacaoGrupo());
+		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(criacaoGrupos());
 		Mockito.when(usuarioRepository.findByEmail("guga.72@hotmail.com")).thenReturn(null);
 
 		StringBuilder retorno = convidadoService.addUsuariosFesta(emails, 14, 1, 13);
@@ -141,7 +147,7 @@ class ConvidadoServiceTest {
 		Mockito.when(usuarioRepository.findById(Mockito.anyInt())).thenReturn(criacaoUsuario());
 		Mockito.when(festaRepository.findById(Mockito.anyInt())).thenReturn(criacaoFesta());
 		Mockito.when(grupoRepository.findById(Mockito.anyInt())).thenReturn(grupo);
-		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(criacaoGrupo());
+		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(criacaoGrupos());
 		Mockito.when(usuarioRepository.findByEmail("guga.72@hotmail.com")).thenReturn(null);
 
 		boolean erro = false;
@@ -169,7 +175,7 @@ class ConvidadoServiceTest {
 		Mockito.when(usuarioRepository.findById(Mockito.anyInt())).thenReturn(criacaoUsuario());
 		Mockito.when(festaRepository.findById(Mockito.anyInt())).thenReturn(festa);
 		Mockito.when(grupoRepository.findById(Mockito.anyInt())).thenReturn(criacaoGrupo());
-		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(criacaoGrupo());
+		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(criacaoGrupos());
 		Mockito.when(usuarioRepository.findByEmail("guga.72@hotmail.com")).thenReturn(null);
 
 		boolean erro = false;
@@ -194,7 +200,7 @@ class ConvidadoServiceTest {
 		Mockito.when(usuarioRepository.findById(Mockito.anyInt())).thenReturn(criacaoUsuario());
 		Mockito.when(festaRepository.findById(Mockito.anyInt())).thenReturn(criacaoFesta());
 		Mockito.when(grupoRepository.findById(Mockito.anyInt())).thenReturn(null);
-		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(criacaoGrupo());
+		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(criacaoGrupos());
 		Mockito.when(usuarioRepository.findByEmail("guga.72@hotmail.com")).thenReturn(null);
 
 		boolean erro = false;
@@ -215,11 +221,13 @@ class ConvidadoServiceTest {
 	void addUserFestaEmailGrupoPermissaoNulloTest() { // para quando o cara nn tiver permissão para fazer isso
 		List<String> emails = new ArrayList<String>(); 
 		emails.add("guga.72@hotmail.com");
+		
+		List<Grupo> grupos = new ArrayList<>();
 
 		Mockito.when(usuarioRepository.findById(Mockito.anyInt())).thenReturn(criacaoUsuario());
 		Mockito.when(festaRepository.findById(Mockito.anyInt())).thenReturn(criacaoFesta());
 		Mockito.when(grupoRepository.findById(Mockito.anyInt())).thenReturn(criacaoGrupo());
-		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(null);
+		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(grupos);
 		Mockito.when(usuarioRepository.findByEmail("guga.72@hotmail.com")).thenReturn(null);
 
 		boolean erro = false;
@@ -243,7 +251,7 @@ class ConvidadoServiceTest {
 		Mockito.when(usuarioRepository.findById(Mockito.anyInt())).thenReturn(criacaoUsuario());
 		Mockito.when(festaRepository.findById(Mockito.anyInt())).thenReturn(null);
 		Mockito.when(grupoRepository.findById(Mockito.anyInt())).thenReturn(criacaoGrupo());
-		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(criacaoGrupo());
+		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(criacaoGrupos());
 		Mockito.when(usuarioRepository.findByEmail("guga.72@hotmail.com")).thenReturn(null);
 
 		boolean erro = false;
@@ -267,7 +275,7 @@ class ConvidadoServiceTest {
 		Mockito.when(usuarioRepository.findById(Mockito.anyInt())).thenReturn(null);
 		Mockito.when(festaRepository.findById(Mockito.anyInt())).thenReturn(criacaoFesta());
 		Mockito.when(grupoRepository.findById(Mockito.anyInt())).thenReturn(criacaoGrupo());
-		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(criacaoGrupo());
+		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(criacaoGrupos());
 		Mockito.when(usuarioRepository.findByEmail("guga.72@hotmail.com")).thenReturn(null);
 
 		boolean erro = false;

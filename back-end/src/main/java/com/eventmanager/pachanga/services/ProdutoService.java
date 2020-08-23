@@ -234,8 +234,8 @@ public class ProdutoService {
 	}
 
 	private void validarUsuarioPorFesta(int codFesta, int codUsuario, int tipoPermissao) { //TipoPermissao.CADAESTO.getCodigo()
-		Grupo grupo = grupoRepository.findGrupoPermissaoUsuario(codFesta, codUsuario, tipoPermissao);
-		if(grupo == null) {
+		List<Grupo> grupos = grupoRepository.findGrupoPermissaoUsuario(codFesta, codUsuario, tipoPermissao);
+		if(grupos.isEmpty()) {
 			throw new ValidacaoException("USESPERM");// usuário sem permissão
 		}
 	}
