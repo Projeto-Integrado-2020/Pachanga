@@ -123,6 +123,17 @@ public class ProdutoController {
 		}
 	}
 	
+	@ResponseBody
+	@PutMapping(path="/recargaProdutoEstoque")
+	public ResponseEntity<Object> recargaProdutoEstoque(@RequestParam (required = true) Integer codEstoque, @RequestParam (required = true) Integer codProduto,@RequestParam (required = true) Integer quantidade, @RequestParam (required = true) Integer idUsuarioPermissao){	
+		try {
+			ItemEstoque itemEstoque = produtoService.recargaProduto(codProduto, codEstoque, quantidade, idUsuarioPermissao);
+			return ResponseEntity.ok(itemEstoqueFactory.getItemEstoqueTO(itemEstoque));
+		} catch (ValidacaoException e) {
+			return ResponseEntity.status(400).body(e.getMessage());
+		}
+	}
+	
 //getters_____________________________________________________________________________________________________________
 	
 	@ResponseBody

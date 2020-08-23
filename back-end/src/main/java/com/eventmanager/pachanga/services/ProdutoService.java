@@ -165,9 +165,10 @@ public class ProdutoService {
 		return itemEstoque;
 	}
 
-	public ItemEstoque recargaProduto(int codProduto, int codEstoque, int quantidade) {
+	public ItemEstoque recargaProduto(int codProduto, int codEstoque, int quantidade, int idUsuarioPermissao) {
 
 		this.validarQuantInformada(quantidade);
+		this.validarUsuarioPorEstoque(idUsuarioPermissao, codEstoque, TipoPermissao.EDIMESTO.getCodigo());
 
 		ItemEstoque itemEstoque = this.validarProdutoEstoque(codEstoque, codProduto);
 		int quantidadeAtual = itemEstoque.getQuantidadeAtual() + quantidade;
