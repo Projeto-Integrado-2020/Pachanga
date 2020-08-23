@@ -24,6 +24,7 @@ export class DeletarFestaComponent implements OnInit {
   deletarFesta() {
     this.deleteService.deleteFesta(this.festa.codFesta).subscribe((resp: string) => {
       this.dialog.closeAll();
+      this.deleteService.setFarol(false);
       this.router.navigate(['minhas-festas']);
       this.openDialogSuccess(resp);
     });
