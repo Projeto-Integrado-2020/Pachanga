@@ -1,5 +1,7 @@
 package com.eventmanager.pachanga.domains;
 
+import java.time.LocalDateTime;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -27,6 +29,9 @@ public class NotificacaoGrupo {
 	
 	@Column(name = "mensagem")
 	private String mensagem;
+	
+	@Column(name = "data_emissao")
+	private LocalDateTime dataEmissao;
 
 	public Grupo getGrupo() {
 		return grupo;
@@ -51,4 +56,13 @@ public class NotificacaoGrupo {
 	public void setMensagem(String mensagem) {
 		this.mensagem = mensagem;
 	}
+
+	public LocalDateTime getDataEmissao() {
+		return dataEmissao;
+	}
+
+	public void setDataEmissao(LocalDateTime dataEmissao) {
+		this.dataEmissao = dataEmissao;
+	}
+	
 }

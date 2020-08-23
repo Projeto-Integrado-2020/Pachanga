@@ -481,5 +481,99 @@ class ProdutoControllerTest {
 		assertEquals(200, response.getStatus());
 		assertEquals(expected, result.getResponse().getContentAsString());
 	}
+	
+	@Test
+	void baixaProdutoEstoqueSucessoTest() throws Exception {
+		String uri = "/produto/baixaProdutoEstoque";
+		ItemEstoque itemEstoque = ItemEstoqueTest();
+		
+		Mockito.when(produtoService.baixaProduto(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(itemEstoque);
+			
+		RequestBuilder requestBuilder = MockMvcRequestBuilders
+				.put(uri)
+				.accept(MediaType.APPLICATION_JSON)
+				.param("codProduto", "1")
+				.param("codEstoque", "1")
+				.param("quantidade", "1")
+				.param("idUsuarioPermissao", "1")
+				.contentType(MediaType.APPLICATION_JSON);
+
+		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+
+		MockHttpServletResponse response = result.getResponse();
+			
+		assertEquals(HttpStatus.OK.value(), response.getStatus());
+	}
+	
+	@Test
+	void baixaProdutoEstoqueExceptionTest() throws Exception {
+		String uri = "/produto/baixaProdutoEstoque";
+		String erro = "Exception";
+		
+		Mockito.when(produtoService.baixaProduto(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenThrow(new ValidacaoException(erro));
+			
+		RequestBuilder requestBuilder = MockMvcRequestBuilders
+				.put(uri)
+				.accept(MediaType.APPLICATION_JSON)
+				.param("codProduto", "1")
+				.param("codEstoque", "1")
+				.param("quantidade", "1")
+				.param("idUsuarioPermissao", "1")
+				.contentType(MediaType.APPLICATION_JSON);
+
+		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+
+		MockHttpServletResponse response = result.getResponse();
+			
+		assertEquals(400, response.getStatus());
+		assertEquals(erro, result.getResponse().getContentAsString());
+	}
+	
+	@Test
+	void recargaProdutoEstoqueSucessoTest() throws Exception {
+		String uri = "/produto/recargaProdutoEstoque";
+		ItemEstoque itemEstoque = ItemEstoqueTest();
+		
+		Mockito.when(produtoService.recargaProduto(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(itemEstoque);
+			
+		RequestBuilder requestBuilder = MockMvcRequestBuilders
+				.put(uri)
+				.accept(MediaType.APPLICATION_JSON)
+				.param("codProduto", "1")
+				.param("codEstoque", "1")
+				.param("quantidade", "1")
+				.param("idUsuarioPermissao", "1")
+				.contentType(MediaType.APPLICATION_JSON);
+
+		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+
+		MockHttpServletResponse response = result.getResponse();
+			
+		assertEquals(HttpStatus.OK.value(), response.getStatus());
+	}
+	
+	@Test
+	void recargaProdutoEstoqueExceptionTest() throws Exception {
+		String uri = "/produto/recargaProdutoEstoque";
+		String erro = "Exception";
+		
+		Mockito.when(produtoService.recargaProduto(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenThrow(new ValidacaoException(erro));
+			
+		RequestBuilder requestBuilder = MockMvcRequestBuilders
+				.put(uri)
+				.accept(MediaType.APPLICATION_JSON)
+				.param("codProduto", "1")
+				.param("codEstoque", "1")
+				.param("quantidade", "1")
+				.param("idUsuarioPermissao", "1")
+				.contentType(MediaType.APPLICATION_JSON);
+
+		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+
+		MockHttpServletResponse response = result.getResponse();
+			
+		assertEquals(400, response.getStatus());
+		assertEquals(erro, result.getResponse().getContentAsString());
+	}
 
 }

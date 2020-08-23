@@ -93,7 +93,7 @@ public class FestaTOBuilder {
 	}
 
 	public FestaTOBuilder usuarios(List<UsuarioTO> usuarios) {
-		this.usuarios = usuarios;
+		 this.usuarios = usuarios;
 		return this;
 	}
 	

@@ -5,7 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -15,6 +17,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.eventmanager.pachanga.domains.Convidado;
 import com.eventmanager.pachanga.domains.Festa;
 import com.eventmanager.pachanga.domains.Grupo;
 import com.eventmanager.pachanga.domains.Usuario;
@@ -56,6 +59,7 @@ class ConvidadoServiceTest {
 		grupo.setCodGrupo(1);
 		grupo.setNomeGrupo("CONVIDADO");
 		grupo.setOrganizador(false);
+		grupo.setFesta(criacaoFesta());
 		return grupo;
 	}
 
@@ -82,10 +86,20 @@ class ConvidadoServiceTest {
 
 		return festaTest;
 	}
-
+	
+	private Convidado criacaoConvidado() {
+		Set<Grupo> grupos = new HashSet<>();
+		grupos.add(criacaoGrupo());
+		Convidado convidado = new Convidado();
+		convidado.setCodConvidado(1);
+		convidado.setGrupos(grupos);
+		convidado.setEmail("teste@teste");
+		return convidado;
+	}
+	
 
 	@Test
-	void AddUserFestaTest() {
+	void addUserFestaTest() {
 		List<String> emails = new ArrayList<String>(); 
 		emails.add("guga.72@hotmail.com");
 
@@ -101,7 +115,7 @@ class ConvidadoServiceTest {
 	}
 
 	@Test
-	void AddUserFestaEmailTest() {
+	void addUserFestaEmailTest() {
 		List<String> emails = new ArrayList<String>(); 
 		emails.add("guga.72@hotmail.com");
 
@@ -117,7 +131,7 @@ class ConvidadoServiceTest {
 	}
 
 	@Test
-	void AddUserFestaEmailGrupoOrganizadorTest() {
+	void addUserFestaEmailGrupoOrganizadorTest() {
 		List<String> emails = new ArrayList<String>(); 
 		emails.add("guga.72@hotmail.com");
 
@@ -145,7 +159,7 @@ class ConvidadoServiceTest {
 	}
 	
 	@Test
-	void AddUserFestaEmailFestaNaoEmPreparacaoTest() {
+	void addUserFestaEmailFestaNaoEmPreparacaoTest() {
 		List<String> emails = new ArrayList<String>(); 
 		emails.add("guga.72@hotmail.com");
 
@@ -173,7 +187,7 @@ class ConvidadoServiceTest {
 	}
 
 	@Test
-	void AddUserFestaEmailGrupoNulloTest() { // para quando o id do grupo passado retorna null
+	void addUserFestaEmailGrupoNulloTest() { // para quando o id do grupo passado retorna null
 		List<String> emails = new ArrayList<String>(); 
 		emails.add("guga.72@hotmail.com");
 
@@ -198,7 +212,7 @@ class ConvidadoServiceTest {
 	}
 
 	@Test
-	void AddUserFestaEmailGrupoPermissaoNulloTest() { // para quando o cara nn tiver permissão para fazer isso
+	void addUserFestaEmailGrupoPermissaoNulloTest() { // para quando o cara nn tiver permissão para fazer isso
 		List<String> emails = new ArrayList<String>(); 
 		emails.add("guga.72@hotmail.com");
 
@@ -222,7 +236,7 @@ class ConvidadoServiceTest {
 	}
 
 	@Test
-	void AddUserFestaEmailFestaNulloTest() { // para quando a festa não existir
+	void addUserFestaEmailFestaNulloTest() { // para quando a festa não existir
 		List<String> emails = new ArrayList<String>(); 
 		emails.add("guga.72@hotmail.com");
 
@@ -246,7 +260,7 @@ class ConvidadoServiceTest {
 	}
 
 	@Test
-	void AddUserFestaEmailUsuarioNulloTest() { // para quando o usuário não existir no banco de dados
+	void addUserFestaEmailUsuarioNulloTest() { // para quando o usuário não existir no banco de dados
 		List<String> emails = new ArrayList<String>(); 
 		emails.add("guga.72@hotmail.com");
 
@@ -268,5 +282,88 @@ class ConvidadoServiceTest {
 		assertEquals(true, erro);
 		assertEquals("USERNFOU", msgErro);
 	}
+	
+	@Test
+	void aceitarConviteTest() {
+
+		Mockito.when(convidadoRepository.findConvidadoGrupo(Mockito.anyInt(), Mockito.anyInt())).thenReturn(criacaoConvidado());
+		Mockito.when(usuarioRepository.findByEmail(Mockito.anyString())).thenReturn(criacaoUsuario());
+		Mockito.doNothing().when(convidadoRepository).deleteConvidadoGrupo(Mockito.anyInt(), Mockito.anyInt());
+		Mockito.doNothing().when(notificacaoService).deletarNotificacaoConvidado(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyString());
+		Mockito.doNothing().when(convidadoRepository).deleteConvidado(Mockito.anyInt());
+		Mockito.doNothing().when(grupoRepository).saveUsuarioGrupo(Mockito.anyInt(), Mockito.anyInt());
+		Mockito.when(festaRepository.findById(Mockito.anyInt())).thenReturn(criacaoFesta());
+
+		convidadoService.aceitarConvite(1, 13);
+
+	}
+	
+	@Test
+	void aceitarConviteConvidadoNaoRelacionadoGrupoTest() {
+
+		Mockito.when(convidadoRepository.findConvidadoGrupo(Mockito.anyInt(), Mockito.anyInt())).thenReturn(null);
+		Mockito.when(usuarioRepository.findByEmail(Mockito.anyString())).thenReturn(criacaoUsuario());
+		Mockito.doNothing().when(convidadoRepository).deleteConvidadoGrupo(Mockito.anyInt(), Mockito.anyInt());
+		Mockito.doNothing().when(notificacaoService).deletarNotificacaoConvidado(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyString());
+		Mockito.doNothing().when(convidadoRepository).deleteConvidado(Mockito.anyInt());
+		Mockito.doNothing().when(grupoRepository).saveUsuarioGrupo(Mockito.anyInt(), Mockito.anyInt());
+		Mockito.when(festaRepository.findById(Mockito.anyInt())).thenReturn(criacaoFesta());
+
+		boolean erro = false;
+		String msgErro = "";
+		try {			
+		convidadoService.aceitarConvite(1, 13);
+		} catch (ValidacaoException e) {
+			erro = true;
+			msgErro = e.getMessage();
+		}
+
+		assertEquals(true, erro);
+		assertEquals("CONVNGRU", msgErro);
+
+	}
+	
+	@Test
+	void recusarConviteTest() {
+
+		Mockito.when(convidadoRepository.findConvidadoGrupo(Mockito.anyInt(), Mockito.anyInt())).thenReturn(criacaoConvidado());
+		Mockito.when(usuarioRepository.findByEmail(Mockito.anyString())).thenReturn(criacaoUsuario());
+		Mockito.doNothing().when(convidadoRepository).deleteConvidadoGrupo(Mockito.anyInt(), Mockito.anyInt());
+		Mockito.doNothing().when(notificacaoService).deletarNotificacaoConvidado(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyString());
+		Mockito.doNothing().when(convidadoRepository).deleteConvidado(Mockito.anyInt());
+		Mockito.when(festaRepository.findById(Mockito.anyInt())).thenReturn(criacaoFesta());
+
+		convidadoService.recusarConvite(1, 13);
+
+	}
+	
+	@Test
+	void pegarConvidadosFestaTest() {
+		
+		List<Convidado> convidados = new ArrayList<>();
+		convidados.add(criacaoConvidado());
+
+		Mockito.when(convidadoRepository.findConvidadosByCodFesta(Mockito.anyInt())).thenReturn(convidados);
+
+		List<Convidado> convidadosRetorno = convidadoService.pegarConvidadosFesta(1);
+		
+		assertEquals(convidados.size(), convidadosRetorno.size());
+
+	}
+	
+	@Test
+	void pegarConvidadosGrupo() {
+		
+		List<Convidado> convidados = new ArrayList<>();
+		convidados.add(criacaoConvidado());
+
+		Mockito.when(convidadoRepository.findConvidadosNoGrupo(Mockito.anyInt())).thenReturn(convidados);
+
+		List<Convidado> convidadosRetorno = convidadoService.pegarConvidadosGrupo(1);
+		
+		assertEquals(convidados.size(), convidadosRetorno.size());
+
+	}
+	
 
 }

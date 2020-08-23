@@ -28,6 +28,7 @@ export class DeletarGrupoComponent implements OnInit {
 
   deletarGrupo() {
     this.deleteService.deleteGrupo(this.grupo.codGrupo).subscribe((resp: string) => {
+      this.deleteService.setFarol(false);
       this.dialog.closeAll();
       this.component.ngOnInit();
       this.openDialogSuccess('GRUPDELE');

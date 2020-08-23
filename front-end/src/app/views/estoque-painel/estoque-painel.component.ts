@@ -6,9 +6,19 @@ import { Router } from '@angular/router';
 import { StatusFestaService } from 'src/app/services/status-festa/status-festa.service';
 import { GetEstoqueService } from 'src/app/services/get-estoque/get-estoque.service';
 import { DeleteEstoqueDialogComponent } from '../delete-estoque-dialog/delete-estoque-dialog.component';
-import { EditarEstoqueService } from 'src/app/services/editar-estoque/editar-estoque.service';
 import { EditEstoqueDialogComponent } from '../edit-estoque-dialog/edit-estoque-dialog.component';
 import { CriarEstoqueDialogComponent } from '../criar-estoque-dialog/criar-estoque-dialog.component';
+import { CriarProdutoEstoqueDialogComponent } from '../criar-produto-estoque-dialog/criar-produto-estoque-dialog.component';
+import { DeletarProdutoEstoqueDialogComponent } from '../deletar-produto-estoque-dialog/deletar-produto-estoque-dialog.component';
+import { EditarProdutoEstoqueDialogComponent } from '../editar-produto-estoque-dialog/editar-produto-estoque-dialog.component';
+
+export interface TabelaProdutos {
+  codEstoque: string;
+  quantidadeMax: string;
+  quantidadeMin: string;
+  porcentagemAtual: string;
+  marca: string;
+}
 
 @Component({
   selector: 'app-estoque-painel',
@@ -18,8 +28,7 @@ import { CriarEstoqueDialogComponent } from '../criar-estoque-dialog/criar-estoq
 
 export class EstoquePainelComponent implements OnInit {
 
-  displayedColumns: string[] = ['nome', 'qtd', 'status', 'teste'];
-  expandedElement: TabelaEstoque | null;
+  displayedColumns: string[] = ['nome', 'quantidadeAtual', 'actions'];
 
   public festaNome: string;
   options: FormGroup;
@@ -50,10 +59,26 @@ export class EstoquePainelComponent implements OnInit {
     this.getEstoque.getEstoque(this.festa.codFesta).subscribe((resp: any) => {
       this.getEstoque.setFarol(false);
       this.estoques = resp;
+      for (const estoque of resp) {
+        const produtos = [];
+        if (estoque.itemEstoque) {
+          for (const produtoEstoque of Object.keys(estoque.itemEstoque)) {
+            produtos.push({
+              codProduto: estoque.itemEstoque[produtoEstoque].codProduto,
+              quantidadeMax: estoque.itemEstoque[produtoEstoque].quantidadeMax,
+              quantidadeAtual: estoque.itemEstoque[produtoEstoque].quantidadeAtual,
+              porcentagemMin: estoque.itemEstoque[produtoEstoque].porcentagemMin,
+              marca: estoque.itemEstoque[produtoEstoque].produto.marca
+            });
+          }
+        }
+        this.dataSources.push(new MatTableDataSource<TabelaProdutos>(produtos));
+      }
     });
   }
 
   ngOnInit() {
+    this.dataSources = [];
     let idFesta = this.router.url;
     idFesta = idFesta.substring(idFesta.indexOf('&') + 1, idFesta.indexOf('/', idFesta.indexOf('&')));
     this.getFestaService.acessarFesta(idFesta).subscribe((resp: any) => {
@@ -82,7 +107,6 @@ export class EstoquePainelComponent implements OnInit {
       width: '20rem',
       data: {
         codFesta: this.festa.codFesta,
-        component: this,
         estoque
       }
     });
@@ -98,30 +122,38 @@ export class EstoquePainelComponent implements OnInit {
     });
   }
 
-}
+  openDialogDeleteProdEstoque(estoque, produto) {
+    this.dialog.open(DeletarProdutoEstoqueDialogComponent, {
+      width: '20rem',
+      data: {
+        component: this,
+        estoque,
+        produto
+      }
+    });
+  }
 
-export interface TabelaEstoque {
-  nome: string;
-  qtd: number;
-  status: string;
-  teste: any;
-}
+  openDialogAddProdEstoque(estoque) {
+    this.dialog.open(CriarProdutoEstoqueDialogComponent, {
+      width: '20rem',
+      data: {
+        codFesta: this.festa.codFesta,
+        component: this,
+        estoque
+      }
+    });
+  }
 
-const ELEMENT_DATA: TabelaEstoque[] = [
-  {
-    nome: 'Skol 350ml',
-    qtd: 1.0079,
-    status: '',
-    teste: '1'
-  }, {
-    nome: 'Dolly Limão 2L',
-    qtd: 4.0026,
-    status: '',
-    teste: '1'
-  }, {
-    nome: 'Barrigudinha original 400ml',
-    qtd: 6.941,
-    status: '',
-    teste: '1'
-  },
-];
+  openDialogEditProdEstoque(estoque, produto) {
+    this.dialog.open(EditarProdutoEstoqueDialogComponent, {
+      width: '20rem',
+      data: {
+        component: this,
+        produto,
+        estoque,
+        festa: this.festa
+      }
+    });
+  }
+
+}

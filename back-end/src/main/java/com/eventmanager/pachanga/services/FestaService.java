@@ -10,6 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.eventmanager.pachanga.domains.Categoria;
 import com.eventmanager.pachanga.domains.CategoriasFesta;
+import com.eventmanager.pachanga.domains.Convidado;
+import com.eventmanager.pachanga.domains.Estoque;
 import com.eventmanager.pachanga.domains.Festa;
 import com.eventmanager.pachanga.domains.Grupo;
 import com.eventmanager.pachanga.domains.Usuario;
@@ -18,8 +20,11 @@ import com.eventmanager.pachanga.errors.ValidacaoException;
 import com.eventmanager.pachanga.factory.FestaFactory;
 import com.eventmanager.pachanga.repositories.CategoriaRepository;
 import com.eventmanager.pachanga.repositories.CategoriasFestaRepository;
+import com.eventmanager.pachanga.repositories.ConvidadoRepository;
+import com.eventmanager.pachanga.repositories.EstoqueRepository;
 import com.eventmanager.pachanga.repositories.FestaRepository;
 import com.eventmanager.pachanga.repositories.GrupoRepository;
+import com.eventmanager.pachanga.repositories.ProdutoRepository;
 import com.eventmanager.pachanga.repositories.UsuarioRepository;
 import com.eventmanager.pachanga.tipo.TipoCategoria;
 import com.eventmanager.pachanga.tipo.TipoGrupo;
@@ -38,18 +43,30 @@ public class FestaService {
 
 	@Autowired
 	private GrupoRepository grupoRepository;
+	
+	@Autowired
+	private ConvidadoRepository convidadoRepository;
 
 	@Autowired
 	private CategoriasFestaRepository categoriasFestaRepository;
 
 	@Autowired
 	private CategoriaRepository categoriaRepository;
+	
+	@Autowired 
+	private EstoqueRepository estoqueRepository;
+	
+	@Autowired
+	private ProdutoRepository produtoRepository;
 
 	@Autowired
 	private GrupoService grupoService;
 
 	@Autowired
 	private EstoqueService estoqueService;
+	
+	@Autowired
+	private FestaFactory festaFactory;
 
 	public List<Festa> procurarFestas(){
 		return festaRepository.findAll();
@@ -68,7 +85,7 @@ public class FestaService {
 		festaTo.setStatusFesta(TipoStatusFesta.PREPARACAO.getValor());
 		this.validarFesta(festaTo);
 		this.validacaoCategorias(festaTo.getCodPrimaria(), festaTo.getCodSecundaria());
-		Festa festa =  FestaFactory.getFesta(festaTo);
+		Festa festa =  festaFactory.getFesta(festaTo);
 		festaRepository.save(festa);
 		Grupo grupo = grupoService.addGrupo(festa.getCodFesta(), TipoGrupo.ORGANIZADOR.getValor(), true, null);
 		grupoRepository.saveUsuarioGrupo(usuario.getCodUsuario(), grupo.getCodGrupo());
@@ -102,11 +119,22 @@ public class FestaService {
 	public void deleteFesta(int idFesta, int idUser) {
 		validarPermissaoUsuario(idUser, idFesta, TipoPermissao.DELEFEST.getCodigo());
 		List<Grupo> grupos = grupoRepository.findGruposFesta(idFesta);
-		for(Grupo grupo : grupos) {
-			grupoRepository.deleteGrupo(grupo.getCodGrupo());
-		}
+		grupos.stream().forEach(g->{
+			grupoRepository.deleteUsuariosGrupo(g.getCodGrupo());
+			List<Convidado> convidados = convidadoRepository.findConvidadosNoGrupo(g.getCodGrupo());
+			convidadoRepository.deleteAll(convidados);
+		});
+		grupoRepository.deleteAll(grupos);
 		Set<CategoriasFesta> categorias = categoriasFestaRepository.findCategoriasFesta(idFesta);
 		categoriasFestaRepository.deleteAll(categorias);
+		
+		List<Estoque> estoques = estoqueRepository.findEstoqueByCodFesta(idFesta);
+		
+		for(Estoque estoque : estoques) {
+		estoqueRepository.deleteProdEstoque(idFesta, estoque.getCodEstoque());
+		}
+		produtoRepository.deleteProdFesta(idFesta);
+		estoqueRepository.deleteEstoque(idFesta);
 		festaRepository.deleteById(idFesta);
 	}
 
@@ -246,5 +274,9 @@ public class FestaService {
 		festaRepository.updateStatusFesta(statusFestaMaiusculo, idFesta);
 		festa.setStatusFesta(statusFestaMaiusculo);
 		return festa;
+	}
+
+	public Festa procurarFestaConvidado(Integer codConvidado, Integer codGrupo) {
+		return festaRepository.findFestaByCodConvidadoAndCodGrupo(codConvidado, codGrupo);
 	}
 }

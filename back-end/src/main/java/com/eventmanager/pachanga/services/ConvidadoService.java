@@ -1,6 +1,5 @@
 package com.eventmanager.pachanga.services;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -46,7 +45,7 @@ public class ConvidadoService {
 
 	public StringBuilder addUsuariosFesta(List<String> emails, int codFesta, int idUsuario, int idGrupo) {
 		StringBuilder mensagemRetorno = new StringBuilder();
-		this.validarUsuario(idUsuario);
+		this.validarUsuario(idUsuario, null);
 		Grupo grupo = this.validarGrupoFesta(idGrupo, codFesta, idUsuario);
 		Festa festa = this.validarFesta(codFesta);
 		for(String email : emails) {
@@ -70,33 +69,24 @@ public class ConvidadoService {
 		return mensagemRetorno;
 	}
 	
-	public void aceitarConvite(Integer codConvidado, Integer idGrupo, String mensagem) {
+	public void aceitarConvite(Integer codConvidado, Integer idGrupo) {
 		Convidado convidado = this.validarGrupoConvidado(codConvidado, idGrupo);
-		Usuario usuario = this.validarUsuarioConvidado(convidado.getEmail());
+		Usuario usuario = this.validarUsuario(0, convidado.getEmail());
 		convidado.getGrupos().stream().forEach(g ->
 			this.validarFesta(g.getFesta().getCodFesta())
 		);
 		grupoRepository.saveUsuarioGrupo(usuario.getCodUsuario(), idGrupo);
 		convidadoRepository.deleteConvidadoGrupo(convidado.getCodConvidado(), idGrupo);
-		notificacaoService.deletarNotificacaoConvidado(convidado.getCodConvidado(), TipoNotificacao.CONVFEST.getCodigo(), mensagem);
+		notificacaoService.deletarNotificacaoConvidado(convidado.getCodConvidado(), TipoNotificacao.CONVFEST.getCodigo(), TipoNotificacao.CONVFEST.getValor() + "?" + idGrupo + "&" + convidado.getCodConvidado());
 		convidadoRepository.deleteConvidado(convidado.getCodConvidado());
 	}
 	
-	public void recusarConvite(Integer codConvidado, Integer idGrupo, String mensagem) {
+	public void recusarConvite(Integer codConvidado, Integer idGrupo) {
 		Convidado convidado = this.validarGrupoConvidado(codConvidado, idGrupo);
-		Usuario usuario = this.validarUsuarioConvidado(convidado.getEmail());
+		this.validarUsuario(0,convidado.getEmail());
 		convidadoRepository.deleteConvidadoGrupo(convidado.getCodConvidado(), idGrupo);
-		notificacaoService.deletarNotificacaoConvidado(codConvidado, TipoNotificacao.CONVFEST.getCodigo(), mensagem);
+		notificacaoService.deletarNotificacaoConvidado(codConvidado, TipoNotificacao.CONVFEST.getCodigo(), TipoNotificacao.CONVFEST.getValor() + "?" + idGrupo + "&" + convidado.getCodConvidado());
 		convidadoRepository.deleteConvidado(convidado.getCodConvidado());
-		notificacaoService.deleteNotificacao(usuario.getCodUsuario(), TipoNotificacao.CONVFEST.getCodigo(), mensagem);
-	}
-	
-	private Usuario validarUsuarioConvidado(String email) {
-		Usuario usuario = usuarioRepository.findByEmail(email);
-		if(usuario == null) {
-			throw new ValidacaoException("USERNFOU");
-		}
-		return usuario;
 	}
 
 	private Convidado validarGrupoConvidado(int codConvidado, int idGrupo) {
@@ -105,22 +95,6 @@ public class ConvidadoService {
 			throw new ValidacaoException("CONVNGRU");// convidado nn relacionado ao grupo
 		}
 		return convidado;
-	}
-
-	public List<Usuario> deleteUsuariosFesta(List<String> emails, int codFesta, int idUsuario, int idGrupo) {
-		List<Usuario> retorno = new ArrayList<>();
-		this.validarUsuario(idUsuario);
-		Grupo grupo = this.validarGrupoFesta(idGrupo, codFesta, idUsuario);
-		for(String email : emails) {
-			Usuario usuario = usuarioRepository.findByEmail(email);
-			if(usuario != null) {
-				grupoRepository.deleteUsuarioGrupo(usuario.getCodUsuario(), grupo.getCodGrupo());
-				retorno.add(usuario);
-			}else {
-				throw new ValidacaoException("USERNFOU - G" + idGrupo);
-			}
-		}
-		return retorno;
 	}
 	
 	public List<Convidado> pegarConvidadosFesta(int codFesta){
@@ -131,8 +105,13 @@ public class ConvidadoService {
 		return convidadoRepository.findConvidadosNoGrupo(codGrupo);
 	}
 
-	private Usuario validarUsuario(int idUsuario) {
-		Usuario usuario = usuarioRepository.findById(idUsuario);
+	private Usuario validarUsuario(int idUsuario, String email) {
+		Usuario usuario = null;
+		if(email == null) {
+			usuario = usuarioRepository.findById(idUsuario);
+		} else {
+			usuario = usuarioRepository.findByEmail(email);
+		}
 		if(usuario == null) {
 			throw new ValidacaoException("USERNFOU");
 		}

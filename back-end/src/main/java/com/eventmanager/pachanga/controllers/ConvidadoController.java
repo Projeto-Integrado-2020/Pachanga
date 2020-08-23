@@ -36,9 +36,9 @@ public class ConvidadoController {
 	
 	@ResponseBody
 	@PostMapping(path = "/accConvite")
-	public ResponseEntity<Object> aceitarConvite(@RequestParam(required = true)Integer codConvidado, @RequestParam(required = true)Integer idGrupo, @RequestParam(required = true) String mensagem){
+	public ResponseEntity<Object> aceitarConvite(@RequestParam(required = true)Integer codConvidado, @RequestParam(required = true)Integer idGrupo){
 		try {
-			convidadoService.aceitarConvite(codConvidado,idGrupo, mensagem);
+			convidadoService.aceitarConvite(codConvidado,idGrupo);
 			return ResponseEntity.ok().build();
 		} catch (ValidacaoException e) {
 			return ResponseEntity.status(400).body(e.getMessage());
@@ -47,9 +47,9 @@ public class ConvidadoController {
 	
 	@ResponseBody
 	@PostMapping(path = "/recuConvite")
-	public ResponseEntity<Object> recusarConvite(@RequestParam(required = true)Integer codConvidado, @RequestParam(required = true)Integer idGrupo, @RequestParam(required = true) String mensagem){
+	public ResponseEntity<Object> recusarConvite(@RequestParam(required = true)Integer codConvidado, @RequestParam(required = true)Integer idGrupo){
 		try {
-			convidadoService.recusarConvite(codConvidado,idGrupo, mensagem);
+			convidadoService.recusarConvite(codConvidado,idGrupo);
 			return ResponseEntity.ok().build();
 		} catch (ValidacaoException e) {
 			return ResponseEntity.status(400).body(e.getMessage());

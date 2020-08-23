@@ -40,12 +40,25 @@ public interface GrupoRepository extends CrudRepository<Grupo, Integer>{
 	@Modifying
 	@Query(value = "DELETE FROM usuario_x_grupo WHERE cod_grupo = :codGrupo AND cod_usuario = :codUsuario", nativeQuery = true)
 	public void deleteUsuarioGrupo(@Param("codUsuario") int codUsuario, @Param("codGrupo") int codGrupo);
+	
+	@Modifying
+	@Query(value = "DELETE FROM usuario_x_grupo WHERE cod_grupo = :codGrupo", nativeQuery = true)
+	public void deleteUsuariosGrupo(@Param("codGrupo") int codGrupo);
 
 	@Query(value = "SELECT g.nomeGrupo FROM Grupo g JOIN g.usuarios u WHERE u.codUsuario = :codUsuario AND g.festa.codFesta = :codFesta")
 	public List<String> findFuncionalidade(@Param("codFesta")int codFesta,@Param("codUsuario") int codUsuario);
 	
 	@Query(value = "SELECT g FROM Grupo g JOIN g.usuarios u JOIN g.permissoes p JOIN g.festa f WHERE u.codUsuario = :codUsuario AND f.codFesta = :codFesta AND p.codPermissao = :codPermissao")
 	public Grupo findGrupoPermissaoUsuario(int codFesta, int codUsuario, int codPermissao);
+	
+	@Query(value = "SELECT g FROM Grupo g JOIN g.usuarios u JOIN g.permissoes p JOIN g.festa f WHERE f.codFesta = :codFesta AND p.codPermissao = :codPermissao")
+	public List<Grupo> findGruposPermissaoFesta(int codFesta, int codPermissao);
+	
+	//@Query(value = "SELECT g FROM Grupo g JOIN g.usuarios u JOIN g.permissoes p JOIN g.festa f WHERE f.codFesta = :codFesta AND p.codPermissao >= 9 AND p.codPermissao <= 15")
+	//public List<Grupo> findGruposPermissaoEstoque(int codFesta);
+	
+	@Query(value = "SELECT g FROM Grupo g JOIN g.usuarios u JOIN g.permissoes p JOIN g.festa f WHERE f.codFesta = :codFesta AND p.codPermissao >= 9 AND p.codPermissao <= 15 GROUP BY g.codGrupo")
+	public List<Grupo> findGruposPermissaoEstoque(int codFesta);
 	
 	@Modifying
 	@Query(value = "INSERT INTO permissao_x_grupo(cod_grupo, cod_permissao) VALUES(:codGrupo, :codPermissao)", nativeQuery = true)
@@ -94,4 +107,8 @@ public interface GrupoRepository extends CrudRepository<Grupo, Integer>{
 	
 	@Query(value = "SELECT g.codGrupo FROM Grupo g JOIN g.usuarios u WHERE g.codGrupo IN :codGrupos AND u.codUsuario = :codUsuario")
 	public List<Integer> findGruposUsuarioByGrupos(List<Integer> codGrupos, int codUsuario);
+	
+	@Modifying
+	@Query(value = "DELETE FROM convidado_x_grupo WHERE cod_grupo = :codGrupo", nativeQuery = true)
+	public void deleteAllConvidadoGrupo(Integer codGrupo);
 }

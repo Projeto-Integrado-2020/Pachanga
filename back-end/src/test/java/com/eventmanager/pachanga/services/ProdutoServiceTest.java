@@ -34,7 +34,10 @@ import com.eventmanager.pachanga.repositories.EstoqueRepository;
 import com.eventmanager.pachanga.repositories.FestaRepository;
 import com.eventmanager.pachanga.repositories.GrupoRepository;
 import com.eventmanager.pachanga.repositories.ItemEstoqueRepository;
+import com.eventmanager.pachanga.repositories.NotificacaoGrupoRepository;
+import com.eventmanager.pachanga.repositories.NotificacaoRepository;
 import com.eventmanager.pachanga.repositories.ProdutoRepository;
+import com.eventmanager.pachanga.tipo.TipoPermissao;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(value=ProdutoService.class)
@@ -42,6 +45,9 @@ class ProdutoServiceTest {
 
 	@MockBean
 	private ProdutoRepository produtoRepository;
+	
+	@MockBean
+	private NotificacaoGrupoRepository notificacaoGrupoRepository;
 
 	@MockBean
 	private FestaRepository festaRepository;
@@ -63,6 +69,12 @@ class ProdutoServiceTest {
 
 	@Autowired
 	private ProdutoService produtoService;
+	
+	@MockBean
+	private NotificacaoService notificacaoService;
+	
+	@MockBean
+	private NotificacaoRepository notificacaoRepository;
 
 	//metodos auxiliare________________________________________________________________________________________	
 	private ProdutoTO produtoTOTest() {
@@ -163,6 +175,7 @@ class ProdutoServiceTest {
 
 
 	//addProduto_______________________________________________________________________________________	
+	
 	@Test
 	void addProdutoSucessoTest() throws Exception {
 		Festa festa = festaTest();
@@ -891,35 +904,49 @@ class ProdutoServiceTest {
 
 
 	//baixa_______________________________________________________________________________________________________
+	
 	@Test
-	void baixaProdutoSucessoTest() throws Exception {
+
+	public void baixaProdutoSucessoTest() throws Exception {
+		Grupo grupo = grupoTest(); 
+		Usuario usuario = usuarioTest();
 		ItemEstoque itemEstoque = itemEstoqueTest();
 		Produto produto = produtoTest();
 		Estoque estoque = estoqueTest();
 		Festa festa = festaTest();
+		int codUsuario = usuario.getCodUsuario();
 		int codProduto = produto.getCodProduto();
 		int codEstoque = estoque.getCodEstoque();
 		int codFesta = festa.getCodFesta();
 		int quantidade = 3;
-		itemEstoque.setQuantidadeAtual(10);
+		itemEstoque.setQuantidadeAtual(30);
+		
+		//notificacaoGrupoRepository.findNotificacaoGrupo(codGrupo, codNotificacao)
 
 		Mockito.when(produtoRepository.findById(codProduto)).thenReturn(produto);
 		Mockito.when(estoqueRepository.findByEstoqueCodEstoque(codEstoque)).thenReturn(estoque);
 		Mockito.when(itemEstoqueRepository.findItemEstoque(codEstoque, codProduto)).thenReturn(itemEstoque);
 		Mockito.when(itemEstoqueRepository.save(Mockito.any())).thenReturn(null);
-
-		ItemEstoque retorno = produtoService.baixaProduto(codProduto, codEstoque, quantidade);
+		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(codFesta, codUsuario, TipoPermissao.EDIMESTO.getCodigo())).thenReturn(grupo);
+		Mockito.when(notificacaoService.verificarNotificacaoGrupo( Mockito.any(Integer.class), Mockito.any(Integer.class))).thenReturn(false);
+		
+		
+		ItemEstoque retorno = produtoService.baixaProduto(codProduto, codEstoque, quantidade, codUsuario);
 
 		assertEquals(retorno.getCodFesta(), codFesta);
 	}
 
 	@Test
-	void baixaProdutoQuantidadeMaximaTest() throws Exception {
+	public void baixaProdutoQuantidadeMaximaTest() throws Exception {
+		Usuario usuario = usuarioTest();
 		ItemEstoque itemEstoque = itemEstoqueTest();
 		Produto produto = produtoTest();
 		Estoque estoque = estoqueTest();
+		Festa festa = festaTest();
+		int codUsuario = usuario.getCodUsuario();
 		int codProduto = produto.getCodProduto();
 		int codEstoque = estoque.getCodEstoque();
+		int codFesta = festa.getCodFesta();
 		int quantidade = 3;
 		itemEstoque.setQuantidadeAtual(200);
 
@@ -927,10 +954,12 @@ class ProdutoServiceTest {
 		Mockito.when(estoqueRepository.findByEstoqueCodEstoque(codEstoque)).thenReturn(estoque);
 		Mockito.when(itemEstoqueRepository.findItemEstoque(codEstoque, codProduto)).thenReturn(itemEstoque);
 		Mockito.when(itemEstoqueRepository.save(Mockito.any())).thenReturn(null);
+		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(codFesta, codUsuario, TipoPermissao.EDIMESTO.getCodigo()));
+
 
 		boolean erro = false;
 		try {
-			produtoService.baixaProduto(codProduto, codEstoque, quantidade);
+			produtoService.baixaProduto(codProduto, codEstoque, quantidade, codUsuario);
 		} catch (Exception e) {
 			erro = true;
 		}
@@ -938,10 +967,14 @@ class ProdutoServiceTest {
 	}
 
 	@Test
-	void baixaProdutoQuantidadeInvalidaTest() throws Exception {
+	public void baixaProdutoQuantidadeInvalidaTest() throws Exception {
+		Usuario usuario = usuarioTest();
 		ItemEstoque itemEstoque = itemEstoqueTest();
 		Produto produto = produtoTest();
 		Estoque estoque = estoqueTest();
+		Festa festa = festaTest();
+		int codFesta = festa.getCodFesta();
+		int codUsuario = usuario.getCodUsuario();
 		int codProduto = produto.getCodProduto();
 		int codEstoque = estoque.getCodEstoque();
 		int quantidade = 3;
@@ -950,10 +983,11 @@ class ProdutoServiceTest {
 		Mockito.when(estoqueRepository.findByEstoqueCodEstoque(codEstoque)).thenReturn(estoque);
 		Mockito.when(itemEstoqueRepository.findItemEstoque(codEstoque, codProduto)).thenReturn(itemEstoque);
 		Mockito.when(itemEstoqueRepository.save(Mockito.any())).thenReturn(null);
+		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(codFesta, codUsuario, TipoPermissao.EDIMESTO.getCodigo()));
 
 		boolean erro = false;
 		try {
-			produtoService.baixaProduto(codProduto, codEstoque, quantidade);
+			produtoService.baixaProduto(codProduto, codEstoque, quantidade, codUsuario);
 		} catch (Exception e) {
 			erro = true;
 		}
@@ -961,10 +995,14 @@ class ProdutoServiceTest {
 	}
 
 	@Test
-	void baixaProdutoValorNegativoTest() throws Exception {
+	public void baixaProdutoValorNegativoTest() throws Exception {
+		Usuario usuario = usuarioTest();
 		ItemEstoque itemEstoque = itemEstoqueTest();
 		Produto produto = produtoTest();
 		Estoque estoque = estoqueTest();
+		Festa festa = festaTest();
+		int codFesta = festa.getCodFesta();
+		int codUsuario = usuario.getCodUsuario();
 		int codProduto = produto.getCodProduto();
 		int codEstoque = estoque.getCodEstoque();
 		int quantidade = -300;
@@ -973,9 +1011,11 @@ class ProdutoServiceTest {
 		Mockito.when(estoqueRepository.findByEstoqueCodEstoque(codEstoque)).thenReturn(estoque);
 		Mockito.when(itemEstoqueRepository.findItemEstoque(codEstoque, codProduto)).thenReturn(itemEstoque);
 		Mockito.when(itemEstoqueRepository.save(Mockito.any())).thenReturn(null);		
+		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(codFesta, codUsuario, TipoPermissao.EDIMESTO.getCodigo()));
+
 		boolean erro = false;
 		try {
-			produtoService.baixaProduto(codProduto, codEstoque, quantidade);		
+			produtoService.baixaProduto(codProduto, codEstoque, quantidade, codUsuario);		
 		} catch (Exception e) {
 			erro = true;
 		}
@@ -986,8 +1026,12 @@ class ProdutoServiceTest {
 	@Test
 	void baixaProdutoBaixaExcessivaTest() throws Exception {  //retirar mais do que tem no estoque
 		ItemEstoque itemEstoque = itemEstoqueTest();
+		Usuario usuario = usuarioTest();
 		Produto produto = produtoTest();
 		Estoque estoque = estoqueTest();
+		Festa festa = festaTest();
+		int codFesta = festa.getCodFesta();
+		int codUsuario = usuario.getCodUsuario();
 		int codProduto = produto.getCodProduto();
 		int codEstoque = estoque.getCodEstoque();
 		int quantidade = 300;
@@ -996,24 +1040,99 @@ class ProdutoServiceTest {
 		Mockito.when(estoqueRepository.findByEstoqueCodEstoque(codEstoque)).thenReturn(estoque);
 		Mockito.when(itemEstoqueRepository.findItemEstoque(codEstoque, codProduto)).thenReturn(itemEstoque);
 		Mockito.when(itemEstoqueRepository.save(Mockito.any())).thenReturn(null);
+		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(codFesta, codUsuario, TipoPermissao.EDIMESTO.getCodigo()));
 
 		boolean erro = false;
 		try {
-			produtoService.baixaProduto(codProduto, codEstoque, quantidade);		
+			produtoService.baixaProduto(codProduto, codEstoque, quantidade, codUsuario);		
 		} catch (Exception e) {
 			erro = true;
 		}
 
 		assertEquals(true, erro);
 	}
-
-	//recarga_____________________________________________________________________________________________________
+	
 	@Test
-	void recargaProdutoSucessoTest() throws Exception {
+	public void baixaProdutoEstoqueBaixoTest() throws Exception {
+		Grupo grupo = grupoTest(); 
+		List<Grupo> grupos = new ArrayList<>();
+		grupos.add(grupo);
+		Usuario usuario = usuarioTest();
 		ItemEstoque itemEstoque = itemEstoqueTest();
 		Produto produto = produtoTest();
 		Estoque estoque = estoqueTest();
 		Festa festa = festaTest();
+		estoque.setFesta(festa);
+		int codGrupo = grupo.getCodGrupo();
+		int codUsuario = usuario.getCodUsuario();
+		int codProduto = produto.getCodProduto();
+		int codEstoque = estoque.getCodEstoque();
+		int codFesta = festa.getCodFesta();
+		int quantidade = 3;
+		itemEstoque.setQuantidadeAtual(10);
+		itemEstoque.setEstoque(estoque);
+		itemEstoque.setProduto(produto);
+		
+		//notificacaoGrupoRepository.findNotificacaoGrupo(codGrupo, codNotificacao)
+
+		Mockito.when(produtoRepository.findById(codProduto)).thenReturn(produto);
+		Mockito.when(estoqueRepository.findByEstoqueCodEstoque(codEstoque)).thenReturn(estoque);
+		Mockito.when(itemEstoqueRepository.findItemEstoque(codEstoque, codProduto)).thenReturn(itemEstoque);
+		Mockito.when(itemEstoqueRepository.save(Mockito.any())).thenReturn(null);
+		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(codFesta, codUsuario, TipoPermissao.EDIMESTO.getCodigo())).thenReturn(grupo);
+		Mockito.when(notificacaoService.verificarNotificacaoGrupo(codGrupo, 3)).thenReturn(false);
+		Mockito.when(grupoRepository.findGruposPermissaoEstoque(codFesta)).thenReturn(grupos);
+		
+		ItemEstoque retorno = produtoService.baixaProduto(codProduto, codEstoque, quantidade, codUsuario);
+
+		assertEquals(retorno.getCodFesta(), codFesta);
+	}
+	
+	@Test
+	public void baixaProdutoEstoqueBaixoDNVTest() throws Exception {
+		Grupo grupo = grupoTest(); 
+		List<Grupo> grupos = new ArrayList<>();
+		grupos.add(grupo);
+		Usuario usuario = usuarioTest();
+		ItemEstoque itemEstoque = itemEstoqueTest();
+		Produto produto = produtoTest();
+		Estoque estoque = estoqueTest();
+		Festa festa = festaTest();
+		estoque.setFesta(festa);
+		int codGrupo = grupo.getCodGrupo();
+		int codUsuario = usuario.getCodUsuario();
+		int codProduto = produto.getCodProduto();
+		int codEstoque = estoque.getCodEstoque();
+		int codFesta = festa.getCodFesta();
+		int quantidade = 3;
+		itemEstoque.setQuantidadeAtual(10);
+		itemEstoque.setEstoque(estoque);
+		
+		//notificacaoGrupoRepository.findNotificacaoGrupo(codGrupo, codNotificacao)
+
+		Mockito.when(produtoRepository.findById(codProduto)).thenReturn(produto);
+		Mockito.when(estoqueRepository.findByEstoqueCodEstoque(codEstoque)).thenReturn(estoque);
+		Mockito.when(itemEstoqueRepository.findItemEstoque(codEstoque, codProduto)).thenReturn(itemEstoque);
+		Mockito.when(itemEstoqueRepository.save(Mockito.any())).thenReturn(null);
+		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(codFesta, codUsuario, TipoPermissao.EDIMESTO.getCodigo())).thenReturn(grupo);
+		Mockito.when(notificacaoService.verificarNotificacaoGrupo(codGrupo, 3)).thenReturn(true);
+		Mockito.when(grupoRepository.findGruposPermissaoEstoque(codFesta)).thenReturn(grupos);
+		
+		ItemEstoque retorno = produtoService.baixaProduto(codProduto, codEstoque, quantidade, codUsuario);
+
+		assertEquals(retorno.getCodFesta(), codFesta);
+	}
+	
+	//recarga_____________________________________________________________________________________________________
+	@Test
+	void recargaProdutoSucessoTest() throws Exception {
+		Grupo grupo = grupoTest(); 
+		Usuario usuario = usuarioTest();
+		ItemEstoque itemEstoque = itemEstoqueTest();
+		Produto produto = produtoTest();
+		Estoque estoque = estoqueTest();
+		Festa festa = festaTest();
+		int codUsuario = usuario.getCodUsuario();
 		int codProduto = produto.getCodProduto();
 		int codEstoque = estoque.getCodEstoque();
 		int codFesta = festa.getCodFesta();
@@ -1023,29 +1142,36 @@ class ProdutoServiceTest {
 		Mockito.when(estoqueRepository.findByEstoqueCodEstoque(codEstoque)).thenReturn(estoque);
 		Mockito.when(itemEstoqueRepository.findItemEstoque(codEstoque, codProduto)).thenReturn(itemEstoque);
 		Mockito.when(produtoRepository.save(Mockito.any())).thenReturn(null);
-
-		ItemEstoque retorno = produtoService.recargaProduto(codProduto, codEstoque, quantidade);
+		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(codFesta, codUsuario, TipoPermissao.EDIMESTO.getCodigo())).thenReturn(grupo);
+		
+		ItemEstoque retorno = produtoService.recargaProduto(codProduto, codEstoque, quantidade, codUsuario);
 
 		assertEquals(retorno.getCodFesta(), codFesta);
 	}
 
 	@Test
 	void recargaProdutoValorNegativoTest() throws Exception {
+		Grupo grupo = grupoTest(); 
+		Usuario usuario = usuarioTest();
 		ItemEstoque itemEstoque = itemEstoqueTest();
 		Produto produto = produtoTest();
 		Estoque estoque = estoqueTest();
+		Festa festa = festaTest();
+		int codUsuario = usuario.getCodUsuario();
 		int codProduto = produto.getCodProduto();
 		int codEstoque = estoque.getCodEstoque();
+		int codFesta = festa.getCodFesta();
 		int quantidade = -3;
 
 		Mockito.when(produtoRepository.findById(codProduto)).thenReturn(produto);
 		Mockito.when(estoqueRepository.findByEstoqueCodEstoque(codEstoque)).thenReturn(estoque);
 		Mockito.when(itemEstoqueRepository.findItemEstoque(codEstoque, codProduto)).thenReturn(itemEstoque);
 		Mockito.when(produtoRepository.save(Mockito.any())).thenReturn(null);
-
+		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(codFesta, codUsuario, TipoPermissao.EDIMESTO.getCodigo())).thenReturn(grupo);
+		
 		boolean erro = false;
 		try {
-			produtoService.recargaProduto(codProduto, codEstoque, quantidade);		
+			produtoService.recargaProduto(codProduto, codEstoque, quantidade, codUsuario);		
 		} catch (Exception e) {
 			erro = true;
 		}
@@ -1055,22 +1181,27 @@ class ProdutoServiceTest {
 
 	@Test
 	void recargaProdutoExcessivaTest() throws Exception {  //adicionar mais do que o estoque comporta
+		Grupo grupo = grupoTest();
 		ItemEstoque itemEstoque = itemEstoqueTest();
+		Usuario usuario = usuarioTest();
 		Produto produto = produtoTest();
 		Estoque estoque = estoqueTest();
+		Festa festa = festaTest();
+		int codUsuario = usuario.getCodUsuario();
 		int codProduto = produto.getCodProduto();
 		int codEstoque = estoque.getCodEstoque();
 		int quantidade = 300;
+		int codFesta = festa.getCodFesta();
 
 		Mockito.when(produtoRepository.findById(codProduto)).thenReturn(produto);
 		Mockito.when(estoqueRepository.findByEstoqueCodEstoque(codEstoque)).thenReturn(estoque);
 		Mockito.when(itemEstoqueRepository.findItemEstoque(codEstoque, codProduto)).thenReturn(itemEstoque);
 		Mockito.when(itemEstoqueRepository.save(Mockito.any())).thenReturn(null);
-
-
+		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(codFesta, codUsuario, TipoPermissao.EDIMESTO.getCodigo())).thenReturn(grupo);
+		
 		boolean erro = false;
 		try {
-			produtoService.recargaProduto(codProduto, codEstoque, quantidade);		
+			produtoService.recargaProduto(codProduto, codEstoque, quantidade, codUsuario);		
 		} catch (Exception e) {
 			erro = true;
 		}

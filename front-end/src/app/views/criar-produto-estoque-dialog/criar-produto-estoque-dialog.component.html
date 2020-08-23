@@ -1,0 +1,37 @@
+<h1 mat-dialog-title>{{'ESTOQUEPROD.ADDPRODESTOQUE' | translate}}</h1>
+<div mat-dialog-content>
+    <form [formGroup]="form" (submit)="addProdutoEstoque(codProduto.value, quantidadeMax.value, quantidadeAtual.value, porcentagemMin.value)">
+        <mat-form-field>
+            <mat-label>{{'ESTOQUEPROD.MARCA' | translate}}</mat-label>
+            <mat-select #codProduto formControlName="codProduto">
+                <div *ngFor="let produto of produtos">
+                    <mat-option value="{{produto.codProduto}}">{{produto.marca}}</mat-option>
+                </div>
+            </mat-select>
+            <mat-error *ngIf="f.codProduto.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
+        </mat-form-field><br>
+            <mat-form-field>
+                <mat-label>{{'ESTOQUEPROD.QTDMAX' | translate}}</mat-label>
+                <input ng-class="{ f.quantidadeMax.errors }" #quantidadeMax formControlName="quantidadeMax" matInput required type="number">
+                <mat-error *ngIf="f.quantidadeMax.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
+                <mat-error *ngIf="f.quantidadeMax.errors?.min">{{'FORMERRORS.MINQTDERROR' | translate}}</mat-error>
+            </mat-form-field><br>
+            <mat-form-field>
+                <mat-label>{{'ESTOQUEPROD.QTDATUAL' | translate}}</mat-label>
+                <input ng-class="{ f.quantidadeAtual.errors }" #quantidadeAtual formControlName="quantidadeAtual" matInput required type="number">
+                <mat-error *ngIf="f.quantidadeAtual.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
+                <mat-error *ngIf="f.quantidadeAtual.errors?.min">{{'FORMERRORS.MINQTDERROR' | translate}}</mat-error>
+            </mat-form-field><br>
+            <mat-form-field>
+                <mat-label>{{'ESTOQUEPROD.PROTCENTAGEMMIN' | translate}}</mat-label>
+                <input ng-class="{ f.porcentagemMin.errors }" #porcentagemMin formControlName="porcentagemMin" matInput required type="number">
+                <mat-error *ngIf="f.porcentagemMin.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
+                <mat-error *ngIf="f.porcentagemMin.errors?.min">{{'FORMERRORS.MINQTDERROR' | translate}}</mat-error>
+            <mat-error *ngIf="f.porcentagemMin.errors?.max">{{'FORMERRORS.MAXQTDERROR' | translate}}</mat-error>
+            </mat-form-field><br>
+        <button class="button-form" mat-raised-button [disabled]="!form.valid">{{'ESTOQUEPROD.CONFIRM' | translate}}</button>
+    </form>
+</div>
+<div mat-dialog-actions class="cancel-button">
+    <button  mat-button mat-dialog-close>{{'ESTOQUEPROD.CANCEL' | translate}}</button>
+</div>

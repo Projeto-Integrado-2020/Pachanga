@@ -46,5 +46,17 @@ class CategoriaServiceTest {
 		assertEquals(true, categoriasRetorno.containsAll(categorias));		
 		
 	}
+	
+	@Test
+	void procurarCategoriaFestaTest() {
+		
+		Mockito.when(categoriaRepository.findCategoriaFesta(Mockito.anyInt(), Mockito.anyString())).thenReturn(categoriaTest());
+		
+		Categoria categoriaRetorno = categoriaService.procurarCategoriaFesta(1, "teste");
+		
+		assertEquals(categoriaRetorno.getCodCategoria(), categoriaTest().getCodCategoria());
+		assertEquals(categoriaRetorno.getNomeCategoria(), categoriaTest().getNomeCategoria());		
+		
+	}
 
 }
