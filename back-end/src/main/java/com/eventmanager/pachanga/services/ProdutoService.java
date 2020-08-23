@@ -1,5 +1,6 @@
 package com.eventmanager.pachanga.services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import com.eventmanager.pachanga.domains.Estoque;
 import com.eventmanager.pachanga.domains.Festa;
 import com.eventmanager.pachanga.domains.Grupo;
 import com.eventmanager.pachanga.domains.ItemEstoque;
+import com.eventmanager.pachanga.domains.NotificacaoGrupo;
 import com.eventmanager.pachanga.domains.Produto;
 import com.eventmanager.pachanga.dtos.ItemEstoqueTO;
 import com.eventmanager.pachanga.dtos.ProdutoTO;
@@ -20,6 +22,8 @@ import com.eventmanager.pachanga.repositories.EstoqueRepository;
 import com.eventmanager.pachanga.repositories.FestaRepository;
 import com.eventmanager.pachanga.repositories.GrupoRepository;
 import com.eventmanager.pachanga.repositories.ItemEstoqueRepository;
+import com.eventmanager.pachanga.repositories.NotificacaoGrupoRepository;
+import com.eventmanager.pachanga.repositories.NotificacaoRepository;
 import com.eventmanager.pachanga.repositories.ProdutoRepository;
 import com.eventmanager.pachanga.tipo.TipoPermissao;
 
@@ -47,6 +51,15 @@ public class ProdutoService {
 
 	@Autowired
 	private ItemEstoqueRepository itemEstoqueRepository;
+	
+	@Autowired
+	private NotificacaoService notificacaoService;
+	
+	@Autowired
+	NotificacaoGrupoRepository notificacaoGrupoRepository;
+	
+	@Autowired
+	NotificacaoRepository notificacaoRepository;
 
 	//add_____________________________________________________________________________________________________
 	public Produto addProduto(ProdutoTO produtoTO, Integer codFesta, Integer idUsuarioPermissao) {
@@ -131,8 +144,9 @@ public class ProdutoService {
 
 	//baixa/recarga_____________________________________________________________________________________________________
 
-	public ItemEstoque baixaProduto(int codProduto, int codEstoque, int quantidade) {
-
+	public ItemEstoque baixaProduto(int codProduto, int codEstoque, int quantidade, Integer idUsuarioPermissao) {
+		this.validarUsuarioPorEstoque(idUsuarioPermissao, codEstoque, TipoPermissao.EDIMESTO.getCodigo());
+		
 		this.validarQuantInformada(quantidade);
 
 		ItemEstoque itemEstoque = this.validarProdutoEstoque(codEstoque, codProduto);
@@ -144,6 +158,8 @@ public class ProdutoService {
 		itemEstoque.setQuantidadeAtual(quantidadeAtual);
 		
 		itemEstoqueRepository.save(itemEstoque);
+		
+		this.disparaNotificacaoCasoEstoqueEscasso(itemEstoque);
 		
 		return itemEstoque;
 	}
@@ -263,6 +279,23 @@ public class ProdutoService {
 		Produto produtoMarcaIgual = produtoRepository.findByMarca(marca, codFesta);
 		if(produtoMarcaIgual != null) {
 			throw new ValidacaoException("PROMIGUA");// produto com a mesma marca cadastrado na festa
+		}
+	}
+	
+	private void disparaNotificacaoCasoEstoqueEscasso(ItemEstoque itemEstoque) {
+		int quantidadeMax = itemEstoque.getQuantidadeMax();
+		int quantidadeAtual = itemEstoque.getQuantidadeAtual();
+		int porcentagemMin = itemEstoque.getPorcentagemMin();
+		
+		if(  quantidadeMax * porcentagemMin * 0.01 >= quantidadeAtual ) {
+			int codFesta = itemEstoque.getEstoque().getFesta().getCodFesta();  //pega o código da festa
+			List<Grupo> grupos = grupoRepository.findGruposPermissaoEstoque(codFesta);
+			
+			for(Grupo grupo : grupos) {
+				if(notificacaoService.verificarNotificacaoGrupo(grupo.getCodGrupo(), 3) == false) {
+					notificacaoService.inserirNotificacaoGrupo(grupo.getCodGrupo(), 3);	
+				}
+			}
 		}
 	}
 

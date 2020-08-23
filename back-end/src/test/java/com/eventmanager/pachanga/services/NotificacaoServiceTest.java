@@ -3,9 +3,13 @@ package com.eventmanager.pachanga.services;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.doNothing;
 
+import java.time.LocalDateTime;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -16,8 +20,10 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.eventmanager.pachanga.domains.Convidado;
+import com.eventmanager.pachanga.domains.Festa;
 import com.eventmanager.pachanga.domains.Grupo;
 import com.eventmanager.pachanga.domains.Notificacao;
+import com.eventmanager.pachanga.domains.NotificacaoGrupo;
 import com.eventmanager.pachanga.domains.NotificacaoUsuario;
 import com.eventmanager.pachanga.domains.Usuario;
 import com.eventmanager.pachanga.dtos.NotificacaoTO;
@@ -85,6 +91,13 @@ public class NotificacaoServiceTest {
 		notificacaoUsuario.setMensagem("teste");
 		notificacaoUsuario.setStatus(TipoStatusNotificacao.NAOLIDA.getDescricao());
 		return notificacaoUsuario;
+	}
+	
+	public Grupo grupoTest() {
+		Grupo grupo = new Grupo();
+		grupo.setCodGrupo(1);
+		grupo.setNomeGrupo("CONVIDADO");
+		return grupo;
 	}
 
 	@Test
@@ -294,6 +307,40 @@ public class NotificacaoServiceTest {
 		notificacaoService.destaqueNotificacao(1,1);
 
 	}
+	
+	@Test
+	public void verificarNotificacaoGrupoSucessoTest() {
+		Grupo grupo = grupoTest();
+		Notificacao notificacao = notificacaoTest();
+		NotificacaoGrupo notificacaoGrupo = new NotificacaoGrupo();
+		notificacaoGrupo.setGrupo(grupo);
+		notificacaoGrupo.setNotificacao(notificacao);
+		int codGrupo = grupo.getCodGrupo();
+		int codNotificacao = notificacao.getCodNotificacao();
+		
+		Mockito.when(grupoRepository.findByCod(codGrupo)).thenReturn(grupo);
+		Mockito.when(notificacaoRepository.findByCodNotificacao(codNotificacao)).thenReturn(notificacao);
+		Mockito.when(notificacaoGrupoRepository.findNotificacaoGrupo(codGrupo, codNotificacao)).thenReturn(notificacaoGrupo);
+	
+		boolean retorno = notificacaoService.verificarNotificacaoGrupo(codGrupo, codNotificacao);
 
+		assertEquals(retorno, true);
+	}
+
+	@Test
+	public void verificarNotificacaoGrupoFalhaTest() {
+		Grupo grupo = grupoTest();
+		Notificacao notificacao = notificacaoTest();
+		int codGrupo = grupo.getCodGrupo();
+		int codNotificacao = notificacao.getCodNotificacao();
+		
+		Mockito.when(grupoRepository.findByCod(codGrupo)).thenReturn(grupo);
+		Mockito.when(notificacaoRepository.findByCodNotificacao(codNotificacao)).thenReturn(notificacao);
+		Mockito.when(notificacaoGrupoRepository.findNotificacaoGrupo(codGrupo, codNotificacao)).thenReturn(null);
+	
+		boolean retorno = notificacaoService.verificarNotificacaoGrupo(codGrupo, codNotificacao);
+
+		assertEquals(retorno, false);
+	}
 
 }

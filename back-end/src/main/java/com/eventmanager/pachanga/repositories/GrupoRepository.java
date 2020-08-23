@@ -60,6 +60,15 @@ public interface GrupoRepository extends CrudRepository<Grupo, Integer>{
 	@Query(value = "SELECT g FROM Grupo g JOIN g.usuarios u JOIN g.permissoes p JOIN g.festa f WHERE u.codUsuario = :codUsuario AND f.codFesta = :codFesta AND p.codPermissao = :codPermissao")
 	public Grupo findGrupoPermissaoUsuario(int codFesta, int codUsuario, int codPermissao);
 	
+	@Query(value = "SELECT g FROM Grupo g JOIN g.usuarios u JOIN g.permissoes p JOIN g.festa f WHERE f.codFesta = :codFesta AND p.codPermissao = :codPermissao")
+	public List<Grupo> findGruposPermissaoFesta(int codFesta, int codPermissao);
+	
+	//@Query(value = "SELECT g FROM Grupo g JOIN g.usuarios u JOIN g.permissoes p JOIN g.festa f WHERE f.codFesta = :codFesta AND p.codPermissao >= 9 AND p.codPermissao <= 15")
+	//public List<Grupo> findGruposPermissaoEstoque(int codFesta);
+	
+	@Query(value = "SELECT g FROM Grupo g JOIN g.usuarios u JOIN g.permissoes p JOIN g.festa f WHERE f.codFesta = :codFesta AND p.codPermissao >= 9 AND p.codPermissao <= 15 GROUP BY g.codGrupo")
+	public List<Grupo> findGruposPermissaoEstoque(int codFesta);
+	
 	@Modifying
 	@Query(value = "INSERT INTO permissao_x_grupo(cod_grupo, cod_permissao) VALUES(:codGrupo, :codPermissao)", nativeQuery = true)
 	public void saveGrupoPermissao(@Param("codGrupo")int codGrupo, @Param("codPermissao")int codPermissao);

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.eventmanager.pachanga.domains.Convidado;
 import com.eventmanager.pachanga.domains.Grupo;
 import com.eventmanager.pachanga.domains.Notificacao;
+import com.eventmanager.pachanga.domains.NotificacaoGrupo;
 import com.eventmanager.pachanga.domains.NotificacaoUsuario;
 import com.eventmanager.pachanga.domains.Usuario;
 import com.eventmanager.pachanga.dtos.NotificacaoTO;
@@ -45,6 +46,7 @@ public class NotificacaoService {
 	
 	@Autowired
 	private NotificacaoFactory notificacaoFactory;
+	
 
 	public NotificacaoTO procurarNotificacaoUsuario(int idUser) {
 		this.validacaoUsuario(idUser, null);
@@ -136,6 +138,18 @@ public class NotificacaoService {
 			notificacaoUsuario.setDestaque(!notificacaoUsuario.isDestaque());
 			notificacaoUsuarioRepository.save(notificacaoUsuario);
 		}
+	}
+	
+	public boolean verificarNotificacaoGrupo(int codGrupo, int codNotificacao) {
+		boolean retorno = false;
+		this.validarGrupo(codGrupo);
+		this.validarNotificacao(codNotificacao);
+		
+		NotificacaoGrupo notificacaoGrupo = null;
+		notificacaoGrupo = notificacaoGrupoRepository.findNotificacaoGrupo(codGrupo, codNotificacao);
+		if(notificacaoGrupo != null) retorno = true;
+
+		return retorno;
 	}
 
 }
