@@ -10,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.eventmanager.pachanga.domains.Categoria;
 import com.eventmanager.pachanga.domains.CategoriasFesta;
-import com.eventmanager.pachanga.domains.Convidado;
 import com.eventmanager.pachanga.domains.Estoque;
 import com.eventmanager.pachanga.domains.Festa;
 import com.eventmanager.pachanga.domains.Grupo;
@@ -121,8 +120,10 @@ public class FestaService {
 		List<Integer> codGrupos = grupoRepository.findCodGruposFesta(idFesta);
 		codGrupos.stream().forEach(g->{
 			grupoRepository.deleteUsuariosGrupo(g);
-			List<Convidado> convidados = convidadoRepository.findConvidadosNoGrupo(g);
-			convidadoRepository.deleteAll(convidados);
+			List<Integer> codConvidados = convidadoRepository.findCodConvidadosNoGrupo(g);
+			convidadoRepository.deleteAllConvidadosNotificacao(codConvidados);
+			convidadoRepository.deleteAllConvidadosGrupo(g);
+			convidadoRepository.deleteConvidados(codConvidados);
 		});
 		grupoRepository.deletePermissoesGrupos(codGrupos);
 		Set<CategoriasFesta> categorias = categoriasFestaRepository.findCategoriasFesta(idFesta);
