@@ -371,7 +371,8 @@
         "CONFIRM": "Confirm",
         "CANCEL": "Cancel",
         "ADDESTOQUE": "Add stock",
-        "GERENCIARPROD": "Products Management"
+        "GERENCIARPROD": "Products Management",
+        "ADDPRODUTO": "Add product"
     },
 
     "DELETECONVIDADO": {
@@ -391,6 +392,25 @@
     },
 
     "DELETEPRODUTO": {
+        "MESSAGE": "Do you really want to delete the product",
+        "CONFIRM": "Confirm",
+        "CANCEL": "Cancel"
+    },
+
+    "ESTOQUEPROD": {
+        "ADDPRODESTOQUE": "Add product to stock",
+        "EDITPRODUTOESTOQUE": "Edit a stock product",
+        "DELETEPRODUTOESTOQUE": "Delete product from stock",
+        "MARCA": "Brand",
+        "QTDMAX": "Maximum quantity",
+        "QTDMIN": "Minimum quantity",
+        "ATUAL": "Current percentage",
+        "CONFIRM": "Confirm",
+        "CANCEL": "Cancel"
+    },
+
+    "DELETEPRODUTOESTOQUE": {
+        "DELETE": "Delete product from stock",
         "MESSAGE": "Do you really want to delete the product",
         "CONFIRM": "Confirm",
         "CANCEL": "Cancel"

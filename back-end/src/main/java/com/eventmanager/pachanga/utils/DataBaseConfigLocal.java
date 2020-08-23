@@ -20,7 +20,6 @@ public class DataBaseConfigLocal {
         dataSource.setUrl("jdbc:postgresql://localhost:5432/pachanga"); // urls para conexão no localhost do postgresql do banco pachanga
         dataSource.setUsername("postgres");
         dataSource.setPassword("1234"); // sua senha do postgres local. Default: 1234 (guilherme: 123)
-
         return dataSource;
     }
 

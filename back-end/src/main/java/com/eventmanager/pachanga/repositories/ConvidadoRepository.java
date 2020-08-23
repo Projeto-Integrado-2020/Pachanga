@@ -24,8 +24,7 @@ public interface ConvidadoRepository extends CrudRepository<Convidado, Integer>{
 	@Query(value = "SELECT c FROM Convidado c WHERE c.email = :emailConvidado")
 	public Convidado findByEmail(String emailConvidado);
 	
-	@Modifying
-	@Query(value = "SELECT c FROM Convidado c WHERE c.cod_convidado = :idConvidado", nativeQuery = true)
+	@Query(value = "SELECT c FROM Convidado c WHERE c.codConvidado = :idConvidado")
 	public Convidado findByIdConvidado(Integer idConvidado);
 	
 	@Query(value = "SELECT NEXTVAL('seq_convidado');", nativeQuery = true)
@@ -47,5 +46,12 @@ public interface ConvidadoRepository extends CrudRepository<Convidado, Integer>{
 	@Modifying
 	@Query(value = "DELETE FROM Convidado WHERE cod_convidado = :codConvidado", nativeQuery = true)
 	public void deleteConvidado(Integer codConvidado);
+	
+	@Modifying
+	@Query(value = "DELETE FROM convidado_x_grupo WHERE cod_convidado = :codConvidado AND cod_grupo = :codGrupo", nativeQuery = true)
+	public void deleteConvidadoGrupo(Integer codConvidado, Integer codGrupo);
+
+	@Query(value = "SELECT c FROM Convidado c JOIN c.grupos g JOIN g.festa f WHERE c.codConvidado = :codConvidado AND g.codGrupo = :idGrupo")
+	public Convidado findConvidadoGrupo(int codConvidado, int idGrupo);
 	
 }

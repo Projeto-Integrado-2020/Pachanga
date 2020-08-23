@@ -134,6 +134,7 @@ public class ProdutoService {
 
 		retorno.setQuantidadeMax(itemEstoqueTO.getQuantidadeMax());
 		retorno.setPorcentagemMin(itemEstoqueTO.getPorcentagemMin());
+		retorno.setQuantidadeAtual(itemEstoqueTO.getQuantidadeAtual());
 
 		this.validaQuantAndPorcent(retorno.getQuantidadeMax(), retorno.getQuantidadeAtual(), retorno.getPorcentagemMin());
 
@@ -144,7 +145,7 @@ public class ProdutoService {
 
 	//baixa/recarga_____________________________________________________________________________________________________
 
-	public ItemEstoque baixaProduto(int codProduto, int codEstoque, int quantidade, Integer idUsuarioPermissao) {
+	public ItemEstoque baixaProduto(int codProduto, int codEstoque, int quantidade, int idUsuarioPermissao) {
 		this.validarUsuarioPorEstoque(idUsuarioPermissao, codEstoque, TipoPermissao.EDIMESTO.getCodigo());
 		
 		this.validarQuantInformada(quantidade);
@@ -268,7 +269,7 @@ public class ProdutoService {
 		if(quantidadeMax <= 0 || quantidadeMax < quantidadeAtual) 
 			throw new ValidacaoException("QMAXINV"); //quantidade máxima inválida
 
-		if(porcentagemMin <= 0) 
+		if(porcentagemMin < 0) 
 			throw new ValidacaoException("PCMININV"); //porcentagemMin inválida
 
 		if(quantidadeAtual < 0)

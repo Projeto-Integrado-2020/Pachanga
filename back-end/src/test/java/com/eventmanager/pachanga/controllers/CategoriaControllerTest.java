@@ -27,7 +27,7 @@ import com.eventmanager.pachanga.services.CategoriaService;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(value=CategoriaController.class)
-public class CategoriaControllerTest {
+class CategoriaControllerTest {
 	
 	@Autowired
 	private MockMvc mockMvc;
@@ -45,7 +45,7 @@ public class CategoriaControllerTest {
 	//listaCategorias_____________________________________________________________________________________________________________
 	
 	@Test
-	public void listaCategoriasSucesso() throws Exception {
+	void listaCategoriasSucesso() throws Exception {
 		String uri = "/categoria/lista";
 		
 		List<Categoria> categorias = new ArrayList<Categoria>();
@@ -70,7 +70,7 @@ public class CategoriaControllerTest {
 	}
 	
 	@Test
-	public void listaCategoriasErro() throws Exception {
+	void listaCategoriasErro() throws Exception {
 		String uri = "/categoria/lista";
 		
 		List<Categoria> categorias = new ArrayList<Categoria>();

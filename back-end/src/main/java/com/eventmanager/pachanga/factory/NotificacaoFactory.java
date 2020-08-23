@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import com.eventmanager.pachanga.builder.NotificacaoConvidadoTOBuilder;
 import com.eventmanager.pachanga.builder.NotificacaoGrupoTOBuilder;
 import com.eventmanager.pachanga.builder.NotificacaoUsuarioTOBuilder;
-import com.eventmanager.pachanga.domains.Notificacao;
+import com.eventmanager.pachanga.domains.NotificacaoConvidado;
 import com.eventmanager.pachanga.domains.NotificacaoGrupo;
 import com.eventmanager.pachanga.domains.NotificacaoUsuario;
 import com.eventmanager.pachanga.dtos.NotificacaoConvidadoTO;
@@ -19,15 +19,16 @@ import com.eventmanager.pachanga.dtos.NotificacaoUsuarioTO;
 @Component(value = "notificacaoFactory")
 public class NotificacaoFactory {
 
-	public NotificacaoConvidadoTO getNotificacaoTO(Notificacao notificacao) {
-		return NotificacaoConvidadoTOBuilder.getInstance().codNotificacao(notificacao.getCodNotificacao()).descNotificacao(notificacao.getDescNotificacao()).build();
+	public NotificacaoConvidadoTO getNotificacaoTO(NotificacaoConvidado notificacaoConvidado) {
+		return NotificacaoConvidadoTOBuilder.getInstance().codNotificacao(notificacaoConvidado.getNotificacao().getCodNotificacao()).codConvidado(notificacaoConvidado.getConvidado().getCodConvidado())
+				.mensagem(notificacaoConvidado.getMensagem()).build();
 	}
 	
-	public NotificacaoTO getNotificacaoTO(List<NotificacaoUsuario> notificacoesUsuario, List<NotificacaoGrupo> notificacoesGrupo, List<Notificacao> notificacoes){
+	public NotificacaoTO getNotificacaoTO(List<NotificacaoUsuario> notificacoesUsuario, List<NotificacaoGrupo> notificacoesGrupo, List<NotificacaoConvidado> notificacoesConvidado){
 		NotificacaoTO notificacaoTO = new NotificacaoTO();
 		notificacaoTO.setNotificacoesUsuario(notificacoesUsuario.stream().map(nu -> this.getNotificacaoUsuarioTO(nu)).collect(Collectors.toList()));
 		notificacaoTO.setNotificacoesGrupo(notificacoesGrupo.stream().map(ng -> this.getNotificacaoGrupoTO(ng)).collect(Collectors.toList()));
-		notificacaoTO.setNotificacaoConvidado(notificacoes.stream().map(n -> this.getNotificacaoTO(n)).collect(Collectors.toList()));
+		notificacaoTO.setNotificacaoConvidado(notificacoesConvidado.stream().map(n -> this.getNotificacaoTO(n)).collect(Collectors.toList()));
 		return notificacaoTO;
 	}
 	

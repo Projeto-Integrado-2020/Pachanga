@@ -16,7 +16,7 @@ public interface FestaRepository extends JpaRepository<Festa, Integer>{
 	@Query(value = "SELECT NEXTVAL('seq_festa');", nativeQuery = true)
 	public int getNextValMySequence();
 
-	@Query(value = "SELECT f FROM Festa f JOIN f.grupos g JOIN g.usuarios u WHERE u.codUsuario = :codUsuario")
+	@Query(value = "SELECT DISTINCT f FROM Festa f JOIN f.grupos g JOIN g.usuarios u WHERE u.codUsuario = :codUsuario")
 	public List<Festa> findByUsuarios(int codUsuario);
 	
 	@Query(value = "SELECT f FROM Festa f JOIN f.grupos g JOIN g.usuarios u WHERE u.codUsuario = :codUsuario AND g.nomeGrupo='ORGANIZADOR' AND f.codFesta = :codFesta")
@@ -38,5 +38,8 @@ public interface FestaRepository extends JpaRepository<Festa, Integer>{
 	@Modifying
 	@Query(value = "UPDATE Festa f SET statusFesta = :statusFesta where codFesta = :codFesta")
 	public void updateStatusFesta(String statusFesta, int codFesta);
+
+	@Query(value = "SELECT f FROM Festa f JOIN f.grupos g JOIN g.convidados c WHERE g.codGrupo = :codGrupo AND c.codConvidado = :codConvidado")
+	public Festa findFestaByCodConvidadoAndCodGrupo(Integer codConvidado, Integer codGrupo);
 	
 }

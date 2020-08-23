@@ -33,7 +33,7 @@ import com.eventmanager.pachanga.services.ProdutoService;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(value=ProdutoController.class)
-public class ProdutoControllerTest {
+class ProdutoControllerTest {
 
 	@Autowired
 	private MockMvc mockMvc;
@@ -87,7 +87,7 @@ public class ProdutoControllerTest {
 	
 //addProduto___________________________________________________________________________________________________
 	@Test
-	public void addProdutoSucessoTest() throws Exception {
+	void addProdutoSucessoTest() throws Exception {
 		String uri = "/produto/addProduto";
 		String json = "{\"codFesta\":2,\"precoMedio\":23.90,\"marca\":\"capsula\"}";
 		Produto produto = produtoTest();
@@ -115,7 +115,7 @@ public class ProdutoControllerTest {
 	}
 	
 	@Test
-	public void addProdutoExceptionTest() throws Exception {
+	void addProdutoExceptionTest() throws Exception {
 		String uri = "/produto/addProduto";
 		String json = "{\"codFesta\":2,\"precoMedio\":23.90,\"marca\":\"capsula\"}";
 		String erro = "Exception";
@@ -140,7 +140,7 @@ public class ProdutoControllerTest {
 	
 //addProdutoEstoque____________________________________________________________________________________________
 	@Test
-	public void addProdutoEstoqueSucessoTest() throws Exception {
+	void addProdutoEstoqueSucessoTest() throws Exception {
 		String uri = "/produto/addProdutoEstoque";
 		String json = "{\"codFesta\":2,\"quantidadeMax\":100,\"quantiadadeAtual\":23,\"porcentagemMin\":15}";
 		ItemEstoque itemEstoque = ItemEstoqueTest();
@@ -168,7 +168,7 @@ public class ProdutoControllerTest {
 	}
 	
 	@Test
-	public void addProdutoExceptionSucessoTest() throws Exception {
+	void addProdutoExceptionSucessoTest() throws Exception {
 		String uri = "/produto/addProdutoEstoque";
 		String json = "{\"codFesta\":2,\"quantidadeMax\":100,\"quantiadadeAtual\":23,\"porcentagemMin\":15}";
 		String erro = "Exception";
@@ -194,7 +194,7 @@ public class ProdutoControllerTest {
 	
 //removerProduto___________________________________________________________________________________________________
 	@Test
-	public void removerProdutoSucessoTest() throws Exception {
+	void removerProdutoSucessoTest() throws Exception {
 		String uri = "/produto/removerProduto";
 		
 		Mockito.doNothing().when(produtoService).removerProduto(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt());
@@ -215,7 +215,7 @@ public class ProdutoControllerTest {
 	}
 	
 	@Test
-	public void removerProdutoExceptionTest() throws Exception {
+	void removerProdutoExceptionTest() throws Exception {
 		String uri = "/produto/removerProduto";
 		String erro = "Exception";
 		
@@ -238,7 +238,7 @@ public class ProdutoControllerTest {
 		
 //removerProdutoEstoque____________________________________________________________________________________________
 	@Test
-	public void removerProdutoEstoqueSucessoTest() throws Exception {
+	void removerProdutoEstoqueSucessoTest() throws Exception {
 		String uri = "/produto/removerProdutoEstoque";
 		
 		Mockito.doNothing().when(produtoService).removerProdutoEstoque(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt());
@@ -259,7 +259,7 @@ public class ProdutoControllerTest {
 	}
 	
 	@Test
-	public void removerProdutoEstoqueExceptionTest() throws Exception {
+	void removerProdutoEstoqueExceptionTest() throws Exception {
 		String uri = "/produto/removerProdutoEstoque";
 		String erro = "Exception";
 		
@@ -283,7 +283,7 @@ public class ProdutoControllerTest {
 		
 //editarProduto_________________________________________________________________________________________________	
 	@Test
-	public void editarProdutoSucessoTest() throws Exception {
+	void editarProdutoSucessoTest() throws Exception {
 		String uri = "/produto/editarProduto";
 		String json = "{\"codProduto\":1,\"codFesta\":2,\"precoMedio\":23.90,\"marca\":\"capsula\"}";
 		Produto produto = produtoTest();
@@ -310,7 +310,7 @@ public class ProdutoControllerTest {
 	}
 	
 	@Test
-	public void editarProdutoExceptionTest() throws Exception {
+	void editarProdutoExceptionTest() throws Exception {
 		String uri = "/produto/editarProduto";
 		String json = "{\"codProduto\":1,\"codFesta\":2,\"precoMedio\":23.90,\"marca\":\"capsula\"}";
 		String erro = "Exception";
@@ -334,7 +334,7 @@ public class ProdutoControllerTest {
 		
 //addProdutoEstoque____________________________________________________________________________________________
 	@Test
-	public void editarProdutoEstoqueSucessoTest() throws Exception {
+	void editarProdutoEstoqueSucessoTest() throws Exception {
 		String uri = "/produto/editarProdutoEstoque";
 		String json = "{\"codProduto\":1,\"codEstoque\":1,\"codFesta\":2,\"quantidadeMax\":100,\"quantiadadeAtual\":23,\"porcentagemMin\":15}";
 		ItemEstoque itemEstoque = ItemEstoqueTest();
@@ -356,7 +356,7 @@ public class ProdutoControllerTest {
 	}
 	
 	@Test
-	public void editarProdutoEstoqueExceptionTest() throws Exception {
+	void editarProdutoEstoqueExceptionTest() throws Exception {
 		String uri = "/produto/editarProdutoEstoque";
 		String json = "{\"codProduto\":1,\"codEstoque\":1,\"codFesta\":2,\"quantidadeMax\":100,\"quantiadadeAtual\":23,\"porcentagemMin\":15}";
 		String erro = "Exception";
@@ -378,7 +378,7 @@ public class ProdutoControllerTest {
 	}
 	
 	@Test
-	public void listaProdutoExceptionTest() throws Exception {
+	void listaProdutoExceptionTest() throws Exception {
 		String uri = "/produto/lista";
 		String erro = "Exception";
 		
@@ -402,7 +402,7 @@ public class ProdutoControllerTest {
 	}
 	
 	@Test
-	public void listaProdutoSucessoTest() throws Exception {
+	void listaProdutoSucessoTest() throws Exception {
 		String uri = "/produto/lista";
 		
 		List<ProdutoTO> produtosTo = new ArrayList<>();
@@ -430,7 +430,7 @@ public class ProdutoControllerTest {
 	}
 	
 	@Test
-	public void getProdutoExceptionTest() throws Exception {
+	void getProdutoExceptionTest() throws Exception {
 		String uri = "/produto/produtoUnico";
 		String erro = "Exception";
 		
@@ -456,7 +456,7 @@ public class ProdutoControllerTest {
 	}
 	
 	@Test
-	public void getProdutoSucessoTest() throws Exception {
+	void getProdutoSucessoTest() throws Exception {
 		String uri = "/produto/produtoUnico";
 		
 		List<ProdutoTO> produtosTo = new ArrayList<>();
@@ -480,6 +480,53 @@ public class ProdutoControllerTest {
 	
 		assertEquals(200, response.getStatus());
 		assertEquals(expected, result.getResponse().getContentAsString());
+	}
+	
+	@Test
+	void baixaProdutoEstoqueSucessoTest() throws Exception {
+		String uri = "/produto/baixaProdutoEstoque";
+		ItemEstoque itemEstoque = ItemEstoqueTest();
+		
+		Mockito.when(produtoService.baixaProduto(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(itemEstoque);
+			
+		RequestBuilder requestBuilder = MockMvcRequestBuilders
+				.put(uri)
+				.accept(MediaType.APPLICATION_JSON)
+				.param("codProduto", "1")
+				.param("codEstoque", "1")
+				.param("quantidade", "1")
+				.param("idUsuarioPermissao", "1")
+				.contentType(MediaType.APPLICATION_JSON);
+
+		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+
+		MockHttpServletResponse response = result.getResponse();
+			
+		assertEquals(HttpStatus.OK.value(), response.getStatus());
+	}
+	
+	@Test
+	void baixaProdutoEstoqueExceptionTest() throws Exception {
+		String uri = "/produto/baixaProdutoEstoque";
+		String erro = "Exception";
+		
+		Mockito.when(produtoService.baixaProduto(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenThrow(new ValidacaoException(erro));
+			
+		RequestBuilder requestBuilder = MockMvcRequestBuilders
+				.put(uri)
+				.accept(MediaType.APPLICATION_JSON)
+				.param("codProduto", "1")
+				.param("codEstoque", "1")
+				.param("quantidade", "1")
+				.param("idUsuarioPermissao", "1")
+				.contentType(MediaType.APPLICATION_JSON);
+
+		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+
+		MockHttpServletResponse response = result.getResponse();
+			
+		assertEquals(400, response.getStatus());
+		assertEquals(erro, result.getResponse().getContentAsString());
 	}
 
 }

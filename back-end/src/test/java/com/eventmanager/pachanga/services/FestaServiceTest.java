@@ -1,27 +1,25 @@
 package com.eventmanager.pachanga.services;
 
-import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.doNothing;
 
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.junit.Before;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
-import com.eventmanager.pachanga.controllers.UsuarioControllerTest;
 import com.eventmanager.pachanga.domains.Categoria;
 import com.eventmanager.pachanga.domains.CategoriasFesta;
 import com.eventmanager.pachanga.domains.Festa;
@@ -30,54 +28,60 @@ import com.eventmanager.pachanga.domains.Usuario;
 import com.eventmanager.pachanga.dtos.FestaTO;
 import com.eventmanager.pachanga.dtos.UsuarioTO;
 import com.eventmanager.pachanga.errors.ValidacaoException;
+import com.eventmanager.pachanga.factory.FestaFactory;
 import com.eventmanager.pachanga.repositories.CategoriaRepository;
 import com.eventmanager.pachanga.repositories.CategoriasFestaRepository;
+import com.eventmanager.pachanga.repositories.ConvidadoRepository;
+import com.eventmanager.pachanga.repositories.EstoqueRepository;
 import com.eventmanager.pachanga.repositories.FestaRepository;
 import com.eventmanager.pachanga.repositories.GrupoRepository;
-import com.eventmanager.pachanga.repositories.PermissaoRepository;
+import com.eventmanager.pachanga.repositories.ProdutoRepository;
 import com.eventmanager.pachanga.repositories.UsuarioRepository;
 import com.eventmanager.pachanga.tipo.TipoCategoria;
 
 
 @RunWith(MockitoJUnitRunner.class)
 @WebMvcTest(value=FestaService.class)
-public class FestaServiceTest {
+class FestaServiceTest {
+	
+	@MockBean
+	private FestaRepository festaRepository;
 
 	@MockBean
 	private UsuarioRepository usuarioRepository;
 
 	@MockBean
-	private FestaRepository festaRepository;
-
-	@Autowired
-	private FestaService festaService;
-	
-	@MockBean
-	public GrupoService grupoService;
-
-	@MockBean
 	private GrupoRepository grupoRepository;
 	
 	@MockBean
-	private PermissaoRepository permissaoRepository;
-	
+	private ConvidadoRepository convidadoRepository;
+
 	@MockBean
 	private CategoriasFestaRepository categoriasFestaRepository;
 
 	@MockBean
 	private CategoriaRepository categoriaRepository;
 	
+	@MockBean 
+	private EstoqueRepository estoqueRepository;
+	
+	@MockBean
+	private ProdutoRepository produtoRepository;
+
+	@MockBean
+	private GrupoService grupoService;
+
 	@MockBean
 	private EstoqueService estoqueService;
 	
+	@MockBean
+	private FestaFactory festaFactory;
+
+	@Autowired
+	private FestaService festaService;
+	
 
 	//metodos auxiliares___________________________________________________________________________________________________________________________________	
-	@Before
-	public void init_mocks() {
-	    MockitoAnnotations.initMocks(this);
-	}
-	
-	
 	
 	public FestaTO festaTOTest() throws Exception{
 		FestaTO festaTest = new FestaTO();
@@ -108,6 +112,58 @@ public class FestaServiceTest {
 		usuarios.add(usuario2);
 
 		return festaTest;
+	}
+	
+	@SuppressWarnings("deprecation")
+	public Usuario usuarioTest() throws Exception{
+		Usuario usuarioTest = new Usuario();
+		
+		usuarioTest.setCodUsuario(100);
+		usuarioTest.setEmail("gustavinhoTPD@fodasse.com.br");
+		usuarioTest.setSenha("1234");
+		usuarioTest.setDtNasc(new Date(2000, 8, 27));
+		usuarioTest.setSexo("M");
+		usuarioTest.setNomeUser("Gustavo Barbosa");
+		
+		return usuarioTest;
+	}
+	
+	public List<Usuario> colecaoDeUsuario(int quantidadeUsuarios) throws Exception {
+		List<Usuario> usuarios = null;
+		
+		if(quantidadeUsuarios >= 1) {		
+			usuarios = new ArrayList<Usuario>();
+			
+			Usuario usuarioTest1 = usuarioTest();
+			usuarioTest1.setCodUsuario(1);
+			usuarioTest1.setNomeUser("Andrey");
+	
+			usuarios.add(usuarioTest1);
+		 
+			if(quantidadeUsuarios >= 2) {	
+				Usuario usuarioTest2 = usuarioTest();
+				usuarioTest2.setCodUsuario(2);
+				usuarioTest2.setNomeUser("Luis");
+		
+				usuarios.add(usuarioTest2);
+			} 
+			if(quantidadeUsuarios >= 3) {		
+				Usuario usuarioTest3 = usuarioTest();
+				usuarioTest3.setCodUsuario(3);
+				usuarioTest3.setNomeUser("Tiago");
+		
+				usuarios.add(usuarioTest3);
+			} 
+			if(quantidadeUsuarios >= 4) {		
+				Usuario usuarioTest4 = usuarioTest();
+				usuarioTest4.setCodUsuario(4);
+				usuarioTest4.setNomeUser("Guilherme");
+		
+				usuarios.add(usuarioTest4);
+			}
+		}
+		
+		return usuarios;
 	}
 	
 	public Grupo criacaoGrupo() {
@@ -154,7 +210,7 @@ public class FestaServiceTest {
 	//procurarFestasTest_______________________________________________________________________________________________________________________________________	
 
 	@Test
-	public void procurarFestasTest() throws Exception {
+	void procurarFestasTest() throws Exception {
 		Festa festa1 = festaTest();
 		festa1.setCodFesta(1);
 		festa1.setNomeFesta("festa1");
@@ -182,7 +238,7 @@ public class FestaServiceTest {
 
 	//procurarFestasPorUsuario_________________________________________________________________________________________________________________________
 	@Test
-	public void procurarFestasPorUsuarioTest() throws Exception {
+	void procurarFestasPorUsuarioTest() throws Exception {
 		Festa festa1 = festaTest();
 		festa1.setCodFesta(1);
 		festa1.setNomeFesta("festa1");
@@ -215,7 +271,7 @@ public class FestaServiceTest {
 
 	//add festa_____________________________________________________________________________________________________________________________________	
 	@Test
-	public void addFestaUsuarioInexistenteTest() throws Exception{
+	void addFestaUsuarioInexistenteTest() throws Exception{
 		FestaTO festaTO = festaTOTest();
 		int idUser = 1;
 
@@ -244,7 +300,7 @@ public class FestaServiceTest {
 	}
 	
 	@Test
-	public void addFestaErroTest() throws Exception{
+	void addFestaErroTest() throws Exception{
 		FestaTO festaTO = festaTOTest();
 		festaTO.setCodSecundaria(1);
 		festaTO.setCodPrimaria(1);
@@ -277,7 +333,7 @@ public class FestaServiceTest {
 	}
 	
 	@Test
-	public void addFestaErroCodPrimarioTest() throws Exception{
+	void addFestaErroCodPrimarioTest() throws Exception{
 		FestaTO festaTO = festaTOTest();
 		festaTO.setCodPrimaria(0);
 		int idUser = 1;
@@ -309,7 +365,7 @@ public class FestaServiceTest {
 	}
 	
 	@Test
-	public void addFestaErroCategoriaNaoEncontradoTest() throws Exception{
+	void addFestaErroCategoriaNaoEncontradoTest() throws Exception{
 		FestaTO festaTO = festaTOTest();
 		int idUser = 1;
 
@@ -326,6 +382,7 @@ public class FestaServiceTest {
 		doNothing().when(categoriasFestaRepository).addCategoriasFesta(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyString());
 		Mockito.when(categoriaRepository.findByCodCategoria(Mockito.anyInt())).thenReturn(null,categoriaTest());
 		Mockito.when(grupoService.addGrupo(Mockito.anyInt(), Mockito.anyString(), Mockito.anyBoolean(), Mockito.isNull())).thenReturn(criacaoGrupo());
+		Mockito.when(festaFactory.getFesta(Mockito.any())).thenReturn(festaTest());
 
 		Festa retorno = null;
 		boolean erro = false;
@@ -341,7 +398,7 @@ public class FestaServiceTest {
 
 
 	@Test
-	public void addFestavalidarUsuarioExceptionTest() throws Exception {
+	void addFestavalidarUsuarioExceptionTest() throws Exception {
 		FestaTO festaTO = festaTOTest();
 		int idUser = 1;
 
@@ -358,6 +415,7 @@ public class FestaServiceTest {
 		doNothing().when(categoriasFestaRepository).addCategoriasFesta(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyString());
 		Mockito.when(categoriaRepository.findByCodCategoria(Mockito.anyInt())).thenReturn(categoriaTest(),categoriaTest());
 		Mockito.when(grupoService.addGrupo(Mockito.anyInt(), Mockito.anyString(), Mockito.anyBoolean(), Mockito.isNull())).thenReturn(criacaoGrupo());
+		Mockito.when(festaFactory.getFesta(Mockito.any())).thenReturn(festaTest());
 
 		Festa retorno = festaService.addFesta(festaTO, idUser);
 		assertEquals(retorno.getCodFesta(), festaTO.getCodFesta());
@@ -369,7 +427,7 @@ public class FestaServiceTest {
 	//delete Festa_____________________________________________________________________________________________________________________________________	
 
 	@Test
-	public void deleteFestaTest() throws Exception {
+	void deleteFestaTest() throws Exception {
 		FestaTO festaTO = festaTOTest();
 		Festa festaTest = festaTest();
 
@@ -414,7 +472,7 @@ public class FestaServiceTest {
 	}
 	
 	@Test
-	public void deleteFestaTestErro() throws Exception {
+	void deleteFestaTestErro() throws Exception {
 		FestaTO festaTO = festaTOTest();
 		Festa festaTest = festaTest();
 		Festa festaTestIni = festaTest();
@@ -474,7 +532,7 @@ public class FestaServiceTest {
 	//estou usando o update para testar métodos privados do service	
 
 	@Test
-	public void updateFestaTest() throws Exception {
+	void updateFestaTest() throws Exception {
 		FestaTO festaTO = festaTOTest();
 		Festa festaTest = festaTest();
 
@@ -507,14 +565,12 @@ public class FestaServiceTest {
 
 		Festa retorno = festaService.updateFesta(festaTO, idUser);
 
-		//assertFalse(retorno.getNomeFesta().equals(festaTest.getNomeFesta()));  / do jeito que esta service atualmente, não tem como testar de fato
-		//assertFalse(retorno.getDescricaoFesta().equals(festaTest.getDescricaoFesta()));
 		assertEquals(retorno.getCodEnderecoFesta(), festaTest.getCodEnderecoFesta());
 		assertEquals(retorno.getOrganizador(), festaTest.getOrganizador());
 	}
 	
 	@Test
-	public void updateFestaAlterandoInfoTest() throws Exception {
+	void updateFestaAlterandoInfoTest() throws Exception {
 		FestaTO festaTO = festaTOTest();
 		festaTO.setNomeFesta("teste124215");
 		festaTO.setCodEnderecoFesta("jasdgudhashdasoidjhas8udhasi");
@@ -561,7 +617,7 @@ public class FestaServiceTest {
 	}
 	
 	@Test
-	public void updateFestaCategoriaTest() throws Exception {
+	void updateFestaCategoriaTest() throws Exception {
 		FestaTO festaTO = festaTOTest();
 		festaTO.setCodPrimaria(3);
 		Festa festaTest = festaTest();
@@ -595,14 +651,12 @@ public class FestaServiceTest {
 
 		Festa retorno = festaService.updateFesta(festaTO, idUser);
 
-		//assertFalse(retorno.getNomeFesta().equals(festaTest.getNomeFesta()));  / do jeito que esta service atualmente, não tem como testar de fato
-		//assertFalse(retorno.getDescricaoFesta().equals(festaTest.getDescricaoFesta()));
 		assertEquals(retorno.getCodEnderecoFesta(), festaTest.getCodEnderecoFesta());
 		assertEquals(retorno.getOrganizador(), festaTest.getOrganizador());
 	}
 	
 	@Test
-	public void updateFestaSemPermissaoTest() throws Exception {
+	void updateFestaSemPermissaoTest() throws Exception {
 		FestaTO festaTO = festaTOTest();
 		Festa festaTest = festaTest();
 
@@ -643,7 +697,7 @@ public class FestaServiceTest {
 	}
 
 	@Test
-	public void updateFestaExceptionTest() throws Exception {
+	 void updateFestaExceptionTest() throws Exception {
 		FestaTO festaTO = festaTOTest();
 		Festa festaTest = festaTest();
 
@@ -683,7 +737,7 @@ public class FestaServiceTest {
 	}
 
 	@Test
-	public void updateFestaUsuarioSemPermissaoTest() throws Exception {
+	void updateFestaUsuarioSemPermissaoTest() throws Exception {
 		FestaTO festaTO = festaTOTest();
 		Festa festaTest = festaTest();
 
@@ -723,7 +777,7 @@ public class FestaServiceTest {
 	}
 
 	@Test
-	public void updateFestaValidacaoDataErroTest() throws Exception {
+	void updateFestaValidacaoDataErroTest() throws Exception {
 		FestaTO festaTO = festaTOTest();
 		festaTO.setHorarioInicioFesta(LocalDateTime.of(2046, Month.JUNE, 22, 19, 10));
 		festaTO.setHorarioFimFesta(LocalDateTime.of(2006, Month.JUNE, 22, 19, 10));
@@ -768,7 +822,7 @@ public class FestaServiceTest {
 	}
 
 	@Test
-	public void updateFestaValidacaoDataSecErroTest() throws Exception {
+	void updateFestaValidacaoDataSecErroTest() throws Exception {
 		FestaTO festaTO = festaTOTest();
 		festaTO.setHorarioInicioFesta(LocalDateTime.of(2046, Month.JUNE, 22, 19, 10)); 
 		festaTO.setHorarioFimFesta(LocalDateTime.of(2046, Month.JUNE, 22, 19, 10));
@@ -813,7 +867,7 @@ public class FestaServiceTest {
 	}
 
 	@Test
-	public void updateFestaNomeDuplicadoTest() throws Exception {
+	void updateFestaNomeDuplicadoTest() throws Exception {
 		FestaTO festaTO = festaTOTest();
 		Festa festaTest = festaTest();
 
@@ -857,7 +911,7 @@ public class FestaServiceTest {
 	}
 
 	@Test
-	public void updateFestaEnderecoNullTest() throws Exception {
+	void updateFestaEnderecoNullTest() throws Exception {
 		FestaTO festaTO = festaTOTest();
 		festaTO.setCodEnderecoFesta(null);
 
@@ -905,25 +959,25 @@ public class FestaServiceTest {
 
 	//procurar festa____________________________________________________________________________________________________________________________________
 	@Test
-	public void procurarFestaTest() throws Exception {
+	void procurarFestaTest() throws Exception {
 		Festa festaTest = festaTest();
 
 		Mockito.when(festaRepository.findByCodFesta(Mockito.any(Integer.class))).thenReturn(festaTest);
 
-		Mockito.when(usuarioRepository.findBycodFestaAndUsuario(Mockito.any(Integer.class), Mockito.any(Integer.class))).thenReturn(UsuarioControllerTest.usuarioTest());
+		Mockito.when(usuarioRepository.findBycodFestaAndUsuario(Mockito.any(Integer.class), Mockito.any(Integer.class))).thenReturn(usuarioTest());
 		
-		Mockito.when(usuarioRepository.findById(Mockito.anyInt())).thenReturn(UsuarioControllerTest.usuarioTest());
+		Mockito.when(usuarioRepository.findById(Mockito.anyInt())).thenReturn(usuarioTest());
 
 		Festa retorno = festaService.procurarFesta(1, 2);
 
-		assertFalse(retorno == null);
+		assertNotNull(retorno);
 	}
 
 	@Test
-	public void procurarFestaErroTest() throws Exception{
+	void procurarFestaErroTest() throws Exception{
 		Festa festaTest = festaTest();
 		
-		Usuario usuario = UsuarioControllerTest.usuarioTest();
+		Usuario usuario = usuarioTest();
 
 		Mockito.when(usuarioRepository.findById(Mockito.anyInt())).thenReturn(usuario);
 		
@@ -943,7 +997,7 @@ public class FestaServiceTest {
 	}
 	
 	@Test
-	public void procurarFestaUsuarioNaoRelacionadoFestaErroTest() throws Exception{
+	void procurarFestaUsuarioNaoRelacionadoFestaErroTest() throws Exception{
 		Festa festaTest = festaTest();
 		
 		Mockito.when(usuarioRepository.findById(Mockito.any(Integer.class))).thenReturn(null);
@@ -965,7 +1019,7 @@ public class FestaServiceTest {
 
 	// funcionalidade Festa____________________________________________________________________________________________________________________________________
 	@Test
-	public void funcionalidadeFesta() throws Exception {
+	void funcionalidadeFesta() throws Exception {
 		List<String> expected = new ArrayList<>();
 		expected.add("Estagiário senior em iluminação");
 
@@ -979,15 +1033,15 @@ public class FestaServiceTest {
 	// mudar Status festa_______________________________________________________________________________________________________________________________________
 	
 	@Test
-	public void mudarStatusFestaErroTipoStatus() throws Exception {
+	void mudarStatusFestaErroTipoStatus() throws Exception {
 		
 		Festa festaTest = festaTest();
 		
 		Mockito.when(festaRepository.findByCodFesta(Mockito.any(Integer.class))).thenReturn(festaTest);
 
-		Mockito.when(usuarioRepository.findBycodFestaAndUsuario(Mockito.any(Integer.class), Mockito.any(Integer.class))).thenReturn(UsuarioControllerTest.usuarioTest());
+		Mockito.when(usuarioRepository.findBycodFestaAndUsuario(Mockito.any(Integer.class), Mockito.any(Integer.class))).thenReturn(usuarioTest());
 		
-		Mockito.when(usuarioRepository.findById(Mockito.anyInt())).thenReturn(UsuarioControllerTest.usuarioTest());
+		Mockito.when(usuarioRepository.findById(Mockito.anyInt())).thenReturn(usuarioTest());
 		
 		boolean erro = false;
 		
@@ -1008,13 +1062,13 @@ public class FestaServiceTest {
 	}
 	
 	@Test
-	public void mudarStatusFestaErroStatusNaoAlterado() throws Exception {
+	void mudarStatusFestaErroStatusNaoAlterado() throws Exception {
 		
 		Festa festaTest = festaTest();
 		
-		Mockito.when(usuarioRepository.findBycodFestaAndUsuario(Mockito.any(Integer.class), Mockito.any(Integer.class))).thenReturn(UsuarioControllerTest.usuarioTest());
+		Mockito.when(usuarioRepository.findBycodFestaAndUsuario(Mockito.any(Integer.class), Mockito.any(Integer.class))).thenReturn(usuarioTest());
 		
-		Mockito.when(usuarioRepository.findById(Mockito.anyInt())).thenReturn(UsuarioControllerTest.usuarioTest());
+		Mockito.when(usuarioRepository.findById(Mockito.anyInt())).thenReturn(usuarioTest());
 		
 		Mockito.when(festaRepository.findByCodFesta(Mockito.anyInt())).thenReturn(festaTest);
 		
@@ -1037,13 +1091,13 @@ public class FestaServiceTest {
 	}
 	
 	@Test
-	public void mudarStatusFestaErroStatusColocadoFinalizarSucesso() throws Exception {// erro para quando o usuário tenta colocar de preparação para finalizado o status da festa
+	void mudarStatusFestaErroStatusColocadoFinalizarSucesso() throws Exception {// erro para quando o usuário tenta colocar de preparação para finalizado o status da festa
 		
 		Festa festaTest = festaTest();
 		
-		Mockito.when(usuarioRepository.findBycodFestaAndUsuario(Mockito.any(Integer.class), Mockito.any(Integer.class))).thenReturn(UsuarioControllerTest.usuarioTest());
+		Mockito.when(usuarioRepository.findBycodFestaAndUsuario(Mockito.any(Integer.class), Mockito.any(Integer.class))).thenReturn(usuarioTest());
 		
-		Mockito.when(usuarioRepository.findById(Mockito.anyInt())).thenReturn(UsuarioControllerTest.usuarioTest());
+		Mockito.when(usuarioRepository.findById(Mockito.anyInt())).thenReturn(usuarioTest());
 		
 		Mockito.when(festaRepository.findByCodFesta(Mockito.anyInt())).thenReturn(festaTest);
 		
@@ -1065,13 +1119,13 @@ public class FestaServiceTest {
 	}
 	
 	@Test
-	public void mudarStatusFestaSucesso() throws Exception {
+	void mudarStatusFestaSucesso() throws Exception {
 		
 		Festa festaTest = festaTest();
 		
-		Mockito.when(usuarioRepository.findBycodFestaAndUsuario(Mockito.any(Integer.class), Mockito.any(Integer.class))).thenReturn(UsuarioControllerTest.usuarioTest());
+		Mockito.when(usuarioRepository.findBycodFestaAndUsuario(Mockito.any(Integer.class), Mockito.any(Integer.class))).thenReturn(usuarioTest());
 		
-		Mockito.when(usuarioRepository.findById(Mockito.anyInt())).thenReturn(UsuarioControllerTest.usuarioTest());
+		Mockito.when(usuarioRepository.findById(Mockito.anyInt())).thenReturn(usuarioTest());
 		
 		Mockito.when(festaRepository.findByCodFesta(Mockito.anyInt())).thenReturn(festaTest);
 		

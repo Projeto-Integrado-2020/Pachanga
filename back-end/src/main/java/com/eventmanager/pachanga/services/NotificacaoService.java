@@ -16,6 +16,7 @@ import com.eventmanager.pachanga.errors.ValidacaoException;
 import com.eventmanager.pachanga.factory.NotificacaoFactory;
 import com.eventmanager.pachanga.repositories.ConvidadoRepository;
 import com.eventmanager.pachanga.repositories.GrupoRepository;
+import com.eventmanager.pachanga.repositories.NotificacaoConvidadoRepository;
 import com.eventmanager.pachanga.repositories.NotificacaoGrupoRepository;
 import com.eventmanager.pachanga.repositories.NotificacaoRepository;
 import com.eventmanager.pachanga.repositories.NotificacaoUsuarioRepository;
@@ -40,24 +41,26 @@ public class NotificacaoService {
 
 	@Autowired
 	private NotificacaoUsuarioRepository notificacaoUsuarioRepository;
-	
+
 	@Autowired
 	private NotificacaoGrupoRepository notificacaoGrupoRepository;
-	
+
 	@Autowired
 	private NotificacaoFactory notificacaoFactory;
 	
+	@Autowired
+	private NotificacaoConvidadoRepository notificacaoConvidadoRepository;
 
-	public NotificacaoTO procurarNotificacaoUsuario(int idUser) {
-		this.validacaoUsuario(idUser, null);
-		return notificacaoFactory.getNotificacaoTO(notificacaoUsuarioRepository.findAll(), notificacaoGrupoRepository.findAll(), notificacaoRepository.findAll());
+	public NotificacaoTO procurarNotificacaoUsuario(int codUsuario) {
+		Usuario usuario = this.validacaoUsuario(codUsuario, null);
+		return notificacaoFactory.getNotificacaoTO(notificacaoUsuarioRepository.getNotificacoesUsuario(codUsuario), notificacaoGrupoRepository.getNotificacoesGrupo(codUsuario), notificacaoConvidadoRepository.findConvidadoNotificacaoByEmail(usuario.getEmail()));
 	}
 
-	public void deletarNotificacaoConvidado(String emailConvidado, int codNotificacao) {
+	public void deletarNotificacaoConvidado(Integer codConvidado, int codNotificacao, String mensagem) {
 		this.validarNotificacao(codNotificacao);
-		this.validacaoUsuario(0, emailConvidado);
-		Convidado convidado = this.validarConvidado(emailConvidado);
-		notificacaoRepository.deleteConvidadoNotificacao(convidado.getCodConvidado(), codNotificacao);
+		Convidado convidado = this.validarConvidado(codConvidado);
+		this.validacaoUsuario(0, convidado.getEmail());
+		notificacaoRepository.deleteConvidadoNotificacao(convidado.getCodConvidado(), codNotificacao, mensagem);
 	}
 
 	public void deletarNotificacaoGrupo(int codGrupo, int codNotificacao) {
@@ -72,15 +75,21 @@ public class NotificacaoService {
 		notificacaoRepository.insertNotificacaoGrupo(codGrupo, codNotificacao);
 	}
 
-	public void inserirNotificacaoConvidado(String emailConvidado, int codNotificacao) {
+	public void inserirNotificacaoConvidado(Integer codConvidado, int codNotificacao, String mensagem) {
 		this.validarNotificacao(codNotificacao);
-		this.validacaoUsuario(0, emailConvidado);
-		Convidado convidado = this.validarConvidado(emailConvidado);
-		notificacaoRepository.insertConvidadoNotificacao(convidado.getCodConvidado(), codNotificacao);
+		Convidado convidado = this.validarConvidado(codConvidado);
+		this.validacaoUsuario(0, convidado.getEmail());
+		notificacaoConvidadoRepository.insertConvidadoNotificacao(convidado.getCodConvidado(), codNotificacao, mensagem);
 	}
 
-	private Convidado validarConvidado(String emailConvidado) {
-		Convidado convidado = convidadoRepository.findByEmail(emailConvidado);
+	public void inserirNotificacaoUsuario(Integer codUsuario, Integer codNotificacao, String mensagem) {
+		this.validarNotificacao(codNotificacao);
+		this.validacaoUsuario(codUsuario, null);
+		notificacaoUsuarioRepository.insertNotificacaoUsuario(codUsuario, codNotificacao, false, TipoStatusNotificacao.NAOLIDA.getDescricao(), mensagem);
+	}
+
+	private Convidado validarConvidado(Integer codConvidado) {
+		Convidado convidado = convidadoRepository.findByIdConvidado(codConvidado);
 		if(convidado == null) {
 			throw new ValidacaoException("CONVNFOU");
 		}
@@ -94,7 +103,7 @@ public class NotificacaoService {
 		}
 	}
 
-	private void validacaoUsuario(int idUser, String emailConvidado) {
+	private Usuario validacaoUsuario(int idUser, String emailConvidado) {
 		Usuario usuario = null;
 		if(idUser != 0) {
 			usuario = usuarioRepository.findById(idUser);
@@ -104,6 +113,7 @@ public class NotificacaoService {
 		if(usuario == null) {
 			throw new ValidacaoException("USERNFOU");
 		}
+		return usuario;
 	}
 
 	private void validarNotificacao(int codNotificacao) {
@@ -122,9 +132,9 @@ public class NotificacaoService {
 		}
 	}
 
-	public void deleteNotificacao(int idUser, int codNotificacao) {
+	public void deleteNotificacao(int idUser, int codNotificacao, String mensagem) {
 		this.validacaoUsuario(idUser, null);
-		NotificacaoUsuario notificacaoUsuario = notificacaoUsuarioRepository.getNotificacaoUsuario(idUser, codNotificacao);
+		NotificacaoUsuario notificacaoUsuario = notificacaoUsuarioRepository.getNotificacaoUsuarioByMensagem(idUser, codNotificacao, mensagem);
 		if(notificacaoUsuario != null ) {
 			notificacaoUsuarioRepository.delete(notificacaoUsuario);
 		}

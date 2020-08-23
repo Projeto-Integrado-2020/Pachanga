@@ -1,6 +1,5 @@
 package com.eventmanager.pachanga.services;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -17,7 +16,9 @@ import com.eventmanager.pachanga.repositories.ConvidadoRepository;
 import com.eventmanager.pachanga.repositories.FestaRepository;
 import com.eventmanager.pachanga.repositories.GrupoRepository;
 import com.eventmanager.pachanga.repositories.UsuarioRepository;
+import com.eventmanager.pachanga.tipo.TipoNotificacao;
 import com.eventmanager.pachanga.tipo.TipoPermissao;
+import com.eventmanager.pachanga.tipo.TipoStatusFesta;
 import com.eventmanager.pachanga.utils.EmailMensagem;
 
 @Service
@@ -38,10 +39,13 @@ public class ConvidadoService {
 
 	@Autowired
 	private EmailMensagem emailMensagem;
+	
+	@Autowired
+	private NotificacaoService notificacaoService;
 
 	public StringBuilder addUsuariosFesta(List<String> emails, int codFesta, int idUsuario, int idGrupo) {
 		StringBuilder mensagemRetorno = new StringBuilder();
-		this.validarUsuario(idUsuario);
+		this.validarUsuario(idUsuario, null);
 		Grupo grupo = this.validarGrupoFesta(idGrupo, codFesta, idUsuario);
 		Festa festa = this.validarFesta(codFesta);
 		for(String email : emails) {
@@ -58,26 +62,39 @@ public class ConvidadoService {
 					Convidado convidado = new Convidado(convidadoRepository.getNextValMySequence(), email);
 					convidadoRepository.save(convidado);
 					convidadoRepository.saveConvidadoGrupo(convidado.getCodConvidado(), idGrupo);
+					notificacaoService.inserirNotificacaoConvidado(convidado.getCodConvidado(), TipoNotificacao.CONVFEST.getCodigo(), TipoNotificacao.CONVFEST.getValor() + "?" + idGrupo + "&" + convidado.getCodConvidado());
 				}
 			}
 		}
 		return mensagemRetorno;
 	}
 	
-	public List<Usuario> deleteUsuariosFesta(List<String> emails, int codFesta, int idUsuario, int idGrupo) {
-		List<Usuario> retorno = new ArrayList<>();
-		this.validarUsuario(idUsuario);
-		Grupo grupo = this.validarGrupoFesta(idGrupo, codFesta, idUsuario);
-		for(String email : emails) {
-			Usuario usuario = usuarioRepository.findByEmail(email);
-			if(usuario != null) {
-				grupoRepository.deleteUsuarioGrupo(usuario.getCodUsuario(), grupo.getCodGrupo());
-				retorno.add(usuario);
-			}else {
-				throw new ValidacaoException("USERNFOU - G" + idGrupo);
-			}
+	public void aceitarConvite(Integer codConvidado, Integer idGrupo) {
+		Convidado convidado = this.validarGrupoConvidado(codConvidado, idGrupo);
+		Usuario usuario = this.validarUsuario(0, convidado.getEmail());
+		convidado.getGrupos().stream().forEach(g ->
+			this.validarFesta(g.getFesta().getCodFesta())
+		);
+		grupoRepository.saveUsuarioGrupo(usuario.getCodUsuario(), idGrupo);
+		convidadoRepository.deleteConvidadoGrupo(convidado.getCodConvidado(), idGrupo);
+		notificacaoService.deletarNotificacaoConvidado(convidado.getCodConvidado(), TipoNotificacao.CONVFEST.getCodigo(), TipoNotificacao.CONVFEST.getValor() + "?" + idGrupo + "&" + convidado.getCodConvidado());
+		convidadoRepository.deleteConvidado(convidado.getCodConvidado());
+	}
+	
+	public void recusarConvite(Integer codConvidado, Integer idGrupo) {
+		Convidado convidado = this.validarGrupoConvidado(codConvidado, idGrupo);
+		this.validarUsuario(0,convidado.getEmail());
+		convidadoRepository.deleteConvidadoGrupo(convidado.getCodConvidado(), idGrupo);
+		notificacaoService.deletarNotificacaoConvidado(codConvidado, TipoNotificacao.CONVFEST.getCodigo(), TipoNotificacao.CONVFEST.getValor() + "?" + idGrupo + "&" + convidado.getCodConvidado());
+		convidadoRepository.deleteConvidado(convidado.getCodConvidado());
+	}
+
+	private Convidado validarGrupoConvidado(int codConvidado, int idGrupo) {
+		Convidado convidado = convidadoRepository.findConvidadoGrupo(codConvidado, idGrupo);
+		if(convidado == null) {
+			throw new ValidacaoException("CONVNGRU");// convidado nn relacionado ao grupo
 		}
-		return retorno;
+		return convidado;
 	}
 	
 	public List<Convidado> pegarConvidadosFesta(int codFesta){
@@ -88,8 +105,13 @@ public class ConvidadoService {
 		return convidadoRepository.findConvidadosNoGrupo(codGrupo);
 	}
 
-	private Usuario validarUsuario(int idUsuario) {
-		Usuario usuario = usuarioRepository.findById(idUsuario);
+	private Usuario validarUsuario(int idUsuario, String email) {
+		Usuario usuario = null;
+		if(email == null) {
+		usuario = usuarioRepository.findById(idUsuario);
+		} else {
+			usuario = usuarioRepository.findByEmail(email);
+		}
 		if(usuario == null) {
 			throw new ValidacaoException("USERNFOU");
 		}
@@ -113,6 +135,9 @@ public class ConvidadoService {
 		if(festa == null) {
 			throw new ValidacaoException("FESTNFOU");// festa não encontrado
 		}
+		if(!TipoStatusFesta.PREPARACAO.getValor().equals(festa.getStatusFesta())) {
+			throw new ValidacaoException("FESTNPRE");// festa tem que estar em preparação para realizar essa ação
+		}
 		return festa;
 	}
 
@@ -122,4 +147,5 @@ public class ConvidadoService {
 			throw new ValidacaoException("USESPERM");// usuário sem permissão
 		}
 	}
+
 }

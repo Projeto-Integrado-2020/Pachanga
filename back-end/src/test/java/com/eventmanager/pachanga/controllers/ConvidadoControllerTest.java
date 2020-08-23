@@ -22,7 +22,7 @@ import com.eventmanager.pachanga.services.ConvidadoService;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(value=ConvidadoController.class)
-public class ConvidadoControllerTest {
+class ConvidadoControllerTest {
 	
 	@Autowired
 	private MockMvc mockMvc;
@@ -39,7 +39,7 @@ public class ConvidadoControllerTest {
 	
 ///addUserFesta_______________________________________________________________________________________________
 	@Test
-	public void addUserFestaTest() throws Exception{
+	void addUserFestaTest() throws Exception{
 		String uri = "/convidado/addUserFesta";
 		
 		String emailsEnviados = "[\"luis_iruca@hotmail.com\",\"guga.72@hotmail.com\"]";
@@ -70,7 +70,7 @@ public class ConvidadoControllerTest {
 	}
 	
 	@Test
-	public void addUserFestaExceptionTest() throws Exception{
+	void addUserFestaExceptionTest() throws Exception{
 		String uri = "/convidado/addUserFesta";
 		
 		String expected = "addUserFesta";
@@ -96,4 +96,95 @@ public class ConvidadoControllerTest {
 		assertEquals(expected, result.getResponse().getContentAsString());
 		
 	}
+	
+//accConvite____________________________________________________________________________________________________________________________________________
+	@Test
+	void accConviteTest() throws Exception{
+		String uri = "/convidado/accConvite";
+		
+		
+		Mockito.doNothing().when(convidadoService).aceitarConvite(Mockito.anyInt(), Mockito.anyInt());
+		
+		RequestBuilder requestBuilder = MockMvcRequestBuilders
+				.post(uri)
+				.accept(MediaType.APPLICATION_JSON)
+				.param("codConvidado", "1")
+				.param("idGrupo", "14")
+				.contentType(MediaType.APPLICATION_JSON);
+		
+		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+		
+		MockHttpServletResponse response = result.getResponse();
+		
+		assertEquals(HttpStatus.OK.value(), response.getStatus());
+		
+	}
+	
+	@Test
+	void accConviteErroTest() throws Exception{
+		String uri = "/convidado/accConvite";
+		
+		
+		Mockito.doThrow(new ValidacaoException("teste")).when(convidadoService).aceitarConvite(Mockito.anyInt(), Mockito.anyInt());
+		
+		RequestBuilder requestBuilder = MockMvcRequestBuilders
+				.post(uri)
+				.accept(MediaType.APPLICATION_JSON)
+				.param("codConvidado", "1")
+				.param("idGrupo", "14")
+				.contentType(MediaType.APPLICATION_JSON);
+		
+		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+		
+		MockHttpServletResponse response = result.getResponse();
+		
+		assertEquals(400, response.getStatus());
+		
+	}
+	
+//recuConvite___________________________________________________________________________________________________________________________________
+	@Test
+	void recuConviteTest() throws Exception{
+		String uri = "/convidado/recuConvite";
+		
+		
+		Mockito.doNothing().when(convidadoService).recusarConvite(Mockito.anyInt(), Mockito.anyInt());
+		
+		RequestBuilder requestBuilder = MockMvcRequestBuilders
+				.post(uri)
+				.accept(MediaType.APPLICATION_JSON)
+				.param("codConvidado", "1")
+				.param("idGrupo", "14")
+				.contentType(MediaType.APPLICATION_JSON);
+		
+		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+		
+		MockHttpServletResponse response = result.getResponse();
+		
+		assertEquals(HttpStatus.OK.value(), response.getStatus());
+		
+	}
+	
+	@Test
+	void recuConviteErroTest() throws Exception{
+		String uri = "/convidado/recuConvite";
+		
+		
+		Mockito.doThrow(new ValidacaoException("teste")).when(convidadoService).recusarConvite(Mockito.anyInt(), Mockito.anyInt());
+		
+		RequestBuilder requestBuilder = MockMvcRequestBuilders
+				.post(uri)
+				.accept(MediaType.APPLICATION_JSON)
+				.param("codConvidado", "1")
+				.param("idGrupo", "14")
+				.contentType(MediaType.APPLICATION_JSON);
+		
+		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+		
+		MockHttpServletResponse response = result.getResponse();
+		
+		assertEquals(400, response.getStatus());
+		
+	}
+	
 }

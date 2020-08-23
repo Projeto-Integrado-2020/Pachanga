@@ -21,7 +21,7 @@ public interface UsuarioRepository extends CrudRepository<Usuario, Integer>{
 	
 	public Usuario findById(int idUsuario);
 	
-	@Query(value = "SELECT u FROM Usuario u JOIN u.grupos g JOIN g.festa f WHERE f.codFesta = :codFesta")
+	@Query(value = "SELECT DISTINCT u FROM Usuario u JOIN u.grupos g JOIN g.festa f WHERE f.codFesta = :codFesta")
 	public List<Usuario> findByIdFesta(int codFesta);
 	
 	@Query(value = "SELECT u FROM Usuario u JOIN u.grupos g JOIN g.festa f WHERE f.codFesta = :codFesta AND g.organizador = :organizador")
