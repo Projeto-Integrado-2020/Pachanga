@@ -119,17 +119,12 @@ public class FestaService {
 	public void deleteFesta(int idFesta, int idUser) {
 		validarPermissaoUsuario(idUser, idFesta, TipoPermissao.DELEFEST.getCodigo());
 		List<Grupo> grupos = grupoRepository.findGruposFesta(idFesta);
-		List<Convidado> convidados = convidadoRepository.findConvidadosByCodFesta(idFesta);
-		for(Grupo grupo : grupos) {
-			for(Convidado conv : convidados) {
-				grupoRepository.deleteConvidadoGrupo(conv.getCodConvidado(), grupo.getCodGrupo());
-				Integer convxgrup = grupoRepository.existsConvidadoGrupo(conv.getCodConvidado());
-				if(convxgrup == null) {
-					convidadoRepository.deleteConvidado(conv.getCodConvidado());
-				}
-			}
-			grupoRepository.deleteGrupo(grupo.getCodGrupo());
-		}
+		grupos.stream().forEach(g->{
+			grupoRepository.deleteUsuariosGrupo(g.getCodGrupo());
+			List<Convidado> convidados = convidadoRepository.findConvidadosNoGrupo(g.getCodGrupo());
+			convidadoRepository.deleteAll(convidados);
+		});
+		grupoRepository.deleteAll(grupos);
 		Set<CategoriasFesta> categorias = categoriasFestaRepository.findCategoriasFesta(idFesta);
 		categoriasFestaRepository.deleteAll(categorias);
 		

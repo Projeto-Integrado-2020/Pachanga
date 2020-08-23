@@ -127,10 +127,10 @@ public class GrupoController {
 
 	@ResponseBody
 	@PutMapping(path="/updateUsers")
-	public ResponseEntity<Object> editUsuarios(@RequestBody List<Integer> UsuariosId, @RequestParam (required = true) Integer idGrupo, @RequestParam (required = true) Integer idUsuarioPermissao){	
+	public ResponseEntity<Object> editUsuarios(@RequestBody List<Integer> usuariosId, @RequestParam (required = true) Integer idGrupo, @RequestParam (required = true) Integer idUsuarioPermissao){	
 		try {
 
-			grupoService.editUsuarios(UsuariosId, idGrupo, idUsuarioPermissao);
+			grupoService.editUsuarios(usuariosId, idGrupo, idUsuarioPermissao);
 			return ResponseEntity.ok().build();
 
 		} catch (ValidacaoException e) {
@@ -171,7 +171,6 @@ public class GrupoController {
 	@GetMapping(path = "/getAllGruposFesta")
 	public ResponseEntity<Object> getAllGruposFesta(@RequestParam(required = true)int codFesta, @RequestParam(required = true) int idUsuario){
 		try {
-			grupoService.validarPermissaoUsuario(codFesta, idUsuario);
 			GrupoTO grupoTO;
 			List<Usuario> usuarios = null;
 			List<Grupo> grupos = grupoService.procurarGruposPorFesta(codFesta);

@@ -598,6 +598,99 @@ class FestaControllerTest {
 		assertEquals(expected, result.getResponse().getContentAsString());
 
 	}
+	
+	//festaUnicaConvidado______________________________________________________________________________________________________________________________________________
+	@Test
+	void festaUnicaConvidadoSucesso() throws Exception{
+
+		String uri = "/festa/festaUnicaConvidado";
+
+		Mockito.when(festaService.procurarFestaConvidado(Mockito.anyInt(), Mockito.anyInt())).thenReturn(this.festaTest());
+
+		Mockito.when(festaFactory.getFestaTO(Mockito.any())).thenReturn(festaToTest());
+
+		RequestBuilder requestBuilder = MockMvcRequestBuilders
+				.get(uri)
+				.accept(MediaType.APPLICATION_JSON)
+				.param("codGrupo", "2")
+				.param("codConvidado", "1")
+				.contentType(MediaType.APPLICATION_JSON);
+
+		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+
+		MockHttpServletResponse response = result.getResponse();
+
+		assertEquals(HttpStatus.OK.value(), response.getStatus());		
+	}
+	
+	@Test
+	void festaUnicaConvidadoSemFestaSucesso() throws Exception{
+
+		String uri = "/festa/festaUnicaConvidado";
+
+		Mockito.when(festaService.procurarFestaConvidado(Mockito.anyInt(), Mockito.anyInt())).thenReturn(null);
+
+		Mockito.when(festaFactory.getFestaTO(Mockito.any())).thenReturn(festaToTest());
+
+		RequestBuilder requestBuilder = MockMvcRequestBuilders
+				.get(uri)
+				.accept(MediaType.APPLICATION_JSON)
+				.param("codGrupo", "2")
+				.param("codConvidado", "1")
+				.contentType(MediaType.APPLICATION_JSON);
+
+		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+
+		MockHttpServletResponse response = result.getResponse();
+
+		assertEquals(HttpStatus.OK.value(), response.getStatus());		
+	}
+	
+	@Test
+	void festaUnicaConvidadoComFestaSucesso() throws Exception{
+
+		String uri = "/festa/festaUnicaConvidado";
+
+		Mockito.when(festaService.procurarFestaConvidado(Mockito.anyInt(), Mockito.anyInt())).thenReturn(festaTest());
+
+		Mockito.when(festaFactory.getFestaTO(Mockito.any())).thenReturn(festaToTest());
+
+		RequestBuilder requestBuilder = MockMvcRequestBuilders
+				.get(uri)
+				.accept(MediaType.APPLICATION_JSON)
+				.param("codGrupo", "2")
+				.param("codConvidado", "1")
+				.contentType(MediaType.APPLICATION_JSON);
+
+		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+
+		MockHttpServletResponse response = result.getResponse();
+
+		assertEquals(HttpStatus.OK.value(), response.getStatus());		
+	}
+	
+	@Test
+	void festaUnicaConvidadoErro() throws Exception{
+
+		String uri = "/festa/festaUnicaConvidado";
+
+		Mockito.when(festaService.procurarFestaConvidado(Mockito.anyInt(), Mockito.anyInt())).thenThrow(new ValidacaoException("teste"));
+
+		Mockito.when(festaFactory.getFestaTO(Mockito.any())).thenThrow(new ValidacaoException("teste"));
+
+		RequestBuilder requestBuilder = MockMvcRequestBuilders
+				.get(uri)
+				.accept(MediaType.APPLICATION_JSON)
+				.param("codGrupo", "2")
+				.param("codConvidado", "1")
+				.contentType(MediaType.APPLICATION_JSON);
+
+		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+
+		MockHttpServletResponse response = result.getResponse();
+
+		assertEquals(400, response.getStatus());		
+	}
 
 
 }
