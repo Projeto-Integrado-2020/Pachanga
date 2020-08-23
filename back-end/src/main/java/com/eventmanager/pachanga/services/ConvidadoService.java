@@ -108,7 +108,7 @@ public class ConvidadoService {
 	private Usuario validarUsuario(int idUsuario, String email) {
 		Usuario usuario = null;
 		if(email == null) {
-		usuario = usuarioRepository.findById(idUsuario);
+			usuario = usuarioRepository.findById(idUsuario);
 		} else {
 			usuario = usuarioRepository.findByEmail(email);
 		}

@@ -1,5 +1,7 @@
 package com.eventmanager.pachanga.builder;
 
+import java.time.LocalDateTime;
+
 import com.eventmanager.pachanga.dtos.NotificacaoUsuarioTO;
 
 public class NotificacaoUsuarioTOBuilder {
@@ -13,6 +15,8 @@ public class NotificacaoUsuarioTOBuilder {
 	private String status;
 
 	private String mensagem;
+	
+	private LocalDateTime dataEmissao;
 	
 	public static NotificacaoUsuarioTOBuilder getInstance() {
 		return new NotificacaoUsuarioTOBuilder();
@@ -43,6 +47,11 @@ public class NotificacaoUsuarioTOBuilder {
 		return this;
 	}
 	
+	public NotificacaoUsuarioTOBuilder dataEmissao(LocalDateTime dataEmissao) {
+		this.dataEmissao = dataEmissao;
+		return this;
+	}
+	
 	public NotificacaoUsuarioTO build() {
 		NotificacaoUsuarioTO notUsuarioTo = new NotificacaoUsuarioTO();
 		notUsuarioTo.setCodUsuario(codUsuario);
@@ -50,6 +59,7 @@ public class NotificacaoUsuarioTOBuilder {
 		notUsuarioTo.setMensagem(mensagem);
 		notUsuarioTo.setNotificacao(codNotificacao);
 		notUsuarioTo.setStatus(status);
+		notUsuarioTo.setDataEmissao(dataEmissao);
 		return notUsuarioTo;
 	}
 	

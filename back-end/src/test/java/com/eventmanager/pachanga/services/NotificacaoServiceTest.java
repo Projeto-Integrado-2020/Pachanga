@@ -251,11 +251,11 @@ class NotificacaoServiceTest {
 
 		Mockito.when(notificacaoRepository.findByCodNotificacao(Mockito.anyInt())).thenReturn(notificacaoTest());
 
-		doNothing().when(notificacaoRepository).insertNotificacaoGrupo(Mockito.anyInt(), Mockito.anyInt());
+		doNothing().when(notificacaoRepository).insertNotificacaoGrupo(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyString(), Mockito.any());
 
 		Mockito.when(grupoRepository.findByCod(Mockito.anyInt())).thenReturn(new Grupo());
 
-		notificacaoService.inserirNotificacaoGrupo(1,100);
+		notificacaoService.inserirNotificacaoGrupo(1, 100, Mockito.anyString());
 
 	}
 
@@ -271,7 +271,7 @@ class NotificacaoServiceTest {
 
 		Mockito.when(usuarioRepository.findByEmail(Mockito.anyString())).thenReturn(usuarioTest());
 
-		doNothing().when(notificacaoConvidadoRepository).insertConvidadoNotificacao(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyString());
+		doNothing().when(notificacaoConvidadoRepository).insertConvidadoNotificacao(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyString(), Mockito.any());
 
 		notificacaoService.inserirNotificacaoConvidado(1,100, "teste");
 

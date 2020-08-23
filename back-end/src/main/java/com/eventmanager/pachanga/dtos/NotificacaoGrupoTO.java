@@ -1,5 +1,7 @@
 package com.eventmanager.pachanga.dtos;
 
+import java.time.LocalDateTime;
+
 public class NotificacaoGrupoTO {
 
 	private int codGrupo;
@@ -7,6 +9,8 @@ public class NotificacaoGrupoTO {
 	private int codNotificacao;
 
 	private String mensagem;
+	
+	private LocalDateTime dataEmissao;
 
 	public int getGrupo() {
 		return codGrupo;
@@ -30,6 +34,14 @@ public class NotificacaoGrupoTO {
 
 	public void setMensagem(String mensagem) {
 		this.mensagem = mensagem;
+	}
+	
+	public LocalDateTime getDataEmissao() {
+		return dataEmissao;
+	}
+
+	public void setDataEmissao(LocalDateTime dataEmissao) {
+		this.dataEmissao = dataEmissao;
 	}
 
 }

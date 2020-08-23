@@ -23,6 +23,7 @@ import com.eventmanager.pachanga.repositories.ItemEstoqueRepository;
 import com.eventmanager.pachanga.repositories.NotificacaoGrupoRepository;
 import com.eventmanager.pachanga.repositories.NotificacaoRepository;
 import com.eventmanager.pachanga.repositories.ProdutoRepository;
+import com.eventmanager.pachanga.tipo.TipoNotificacao;
 import com.eventmanager.pachanga.tipo.TipoPermissao;
 
 @Service
@@ -293,7 +294,7 @@ public class ProdutoService {
 			
 			for(Grupo grupo : grupos) {
 				if(notificacaoService.verificarNotificacaoGrupo(grupo.getCodGrupo(), 3) == false) {
-					notificacaoService.inserirNotificacaoGrupo(grupo.getCodGrupo(), 3);	
+					notificacaoService.inserirNotificacaoGrupo(grupo.getCodGrupo(), 3, TipoNotificacao.ESTBAIXO + "?" + codFesta + "&" + itemEstoque.getEstoque().getCodEstoque() + "&" + itemEstoque.getProduto().getCodProduto());	
 				}
 			}
 		}
