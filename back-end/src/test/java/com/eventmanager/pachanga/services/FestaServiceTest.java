@@ -31,9 +31,11 @@ import com.eventmanager.pachanga.errors.ValidacaoException;
 import com.eventmanager.pachanga.factory.FestaFactory;
 import com.eventmanager.pachanga.repositories.CategoriaRepository;
 import com.eventmanager.pachanga.repositories.CategoriasFestaRepository;
+import com.eventmanager.pachanga.repositories.ConvidadoRepository;
+import com.eventmanager.pachanga.repositories.EstoqueRepository;
 import com.eventmanager.pachanga.repositories.FestaRepository;
 import com.eventmanager.pachanga.repositories.GrupoRepository;
-import com.eventmanager.pachanga.repositories.PermissaoRepository;
+import com.eventmanager.pachanga.repositories.ProdutoRepository;
 import com.eventmanager.pachanga.repositories.UsuarioRepository;
 import com.eventmanager.pachanga.tipo.TipoCategoria;
 
@@ -41,36 +43,42 @@ import com.eventmanager.pachanga.tipo.TipoCategoria;
 @RunWith(MockitoJUnitRunner.class)
 @WebMvcTest(value=FestaService.class)
 class FestaServiceTest {
+	
+	@MockBean
+	private FestaRepository festaRepository;
 
 	@MockBean
 	private UsuarioRepository usuarioRepository;
 
 	@MockBean
-	private FestaRepository festaRepository;
-
-	@Autowired
-	private FestaService festaService;
-	
-	@MockBean
-	public GrupoService grupoService;
-
-	@MockBean
 	private GrupoRepository grupoRepository;
 	
 	@MockBean
-	private PermissaoRepository permissaoRepository;
-	
+	private ConvidadoRepository convidadoRepository;
+
 	@MockBean
 	private CategoriasFestaRepository categoriasFestaRepository;
 
 	@MockBean
 	private CategoriaRepository categoriaRepository;
 	
+	@MockBean 
+	private EstoqueRepository estoqueRepository;
+	
+	@MockBean
+	private ProdutoRepository produtoRepository;
+
+	@MockBean
+	private GrupoService grupoService;
+
 	@MockBean
 	private EstoqueService estoqueService;
 	
 	@MockBean
 	private FestaFactory festaFactory;
+
+	@Autowired
+	private FestaService festaService;
 	
 
 	//metodos auxiliares___________________________________________________________________________________________________________________________________	
@@ -374,6 +382,7 @@ class FestaServiceTest {
 		doNothing().when(categoriasFestaRepository).addCategoriasFesta(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyString());
 		Mockito.when(categoriaRepository.findByCodCategoria(Mockito.anyInt())).thenReturn(null,categoriaTest());
 		Mockito.when(grupoService.addGrupo(Mockito.anyInt(), Mockito.anyString(), Mockito.anyBoolean(), Mockito.isNull())).thenReturn(criacaoGrupo());
+		Mockito.when(festaFactory.getFesta(Mockito.any())).thenReturn(festaTest());
 
 		Festa retorno = null;
 		boolean erro = false;
@@ -406,6 +415,7 @@ class FestaServiceTest {
 		doNothing().when(categoriasFestaRepository).addCategoriasFesta(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyString());
 		Mockito.when(categoriaRepository.findByCodCategoria(Mockito.anyInt())).thenReturn(categoriaTest(),categoriaTest());
 		Mockito.when(grupoService.addGrupo(Mockito.anyInt(), Mockito.anyString(), Mockito.anyBoolean(), Mockito.isNull())).thenReturn(criacaoGrupo());
+		Mockito.when(festaFactory.getFesta(Mockito.any())).thenReturn(festaTest());
 
 		Festa retorno = festaService.addFesta(festaTO, idUser);
 		assertEquals(retorno.getCodFesta(), festaTO.getCodFesta());
