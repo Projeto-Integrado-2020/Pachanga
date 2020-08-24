@@ -55,9 +55,6 @@ export class NavbarComponent implements OnInit {
     translate.setDefaultLang('pt');
     const browserLang = translate.getBrowserLang();
     translate.use(browserLang.match(/pt|en/) ? browserLang : 'pt');
-    //this.puxarNovosAlertas();
-    this.carregarArray(this.notifService.getNotificacoes());
-    this.contarAlertasNaoLidos();
   }
 
   puxarNovosAlertas() {
@@ -73,7 +70,6 @@ export class NavbarComponent implements OnInit {
   carregarArray(observavel: Observable<object>) {
     return observavel.subscribe(
       (response: any) => {
-        console.log(JSON.stringify(response));
         this.notificacoesUsuario = response.notificacoesUsuario;
         this.notificacoesGrupo = response.notificacoesGrupo;
         this.notificacaoConvidado = response.notificacaoConvidado;
@@ -159,10 +155,14 @@ export class NavbarComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.contarAlertasNaoLidos();
-    this.visibilidadeAlerta = this.notificacoesUsuario.length +
+    if(this.loginService.usuarioAutenticado){
+      this.carregarArray(this.notifService.getNotificacoes());
+      this.contarAlertasNaoLidos();
+      this.visibilidadeAlerta = this.notificacoesUsuario.length +
                               this.notificacoesGrupo.length +
                               this.notificacaoConvidado.length === 0;
+      this.puxarNovosAlertas();
+    }
   }
 
 }

@@ -121,7 +121,7 @@ describe('NavbarComponent', () => {
     component.notifService.loginService.usuarioInfo = {codUsuario: '1'};
     fixture.detectChanges();
   });
-/*
+
   it('should create', () => {
     expect(component).toBeTruthy();
   });
@@ -135,5 +135,5 @@ describe('NavbarComponent', () => {
     component.openDialogLogin();
     expect(dialogSpy.open).toHaveBeenCalled();
   });
-*/
+
 });
