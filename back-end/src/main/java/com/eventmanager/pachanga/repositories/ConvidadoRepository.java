@@ -43,6 +43,9 @@ public interface ConvidadoRepository extends CrudRepository<Convidado, Integer>{
 	@Query(value = "SELECT u FROM Grupo g JOIN g.convidados u WHERE g.codGrupo = :codGrupo")
 	public List<Convidado> findConvidadosNoGrupo(@Param("codGrupo") int codGrupo);
 	
+	@Query(value = "SELECT u.codConvidado FROM Grupo g JOIN g.convidados u WHERE g.codGrupo = :codGrupo")
+	public List<Integer> findCodConvidadosNoGrupo(@Param("codGrupo") int codGrupo);
+	
 	@Modifying
 	@Query(value = "DELETE FROM Convidado WHERE cod_convidado = :codConvidado", nativeQuery = true)
 	public void deleteConvidado(Integer codConvidado);
@@ -53,5 +56,17 @@ public interface ConvidadoRepository extends CrudRepository<Convidado, Integer>{
 
 	@Query(value = "SELECT c FROM Convidado c JOIN c.grupos g JOIN g.festa f WHERE c.codConvidado = :codConvidado AND g.codGrupo = :idGrupo")
 	public Convidado findConvidadoGrupo(int codConvidado, int idGrupo);
+
+	@Modifying
+	@Query(value = "DELETE FROM convidado WHERE cod_convidado IN :codConvidados", nativeQuery = true)
+	public void deleteConvidados(List<Integer> codConvidados);
+
+	@Modifying
+	@Query(value = "DELETE FROM convidado_x_grupo WHERE cod_grupo = :codGrupo", nativeQuery = true)
+	public void deleteAllConvidadosGrupo(Integer codGrupo);
+	
+	@Modifying
+	@Query(value = "DELETE FROM convidado_x_notificacao WHERE cod_convidado IN :codConvidados", nativeQuery = true)
+	public void deleteAllConvidadosNotificacao(List<Integer> codConvidados);
 	
 }

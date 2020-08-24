@@ -10,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.eventmanager.pachanga.domains.Categoria;
 import com.eventmanager.pachanga.domains.CategoriasFesta;
-import com.eventmanager.pachanga.domains.Convidado;
 import com.eventmanager.pachanga.domains.Estoque;
 import com.eventmanager.pachanga.domains.Festa;
 import com.eventmanager.pachanga.domains.Grupo;
@@ -118,15 +117,18 @@ public class FestaService {
 
 	public void deleteFesta(int idFesta, int idUser) {
 		validarPermissaoUsuario(idUser, idFesta, TipoPermissao.DELEFEST.getCodigo());
-		List<Grupo> grupos = grupoRepository.findGruposFesta(idFesta);
-		grupos.stream().forEach(g->{
-			grupoRepository.deleteUsuariosGrupo(g.getCodGrupo());
-			List<Convidado> convidados = convidadoRepository.findConvidadosNoGrupo(g.getCodGrupo());
-			convidadoRepository.deleteAll(convidados);
+		List<Integer> codGrupos = grupoRepository.findCodGruposFesta(idFesta);
+		codGrupos.stream().forEach(g->{
+			grupoRepository.deleteUsuariosGrupo(g);
+			List<Integer> codConvidados = convidadoRepository.findCodConvidadosNoGrupo(g);
+			convidadoRepository.deleteAllConvidadosNotificacao(codConvidados);
+			convidadoRepository.deleteAllConvidadosGrupo(g);
+			convidadoRepository.deleteConvidados(codConvidados);
 		});
-		grupoRepository.deleteAll(grupos);
+		grupoRepository.deletePermissoesGrupos(codGrupos);
 		Set<CategoriasFesta> categorias = categoriasFestaRepository.findCategoriasFesta(idFesta);
 		categoriasFestaRepository.deleteAll(categorias);
+		grupoRepository.deleteByCodFesta(idFesta);
 		
 		List<Estoque> estoques = estoqueRepository.findEstoqueByCodFesta(idFesta);
 		
@@ -214,8 +216,8 @@ public class FestaService {
 	}
 
 	private void validarPermissaoUsuario(int idUser, int idFesta, int codPermissao) {
-		Grupo grupo = grupoRepository.findGrupoPermissaoUsuario(idFesta, idUser, codPermissao);
-		if(grupo == null) {
+		List<Grupo> grupos = grupoRepository.findGrupoPermissaoUsuario(idFesta, idUser, codPermissao);
+		if(grupos.isEmpty()) {
 			throw new ValidacaoException("USERSPER");//Usuário sem permissão de fazer essa ação
 		}
 		Festa festa = festaRepository.findById(idFesta);

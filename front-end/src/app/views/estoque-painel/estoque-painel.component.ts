@@ -79,6 +79,7 @@ export class EstoquePainelComponent implements OnInit {
 
   ngOnInit() {
     this.dataSources = [];
+    this.estoques = [];
     let idFesta = this.router.url;
     idFesta = idFesta.substring(idFesta.indexOf('&') + 1, idFesta.indexOf('/', idFesta.indexOf('&')));
     this.getFestaService.acessarFesta(idFesta).subscribe((resp: any) => {
@@ -107,7 +108,8 @@ export class EstoquePainelComponent implements OnInit {
       width: '20rem',
       data: {
         codFesta: this.festa.codFesta,
-        estoque
+        estoque,
+        component: this
       }
     });
   }

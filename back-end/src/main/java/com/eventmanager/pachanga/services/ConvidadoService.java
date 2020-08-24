@@ -142,8 +142,8 @@ public class ConvidadoService {
 	}
 
 	private void validarPermissaoUsuario(int codFesta, int idUsuario) {
-		Grupo grupo = grupoRepository.findGrupoPermissaoUsuario(codFesta, idUsuario, TipoPermissao.ADDMEMBE.getCodigo());
-		if(grupo == null) {
+		List<Grupo> grupos = grupoRepository.findGrupoPermissaoUsuario(codFesta, idUsuario, TipoPermissao.ADDMEMBE.getCodigo());
+		if(grupos.isEmpty()) {
 			throw new ValidacaoException("USESPERM");// usuário sem permissão
 		}
 	}
