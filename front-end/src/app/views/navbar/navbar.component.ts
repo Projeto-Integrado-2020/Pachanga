@@ -58,13 +58,15 @@ export class NavbarComponent implements OnInit {
   }
 
   puxarNovosAlertas() {
-    const source = interval(10000);
-    source.subscribe(
-      () => {
-        this.carregarArray(this.notifService.getNotificacoes());
-        this.contarAlertasNaoLidos();
-      }
-    );
+    if(this.loginService.usuarioAutenticado){
+      const source = interval(5000);
+      source.subscribe(
+        () => {
+          this.carregarArray(this.notifService.getNotificacoes());
+          this.contarAlertasNaoLidos();
+        }
+      );
+    }
   }
 
   carregarArray(observavel: Observable<object>) {
@@ -155,7 +157,7 @@ export class NavbarComponent implements OnInit {
   }
 
   ngOnInit() {
-    if(this.loginService.usuarioAutenticado){
+    if (this.loginService.usuarioAutenticado){
       this.carregarArray(this.notifService.getNotificacoes());
       this.contarAlertasNaoLidos();
       this.visibilidadeAlerta = this.notificacoesUsuario.length +

@@ -9,6 +9,9 @@ import { MatDialog, MAT_DIALOG_DATA } from '@angular/material';
 import { CustomMaterialModule } from '../material/material.module';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { RouterModule } from '@angular/router';
+import { AppRoutingModule } from 'src/app/app-routing.module';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('FestaDetalhesDialogComponent', () => {
   let component: FestaDetalhesDialogComponent;
@@ -21,7 +24,8 @@ describe('FestaDetalhesDialogComponent', () => {
       declarations: [ FestaDetalhesDialogComponent ],
       imports: [
         CustomMaterialModule,
-        HttpClientTestingModule
+        HttpClientTestingModule,
+        RouterTestingModule.withRoutes([]),
       ],
       providers: [
         { provide: MAT_DIALOG_DATA, useValue: {mensagem: "CONVFEST?1&1"}},
