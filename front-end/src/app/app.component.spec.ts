@@ -36,6 +36,7 @@ import { DistribuicaoPermissoesComponent } from './views/distribuicao-permissoes
 import { EstoquePainelComponent } from './views/estoque-painel/estoque-painel.component';
 import { ClicarForaDirective } from './views/navbar/clicar-fora-fecha.directive';
 import { GerenciadorProdutosComponent } from './views/gerenciador-produtos/gerenciador-produtos.component';
+import { LoginService } from './services/loginService/login.service';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -112,12 +113,16 @@ describe('AppComponent', () => {
   }));
 
   it('should create the app', () => {
+    const service: LoginService = TestBed.get(LoginService);
+    service.usuarioInfo = {codUsuario: '1'};
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
     expect(app).toBeTruthy();
   });
 
   it(`should have as title 'Pachanga'`, () => {
+    const service: LoginService = TestBed.get(LoginService);
+    service.usuarioInfo = {codUsuario: '1'};
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
     expect(app.title).toEqual('Pachanga');

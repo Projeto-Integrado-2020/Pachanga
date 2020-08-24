@@ -1,0 +1,10 @@
+@import "../material/paleta.scss";
+
+.botoes {
+    display: flex;
+    justify-content: space-around;
+
+    &__btn {
+        background-color: $color-secondary;
+    }
+}

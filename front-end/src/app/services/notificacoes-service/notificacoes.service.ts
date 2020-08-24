@@ -89,6 +89,7 @@ export class NotificacoesService {
     );
   }
 
+
   // METODO PARA DELETAR E MODIFICAR ESTADO!
 
   handleError(error: HttpErrorResponse, logService: LogService) {

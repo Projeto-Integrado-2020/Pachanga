@@ -62,35 +62,76 @@
             <mat-card-header>
               Notificações
             </mat-card-header>
-            <mat-card-content class="fila_notificacoes__not-container" *ngFor="let alert of alerts let i = index">
+
+            <mat-card-content>
+              <!-- CONVITES -->
+              <div class="fila_notificacoes__not-container" *ngFor="let alert of notificacaoConvidado let i = index">
+                <mat-divider></mat-divider>
+                <div class="fila_notificacoes__convite">
+                  <div class="fila_notificacoes__convite__texto dont-break-out">
+                    <p class="dont-break-out">
+                      Você foi convidado para a festa NOMEDAFESTA 
+                    </p>
+                    <div class="fila_notificacoes__notificacao__horario">
+                      <p>Horário</p>
+                    </div>
+                  </div>
+                  <mat-card-actions class="fila_notificacoes__convite__btn--invite">
+                    <button (click)="openDialogConvite(alert)" mat-button class="btn btn--prp">
+                      Ver
+                    </button>
+                  </mat-card-actions>
+                </div>
+              </div>
+
+              <!-- NOTIFICACOES DE GRUPO -->
+              <div class="fila_notificacoes__not-container" *ngFor="let alert of notificacoesGrupo let i = index">
               <mat-divider></mat-divider>
               <div class="fila_notificacoes__flex">
                 <div class="fila_notificacoes__notificacao">
-                <div class="fila_notificacoes__notificacao__texto">
-                  <p [ngStyle]="{'font-weight': (alert.status == 'N' || alert.destaque == true) ? 'bold' : 'normal'}">{{alert.mensagem}}</p>
-                </div>
-                <div class="fila_notificacoes__notificacao__horario">
-                  <p>{{alert.tempo}}</p>
-                
+                  <div class="fila_notificacoes__notificacao__texto">
+                    <p [ngStyle]="{'font-weight': 'bold'}">{{alert.mensagem}}</p>
+                  </div>
+                  <div class="fila_notificacoes__notificacao__horario">
+                    <p>{{alert.tempo}}</p>
+                  </div>
                 </div>
               </div>
-              <mat-icon *ngIf="alert.tipoUser" class="btn--notif" (click)="abrirAlertaOpcoes(alert)">more_horiz</mat-icon>
               </div>
-              <mat-card class="fila_notificacoes__notificacao__alertaOpcoes"
-                *ngIf="alert.alertaOpcoes"
-                (clicarFora)="alert.alertaOpcoes = false"
-                >
-                <div *ngIf="!alert.destaque" class="desler">
-                  <p (click)="alterarAlerta(alert)">Marcar como lido</p>
-                </div>
-                <div *ngIf="alert.destaque" class="desler">
-                  <p (click)="alterarAlerta(alert)">Marcar como não lido</p>
-                </div>
+
+              <!-- NOTIFICACOES DE USUARIO -->
+
+              <div class="fila_notificacoes__not-container" *ngFor="let alert of notificacoesUsuario let i = index">
                 <mat-divider></mat-divider>
-                <div (click)="deletarAlerta(alert)" class="apagar-notif">
-                  <p>Apagar notificação</p>
+                <div class="fila_notificacoes__flex">
+                  <div class="fila_notificacoes__notificacao">
+                  <div class="fila_notificacoes__notificacao__texto">
+                    <p [ngStyle]="{'font-weight': (alert.status == 'N' || alert.destaque == true) ? 'bold' : 'normal'}">{{alert.mensagem}}</p>
+                  </div>
+                  <div class="fila_notificacoes__notificacao__horario">
+                    <p>{{alert.tempo}}</p>
+                  
+                  </div>
                 </div>
-              </mat-card>
+                <mat-icon class="btn--notif" (click)="abrirAlertaOpcoes(alert)">more_horiz</mat-icon>
+                </div>
+                <mat-card class="fila_notificacoes__notificacao__alertaOpcoes"
+                  *ngIf="alert.alertaOpcoes"
+                  (clicarFora)="alert.alertaOpcoes = false"
+                  >
+                  <div *ngIf="!alert.destaque" class="desler">
+                    <p (click)="alterarAlerta(alert)">Marcar como lido</p>
+                  </div>
+                  <div *ngIf="alert.destaque" class="desler">
+                    <p (click)="alterarAlerta(alert)">Marcar como não lido</p>
+                  </div>
+                  <mat-divider></mat-divider>
+                  <div (click)="deletarAlerta(alert)" class="apagar-notif">
+                    <p>Apagar notificação</p>
+                  </div>
+                </mat-card>
+                </div>
+
             </mat-card-content>
           </mat-card>
 

@@ -136,11 +136,11 @@ mat-toolbar{
 }
 
 .fila_notificacoes {
-  max-height: 70%;
+  max-height: 100rem;
   width: 480px;
   max-width: 480px;
   padding: 16px 0 16px 0; 
-  overflow: auto;
+  
 
   border-radius: 6px;
 
@@ -152,6 +152,34 @@ mat-toolbar{
 
   display: flex;
   flex-direction: column;
+
+  &__convite {
+
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  
+
+    &__texto {
+      display: inline-block;
+      max-width: 60%;
+      height: 100%;
+      overflow-wrap: break-word;
+
+      & p {
+        white-space: normal;
+        height: 100%;
+        margin: 0;
+        overflow-wrap: break-word;
+      }
+    }
+
+    &__btn--invite {
+      width: auto;
+      display: inline-block;
+    }
+  }
+
   &__flex {
 
     display: flex;
@@ -161,13 +189,16 @@ mat-toolbar{
   &__not-container {
 
     margin-bottom: 0;
+    padding: 0 1.6rem 0 1.6rem;
 
     &:hover {
       background-color: #f0f0f0;
     }
   }
+
   &__notificacao {
     width: 100%;
+    min-height: 5rem;
     height: 100%;
     max-height: 100%;
     padding: 0 16px 0 16px;
@@ -201,3 +232,24 @@ mat-toolbar{
   }
 }
 
+//quebrar linha
+
+.dont-break-out {
+
+  /* These are technically the same, but use both */
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+
+  -ms-word-break: break-all;
+  /* This is the dangerous one in WebKit, as it breaks things wherever */
+  word-break: break-all;
+  /* Instead use this non-standard one: */
+  word-break: break-word;
+
+  /* Adds a hyphen where the word breaks, if supported (No Blink) */
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphens: auto;
+
+}

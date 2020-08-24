@@ -1,0 +1,8 @@
+<h1 mat-dialog-title>Detalhes da Festa</h1>
+    <div mat-dialog-content>
+        <p>Nome da Festa: {{this.nomeFesta}}</p>
+        <div class="botoes">
+          <button class="botoes__btn" (click)="aceitarConvite()" mat-raised-button color="primary" > Aceitar </button>
+          <button class="botoes__btn" (click)="recusarConvite()" mat-raised-button color="primary" > Recusar </button>
+        </div>
+    </div>
