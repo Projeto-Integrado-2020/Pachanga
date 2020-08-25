@@ -1,6 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material';
-import { NavbarComponent, ConviteData } from '../navbar/navbar.component';
+import { MAT_DIALOG_DATA, MatDialog } from '@angular/material';
 import { ConvidadoService } from 'src/app/services/convidado/convidado.service';
 import { Router } from '@angular/router';
 
@@ -16,10 +15,8 @@ export class FestaDetalhesDialogComponent implements OnInit {
   codConvidado: string;
   idGrupo: string;
 
-  nomeFesta: string;
+  festa = {nomeFesta: '', codEnderecoFesta: '', horarioFimFesta: '', horarioInicioFesta: '', nomeGrupo: ''};
   horarioInicioFesta: string;
-
-
 
   constructor(
               @Inject(MAT_DIALOG_DATA) data,
@@ -40,7 +37,7 @@ export class FestaDetalhesDialogComponent implements OnInit {
   getDetalhesFesta() {
     this.convService.getDetalhesFesta(this.codConvidado, this.idGrupo).subscribe(
       (response: any) => {
-        this.nomeFesta = response.nomeFesta;
+        this.festa = response;
       }
     );
   }
@@ -56,6 +53,16 @@ export class FestaDetalhesDialogComponent implements OnInit {
 
   recusarConvite() {
     this.convService.recusarConvite(this.codConvidado, this.idGrupo).subscribe();
+  }
+
+  formatDateTime(date) {
+    if (date) {
+      const conversao = date.split('T');
+      const data = conversao[0].split('-');
+      const hora = conversao[1];
+      return data[2] + '/' + data[1] + '/' + data[0] + ' - ' + hora;
+    }
+    return '';
   }
 
 }

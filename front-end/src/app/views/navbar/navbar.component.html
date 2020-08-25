@@ -60,7 +60,7 @@
             (clicarFora)="fecharNotificacoes()"
             >
             <mat-card-header>
-              Notificações
+              {{'NOTIFICACAO.TITLE' | translate}}
             </mat-card-header>
 
             <mat-card-content>
@@ -68,17 +68,14 @@
               <div class="fila_notificacoes__not-container" *ngFor="let alert of notificacaoConvidado let i = index">
                 <mat-divider></mat-divider>
                 <div class="fila_notificacoes__convite">
-                  <div class="fila_notificacoes__convite__texto dont-break-out">
+                  <div>
                     <p class="dont-break-out">
-                      Você foi convidado para a festa NOMEDAFESTA 
+                      {{'NOTIFICACAO.CONVITE' | translate}} 
                     </p>
-                    <div class="fila_notificacoes__notificacao__horario">
-                      <p>Horário</p>
-                    </div>
                   </div>
                   <mat-card-actions class="fila_notificacoes__convite__btn--invite">
                     <button (click)="openDialogConvite(alert)" mat-button class="btn btn--prp">
-                      Ver
+                      {{'NOTIFICACAO.VER' | translate}}
                     </button>
                   </mat-card-actions>
                 </div>
@@ -120,14 +117,14 @@
                   (clicarFora)="alert.alertaOpcoes = false"
                   >
                   <div *ngIf="!alert.destaque" class="desler">
-                    <p (click)="alterarAlerta(alert)">Marcar como lido</p>
+                    <p (click)="alterarAlerta(alert)">{{'NOTIFICACAO.SETLIDO' | translate}}</p>
                   </div>
                   <div *ngIf="alert.destaque" class="desler">
-                    <p (click)="alterarAlerta(alert)">Marcar como não lido</p>
+                    <p (click)="alterarAlerta(alert)">{{'NOTIFICACAO.SETNLIDO' | translate}}</p>
                   </div>
                   <mat-divider></mat-divider>
                   <div (click)="deletarAlerta(alert, notificacoesUsuario)" class="apagar-notif">
-                    <p>Apagar notificação</p>
+                    <p>{{'NOTIFICACAO.APAGAR' | translate}}</p>
                   </div>
                 </mat-card>
                 </div>

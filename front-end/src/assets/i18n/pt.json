@@ -213,7 +213,8 @@
         "NONEPARTY": "Você não tem nenhuma festa associada a esta conta.",
         "CLICKHERE": "Clique aqui para criar uma festa",
         "CATEGORIA1": "Categoria primária",
-        "CATEGORIA2": "Categoria secundária"
+        "CATEGORIA2": "Categoria secundária",
+        "DETALHES": "Detalhes da festa"
     },
 
     "CRIARFESTA": {
@@ -421,5 +422,16 @@
         "MESSAGE": "Você realmente deseja deletar o produto do estoque",
         "CONFIRM": "Confirmar",
         "CANCEL": "Cancelar"
+    },
+
+    "NOTIFICACAO": {
+        "TITLE": "Notificações",
+        "ACEITAR": "Aceitar",
+        "RECUSAR": "Recusar",
+        "SETLIDO": "Marcar como lido",
+        "SETNLIDO": "Marcar como não lido",
+        "APAGAR": "Apagar notificação",
+        "CONVITE": "Você foi convidado para ser membro em uma nova festa!",
+        "VER": "Ver"
     }
 }

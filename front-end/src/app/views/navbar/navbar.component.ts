@@ -58,7 +58,7 @@ export class NavbarComponent implements OnInit {
   }
 
   puxarNovosAlertas() {
-    if(this.loginService.usuarioAutenticado){
+    if (this.loginService.usuarioAutenticado) {
       const source = interval(5000);
       source.subscribe(
         () => {
@@ -78,7 +78,7 @@ export class NavbarComponent implements OnInit {
       }
     );
 
-    //this.convites = alerts.filter(alert => )
+    // this.convites = alerts.filter(alert => )
   }
 
 
@@ -149,7 +149,7 @@ export class NavbarComponent implements OnInit {
   openDialogConvite(alerta): void {
 
       this.dialog.open(FestaDetalhesDialogComponent, {
-      width: '20rem',
+      width: '23rem',
       data: {
         mensagem: alerta.mensagem
       }
@@ -157,7 +157,7 @@ export class NavbarComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (this.loginService.usuarioAutenticado){
+    if (this.loginService.usuarioAutenticado) {
       this.carregarArray(this.notifService.getNotificacoes());
       this.contarAlertasNaoLidos();
       this.visibilidadeAlerta = this.notificacoesUsuario.length +

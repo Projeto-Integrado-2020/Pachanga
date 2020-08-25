@@ -211,7 +211,8 @@
         "NONEPARTY": "You don't have any party associated to this account.",
         "CLICKHERE": "Click here to create a new party",
         "CATEGORIA1": "Primary category",
-        "CATEGORIA2": "Secondary category"
+        "CATEGORIA2": "Secondary category",
+        "DETALHES": "Party details"
     },
 
     "CRIARFESTA": {
@@ -419,5 +420,16 @@
         "MESSAGE": "Do you really want to delete the product",
         "CONFIRM": "Confirm",
         "CANCEL": "Cancel"
+    },
+
+    "NOTIFICACAO": {
+        "TITLE": "Notifications",
+        "ACEITAR": "Accept",
+        "RECUSAR": "Decline",
+        "SETLIDO": "Mark as read",
+        "SETNLIDO": "Mark as unread",
+        "APAGAR": "Delete notification",
+        "CONVITE": "You were invited to be a member at a new party!",
+        "VER": "See"
     }
 }
