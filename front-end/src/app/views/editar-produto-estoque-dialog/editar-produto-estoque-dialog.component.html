@@ -3,18 +3,18 @@
     <form [formGroup]="form" (submit)="editarProdutoEstoque(quantidadeMax.value, quantidadeAtual.value, porcentagemMin.value)">
         <mat-form-field>
             <mat-label>{{'ESTOQUEPROD.QTDMAX' | translate}}</mat-label>
-            <input ng-class="{ f.quantidadeMax.errors }" #quantidadeMax formControlName="quantidadeMax" matInput required type="number">
+            <input ng-class="{ f.quantidadeMax.errors }" #quantidadeMax formControlName="quantidadeMax" matInput required type="number" min="1">
             <mat-error *ngIf="f.quantidadeMax.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
             <mat-error *ngIf="f.quantidadeMax.errors?.min">{{'FORMERRORS.MINQTDERROR' | translate}}</mat-error>
         </mat-form-field>
         <mat-form-field>
             <mat-label>{{'ESTOQUEPROD.QTDATUAL' | translate}}</mat-label>
-            <input ng-class="{ f.quantidadeAtual.errors }" #quantidadeAtual formControlName="quantidadeAtual" matInput required type="number" min="1">
+            <input ng-class="{ f.quantidadeAtual.errors }" #quantidadeAtual formControlName="quantidadeAtual" matInput required type="number" min="0">
             <mat-error *ngIf="f.quantidadeAtual.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
             <mat-error *ngIf="f.quantidadeAtual.errors?.min">{{'FORMERRORS.MINQTDERROR' | translate}}</mat-error>
         </mat-form-field>
         <mat-form-field>
-            <mat-label>{{'ESTOQUEPROD.PROTCENTAGEMMIN' | translate}}</mat-label>
+            <mat-label>{{'ESTOQUEPROD.PORCENTAGEMMIN' | translate}}</mat-label>
             <input ng-class="{ f.porcentagemMin.errors }" #porcentagemMin formControlName="porcentagemMin" matInput required type="number" max="100" min="0">
             <mat-error *ngIf="f.porcentagemMin.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
             <mat-error *ngIf="f.porcentagemMin.errors?.min">{{'FORMERRORS.MINQTDERROR' | translate}}</mat-error>

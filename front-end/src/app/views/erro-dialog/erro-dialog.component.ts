@@ -64,6 +64,8 @@ export class ErroDialogComponent implements OnInit {
       case 'PRODEUSO': this.erro = this.translate.instant('ERRO.PRODEUSO'); break;
       case 'CONVNGRU': this.erro = this.translate.instant('ERRO.CONVNGRU'); break;
       case 'FESTNPRE': this.erro = this.translate.instant('ERRO.FESTNPRE'); break;
+      case 'ESTOMNOM': this.erro = this.translate.instant('ERRO.ESTOMNOM'); break;
+      case 'QMAXINV': this.erro = this.translate.instant('ERRO.QMAXINV'); break;
       default: this.erro = this.translate.instant('ERRO.SERVERRO');
     }
   }
