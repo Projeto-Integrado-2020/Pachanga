@@ -17,6 +17,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import com.eventmanager.pachanga.domains.Usuario;
 import com.eventmanager.pachanga.dtos.UsuarioTO;
 import com.eventmanager.pachanga.errors.ValidacaoException;
+import com.eventmanager.pachanga.factory.UsuarioFestaTOFactory;
+import com.eventmanager.pachanga.repositories.GrupoRepository;
 import com.eventmanager.pachanga.repositories.UsuarioRepository;
 import com.eventmanager.pachanga.tipo.TipoConta;
 import com.eventmanager.pachanga.tipo.TipoGrupo;
@@ -30,9 +32,16 @@ class UsuarioServiceTest {
 
 	@MockBean
 	private FestaService festaService;
+	
+	@MockBean
+	private GrupoRepository grupoRepository;
+	
+	@MockBean
+	private UsuarioFestaTOFactory usuarioFestaTOFactory;
 
 	@Autowired
 	private UsuarioService userService;
+	
 
 	@SuppressWarnings("deprecation")
 	public static UsuarioTO usuarioToTest() throws Exception{

@@ -1,6 +1,11 @@
 package com.eventmanager.pachanga.builder;
 
+import java.util.List;
+
+import com.eventmanager.pachanga.dtos.ConvidadoTO;
 import com.eventmanager.pachanga.dtos.GrupoTO;
+import com.eventmanager.pachanga.dtos.PermissaoTO;
+import com.eventmanager.pachanga.dtos.UsuarioTO;
 
 public class GrupoTOBuilder {
 	private int codGrupo;
@@ -8,6 +13,9 @@ public class GrupoTOBuilder {
 	private String nomeGrupo;
 	private boolean organizador;
     private int quantMaxPessoas;
+    private List<UsuarioTO> usuarios;
+    private List<ConvidadoTO> convidados;
+    private List<PermissaoTO> permissoes;
     
 	public static GrupoTOBuilder getInstance() {
 		return new GrupoTOBuilder();
@@ -38,6 +46,21 @@ public class GrupoTOBuilder {
 		return this;
 	}
 	
+	public GrupoTOBuilder convidados(List<ConvidadoTO> convidados) {
+		this.convidados = convidados;
+		return this;
+	}
+	
+	public GrupoTOBuilder permissoes(List<PermissaoTO> permissoes) {
+		this.permissoes = permissoes;
+		return this;
+	}
+	
+	public GrupoTOBuilder usuarios(List<UsuarioTO> usuarios) {
+		this.usuarios = usuarios;
+		return this;
+	}
+	
 	public GrupoTO build() {
 		GrupoTO grupoTO = new GrupoTO();
 		
@@ -46,6 +69,9 @@ public class GrupoTOBuilder {
 		grupoTO.setNomeGrupo(nomeGrupo);
 		grupoTO.setQuantMaxPessoas(quantMaxPessoas);
 		grupoTO.setIsOrganizador(organizador);
+		grupoTO.setUsuariosTO(usuarios);
+		grupoTO.setPermissoesTO(permissoes);
+		grupoTO.setConvidadosTO(convidados);
 		return grupoTO;
 	}
 

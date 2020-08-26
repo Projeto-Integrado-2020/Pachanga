@@ -110,8 +110,8 @@ public class GrupoController {
 			return ResponseEntity.status(400).body(e.getMessage());
 		}
 	}
-	
-	
+
+
 	@ResponseBody
 	@PutMapping(path="/updateUser")
 	public ResponseEntity<Object> editUsuario(@RequestBody List<Integer> gruposId, @RequestParam (required = true) Integer grupoIdAtual, @RequestParam (required = true) Integer idUsuario, @RequestParam (required = true) Integer idUsuarioPermissao){	
@@ -137,7 +137,7 @@ public class GrupoController {
 			return ResponseEntity.status(400).body(e.getMessage());
 		}
 	}
-	
+
 
 	@ResponseBody
 	@DeleteMapping(path="/deleteConvidado")
@@ -149,9 +149,9 @@ public class GrupoController {
 		} catch (ValidacaoException e) {
 			return ResponseEntity.status(400).body(e.getMessage());
 		}
-		
+
 	}
-	
+
 	@ResponseBody
 	@DeleteMapping(path="/deleteMembro")
 	public ResponseEntity<Object> deleteMembro(@RequestParam(required = true) Integer idMembro, @RequestParam(required = true) Integer idGrupo, @RequestParam(required = true) Integer idUsuarioPermissao){
@@ -162,7 +162,7 @@ public class GrupoController {
 		} catch (ValidacaoException e) {
 			return ResponseEntity.status(400).body(e.getMessage());
 		}
-		
+
 	}
 
 	//listagem__________________________________________________________________________________________________________________________________
@@ -206,20 +206,17 @@ public class GrupoController {
 
 			grupo = grupoService.validarGrupo(codGrupo);
 
-			if(grupo != null) {
-				grupoTO = GrupoFactory.getGrupoTO(grupo);
+			grupoTO = GrupoFactory.getGrupoTO(grupo);
 
-				permissoes = grupoService.procurarPermissoesPorGrupo(codGrupo);
-				usuarios = grupoService.procurarUsuariosPorGrupo(codGrupo);
-				convidados = convidadoService.pegarConvidadosGrupo(codGrupo);
+			permissoes = grupoService.procurarPermissoesPorGrupo(codGrupo);
+			usuarios = grupoService.procurarUsuariosPorGrupo(codGrupo);
+			convidados = convidadoService.pegarConvidadosGrupo(codGrupo);
 
-				grupoTO.setPermissoesTO(PermissaoFactory.getPermissoesTO(permissoes));
-				grupoTO.setUsuariosTO(UsuarioFactory.getUsuariosTO(usuarios));
-				grupoTO.setConvidadosTO(convidadoFactory.getConvidadosTO(convidados));
+			grupoTO.setPermissoesTO(PermissaoFactory.getPermissoesTO(permissoes));
+			grupoTO.setUsuariosTO(UsuarioFactory.getUsuariosTO(usuarios));
+			grupoTO.setConvidadosTO(convidadoFactory.getConvidadosTO(convidados));
 
-				return ResponseEntity.ok(grupoTO);
-			}
-			return ResponseEntity.ok("GRUPNFOU");
+			return ResponseEntity.ok(grupoTO);
 		} catch (ValidacaoException e) {
 			return ResponseEntity.status(400).body(e.getMessage());
 		}

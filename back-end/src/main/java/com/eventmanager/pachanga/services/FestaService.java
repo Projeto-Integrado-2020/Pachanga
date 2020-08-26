@@ -14,8 +14,10 @@ import com.eventmanager.pachanga.domains.Estoque;
 import com.eventmanager.pachanga.domains.Festa;
 import com.eventmanager.pachanga.domains.Grupo;
 import com.eventmanager.pachanga.domains.Usuario;
+import com.eventmanager.pachanga.dtos.ConviteFestaTO;
 import com.eventmanager.pachanga.dtos.FestaTO;
 import com.eventmanager.pachanga.errors.ValidacaoException;
+import com.eventmanager.pachanga.factory.ConviteFestaFactory;
 import com.eventmanager.pachanga.factory.FestaFactory;
 import com.eventmanager.pachanga.repositories.CategoriaRepository;
 import com.eventmanager.pachanga.repositories.CategoriasFestaRepository;
@@ -66,6 +68,9 @@ public class FestaService {
 	
 	@Autowired
 	private FestaFactory festaFactory;
+	
+	@Autowired
+	private ConviteFestaFactory conviteFestaFactory;
 
 	public List<Festa> procurarFestas(){
 		return festaRepository.findAll();
@@ -278,7 +283,20 @@ public class FestaService {
 		return festa;
 	}
 
-	public Festa procurarFestaConvidado(Integer codConvidado, Integer codGrupo) {
-		return festaRepository.findFestaByCodConvidadoAndCodGrupo(codConvidado, codGrupo);
+	public ConviteFestaTO procurarFestaConvidado(Integer codConvidado, Integer codGrupo) {
+		Festa festa = festaRepository.findFestaByCodConvidadoAndCodGrupo(codConvidado, codGrupo);
+		if(festa == null) {
+			throw new ValidacaoException("FESTNFOU");
+		}
+		Grupo grupo = this.validarGrupo(codGrupo);
+		return conviteFestaFactory.getConviteFestaTO(festa, grupo);
+	}
+	
+	public Grupo validarGrupo(int codGrupo) {
+		Grupo grupo = grupoRepository.findById(codGrupo);
+		if(grupo == null) {
+			throw new ValidacaoException("GRUPNFOU");
+		}
+		return grupo;
 	}
 }

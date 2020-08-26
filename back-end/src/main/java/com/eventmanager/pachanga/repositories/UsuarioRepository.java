@@ -42,5 +42,5 @@ public interface UsuarioRepository extends CrudRepository<Usuario, Integer>{
 	public Usuario findBycodFestaAndEmail(int codFesta, String email);
 	
 	@Query(value = "SELECT u FROM Usuario u JOIN u.grupos g JOIN g.festa f JOIN g.permissoes p WHERE u.codUsuario = :codUsuario AND f.codFesta = :codFesta AND p.codPermissao = :codPermissao")
-	public Usuario findUsuarioComPermissao(Integer codFesta, Integer codUsuario, int codPermissao);
+	public List<Usuario> findUsuarioComPermissao(Integer codFesta, Integer codUsuario, int codPermissao);
 }

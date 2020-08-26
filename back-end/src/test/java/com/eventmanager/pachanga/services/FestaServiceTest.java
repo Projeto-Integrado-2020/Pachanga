@@ -25,9 +25,11 @@ import com.eventmanager.pachanga.domains.CategoriasFesta;
 import com.eventmanager.pachanga.domains.Festa;
 import com.eventmanager.pachanga.domains.Grupo;
 import com.eventmanager.pachanga.domains.Usuario;
+import com.eventmanager.pachanga.dtos.ConviteFestaTO;
 import com.eventmanager.pachanga.dtos.FestaTO;
 import com.eventmanager.pachanga.dtos.UsuarioTO;
 import com.eventmanager.pachanga.errors.ValidacaoException;
+import com.eventmanager.pachanga.factory.ConviteFestaFactory;
 import com.eventmanager.pachanga.factory.FestaFactory;
 import com.eventmanager.pachanga.repositories.CategoriaRepository;
 import com.eventmanager.pachanga.repositories.CategoriasFestaRepository;
@@ -76,6 +78,9 @@ class FestaServiceTest {
 
 	@MockBean
 	private FestaFactory festaFactory;
+	
+	@MockBean
+	private ConviteFestaFactory conviteFestaFactory;
 
 	@Autowired
 	private FestaService festaService;
@@ -1157,11 +1162,58 @@ class FestaServiceTest {
 		Festa festaTest = festaTest();
 
 		Mockito.when(festaRepository.findFestaByCodConvidadoAndCodGrupo(Mockito.any(Integer.class), Mockito.any(Integer.class))).thenReturn(festaTest);
+		
+		Mockito.when(grupoRepository.findById(Mockito.anyInt())).thenReturn(criacaoGrupo());
 
+		Mockito.when(conviteFestaFactory.getConviteFestaTO(Mockito.any(), Mockito.any())).thenReturn(new ConviteFestaTO());
+		
+		ConviteFestaTO conviteFestaTO = festaService.procurarFestaConvidado(1,2);
 
-		Festa festa = festaService.procurarFestaConvidado(1,2);
+		assertEquals(true, conviteFestaTO != null);
 
-		assertEquals(festaTest.getCodFesta(), festa.getCodFesta());
+	}
+	
+	@Test
+	void procurarFestaConvidadoErroGrupoNull() throws Exception {
+
+		Festa festaTest = festaTest();
+
+		Mockito.when(festaRepository.findFestaByCodConvidadoAndCodGrupo(Mockito.any(Integer.class), Mockito.any(Integer.class))).thenReturn(festaTest);
+		
+		Mockito.when(grupoRepository.findById(Mockito.anyInt())).thenReturn(null);
+
+		Mockito.when(conviteFestaFactory.getConviteFestaTO(Mockito.any(), Mockito.any())).thenReturn(new ConviteFestaTO());
+		
+		boolean erro = false;
+		
+		try {
+			festaService.procurarFestaConvidado(1,2);
+		} catch (ValidacaoException e) {
+			erro = true;
+		}
+		
+		assertEquals(true, erro);
+
+	}
+	
+	@Test
+	void procurarFestaConvidadoErroFestaNull() throws Exception {
+
+		Mockito.when(festaRepository.findFestaByCodConvidadoAndCodGrupo(Mockito.any(Integer.class), Mockito.any(Integer.class))).thenReturn(null);
+		
+		Mockito.when(grupoRepository.findById(Mockito.anyInt())).thenReturn(criacaoGrupo());
+
+		Mockito.when(conviteFestaFactory.getConviteFestaTO(Mockito.any(), Mockito.any())).thenReturn(new ConviteFestaTO());
+		
+		boolean erro = false;
+		
+		try {
+			festaService.procurarFestaConvidado(1,2);
+		} catch (ValidacaoException e) {
+			erro = true;
+		}
+		
+		assertEquals(true, erro);
 
 	}
 }
