@@ -4,9 +4,7 @@ import { LogService } from '../logging/log.service';
 import { environment } from 'src/environments/environment';
 import { LoginService } from '../loginService/login.service';
 import { take, catchError } from 'rxjs/operators';
-import { MatDialog } from '@angular/material';
 import { throwError } from 'rxjs';
-import { ErroDialogComponent } from 'src/app/views/erro-dialog/erro-dialog.component';
 
 @Injectable({
   providedIn: 'root'
@@ -41,7 +39,6 @@ export class NotificacoesService {
     private http: HttpClient,
     public logService: LogService,
     public loginService: LoginService,
-    public dialog: MatDialog
     ) { }
 
   getNotificacoes() {
@@ -92,20 +89,13 @@ export class NotificacoesService {
     );
   }
 
+
   // METODO PARA DELETAR E MODIFICAR ESTADO!
 
   handleError(error: HttpErrorResponse, logService: LogService) {
-    this.openErrorDialog(error.error);
     logService.initialize();
     logService.logHttpInfo(JSON.stringify(error), 0, error.url);
     return throwError(error);
 }
-
-  openErrorDialog(error) {
-    const dialogRef = this.dialog.open(ErroDialogComponent, {
-      width: '250px',
-      data: {erro: error}
-    });
-  }
 
 }

@@ -2,9 +2,9 @@ package com.eventmanager.pachanga.tipo;
 
 public enum TipoNotificacao {
 	
-	CONVFEST(1, "CONVFEST"),
-	CONVACEI(2, "CONVACEI"),
-	ESTBAIXO(3, "ESTBAIXO");
+	CONVFEST(1, "CONVFEST"),// Notificacao de convite de festa
+	CONVACEI(2, "CONVACEI"),// Convidado aceitou a festa (notificação para o admin)
+	ESTBAIXO(3, "ESTBAIXO");// Estoque abaixo do porcentual mínimo
 	
 	private String valor;
 	private int codigo;

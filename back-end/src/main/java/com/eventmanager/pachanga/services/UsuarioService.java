@@ -7,10 +7,14 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.eventmanager.pachanga.domains.Grupo;
 import com.eventmanager.pachanga.domains.Usuario;
+import com.eventmanager.pachanga.dtos.UsuarioFestaTO;
 import com.eventmanager.pachanga.dtos.UsuarioTO;
 import com.eventmanager.pachanga.errors.ValidacaoException;
 import com.eventmanager.pachanga.factory.UsuarioFactory;
+import com.eventmanager.pachanga.factory.UsuarioFestaTOFactory;
+import com.eventmanager.pachanga.repositories.GrupoRepository;
 import com.eventmanager.pachanga.repositories.UsuarioRepository;
 import com.eventmanager.pachanga.tipo.TipoConta;
 import com.eventmanager.pachanga.utils.HashBuilder;
@@ -24,6 +28,12 @@ public class UsuarioService {
 
 	@Autowired
 	private FestaService festaService;
+	
+	@Autowired
+	private GrupoRepository grupoRepository;
+	
+	@Autowired
+	private UsuarioFestaTOFactory usuarioFestaTOFactory;
 	
 	//cadastro_________________________________________________________________________________________________________	
 
@@ -166,10 +176,7 @@ public class UsuarioService {
 	}
 
 	public String funcionalidadeUsuarioFesta(int codFesta, int codUsuario) {
-		Usuario usuario = userRepository.findById(codUsuario);
-		if(usuario == null) {
-			throw new ValidacaoException("USERNFOU");
-		}
+		this.validarUsuario(codUsuario);
 		return festaService.funcionalidadeFesta(codFesta, codUsuario);
 	}
 
@@ -177,5 +184,26 @@ public class UsuarioService {
 		return userRepository.findByFestaGrupo(codFesta, true);
 	}
 
+	public UsuarioFestaTO getInfoUserFesta(Integer codGrupo, Integer codUsuario) {
+		Usuario usuario = this.validarUsuario(codUsuario);
+		Grupo grupo = this.validarGrupo(codGrupo);
+		return usuarioFestaTOFactory.getUsuarioFestaTO(usuario, grupo);
+	}
+
+	private Usuario validarUsuario(int codUsuario) {
+		Usuario usuario = userRepository.findById(codUsuario);
+		if(usuario == null) {
+			throw new ValidacaoException("USERNFOU");
+		}
+		return usuario;
+	}
+	
+	public Grupo validarGrupo(int codGrupo) {
+		Grupo grupo = grupoRepository.findById(codGrupo);
+		if(grupo == null) {
+			throw new ValidacaoException("GRUPNFOU");
+		}
+		return grupo;
+	}
 
 }

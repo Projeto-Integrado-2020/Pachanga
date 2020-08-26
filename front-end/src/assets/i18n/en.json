@@ -49,7 +49,9 @@
         "PASSPATTERN": "The password must have at least 8 characters, containing upperCase, lowerCase, number/specialChar",
         "EMAIL": "Invalid e-mail",
         "TERMOS": "Accept the Terms of Use is required",
-        "MATCH": "Passwords must match"
+        "MATCH": "Passwords must match",
+        "MINQTDERROR": "The minimum quantity allowed is 1",
+        "MAXQTDERROR": "The maximum percentage allowed is 100%."
     },
 
     "ERRO": {
@@ -96,7 +98,9 @@
         "PCMININV": "Minimum percentage invalid.",
         "ESTNPROD": "The stock do not contain this product.",
         "PRODEUSO": "Product in use.",
-        "ESTONFOU": "Stock not found."
+        "ESTONFOU": "Stock not found.",
+        "QMAXINV": "Invalid max quantity.",
+        "ESTOMNOM": "Another stock is already using this name."
     },
 
     "SUCCESS": {
@@ -207,7 +211,8 @@
         "NONEPARTY": "You don't have any party associated to this account.",
         "CLICKHERE": "Click here to create a new party",
         "CATEGORIA1": "Primary category",
-        "CATEGORIA2": "Secondary category"
+        "CATEGORIA2": "Secondary category",
+        "DETALHES": "Party details"
     },
 
     "CRIARFESTA": {
@@ -365,7 +370,7 @@
         "STATUS": "Status",
         "REMOVE1": "Removal",
         "REMOVE2": "Remove",
-        "DELETE": "Delete estock",
+        "DELETE": "Delete stock",
         "EDITESTOQUE": "Edit stock",
         "NOMEESTOQUE": "Stock name",
         "CONFIRM": "Confirm",
@@ -399,12 +404,13 @@
 
     "ESTOQUEPROD": {
         "ADDPRODESTOQUE": "Add product to stock",
-        "EDITPRODUTOESTOQUE": "Edit a stock product",
+        "EDITPRODUTOESTOQUE": "Edit a product from stock",
         "DELETEPRODUTOESTOQUE": "Delete product from stock",
-        "MARCA": "Brand",
+        "MARCA": "Product",
         "QTDMAX": "Maximum quantity",
         "QTDMIN": "Minimum quantity",
-        "ATUAL": "Current percentage",
+        "QTDATUAL": "Current quantity",
+        "PORCENTAGEMMIN": "Minimum percentage",
         "CONFIRM": "Confirm",
         "CANCEL": "Cancel"
     },
@@ -414,5 +420,16 @@
         "MESSAGE": "Do you really want to delete the product",
         "CONFIRM": "Confirm",
         "CANCEL": "Cancel"
+    },
+
+    "NOTIFICACAO": {
+        "TITLE": "Notifications",
+        "ACEITAR": "Accept",
+        "RECUSAR": "Decline",
+        "SETLIDO": "Mark as read",
+        "SETNLIDO": "Mark as unread",
+        "APAGAR": "Delete notification",
+        "CONVITE": "You were invited to be a member at a new party!",
+        "VER": "See"
     }
 }

@@ -39,7 +39,7 @@ public class ConvidadoService {
 
 	@Autowired
 	private EmailMensagem emailMensagem;
-	
+
 	@Autowired
 	private NotificacaoService notificacaoService;
 
@@ -62,30 +62,34 @@ public class ConvidadoService {
 					Convidado convidado = new Convidado(convidadoRepository.getNextValMySequence(), email);
 					convidadoRepository.save(convidado);
 					convidadoRepository.saveConvidadoGrupo(convidado.getCodConvidado(), idGrupo);
-					notificacaoService.inserirNotificacaoConvidado(convidado.getCodConvidado(), TipoNotificacao.CONVFEST.getCodigo(), TipoNotificacao.CONVFEST.getValor() + "?" + idGrupo + "&" + convidado.getCodConvidado());
+					notificacaoService.inserirNotificacaoConvidado(convidado.getCodConvidado(), TipoNotificacao.CONVFEST.getCodigo(), this.criacaoMensagemNotificacao(idGrupo, convidado.getCodConvidado(), TipoNotificacao.CONVFEST.getValor()));
 				}
 			}
 		}
 		return mensagemRetorno;
 	}
-	
+
 	public void aceitarConvite(Integer codConvidado, Integer idGrupo) {
 		Convidado convidado = this.validarGrupoConvidado(codConvidado, idGrupo);
 		Usuario usuario = this.validarUsuario(0, convidado.getEmail());
-		convidado.getGrupos().stream().forEach(g ->
-			this.validarFesta(g.getFesta().getCodFesta())
-		);
+		convidado.getGrupos().stream().forEach(g ->{
+			this.validarFesta(g.getFesta().getCodFesta());
+			List<Usuario> usuarios = usuarioRepository.findUsuarioComPermissao(g.getFesta().getCodFesta(), usuario.getCodUsuario(), TipoPermissao.ADDMEMBE.getCodigo());
+			usuarios.stream().forEach(u->
+				notificacaoService.inserirNotificacaoUsuario(u.getCodUsuario(), TipoNotificacao.CONVACEI.getCodigo(),criacaoMensagemNotificacao(idGrupo, usuario.getCodUsuario(), TipoNotificacao.CONVACEI.getValor()))		
+			);
+		});
 		grupoRepository.saveUsuarioGrupo(usuario.getCodUsuario(), idGrupo);
 		convidadoRepository.deleteConvidadoGrupo(convidado.getCodConvidado(), idGrupo);
-		notificacaoService.deletarNotificacaoConvidado(convidado.getCodConvidado(), TipoNotificacao.CONVFEST.getCodigo(), TipoNotificacao.CONVFEST.getValor() + "?" + idGrupo + "&" + convidado.getCodConvidado());
+		notificacaoService.deletarNotificacaoConvidado(convidado.getCodConvidado(), TipoNotificacao.CONVFEST.getCodigo(), this.criacaoMensagemNotificacao(idGrupo, convidado.getCodConvidado(), TipoNotificacao.CONVFEST.getValor()));
 		convidadoRepository.deleteConvidado(convidado.getCodConvidado());
 	}
-	
+
 	public void recusarConvite(Integer codConvidado, Integer idGrupo) {
 		Convidado convidado = this.validarGrupoConvidado(codConvidado, idGrupo);
 		this.validarUsuario(0,convidado.getEmail());
 		convidadoRepository.deleteConvidadoGrupo(convidado.getCodConvidado(), idGrupo);
-		notificacaoService.deletarNotificacaoConvidado(codConvidado, TipoNotificacao.CONVFEST.getCodigo(), TipoNotificacao.CONVFEST.getValor() + "?" + idGrupo + "&" + convidado.getCodConvidado());
+		notificacaoService.deletarNotificacaoConvidado(codConvidado, TipoNotificacao.CONVFEST.getCodigo(), this.criacaoMensagemNotificacao(idGrupo, convidado.getCodConvidado(), TipoNotificacao.CONVFEST.getValor()));
 		convidadoRepository.deleteConvidado(convidado.getCodConvidado());
 	}
 
@@ -96,11 +100,11 @@ public class ConvidadoService {
 		}
 		return convidado;
 	}
-	
+
 	public List<Convidado> pegarConvidadosFesta(int codFesta){
 		return convidadoRepository.findConvidadosByCodFesta(codFesta);
 	}
-	
+
 	public List<Convidado> pegarConvidadosGrupo(int codGrupo){
 		return convidadoRepository.findConvidadosNoGrupo(codGrupo);
 	}
@@ -146,6 +150,10 @@ public class ConvidadoService {
 		if(grupos.isEmpty()) {
 			throw new ValidacaoException("USESPERM");// usuário sem permissão
 		}
+	}
+
+	private String criacaoMensagemNotificacao(int idGrupo, int idConvidado, String descNotificacao) { //o idConvidado pode ser tanto o id do convidado ou do usuário depende do tipo da mensagem
+		return descNotificacao + "?" + idGrupo + "&" + idConvidado;
 	}
 
 }

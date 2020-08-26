@@ -21,6 +21,7 @@ import com.eventmanager.pachanga.domains.Categoria;
 import com.eventmanager.pachanga.domains.Festa;
 import com.eventmanager.pachanga.dtos.CategoriaTO;
 import com.eventmanager.pachanga.dtos.ConvidadoTO;
+import com.eventmanager.pachanga.dtos.ConviteFestaTO;
 import com.eventmanager.pachanga.dtos.FestaTO;
 import com.eventmanager.pachanga.dtos.UsuarioTO;
 import com.eventmanager.pachanga.errors.ValidacaoException;
@@ -47,16 +48,16 @@ public class FestaController {
 
 	@Autowired
 	private CategoriaService categoriaService;
-	
+
 	@Autowired
 	private ConvidadoService convidadoService;
-	
+
 	@Autowired
 	private ConvidadoFactory convidadoFactory;
-	
+
 	@Autowired
 	private FestaFactory festaFactory;
-	
+
 
 	@ResponseBody
 	@GetMapping(path = "/lista")
@@ -140,16 +141,13 @@ public class FestaController {
 			return ResponseEntity.status(400).body(e.getMessage());
 		}
 	}
-	
+
 	@ResponseBody
 	@GetMapping(path = "/festaUnicaConvidado")
 	public ResponseEntity<Object> getFestaConvidado(@RequestParam(required = true)int codGrupo, @RequestParam(required = true)int codConvidado){
 		try {			
-			Festa festa = festaService.procurarFestaConvidado(codConvidado, codGrupo);
-			if(festa != null) {
-				return ResponseEntity.ok(festaFactory.getFestaTO(festa));
-			}
-			return ResponseEntity.ok().build();
+			ConviteFestaTO conviteFesta = festaService.procurarFestaConvidado(codConvidado, codGrupo);
+			return ResponseEntity.ok(conviteFesta);
 		}catch (ValidacaoException e) {
 			return ResponseEntity.status(400).body(e.getMessage());
 		}

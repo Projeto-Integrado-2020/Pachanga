@@ -33,6 +33,7 @@ import { EditarGrupoComponent } from '../editar-grupo/editar-grupo.component';
 import { DistribuicaoPermissoesComponent } from '../distribuicao-permissoes/distribuicao-permissoes.component';
 import { EstoquePainelComponent } from '../estoque-painel/estoque-painel.component';
 import { GerenciadorProdutosComponent } from '../gerenciador-produtos/gerenciador-produtos.component';
+import { FestaDetalhesDialogComponent } from '../festa-detalhes-dialog/festa-detalhes-dialog.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -78,7 +79,8 @@ describe('LoginComponent', () => {
         EditarGrupoComponent,
         DistribuicaoPermissoesComponent,
         EstoquePainelComponent,
-        GerenciadorProdutosComponent
+        GerenciadorProdutosComponent,
+        FestaDetalhesDialogComponent
       ],
       imports: [
         CustomMaterialModule,

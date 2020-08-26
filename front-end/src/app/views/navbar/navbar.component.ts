@@ -1,6 +1,6 @@
 import { Component, OnInit, Renderer2, ViewChild, ElementRef } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { MatDialog } from '@angular/material';
+import { MatDialog} from '@angular/material';
 import { LoginComponent } from '../login/login.component';
 import { CadastroComponent } from '../cadastro/cadastro.component';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
@@ -8,7 +8,11 @@ import { Observable, interval, Subscription } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { LoginService } from 'src/app/services/loginService/login.service';
 import { NotificacoesService } from 'src/app/services/notificacoes-service/notificacoes.service';
+import { FestaDetalhesDialogComponent } from '../festa-detalhes-dialog/festa-detalhes-dialog.component';
 
+export interface ConviteData {
+  mensagem: string;
+}
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -26,10 +30,12 @@ export class NavbarComponent implements OnInit {
   alertaOpcoes: boolean;
   selected: number;
   alertIds: number[] = [];
-  alerts: any[] = [];
+
   notificacoesUsuario: any[] = [];
   notificacoesGrupo: any[] = [];
   notificacaoConvidado: any[] = [];
+
+  convmsg: any;
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
@@ -39,9 +45,7 @@ export class NavbarComponent implements OnInit {
 
   constructor(
     public translate: TranslateService,
-    public login: MatDialog,
-    public cadastro: MatDialog,
-    public invite: MatDialog,
+    public dialog: MatDialog,
     private breakpointObserver: BreakpointObserver,
     public loginComponent: LoginComponent,
     public loginService: LoginService,
@@ -51,35 +55,30 @@ export class NavbarComponent implements OnInit {
     translate.setDefaultLang('pt');
     const browserLang = translate.getBrowserLang();
     translate.use(browserLang.match(/pt|en/) ? browserLang : 'pt');
-    this.puxarNovosAlertas();
-
   }
 
   puxarNovosAlertas() {
-    const source = interval(5000);
-    source.subscribe(
-      () => {
-        this.carregarArray(this.notifService.getNotificacoes());
-        this.contarAlertasNaoLidos();
-      }
-    );
+    if (this.loginService.usuarioAutenticado) {
+      const source = interval(5000);
+      source.subscribe(
+        () => {
+          this.carregarArray(this.notifService.getNotificacoes());
+          this.contarAlertasNaoLidos();
+        }
+      );
+    }
   }
 
   carregarArray(observavel: Observable<object>) {
     return observavel.subscribe(
       (response: any) => {
-        for (const notif of response.notificacoesUsuario) {
-          if ( this.alerts.filter( e => e.notificacao === notif.notificacao).length === 0) {
-            this.alerts.push(Object.assign(notif, {tipoUser: true, tempo: 'agora mesmo', alertaOpcoes: false}));
-          }
-        }
-        for (const notif of response.notificacoesGrupo) {
-        if ( this.alerts.filter( e => e.notificacao === notif.notificacao).length === 0) {
-          this.alerts.push(Object.assign(notif, {tipo: false, tempo: 'agora mesmo'}));
-          }
-        }
+        this.notificacoesUsuario = response.notificacoesUsuario;
+        this.notificacoesGrupo = response.notificacoesGrupo;
+        this.notificacaoConvidado = response.notificacaoConvidado;
       }
     );
+
+    // this.convites = alerts.filter(alert => )
   }
 
 
@@ -87,12 +86,12 @@ export class NavbarComponent implements OnInit {
 
   contarAlertasNaoLidos(): void {
     let count = 0;
-    for (const i of this.alerts) {
+    for (const i of this.notificacoesUsuario) {
       if (i.status === 'N' || i.destaque) {
         count++;
       }
     }
-    this.alertNumbers = count;
+    this.alertNumbers = count + this.notificacoesGrupo.length + this.notificacaoConvidado.length;
   }
 
   alterarAlerta(alerta): void {
@@ -102,9 +101,9 @@ export class NavbarComponent implements OnInit {
     alerta.alertaOpcoes = false;
   }
 
-  deletarAlerta(alerta): void {
-    const index = this.alerts.indexOf(alerta);
-    this.alerts.splice(index, 1);
+  deletarAlerta(alerta, arrayName): void {
+    const index = arrayName.indexOf(alerta);
+    arrayName.splice(index, 1);
     this.notifService.deletarNotificacao(alerta.notificacao).subscribe();
     // CHAMAR METODO DELETAR ALERTA DO NOTIFICACAO-SERVICE!
   }
@@ -113,9 +112,7 @@ export class NavbarComponent implements OnInit {
 
   fecharNotificacoes(): void {
     this.visibilidadeNotificacoes = false;
-    console.log('this.visibilidadeNotificacoes = false;');
-    this.alerts.forEach(alert => {
-      console.log('this.alerts.forEach');
+    this.notificacoesUsuario.forEach(alert => {
       alert.status = 'L';
       this.alertIds.push(alert.notificacao);
     });
@@ -138,20 +135,36 @@ export class NavbarComponent implements OnInit {
 
  // método para abrir modal de login
   openDialogLogin(): void {
-    this.login.open(LoginComponent, {
+    this.dialog.open(LoginComponent, {
       width: '20rem',
     });
   }
  // método para abrir modal de cadastro
   openDialogCadastro(): void {
-    this.cadastro.open(CadastroComponent, {
+    this.dialog.open(CadastroComponent, {
       width: '20rem'
     });
   }
 
+  openDialogConvite(alerta): void {
+
+      this.dialog.open(FestaDetalhesDialogComponent, {
+      width: '23rem',
+      data: {
+        mensagem: alerta.mensagem
+      }
+    });
+  }
+
   ngOnInit() {
-    this.contarAlertasNaoLidos();
-    this.visibilidadeAlerta = this.alerts.length === 0;
+    if (this.loginService.usuarioAutenticado) {
+      this.carregarArray(this.notifService.getNotificacoes());
+      this.contarAlertasNaoLidos();
+      this.visibilidadeAlerta = this.notificacoesUsuario.length +
+                              this.notificacoesGrupo.length +
+                              this.notificacaoConvidado.length === 0;
+      this.puxarNovosAlertas();
+    }
   }
 
 }

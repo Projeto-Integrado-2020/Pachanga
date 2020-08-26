@@ -80,6 +80,7 @@ import { DeletarProdutoDialogComponent } from './views/deletar-produto-dialog/de
 import { CriarProdutoEstoqueDialogComponent } from './views/criar-produto-estoque-dialog/criar-produto-estoque-dialog.component';
 import { DeletarProdutoEstoqueDialogComponent } from './views/deletar-produto-estoque-dialog/deletar-produto-estoque-dialog.component';
 import { EditarProdutoEstoqueDialogComponent } from './views/editar-produto-estoque-dialog/editar-produto-estoque-dialog.component';
+import { FestaDetalhesDialogComponent } from './views/festa-detalhes-dialog/festa-detalhes-dialog.component';
 
 
 const config = new AuthServiceConfig([
@@ -140,7 +141,8 @@ export function provideConfig() {
     DeletarProdutoDialogComponent,
     CriarProdutoEstoqueDialogComponent,
     DeletarProdutoEstoqueDialogComponent,
-    EditarProdutoEstoqueDialogComponent
+    EditarProdutoEstoqueDialogComponent,
+    FestaDetalhesDialogComponent
   ],
   entryComponents: [
     LoginComponent,
@@ -164,7 +166,8 @@ export function provideConfig() {
     DeletarProdutoDialogComponent,
     CriarProdutoEstoqueDialogComponent,
     DeletarProdutoEstoqueDialogComponent,
-    EditarProdutoEstoqueDialogComponent
+    EditarProdutoEstoqueDialogComponent,
+    FestaDetalhesDialogComponent
   ],
   imports: [
     BrowserModule,

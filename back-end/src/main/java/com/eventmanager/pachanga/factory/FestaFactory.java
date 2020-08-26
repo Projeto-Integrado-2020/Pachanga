@@ -46,10 +46,5 @@ public class FestaFactory {
 		festaTo.setIsOrganizador(festa.isOrganizador(idUser));
 		return festaTo;
 	}
-	
-	public FestaTO getFestaTO(Festa festa) {
-		return FestaTOBuilder.getInstance().nomeFesta(festa.getNomeFesta()).codEnderecoFesta(festa.getCodEnderecoFesta()).horarioInicioFesta(festa.getHorarioInicioFesta())
-				.horarioFimFesta(festa.getHorarioFimFesta()).build();
-	}
 
 }

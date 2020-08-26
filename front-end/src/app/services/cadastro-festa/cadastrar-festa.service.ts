@@ -44,7 +44,7 @@ export class CadastrarFestaService {
   }
 
   openErrorDialog(error) {
-    const dialogRef = this.dialog.open(ErroDialogComponent, {
+    this.dialog.open(ErroDialogComponent, {
       width: '250px',
       data: {erro: error}
     });

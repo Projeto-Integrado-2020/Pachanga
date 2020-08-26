@@ -9,7 +9,7 @@ matrix:
       script: "npm test"
       deploy:
         provider: heroku
-        api_key: 99938d14-5f1a-49cd-a6e1-2a3f7a62d3de
+        api_key: $HEROKU_FRONT_END
         app: pachanga
         on:
           repo: Projeto-Integrado-2020/Pachanga
@@ -19,7 +19,7 @@ matrix:
       script: "cd back-end && mvn clean install"
       deploy:
         provider: heroku
-        api_key: 99938d14-5f1a-49cd-a6e1-2a3f7a62d3de
+        api_key: $HEROKU_BACK_END
         app: pachanga-back-end
         on:
           repo: Projeto-Integrado-2020/Pachanga
