@@ -44,6 +44,34 @@ mat-toolbar{
   .btn-navbar {
     display: none;
   }
+
+  .mat-toolbar {
+    background-color: $color-primary;
+  }
+  .sidenav {
+
+    &__title {
+      position: relative;
+      top: 0;
+      color: white;
+      background-color: $color-primary;
+      display: block;
+      margin: 0;
+      height: 3rem;
+
+      & h3 {
+        margin: 0 0 0 1rem;
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+    }
+  }
+
+  .btn {
+    visibility: hidden;
+  }
+
 }
 
 @media (min-width: 748px){

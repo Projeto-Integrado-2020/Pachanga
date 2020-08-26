@@ -1,18 +1,23 @@
 <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
 
+<!-- MENU MOBILE -->
+
 <mat-sidenav-container class="sidenav-container">
   <mat-sidenav #drawer class="sidenav" fixedInViewport
       [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
       [mode]="(isHandset$ | async) ? 'over' : 'side'"
       [opened]="(isHandset$ | async) === false">
-    <mat-toolbar color="primary">Menu</mat-toolbar>
+    <mat-toolbar class="mat-toolbar" color="primary"></mat-toolbar>
+    <div class="sidenav__title">
+      <h3>Menu</h3>
+    </div>
     <mat-nav-list>
-      <a *ngIf="!loginService.usuarioAutenticado" mat-list-item href="#" (click)="drawer.toggle(); openDialogLogin()">{{'NAV.ENTRAR' | translate}}</a>
-      <a *ngIf="!loginService.usuarioAutenticado" mat-list-item href="#" (click)="drawer.toggle(); openDialogCadastro()">{{'NAV.CONTA' | translate}}</a>
-      <a *ngIf="loginService.usuarioAutenticado" mat-list-item href="#" (click)="drawer.toggle()">{{'NAV.INGRESSOS' | translate}}</a>
-      <a *ngIf="loginService.usuarioAutenticado" mat-list-item href="#" (click)="drawer.toggle()">{{'NAV.EVENTOS' | translate}}</a>
-      <a *ngIf="loginService.usuarioAutenticado" mat-list-item href="#" (click)="drawer.toggle()" routerLink="../perfil">{{'NAV.CONTA_L' | translate}}</a>
-      <a *ngIf="loginService.usuarioAutenticado" mat-list-item href="#" (click)="loginComponent.signOut()">{{'NAV.SAIR' | translate}}</a>
+      <a *ngIf="!loginService.usuarioAutenticado" mat-list-item (click)="drawer.toggle(); openDialogLogin()">{{'NAV.ENTRAR' | translate}}</a>
+      <a *ngIf="!loginService.usuarioAutenticado" mat-list-item (click)="drawer.toggle(); openDialogCadastro()">{{'NAV.CONTA' | translate}}</a>
+      <a *ngIf="loginService.usuarioAutenticado" mat-list-item  (click)="drawer.toggle()">{{'NAV.INGRESSOS' | translate}}</a>
+      <a *ngIf="loginService.usuarioAutenticado" mat-list-item  (click)="drawer.toggle()">{{'NAV.EVENTOS' | translate}}</a>
+      <a *ngIf="loginService.usuarioAutenticado" mat-list-item  (click)="drawer.toggle()" routerLink="../perfil">{{'NAV.CONTA_L' | translate}}</a>
+      <a *ngIf="loginService.usuarioAutenticado" mat-list-item  (click)="loginComponent.signOut()">{{'NAV.SAIR' | translate}}</a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
