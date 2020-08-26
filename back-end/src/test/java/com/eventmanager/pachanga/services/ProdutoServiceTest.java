@@ -75,6 +75,9 @@ class ProdutoServiceTest {
 	
 	@MockBean
 	private NotificacaoRepository notificacaoRepository;
+	
+	@MockBean 
+	private FestaService festaService;
 
 	//metodos auxiliare________________________________________________________________________________________	
 	private ProdutoTO produtoTOTest() {
