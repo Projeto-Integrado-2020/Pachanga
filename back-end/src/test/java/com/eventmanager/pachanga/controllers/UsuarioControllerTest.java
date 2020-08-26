@@ -2,9 +2,7 @@ package com.eventmanager.pachanga.controllers;
 
 import static org.junit.Assert.assertEquals;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -23,6 +21,7 @@ import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import com.eventmanager.pachanga.domains.Usuario;
+import com.eventmanager.pachanga.dtos.UsuarioFestaTO;
 import com.eventmanager.pachanga.dtos.UsuarioTO;
 import com.eventmanager.pachanga.errors.ValidacaoException;
 import com.eventmanager.pachanga.services.UsuarioService;
@@ -49,45 +48,7 @@ class UsuarioControllerTest {
 		usuarioTest.setNomeUser("Gustavo Barbosa");
 		
 		return usuarioTest;
-	}
-	
-	public List<Usuario> colecaoDeUsuario(int quantidadeUsuarios) throws Exception {
-		List<Usuario> usuarios = null;
-		
-		if(quantidadeUsuarios >= 1) {		
-			usuarios = new ArrayList<Usuario>();
-			
-			Usuario usuarioTest1 = usuarioTest();
-			usuarioTest1.setCodUsuario(1);
-			usuarioTest1.setNomeUser("Andrey");
-	
-			usuarios.add(usuarioTest1);
-		 
-			if(quantidadeUsuarios >= 2) {	
-				Usuario usuarioTest2 = usuarioTest();
-				usuarioTest2.setCodUsuario(2);
-				usuarioTest2.setNomeUser("Luis");
-		
-				usuarios.add(usuarioTest2);
-			} 
-			if(quantidadeUsuarios >= 3) {		
-				Usuario usuarioTest3 = usuarioTest();
-				usuarioTest3.setCodUsuario(3);
-				usuarioTest3.setNomeUser("Tiago");
-		
-				usuarios.add(usuarioTest3);
-			} 
-			if(quantidadeUsuarios >= 4) {		
-				Usuario usuarioTest4 = usuarioTest();
-				usuarioTest4.setCodUsuario(4);
-				usuarioTest4.setNomeUser("Guilherme");
-		
-				usuarios.add(usuarioTest4);
-			}
-		}
-		
-		return usuarios;
-	}
+	}	
 
 //login__________________________________________________________________________________________________________	
 	
@@ -287,10 +248,53 @@ class UsuarioControllerTest {
 		
 		assertEquals(true, 400 == response.getStatus());
 		
-		System.out.println(result.getResponse().getContentAsString());
 		
 		assertEquals(expected, result.getResponse().getContentAsString());
 		
 	}
 	
+	
+	@Test
+	void getInfoUserFestaSucessoTest() throws Exception{
+		
+		String uri = "/usuario/infoUserFesta";
+		
+		Mockito.when(userService.getInfoUserFesta(Mockito.anyInt(), Mockito.anyInt())).thenReturn(new UsuarioFestaTO());
+		
+		RequestBuilder requestBuilder = MockMvcRequestBuilders
+				.get(uri)
+				.accept(MediaType.APPLICATION_JSON)
+				.param("codGrupo", "1")
+				.param("codUsuario", "1")
+				.contentType(MediaType.APPLICATION_JSON);
+
+		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+		
+		MockHttpServletResponse response = result.getResponse();
+
+		assertEquals(HttpStatus.OK.value(), response.getStatus());
+
+	}
+	
+	@Test
+	void getInfoUserFestaErroTest() throws Exception{
+		
+		String uri = "/usuario/infoUserFesta";
+		
+		Mockito.when(userService.getInfoUserFesta(Mockito.anyInt(), Mockito.anyInt())).thenThrow(new ValidacaoException("teste"));
+		
+		RequestBuilder requestBuilder = MockMvcRequestBuilders
+				.get(uri)
+				.accept(MediaType.APPLICATION_JSON)
+				.param("codGrupo", "1")
+				.param("codUsuario", "1")
+				.contentType(MediaType.APPLICATION_JSON);
+
+		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+		
+		MockHttpServletResponse response = result.getResponse();
+
+		assertEquals(400, response.getStatus());
+
+	}
 }

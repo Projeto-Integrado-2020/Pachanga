@@ -14,7 +14,9 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.eventmanager.pachanga.domains.Grupo;
 import com.eventmanager.pachanga.domains.Usuario;
+import com.eventmanager.pachanga.dtos.UsuarioFestaTO;
 import com.eventmanager.pachanga.dtos.UsuarioTO;
 import com.eventmanager.pachanga.errors.ValidacaoException;
 import com.eventmanager.pachanga.factory.UsuarioFestaTOFactory;
@@ -32,16 +34,16 @@ class UsuarioServiceTest {
 
 	@MockBean
 	private FestaService festaService;
-	
+
 	@MockBean
 	private GrupoRepository grupoRepository;
-	
+
 	@MockBean
 	private UsuarioFestaTOFactory usuarioFestaTOFactory;
 
 	@Autowired
 	private UsuarioService userService;
-	
+
 
 	@SuppressWarnings("deprecation")
 	public static UsuarioTO usuarioToTest() throws Exception{
@@ -56,6 +58,13 @@ class UsuarioServiceTest {
 		usuarioTest.setTipConta("P");
 
 		return usuarioTest;
+	}
+
+	public Grupo criacaoGrupo() {
+		Grupo grupo = new Grupo();
+		grupo.setCodGrupo(1);
+		grupo.setNomeGrupo("CONVIDADO");
+		return grupo;
 	}
 
 	@SuppressWarnings("deprecation")
@@ -90,7 +99,7 @@ class UsuarioServiceTest {
 		assertEquals(usuarioTestLogin.getSexo(),usuarioRetorno.getSexo());
 		assertEquals(usuarioTestLogin.getEmail(),usuarioRetorno.getEmail()); 
 	}
-	
+
 	@Test
 	void loginSemSenhaBancoTest() throws Exception{
 
@@ -112,7 +121,7 @@ class UsuarioServiceTest {
 		assertEquals(true, erro);
 		assertEquals("PASSINC1", mensagemErro);
 	}
-	
+
 	@Test
 	void loginErroContaGmailTest() throws Exception{
 
@@ -124,7 +133,7 @@ class UsuarioServiceTest {
 		UsuarioTO usuarioTestLogin = usuarioToTest();
 		usuarioTestLogin.setTipConta(TipoConta.GMAIL.getDescricao());
 		usuarioTestLogin.setConta("1234");
-		
+
 		boolean erro = false;
 		try {
 			userService.logar(usuarioTestLogin);			
@@ -134,7 +143,7 @@ class UsuarioServiceTest {
 
 		assertEquals(true, erro);
 	}
-	
+
 	@Test
 	void loginErroContaFacebookTest() throws Exception{
 
@@ -146,7 +155,7 @@ class UsuarioServiceTest {
 		UsuarioTO usuarioTestLogin = usuarioToTest();
 		usuarioTestLogin.setTipConta(TipoConta.FACEBOOK.getDescricao());
 		usuarioTestLogin.setConta("1234");
-		
+
 		boolean erro = false;
 		try {
 			userService.logar(usuarioTestLogin);			
@@ -373,7 +382,7 @@ class UsuarioServiceTest {
 		assertEquals(true, usuarioRetorno != null); 
 		assertEquals(true, caiuException != true); 
 	}
-	
+
 	@Test
 	void cadastroGmailTest() throws Exception{
 		Usuario usuario = usuarioTest();
@@ -732,7 +741,7 @@ class UsuarioServiceTest {
 
 	@Test
 	void funcionalidadeUsuarioFestaFailedTest() throws Exception{
-		
+
 		List<String> expected = new ArrayList<>();
 		expected.add("Estagiário senior em iluminação");
 
@@ -760,6 +769,35 @@ class UsuarioServiceTest {
 		Usuario usuarioResposta = userService.getUsuarioResponsavelFesta(14);
 
 		assertEquals(true, usuarioResposta != null);
+	}
+
+	@Test
+	void getInfoUserFestaSucessTest() throws Exception{
+		Mockito.when(usuarioRepository.findById(Mockito.anyInt())).thenReturn(usuarioTest());
+
+		Mockito.when(grupoRepository.findById(Mockito.anyInt())).thenReturn(criacaoGrupo());
+
+		Mockito.when(usuarioFestaTOFactory.getUsuarioFestaTO(Mockito.any(), Mockito.any())).thenReturn(new UsuarioFestaTO());
+
+		userService.getInfoUserFesta(14, 1);
+
+	}
+
+	@Test
+	void getInfoUserFestaErroGrupoNaoEncontradoTest() throws Exception{
+		Mockito.when(usuarioRepository.findById(Mockito.anyInt())).thenReturn(usuarioTest());
+
+		Mockito.when(grupoRepository.findById(Mockito.anyInt())).thenReturn(null);
+
+		Mockito.when(usuarioFestaTOFactory.getUsuarioFestaTO(Mockito.any(), Mockito.any())).thenReturn(new UsuarioFestaTO());
+
+		boolean caiuException = false;
+		try {
+			userService.getInfoUserFesta(14, 1);
+		}catch(ValidacaoException e) {
+			caiuException = true;
+		}
+		assertEquals(true, caiuException == true); 
 	}
 
 }

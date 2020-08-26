@@ -10,6 +10,7 @@ import com.eventmanager.pachanga.domains.Estoque;
 import com.eventmanager.pachanga.domains.Festa;
 import com.eventmanager.pachanga.domains.Grupo;
 import com.eventmanager.pachanga.domains.ItemEstoque;
+import com.eventmanager.pachanga.domains.ItemEstoqueFluxo;
 import com.eventmanager.pachanga.domains.Produto;
 import com.eventmanager.pachanga.dtos.ItemEstoqueTO;
 import com.eventmanager.pachanga.dtos.ProdutoTO;
@@ -19,9 +20,8 @@ import com.eventmanager.pachanga.factory.ProdutoFactory;
 import com.eventmanager.pachanga.repositories.EstoqueRepository;
 import com.eventmanager.pachanga.repositories.FestaRepository;
 import com.eventmanager.pachanga.repositories.GrupoRepository;
+import com.eventmanager.pachanga.repositories.ItemEstoqueFluxoRepository;
 import com.eventmanager.pachanga.repositories.ItemEstoqueRepository;
-import com.eventmanager.pachanga.repositories.NotificacaoGrupoRepository;
-import com.eventmanager.pachanga.repositories.NotificacaoRepository;
 import com.eventmanager.pachanga.repositories.ProdutoRepository;
 import com.eventmanager.pachanga.tipo.TipoNotificacao;
 import com.eventmanager.pachanga.tipo.TipoPermissao;
@@ -55,17 +55,14 @@ public class ProdutoService {
 	private NotificacaoService notificacaoService;
 	
 	@Autowired
-	NotificacaoGrupoRepository notificacaoGrupoRepository;
-	
-	@Autowired
-	NotificacaoRepository notificacaoRepository;
-	
-	@Autowired
 	private FestaService festaService;
+	
+	@Autowired
+	private ItemEstoqueFluxoRepository itemEstoqueFluxoRepository;
 
 	//add_____________________________________________________________________________________________________
 	public Produto addProduto(ProdutoTO produtoTO, Integer codFesta, Integer idUsuarioPermissao) {
-		festaService.ValidarFestaFinalizada(codFesta);
+		festaService.validarFestaFinalizada(codFesta);
 		this.validarUsuarioPorFesta(codFesta,idUsuarioPermissao, TipoPermissao.CADAESTO.getCodigo());
 		this.validarProduto(produtoTO.getMarca(), produtoTO.getCodFesta());
 		Produto produto = produtoFactory.getProduto(produtoTO);
@@ -77,7 +74,7 @@ public class ProdutoService {
 	}
 
 	public ItemEstoque addProdutoEstoque(ItemEstoqueTO itemEstoqueTO, Integer codEstoque, Integer idUsuarioPermissao){
-		festaService.ValidarFestaFinalizada(itemEstoqueTO.getCodFesta());
+		festaService.validarFestaFinalizada(itemEstoqueTO.getCodFesta());
 		int quantidadeMax = itemEstoqueTO.getQuantidadeMax();
 		int quantidadeAtual = itemEstoqueTO.getQuantidadeAtual();
 		int porcentagemMin = itemEstoqueTO.getPorcentagemMin();
@@ -101,7 +98,7 @@ public class ProdutoService {
 
 	//remover_____________________________________________________________________________________________________
 	public void removerProduto(Integer idUsuarioPermissao, Integer codFesta, Integer codProduto) {
-		festaService.ValidarFestaFinalizada(codFesta);
+		festaService.validarFestaFinalizada(codFesta);
 		Produto produto = this.validarProduto(codProduto);
 		
 		this.validarUsuarioPorFesta(codFesta, idUsuarioPermissao, TipoPermissao.DELMESTO.getCodigo());
@@ -122,7 +119,7 @@ public class ProdutoService {
 
 	//editar_____________________________________________________________________________________________________
 	public Produto editarProduto(ProdutoTO produtoTO, Integer idUsuarioPermissao) {
-		festaService.ValidarFestaFinalizada(produtoTO.getCodFesta());
+		festaService.validarFestaFinalizada(produtoTO.getCodFesta());
 		this.validarUsuarioPorFesta(produtoTO.getCodFesta(), idUsuarioPermissao, TipoPermissao.EDIMESTO.getCodigo());
 		Produto produto = this.validarProduto(produtoTO.getCodProduto());
 		produto.setPrecoMedio(produtoTO.getPrecoMedio());
@@ -133,7 +130,7 @@ public class ProdutoService {
 	}
 
 	public ItemEstoque editarProdutoEstoque(ItemEstoqueTO itemEstoqueTO, Integer idUsuarioPermissao) {
-		festaService.ValidarFestaFinalizada(itemEstoqueTO.getCodFesta());
+		festaService.validarFestaFinalizada(itemEstoqueTO.getCodFesta());
 		this.validarUsuarioPorEstoque(idUsuarioPermissao, itemEstoqueTO.getCodEstoque(), TipoPermissao.EDIMESTO.getCodigo());
 		int codProduto = itemEstoqueTO.getCodProduto();
 		int codEstoque = itemEstoqueTO.getCodEstoque();
@@ -167,6 +164,8 @@ public class ProdutoService {
 		
 		itemEstoqueRepository.save(itemEstoque);
 		
+		this.inserirItemEstoqueFluxo(itemEstoque);
+		
 		this.disparaNotificacaoCasoEstoqueEscasso(itemEstoque);
 		
 		return itemEstoque;
@@ -185,8 +184,15 @@ public class ProdutoService {
 		itemEstoque.setQuantidadeAtual(quantidadeAtual);
 		
 		itemEstoqueRepository.save(itemEstoque);
+		
+		this.inserirItemEstoqueFluxo(itemEstoque);
 
 		return itemEstoque;
+	}
+	
+	private void inserirItemEstoqueFluxo(ItemEstoque itemEstoque) {
+		ItemEstoqueFluxo itemEstoqueFluxo = new ItemEstoqueFluxo(itemEstoque, notificacaoService.getDataAtual(), itemEstoqueFluxoRepository.getNextValMySequence());
+		itemEstoqueFluxoRepository.save(itemEstoqueFluxo);
 	}
 
 	//gets_____________________________________________________________________________________________________
@@ -296,12 +302,12 @@ public class ProdutoService {
 		int quantidadeAtual = itemEstoque.getQuantidadeAtual();
 		int porcentagemMin = itemEstoque.getPorcentagemMin();
 		
-		if(  quantidadeMax * porcentagemMin * 0.01 >= quantidadeAtual ) {
+		if(quantidadeMax * porcentagemMin * 0.01 >= quantidadeAtual ) {
 			int codFesta = itemEstoque.getEstoque().getFesta().getCodFesta();  //pega o código da festa
 			List<Grupo> grupos = grupoRepository.findGruposPermissaoEstoque(codFesta);
 			
 			for(Grupo grupo : grupos) {
-				if(notificacaoService.verificarNotificacaoGrupo(grupo.getCodGrupo(), 3) == false) {
+				if(!notificacaoService.verificarNotificacaoGrupo(grupo.getCodGrupo(), 3)) {
 					notificacaoService.inserirNotificacaoGrupo(grupo.getCodGrupo(), 3, TipoNotificacao.ESTBAIXO + "?" + codFesta + "&" + itemEstoque.getEstoque().getCodEstoque() + "&" + itemEstoque.getProduto().getCodProduto());	
 				}
 			}
