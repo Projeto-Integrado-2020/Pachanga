@@ -10,6 +10,7 @@ import com.eventmanager.pachanga.domains.Estoque;
 import com.eventmanager.pachanga.domains.Festa;
 import com.eventmanager.pachanga.domains.Grupo;
 import com.eventmanager.pachanga.domains.ItemEstoque;
+import com.eventmanager.pachanga.domains.ItemEstoqueFluxo;
 import com.eventmanager.pachanga.domains.Produto;
 import com.eventmanager.pachanga.dtos.ItemEstoqueTO;
 import com.eventmanager.pachanga.dtos.ProdutoTO;
@@ -19,9 +20,8 @@ import com.eventmanager.pachanga.factory.ProdutoFactory;
 import com.eventmanager.pachanga.repositories.EstoqueRepository;
 import com.eventmanager.pachanga.repositories.FestaRepository;
 import com.eventmanager.pachanga.repositories.GrupoRepository;
+import com.eventmanager.pachanga.repositories.ItemEstoqueFluxoRepository;
 import com.eventmanager.pachanga.repositories.ItemEstoqueRepository;
-import com.eventmanager.pachanga.repositories.NotificacaoGrupoRepository;
-import com.eventmanager.pachanga.repositories.NotificacaoRepository;
 import com.eventmanager.pachanga.repositories.ProdutoRepository;
 import com.eventmanager.pachanga.tipo.TipoNotificacao;
 import com.eventmanager.pachanga.tipo.TipoPermissao;
@@ -55,13 +55,10 @@ public class ProdutoService {
 	private NotificacaoService notificacaoService;
 	
 	@Autowired
-	NotificacaoGrupoRepository notificacaoGrupoRepository;
-	
-	@Autowired
-	NotificacaoRepository notificacaoRepository;
-	
-	@Autowired
 	private FestaService festaService;
+	
+	@Autowired
+	private ItemEstoqueFluxoRepository itemEstoqueFluxoRepository;
 
 	//add_____________________________________________________________________________________________________
 	public Produto addProduto(ProdutoTO produtoTO, Integer codFesta, Integer idUsuarioPermissao) {
@@ -167,6 +164,8 @@ public class ProdutoService {
 		
 		itemEstoqueRepository.save(itemEstoque);
 		
+		this.inserirItemEstoqueFluxo(itemEstoque);
+		
 		this.disparaNotificacaoCasoEstoqueEscasso(itemEstoque);
 		
 		return itemEstoque;
@@ -185,8 +184,15 @@ public class ProdutoService {
 		itemEstoque.setQuantidadeAtual(quantidadeAtual);
 		
 		itemEstoqueRepository.save(itemEstoque);
+		
+		this.inserirItemEstoqueFluxo(itemEstoque);
 
 		return itemEstoque;
+	}
+	
+	private void inserirItemEstoqueFluxo(ItemEstoque itemEstoque) {
+		ItemEstoqueFluxo itemEstoqueFluxo = new ItemEstoqueFluxo(itemEstoque, notificacaoService.getDataAtual(), itemEstoqueFluxoRepository.getNextValMySequence());
+		itemEstoqueFluxoRepository.save(itemEstoqueFluxo);
 	}
 
 	//gets_____________________________________________________________________________________________________
@@ -296,7 +302,7 @@ public class ProdutoService {
 		int quantidadeAtual = itemEstoque.getQuantidadeAtual();
 		int porcentagemMin = itemEstoque.getPorcentagemMin();
 		
-		if(  quantidadeMax * porcentagemMin * 0.01 >= quantidadeAtual ) {
+		if(quantidadeMax * porcentagemMin * 0.01 >= quantidadeAtual ) {
 			int codFesta = itemEstoque.getEstoque().getFesta().getCodFesta();  //pega o código da festa
 			List<Grupo> grupos = grupoRepository.findGruposPermissaoEstoque(codFesta);
 			

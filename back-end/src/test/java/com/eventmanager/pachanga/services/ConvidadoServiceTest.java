@@ -319,7 +319,7 @@ class ConvidadoServiceTest {
 		Mockito.doNothing().when(convidadoRepository).deleteConvidado(Mockito.anyInt());
 		Mockito.doNothing().when(grupoRepository).saveUsuarioGrupo(Mockito.anyInt(), Mockito.anyInt());
 		Mockito.when(festaRepository.findById(Mockito.anyInt())).thenReturn(criacaoFesta());
-		Mockito.when(usuarioRepository.findUsuarioComPermissao(Mockito.any(), Mockito.any(), Mockito.anyInt())).thenReturn(usuarios);
+		Mockito.when(usuarioRepository.findUsuarioComPermissao(Mockito.any(), Mockito.anyInt())).thenReturn(usuarios);
 		Mockito.doNothing().when(notificacaoService).inserirNotificacaoUsuario(Mockito.any(), Mockito.anyInt(),Mockito.anyString());
 
 		convidadoService.aceitarConvite(1, 13);

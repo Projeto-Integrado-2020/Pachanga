@@ -74,7 +74,7 @@ public class ConvidadoService {
 		Usuario usuario = this.validarUsuario(0, convidado.getEmail());
 		convidado.getGrupos().stream().forEach(g ->{
 			this.validarFesta(g.getFesta().getCodFesta());
-			List<Usuario> usuarios = usuarioRepository.findUsuarioComPermissao(g.getFesta().getCodFesta(), usuario.getCodUsuario(), TipoPermissao.ADDMEMBE.getCodigo());
+			List<Usuario> usuarios = usuarioRepository.findUsuarioComPermissao(g.getFesta().getCodFesta(), TipoPermissao.ADDMEMBE.getCodigo());
 			usuarios.stream().forEach(u->
 				notificacaoService.inserirNotificacaoUsuario(u.getCodUsuario(), TipoNotificacao.CONVACEI.getCodigo(),criacaoMensagemNotificacao(idGrupo, usuario.getCodUsuario(), TipoNotificacao.CONVACEI.getValor()))		
 			);

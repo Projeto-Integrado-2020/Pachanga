@@ -33,9 +33,9 @@ import com.eventmanager.pachanga.factory.ProdutoFactory;
 import com.eventmanager.pachanga.repositories.EstoqueRepository;
 import com.eventmanager.pachanga.repositories.FestaRepository;
 import com.eventmanager.pachanga.repositories.GrupoRepository;
+import com.eventmanager.pachanga.repositories.ItemEstoqueFluxoRepository;
 import com.eventmanager.pachanga.repositories.ItemEstoqueRepository;
 import com.eventmanager.pachanga.repositories.NotificacaoGrupoRepository;
-import com.eventmanager.pachanga.repositories.NotificacaoRepository;
 import com.eventmanager.pachanga.repositories.ProdutoRepository;
 import com.eventmanager.pachanga.tipo.TipoPermissao;
 
@@ -73,11 +73,11 @@ class ProdutoServiceTest {
 	@MockBean
 	private NotificacaoService notificacaoService;
 	
-	@MockBean
-	private NotificacaoRepository notificacaoRepository;
-	
 	@MockBean 
 	private FestaService festaService;
+	
+	@MockBean
+	private ItemEstoqueFluxoRepository itemEstoqueFluxoRepository;
 
 	//metodos auxiliare________________________________________________________________________________________	
 	private ProdutoTO produtoTOTest() {
@@ -986,6 +986,8 @@ class ProdutoServiceTest {
 		int codFesta = festa.getCodFesta();
 		int quantidade = 3;
 		itemEstoque.setQuantidadeAtual(30);
+		itemEstoque.setProduto(produto);
+		itemEstoque.setEstoque(estoque);
 		
 		//notificacaoGrupoRepository.findNotificacaoGrupo(codGrupo, codNotificacao)
 
@@ -1173,6 +1175,7 @@ class ProdutoServiceTest {
 		int quantidade = 3;
 		itemEstoque.setQuantidadeAtual(10);
 		itemEstoque.setEstoque(estoque);
+		itemEstoque.setProduto(produto);
 		
 		//notificacaoGrupoRepository.findNotificacaoGrupo(codGrupo, codNotificacao)
 
@@ -1202,6 +1205,8 @@ class ProdutoServiceTest {
 		int codEstoque = estoque.getCodEstoque();
 		int codFesta = festa.getCodFesta();
 		int quantidade = 3;
+		itemEstoque.setProduto(produto);
+		itemEstoque.setEstoque(estoque);
 
 		Mockito.when(produtoRepository.findById(codProduto)).thenReturn(produto);
 		Mockito.when(estoqueRepository.findByEstoqueCodEstoque(codEstoque)).thenReturn(estoque);
