@@ -15,7 +15,7 @@ export class FestaDetalhesDialogComponent implements OnInit {
   codConvidado: string;
   idGrupo: string;
 
-  festa = {nomeFesta: '', codEnderecoFesta: '', horarioFimFesta: '', horarioInicioFesta: '', nomeGrupo: ''};
+  festa = {nomeFesta: '', nomeGrupo: '', enderecoFesta: '', horarioInicial: '', horarioFinal: ''};
   horarioInicioFesta: string;
 
   constructor(
