@@ -19,7 +19,12 @@ h1{
   }
   
   /* If the screen size is 600px wide or less, set the font-size of <div> to 30px */
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: 748px) {
+
+    h1 {
+      font-size: 3rem;
+    }
+
     div.example {
       font-size: 2rem;
     }

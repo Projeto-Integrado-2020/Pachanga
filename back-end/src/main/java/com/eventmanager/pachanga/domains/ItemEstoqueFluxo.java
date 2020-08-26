@@ -30,6 +30,9 @@ public class ItemEstoqueFluxo {
 	@Column(name = "dt_horario")
 	private LocalDateTime dataHorario;
 	
+	public ItemEstoqueFluxo() {
+	}
+	
 	public ItemEstoqueFluxo(ItemEstoque itemEstoque,LocalDateTime dataHorario, Integer codHistorico) {
 		this.codHistorico = codHistorico;
 		this.codProduto = itemEstoque.getProduto().getCodProduto();
