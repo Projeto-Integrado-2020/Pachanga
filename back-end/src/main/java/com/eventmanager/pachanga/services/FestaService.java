@@ -281,4 +281,11 @@ public class FestaService {
 	public Festa procurarFestaConvidado(Integer codConvidado, Integer codGrupo) {
 		return festaRepository.findFestaByCodConvidadoAndCodGrupo(codConvidado, codGrupo);
 	}
+	
+	public void ValidarFestaFinalizada(int codFesta) {
+		Festa festa = festaRepository.findByCodFesta(codFesta);
+		if(TipoStatusFesta.FINALIZADO.getValor().equals(festa.getStatusFesta())) {
+			throw new ValidacaoException("FESTFINA"); //festa finalizada não pode alterar estoque/produto
+		}
+	}
 }
