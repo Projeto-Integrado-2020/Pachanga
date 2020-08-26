@@ -432,6 +432,12 @@
         "SETNLIDO": "Marcar como não lido",
         "APAGAR": "Apagar notificação",
         "CONVITE": "Você foi convidado para ser membro em uma nova festa!",
-        "VER": "Ver"
+        "VER": "Ver",
+        "CONVITEACEITO": "Convite Aceito",
+        "CONVITEACEITO1": "aceitou o convite de membro para a festa",
+        "CONVITEACEITO2": "com",
+        "ESTOQUEMIN1": "O produto",
+        "ESTOQUEMIN2": "está com a quantidade mais baixa que o percentual mínimo permitido no estoque",
+        "ESTOQUEMIN3": "Recarga necessária!"
     }
 }

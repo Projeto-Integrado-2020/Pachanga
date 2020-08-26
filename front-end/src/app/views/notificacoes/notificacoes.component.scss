@@ -1,0 +1,159 @@
+@import "../material/paleta.scss";
+
+//CORES DA NAVBAR!
+
+//botao vermelho
+.btn {
+
+  color: #ffffff;
+  margin-right: .7rem;
+
+  &--red{
+    background-color: $color-tertiary;
+  }
+//botao roxo
+
+  &--prp {
+    background-color: $color-primary;
+  }
+
+  &--notif {
+    color: #4e4e4e;
+    position: relative;
+    margin-right: 16px;
+    float: right;
+    top: 0;
+    transform: translateY(-50%);
+
+    cursor: pointer;
+  }
+
+  &--lang {
+    background-size: cover;
+    background-position: center;
+
+    &--en {
+      background: url("../../../assets/icons/united-states.svg");
+    }
+    
+    &--pt {
+      background-image: url("../../../assets/icons/brazil\ \(1\).svg");
+    }
+
+  }
+}
+
+.fila_notificacoes {
+  max-height: 100rem;
+  width: 480px;
+  max-width: 480px;
+  padding: 16px 0 16px 0; 
+  
+
+  border-radius: 6px;
+
+  position: fixed;
+  right: 9.3rem;
+
+  color: black;
+
+
+  display: flex;
+  flex-direction: column;
+
+  &__convite {
+
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  
+
+    &__texto {
+      display: inline-block;
+      max-width: 60%;
+      height: 100%;
+      overflow-wrap: break-word;
+
+      & p {
+        white-space: normal;
+        height: 100%;
+        margin: 0;
+        overflow-wrap: break-word;
+      }
+    }
+
+    &__btn--invite {
+      width: auto;
+      display: inline-block;
+    }
+  }
+
+  &__flex {
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+  &__not-container {
+
+    margin-bottom: 0;
+    padding: 0 1.6rem 0 1.6rem;
+
+    &:hover {
+      background-color: #f0f0f0;
+    }
+  }
+
+  &__notificacao {
+    width: 100%;
+    min-height: 5rem;
+    height: 100%;
+    max-height: 100%;
+    padding: 0 16px 0 16px;
+
+    &__horario p {
+      margin-bottom: 0;
+
+      font-weight: lighter;
+    }
+
+    &__alertaOpcoes {
+      width: auto;
+      position: absolute;
+      display: inline-block;
+      right: 0;
+      padding: 0 16px 0 16px;
+
+      z-index: 1;
+
+      transform: translateY(-5rem);
+
+      & p {
+        display: inline-block;
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+//quebrar linha
+
+.dont-break-out {
+
+  /* These are technically the same, but use both */
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+
+  -ms-word-break: break-all;
+  /* This is the dangerous one in WebKit, as it breaks things wherever */
+  word-break: break-all;
+  /* Instead use this non-standard one: */
+  word-break: break-word;
+
+  /* Adds a hyphen where the word breaks, if supported (No Blink) */
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphens: auto;
+
+}

@@ -430,6 +430,12 @@
         "SETNLIDO": "Mark as unread",
         "APAGAR": "Delete notification",
         "CONVITE": "You were invited to be a member at a new party!",
-        "VER": "See"
+        "VER": "See",
+        "CONVITEACEITO": "Invite Accepted",
+        "CONVITEACEITO1": "accepted the invite to the party",
+        "CONVITEACEITO2": "as",
+        "ESTOQUEMIN1": "The product",
+        "ESTOQUEMIN2": "quantity is below the minimum percentage at",
+        "ESTOQUEMIN3": "Refill required!"
     }
 }
