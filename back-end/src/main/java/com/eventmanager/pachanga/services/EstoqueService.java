@@ -44,10 +44,14 @@ public class EstoqueService {
 	
 	@Autowired
 	private EstoqueFactory estoqueFactory;
+	
+	@Autowired
+	private FestaService festaService;
 
 
 	public List<Estoque> estoquesFesta(int codFesta, int idUsuario){
 		this.validarFesta(codFesta);
+		festaService.ValidarFestaFinalizada(codFesta);
 		this.validarUsuario(idUsuario, codFesta, TipoPermissao.VISUESTO.getCodigo());
 		List<Estoque> estoques = estoqueRepository.findEstoqueByCodFesta(codFesta);
 		estoques.stream().forEach(e ->{
@@ -58,6 +62,7 @@ public class EstoqueService {
 
 	public List<Estoque> estoquesFestaComProdutos(int codFesta, int idUsuario){
 		this.validarFesta(codFesta);
+		festaService.ValidarFestaFinalizada(codFesta);
 		this.validarUsuario(idUsuario, codFesta, TipoPermissao.VISUESTO.getCodigo());
 		List<Estoque> estoques = estoqueRepository.findEstoqueByCodFesta(codFesta);
 		for(Estoque estoque : estoques) {
@@ -71,6 +76,7 @@ public class EstoqueService {
 
 	public Estoque addEstoque(String nomeEstoque, int codFesta, boolean principal, int codUsuario) {
 		Festa festa = this.validarFesta(codFesta);
+		festaService.ValidarFestaFinalizada(codFesta);
 		Estoque estoque = estoqueFactory.getEstoque(nomeEstoque, principal);
 		this.validarUsuario(codUsuario, codFesta, TipoPermissao.CADAESTO.getCodigo());
 		this.validarEstoqueNome(nomeEstoque, codFesta);
@@ -90,6 +96,7 @@ public class EstoqueService {
 
 	public Estoque updateEstoque(EstoqueTO estoqueTo, int codFesta, int codUsuario) {
 		this.validarFesta(codFesta);
+		festaService.ValidarFestaFinalizada(codFesta);
 		this.validarUsuario(codUsuario, codFesta, TipoPermissao.EDITESTO.getCodigo());
 		Estoque estoque = this.validarEstoque(estoqueTo.getCodEstoque());
 		Estoque estoqueNome = estoqueRepository.findByNomeEstoque(estoqueTo.getNomeEstoque(), codFesta);
@@ -103,6 +110,7 @@ public class EstoqueService {
 
 	public void deleteEstoque(int codEstoque, int codFesta, int codUsuario) {
 		this.validarFesta(codFesta);
+		festaService.ValidarFestaFinalizada(codFesta);
 		this.validarUsuario(codUsuario, codFesta, TipoPermissao.DELEESTO.getCodigo());
 		Estoque estoque = this.validarEstoque(codEstoque);
 		if(estoque.isPrincipal()) {

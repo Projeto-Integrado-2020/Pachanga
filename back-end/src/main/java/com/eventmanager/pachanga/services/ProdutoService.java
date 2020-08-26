@@ -59,9 +59,13 @@ public class ProdutoService {
 	
 	@Autowired
 	NotificacaoRepository notificacaoRepository;
+	
+	@Autowired
+	private FestaService festaService;
 
 	//add_____________________________________________________________________________________________________
 	public Produto addProduto(ProdutoTO produtoTO, Integer codFesta, Integer idUsuarioPermissao) {
+		festaService.ValidarFestaFinalizada(codFesta);
 		this.validarUsuarioPorFesta(codFesta,idUsuarioPermissao, TipoPermissao.CADAESTO.getCodigo());
 		this.validarProduto(produtoTO.getMarca(), produtoTO.getCodFesta());
 		Produto produto = produtoFactory.getProduto(produtoTO);
@@ -73,6 +77,7 @@ public class ProdutoService {
 	}
 
 	public ItemEstoque addProdutoEstoque(ItemEstoqueTO itemEstoqueTO, Integer codEstoque, Integer idUsuarioPermissao){
+		festaService.ValidarFestaFinalizada(itemEstoqueTO.getCodFesta());
 		int quantidadeMax = itemEstoqueTO.getQuantidadeMax();
 		int quantidadeAtual = itemEstoqueTO.getQuantidadeAtual();
 		int porcentagemMin = itemEstoqueTO.getPorcentagemMin();
@@ -96,6 +101,7 @@ public class ProdutoService {
 
 	//remover_____________________________________________________________________________________________________
 	public void removerProduto(Integer idUsuarioPermissao, Integer codFesta, Integer codProduto) {
+		festaService.ValidarFestaFinalizada(codFesta);
 		Produto produto = this.validarProduto(codProduto);
 		
 		this.validarUsuarioPorFesta(codFesta, idUsuarioPermissao, TipoPermissao.DELMESTO.getCodigo());
@@ -116,6 +122,7 @@ public class ProdutoService {
 
 	//editar_____________________________________________________________________________________________________
 	public Produto editarProduto(ProdutoTO produtoTO, Integer idUsuarioPermissao) {
+		festaService.ValidarFestaFinalizada(produtoTO.getCodFesta());
 		this.validarUsuarioPorFesta(produtoTO.getCodFesta(), idUsuarioPermissao, TipoPermissao.EDIMESTO.getCodigo());
 		Produto produto = this.validarProduto(produtoTO.getCodProduto());
 		produto.setPrecoMedio(produtoTO.getPrecoMedio());
@@ -126,6 +133,7 @@ public class ProdutoService {
 	}
 
 	public ItemEstoque editarProdutoEstoque(ItemEstoqueTO itemEstoqueTO, Integer idUsuarioPermissao) {
+		festaService.ValidarFestaFinalizada(itemEstoqueTO.getCodFesta());
 		this.validarUsuarioPorEstoque(idUsuarioPermissao, itemEstoqueTO.getCodEstoque(), TipoPermissao.EDIMESTO.getCodigo());
 		int codProduto = itemEstoqueTO.getCodProduto();
 		int codEstoque = itemEstoqueTO.getCodEstoque();
