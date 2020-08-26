@@ -65,7 +65,7 @@ public class ProdutoService {
 
 	//add_____________________________________________________________________________________________________
 	public Produto addProduto(ProdutoTO produtoTO, Integer codFesta, Integer idUsuarioPermissao) {
-		festaService.ValidarFestaFinalizada(codFesta);
+		festaService.validarFestaFinalizada(codFesta);
 		this.validarUsuarioPorFesta(codFesta,idUsuarioPermissao, TipoPermissao.CADAESTO.getCodigo());
 		this.validarProduto(produtoTO.getMarca(), produtoTO.getCodFesta());
 		Produto produto = produtoFactory.getProduto(produtoTO);
@@ -77,7 +77,7 @@ public class ProdutoService {
 	}
 
 	public ItemEstoque addProdutoEstoque(ItemEstoqueTO itemEstoqueTO, Integer codEstoque, Integer idUsuarioPermissao){
-		festaService.ValidarFestaFinalizada(itemEstoqueTO.getCodFesta());
+		festaService.validarFestaFinalizada(itemEstoqueTO.getCodFesta());
 		int quantidadeMax = itemEstoqueTO.getQuantidadeMax();
 		int quantidadeAtual = itemEstoqueTO.getQuantidadeAtual();
 		int porcentagemMin = itemEstoqueTO.getPorcentagemMin();
@@ -101,7 +101,7 @@ public class ProdutoService {
 
 	//remover_____________________________________________________________________________________________________
 	public void removerProduto(Integer idUsuarioPermissao, Integer codFesta, Integer codProduto) {
-		festaService.ValidarFestaFinalizada(codFesta);
+		festaService.validarFestaFinalizada(codFesta);
 		Produto produto = this.validarProduto(codProduto);
 		
 		this.validarUsuarioPorFesta(codFesta, idUsuarioPermissao, TipoPermissao.DELMESTO.getCodigo());
@@ -122,7 +122,7 @@ public class ProdutoService {
 
 	//editar_____________________________________________________________________________________________________
 	public Produto editarProduto(ProdutoTO produtoTO, Integer idUsuarioPermissao) {
-		festaService.ValidarFestaFinalizada(produtoTO.getCodFesta());
+		festaService.validarFestaFinalizada(produtoTO.getCodFesta());
 		this.validarUsuarioPorFesta(produtoTO.getCodFesta(), idUsuarioPermissao, TipoPermissao.EDIMESTO.getCodigo());
 		Produto produto = this.validarProduto(produtoTO.getCodProduto());
 		produto.setPrecoMedio(produtoTO.getPrecoMedio());
@@ -133,7 +133,7 @@ public class ProdutoService {
 	}
 
 	public ItemEstoque editarProdutoEstoque(ItemEstoqueTO itemEstoqueTO, Integer idUsuarioPermissao) {
-		festaService.ValidarFestaFinalizada(itemEstoqueTO.getCodFesta());
+		festaService.validarFestaFinalizada(itemEstoqueTO.getCodFesta());
 		this.validarUsuarioPorEstoque(idUsuarioPermissao, itemEstoqueTO.getCodEstoque(), TipoPermissao.EDIMESTO.getCodigo());
 		int codProduto = itemEstoqueTO.getCodProduto();
 		int codEstoque = itemEstoqueTO.getCodEstoque();
@@ -301,7 +301,7 @@ public class ProdutoService {
 			List<Grupo> grupos = grupoRepository.findGruposPermissaoEstoque(codFesta);
 			
 			for(Grupo grupo : grupos) {
-				if(notificacaoService.verificarNotificacaoGrupo(grupo.getCodGrupo(), 3) == false) {
+				if(!notificacaoService.verificarNotificacaoGrupo(grupo.getCodGrupo(), 3)) {
 					notificacaoService.inserirNotificacaoGrupo(grupo.getCodGrupo(), 3, TipoNotificacao.ESTBAIXO + "?" + codFesta + "&" + itemEstoque.getEstoque().getCodEstoque() + "&" + itemEstoque.getProduto().getCodProduto());	
 				}
 			}

@@ -310,6 +310,64 @@ class ProdutoServiceTest {
 
 		assertEquals(true, erroException);
 	}
+	
+	@Test
+	void addProdutoEstoqueQuantidadeMaxZero() throws Exception {
+		ItemEstoqueTO itemEstoqueTO = itemEstoqueTOTest();
+		Produto produto = produtoTest();
+		Estoque estoque = estoqueTest();
+		Festa festa = festaTest();
+		int codProduto = produto.getCodProduto();
+		int codEstoque = estoque.getCodEstoque();
+		int codFesta = produto.getCodFesta();
+		itemEstoqueTO.setQuantidadeMax(0);
+
+		Mockito.when(produtoRepository.findById(codProduto)).thenReturn(produto);
+		Mockito.when(estoqueRepository.findByEstoqueCodEstoque(codEstoque)).thenReturn(estoque);
+		Mockito.when(festaRepository.findById(codFesta)).thenReturn(festa);
+		Mockito.when(itemEstoqueRepository.findItemEstoque(codEstoque, codProduto)).thenReturn(null);
+		Mockito.when(itemEstoqueRepository.save(Mockito.any())).thenReturn(null);
+		Mockito.when(itemEstoqueFactory.getItemEstoque(Mockito.any(), Mockito.any(), Mockito.any())).thenReturn(itemEstoqueTest());
+		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(criacaoGrupos());
+
+		boolean erroException = false;
+		try {
+			produtoService.addProdutoEstoque(itemEstoqueTO, codProduto, codEstoque);
+		} catch (Exception e) {
+			erroException = true;
+		}
+
+		assertEquals(true, erroException);
+	}
+	
+	@Test
+	void addProdutoEstoqueQuantidadeAtualMenorZero() throws Exception {
+		ItemEstoqueTO itemEstoqueTO = itemEstoqueTOTest();
+		Produto produto = produtoTest();
+		Estoque estoque = estoqueTest();
+		Festa festa = festaTest();
+		int codProduto = produto.getCodProduto();
+		int codEstoque = estoque.getCodEstoque();
+		int codFesta = produto.getCodFesta();
+		itemEstoqueTO.setQuantidadeAtual(-1);
+
+		Mockito.when(produtoRepository.findById(codProduto)).thenReturn(produto);
+		Mockito.when(estoqueRepository.findByEstoqueCodEstoque(codEstoque)).thenReturn(estoque);
+		Mockito.when(festaRepository.findById(codFesta)).thenReturn(festa);
+		Mockito.when(itemEstoqueRepository.findItemEstoque(codEstoque, codProduto)).thenReturn(null);
+		Mockito.when(itemEstoqueRepository.save(Mockito.any())).thenReturn(null);
+		Mockito.when(itemEstoqueFactory.getItemEstoque(Mockito.any(), Mockito.any(), Mockito.any())).thenReturn(itemEstoqueTest());
+		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(criacaoGrupos());
+
+		boolean erroException = false;
+		try {
+			produtoService.addProdutoEstoque(itemEstoqueTO, codProduto, codEstoque);
+		} catch (Exception e) {
+			erroException = true;
+		}
+
+		assertEquals(true, erroException);
+	}
 
 	@Test
 	void addProdutoEstoqueJaCadastradoTest() throws Exception {

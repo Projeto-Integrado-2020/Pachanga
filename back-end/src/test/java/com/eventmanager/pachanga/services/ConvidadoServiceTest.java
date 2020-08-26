@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -85,6 +86,20 @@ class ConvidadoServiceTest {
 		festaTest.setHorarioFimFestaReal(LocalDateTime.of(2016, Month.JUNE, 23, 19, 10));
 
 		return festaTest;
+	}
+	
+	@SuppressWarnings("deprecation")
+	public Usuario usuarioTest(){
+		Usuario usuarioTest = new Usuario();
+		
+		usuarioTest.setCodUsuario(100);
+		usuarioTest.setEmail("gustavinhoTPD@fodasse.com.br");
+		usuarioTest.setSenha("1234");
+		usuarioTest.setDtNasc(new Date(2000, 8, 27));
+		usuarioTest.setSexo("M");
+		usuarioTest.setNomeUser("Gustavo Barbosa");
+		
+		return usuarioTest;
 	}
 	
 	private List<Grupo> criacaoGrupos(){
@@ -294,6 +309,9 @@ class ConvidadoServiceTest {
 	@Test
 	void aceitarConviteTest() {
 
+		List<Usuario> usuarios = new ArrayList<>();
+		usuarios.add(usuarioTest());
+		
 		Mockito.when(convidadoRepository.findConvidadoGrupo(Mockito.anyInt(), Mockito.anyInt())).thenReturn(criacaoConvidado());
 		Mockito.when(usuarioRepository.findByEmail(Mockito.anyString())).thenReturn(criacaoUsuario());
 		Mockito.doNothing().when(convidadoRepository).deleteConvidadoGrupo(Mockito.anyInt(), Mockito.anyInt());
@@ -301,6 +319,8 @@ class ConvidadoServiceTest {
 		Mockito.doNothing().when(convidadoRepository).deleteConvidado(Mockito.anyInt());
 		Mockito.doNothing().when(grupoRepository).saveUsuarioGrupo(Mockito.anyInt(), Mockito.anyInt());
 		Mockito.when(festaRepository.findById(Mockito.anyInt())).thenReturn(criacaoFesta());
+		Mockito.when(usuarioRepository.findUsuarioComPermissao(Mockito.any(), Mockito.any(), Mockito.anyInt())).thenReturn(usuarios);
+		Mockito.doNothing().when(notificacaoService).inserirNotificacaoUsuario(Mockito.any(), Mockito.anyInt(),Mockito.anyString());
 
 		convidadoService.aceitarConvite(1, 13);
 
