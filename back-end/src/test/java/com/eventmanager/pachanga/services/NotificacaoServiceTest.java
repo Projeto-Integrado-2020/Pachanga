@@ -246,7 +246,7 @@ class NotificacaoServiceTest {
 
 		Mockito.when(notificacaoRepository.findByCodNotificacao(Mockito.anyInt())).thenReturn(notificacaoTest());
 
-		doNothing().when(notificacaoRepository).insertNotificacaoGrupo(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyString(), Mockito.any());
+		doNothing().when(notificacaoGrupoRepository).insertNotificacaoGrupo(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt(), Mockito.anyString(), Mockito.any());
 
 		Mockito.when(grupoRepository.findByCod(Mockito.anyInt())).thenReturn(new Grupo());
 
@@ -266,7 +266,7 @@ class NotificacaoServiceTest {
 
 		Mockito.when(usuarioRepository.findByEmail(Mockito.anyString())).thenReturn(usuarioTest());
 
-		doNothing().when(notificacaoConvidadoRepository).insertConvidadoNotificacao(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyString(), Mockito.any());
+		doNothing().when(notificacaoConvidadoRepository).insertConvidadoNotificacao(Mockito.anyInt(), Mockito.anyInt(),  Mockito.anyInt(), Mockito.anyString(), Mockito.any());
 
 		notificacaoService.inserirNotificacaoConvidado(1,100, "teste");
 
@@ -312,7 +312,7 @@ class NotificacaoServiceTest {
 	}
 	
 	@Test
-	public void verificarNotificacaoGrupoSucessoTest() {
+	void verificarNotificacaoGrupoSucessoTest() {
 		Grupo grupo = grupoTest();
 		Notificacao notificacao = notificacaoTest();
 		NotificacaoGrupo notificacaoGrupo = new NotificacaoGrupo();
@@ -327,11 +327,11 @@ class NotificacaoServiceTest {
 	
 		boolean retorno = notificacaoService.verificarNotificacaoGrupo(codGrupo, codNotificacao);
 
-		assertEquals(retorno, true);
+		assertEquals(true, retorno);
 	}
 
 	@Test
-	public void verificarNotificacaoGrupoFalhaTest() {
+	void verificarNotificacaoGrupoFalhaTest() {
 		Grupo grupo = grupoTest();
 		Notificacao notificacao = notificacaoTest();
 		int codGrupo = grupo.getCodGrupo();
@@ -343,7 +343,7 @@ class NotificacaoServiceTest {
 	
 		boolean retorno = notificacaoService.verificarNotificacaoGrupo(codGrupo, codNotificacao);
 
-		assertEquals(retorno, false);
+		assertEquals(false, retorno);
 	}
 
 }

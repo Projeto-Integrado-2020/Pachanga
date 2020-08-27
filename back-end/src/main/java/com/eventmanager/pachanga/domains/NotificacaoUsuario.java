@@ -5,24 +5,22 @@ import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.eventmanager.pachanga.idclass.NotificacaoUsuarioId;
-
 @Entity
 @Table(name = "notificacao_x_usuario")
-@IdClass(NotificacaoUsuarioId.class)
 public class NotificacaoUsuario {
 	
 	@Id
+	@Column(name = "cod_notificacao_usuario")
+	private int codNotificacaoUsuario;
+	
 	@ManyToOne
 	@JoinColumn(name = "cod_usuario")
 	private Usuario usuario;
 	
-	@Id
 	@ManyToOne
 	@JoinColumn(name = "cod_notificacao")
 	private Notificacao notificacao;
@@ -86,6 +84,13 @@ public class NotificacaoUsuario {
 	public void setDataEmissao(LocalDateTime dataEmissao) {
 		this.dataEmissao = dataEmissao;
 	}
-	
+
+	public int getCodNotificacaoUsuario() {
+		return codNotificacaoUsuario;
+	}
+
+	public void setCodNotificacaoUsuario(int codNotificacaoUsuario) {
+		this.codNotificacaoUsuario = codNotificacaoUsuario;
+	}
 
 }
