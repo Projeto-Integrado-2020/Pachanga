@@ -75,19 +75,19 @@ public class NotificacaoService {
 	public void inserirNotificacaoGrupo(int codGrupo, int codNotificacao, String mensagem) {
 		this.validarNotificacao(codNotificacao);
 		this.validarGrupo(codGrupo);
-		notificacaoRepository.insertNotificacaoGrupo(codGrupo, codNotificacao, mensagem, this.getDataAtual());
+		notificacaoGrupoRepository.insertNotificacaoGrupo(notificacaoGrupoRepository.getNextValMySequence(), codGrupo, codNotificacao, mensagem, this.getDataAtual());
 	}
 
 	public void inserirNotificacaoConvidado(Integer codConvidado, int codNotificacao, String mensagem) {
 		this.validarNotificacao(codNotificacao);
 		Convidado convidado = this.validarConvidado(codConvidado);
-		notificacaoConvidadoRepository.insertConvidadoNotificacao(convidado.getCodConvidado(), codNotificacao, mensagem, this.getDataAtual());
+		notificacaoConvidadoRepository.insertConvidadoNotificacao(notificacaoConvidadoRepository.getNextValMySequence(), convidado.getCodConvidado(), codNotificacao, mensagem, this.getDataAtual());
 	}
 
 	public void inserirNotificacaoUsuario(Integer codUsuario, Integer codNotificacao, String mensagem) {
 		this.validarNotificacao(codNotificacao);
 		this.validacaoUsuario(codUsuario, null);
-		notificacaoUsuarioRepository.insertNotificacaoUsuario(codUsuario, codNotificacao, false, TipoStatusNotificacao.NAOLIDA.getDescricao(), mensagem, this.getDataAtual());
+		notificacaoUsuarioRepository.insertNotificacaoUsuario(notificacaoUsuarioRepository.getNextValMySequence(), codUsuario, codNotificacao, false, TipoStatusNotificacao.NAOLIDA.getDescricao(), mensagem, this.getDataAtual());
 	}
 
 	private Convidado validarConvidado(Integer codConvidado) {

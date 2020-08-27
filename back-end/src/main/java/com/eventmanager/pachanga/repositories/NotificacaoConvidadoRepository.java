@@ -11,11 +11,14 @@ import com.eventmanager.pachanga.domains.NotificacaoConvidado;
 
 public interface NotificacaoConvidadoRepository extends JpaRepository<NotificacaoConvidado, Integer>{
 	
+	@Query(value = "SELECT NEXTVAL('seq_convidado_notificacao');", nativeQuery = true)
+	public int getNextValMySequence();
+	
 	@Query(value = "SELECT nc FROM NotificacaoConvidado nc JOIN nc.convidado c WHERE c.email = :email")
 	public List<NotificacaoConvidado> findConvidadoNotificacaoByEmail(String email);
 	
 	@Modifying
-	@Query(value = "INSERT INTO convidado_x_notificacao (cod_convidado, cod_notificacao, mensagem, data_emissao) VALUES(:codConvidado, :codNotificacao, :mensagem, :dataEmissao)", nativeQuery = true)
-	public void insertConvidadoNotificacao(int codConvidado, int codNotificacao, String mensagem, LocalDateTime dataEmissao);
+	@Query(value = "INSERT INTO convidado_x_notificacao (cod_convidado_notificacao, cod_convidado, cod_notificacao, mensagem, data_emissao) VALUES(:codConvidadoNotificacao, :codConvidado, :codNotificacao, :mensagem, :dataEmissao)", nativeQuery = true)
+	public void insertConvidadoNotificacao(int codConvidadoNotificacao, int codConvidado, int codNotificacao, String mensagem, LocalDateTime dataEmissao);
 
 }

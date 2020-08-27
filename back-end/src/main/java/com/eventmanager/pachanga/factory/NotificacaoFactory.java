@@ -20,7 +20,7 @@ import com.eventmanager.pachanga.dtos.NotificacaoUsuarioTO;
 public class NotificacaoFactory {
 
 	public NotificacaoConvidadoTO getNotificacaoTO(NotificacaoConvidado notificacaoConvidado) {
-		return NotificacaoConvidadoTOBuilder.getInstance().codNotificacao(notificacaoConvidado.getNotificacao().getCodNotificacao()).codConvidado(notificacaoConvidado.getConvidado().getCodConvidado())
+		return NotificacaoConvidadoTOBuilder.getInstance().codNotificacao(notificacaoConvidado.getCodConvidadoNotificacao()).codConvidado(notificacaoConvidado.getConvidado().getCodConvidado())
 				.mensagem(notificacaoConvidado.getMensagem()).dataEmissao(notificacaoConvidado.getDataEmissao()).build();
 	}
 	
@@ -33,12 +33,12 @@ public class NotificacaoFactory {
 	}
 	
 	public NotificacaoGrupoTO getNotificacaoGrupoTO(NotificacaoGrupo notificacaoGrupo) {
-		return NotificacaoGrupoTOBuilder.getInstance().codGrupo(notificacaoGrupo.getGrupo().getCodGrupo()).codNotificacao(notificacaoGrupo.getNotificacao().getCodNotificacao())
+		return NotificacaoGrupoTOBuilder.getInstance().codGrupo(notificacaoGrupo.getGrupo().getCodGrupo()).codNotificacao(notificacaoGrupo.getCodNotificacaoGrupo())
 				.mensagem(notificacaoGrupo.getMensagem()).dataEmissao(notificacaoGrupo.getDataEmissao()).build();
 	}
 	
 	public NotificacaoUsuarioTO getNotificacaoUsuarioTO(NotificacaoUsuario notificacaoUsuario) {
-		return NotificacaoUsuarioTOBuilder.getInstance().codNotificacao(notificacaoUsuario.getNotificacao().getCodNotificacao())
+		return NotificacaoUsuarioTOBuilder.getInstance().codNotificacao(notificacaoUsuario.getCodNotificacaoUsuario())
 				.codUsuario(notificacaoUsuario.getUsuario().getCodUsuario()).destaque(notificacaoUsuario.isDestaque()).mensagem(notificacaoUsuario.getMensagem())
 				.status(notificacaoUsuario.getStatus()).dataEmissao(notificacaoUsuario.getDataEmissao()).build();
 	}

@@ -5,24 +5,22 @@ import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.eventmanager.pachanga.idclass.NotificacaoConvidadoId;
-
 @Entity
 @Table(name = "convidado_x_notificacao")
-@IdClass(NotificacaoConvidadoId.class)
 public class NotificacaoConvidado {
 	
 	@Id
+	@Column(name = "cod_convidado_notificacao")
+	private int codConvidadoNotificacao;
+	
 	@ManyToOne
 	@JoinColumn(name = "cod_convidado")
 	private Convidado convidado;
 	
-	@Id
 	@ManyToOne
 	@JoinColumn(name = "cod_notificacao")
 	private Notificacao notificacao;
@@ -63,6 +61,14 @@ public class NotificacaoConvidado {
 
 	public void setDataEmissao(LocalDateTime dataEmissao) {
 		this.dataEmissao = dataEmissao;
+	}
+
+	public int getCodConvidadoNotificacao() {
+		return codConvidadoNotificacao;
+	}
+
+	public void setCodConvidadoNotificacao(int codConvidadoNotificacao) {
+		this.codConvidadoNotificacao = codConvidadoNotificacao;
 	}
 
 }
