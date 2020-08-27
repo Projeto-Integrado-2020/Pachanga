@@ -48,6 +48,7 @@ mat-toolbar{
   .mat-toolbar {
     background-color: $color-primary;
   }
+
   .sidenav {
 
     &__title {
@@ -59,11 +60,22 @@ mat-toolbar{
       margin: 0;
       height: 3rem;
 
+
       & h3 {
         margin: 0 0 0 1rem;
         position: relative;
         top: 50%;
         transform: translateY(-50%);
+        cursor: default;
+      }
+
+      &__icon {
+        position: relative;
+        float: right;
+        transform: translateY(-38%);
+        margin: 0 1rem 0 0;
+        cursor: pointer;
+        width: auto;
       }
     }
   }

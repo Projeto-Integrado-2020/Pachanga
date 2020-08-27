@@ -82,28 +82,31 @@
           <mat-tab label="{{'PERFIL.PLANNER' | translate}}">
             <div class="container-conf">
               <h1 class="mat-title margin-tops">{{'PERFIL.PLANNERCONF' | translate}}</h1>
-              <h5 class="margin-tops">{{'PERFIL.REGINFO' | translate}}</h5>  
+              <h5 class="margin-tops">{{'PERFIL.REGINFO' | translate}}</h5> 
+
+              <!-- CARD  -->
               <mat-card class="card-dados-cad margin-tops">
-                <div class="card-icon-container">
+                <div class="card-dados-cad__card-icon-container">
                   <mat-icon class="icon-card">assignment</mat-icon>
                 </div>
-                <div class="card-text-container">
+                <div class="card-dados-cad__card-text-container">
                   <p class="card-text">
                     {{'PERFIL.TOPUBLISH' | translate}}
                   </p>
                 </div>
-                <div class="card-button-container">
-                  <button mat-stroked-button class="purple-back conf-button card-button">{{'PERFIL.ENTERINFO' | translate}}</button>
+
+                <div class="card-dados-cad__card-button">
+                  <button mat-stroked-button class="purple-back">{{'PERFIL.ENTERINFO' | translate}}</button>
                 </div>
               </mat-card>
 
-              <h5 class="margin-tops">{{'PERFIL.REPASSINGACC' | translate}}</h5> 
+              <p class="margin-tops">{{'PERFIL.REPASSINGACC' | translate}}</p> 
               
 
               <div class="custom-box custom-box-1 margin-tops">
-                <h5 class="centered-text">
+                <p>
                   [Contas de Repasse cadastradas; Se não tiver nenhuma, "Nenhuma conta de repasse cadastrada"];
-                </h5>
+                </p>
               </div>
 
               <button mat-raised-button class="margin-tops conf-button purple-back">{{'PERFIL.ENTERACC' | translate}}</button>
@@ -113,7 +116,7 @@
               <h5 class="margin-tops">{{'PERFIL.INVOICEINFO' | translate}}</h5> 
 
               <div class="custom-box custom-box-2 margin-tops">
-                <p class="centered-text">
+                <p>
                   <a>{{'PERFIL.UPDATEINVOICEINFO' | translate}}</a>
                 </p>
               </div>
@@ -171,13 +174,14 @@
                 <h5 class="margin-tops">{{'PERFIL.NOTIFPREFER' | translate}}</h5>
 
                 <div class="margin-tops">
-                  <mat-checkbox>{{'PERFIL.NOTIFY' | translate}}</mat-checkbox>
+                  <mat-checkbox id="margin-down">{{'PERFIL.NOTIFY' | translate}}</mat-checkbox>
                   <mat-checkbox>{{'PERFIL.EMAILNEWS' | translate}}</mat-checkbox>
                 </div>
               </div>
             </div>
           </mat-tab>
           <mat-tab label="{{'PERFIL.PURCHASES' | translate}}">
+            <div class="container-conf">
             <h1 class="mat-title margin-tops">{{'PERFIL.PURCHASINGINFO' | translate}}</h1>
             <button mat-raised-button class="purple-back margin-tops right-button">{{'PERFIL.EDITINFO' | translate}}</button>
             <form class="example-form">
@@ -254,6 +258,7 @@
               </p>
       
             </form>
+          </div>
           </mat-tab>
       </mat-tab-group>
 
