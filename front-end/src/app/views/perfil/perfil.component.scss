@@ -4,6 +4,8 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
   border: 0;
 }
 
@@ -98,6 +100,30 @@
   vertical-align: top;
 }
 
+.card-dados-cad {
+  background-color: $color-primary-light;
+
+  display: flex;
+
+  gap: 1rem;
+
+  &__card-icon-container {
+    cursor: default;
+
+    
+  }
+
+  &__card-button {
+    width: auto;
+    height: auto;
+
+    & button {
+      display: inline;
+      padding: .4rem;
+    }
+  }
+}
+//DESKTOP
 @media (min-width: 748px){
   .dados-conta {
     width: 30%;
@@ -112,8 +138,41 @@
   .dados-conta{
     border-right: 1px solid lightgrey;
   }
+
+  .card-dados-cad {
+    /* make element inline flex-container */
+  /* this will make its children flex-items */
+  /* align-items items in column */
+  flex-direction: row;
+  /* center items horizontally */
+  align-items: center;
+  /* center items vertically */
+  justify-content: space-between;
+
+  width: 100%;
+
+  &__card-icon-container {
+    min-width: 15%;
+  }
+
+  &__card-text-container {
+    text-align: center;
+  }
+  
+  &__card-button {
+    width: auto;
+    height: auto;
+
+    & button {
+      display: inline;
+      padding: .4rem;
+    }
+  }
+}
+  
 }
 
+//MOBILE
 @media (max-width: 748px){
   .dados-conta , .configuracoes{
     width: 100%;
@@ -127,6 +186,40 @@
   .subtitulo{
     font-size: 10rem;
   }
+
+  .card-dados {
+    width: auto;
+  }
+
+  .icon-card {
+   // display: none;
+  }
+
+  .card-dados-cad {
+    /* make element inline flex-container */
+  /* this will make its children flex-items */
+  /* align-items items in column */
+  flex-direction: column;
+  /* center items horizontally */
+  align-items: center;
+  /* center items vertically */
+  justify-content: center;
+
+  &__card-icon-container {
+  }
+
+  &__card-text-container {
+
+    & p {
+      text-align: center;
+    }
+  }
+  
+  &__card-button {
+
+  }
+
+}
 }
 
 //altura do conteudo do mat-tab
@@ -145,45 +238,9 @@ form {
   margin-top: 3rem;
 }
 
-.card-dados-cad {
-  background-color: $color-primary-light;
-    /* make element inline flex-container */
-  /* this will make its children flex-items */
-  display: inline-flex;
-  /* align-items items in column */
-  flex-direction: row;
-  /* center items horizontally */
-  align-items: center;
-  /* center items vertically */
-  justify-content: space-between;
-  padding-left: .5rem;
-  padding-right: .5rem;
-
-  width: 100%;
-}
-
-.card-text-container, .card-icon-container, .card-button-container {
-  display: inline-block;
-  height: 100%;
-  top: 50%;
-}
-
-.card-icon-container {
-  width: 10%;
-  right: 0;
-}
-
-.card-text-container {
-  max-width: 50%;
-  text-align: center;
-}
 
 .card-text {
   text-align: left;
-}
-
-.card-button-container {
-  max-width: 15%;
 }
 
 .card-button {
@@ -205,9 +262,10 @@ form {
 
 .custom-box {
 
-  height: 3rem;
+  height: auto;
   width: 100%;
   border-radius: 3px;
+  padding: 1rem;
 
   &-1 {
     border: 1px solid #c9c9c9;
@@ -271,4 +329,12 @@ form {
 
 .red-back {
   background-color: $color-tertiary;
+}
+
+::ng-deep .mat-checkbox-layout {
+  white-space: normal !important;
+}
+
+::ng-deep .mat-checkbox-inner-container {
+  margin-top: 3px !important;
 }
