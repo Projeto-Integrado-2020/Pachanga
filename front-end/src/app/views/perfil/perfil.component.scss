@@ -331,6 +331,20 @@ form {
   background-color: $color-tertiary;
 }
 
+.example-form {
+  width: 100%;
+}
+
+.title_button {
+  display: flex;
+  align-items: baseline;
+}
+
+.editar-dados-btn {
+  padding: .4rem;
+  transform: translateX(4rem);
+}
+
 ::ng-deep .mat-checkbox-layout {
   white-space: normal !important;
 }
