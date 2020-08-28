@@ -86,7 +86,7 @@ describe('EstoquePainelComponent', () => {
   });
 
   it('should open a stock refill dialog through a method', () => {
-    component.recargaProduto(component.festa.codFesta, component.festa.codFesta);
+    component.recargaProduto(component.festa.codFesta, component.festa.codFesta, 0, 0);
     expect(dialogSpy.open).toHaveBeenCalled();
   });
 

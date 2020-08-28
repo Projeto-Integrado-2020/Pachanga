@@ -16,12 +16,16 @@ export class RecargaProdutoEstoqueDialogComponent implements OnInit {
   public quantidade: any;
   public form: FormGroup;
   public element: any;
+  public indexEstoque: any;
+  public indexProduto: any;
 
   constructor(@Inject(MAT_DIALOG_DATA) data, public formBuilder: FormBuilder, public dialog: MatDialog,
               public recargaProdutoEstoqueService: RecargaProdutoEstoqueService) {
     this.component = data.component;
     this.element = data.element;
     this.estoque = data.estoque;
+    this.indexEstoque = data.indexEstoque;
+    this.indexProduto = data.indexProduto;
   }
 
   ngOnInit() {
@@ -38,11 +42,11 @@ export class RecargaProdutoEstoqueDialogComponent implements OnInit {
 
   recargaProduto(quantidade, element) {
     element = element.codProduto;
-    console.log(quantidade, element, this.estoque.codEstoque);
 
     this.recargaProdutoEstoqueService.recargaProdutoEstoque(quantidade, element, this.estoque.codEstoque).subscribe((resp: any) => {
       this.recargaProdutoEstoqueService.setFarol(false);
       this.dialog.closeAll();
+      this.component.quantidadesProdutos[this.indexEstoque][this.indexProduto] -= quantidade;
     });
   }
 

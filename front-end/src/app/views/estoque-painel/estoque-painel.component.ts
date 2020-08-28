@@ -14,6 +14,7 @@ import { EditarProdutoEstoqueDialogComponent } from '../editar-produto-estoque-d
 import { BaixaProdutoEstoqueService } from 'src/app/services/baixa-produto-estoque/baixa-produto-estoque.service';
 import { RecargaProdutoEstoqueService } from 'src/app/services/recarga-produto-estoque/recarga-produto-estoque.service';
 import { RecargaProdutoEstoqueDialogComponent } from '../recarga-produto-estoque-dialog/recarga-produto-estoque-dialog.component';
+import { interval, Observable } from 'rxjs';
 
 export interface TabelaProdutos {
   codEstoque: string;
@@ -41,6 +42,7 @@ export class EstoquePainelComponent implements OnInit {
   public form: FormGroup;
   estoques: any;
   dataSources = [];
+  quantidadesProdutos = [];
 
   constructor(public fb: FormBuilder, public dialog: MatDialog, public getFestaService: GetFestaService,
               public router: Router, public statusService: StatusFestaService, public getEstoque: GetEstoqueService,
@@ -65,6 +67,7 @@ export class EstoquePainelComponent implements OnInit {
       this.estoques = resp;
       for (const estoque of resp) {
         const produtos = [];
+        const produtosQuantidade = [];
         if (estoque.itemEstoque) {
           for (const produtoEstoque of Object.keys(estoque.itemEstoque)) {
             produtos.push({
@@ -74,8 +77,10 @@ export class EstoquePainelComponent implements OnInit {
               porcentagemMin: estoque.itemEstoque[produtoEstoque].porcentagemMin,
               marca: estoque.itemEstoque[produtoEstoque].produto.marca
             });
+            produtosQuantidade.push(estoque.itemEstoque[produtoEstoque].quantidadeAtual);
           }
         }
+        this.quantidadesProdutos.push(produtosQuantidade);
         this.dataSources.push(new MatTableDataSource<TabelaProdutos>(produtos));
       }
     });
@@ -92,6 +97,7 @@ export class EstoquePainelComponent implements OnInit {
       this.festaNome = resp.nomeFesta;
       this.statusFesta = resp.statusFesta;
       this.resgatarEstoquePanel();
+      this.updateQuantidades();
     });
     this.gerarForm();
   }
@@ -162,23 +168,52 @@ export class EstoquePainelComponent implements OnInit {
     });
   }
 
-  removerProduto(quantidade, element, codEstoque) {
+  removerProduto(quantidade, element, codEstoque, indexEstoque, indexProduto) {
     element = element.codProduto;
     this.baixaProdutoEstoque.baixaProdutoEstoque(quantidade, element, codEstoque).subscribe((resp: any) => {
       this.baixaProdutoEstoque.setFarol(false);
-      this.dialog.closeAll();
+      this.quantidadesProdutos[indexEstoque][indexProduto] -= quantidade;
     });
   }
 
-  recargaProduto(estoque, element) {
+  recargaProduto(estoque, element, indexEstoque, indexProduto) {
     this.dialog.open(RecargaProdutoEstoqueDialogComponent, {
       width: '20rem',
       data: {
         component: this,
         estoque,
-        element
+        element,
+        indexEstoque,
+        indexProduto
       }
     });
+  }
+
+  updateQuantidades() {
+      const source = interval(1000);
+      source.subscribe(
+        () => {
+          this.getQtdsAtualizadas(this.getEstoque.getEstoque(this.festa.codFesta));
+        }
+      );
+  }
+
+  getQtdsAtualizadas(observavel: Observable<object>) {
+    return observavel.subscribe(
+      (resp: any) => {
+        this.getEstoque.setFarol(false);
+        this.quantidadesProdutos = [];
+        for (const estoque of resp) {
+          const produtosQuantidade = [];
+          if (estoque.itemEstoque) {
+            for (const produtoEstoque of Object.keys(estoque.itemEstoque)) {
+              produtosQuantidade.push(estoque.itemEstoque[produtoEstoque].quantidadeAtual);
+            }
+          }
+          this.quantidadesProdutos.push(produtosQuantidade);
+        }
+      }
+    );
   }
 
 }
