@@ -100,7 +100,8 @@
         "PRODEUSO": "Product in use.",
         "ESTONFOU": "Stock not found.",
         "QMAXINV": "Invalid max quantity.",
-        "ESTOMNOM": "Another stock is already using this name."
+        "ESTOMNOM": "Another stock is already using this name.",
+        "FESTFINA": "It is not possible to manage stock/product in finished parties."
     },
 
     "SUCCESS": {
@@ -430,7 +431,18 @@
         "SETNLIDO": "Mark as unread",
         "APAGAR": "Delete notification",
         "CONVITE": "You were invited to be a member at a new party!",
-        "VER": "See"
+        "VER": "See",
+        "CONVITEACEITO": "Invite Accepted",
+        "CONVITEACEITO1": "accepted the invite to the party",
+        "CONVITEACEITO2": "as",
+        "ESTOQUEMIN1": "The product",
+        "ESTOQUEMIN2": "quantity is below the minimum percentage at",
+        "ESTOQUEMIN3": "Refill required!"
+    },
+
+    "ALERTAESTOQUE": {
+        "REDIRECIONAR": "Go to stock page",
+        "TITLE": "Stock alert"
     },
 
     "RECARGA": {

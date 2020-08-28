@@ -300,7 +300,7 @@ public class FestaService {
 		return grupo;
 	}
 	
-	public void ValidarFestaFinalizada(int codFesta) {
+	public void validarFestaFinalizada(int codFesta) {
 		Festa festa = festaRepository.findByCodFesta(codFesta);
 		if(TipoStatusFesta.FINALIZADO.getValor().equals(festa.getStatusFesta())) {
 			throw new ValidacaoException("FESTFINA"); //festa finalizada não pode alterar estoque/produto

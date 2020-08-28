@@ -15,7 +15,7 @@ public interface ProdutoRepository extends JpaRepository<Produto, Integer>{
 	
 	public Produto findById(int codProduto);
 	
-	@Query(value = "SELECT NEXTVAL('seq_usuario');", nativeQuery = true)
+	@Query(value = "SELECT NEXTVAL('seq_produto');", nativeQuery = true)
 	public int getNextValMySequence();
 	
 	@Query(value = "SELECT p FROM Estoque e JOIN e.itemEstoque ie JOIN ie.produto p WHERE e.codEstoque = :codEstoque")
@@ -41,7 +41,6 @@ public interface ProdutoRepository extends JpaRepository<Produto, Integer>{
 	@Modifying
 	@Query(value = "INSERT INTO produto_x_estoque(cod_produto, cod_estoque, cod_festa, quantidade_max, quantiadde_atual, porcentagem_min) VALUES(:codProduto ,:codEstoque, :codFesta, :quantidadeMax, :quantiaddeAtual, :porcentagemMin)", nativeQuery = true)
 	public void saveProdutoEstoque(@Param("codProduto") int codProduto, @Param("codEstoque") int codEstoque, @Param("codFesta") int codFesta, @Param("quantidadeMax") int quantidadeMax, @Param("quantiaddeAtual") int quantiaddeAtual, @Param("porcentagemMin") int porcentagemMin);
-	//(@Param("codProduto") int codProduto, @Param("codEstoque") int codEstoque, @Param("codFesta") int codFesta, @Param("quantidadeMax") int quantidadeMax, @Param("quantiaddeAtual") int quantiaddeAtual, @Param("porcentagemMin") int porcentagemMin)
 
 	@Modifying
 	@Query(value = "UPDATE produto_x_estoque x SET x.quantidade_max = :quantidadeMax, x.quantidade_atual = :quantidadeAtual, x.porcentagem_min = :porcentagemMin WHERE x.cod_produto = :codProduto AND x.cod_estoque = :codEstoque", nativeQuery = true)

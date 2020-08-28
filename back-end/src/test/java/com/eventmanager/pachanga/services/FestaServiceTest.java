@@ -22,6 +22,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 
 import com.eventmanager.pachanga.domains.Categoria;
 import com.eventmanager.pachanga.domains.CategoriasFesta;
+import com.eventmanager.pachanga.domains.Estoque;
 import com.eventmanager.pachanga.domains.Festa;
 import com.eventmanager.pachanga.domains.Grupo;
 import com.eventmanager.pachanga.domains.Usuario;
@@ -40,6 +41,7 @@ import com.eventmanager.pachanga.repositories.GrupoRepository;
 import com.eventmanager.pachanga.repositories.ProdutoRepository;
 import com.eventmanager.pachanga.repositories.UsuarioRepository;
 import com.eventmanager.pachanga.tipo.TipoCategoria;
+import com.eventmanager.pachanga.tipo.TipoStatusFesta;
 
 
 @RunWith(MockitoJUnitRunner.class)
@@ -139,54 +141,21 @@ class FestaServiceTest {
 		return usuarioTest;
 	}
 
-	public List<Usuario> colecaoDeUsuario(int quantidadeUsuarios) throws Exception {
-		List<Usuario> usuarios = null;
-
-		if(quantidadeUsuarios >= 1) {		
-			usuarios = new ArrayList<Usuario>();
-
-			Usuario usuarioTest1 = usuarioTest();
-			usuarioTest1.setCodUsuario(1);
-			usuarioTest1.setNomeUser("Andrey");
-
-			usuarios.add(usuarioTest1);
-
-			if(quantidadeUsuarios >= 2) {	
-				Usuario usuarioTest2 = usuarioTest();
-				usuarioTest2.setCodUsuario(2);
-				usuarioTest2.setNomeUser("Luis");
-
-				usuarios.add(usuarioTest2);
-			} 
-			if(quantidadeUsuarios >= 3) {		
-				Usuario usuarioTest3 = usuarioTest();
-				usuarioTest3.setCodUsuario(3);
-				usuarioTest3.setNomeUser("Tiago");
-
-				usuarios.add(usuarioTest3);
-			} 
-			if(quantidadeUsuarios >= 4) {		
-				Usuario usuarioTest4 = usuarioTest();
-				usuarioTest4.setCodUsuario(4);
-				usuarioTest4.setNomeUser("Guilherme");
-
-				usuarios.add(usuarioTest4);
-			}
-		}
-
-		return usuarios;
-	}
-
 	public Grupo criacaoGrupo() {
 		Grupo grupo = new Grupo();
 		grupo.setCodGrupo(1);
 		grupo.setNomeGrupo("CONVIDADO");
 		return grupo;
 	}
+	
+	public Estoque estoqueTest() {
+		Estoque estoque = new Estoque();
+		estoque.setCodEstoque(1);
+		return estoque;
+	}
 
 	public Festa festaTest() throws Exception{
 		Festa festaTest = new Festa();
-
 		festaTest.setCodFesta(2);
 		festaTest.setCodEnderecoFesta("https//:minhacasa.org");
 		festaTest.setDescOrganizador("sou demente");
@@ -194,7 +163,7 @@ class FestaServiceTest {
 		festaTest.setHorarioFimFesta(LocalDateTime.of(2016, Month.JUNE, 23, 19, 10));
 		festaTest.setNomeFesta("festao");
 		festaTest.setOrganizador("Joao Neves");
-		festaTest.setStatusFesta("P");
+		festaTest.setStatusFesta(TipoStatusFesta.PREPARACAO.getValor());
 		festaTest.setDescricaoFesta("Bugago");
 		festaTest.setHorarioFimFestaReal(LocalDateTime.of(2016, Month.JUNE, 23, 19, 10));
 
@@ -466,13 +435,27 @@ class FestaServiceTest {
 
 		Set<CategoriasFesta> categoriasFesta = new HashSet<CategoriasFesta>();
 		categoriasFesta.add(categoriaFestaTest());
+		
+		List<Estoque> estoques = new ArrayList<>();
+		estoques.add(estoqueTest());
+		
+		List<Integer> cods = new ArrayList<>();
+		cods.add(1);
 
 		Mockito.when(festaRepository.findFestaByUsuarioResponsavel(idUser, festaTO.getCodFesta())).thenReturn(festaTest);
 		Mockito.when(grupoRepository.findGruposFesta(festaTO.getCodFesta())).thenReturn(grupos);
 		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(criacaoGrupos());
 		Mockito.when(festaRepository.findById(Mockito.anyInt())).thenReturn(festaTest);
 		Mockito.when(categoriasFestaRepository.findCategoriasFesta(Mockito.anyInt())).thenReturn(categoriasFesta);
-
+		Mockito.when(grupoRepository.findCodGruposFesta(Mockito.anyInt())).thenReturn(cods);
+		Mockito.when(convidadoRepository.findCodConvidadosNoGrupo(Mockito.anyInt())).thenReturn(cods);
+		Mockito.when(estoqueRepository.findEstoqueByCodFesta(Mockito.anyInt())).thenReturn(estoques);
+		
+		doNothing().when(estoqueRepository).deleteProdEstoque(Mockito.anyInt(), Mockito.anyInt());
+		doNothing().when(convidadoRepository).deleteAllConvidadosNotificacao(Mockito.anyList());
+		doNothing().when(convidadoRepository).deleteConvidados(Mockito.anyList());
+		doNothing().when(grupoRepository).deleteUsuariosGrupo(Mockito.anyInt());
+		doNothing().when(convidadoRepository).deleteAllConvidadosGrupo(Mockito.anyInt());
 		doNothing().when(grupoRepository).deleteAll(Mockito.<Grupo>anyList());
 		doNothing().when(festaRepository).deleteById(Mockito.any(Integer.class));
 		doNothing().when(categoriasFestaRepository).deleteAll(Mockito.anySet());
@@ -1209,6 +1192,34 @@ class FestaServiceTest {
 		
 		try {
 			festaService.procurarFestaConvidado(1,2);
+		} catch (ValidacaoException e) {
+			erro = true;
+		}
+		
+		assertEquals(true, erro);
+
+	}
+	
+	@Test
+	void validarFestaFinalizadaSucessTest() throws Exception {
+
+		Mockito.when(festaRepository.findByCodFesta(Mockito.anyInt())).thenReturn(festaTest());
+		
+		festaService.validarFestaFinalizada(2);
+
+	}
+	
+	@Test
+	void validarFestaFinalizadaErroTest() throws Exception {
+		Festa festa = festaTest();
+		festa.setStatusFesta(TipoStatusFesta.FINALIZADO.getValor());
+
+		Mockito.when(festaRepository.findByCodFesta(Mockito.anyInt())).thenReturn(festa);
+		
+		boolean erro = false;
+		
+		try {
+			festaService.validarFestaFinalizada(2);
 		} catch (ValidacaoException e) {
 			erro = true;
 		}

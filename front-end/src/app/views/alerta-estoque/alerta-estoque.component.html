@@ -1,0 +1,13 @@
+<h1 mat-dialog-title>{{'ALERTAESTOQUE.TITLE' | translate}}</h1>
+    <div mat-dialog-content>
+        <p>{{'NOTIFICACAO.CONVITEACEITO1' | translate}} {{ notificacao.marca }} {{'NOTIFICACAO.CONVITEACEITO2' | translate}} "{{ notificacao.nomeFesta }} - {{ notificacao.nomeEstoque }}". {{'NOTIFICACAO.CONVITEACEITO3' | translate}}</p>
+        <p><strong>{{'FESTA.PARTYNAME' | translate}}:</strong> {{this.notificacao.nomeFesta}}</p>
+        <p><strong>{{'ESTOQUE.NOMEESTOQUE' | translate}}:</strong> {{this.notificacao.nomeEstoque}}</p>
+        <p><strong>{{'PRODUTO.PRODUCT' | translate}}:</strong> {{this.notificacao.marca}}</p>
+        <p><strong>{{'ESTOQUEPROD.QTDATUAL' | translate}}:</strong> {{this.notificacao.qtdAtual}}</p>
+        <div class="botoes">
+            <a routerLink="{{ getUrlFesta() }}">
+                <button class="botoes__btn" mat-raised-button mat-dialog-close color="primary" > {{'NOTIFICACAO.ACEITAR' | translate}} </button>
+            </a>
+        </div>
+    </div>

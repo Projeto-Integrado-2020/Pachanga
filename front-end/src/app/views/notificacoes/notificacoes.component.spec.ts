@@ -1,43 +1,35 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { NavbarComponent } from './navbar.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CustomMaterialModule } from '../material/material.module';
-import { AppRoutingModule } from '../../app-routing.module';
-import { LoginComponent } from '../login/login.component';
-import { CadastroComponent } from '../cadastro/cadastro.component';
-import { IndexComponent } from '../index/index.component';
-import { MenuFestasComponent } from '../menu-festas/menu-festas.component';
-import { FestaPainelControleComponent } from '../festa-painel-controle/festa-painel-controle.component';
-import { CriarFestaComponent } from '../criar-festa/criar-festa.component';
-
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient } from '@angular/common/http';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
 import { SocialLoginModule, AuthServiceConfig } from 'angular4-social-login';
 import { GoogleLoginProvider, FacebookLoginProvider } from 'angular4-social-login';
+import { NotificacoesComponent } from './notificacoes.component';
+import { AppRoutingModule } from 'src/app/app-routing.module';
+import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FestaDetalhesDialogComponent } from '../festa-detalhes-dialog/festa-detalhes-dialog.component';
+import { GerenciadorProdutosComponent } from '../gerenciador-produtos/gerenciador-produtos.component';
+import { EstoquePainelComponent } from '../estoque-painel/estoque-painel.component';
+import { DistribuicaoPermissoesComponent } from '../distribuicao-permissoes/distribuicao-permissoes.component';
+import { EditarGrupoComponent } from '../editar-grupo/editar-grupo.component';
+import { GerenciadorMembrosComponent } from '../gerenciador-membros/gerenciador-membros.component';
+import { FiltroFestaPipe } from '../menu-festas/filtroFesta.pipe';
+import { CriarGrupoComponent } from '../criar-grupo/criar-grupo.component';
+import { NotFoundComponent } from '../not-found/not-found.component';
+import { EditarFestaComponent } from '../editar-festa/editar-festa.component';
+import { CadastroComponent } from '../cadastro/cadastro.component';
+import { NavbarComponent } from '../navbar/navbar.component';
+import { LoginComponent } from '../login/login.component';
+import { IndexComponent } from '../index/index.component';
 import { PerfilComponent } from '../perfil/perfil.component';
 import { InfoCompleteComponent } from '../info-complete/info-complete.component';
-import { EditarFestaComponent } from '../editar-festa/editar-festa.component';
-import { NotFoundComponent } from '../not-found/not-found.component';
-
-import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
-import { MatDialog } from '@angular/material';
-import { CriarGrupoComponent } from '../criar-grupo/criar-grupo.component';
-import { FiltroFestaPipe } from '../menu-festas/filtroFesta.pipe';
-import { GerenciadorMembrosComponent } from '../gerenciador-membros/gerenciador-membros.component';
-import { EditarGrupoComponent } from '../editar-grupo/editar-grupo.component';
-import { DistribuicaoPermissoesComponent } from '../distribuicao-permissoes/distribuicao-permissoes.component';
-import { EstoquePainelComponent } from '../estoque-painel/estoque-painel.component';
-import { GerenciadorProdutosComponent } from '../gerenciador-produtos/gerenciador-produtos.component';
-import { FestaDetalhesDialogComponent } from '../festa-detalhes-dialog/festa-detalhes-dialog.component';
-import { NotificacoesComponent } from '../notificacoes/notificacoes.component';
-
-jasmine.DEFAULT_TIMEOUT_INTERVAL = 100000;
+import { MenuFestasComponent } from '../menu-festas/menu-festas.component';
+import { FestaPainelControleComponent } from '../festa-painel-controle/festa-painel-controle.component';
+import { CriarFestaComponent } from '../criar-festa/criar-festa.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -58,15 +50,14 @@ export function provideConfig() {
   return config;
 }
 
-describe('NavbarComponent', () => {
-  let component: NavbarComponent;
-  let fixture: ComponentFixture<NavbarComponent>;
-  let dialogSpy: MatDialog;
+describe('NotificacoesComponent', () => {
+  let component: NotificacoesComponent;
+  let fixture: ComponentFixture<NotificacoesComponent>;
 
   beforeEach(async(() => {
-    dialogSpy = jasmine.createSpyObj('MatDialog', ['open']);
     TestBed.configureTestingModule({
       declarations: [
+        NotificacoesComponent,
         NavbarComponent,
         LoginComponent,
         CadastroComponent,
@@ -75,7 +66,6 @@ describe('NavbarComponent', () => {
         InfoCompleteComponent,
         MenuFestasComponent,
         FestaPainelControleComponent,
-        CriarFestaComponent,
         EditarFestaComponent,
         NotFoundComponent,
         CriarGrupoComponent,
@@ -86,8 +76,9 @@ describe('NavbarComponent', () => {
         EstoquePainelComponent,
         GerenciadorProdutosComponent,
         FestaDetalhesDialogComponent,
-        NotificacoesComponent
-       ],
+        NotificacoesComponent,
+        CriarFestaComponent
+      ],
       imports: [
         CustomMaterialModule,
         NgxMaterialTimepickerModule,
@@ -109,32 +100,21 @@ describe('NavbarComponent', () => {
         {
           provide: AuthServiceConfig,
           useFactory: provideConfig
-        },
-        { provide: MatDialog, useValue: dialogSpy },
+        }
       ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(NavbarComponent);
+    fixture = TestBed.createComponent(NotificacoesComponent);
     component = fixture.componentInstance;
     component.loginService.usuarioInfo = {codUsuario: '1', nomeUser: 'Teste', nomesexo: null, dtNasc: null};
+    component.notifService.loginService.usuarioInfo = {codUsuario: '1'};
     fixture.detectChanges();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-
-  it('should open a dialog cadastro through a method', () => {
-    component.openDialogCadastro();
-    expect(dialogSpy.open).toHaveBeenCalled();
-  });
-
-  it('should open a dialog login through a method', () => {
-    component.openDialogLogin();
-    expect(dialogSpy.open).toHaveBeenCalled();
-  });
-
 });

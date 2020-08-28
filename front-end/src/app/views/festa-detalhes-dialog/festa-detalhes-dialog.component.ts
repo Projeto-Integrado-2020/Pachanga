@@ -52,7 +52,11 @@ export class FestaDetalhesDialogComponent implements OnInit {
   }
 
   recusarConvite() {
-    this.convService.recusarConvite(this.codConvidado, this.idGrupo).subscribe();
+    this.convService.recusarConvite(this.codConvidado, this.idGrupo).subscribe(
+      (resp) => {
+        this.dialog.closeAll();
+      }
+    );
   }
 
   formatDateTime(date) {
