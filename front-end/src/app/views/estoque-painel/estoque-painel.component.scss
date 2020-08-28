@@ -215,9 +215,11 @@ tr.example-element-row:not(.example-expanded-row):active {
 
 .icons-actions{
   float: right;
-  margin-top: 1rem;
+  transform: translateX(-50%);
 }
 
 .icons-remove{
   transform: translate(2rem);
+  background-color: $color-tertiary;
+  color: #ffffff;
 }

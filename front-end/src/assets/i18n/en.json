@@ -431,5 +431,12 @@
         "APAGAR": "Delete notification",
         "CONVITE": "You were invited to be a member at a new party!",
         "VER": "See"
+    },
+
+    "RECARGA": {
+        "TITULO": "Product refill",
+        "QUANTIDADE": "Quantity to be topped up",
+        "CONFIRM": "Confirm",
+        "CANCEL": "Cancel"
     }
 }

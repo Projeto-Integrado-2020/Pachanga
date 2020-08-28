@@ -85,10 +85,15 @@ describe('EstoquePainelComponent', () => {
     expect(dialogSpy.open).toHaveBeenCalled();
   });
 
+  it('should open a stock refill dialog through a method', () => {
+    component.recargaProduto(component.festa.codFesta, component.festa.codFesta);
+    expect(dialogSpy.open).toHaveBeenCalled();
+  });
+
   it('should gerarForm', () => {
     component.gerarForm();
     expect(component.form).toBeTruthy();
-    expect(component.form.get('grupoSelect')).toBeTruthy();
+    expect(component.form.get('quantidade')).toBeTruthy();
   });
 
 });

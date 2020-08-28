@@ -49,18 +49,30 @@
                                 <td mat-cell *matCellDef="let element"> {{element.quantidadeAtual}} </td>
                             </ng-container>
 
-                            <ng-container matColumnDef="actions">
+                            <ng-container matColumnDef="actions1">
                                 <th mat-header-cell *matHeaderCellDef></th>
                                 <td mat-cell *matCellDef="let element">
-                                    <form [formGroup]="form">
+                                    <form [formGroup]="form" (submit)="removerProduto(quantidade.value, element, estoque.codEstoque)">
                                         <mat-form-field class="remove">
                                             <mat-label>{{'ESTOQUE.REMOVE1' | translate}}</mat-label>
-                                            <input matInput type="number" min="0">
+                                            <input matInput #quantidade formControlName="quantidade" type="number" min="1">
+                                            <mat-error *ngIf="f.quantidade.errors?.min">{{'FORMERRORS.MINQTDERROR' | translate}}</mat-error>
+                                            <mat-error *ngIf="f.quantidade.errors?.required">{{'FORMERRORS.MINQTDERROR' | translate}}</mat-error>
                                         </mat-form-field>
-                                        <button mat-button class="icons-remove">
-                                            <mat-icon>remove_circle_outline</mat-icon> {{'ESTOQUE.REMOVE2' | translate}} 
+                                        <button mat-button class="icons-remove" mat-raised-button [disabled]="!form.valid">
+                                            <mat-icon>remove_circle_outline</mat-icon>{{'ESTOQUE.REMOVE2' | translate}} 
                                         </button>
+                                    </form>
+                                </td>
+                            </ng-container>
+
+                                <ng-container matColumnDef="actions2">
+                                    <th mat-header-cell *matHeaderCellDef></th>
+                                    <td mat-cell *matCellDef="let element">
                                         <div class="icons-actions">
+                                            <button mat-icon-button (click)="recargaProduto(estoque, element)">
+                                                <mat-icon matTooltip="{{'ESTOQUEPROD.EDITPRODUTOESTOQUE' | translate}}">add_shopping_cart</mat-icon>
+                                            </button>
                                             <button mat-icon-button (click)="openDialogEditProdEstoque(estoque, element)">
                                                 <mat-icon matTooltip="{{'ESTOQUEPROD.EDITPRODUTOESTOQUE' | translate}}">edit</mat-icon>
                                             </button>
@@ -68,9 +80,9 @@
                                                 <mat-icon matTooltip="{{'ESTOQUEPROD.DELETEPRODUTOESTOQUE' | translate}}">delete</mat-icon>
                                             </button>
                                         </div>
-                                    </form>
-                                </td>
-                            </ng-container>
+                                    </td>
+                                </ng-container>
+
                             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
                         </table>

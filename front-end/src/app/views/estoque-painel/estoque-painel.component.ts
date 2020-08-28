@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialog, MatTableDataSource } from '@angular/material';
 import { GetFestaService } from 'src/app/services/get-festa/get-festa.service';
@@ -11,6 +11,9 @@ import { CriarEstoqueDialogComponent } from '../criar-estoque-dialog/criar-estoq
 import { CriarProdutoEstoqueDialogComponent } from '../criar-produto-estoque-dialog/criar-produto-estoque-dialog.component';
 import { DeletarProdutoEstoqueDialogComponent } from '../deletar-produto-estoque-dialog/deletar-produto-estoque-dialog.component';
 import { EditarProdutoEstoqueDialogComponent } from '../editar-produto-estoque-dialog/editar-produto-estoque-dialog.component';
+import { BaixaProdutoEstoqueService } from 'src/app/services/baixa-produto-estoque/baixa-produto-estoque.service';
+import { RecargaProdutoEstoqueService } from 'src/app/services/recarga-produto-estoque/recarga-produto-estoque.service';
+import { RecargaProdutoEstoqueDialogComponent } from '../recarga-produto-estoque-dialog/recarga-produto-estoque-dialog.component';
 
 export interface TabelaProdutos {
   codEstoque: string;
@@ -28,7 +31,7 @@ export interface TabelaProdutos {
 
 export class EstoquePainelComponent implements OnInit {
 
-  displayedColumns: string[] = ['nome', 'quantidadeAtual', 'actions'];
+  displayedColumns: string[] = ['nome', 'quantidadeAtual', 'actions1', 'actions2'];
 
   public festaNome: string;
   options: FormGroup;
@@ -40,7 +43,8 @@ export class EstoquePainelComponent implements OnInit {
   dataSources = [];
 
   constructor(public fb: FormBuilder, public dialog: MatDialog, public getFestaService: GetFestaService,
-              public router: Router, public statusService: StatusFestaService, public getEstoque: GetEstoqueService) {
+              public router: Router, public statusService: StatusFestaService, public getEstoque: GetEstoqueService,
+              public baixaProdutoEstoque: BaixaProdutoEstoqueService, public recargaProdutoEstoque: RecargaProdutoEstoqueService) {
       this.options = fb.group({
         bottom: 55,
         top: 0
@@ -49,7 +53,7 @@ export class EstoquePainelComponent implements OnInit {
 
   gerarForm() {
     this.form = this.fb.group({
-      grupoSelect: new FormControl('', Validators.required),
+      quantidade: new FormControl('', [Validators.min(1), Validators.required]),
     });
   }
 
@@ -154,6 +158,25 @@ export class EstoquePainelComponent implements OnInit {
         produto,
         estoque,
         festa: this.festa
+      }
+    });
+  }
+
+  removerProduto(quantidade, element, codEstoque) {
+    element = element.codProduto;
+    this.baixaProdutoEstoque.baixaProdutoEstoque(quantidade, element, codEstoque).subscribe((resp: any) => {
+      this.baixaProdutoEstoque.setFarol(false);
+      this.dialog.closeAll();
+    });
+  }
+
+  recargaProduto(estoque, element) {
+    this.dialog.open(RecargaProdutoEstoqueDialogComponent, {
+      width: '20rem',
+      data: {
+        component: this,
+        estoque,
+        element
       }
     });
   }

@@ -433,5 +433,12 @@
         "APAGAR": "Apagar notificação",
         "CONVITE": "Você foi convidado para ser membro em uma nova festa!",
         "VER": "Ver"
+    },
+
+    "RECARGA": {
+        "TITULO": "Recarga de produto",
+        "QUANTIDADE": "Quantidade à ser recarregada",
+        "CONFIRM": "Confirmar",
+        "CANCEL": "Cancelar"
     }
 }
