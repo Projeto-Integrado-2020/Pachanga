@@ -3,6 +3,9 @@ import { TranslateService } from '@ngx-translate/core';
 import { MatDialog} from '@angular/material';
 import { LoginComponent } from '../login/login.component';
 import { CadastroComponent } from '../cadastro/cadastro.component';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { Observable, interval, Subscription } from 'rxjs';
+import { map, shareReplay } from 'rxjs/operators';
 import { LoginService } from 'src/app/services/loginService/login.service';
 
 export interface ConviteData {
@@ -17,9 +20,16 @@ export interface ConviteData {
 
 export class NavbarComponent implements OnInit {
 
+  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
+    .pipe(
+      map(result => result.matches),
+      shareReplay()
+    );
+
   constructor(
     public translate: TranslateService,
     public dialog: MatDialog,
+    private breakpointObserver: BreakpointObserver,
     public loginComponent: LoginComponent,
     public loginService: LoginService,
     ) {

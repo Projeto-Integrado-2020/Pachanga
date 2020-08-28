@@ -18,7 +18,7 @@ describe('AceitoMembroDetalhesService', () => {
         { provide: MatDialog, useValue: dialogSpy },
         { provide: MatDialogRef, useValue: {} }
       ]
-    })
+    });
   });
 
   it('should be created', () => {

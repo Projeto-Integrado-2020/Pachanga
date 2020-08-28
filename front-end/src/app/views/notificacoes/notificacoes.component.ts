@@ -11,7 +11,8 @@ import { EstoqueMinDetalhesService } from 'src/app/services/estoque-min-detalhes
 @Component({
   selector: 'app-notificacoes',
   templateUrl: './notificacoes.component.html',
-  styleUrls: ['./notificacoes.component.scss']
+  styleUrls: ['./notificacoes.component.scss'],
+  providers: [LoginComponent]
 })
 export class NotificacoesComponent implements OnInit {
 
@@ -29,13 +30,12 @@ export class NotificacoesComponent implements OnInit {
   notificacaoConvidado: any[] = [];
 
   convmsg: any;
-  accmsg = {nomeFesta: '', nomeGrupo: '', nomeUsuario: ''};
-  estoMinMsg = {nomeFesta: '', marca: '', nomeEstoque: ''};
 
   constructor(public dialog: MatDialog, public loginComponent: LoginComponent,
               public loginService: LoginService, public notifService: NotificacoesService,
-              public accDetail: AceitoMembroDetalhesService, public estoqueMinDetail: EstoqueMinDetalhesService)
-              { }
+              public accDetail: AceitoMembroDetalhesService, public estoqueMinDetail: EstoqueMinDetalhesService) {
+
+  }
 
   ngOnInit() {
     if (this.loginService.usuarioAutenticado) {
@@ -95,8 +95,6 @@ export class NotificacoesComponent implements OnInit {
         () => {
           this.carregarArray(this.notifService.getNotificacoes());
           this.contarAlertasNaoLidos();
-          console.log("CARALHOW");
-          
         }
       );
     }
@@ -105,9 +103,11 @@ export class NotificacoesComponent implements OnInit {
   carregarArray(observavel: Observable<object>) {
     return observavel.subscribe(
       (response: any) => {
-        this.notificacoesUsuario = response.notificacoesUsuario;
-        this.notificacoesGrupo = response.notificacoesGrupo;
-        this.notificacaoConvidado = response.notificacaoConvidado;
+        if (!this.visibilidadeNotificacoes) {
+          this.notificacoesUsuario = response.notificacoesUsuario;
+          this.notificacoesGrupo = response.notificacoesGrupo;
+          this.notificacaoConvidado = response.notificacaoConvidado;
+        }
       }
     );
   }
@@ -120,31 +120,4 @@ export class NotificacoesComponent implements OnInit {
       }
     });
   }
-
-  getAccMessage(mensagem) {    
-    const idGrupo = mensagem.slice(mensagem.indexOf('&') + 1);
-    const idUser = mensagem.slice(9, mensagem.indexOf('&'));
-
-    this.accDetail.getDetalhes(idGrupo, idUser).subscribe((resp: any) => {
-      this.accDetail.setFarol(false);
-      this.accmsg = resp;
-    });
-  }
-
-  getEstoqueMinDetalhes(mensagem) {
-    const idFeste = mensagem.slice(9, mensagem.indexOf('&'));
-    const estoqueProdutoCod = mensagem.slice(mensagem.indexOf('&') + 1);
-    const idProduto = estoqueProdutoCod.slice(mensagem.indexOf('&') + 1);
-    const idEstoque = estoqueProdutoCod.slice(0, mensagem.indexOf('&'));
-
-    this.estoqueMinDetail.getDetalhes(idFeste, idEstoque, idProduto).subscribe((resp: any) => {
-      this.estoqueMinDetail.setFarol(false);
-      this.estoMinMsg = resp;
-    });
-  }
-
-  getAlow() {
-    console.log("alow");
-  }
-
 }

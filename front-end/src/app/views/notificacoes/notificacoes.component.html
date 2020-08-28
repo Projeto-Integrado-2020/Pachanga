@@ -6,9 +6,8 @@ mat-mini-fab
 >
 <mat-icon matBadge={{alertNumbers}} matBadgeColor="warn" [matBadgeHidden]="alertNumbers == 0">notifications</mat-icon>
 </button>
-
 <!-- JANELINHA DE NOTIFICACOES -->
-<mat-card 
+<mat-card
 class="fila_notificacoes"
 *ngIf="visibilidadeNotificacoes"
 (clicarFora)="fecharNotificacoes()"
@@ -19,7 +18,7 @@ class="fila_notificacoes"
 
 <mat-card-content>
   <!-- CONVITES -->
-  <div class="fila_notificacoes__not-container" *ngFor="let alert of notificacaoConvidado let i = index">
+  <div class="fila_notificacoes__not-container" *ngFor="let alert of notificacaoConvidado">
     <mat-divider></mat-divider>
     <div class="fila_notificacoes__convite">
       <div>
@@ -36,7 +35,7 @@ class="fila_notificacoes"
   </div>
 
   <!-- NOTIFICACOES DE Estoque Mínimo -->
-  <div class="fila_notificacoes__not-container" *ngFor="let alert of notificacoesGrupo let i = index">
+  <div class="fila_notificacoes__not-container" *ngFor="let alert of notificacoesGrupo">
     <div *ngIf="alert.mensagem.includes('ESTBAIXO')">
         <mat-divider></mat-divider>
         <div class="fila_notificacoes__flex">
@@ -45,8 +44,7 @@ class="fila_notificacoes"
                     <p [ngStyle]="{'font-weight': 'bold'}">{{alert.mensagem}}</p>
                 </div>
                 <div class="fila_notificacoes__notificacao__horario">
-                    {{ getEstoqueMinDetalhes(alert.mensagem) }}
-                    <p>{{'NOTIFICACAO.CONVITEACEITO1' | translate}} {{ estoMinMsg.marca }} {{'NOTIFICACAO.CONVITEACEITO2' | translate}} "{{ estoMinMsg.nomeFesta }} - {{ estoMinMsg.nomeEstoque }}". {{'NOTIFICACAO.CONVITEACEITO3' | translate}}</p>
+                    <p>{{'NOTIFICACAO.CONVITEACEITO1' | translate}} {{ alert.marca }} {{'alert.CONVITEACEITO2' | translate}} "{{ alert.nomeFesta }} - {{ alert.nomeEstoque }}". {{'NOTIFICACAO.CONVITEACEITO3' | translate}}</p>
                 </div>
             </div>
         </div>
@@ -54,21 +52,19 @@ class="fila_notificacoes"
   </div>
 
   <!-- NOTIFICACOES DE CONVITE ACEITO -->
-
-  <div class="fila_notificacoes__not-container" *ngFor="let alert of notificacoesUsuario; let i = index;">
+  <div class="fila_notificacoes__not-container" *ngFor="let alert of notificacoesUsuario">
       <div *ngIf="alert.mensagem.includes('CONVACEI')">
         <mat-divider></mat-divider>
         <div class="fila_notificacoes__flex">
-        <div class="fila_notificacoes__notificacao">
-        <div class="fila_notificacoes__notificacao__texto">
-            <p [ngStyle]="{'font-weight': (alert.status == 'N' || alert.destaque == true) ? 'bold' : 'normal'}">{{'NOTIFICACAO.CONVITEACEITO' | translate}}</p>
-        </div>
-        <div class="fila_notificacoes__notificacao__horario">
-            {{ getAlow() }}
-            <p>{{ accmsg.nomeUsuario }} {{'NOTIFICACAO.CONVITEACEITO1' | translate}} "{{ accmsg.nomeFesta }}" {{'NOTIFICACAO.CONVITEACEITO2' | translate}} "{{ accmsg.nomeGrupo }}"</p>
-        </div>
-        </div>
-        <mat-icon class="btn--notif" (click)="abrirAlertaOpcoes(alert)">more_horiz</mat-icon>
+            <div class="fila_notificacoes__notificacao">
+              <div class="fila_notificacoes__notificacao__texto">
+                  <p [ngStyle]="{'font-weight': (alert.status == 'N' || alert.destaque == true) ? 'bold' : 'normal'}">{{'NOTIFICACAO.CONVITEACEITO' | translate}}</p>
+              </div>
+              <div class="fila_notificacoes__notificacao__horario">
+                  <p class="mensagem">{{ alert.nomeUsuario }} {{'NOTIFICACAO.CONVITEACEITO1' | translate}} "{{ alert.nomeFesta }}" {{'NOTIFICACAO.CONVITEACEITO2' | translate}} "{{ alert.nomeGrupo }}"</p>
+              </div>
+            </div>
+          <mat-icon class="btn--notif" (click)="abrirAlertaOpcoes(alert)">more_horiz</mat-icon>
         </div>
         <mat-card class="fila_notificacoes__notificacao__alertaOpcoes"
         *ngIf="alert.alertaOpcoes"

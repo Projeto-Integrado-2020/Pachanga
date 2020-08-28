@@ -102,7 +102,8 @@
         "FESTNPRE": "A festa deve estar na fase de preparação para realizar esta ação.",
         "CONVNGRU": "Este convidado não esta no grupo.",
         "QMAXINV": "Quantidade máxima inválida.",
-        "ESTOMNOM": "Um estoque com este nome já foi cadastrado."
+        "ESTOMNOM": "Um estoque com este nome já foi cadastrado.",
+        "FESTFINA": "Não é possível manipular estoque/produto em festas finalizadas."
     },
 
     "SUCCESS": {
@@ -375,7 +376,7 @@
         "REMOVE2": "Remover",
         "DELETE": "Deletar estoque",
         "EDITESTOQUE": "Editar estoque",
-        "NOMEESTOQUE": "Nome do estoque:",
+        "NOMEESTOQUE": "Nome do estoque",
         "CONFIRM": "Confirmar",
         "CANCEL": "Cancelar",
         "ADDESTOQUE": "Adicionar estoque",
@@ -439,5 +440,10 @@
         "ESTOQUEMIN1": "O produto",
         "ESTOQUEMIN2": "está com a quantidade mais baixa que o percentual mínimo permitido no estoque",
         "ESTOQUEMIN3": "Recarga necessária!"
+    },
+
+    "ALERTAESTOQUE": {
+        "REDIRECIONAR": "Ir para a tela de estoque",
+        "TITLE": "Alerta de Estoque"
     }
 }

@@ -37,6 +37,7 @@ import { EstoquePainelComponent } from './views/estoque-painel/estoque-painel.co
 import { ClicarForaDirective } from './views/navbar/clicar-fora-fecha.directive';
 import { GerenciadorProdutosComponent } from './views/gerenciador-produtos/gerenciador-produtos.component';
 import { LoginService } from './services/loginService/login.service';
+import { NotificacoesComponent } from './views/notificacoes/notificacoes.component';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -83,7 +84,8 @@ describe('AppComponent', () => {
         DistribuicaoPermissoesComponent,
         EstoquePainelComponent,
         ClicarForaDirective,
-        GerenciadorProdutosComponent
+        GerenciadorProdutosComponent,
+        NotificacoesComponent
       ],
       imports: [
         BrowserModule,

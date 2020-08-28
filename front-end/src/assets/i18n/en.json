@@ -100,7 +100,8 @@
         "PRODEUSO": "Product in use.",
         "ESTONFOU": "Stock not found.",
         "QMAXINV": "Invalid max quantity.",
-        "ESTOMNOM": "Another stock is already using this name."
+        "ESTOMNOM": "Another stock is already using this name.",
+        "FESTFINA": "It is not possible to manage stock/product in finished parties."
     },
 
     "SUCCESS": {
@@ -437,5 +438,10 @@
         "ESTOQUEMIN1": "The product",
         "ESTOQUEMIN2": "quantity is below the minimum percentage at",
         "ESTOQUEMIN3": "Refill required!"
+    },
+
+    "ALERTAESTOQUE": {
+        "REDIRECIONAR": "Go to stock page",
+        "TITLE": "Stock alert"
     }
 }

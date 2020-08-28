@@ -38,6 +38,7 @@ import { DistribuicaoPermissoesComponent } from '../distribuicao-permissoes/dist
 import { EstoquePainelComponent } from '../estoque-painel/estoque-painel.component';
 import { GerenciadorProdutosComponent } from '../gerenciador-produtos/gerenciador-produtos.component';
 import { FestaDetalhesDialogComponent } from '../festa-detalhes-dialog/festa-detalhes-dialog.component';
+import { NotificacoesComponent } from '../notificacoes/notificacoes.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -84,7 +85,8 @@ describe('CadastroComponent', () => {
         DistribuicaoPermissoesComponent,
         EstoquePainelComponent,
         GerenciadorProdutosComponent,
-        FestaDetalhesDialogComponent
+        FestaDetalhesDialogComponent,
+        NotificacoesComponent
       ],
       imports: [
         CustomMaterialModule,
