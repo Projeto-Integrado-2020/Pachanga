@@ -39,7 +39,7 @@ export class EstoquePainelComponent implements OnInit {
   public festa: any;
   public statusFesta: any;
   panelOpenState = false;
-  public form: FormGroup;
+  public forms = {};
   estoques: any;
   dataSources = [];
   quantidadesProdutos = [];
@@ -54,12 +54,24 @@ export class EstoquePainelComponent implements OnInit {
   }
 
   gerarForm() {
-    this.form = this.fb.group({
-      quantidade: new FormControl('', [Validators.min(1), Validators.required]),
-    });
+    this.forms = []
+    for (const estoque of this.estoques) {
+      if (estoque.itemEstoque) {
+        for (const produtoEstoque of Object.keys(estoque.itemEstoque)) {
+          const form = this.fb.group({
+            quantidade: new FormControl('', [Validators.min(1), Validators.required]),
+          });
+          this.forms[
+            estoque.codEstoque + '' + estoque.itemEstoque[produtoEstoque].codProduto
+          ] = form;
+        }
+      }
+    }
   }
 
-  get f() { return this.form.controls; }
+  f(key) {
+    return this.forms[key].controls;
+  }
 
   resgatarEstoquePanel() {
     this.getEstoque.getEstoque(this.festa.codFesta).subscribe((resp: any) => {
@@ -82,6 +94,7 @@ export class EstoquePainelComponent implements OnInit {
         this.quantidadesProdutos.push(produtosQuantidade);
         this.dataSources.push(new MatTableDataSource<TabelaProdutos>(produtos));
       }
+      this.gerarForm();
     });
   }
 
@@ -98,7 +111,6 @@ export class EstoquePainelComponent implements OnInit {
       this.resgatarEstoquePanel();
       this.updateQuantidades();
     });
-    this.gerarForm();
   }
 
   openDialogDelete(codEstoque) {
