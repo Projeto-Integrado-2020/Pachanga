@@ -11,19 +11,20 @@ export class AlertaEstoqueComponent implements OnInit {
   notificacao: any;
 
   constructor(@Inject(MAT_DIALOG_DATA) data) {
-    this.notificacao = data.notificacao;
+    this.notificacao = data.alerta;
   }
 
   ngOnInit() {
   }
 
   getUrlFesta() {
-    const nomeFesta = this.notificacao.nomeFesta.toLowerCase().replace('-', '').replace('–', '')
+    const codFesta = this.notificacao.mensagem.split('&')[0].split('?')[1];
+    const nomeFesta = this.notificacao.notificacaoEstoque.nomeFesta.toLowerCase().replace('-', '').replace('–', '')
                         .replace(/\s+/g, '-').replace('ç', 'c')
                         .replace('º', '').replace('ª', '')
                         .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
                         .replace(/[`~!@#$%^&*()_|+\=?;:'",.<>\{\}\[\]\\\/]/gi, '');
-    const url = '../festas/' + nomeFesta + '&' + this.notificacao.codFesta + '/estoque';
+    const url = '../festas/' + nomeFesta + '&' + codFesta + '/estoque';
     return url;
   }
 

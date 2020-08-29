@@ -35,9 +35,9 @@ describe('AlertaEstoqueComponent', () => {
       providers: [
         { provide: MAT_DIALOG_DATA,
           useValue: {
-            notificacao: {
-              nomeFesta: 'teste', marca: 'teste', nomeEstoque: 'teste', qtdAtual: 'teste',
-              codFesta: 'testeCod'
+            alerta: { notificacaoEstoque: {
+              nomeFesta: 'teste', marca: 'teste', nomeEstoque: 'teste', qtdAtual: 'teste'},
+              mensagem: 'TESTE?testeCod7&testeCod8'
             }
           }
         },
@@ -57,6 +57,6 @@ describe('AlertaEstoqueComponent', () => {
   });
 
   it('should getUrlFesta', () => {
-    expect(component.getUrlFesta()).toEqual('../festas/teste&testeCod/estoque');
+    expect(component.getUrlFesta()).toEqual('../festas/teste&testeCod7/estoque');
   });
 });

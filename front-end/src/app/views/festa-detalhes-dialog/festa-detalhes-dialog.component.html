@@ -1,10 +1,10 @@
 <h1 mat-dialog-title>{{'FESTA.DETALHES' | translate}}</h1>
     <div mat-dialog-content>
-        <p><strong>{{'FESTA.PARTYNAME' | translate}}:</strong> {{this.festa.nomeFesta}}</p>
-        <p><strong>{{'FESTA.PAPEIS' | translate}}:</strong> {{this.festa.nomeGrupo}}</p>
-        <p><strong>{{'FESTA.ENDERECO' | translate}}:</strong> {{this.festa.enderecoFesta}}</p>
-        <p><strong>{{'FESTA.INICIOHORA' | translate}}:</strong> {{formatDateTime(this.festa.horarioInicial)}}</p>
-        <p><strong>{{'FESTA.FIMHORA' | translate}}:</strong> {{formatDateTime(this.festa.horarioFinal)}}</p>
+        <p><strong>{{'FESTA.PARTYNAME' | translate}}:</strong> {{alerta.conviteFesta.nomeFesta}}</p>
+        <p><strong>{{'FESTA.PAPEIS' | translate}}:</strong> {{alerta.conviteFesta.nomeGrupo}}</p>
+        <p><strong>{{'FESTA.ENDERECO' | translate}}:</strong> {{alerta.conviteFesta.enderecoFesta}}</p>
+        <p><strong>{{'FESTA.INICIOHORA' | translate}}:</strong> {{formatDateTime(alerta.conviteFesta.horarioInicial)}}</p>
+        <p><strong>{{'FESTA.FIMHORA' | translate}}:</strong> {{formatDateTime(alerta.conviteFesta.horarioFinal)}}</p>
         <div class="botoes">
           <button class="botoes__btn" (click)="aceitarConvite()" mat-raised-button color="primary" > {{'NOTIFICACAO.ACEITAR' | translate}} </button>
           <button class="botoes__btn" (click)="recusarConvite()" mat-raised-button color="primary" > {{'NOTIFICACAO.RECUSAR' | translate}} </button>

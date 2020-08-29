@@ -7,6 +7,7 @@ import { NotificacoesService } from 'src/app/services/notificacoes-service/notif
 import { FestaDetalhesDialogComponent } from '../festa-detalhes-dialog/festa-detalhes-dialog.component';
 import { AceitoMembroDetalhesService } from 'src/app/services/aceito-membro-detalhes/aceito-membro-detalhes.service';
 import { EstoqueMinDetalhesService } from 'src/app/services/estoque-min-detalhes/estoque-min-detalhes.service';
+import { AlertaEstoqueComponent } from '../alerta-estoque/alerta-estoque.component';
 
 @Component({
   selector: 'app-notificacoes',
@@ -51,7 +52,7 @@ export class NotificacoesComponent implements OnInit {
   contarAlertasNaoLidos(): void {
     let count = 0;
     for (const i of this.notificacoesUsuario) {
-      if (i.status === 'N' || i.destaque) {
+      if (!i.mensagem.includes('ESTBAIXO') && i.status === 'N' || i.destaque) {
         count++;
       }
     }
@@ -65,10 +66,10 @@ export class NotificacoesComponent implements OnInit {
     alerta.alertaOpcoes = false;
   }
 
-  deletarAlerta(alerta, arrayName): void {
-    const index = arrayName.indexOf(alerta);
-    arrayName.splice(index, 1);
-    this.notifService.deletarNotificacao(alerta.notificacao).subscribe();
+  deletarAlerta(alerta): void {
+    const index = this.notificacoesUsuario.indexOf(alerta);
+    this.notificacoesUsuario.splice(index, 1);
+    this.notifService.deletarNotificacao(alerta).subscribe();
     // CHAMAR METODO DELETAR ALERTA DO NOTIFICACAO-SERVICE!
   }
 
@@ -104,7 +105,7 @@ export class NotificacoesComponent implements OnInit {
     return observavel.subscribe(
       (response: any) => {
         if (!this.visibilidadeNotificacoes) {
-          this.notificacoesUsuario = response.notificacoesUsuario;
+          this.notificacoesUsuario = this.procurarAlertas(response.notificacoesUsuario);
           this.notificacoesGrupo = response.notificacoesGrupo;
           this.notificacaoConvidado = response.notificacaoConvidado;
         }
@@ -116,8 +117,32 @@ export class NotificacoesComponent implements OnInit {
     this.dialog.open(FestaDetalhesDialogComponent, {
       width: '23rem',
       data: {
-          mensagem: alerta.mensagem
+        alerta
       }
     });
+  }
+
+  openDialogEstoqueAlert(alerta): void {
+    this.dialog.open(AlertaEstoqueComponent, {
+      width: '23rem',
+      data: {
+        alerta
+      }
+    });
+  }
+
+  procurarAlertas(resp) {
+    const notificacoes = [];
+    const alertas = [];
+    for (const notificacao of resp) {
+      if (notificacao.mensagem.includes('ESTBAIXO') && notificacao.status === 'N') {
+        this.openDialogEstoqueAlert(notificacao);
+        alertas.push(notificacao.notificacao);
+      } else {
+        notificacoes.push(notificacao);
+      }
+    }
+    this.notifService.atualizarNotificacoes(alertas).subscribe();
+    return notificacoes;
   }
 }

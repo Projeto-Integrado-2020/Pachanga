@@ -63,7 +63,6 @@ export class EstoquePainelComponent implements OnInit {
 
   resgatarEstoquePanel() {
     this.getEstoque.getEstoque(this.festa.codFesta).subscribe((resp: any) => {
-      this.getEstoque.setFarol(false);
       this.estoques = resp;
       for (const estoque of resp) {
         const produtos = [];
@@ -201,7 +200,6 @@ export class EstoquePainelComponent implements OnInit {
   getQtdsAtualizadas(observavel: Observable<object>) {
     return observavel.subscribe(
       (resp: any) => {
-        this.getEstoque.setFarol(false);
         this.quantidadesProdutos = [];
         for (const estoque of resp) {
           const produtosQuantidade = [];

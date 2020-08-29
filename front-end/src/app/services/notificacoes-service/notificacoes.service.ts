@@ -77,10 +77,11 @@ export class NotificacoesService {
     );
   }
 
-  deletarNotificacao(notifId: number) {
+  deletarNotificacao(notificacao: any) {
       const httpParams = new HttpParams()
       .append('idUser', this.loginService.usuarioInfo.codUsuario)
-      .append('idNotificacao', notifId.toString());
+      .append('idNotificacao', notificacao.notificacao)
+      .append('mensagem', notificacao.mensagem);
       return this.http.delete(this.URL + '/delete', {params: httpParams}).pipe(
         take(1),
         catchError(error => {

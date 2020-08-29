@@ -11,12 +11,8 @@ import { Router } from '@angular/router';
 export class FestaDetalhesDialogComponent implements OnInit {
 
 
-  mensagem: string;
-  codConvidado: string;
+  alerta: any;
   idGrupo: string;
-
-  festa = {nomeFesta: '', nomeGrupo: '', enderecoFesta: '', horarioInicial: '', horarioFinal: ''};
-  horarioInicioFesta: string;
 
   constructor(
               @Inject(MAT_DIALOG_DATA) data,
@@ -24,26 +20,16 @@ export class FestaDetalhesDialogComponent implements OnInit {
               public dialog: MatDialog,
               public router: Router
               ) {
-                this.mensagem = data.mensagem;
+                this.alerta = data.alerta;
                }
 
   ngOnInit() {
-    const msg = this.mensagem;
-    this.codConvidado = msg.slice(msg.indexOf('&') + 1);
-    this.idGrupo = msg.slice(9, msg.indexOf('&'));
-    this.getDetalhesFesta();
+    this.idGrupo =  this.alerta.mensagem.split('&')[0].split('?')[1];
   }
 
-  getDetalhesFesta() {
-    this.convService.getDetalhesFesta(this.codConvidado, this.idGrupo).subscribe(
-      (response: any) => {
-        this.festa = response;
-      }
-    );
-  }
 
   aceitarConvite() {
-    this.convService.aceitarConvite(this.codConvidado, this.idGrupo).subscribe(
+    this.convService.aceitarConvite(this.alerta.codConvidado, this.idGrupo).subscribe(
       (resp) => {
         this.dialog.closeAll();
         this.router.navigate(['/minhas-festas']);
@@ -52,7 +38,7 @@ export class FestaDetalhesDialogComponent implements OnInit {
   }
 
   recusarConvite() {
-    this.convService.recusarConvite(this.codConvidado, this.idGrupo).subscribe(
+    this.convService.recusarConvite(this.alerta.codConvidado, this.idGrupo).subscribe(
       (resp) => {
         this.dialog.closeAll();
       }

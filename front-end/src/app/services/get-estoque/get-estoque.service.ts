@@ -15,31 +15,25 @@ export class GetEstoqueService {
 
   private readonly urlGetEstoque = `${environment.URL_BACK}estoque/lista`;
 
-  public farol = false;
-
   constructor(private http: HttpClient, public logService: LogService, public dialog: MatDialog,
               public loginService: LoginService) { }
 
   getEstoque(idFesta) {
-    if (!this.farol) {
-      this.setFarol(true);
-      const httpParams = new HttpParams()
-      .append('codFesta', idFesta)
-      .append('codUsuario', this.loginService.usuarioInfo.codUsuario);
-      return this.http.get(this.urlGetEstoque, {params: httpParams}).pipe(
-        take(1),
-        catchError(error => {
-          return this.handleError(error, this.logService);
-        })
-      );
-    }
+    const httpParams = new HttpParams()
+    .append('codFesta', idFesta)
+    .append('codUsuario', this.loginService.usuarioInfo.codUsuario);
+    return this.http.get(this.urlGetEstoque, {params: httpParams}).pipe(
+      take(1),
+      catchError(error => {
+        return this.handleError(error, this.logService);
+      })
+    );
   }
 
   handleError = (error: HttpErrorResponse, logService: LogService) => {
     this.openErrorDialog(error.error);
     logService.initialize();
     logService.logHttpInfo(JSON.stringify(error), 0, error.url);
-    this.setFarol(false);
     return throwError(error);
   }
 
@@ -48,14 +42,6 @@ export class GetEstoqueService {
       width: '250px',
       data: {erro: error}
     });
-  }
-
-  setFarol(flag: boolean) {
-    this.farol = flag;
-  }
-
-  getFarol() {
-    return this.farol;
   }
 
 }

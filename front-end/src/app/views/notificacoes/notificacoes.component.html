@@ -23,7 +23,7 @@ class="fila_notificacoes"
     <div class="fila_notificacoes__convite">
       <div>
         <p class="dont-break-out">
-          {{'NOTIFICACAO.CONVITE' | translate}} 
+          {{'NOTIFICACAO.CONVITE' | translate}} "{{ alert.conviteFesta.nomeFesta }}"
         </p>
       </div>
       <mat-card-actions class="fila_notificacoes__convite__btn--invite">
@@ -41,10 +41,10 @@ class="fila_notificacoes"
         <div class="fila_notificacoes__flex">
             <div class="fila_notificacoes__notificacao">
                 <div class="fila_notificacoes__notificacao__texto">
-                    <p [ngStyle]="{'font-weight': 'bold'}">{{alert.mensagem}}</p>
+                    <p [ngStyle]="{'font-weight': 'bold'}">{{ 'ALERTAESTOQUE.TITLE' | translate }}</p>
                 </div>
                 <div class="fila_notificacoes__notificacao__horario">
-                    <p>{{'NOTIFICACAO.CONVITEACEITO1' | translate}} {{ alert.marca }} {{'alert.CONVITEACEITO2' | translate}} "{{ alert.nomeFesta }} - {{ alert.nomeEstoque }}". {{'NOTIFICACAO.CONVITEACEITO3' | translate}}</p>
+                    <p class="mensagem">{{'NOTIFICACAO.ESTOQUEMIN1' | translate}} "{{ alert.notificacaoEstoque.nomeProduto }}" {{'NOTIFICACAO.ESTOQUEMIN2' | translate}} "{{ alert.notificacaoEstoque.nomeFesta }} - {{ alert.notificacaoEstoque.nomeEstoque }}". {{'NOTIFICACAO.ESTOQUEMIN3' | translate}}</p>
                 </div>
             </div>
         </div>
@@ -61,7 +61,7 @@ class="fila_notificacoes"
                   <p [ngStyle]="{'font-weight': (alert.status == 'N' || alert.destaque == true) ? 'bold' : 'normal'}">{{'NOTIFICACAO.CONVITEACEITO' | translate}}</p>
               </div>
               <div class="fila_notificacoes__notificacao__horario">
-                  <p class="mensagem">{{ alert.nomeUsuario }} {{'NOTIFICACAO.CONVITEACEITO1' | translate}} "{{ alert.nomeFesta }}" {{'NOTIFICACAO.CONVITEACEITO2' | translate}} "{{ alert.nomeGrupo }}"</p>
+                  <p class="mensagem">{{ alert.usuarioFesta.nomeUsuario }} {{'NOTIFICACAO.CONVITEACEITO1' | translate}} "{{ alert.usuarioFesta.nomeFesta }}" {{'NOTIFICACAO.CONVITEACEITO2' | translate}} "{{ alert.usuarioFesta.nomeGrupo }}"</p>
               </div>
             </div>
           <mat-icon class="btn--notif" (click)="abrirAlertaOpcoes(alert)">more_horiz</mat-icon>
@@ -77,7 +77,7 @@ class="fila_notificacoes"
             <p (click)="alterarAlerta(alert)">{{'NOTIFICACAO.SETNLIDO' | translate}}</p>
         </div>
         <mat-divider></mat-divider>
-        <div (click)="deletarAlerta(alert, notificacoesUsuario)" class="apagar-notif">
+        <div (click)="deletarAlerta(alert)" class="apagar-notif">
             <p>{{'NOTIFICACAO.APAGAR' | translate}}</p>
         </div>
         </mat-card>

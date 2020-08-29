@@ -36,7 +36,12 @@ describe('FestaDetalhesDialogComponent', () => {
         })
       ],
       providers: [
-        { provide: MAT_DIALOG_DATA, useValue: {mensagem: 'CONVFEST?1&1'}},
+        { provide: MAT_DIALOG_DATA, useValue: {
+          alerta: { conviteFesta: {
+          nomeFesta: 'teste', marca: 'teste', nomeEstoque: 'teste', qtdAtual: 'teste'},
+          mensagem: 'TESTE?testeCod7&testeCod8'
+        }}
+      },
         { provide: MatDialog, useValue: dialogSpy },
       ]
     })
