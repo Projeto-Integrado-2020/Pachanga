@@ -10,14 +10,12 @@ import org.junit.runner.RunWith;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.eventmanager.pachanga.domains.Grupo;
 import com.eventmanager.pachanga.domains.Permissao;
-import com.eventmanager.pachanga.dtos.GrupoTO;
 import com.eventmanager.pachanga.dtos.PermissaoTO;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(value=PermissaoFactory.class)
-public class PermissaoFactoryTest {
+class PermissaoFactoryTest {
 	
 	private PermissaoTO permissaoTOTest() {
 		PermissaoTO permissaoTO = new PermissaoTO();
@@ -36,7 +34,7 @@ public class PermissaoFactoryTest {
 	}
 	
 	@Test
-	public void getPermissaoSucessoTest() throws Exception {
+	void getPermissaoSucessoTest() throws Exception {
 		PermissaoTO permissaoTO = permissaoTOTest();
 		
 		Permissao permissao = PermissaoFactory.getPermissao(permissaoTO);
@@ -48,7 +46,7 @@ public class PermissaoFactoryTest {
 	}
 	
 	@Test
-	public void getPermissaoTOSucessoTest() throws Exception {
+	void getPermissaoTOSucessoTest() throws Exception {
 		Permissao permissao = permissaoTest();
 		
 		PermissaoTO permissaoTO = PermissaoFactory.getPermissaoTO(permissao);
@@ -60,7 +58,7 @@ public class PermissaoFactoryTest {
 	}
 	
 	@Test
-	public void getPermissoesTOSucessoTest() throws Exception {
+	void getPermissoesTOSucessoTest() throws Exception {
 		Permissao permissao = permissaoTest();
 		List<Permissao> permissoes = new ArrayList<>();
 		permissoes.add(permissao);

@@ -6,24 +6,16 @@ import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.eventmanager.pachanga.domains.Convidado;
 import com.eventmanager.pachanga.domains.Festa;
 import com.eventmanager.pachanga.domains.Grupo;
-import com.eventmanager.pachanga.domains.Permissao;
-import com.eventmanager.pachanga.domains.Usuario;
-import com.eventmanager.pachanga.dtos.CategoriaTO;
 import com.eventmanager.pachanga.dtos.ConvidadoTO;
-import com.eventmanager.pachanga.dtos.FestaTO;
 import com.eventmanager.pachanga.dtos.GrupoTO;
 import com.eventmanager.pachanga.dtos.PermissaoTO;
 import com.eventmanager.pachanga.dtos.UsuarioTO;
@@ -31,22 +23,9 @@ import com.eventmanager.pachanga.tipo.TipoStatusFesta;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(value=GrupoFactory.class)
-public class GrupoFactoryTest {
+class GrupoFactoryTest {
 	
-	//@Autowired
-	//private GrupoFactory grupoFactory;
-
-	public GrupoTO grupoTOTest() throws Exception {
-		GrupoTO grupoTO = new GrupoTO();
-		grupoTO.setCodGrupo(1);
-		grupoTO.setNomeGrupo("CONVIDADO");
-		grupoTO.setCodFesta(1);
-		grupoTO.setIsOrganizador(false);
-		grupoTO.setQuantMaxPessoas(15);
-		return grupoTO;
-	}
-	
-	public Grupo grupoTest() throws Exception {
+	private Grupo grupoTest() throws Exception {
 		Grupo grupo = new Grupo();
 		grupo.setCodGrupo(1);
 		grupo.setNomeGrupo("CONVIDADO");
@@ -56,7 +35,7 @@ public class GrupoFactoryTest {
 		return grupo;
 	}
 	
-	public Festa festaTest() throws Exception{
+	private Festa festaTest() throws Exception{
 		Festa festaTest = new Festa();
 		festaTest.setCodFesta(2);
 		festaTest.setCodEnderecoFesta("https//:minhacasa.org");
@@ -101,7 +80,7 @@ public class GrupoFactoryTest {
 		return permissaoTO;
 	}
 	@Test
-	public void getGrupoTOSucessoTest() throws Exception {
+	void getGrupoTOSucessoTest() throws Exception {
 		Grupo grupo = grupoTest();
 		GrupoTO grupoTO = GrupoFactory.getGrupoTO(grupo);
 		
@@ -114,7 +93,7 @@ public class GrupoFactoryTest {
 	}
 	
 	@Test
-	public void getGrupoSucessoTest() throws Exception {
+	void getGrupoSucessoTest() throws Exception {
 		Grupo grupo = grupoTest();
 		String nomeGrupo = grupo.getNomeGrupo();
 		int codGrupo = grupo.getCodGrupo();
@@ -132,7 +111,7 @@ public class GrupoFactoryTest {
 	}
 	
 	@Test
-	public void getGrupoTOAlterSucessoTest() throws Exception {
+	void getGrupoTOAlterSucessoTest() throws Exception {
 		Grupo grupo = grupoTest();
 		
 		List<UsuarioTO> usuariosTO = new ArrayList<>();

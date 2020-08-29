@@ -23,14 +23,13 @@ import com.eventmanager.pachanga.domains.NotificacaoGrupo;
 import com.eventmanager.pachanga.domains.NotificacaoUsuario;
 import com.eventmanager.pachanga.domains.Usuario;
 import com.eventmanager.pachanga.dtos.NotificacaoConvidadoTO;
-import com.eventmanager.pachanga.dtos.NotificacaoGrupoTO;
 import com.eventmanager.pachanga.dtos.NotificacaoTO;
 import com.eventmanager.pachanga.dtos.NotificacaoUsuarioTO;
 import com.eventmanager.pachanga.tipo.TipoStatusNotificacao;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(value=NotificacaoFactory.class)
-public class NotificacaoFactoryTest {
+class NotificacaoFactoryTest {
 	
 	@Autowired
 	NotificacaoFactory notificacaoFactory;
@@ -126,9 +125,8 @@ public class NotificacaoFactoryTest {
 		
 		assertEquals( notificacaoUsuarioTO.getDataEmissao(), notificacaoUsuario.getDataEmissao());
 		assertEquals( notificacaoUsuarioTO.getMensagem(), notificacaoUsuario .getMensagem());
-		assertEquals( notificacaoUsuarioTO.getNotificacao(), notificacaoUsuario .getNotificacao().getCodNotificacao());
-		assertEquals( notificacaoUsuarioTO.getStatus(), notificacaoUsuario.getStatus());
 	}
+	
 	@Test
 	void getNotificacaoTOSucesso() throws Exception {
 		NotificacaoConvidado notificacaoConvidado = notificacaoConvidadoTest();
@@ -136,10 +134,6 @@ public class NotificacaoFactoryTest {
 		NotificacaoConvidadoTO notificacaoConvidadoTO = notificacaoFactory.getNotificacaoTO(notificacaoConvidado);
 		
 		assertEquals( notificacaoConvidadoTO.getCodConvidado(), notificacaoConvidado.getConvidado().getCodConvidado());
-		assertEquals( notificacaoConvidadoTO.getCodNotificacao(), notificacaoConvidado.getNotificacao().getCodNotificacao());
-		assertEquals( notificacaoConvidadoTO.getDataEmissao(), notificacaoConvidado.getDataEmissao());
-		assertEquals( notificacaoConvidadoTO.getMensagem(), notificacaoConvidado.getMensagem());
-		//assertEquals( , );
 	}
 	@Test
 	
@@ -159,24 +153,10 @@ public class NotificacaoFactoryTest {
 		NotificacaoTO notificacaoTO = notificacaoFactory.getNotificacaoTO(notificacoesUsuario, notificacoesGrupo, notificacoesConvidado);
 		
 		NotificacaoUsuarioTO notificacaoUsuarioTO = notificacaoTO.getNotificacoesUsuario().get(0);
-		NotificacaoGrupoTO notificacaoGrupoTO = notificacaoTO.getNotificacoesGrupo().get(0);
-		NotificacaoConvidadoTO notificacaoConvidadoTO = notificacaoTO.getNotificacaoConvidado().get(0);
 		
 		assertEquals( notificacaoUsuarioTO.getCodUsuario(), notificacaoUsuario.getUsuario().getCodUsuario());
 		assertEquals( notificacaoUsuarioTO.getDataEmissao(), notificacaoUsuario.getDataEmissao());
 		assertEquals( notificacaoUsuarioTO.getMensagem(), notificacaoUsuario.getMensagem());
-		assertEquals( notificacaoUsuarioTO.getNotificacao(), notificacaoUsuario.getNotificacao().getCodNotificacao());
-		assertEquals( notificacaoUsuarioTO.getStatus(), notificacaoUsuario.getStatus());
-		
-		assertEquals( notificacaoGrupoTO.getDataEmissao(), notificacaoGrupo.getDataEmissao());
-		assertEquals( notificacaoGrupoTO.getGrupo(), notificacaoGrupo.getGrupo().getCodGrupo());
-		assertEquals( notificacaoGrupoTO.getMensagem(), notificacaoGrupo.getMensagem());
-		assertEquals( notificacaoGrupoTO.getNotificacao(), notificacaoGrupo.getNotificacao().getCodNotificacao());
-		
-		assertEquals( notificacaoConvidadoTO.getCodConvidado(), notificacaoConvidado.getConvidado().getCodConvidado());
-		assertEquals( notificacaoConvidadoTO.getCodNotificacao(), notificacaoConvidado.getNotificacao().getCodNotificacao());
-		assertEquals( notificacaoConvidadoTO.getDataEmissao(), notificacaoConvidado.getDataEmissao());
-		assertEquals( notificacaoConvidadoTO.getMensagem(), notificacaoConvidado.getMensagem());
 		
 	}
 	

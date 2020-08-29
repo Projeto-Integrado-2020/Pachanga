@@ -13,11 +13,10 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.eventmanager.pachanga.domains.Produto;
 import com.eventmanager.pachanga.dtos.ProdutoTO;
-import com.eventmanager.pachanga.factory.ProdutoFactory;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(value=ProdutoFactory.class)
-public class ProdutoFactoryTest {
+class ProdutoFactoryTest {
 	
 	private ProdutoFactory produtoFactory;
 	
