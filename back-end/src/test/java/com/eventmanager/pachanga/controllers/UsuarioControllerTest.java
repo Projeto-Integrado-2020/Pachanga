@@ -21,7 +21,6 @@ import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import com.eventmanager.pachanga.domains.Usuario;
-import com.eventmanager.pachanga.dtos.UsuarioFestaTO;
 import com.eventmanager.pachanga.dtos.UsuarioTO;
 import com.eventmanager.pachanga.errors.ValidacaoException;
 import com.eventmanager.pachanga.services.UsuarioService;
@@ -251,50 +250,5 @@ class UsuarioControllerTest {
 		
 		assertEquals(expected, result.getResponse().getContentAsString());
 		
-	}
-	
-	
-	@Test
-	void getInfoUserFestaSucessoTest() throws Exception{
-		
-		String uri = "/usuario/infoUserFesta";
-		
-		Mockito.when(userService.getInfoUserFesta(Mockito.anyInt(), Mockito.anyInt())).thenReturn(new UsuarioFestaTO());
-		
-		RequestBuilder requestBuilder = MockMvcRequestBuilders
-				.get(uri)
-				.accept(MediaType.APPLICATION_JSON)
-				.param("codGrupo", "1")
-				.param("codUsuario", "1")
-				.contentType(MediaType.APPLICATION_JSON);
-
-		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
-		
-		MockHttpServletResponse response = result.getResponse();
-
-		assertEquals(HttpStatus.OK.value(), response.getStatus());
-
-	}
-	
-	@Test
-	void getInfoUserFestaErroTest() throws Exception{
-		
-		String uri = "/usuario/infoUserFesta";
-		
-		Mockito.when(userService.getInfoUserFesta(Mockito.anyInt(), Mockito.anyInt())).thenThrow(new ValidacaoException("teste"));
-		
-		RequestBuilder requestBuilder = MockMvcRequestBuilders
-				.get(uri)
-				.accept(MediaType.APPLICATION_JSON)
-				.param("codGrupo", "1")
-				.param("codUsuario", "1")
-				.contentType(MediaType.APPLICATION_JSON);
-
-		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
-		
-		MockHttpServletResponse response = result.getResponse();
-
-		assertEquals(400, response.getStatus());
-
 	}
 }

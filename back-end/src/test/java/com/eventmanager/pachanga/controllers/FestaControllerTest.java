@@ -33,7 +33,6 @@ import com.eventmanager.pachanga.domains.Convidado;
 import com.eventmanager.pachanga.domains.Festa;
 import com.eventmanager.pachanga.domains.Grupo;
 import com.eventmanager.pachanga.domains.Usuario;
-import com.eventmanager.pachanga.dtos.ConviteFestaTO;
 import com.eventmanager.pachanga.dtos.FestaTO;
 import com.eventmanager.pachanga.errors.ValidacaoException;
 import com.eventmanager.pachanga.factory.ConvidadoFactory;
@@ -598,49 +597,5 @@ class FestaControllerTest {
 		assertEquals(expected, result.getResponse().getContentAsString());
 
 	}
-	
-	//festaUnicaConvidado______________________________________________________________________________________________________________________________________________
-	@Test
-	void festaUnicaConvidadoSucesso() throws Exception{
-
-		String uri = "/festa/festaUnicaConvidado";
-
-		Mockito.when(festaService.procurarFestaConvidado(Mockito.anyInt(), Mockito.anyInt())).thenReturn(new ConviteFestaTO());
-
-		RequestBuilder requestBuilder = MockMvcRequestBuilders
-				.get(uri)
-				.accept(MediaType.APPLICATION_JSON)
-				.param("codGrupo", "2")
-				.param("codConvidado", "1")
-				.contentType(MediaType.APPLICATION_JSON);
-
-		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
-
-		MockHttpServletResponse response = result.getResponse();
-
-		assertEquals(HttpStatus.OK.value(), response.getStatus());		
-	}
-	
-	@Test
-	void festaUnicaConvidadoErro() throws Exception{
-
-		String uri = "/festa/festaUnicaConvidado";
-
-		Mockito.when(festaService.procurarFestaConvidado(Mockito.anyInt(), Mockito.anyInt())).thenThrow(new ValidacaoException("teste"));
-
-		RequestBuilder requestBuilder = MockMvcRequestBuilders
-				.get(uri)
-				.accept(MediaType.APPLICATION_JSON)
-				.param("codGrupo", "2")
-				.param("codConvidado", "1")
-				.contentType(MediaType.APPLICATION_JSON);
-
-		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
-
-		MockHttpServletResponse response = result.getResponse();
-
-		assertEquals(400, response.getStatus());		
-	}
-
 
 }

@@ -11,7 +11,6 @@ import org.springframework.stereotype.Repository;
 import com.eventmanager.pachanga.domains.Convidado;
 import com.eventmanager.pachanga.domains.Grupo;
 import com.eventmanager.pachanga.domains.Permissao;
-import com.eventmanager.pachanga.domains.Usuario;
 
 @Repository
 public interface GrupoRepository extends CrudRepository<Grupo, Integer>{
@@ -76,9 +75,6 @@ public interface GrupoRepository extends CrudRepository<Grupo, Integer>{
 	
 	@Query(value = "SELECT p FROM Grupo g JOIN g.permissoes p WHERE g.codGrupo = :codGrupo")
 	public List<Permissao> findPermissoesPorGrupo(int codGrupo);
-	
-	@Query(value = "SELECT u FROM Grupo g JOIN g.usuarios u WHERE g.codGrupo = :codGrupo")
-	public List<Usuario> findUsuariosPorGrupo(@Param("codGrupo") int codGrupo);
 	
 	@Modifying
 	@Query(value = "INSERT INTO usuario_x_grupo(cod_usuario, cod_grupo) VALUES(:codUsuario, :codGrupo)", nativeQuery = true)

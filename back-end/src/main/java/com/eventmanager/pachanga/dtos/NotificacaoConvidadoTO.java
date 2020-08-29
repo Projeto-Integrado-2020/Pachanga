@@ -11,6 +11,8 @@ public class NotificacaoConvidadoTO {
 	private String mensagem;
 	
 	private LocalDateTime dataEmissao;
+	
+	private ConviteFestaTO conviteFesta;
 
 	public int getCodNotificacao() {
 		return codNotificacao;
@@ -42,6 +44,14 @@ public class NotificacaoConvidadoTO {
 
 	public void setDataEmissao(LocalDateTime dataEmissao) {
 		this.dataEmissao = dataEmissao;
+	}
+
+	public ConviteFestaTO getConviteFesta() {
+		return conviteFesta;
+	}
+
+	public void setConviteFesta(ConviteFestaTO conviteFesta) {
+		this.conviteFesta = conviteFesta;
 	}
 
 }

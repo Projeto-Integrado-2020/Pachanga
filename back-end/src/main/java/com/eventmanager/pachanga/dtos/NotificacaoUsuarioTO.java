@@ -15,6 +15,10 @@ public class NotificacaoUsuarioTO {
 	private String mensagem;
 	
 	private LocalDateTime dataEmissao;
+	
+	private UsuarioFestaTO usuarioFesta;
+	
+	private NotificacaoEstoqueTO notificacaoEstoque;
 
 	public int getNotificacao() {
 		return codNotificacao;
@@ -62,6 +66,22 @@ public class NotificacaoUsuarioTO {
 
 	public void setDataEmissao(LocalDateTime dataEmissao) {
 		this.dataEmissao = dataEmissao;
+	}
+
+	public UsuarioFestaTO getUsuarioFesta() {
+		return usuarioFesta;
+	}
+
+	public void setUsuarioFesta(UsuarioFestaTO usuarioFesta) {
+		this.usuarioFesta = usuarioFesta;
+	}
+
+	public NotificacaoEstoqueTO getNotificacaoEstoque() {
+		return notificacaoEstoque;
+	}
+
+	public void setNotificacaoEstoque(NotificacaoEstoqueTO notificacaoEstoque) {
+		this.notificacaoEstoque = notificacaoEstoque;
 	}
 
 }

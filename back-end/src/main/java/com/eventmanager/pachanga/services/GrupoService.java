@@ -195,7 +195,7 @@ public class GrupoService {
 	public List<Usuario> procurarUsuariosPorGrupo(int codGrupo){
 		this.validarGrupo(codGrupo);
 
-		return grupoRepository.findUsuariosPorGrupo(codGrupo);
+		return usuarioRepository.findUsuariosPorGrupo(codGrupo);
 	}
 
 	public Grupo procurarGrupoPorId(int idGrupo){

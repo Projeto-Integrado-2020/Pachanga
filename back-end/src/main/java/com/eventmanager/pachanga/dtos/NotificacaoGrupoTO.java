@@ -11,6 +11,8 @@ public class NotificacaoGrupoTO {
 	private String mensagem;
 	
 	private LocalDateTime dataEmissao;
+	
+	private NotificacaoEstoqueTO notificacaoEstoque;
 
 	public int getGrupo() {
 		return codGrupo;
@@ -42,6 +44,14 @@ public class NotificacaoGrupoTO {
 
 	public void setDataEmissao(LocalDateTime dataEmissao) {
 		this.dataEmissao = dataEmissao;
+	}
+
+	public NotificacaoEstoqueTO getNotificacaoEstoque() {
+		return notificacaoEstoque;
+	}
+
+	public void setNotificacaoEstoque(NotificacaoEstoqueTO notificacaoEstoque) {
+		this.notificacaoEstoque = notificacaoEstoque;
 	}
 
 }

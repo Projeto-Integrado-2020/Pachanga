@@ -283,7 +283,7 @@ public class FestaService {
 		return festa;
 	}
 
-	public ConviteFestaTO procurarFestaConvidado(Integer codConvidado, Integer codGrupo) {
+	public ConviteFestaTO procurarFestaConvidado(Integer codGrupo, Integer codConvidado) {
 		Festa festa = festaRepository.findFestaByCodConvidadoAndCodGrupo(codConvidado, codGrupo);
 		if(festa == null) {
 			throw new ValidacaoException("FESTNFOU");

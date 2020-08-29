@@ -21,7 +21,6 @@ import com.eventmanager.pachanga.domains.Categoria;
 import com.eventmanager.pachanga.domains.Festa;
 import com.eventmanager.pachanga.dtos.CategoriaTO;
 import com.eventmanager.pachanga.dtos.ConvidadoTO;
-import com.eventmanager.pachanga.dtos.ConviteFestaTO;
 import com.eventmanager.pachanga.dtos.FestaTO;
 import com.eventmanager.pachanga.dtos.UsuarioTO;
 import com.eventmanager.pachanga.errors.ValidacaoException;
@@ -137,17 +136,6 @@ public class FestaController {
 				return ResponseEntity.ok(festaFactory.getFestaTO(festa, usuarios, false, categoriaPrimaria, categoriaSecundario, convidados, idUsuario));
 			}
 			return ResponseEntity.status(200).body(festaTo);
-		}catch (ValidacaoException e) {
-			return ResponseEntity.status(400).body(e.getMessage());
-		}
-	}
-
-	@ResponseBody
-	@GetMapping(path = "/festaUnicaConvidado")
-	public ResponseEntity<Object> getFestaConvidado(@RequestParam(required = true)int codGrupo, @RequestParam(required = true)int codConvidado){
-		try {			
-			ConviteFestaTO conviteFesta = festaService.procurarFestaConvidado(codConvidado, codGrupo);
-			return ResponseEntity.ok(conviteFesta);
 		}catch (ValidacaoException e) {
 			return ResponseEntity.status(400).body(e.getMessage());
 		}

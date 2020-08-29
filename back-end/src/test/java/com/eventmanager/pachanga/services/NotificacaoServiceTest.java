@@ -18,10 +18,14 @@ import org.springframework.test.context.junit4.SpringRunner;
 import com.eventmanager.pachanga.domains.Convidado;
 import com.eventmanager.pachanga.domains.Grupo;
 import com.eventmanager.pachanga.domains.Notificacao;
+import com.eventmanager.pachanga.domains.NotificacaoConvidado;
 import com.eventmanager.pachanga.domains.NotificacaoGrupo;
 import com.eventmanager.pachanga.domains.NotificacaoUsuario;
 import com.eventmanager.pachanga.domains.Usuario;
+import com.eventmanager.pachanga.dtos.NotificacaoConvidadoTO;
+import com.eventmanager.pachanga.dtos.NotificacaoGrupoTO;
 import com.eventmanager.pachanga.dtos.NotificacaoTO;
+import com.eventmanager.pachanga.dtos.NotificacaoUsuarioTO;
 import com.eventmanager.pachanga.errors.ValidacaoException;
 import com.eventmanager.pachanga.factory.NotificacaoFactory;
 import com.eventmanager.pachanga.repositories.ConvidadoRepository;
@@ -31,6 +35,7 @@ import com.eventmanager.pachanga.repositories.NotificacaoGrupoRepository;
 import com.eventmanager.pachanga.repositories.NotificacaoRepository;
 import com.eventmanager.pachanga.repositories.NotificacaoUsuarioRepository;
 import com.eventmanager.pachanga.repositories.UsuarioRepository;
+import com.eventmanager.pachanga.tipo.TipoNotificacao;
 import com.eventmanager.pachanga.tipo.TipoStatusNotificacao;
 
 @RunWith(SpringRunner.class)
@@ -57,10 +62,19 @@ class NotificacaoServiceTest {
 
 	@MockBean
 	private NotificacaoGrupoRepository notificacaoGrupoRepository;
-
+	
 	@MockBean
 	private NotificacaoFactory notificacaoFactory;
 	
+	@MockBean
+	private UsuarioService usuarioService;
+	
+	@MockBean
+	private FestaService festaService;
+	
+	@MockBean
+	private ProdutoService produtoService;
+
 	@MockBean
 	private NotificacaoConvidadoRepository notificacaoConvidadoRepository;
 
@@ -92,7 +106,48 @@ class NotificacaoServiceTest {
 		return notificacaoUsuario;
 	}
 	
-	public Grupo grupoTest() {
+	private NotificacaoUsuarioTO notificacaoUsuarioTOtest() {
+		NotificacaoUsuarioTO notificacaoUsuarioTo = new NotificacaoUsuarioTO();
+		notificacaoUsuarioTo.setMensagem(TipoNotificacao.CONVACEI.getValor() + "?12&" + "13");
+		return notificacaoUsuarioTo;
+	}
+	
+	private NotificacaoConvidadoTO notificacaoConvidadoTOtest() {
+		NotificacaoConvidadoTO notificacaoConvidadoTo = new NotificacaoConvidadoTO();
+		notificacaoConvidadoTo.setMensagem(TipoNotificacao.CONVFEST.getValor() + "?12&" + "13");
+		return notificacaoConvidadoTo;
+	}
+	
+	private NotificacaoGrupoTO notificacaoGrupoTOtest() {
+		NotificacaoGrupoTO notificacaoGrupoTo = new NotificacaoGrupoTO();
+		notificacaoGrupoTo.setMensagem(TipoNotificacao.ESTBAIXO.getValor() + "?12&" + "13&" + "13");
+		return notificacaoGrupoTo;
+	}
+	
+	private NotificacaoTO notificacaoToTest() {
+		List<NotificacaoUsuarioTO> notificacoesUsuario = new ArrayList<>();
+		List<NotificacaoConvidadoTO> notificacoesConvidado = new ArrayList<>();
+		List<NotificacaoGrupoTO> notificacoesGrupo = new ArrayList<>();
+		
+		NotificacaoUsuarioTO notificacaoUsuario = notificacaoUsuarioTOtest();
+		notificacaoUsuario.setMensagem(TipoNotificacao.ESTBAIXO.getValor() + "?12&" + "13&" + "13");
+		
+		notificacoesUsuario.add(notificacaoUsuarioTOtest());
+		notificacoesUsuario.add(notificacaoUsuario);
+		
+		notificacoesConvidado.add(notificacaoConvidadoTOtest());
+		
+		notificacoesGrupo.add(notificacaoGrupoTOtest());
+		
+		NotificacaoTO notificacaoTo = new NotificacaoTO();
+		notificacaoTo.setNotificacaoConvidado(notificacoesConvidado);
+		notificacaoTo.setNotificacoesGrupo(notificacoesGrupo);
+		notificacaoTo.setNotificacoesUsuario(notificacoesUsuario);
+		return notificacaoTo;
+		
+	}
+	
+	private Grupo grupoTest() {
 		Grupo grupo = new Grupo();
 		grupo.setCodGrupo(1);
 		grupo.setNomeGrupo("CONVIDADO");
@@ -102,18 +157,20 @@ class NotificacaoServiceTest {
 	@Test
 	void procurarNoticacaoUsuario() {
 
-		List<Notificacao> notificacoesRetorno = new ArrayList<Notificacao>(); 
-
-		Mockito.when(notificacaoRepository.findNotificacaoGrupoByUserId(Mockito.anyInt())).thenReturn(notificacoesRetorno);
+		Mockito.when(notificacaoUsuarioRepository.getNotificacoesUsuario(Mockito.anyInt())).thenReturn(new ArrayList<NotificacaoUsuario>());
+		
+		Mockito.when(notificacaoGrupoRepository.getNotificacoesGrupo(Mockito.anyInt())).thenReturn(new ArrayList<NotificacaoGrupo>());
+		
+		Mockito.when(notificacaoConvidadoRepository.findConvidadoNotificacaoByEmail(Mockito.anyString())).thenReturn(new ArrayList<NotificacaoConvidado>());
 
 		Mockito.when(usuarioRepository.findById(Mockito.anyInt())).thenReturn(usuarioTest());
 
-		Mockito.when(notificacaoFactory.getNotificacaoTO(Mockito.anyList(), Mockito.anyList(), Mockito.anyList())).thenReturn(new NotificacaoTO());
+		Mockito.when(notificacaoFactory.getNotificacaoTO(Mockito.anyList(), Mockito.anyList(), Mockito.anyList())).thenReturn(notificacaoToTest());
 
 		NotificacaoTO notificacaoTo = notificacaoService.procurarNotificacaoUsuario(100);
 
-		assertEquals(true, notificacaoTo.getNotificacaoConvidado() == null);
-		assertEquals(true, notificacaoTo.getNotificacoesGrupo() == null);
+		assertEquals(true, !notificacaoTo.getNotificacaoConvidado().isEmpty());
+		assertEquals(true, !notificacaoTo.getNotificacoesGrupo().isEmpty());
 
 	}
 
@@ -269,6 +326,22 @@ class NotificacaoServiceTest {
 		doNothing().when(notificacaoConvidadoRepository).insertConvidadoNotificacao(Mockito.anyInt(), Mockito.anyInt(),  Mockito.anyInt(), Mockito.anyString(), Mockito.any());
 
 		notificacaoService.inserirNotificacaoConvidado(1,100, "teste");
+
+	}
+	
+	@Test
+	void inserirNotificacaoUsuario() {
+		
+		Convidado convidado = new Convidado();
+		convidado.setEmail("teste@teste.com");
+
+		Mockito.when(notificacaoRepository.findByCodNotificacao(Mockito.anyInt())).thenReturn(new Notificacao());
+
+		Mockito.when(usuarioRepository.findById(Mockito.anyInt())).thenReturn(usuarioTest());
+
+		doNothing().when(notificacaoUsuarioRepository).insertNotificacaoUsuario(Mockito.anyInt(), Mockito.anyInt(),  Mockito.anyInt(), Mockito.anyBoolean(), Mockito.anyString(), Mockito.anyString(), Mockito.any());
+
+		notificacaoService.inserirNotificacaoUsuario(1,100, "teste");
 
 	}
 

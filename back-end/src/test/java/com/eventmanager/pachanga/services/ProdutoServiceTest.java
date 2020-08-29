@@ -27,27 +27,29 @@ import com.eventmanager.pachanga.domains.ItemEstoque;
 import com.eventmanager.pachanga.domains.Produto;
 import com.eventmanager.pachanga.domains.Usuario;
 import com.eventmanager.pachanga.dtos.ItemEstoqueTO;
+import com.eventmanager.pachanga.dtos.NotificacaoEstoqueTO;
 import com.eventmanager.pachanga.dtos.ProdutoTO;
 import com.eventmanager.pachanga.factory.ItemEstoqueFactory;
+import com.eventmanager.pachanga.factory.NotificacaoEstoqueTOFactory;
 import com.eventmanager.pachanga.factory.ProdutoFactory;
 import com.eventmanager.pachanga.repositories.EstoqueRepository;
 import com.eventmanager.pachanga.repositories.FestaRepository;
 import com.eventmanager.pachanga.repositories.GrupoRepository;
 import com.eventmanager.pachanga.repositories.ItemEstoqueFluxoRepository;
 import com.eventmanager.pachanga.repositories.ItemEstoqueRepository;
-import com.eventmanager.pachanga.repositories.NotificacaoGrupoRepository;
 import com.eventmanager.pachanga.repositories.ProdutoRepository;
+import com.eventmanager.pachanga.repositories.UsuarioRepository;
 import com.eventmanager.pachanga.tipo.TipoPermissao;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(value=ProdutoService.class)
 class ProdutoServiceTest {
 
-	@MockBean
-	private ProdutoRepository produtoRepository;
+	@Autowired
+	private ProdutoService produtoService;
 	
 	@MockBean
-	private NotificacaoGrupoRepository notificacaoGrupoRepository;
+	private ProdutoRepository produtoRepository;
 
 	@MockBean
 	private FestaRepository festaRepository;
@@ -57,6 +59,9 @@ class ProdutoServiceTest {
 
 	@MockBean
 	private GrupoRepository grupoRepository;
+	
+	@MockBean
+	private UsuarioRepository usuarioRepository;
 
 	@MockBean
 	private ProdutoFactory produtoFactory;
@@ -66,14 +71,14 @@ class ProdutoServiceTest {
 
 	@MockBean
 	private ItemEstoqueRepository itemEstoqueRepository;
-
-	@Autowired
-	private ProdutoService produtoService;
 	
 	@MockBean
 	private NotificacaoService notificacaoService;
 	
-	@MockBean 
+	@MockBean
+	private NotificacaoEstoqueTOFactory notificacaoEstoqueTOFactory;
+	
+	@MockBean
 	private FestaService festaService;
 	
 	@MockBean
@@ -134,7 +139,7 @@ class ProdutoServiceTest {
 		return itemEstoqueTO;
 	}
 
-	public Festa festaTest() throws Exception{
+	private Festa festaTest() throws Exception{
 		Festa festaTest = new Festa();
 
 		festaTest.setCodFesta(2);
@@ -180,6 +185,12 @@ class ProdutoServiceTest {
 		grupo.setCodGrupo(1);
 		grupo.setNomeGrupo("CONVIDADO");
 		return grupo;
+	}
+	
+	public NotificacaoEstoqueTO notificacaoEstoqueToTest() {
+		NotificacaoEstoqueTO notificacaoEstoqueTo = new NotificacaoEstoqueTO();
+		notificacaoEstoqueTo.setNomeEstoque("teste");
+		return notificacaoEstoqueTo;
 	}
 
 
@@ -985,18 +996,23 @@ class ProdutoServiceTest {
 		int codEstoque = estoque.getCodEstoque();
 		int codFesta = festa.getCodFesta();
 		int quantidade = 3;
-		itemEstoque.setQuantidadeAtual(30);
+		itemEstoque.setQuantidadeAtual(10);
 		itemEstoque.setProduto(produto);
 		itemEstoque.setEstoque(estoque);
 		
 		//notificacaoGrupoRepository.findNotificacaoGrupo(codGrupo, codNotificacao)
 
+		List<Usuario> usuarios = new ArrayList<>();
+		usuarios.add(usuario);
+		
+		Mockito.when(usuarioRepository.findUsuariosPorGrupo(Mockito.anyInt())).thenReturn(usuarios);
 		Mockito.when(produtoRepository.findById(codProduto)).thenReturn(produto);
 		Mockito.when(estoqueRepository.findByEstoqueCodEstoque(codEstoque)).thenReturn(estoque);
 		Mockito.when(itemEstoqueRepository.findItemEstoque(codEstoque, codProduto)).thenReturn(itemEstoque);
 		Mockito.when(itemEstoqueRepository.save(Mockito.any())).thenReturn(null);
 		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(codFesta, codUsuario, TipoPermissao.EDIMESTO.getCodigo())).thenReturn(criacaoGrupos());
-		Mockito.when(notificacaoService.verificarNotificacaoGrupo( Mockito.any(Integer.class), Mockito.any(Integer.class))).thenReturn(false);
+		Mockito.when(notificacaoService.verificarNotificacaoGrupo(Mockito.any(Integer.class), Mockito.any(Integer.class))).thenReturn(false);
+		Mockito.when(grupoRepository.findGruposPermissaoEstoque(Mockito.anyInt())).thenReturn(criacaoGrupos());
 		
 		
 		ItemEstoque retorno = produtoService.baixaProduto(codProduto, codEstoque, quantidade, codUsuario);
@@ -1292,6 +1308,19 @@ class ProdutoServiceTest {
 		Mockito.when(produtoRepository.findById(Mockito.anyInt())).thenReturn(produtoTest());
 		
 		produtoService.getProduto(1, 1, 2);
+	}
+	
+	@Test
+	void getInfoEstoqueProdutoTest() throws Exception {
+		
+		Mockito.when(festaRepository.findById(Mockito.anyInt())).thenReturn(festaTest());
+		Mockito.when(produtoRepository.findById(Mockito.anyInt())).thenReturn(produtoTest());
+		Mockito.when(estoqueRepository.findByEstoqueCodEstoque(Mockito.anyInt())).thenReturn(estoqueTest());
+		Mockito.when(itemEstoqueRepository.findItemEstoque(Mockito.anyInt(), Mockito.anyInt())).thenReturn(itemEstoqueTest());
+		Mockito.when(notificacaoEstoqueTOFactory.getNotificacaoEstoqueTO(Mockito.any(), Mockito.any())).thenReturn(notificacaoEstoqueToTest());
+
+		NotificacaoEstoqueTO notificacaoEstoque = produtoService.getInfoEstoqueProduto(1, 2, 3);
+		assertEquals(true, "teste".equals(notificacaoEstoque.getNomeEstoque()));
 	}
 
 }	

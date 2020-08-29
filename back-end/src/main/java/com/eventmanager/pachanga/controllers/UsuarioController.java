@@ -4,15 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.eventmanager.pachanga.domains.Usuario;
-import com.eventmanager.pachanga.dtos.UsuarioFestaTO;
 import com.eventmanager.pachanga.dtos.UsuarioTO;
 import com.eventmanager.pachanga.errors.ValidacaoException;
 import com.eventmanager.pachanga.factory.UsuarioFactory;
@@ -55,16 +52,6 @@ public class UsuarioController{
 			Usuario userAtualizado = userService.atualizar(user);
 			UsuarioTO userto = UsuarioFactory.getUsuarioTO(userAtualizado);
 			return ResponseEntity.ok(userto);
-		} catch (ValidacaoException e) {
-			return ResponseEntity.status(400).body(e.getMessage());	
-		}
-	}
-	
-	@GetMapping(path = "/infoUserFesta")
-	public ResponseEntity<Object> getInfoUserFesta(@RequestParam(required = true) Integer codGrupo, @RequestParam(required = true) Integer codUsuario) {
-		try {
-			UsuarioFestaTO infoUserFesta = userService.getInfoUserFesta(codGrupo, codUsuario);
-			return ResponseEntity.ok(infoUserFesta);
 		} catch (ValidacaoException e) {
 			return ResponseEntity.status(400).body(e.getMessage());	
 		}

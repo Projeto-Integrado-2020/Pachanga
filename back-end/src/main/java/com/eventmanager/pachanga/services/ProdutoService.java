@@ -12,10 +12,13 @@ import com.eventmanager.pachanga.domains.Grupo;
 import com.eventmanager.pachanga.domains.ItemEstoque;
 import com.eventmanager.pachanga.domains.ItemEstoqueFluxo;
 import com.eventmanager.pachanga.domains.Produto;
+import com.eventmanager.pachanga.domains.Usuario;
 import com.eventmanager.pachanga.dtos.ItemEstoqueTO;
+import com.eventmanager.pachanga.dtos.NotificacaoEstoqueTO;
 import com.eventmanager.pachanga.dtos.ProdutoTO;
 import com.eventmanager.pachanga.errors.ValidacaoException;
 import com.eventmanager.pachanga.factory.ItemEstoqueFactory;
+import com.eventmanager.pachanga.factory.NotificacaoEstoqueTOFactory;
 import com.eventmanager.pachanga.factory.ProdutoFactory;
 import com.eventmanager.pachanga.repositories.EstoqueRepository;
 import com.eventmanager.pachanga.repositories.FestaRepository;
@@ -23,6 +26,7 @@ import com.eventmanager.pachanga.repositories.GrupoRepository;
 import com.eventmanager.pachanga.repositories.ItemEstoqueFluxoRepository;
 import com.eventmanager.pachanga.repositories.ItemEstoqueRepository;
 import com.eventmanager.pachanga.repositories.ProdutoRepository;
+import com.eventmanager.pachanga.repositories.UsuarioRepository;
 import com.eventmanager.pachanga.tipo.TipoNotificacao;
 import com.eventmanager.pachanga.tipo.TipoPermissao;
 
@@ -41,6 +45,9 @@ public class ProdutoService {
 
 	@Autowired
 	private GrupoRepository grupoRepository;
+	
+	@Autowired
+	private UsuarioRepository usuarioRepository;
 
 	@Autowired
 	private ProdutoFactory produtoFactory;
@@ -53,6 +60,9 @@ public class ProdutoService {
 	
 	@Autowired
 	private NotificacaoService notificacaoService;
+	
+	@Autowired
+	private NotificacaoEstoqueTOFactory notificacaoEstoqueTOFactory;
 	
 	@Autowired
 	private FestaService festaService;
@@ -206,6 +216,12 @@ public class ProdutoService {
 		this.validarUsuarioPorFesta(codFesta, codUsuario, TipoPermissao.VISUESTO.getCodigo());
 		return this.validarProduto(codProduto);
 	}
+	
+	public NotificacaoEstoqueTO getInfoEstoqueProduto(int codFesta, int codEstoque, int codProduto) {
+		Festa festa = validarFesta(codFesta);
+		ItemEstoque itemEstoque = this.validarProdutoEstoque(codEstoque, codProduto);
+		return notificacaoEstoqueTOFactory.getNotificacaoEstoqueTO(itemEstoque, festa);
+	}
 
 	//validadores________________________________________________________________________________________________
 	private Festa validarFesta(int codFesta) {
@@ -307,8 +323,12 @@ public class ProdutoService {
 			List<Grupo> grupos = grupoRepository.findGruposPermissaoEstoque(codFesta);
 			
 			for(Grupo grupo : grupos) {
-				if(!notificacaoService.verificarNotificacaoGrupo(grupo.getCodGrupo(), 3)) {
-					notificacaoService.inserirNotificacaoGrupo(grupo.getCodGrupo(), 3, TipoNotificacao.ESTBAIXO + "?" + codFesta + "&" + itemEstoque.getEstoque().getCodEstoque() + "&" + itemEstoque.getProduto().getCodProduto());	
+				if(!notificacaoService.verificarNotificacaoGrupo(grupo.getCodGrupo(), TipoNotificacao.ESTBAIXO.getCodigo())) {
+					notificacaoService.inserirNotificacaoGrupo(grupo.getCodGrupo(), TipoNotificacao.ESTBAIXO.getCodigo(), TipoNotificacao.ESTBAIXO.getValor() + "?" + codFesta + "&" + itemEstoque.getEstoque().getCodEstoque() + "&" + itemEstoque.getProduto().getCodProduto());
+					List<Usuario> usuarios = usuarioRepository.findUsuariosPorGrupo(grupo.getCodGrupo());
+					for (Usuario usuario : usuarios) {
+						notificacaoService.inserirNotificacaoUsuario(usuario.getCodUsuario(), TipoNotificacao.ESTBAIXO.getCodigo(), TipoNotificacao.ESTBAIXO.getValor() + "?" + codFesta + "&" + itemEstoque.getEstoque().getCodEstoque() + "&" + itemEstoque.getProduto().getCodProduto());						
+					}
 				}
 			}
 		}

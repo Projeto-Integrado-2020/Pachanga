@@ -14,7 +14,13 @@ import com.eventmanager.pachanga.domains.Notificacao;
 import com.eventmanager.pachanga.domains.NotificacaoGrupo;
 import com.eventmanager.pachanga.domains.NotificacaoUsuario;
 import com.eventmanager.pachanga.domains.Usuario;
+import com.eventmanager.pachanga.dtos.ConviteFestaTO;
+import com.eventmanager.pachanga.dtos.NotificacaoConvidadoTO;
+import com.eventmanager.pachanga.dtos.NotificacaoEstoqueTO;
+import com.eventmanager.pachanga.dtos.NotificacaoGrupoTO;
 import com.eventmanager.pachanga.dtos.NotificacaoTO;
+import com.eventmanager.pachanga.dtos.NotificacaoUsuarioTO;
+import com.eventmanager.pachanga.dtos.UsuarioFestaTO;
 import com.eventmanager.pachanga.errors.ValidacaoException;
 import com.eventmanager.pachanga.factory.NotificacaoFactory;
 import com.eventmanager.pachanga.repositories.ConvidadoRepository;
@@ -24,6 +30,7 @@ import com.eventmanager.pachanga.repositories.NotificacaoGrupoRepository;
 import com.eventmanager.pachanga.repositories.NotificacaoRepository;
 import com.eventmanager.pachanga.repositories.NotificacaoUsuarioRepository;
 import com.eventmanager.pachanga.repositories.UsuarioRepository;
+import com.eventmanager.pachanga.tipo.TipoNotificacao;
 import com.eventmanager.pachanga.tipo.TipoStatusNotificacao;
 
 @Transactional
@@ -47,16 +54,50 @@ public class NotificacaoService {
 
 	@Autowired
 	private NotificacaoGrupoRepository notificacaoGrupoRepository;
-
+	
 	@Autowired
 	private NotificacaoFactory notificacaoFactory;
 	
+	@Autowired
+	private UsuarioService usuarioService;
+	
+	@Autowired
+	private FestaService festaService;
+	
+	@Autowired
+	private ProdutoService produtoService;
+
 	@Autowired
 	private NotificacaoConvidadoRepository notificacaoConvidadoRepository;
 
 	public NotificacaoTO procurarNotificacaoUsuario(int codUsuario) {
 		Usuario usuario = this.validacaoUsuario(codUsuario, null);
-		return notificacaoFactory.getNotificacaoTO(notificacaoUsuarioRepository.getNotificacoesUsuario(codUsuario), notificacaoGrupoRepository.getNotificacoesGrupo(codUsuario), notificacaoConvidadoRepository.findConvidadoNotificacaoByEmail(usuario.getEmail()));
+		
+		NotificacaoTO notificacaoTo = notificacaoFactory.getNotificacaoTO(notificacaoUsuarioRepository.getNotificacoesUsuario(codUsuario), notificacaoGrupoRepository.getNotificacoesGrupo(codUsuario), notificacaoConvidadoRepository.findConvidadoNotificacaoByEmail(usuario.getEmail()));
+		
+		notificacaoTo.getNotificacoesUsuario().stream().forEach(nu -> this.criacoaObjetoNotificacao(nu, nu.getMensagem()));
+		notificacaoTo.getNotificacaoConvidado().stream().forEach(ng -> this.criacoaObjetoNotificacao(ng, ng.getMensagem()));
+		notificacaoTo.getNotificacoesGrupo().stream().forEach(nc -> this.criacoaObjetoNotificacao(nc, nc.getMensagem()));
+		return notificacaoTo;
+	}
+	
+	private void criacoaObjetoNotificacao(Object notificacaoTO,String mensagem) {
+		String codigo = mensagem.substring(0,mensagem.indexOf("?"));
+		String[] valores = mensagem.substring(mensagem.indexOf("?") + 1).split("&");
+		if(TipoNotificacao.CONVACEI.getValor().equals(codigo)) {
+			UsuarioFestaTO usuarioFestaTo = usuarioService.getInfoUserFesta(Integer.parseInt(valores[0]), Integer.parseInt(valores[1]));
+			((NotificacaoUsuarioTO) notificacaoTO).setUsuarioFesta(usuarioFestaTo);
+		}else if(TipoNotificacao.CONVFEST.getValor().equals(codigo)) {
+			ConviteFestaTO conviteFestaTO = festaService.procurarFestaConvidado(Integer.parseInt(valores[0]), Integer.parseInt(valores[1]));
+			((NotificacaoConvidadoTO) notificacaoTO).setConviteFesta(conviteFestaTO);
+		}else if(TipoNotificacao.ESTBAIXO.getValor().equals(codigo)) {
+			NotificacaoEstoqueTO notificacaoEstoqueTO = produtoService.getInfoEstoqueProduto(Integer.parseInt(valores[0]), Integer.parseInt(valores[1]), Integer.parseInt(valores[2]));
+			if(NotificacaoGrupoTO.class == notificacaoTO.getClass()) {
+				((NotificacaoGrupoTO) notificacaoTO).setNotificacaoEstoque(notificacaoEstoqueTO);				
+			} else if(NotificacaoUsuarioTO.class == notificacaoTO.getClass()) {
+				((NotificacaoUsuarioTO) notificacaoTO).setNotificacaoEstoque(notificacaoEstoqueTO);
+			}
+		}
 	}
 
 	public void deletarNotificacaoConvidado(Integer codConvidado, int codNotificacao, String mensagem) {
