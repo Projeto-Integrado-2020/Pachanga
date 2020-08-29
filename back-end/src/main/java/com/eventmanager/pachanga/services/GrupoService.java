@@ -33,6 +33,9 @@ public class GrupoService {
 
 	@Autowired
 	private UsuarioRepository usuarioRepository;
+	
+	@Autowired
+	private NotificacaoService notificacaoService;
 
 	@Autowired
 	private PermissaoRepository permissaoRepository;
@@ -147,6 +150,7 @@ public class GrupoService {
 		Grupo grupo = grupoRepository.findByCod(idGrupo);
 		Festa festa = grupo.getFesta();
 		this.validarPermissaoUsuarioGrupo(festa.getCodFesta(), idUsuarioPermissao, TipoPermissao.DELMEMBE.getCodigo());
+		notificacaoService.deletarNotificacoesConvidado(idConvidado);
 		grupoRepository.deleteConvidadoGrupo(idConvidado, idGrupo);
 		Integer convxgrup = grupoRepository.existsConvidadoGrupo(idConvidado);
 		if(convxgrup == null) {

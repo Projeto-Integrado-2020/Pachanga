@@ -16,7 +16,7 @@ public interface NotificacaoRepository extends JpaRepository<Notificacao, Intege
 	public List<Notificacao> findNotificacaoGrupoByUserId(int idUser);
 	
 	@Modifying
-	@Query(value = "DELETE FROM convidado_x_notificacao WHERE cod_convidado = :codConvidado AND cod_convidado_notificacao = :codNotificacao AND mensagem = :mensagem", nativeQuery = true)
+	@Query(value = "DELETE FROM convidado_x_notificacao WHERE cod_convidado = :codConvidado AND cod_notificacao = :codNotificacao AND mensagem = :mensagem", nativeQuery = true)
 	public void deleteConvidadoNotificacao(int codConvidado, int codNotificacao, String mensagem);
 
 	@Modifying

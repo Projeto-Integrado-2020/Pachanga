@@ -99,6 +99,11 @@ public class NotificacaoService {
 			}
 		}
 	}
+	
+	public void deletarNotificacoesConvidado(Integer codConvidado) {
+		this.validarConvidado(codConvidado);
+		notificacaoConvidadoRepository.deleteNotificacoesConvidado(codConvidado);
+	}
 
 	public void deletarNotificacaoConvidado(Integer codConvidado, int codNotificacao, String mensagem) {
 		this.validarNotificacao(codNotificacao);
