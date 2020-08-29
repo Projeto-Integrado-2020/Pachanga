@@ -54,7 +54,7 @@ export class EstoquePainelComponent implements OnInit {
   }
 
   gerarForm() {
-    this.forms = []
+    this.forms = [];
     for (const estoque of this.estoques) {
       if (estoque.itemEstoque) {
         for (const produtoEstoque of Object.keys(estoque.itemEstoque)) {

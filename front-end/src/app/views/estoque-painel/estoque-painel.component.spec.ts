@@ -91,9 +91,23 @@ describe('EstoquePainelComponent', () => {
   });
 
   it('should gerarForm', () => {
+    component.estoques = [
+      {
+        codEstoque: '7',
+        itemEstoque: [
+          {
+          codProduto: '77'
+          },
+          {
+            codProduto: '78'
+          },
+        ]
+      }
+    ];
     component.gerarForm();
-    expect(component.form).toBeTruthy();
-    expect(component.form.get('quantidade')).toBeTruthy();
+    expect(component.forms).toBeTruthy();
+    expect(component.forms['777'].get('quantidade')).toBeTruthy();
+    expect(component.forms['778'].get('quantidade')).toBeTruthy();
   });
 
 });
