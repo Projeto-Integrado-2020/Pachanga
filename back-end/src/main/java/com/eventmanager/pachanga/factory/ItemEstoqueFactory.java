@@ -20,7 +20,7 @@ public class ItemEstoqueFactory {
 	@Autowired
 	private ProdutoFactory produtoFactory;
 	
-	private ItemEstoqueFactory() {
+	ItemEstoqueFactory() {
 	}
 
 	public ItemEstoque getItemEstoque(ItemEstoqueTO itemEstoqueTO, Produto produto, Estoque estoque) {

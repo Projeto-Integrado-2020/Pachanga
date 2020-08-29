@@ -12,7 +12,7 @@ import com.eventmanager.pachanga.dtos.ProdutoTO;
 
 @Component(value = "produtoFactory")
 public class ProdutoFactory {
-	private ProdutoFactory() {
+	ProdutoFactory() {
 	}
 	
 	public ProdutoTO getProdutoTO(Produto produto) {	
@@ -26,7 +26,7 @@ public class ProdutoFactory {
 	public Produto getProduto(ProdutoTO produtoTO) {
 		return ProdutoBuilder.getInstance()
 				  .codProduto(produtoTO.getCodProduto())
-				  .codFesta(produtoTO.getCodProduto())
+				  .codFesta(produtoTO.getCodFesta())
 				  .precoMedio(produtoTO.getPrecoMedio())
 				  .marca(produtoTO.getMarca()).build();
 	}
