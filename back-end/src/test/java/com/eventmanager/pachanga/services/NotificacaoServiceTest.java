@@ -124,6 +124,13 @@ class NotificacaoServiceTest {
 		return notificacaoGrupoTo;
 	}
 	
+	private Grupo grupoTest() {	
+		Grupo grupo = new Grupo();	
+		grupo.setCodGrupo(1);	
+		grupo.setNomeGrupo("CONVIDADO");	
+		return grupo;	
+	}
+	
 	private NotificacaoTO notificacaoToTest() {
 		List<NotificacaoUsuarioTO> notificacoesUsuario = new ArrayList<>();
 		List<NotificacaoConvidadoTO> notificacoesConvidado = new ArrayList<>();
@@ -267,6 +274,17 @@ class NotificacaoServiceTest {
 		notificacaoService.deletarNotificacaoGrupo(1,"teste");
 
 	}
+	
+	@Test
+	void deletarNotificacaoConvidadoSucesso() {
+
+		doNothing().when(notificacaoConvidadoRepository).deleteNotificacoesConvidado(Mockito.anyInt());
+
+		Mockito.when(convidadoRepository.findByIdConvidado(Mockito.anyInt())).thenReturn(new Convidado());
+
+		notificacaoService.deletarNotificacoesConvidado(1);
+
+	}
 
 	@Test
 	void deletarNotificacaoGrupoNotFound() {
@@ -353,8 +371,11 @@ class NotificacaoServiceTest {
 
 	@Test
 	void deleteNotificacaoUsuarioTest() {
+		
+		List<NotificacaoUsuario> notificacoesUsuario = new ArrayList<>();
+		notificacoesUsuario.add(notificacaoUsuarioTest());
 
-		Mockito.when(notificacaoUsuarioRepository.getNotificacaoUsuarioByMensagem(Mockito.anyInt(), Mockito.anyString())).thenReturn(notificacaoUsuarioTest());
+		Mockito.when(notificacaoUsuarioRepository.getNotificacaoUsuarioByMensagem(Mockito.anyInt(), Mockito.anyString())).thenReturn(notificacoesUsuario);
 
 		Mockito.when(usuarioRepository.findById(Mockito.anyInt())).thenReturn(usuarioTest());
 
@@ -375,6 +396,41 @@ class NotificacaoServiceTest {
 
 		notificacaoService.destaqueNotificacao(1,1);
 
+	}
+	
+	@Test	
+	void verificarNotificacaoGrupoSucessoTest() {	
+		Grupo grupo = grupoTest();	
+		Notificacao notificacao = notificacaoTest();	
+		NotificacaoGrupo notificacaoGrupo = new NotificacaoGrupo();	
+		notificacaoGrupo.setGrupo(grupo);	
+		notificacaoGrupo.setNotificacao(notificacao);	
+		int codGrupo = grupo.getCodGrupo();	
+		
+		List<NotificacaoGrupo> notificacoesGrupo = new ArrayList<>();
+		notificacoesGrupo.add(notificacaoGrupo);
+
+		Mockito.when(grupoRepository.findByCod(codGrupo)).thenReturn(grupo);	
+		Mockito.when(notificacaoGrupoRepository.getNotificacoesGrupoByMensagem(Mockito.anyInt(), Mockito.anyString())).thenReturn(notificacoesGrupo);	
+
+		boolean retorno = notificacaoService.verificarNotificacaoGrupo(codGrupo, "teste");	
+
+		assertEquals(false, retorno);	
+	}	
+
+	@Test	
+	void verificarNotificacaoGrupoFalhaTest() {	
+		Grupo grupo = grupoTest();	
+		int codGrupo = grupo.getCodGrupo();	
+		
+		List<NotificacaoGrupo> notificacoesGrupo = new ArrayList<>();
+
+		Mockito.when(grupoRepository.findByCod(codGrupo)).thenReturn(grupo);	
+		Mockito.when(notificacaoGrupoRepository.getNotificacoesGrupoByMensagem(Mockito.anyInt(), Mockito.anyString())).thenReturn(notificacoesGrupo);
+
+		boolean retorno = notificacaoService.verificarNotificacaoGrupo(codGrupo, "teste");	
+
+		assertEquals(true, retorno);	
 	}
 
 }

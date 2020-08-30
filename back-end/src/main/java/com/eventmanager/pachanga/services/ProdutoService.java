@@ -202,15 +202,14 @@ public class ProdutoService {
 		if (!itemEstoque.quantidadeAtualAbaixoMin()) {
 			List<Grupo> grupos = grupoRepository.findGruposPermissaoEstoque(itemEstoque.getCodFesta());
 			for (Grupo grupo : grupos) {
-				notificacaoService.deletarNotificacaoGrupo(grupo.getCodGrupo(),
-						this.criarMensagemEstoqueBaixo(itemEstoque.getCodFesta(),
-								itemEstoque.getEstoque().getCodEstoque(), itemEstoque.getProduto().getCodProduto()));
-				List<Usuario> usuarios = usuarioRepository.findUsuariosPorGrupo(grupo.getCodGrupo());
-				for (Usuario usuario : usuarios) {
-					notificacaoService.deleteNotificacao(usuario.getCodUsuario(),
-							this.criarMensagemEstoqueBaixo(itemEstoque.getCodFesta(),
-									itemEstoque.getEstoque().getCodEstoque(),
-									itemEstoque.getProduto().getCodProduto()));
+				String mensagem = criarMensagemEstoqueBaixo(itemEstoque.getCodFesta(),
+						itemEstoque.getEstoque().getCodEstoque(), itemEstoque.getProduto().getCodProduto());
+				if (!notificacaoService.verificarNotificacaoGrupo(grupo.getCodGrupo(), mensagem)) {
+					notificacaoService.deletarNotificacaoGrupo(grupo.getCodGrupo(), mensagem);
+					List<Usuario> usuarios = usuarioRepository.findUsuariosPorGrupo(grupo.getCodGrupo());
+					for (Usuario usuario : usuarios) {
+						notificacaoService.deleteNotificacao(usuario.getCodUsuario(), mensagem);
+					}
 				}
 			}
 		}
@@ -340,17 +339,16 @@ public class ProdutoService {
 			List<Grupo> grupos = grupoRepository.findGruposPermissaoEstoque(codFesta);
 
 			for (Grupo grupo : grupos) {
-				notificacaoService.inserirNotificacaoGrupo(grupo.getCodGrupo(), TipoNotificacao.ESTBAIXO.getCodigo(),
-						TipoNotificacao.ESTBAIXO.getValor() + "?" + codFesta + "&"
-								+ itemEstoque.getEstoque().getCodEstoque() + "&"
-								+ itemEstoque.getProduto().getCodProduto());
-				List<Usuario> usuarios = usuarioRepository.findUsuariosPorGrupo(grupo.getCodGrupo());
-				for (Usuario usuario : usuarios) {
-					notificacaoService.inserirNotificacaoUsuario(usuario.getCodUsuario(),
-							TipoNotificacao.ESTBAIXO.getCodigo(),
-							criarMensagemEstoqueBaixo(itemEstoque.getCodFesta(),
-									itemEstoque.getEstoque().getCodEstoque(),
-									itemEstoque.getProduto().getCodProduto()));
+				String mensagem = criarMensagemEstoqueBaixo(itemEstoque.getCodFesta(),
+						itemEstoque.getEstoque().getCodEstoque(), itemEstoque.getProduto().getCodProduto());
+				if (notificacaoService.verificarNotificacaoGrupo(grupo.getCodGrupo(), mensagem)) {
+					notificacaoService.inserirNotificacaoGrupo(grupo.getCodGrupo(),
+							TipoNotificacao.ESTBAIXO.getCodigo(), mensagem);
+					List<Usuario> usuarios = usuarioRepository.findUsuariosPorGrupo(grupo.getCodGrupo());
+					for (Usuario usuario : usuarios) {
+						notificacaoService.inserirNotificacaoUsuario(usuario.getCodUsuario(),
+								TipoNotificacao.ESTBAIXO.getCodigo(), mensagem);
+					}
 				}
 			}
 		}

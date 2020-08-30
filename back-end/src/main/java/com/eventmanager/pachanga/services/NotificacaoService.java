@@ -2,6 +2,7 @@ package com.eventmanager.pachanga.services;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.List;
 
 import javax.transaction.Transactional;
 
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.eventmanager.pachanga.domains.Convidado;
 import com.eventmanager.pachanga.domains.Grupo;
 import com.eventmanager.pachanga.domains.Notificacao;
+import com.eventmanager.pachanga.domains.NotificacaoGrupo;
 import com.eventmanager.pachanga.domains.NotificacaoUsuario;
 import com.eventmanager.pachanga.domains.Usuario;
 import com.eventmanager.pachanga.dtos.ConviteFestaTO;
@@ -180,9 +182,9 @@ public class NotificacaoService {
 
 	public void deleteNotificacao(int idUser, String mensagem) {
 		this.validacaoUsuario(idUser, null);
-		NotificacaoUsuario notificacaoUsuario = notificacaoUsuarioRepository.getNotificacaoUsuarioByMensagem(idUser, mensagem);
-		if(notificacaoUsuario != null) {
-			notificacaoUsuarioRepository.delete(notificacaoUsuario);
+		List<NotificacaoUsuario> notificacaoUsuario = notificacaoUsuarioRepository.getNotificacaoUsuarioByMensagem(idUser, mensagem);
+		if(!notificacaoUsuario.isEmpty()) {
+			notificacaoUsuarioRepository.deleteAll(notificacaoUsuario);
 		}
 
 	}
@@ -194,6 +196,12 @@ public class NotificacaoService {
 			notificacaoUsuario.setDestaque(!notificacaoUsuario.isDestaque());
 			notificacaoUsuarioRepository.save(notificacaoUsuario);
 		}
+	}
+	
+	public boolean verificarNotificacaoGrupo(int codGrupo, String mensagem) {	
+		this.validarGrupo(codGrupo);	
+		List<NotificacaoGrupo> notificacoesGrupo = notificacaoGrupoRepository.getNotificacoesGrupoByMensagem(codGrupo, mensagem);	
+		return notificacoesGrupo.isEmpty();
 	}
 	
 	public LocalDateTime getDataAtual() {

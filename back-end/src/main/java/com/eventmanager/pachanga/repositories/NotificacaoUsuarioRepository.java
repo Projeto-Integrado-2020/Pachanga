@@ -25,6 +25,6 @@ public interface NotificacaoUsuarioRepository extends JpaRepository<NotificacaoU
 	public void insertNotificacaoUsuario(int codNotificacaoUsuario ,Integer codUsuario, Integer codNotificacao, boolean destaque, String status, String mensagem, LocalDateTime dataEmissao);
 
 	@Query(value = "SELECT nu FROM NotificacaoUsuario nu JOIN nu.usuario u WHERE u.codUsuario = :idUser AND nu.mensagem = :mensagem")
-	public NotificacaoUsuario getNotificacaoUsuarioByMensagem(int idUser, String mensagem);
+	public List<NotificacaoUsuario> getNotificacaoUsuarioByMensagem(int idUser, String mensagem);
 
 }
