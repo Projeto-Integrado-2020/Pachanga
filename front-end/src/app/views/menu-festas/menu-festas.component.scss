@@ -77,10 +77,15 @@ header {
     } 
 }
 
-.festa-tab:hover {
-    background-color: #f2f2f2;
-    transition: background-color 0.3s ease-in-out;
+.festa-tab {
+    padding: 1rem;
+
+    &:hover {
+        background-color: #f2f2f2;
+        transition: background-color 0.3s ease-in-out;
+    }
 }
+
 
 .card-title {
     font-size: 1.2rem;
@@ -149,4 +154,8 @@ header {
 }
 
 .paginator {
+}
+
+.checkb {
+    white-space: normal;
 }
