@@ -146,13 +146,6 @@ class NotificacaoServiceTest {
 		return notificacaoTo;
 		
 	}
-	
-	private Grupo grupoTest() {
-		Grupo grupo = new Grupo();
-		grupo.setCodGrupo(1);
-		grupo.setNomeGrupo("CONVIDADO");
-		return grupo;
-	}
 
 	@Test
 	void procurarNoticacaoUsuario() {
@@ -267,11 +260,11 @@ class NotificacaoServiceTest {
 
 		Mockito.when(notificacaoRepository.findByCodNotificacao(Mockito.anyInt())).thenReturn(notificacaoTest());
 
-		doNothing().when(notificacaoRepository).deleteNotificacaoGrupo(Mockito.anyInt(), Mockito.anyInt());
+		doNothing().when(notificacaoRepository).deleteNotificacaoGrupo(Mockito.anyInt(), Mockito.anyString());
 
 		Mockito.when(grupoRepository.findByCod(Mockito.anyInt())).thenReturn(new Grupo());
 
-		notificacaoService.deletarNotificacaoGrupo(1,100);
+		notificacaoService.deletarNotificacaoGrupo(1,"teste");
 
 	}
 
@@ -280,14 +273,14 @@ class NotificacaoServiceTest {
 
 		Mockito.when(notificacaoRepository.findByCodNotificacao(Mockito.anyInt())).thenReturn(notificacaoTest());
 
-		doNothing().when(notificacaoRepository).deleteNotificacaoGrupo(Mockito.anyInt(), Mockito.anyInt());
+		doNothing().when(notificacaoRepository).deleteNotificacaoGrupo(Mockito.anyInt(), Mockito.anyString());
 
 		Mockito.when(grupoRepository.findByCod(Mockito.anyInt())).thenReturn(null);
 
 		boolean erro = false;
 		String mensagemErro = null;
 		try {
-			notificacaoService.deletarNotificacaoGrupo(1,100);
+			notificacaoService.deletarNotificacaoGrupo(1,"teste");
 		} catch (ValidacaoException e) {
 			erro = true;
 			mensagemErro = e.getMessage();
@@ -361,13 +354,13 @@ class NotificacaoServiceTest {
 	@Test
 	void deleteNotificacaoUsuarioTest() {
 
-		Mockito.when(notificacaoUsuarioRepository.getNotificacaoUsuarioByMensagem(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyString())).thenReturn(notificacaoUsuarioTest());
+		Mockito.when(notificacaoUsuarioRepository.getNotificacaoUsuarioByMensagem(Mockito.anyInt(), Mockito.anyString())).thenReturn(notificacaoUsuarioTest());
 
 		Mockito.when(usuarioRepository.findById(Mockito.anyInt())).thenReturn(usuarioTest());
 
 		doNothing().when(notificacaoUsuarioRepository).delete(Mockito.any());
 
-		notificacaoService.deleteNotificacao(1,1,"teste");
+		notificacaoService.deleteNotificacao(1,"teste");
 
 	}
 
@@ -382,41 +375,6 @@ class NotificacaoServiceTest {
 
 		notificacaoService.destaqueNotificacao(1,1);
 
-	}
-	
-	@Test
-	void verificarNotificacaoGrupoSucessoTest() {
-		Grupo grupo = grupoTest();
-		Notificacao notificacao = notificacaoTest();
-		NotificacaoGrupo notificacaoGrupo = new NotificacaoGrupo();
-		notificacaoGrupo.setGrupo(grupo);
-		notificacaoGrupo.setNotificacao(notificacao);
-		int codGrupo = grupo.getCodGrupo();
-		int codNotificacao = notificacao.getCodNotificacao();
-		
-		Mockito.when(grupoRepository.findByCod(codGrupo)).thenReturn(grupo);
-		Mockito.when(notificacaoRepository.findByCodNotificacao(codNotificacao)).thenReturn(notificacao);
-		Mockito.when(notificacaoGrupoRepository.findNotificacaoGrupo(codGrupo, codNotificacao)).thenReturn(notificacaoGrupo);
-	
-		boolean retorno = notificacaoService.verificarNotificacaoGrupo(codGrupo, codNotificacao);
-
-		assertEquals(true, retorno);
-	}
-
-	@Test
-	void verificarNotificacaoGrupoFalhaTest() {
-		Grupo grupo = grupoTest();
-		Notificacao notificacao = notificacaoTest();
-		int codGrupo = grupo.getCodGrupo();
-		int codNotificacao = notificacao.getCodNotificacao();
-		
-		Mockito.when(grupoRepository.findByCod(codGrupo)).thenReturn(grupo);
-		Mockito.when(notificacaoRepository.findByCodNotificacao(codNotificacao)).thenReturn(notificacao);
-		Mockito.when(notificacaoGrupoRepository.findNotificacaoGrupo(codGrupo, codNotificacao)).thenReturn(null);
-	
-		boolean retorno = notificacaoService.verificarNotificacaoGrupo(codGrupo, codNotificacao);
-
-		assertEquals(false, retorno);
 	}
 
 }

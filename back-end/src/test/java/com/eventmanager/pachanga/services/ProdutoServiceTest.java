@@ -1011,7 +1011,6 @@ class ProdutoServiceTest {
 		Mockito.when(itemEstoqueRepository.findItemEstoque(codEstoque, codProduto)).thenReturn(itemEstoque);
 		Mockito.when(itemEstoqueRepository.save(Mockito.any())).thenReturn(null);
 		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(codFesta, codUsuario, TipoPermissao.EDIMESTO.getCodigo())).thenReturn(criacaoGrupos());
-		Mockito.when(notificacaoService.verificarNotificacaoGrupo(Mockito.any(Integer.class), Mockito.any(Integer.class))).thenReturn(false);
 		Mockito.when(grupoRepository.findGruposPermissaoEstoque(Mockito.anyInt())).thenReturn(criacaoGrupos());
 		
 		
@@ -1147,7 +1146,6 @@ class ProdutoServiceTest {
 		Estoque estoque = estoqueTest();
 		Festa festa = festaTest();
 		estoque.setFesta(festa);
-		int codGrupo = grupo.getCodGrupo();
 		int codUsuario = usuario.getCodUsuario();
 		int codProduto = produto.getCodProduto();
 		int codEstoque = estoque.getCodEstoque();
@@ -1164,7 +1162,6 @@ class ProdutoServiceTest {
 		Mockito.when(itemEstoqueRepository.findItemEstoque(codEstoque, codProduto)).thenReturn(itemEstoque);
 		Mockito.when(itemEstoqueRepository.save(Mockito.any())).thenReturn(null);
 		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(codFesta, codUsuario, TipoPermissao.EDIMESTO.getCodigo())).thenReturn(criacaoGrupos());
-		Mockito.when(notificacaoService.verificarNotificacaoGrupo(codGrupo, 3)).thenReturn(false);
 		Mockito.when(grupoRepository.findGruposPermissaoEstoque(codFesta)).thenReturn(grupos);
 		
 		ItemEstoque retorno = produtoService.baixaProduto(codProduto, codEstoque, quantidade, codUsuario);
@@ -1183,7 +1180,6 @@ class ProdutoServiceTest {
 		Estoque estoque = estoqueTest();
 		Festa festa = festaTest();
 		estoque.setFesta(festa);
-		int codGrupo = grupo.getCodGrupo();
 		int codUsuario = usuario.getCodUsuario();
 		int codProduto = produto.getCodProduto();
 		int codEstoque = estoque.getCodEstoque();
@@ -1200,7 +1196,6 @@ class ProdutoServiceTest {
 		Mockito.when(itemEstoqueRepository.findItemEstoque(codEstoque, codProduto)).thenReturn(itemEstoque);
 		Mockito.when(itemEstoqueRepository.save(Mockito.any())).thenReturn(null);
 		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(codFesta, codUsuario, TipoPermissao.EDIMESTO.getCodigo())).thenReturn(criacaoGrupos());
-		Mockito.when(notificacaoService.verificarNotificacaoGrupo(codGrupo, 3)).thenReturn(true);
 		Mockito.when(grupoRepository.findGruposPermissaoEstoque(codFesta)).thenReturn(grupos);
 		
 		ItemEstoque retorno = produtoService.baixaProduto(codProduto, codEstoque, quantidade, codUsuario);

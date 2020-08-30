@@ -84,5 +84,9 @@ public class ItemEstoque{
 	public void setCodFesta(int codFesta) {
 		this.codFesta = codFesta;
 	}
+	
+	public boolean quantidadeAtualAbaixoMin() {
+		return Math.round(quantidadeMax * porcentagemMin * 0.01) > quantidadeAtual;
+	}
 
 }

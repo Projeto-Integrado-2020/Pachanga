@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import com.eventmanager.pachanga.domains.Convidado;
 import com.eventmanager.pachanga.domains.Grupo;
 import com.eventmanager.pachanga.domains.Notificacao;
-import com.eventmanager.pachanga.domains.NotificacaoGrupo;
 import com.eventmanager.pachanga.domains.NotificacaoUsuario;
 import com.eventmanager.pachanga.domains.Usuario;
 import com.eventmanager.pachanga.dtos.ConviteFestaTO;
@@ -112,10 +111,9 @@ public class NotificacaoService {
 		notificacaoRepository.deleteConvidadoNotificacao(convidado.getCodConvidado(), codNotificacao, mensagem);
 	}
 
-	public void deletarNotificacaoGrupo(int codGrupo, int codNotificacao) {
-		this.validarNotificacao(codNotificacao);
+	public void deletarNotificacaoGrupo(int codGrupo, String mensagem) {
 		this.validarGrupo(codGrupo);
-		notificacaoRepository.deleteNotificacaoGrupo(codGrupo, codNotificacao);
+		notificacaoRepository.deleteNotificacaoGrupo(codGrupo, mensagem);
 	}
 
 	public void inserirNotificacaoGrupo(int codGrupo, int codNotificacao, String mensagem) {
@@ -180,10 +178,10 @@ public class NotificacaoService {
 		}
 	}
 
-	public void deleteNotificacao(int idUser, int codNotificacao, String mensagem) {
+	public void deleteNotificacao(int idUser, String mensagem) {
 		this.validacaoUsuario(idUser, null);
-		NotificacaoUsuario notificacaoUsuario = notificacaoUsuarioRepository.getNotificacaoUsuarioByMensagem(idUser, codNotificacao, mensagem);
-		if(notificacaoUsuario != null ) {
+		NotificacaoUsuario notificacaoUsuario = notificacaoUsuarioRepository.getNotificacaoUsuarioByMensagem(idUser, mensagem);
+		if(notificacaoUsuario != null) {
 			notificacaoUsuarioRepository.delete(notificacaoUsuario);
 		}
 
@@ -196,18 +194,6 @@ public class NotificacaoService {
 			notificacaoUsuario.setDestaque(!notificacaoUsuario.isDestaque());
 			notificacaoUsuarioRepository.save(notificacaoUsuario);
 		}
-	}
-	
-	public boolean verificarNotificacaoGrupo(int codGrupo, int codNotificacao) {
-		boolean retorno = false;
-		this.validarGrupo(codGrupo);
-		this.validarNotificacao(codNotificacao);
-		
-		NotificacaoGrupo notificacaoGrupo = null;
-		notificacaoGrupo = notificacaoGrupoRepository.findNotificacaoGrupo(codGrupo, codNotificacao);
-		if(notificacaoGrupo != null) retorno = true;
-
-		return retorno;
 	}
 	
 	public LocalDateTime getDataAtual() {

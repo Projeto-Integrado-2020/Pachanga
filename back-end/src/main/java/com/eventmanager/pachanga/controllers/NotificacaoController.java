@@ -64,9 +64,9 @@ public class NotificacaoController {
 	
 	@ResponseBody
 	@DeleteMapping(path = "/delete")
-	public ResponseEntity<Object> deleteNotificacoes(@RequestParam(required = true) int idUser, @RequestParam(required = true) int idNotificacao, @RequestParam(required = true) String mensagem){
+	public ResponseEntity<Object> deleteNotificacoes(@RequestParam(required = true) int idUser, @RequestParam(required = true) String mensagem){
 		try {
-			notificacaoService.deleteNotificacao(idUser, idNotificacao, mensagem);
+			notificacaoService.deleteNotificacao(idUser, mensagem);
 			//método para deletar a notificacao do cara 
 			return ResponseEntity.ok().build();//delete notificacoes
 		} catch (ValidacaoException e) {

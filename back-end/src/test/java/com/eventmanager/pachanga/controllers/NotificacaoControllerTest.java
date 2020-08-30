@@ -188,12 +188,11 @@ class NotificacaoControllerTest {
 		
 		String uri = "/notificacao/delete";
 		
-		Mockito.doNothing().when(notificacaoService).deleteNotificacao(Mockito.anyInt(),Mockito.anyInt(), Mockito.anyString());
+		Mockito.doNothing().when(notificacaoService).deleteNotificacao(Mockito.anyInt(), Mockito.anyString());
 				
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.delete(uri)
 				.param("idUser", "1")
-				.param("idNotificacao", "1")
 				.param("mensagem", "teste")
 				.accept(MediaType.APPLICATION_JSON)
 				.contentType(MediaType.APPLICATION_JSON);
@@ -211,12 +210,11 @@ class NotificacaoControllerTest {
 		String uri = "/notificacao/delete";
 		
 			
-		Mockito.doThrow(new ValidacaoException("teste")).when(notificacaoService).deleteNotificacao(Mockito.anyInt(),Mockito.anyInt(), Mockito.anyString());
+		Mockito.doThrow(new ValidacaoException("teste")).when(notificacaoService).deleteNotificacao(Mockito.anyInt(), Mockito.anyString());
 				
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.delete(uri)
 				.param("idUser", "1")
-				.param("idNotificacao", "1")
 				.param("mensagem", "teste")
 				.accept(MediaType.APPLICATION_JSON)
 				.contentType(MediaType.APPLICATION_JSON);

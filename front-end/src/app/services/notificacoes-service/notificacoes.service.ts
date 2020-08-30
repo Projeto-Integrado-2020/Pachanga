@@ -11,28 +11,6 @@ import { throwError } from 'rxjs';
 })
 export class NotificacoesService {
 
-  /*
-{
-    "notificacoesUsuario": [
-        {
-            "codUsuario": 1,
-            "destaque": true,
-            "status": "ok",
-            "mensagem": "notificacao de usuario",
-            "notificacao": 1
-        }
-    ],
-    "notificacoesGrupo": [],
-    "notificacaoConvidado": [
-        {
-            "codNotificacao": 1,
-            "descNotificacao": "usuario"
-        }
-    ]
-}
-  */
-
-
   private readonly URL = `${environment.URL_BACK}notificacao`;
 
   constructor(
@@ -53,6 +31,8 @@ export class NotificacoesService {
         })
       );
   }
+
+  // METODO PARA DELETAR E MODIFICAR ESTADO!
 
   atualizarNotificacoes(notifIds: number[] ) {
       const httpParams = new HttpParams()
@@ -80,7 +60,6 @@ export class NotificacoesService {
   deletarNotificacao(notificacao: any) {
       const httpParams = new HttpParams()
       .append('idUser', this.loginService.usuarioInfo.codUsuario)
-      .append('idNotificacao', notificacao.notificacao)
       .append('mensagem', notificacao.mensagem);
       return this.http.delete(this.URL + '/delete', {params: httpParams}).pipe(
         take(1),
@@ -89,9 +68,6 @@ export class NotificacoesService {
       }),
     );
   }
-
-
-  // METODO PARA DELETAR E MODIFICAR ESTADO!
 
   handleError(error: HttpErrorResponse, logService: LogService) {
     logService.initialize();

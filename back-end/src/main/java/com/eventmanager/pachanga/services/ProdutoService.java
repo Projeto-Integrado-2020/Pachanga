@@ -45,7 +45,7 @@ public class ProdutoService {
 
 	@Autowired
 	private GrupoRepository grupoRepository;
-	
+
 	@Autowired
 	private UsuarioRepository usuarioRepository;
 
@@ -57,23 +57,23 @@ public class ProdutoService {
 
 	@Autowired
 	private ItemEstoqueRepository itemEstoqueRepository;
-	
+
 	@Autowired
 	private NotificacaoService notificacaoService;
-	
+
 	@Autowired
 	private NotificacaoEstoqueTOFactory notificacaoEstoqueTOFactory;
-	
+
 	@Autowired
 	private FestaService festaService;
-	
+
 	@Autowired
 	private ItemEstoqueFluxoRepository itemEstoqueFluxoRepository;
 
-	//add_____________________________________________________________________________________________________
+	// add_____________________________________________________________________________________________________
 	public Produto addProduto(ProdutoTO produtoTO, Integer codFesta, Integer idUsuarioPermissao) {
 		festaService.validarFestaFinalizada(codFesta);
-		this.validarUsuarioPorFesta(codFesta,idUsuarioPermissao, TipoPermissao.CADAESTO.getCodigo());
+		this.validarUsuarioPorFesta(codFesta, idUsuarioPermissao, TipoPermissao.CADAESTO.getCodigo());
 		this.validarProduto(produtoTO.getMarca(), produtoTO.getCodFesta());
 		Produto produto = produtoFactory.getProduto(produtoTO);
 		produto.setCodProduto(produtoRepository.getNextValMySequence());
@@ -83,38 +83,39 @@ public class ProdutoService {
 		return produto;
 	}
 
-	public ItemEstoque addProdutoEstoque(ItemEstoqueTO itemEstoqueTO, Integer codEstoque, Integer idUsuarioPermissao){
+	public ItemEstoque addProdutoEstoque(ItemEstoqueTO itemEstoqueTO, Integer codEstoque, Integer idUsuarioPermissao) {
 		festaService.validarFestaFinalizada(itemEstoqueTO.getCodFesta());
 		int quantidadeMax = itemEstoqueTO.getQuantidadeMax();
 		int quantidadeAtual = itemEstoqueTO.getQuantidadeAtual();
 		int porcentagemMin = itemEstoqueTO.getPorcentagemMin();
-		
+
 		this.validarUsuarioPorEstoque(idUsuarioPermissao, codEstoque, TipoPermissao.CADAESTO.getCodigo());
 
-		ItemEstoque produtoEstoqueExistentes =  this.validarEstoqueProduto(codEstoque, itemEstoqueTO.getCodProduto());
-		
+		ItemEstoque produtoEstoqueExistentes = this.validarEstoqueProduto(codEstoque, itemEstoqueTO.getCodProduto());
+
 		this.validarFesta(itemEstoqueTO.getCodFesta());
-		
+
 		this.verificarProdutoEstoque(codEstoque, itemEstoqueTO.getCodProduto());
 
 		this.validaQuantAndPorcent(quantidadeMax, quantidadeAtual, porcentagemMin);
 
-		ItemEstoque itemEstoque = itemEstoqueFactory.getItemEstoque(itemEstoqueTO, produtoEstoqueExistentes.getProduto(), produtoEstoqueExistentes.getEstoque());
+		ItemEstoque itemEstoque = itemEstoqueFactory.getItemEstoque(itemEstoqueTO,
+				produtoEstoqueExistentes.getProduto(), produtoEstoqueExistentes.getEstoque());
 
 		itemEstoqueRepository.save(itemEstoque);
 
 		return itemEstoque;
 	}
 
-	//remover_____________________________________________________________________________________________________
+	// remover_____________________________________________________________________________________________________
 	public void removerProduto(Integer idUsuarioPermissao, Integer codFesta, Integer codProduto) {
 		festaService.validarFestaFinalizada(codFesta);
 		Produto produto = this.validarProduto(codProduto);
-		
+
 		this.validarUsuarioPorFesta(codFesta, idUsuarioPermissao, TipoPermissao.DELMESTO.getCodigo());
 
 		List<Produto> produtos = produtoRepository.findEstoquesComProduto(codProduto);
-		if(!produtos.isEmpty()) { 
+		if (!produtos.isEmpty()) {
 			throw new ValidacaoException("PRODEUSO"); // PRODUTO EM USO
 		}
 
@@ -127,7 +128,7 @@ public class ProdutoService {
 		produtoRepository.deleteProdutoEstoque(codProduto, codEstoque);
 	}
 
-	//editar_____________________________________________________________________________________________________
+	// editar_____________________________________________________________________________________________________
 	public Produto editarProduto(ProdutoTO produtoTO, Integer idUsuarioPermissao) {
 		festaService.validarFestaFinalizada(produtoTO.getCodFesta());
 		this.validarUsuarioPorFesta(produtoTO.getCodFesta(), idUsuarioPermissao, TipoPermissao.EDIMESTO.getCodigo());
@@ -141,7 +142,8 @@ public class ProdutoService {
 
 	public ItemEstoque editarProdutoEstoque(ItemEstoqueTO itemEstoqueTO, Integer idUsuarioPermissao) {
 		festaService.validarFestaFinalizada(itemEstoqueTO.getCodFesta());
-		this.validarUsuarioPorEstoque(idUsuarioPermissao, itemEstoqueTO.getCodEstoque(), TipoPermissao.EDIMESTO.getCodigo());
+		this.validarUsuarioPorEstoque(idUsuarioPermissao, itemEstoqueTO.getCodEstoque(),
+				TipoPermissao.EDIMESTO.getCodigo());
 		int codProduto = itemEstoqueTO.getCodProduto();
 		int codEstoque = itemEstoqueTO.getCodEstoque();
 		ItemEstoque retorno = this.validarProdutoEstoque(codEstoque, codProduto);
@@ -150,18 +152,19 @@ public class ProdutoService {
 		retorno.setPorcentagemMin(itemEstoqueTO.getPorcentagemMin());
 		retorno.setQuantidadeAtual(itemEstoqueTO.getQuantidadeAtual());
 
-		this.validaQuantAndPorcent(retorno.getQuantidadeMax(), retorno.getQuantidadeAtual(), retorno.getPorcentagemMin());
+		this.validaQuantAndPorcent(retorno.getQuantidadeMax(), retorno.getQuantidadeAtual(),
+				retorno.getPorcentagemMin());
 
 		itemEstoqueRepository.save(retorno);
 
 		return retorno;
 	}
 
-	//baixa/recarga_____________________________________________________________________________________________________
+	// baixa/recarga_____________________________________________________________________________________________________
 
 	public ItemEstoque baixaProduto(int codProduto, int codEstoque, int quantidade, int idUsuarioPermissao) {
 		this.validarUsuarioPorEstoque(idUsuarioPermissao, codEstoque, TipoPermissao.EDIMESTO.getCodigo());
-		
+
 		this.validarQuantInformada(quantidade);
 
 		ItemEstoque itemEstoque = this.validarProdutoEstoque(codEstoque, codProduto);
@@ -169,15 +172,15 @@ public class ProdutoService {
 		int quantidadeAtual = itemEstoque.getQuantidadeAtual() - quantidade;
 
 		this.validaQuantAndPorcent(itemEstoque.getQuantidadeMax(), quantidadeAtual, itemEstoque.getPorcentagemMin());
-		
+
 		itemEstoque.setQuantidadeAtual(quantidadeAtual);
-		
+
 		itemEstoqueRepository.save(itemEstoque);
-		
+
 		this.inserirItemEstoqueFluxo(itemEstoque);
-		
+
 		this.disparaNotificacaoCasoEstoqueEscasso(itemEstoque);
-		
+
 		return itemEstoque;
 	}
 
@@ -188,24 +191,42 @@ public class ProdutoService {
 
 		ItemEstoque itemEstoque = this.validarProdutoEstoque(codEstoque, codProduto);
 		int quantidadeAtual = itemEstoque.getQuantidadeAtual() + quantidade;
-		if(quantidadeAtual > itemEstoque.getQuantidadeMax()) 
-			throw new ValidacaoException("QATMMAXI"); //quantidade total fará que o estoque fique com uma quantidade maior que a máxima
-		
+		if (quantidadeAtual > itemEstoque.getQuantidadeMax())
+			throw new ValidacaoException("QATMMAXI"); // quantidade total fará que o estoque fique com uma quantidade
+														// maior que a máxima
+
 		itemEstoque.setQuantidadeAtual(quantidadeAtual);
-		
+
 		itemEstoqueRepository.save(itemEstoque);
-		
+
+		if (!itemEstoque.quantidadeAtualAbaixoMin()) {
+			List<Grupo> grupos = grupoRepository.findGruposPermissaoEstoque(itemEstoque.getCodFesta());
+			for (Grupo grupo : grupos) {
+				notificacaoService.deletarNotificacaoGrupo(grupo.getCodGrupo(),
+						this.criarMensagemEstoqueBaixo(itemEstoque.getCodFesta(),
+								itemEstoque.getEstoque().getCodEstoque(), itemEstoque.getProduto().getCodProduto()));
+				List<Usuario> usuarios = usuarioRepository.findUsuariosPorGrupo(grupo.getCodGrupo());
+				for (Usuario usuario : usuarios) {
+					notificacaoService.deleteNotificacao(usuario.getCodUsuario(),
+							this.criarMensagemEstoqueBaixo(itemEstoque.getCodFesta(),
+									itemEstoque.getEstoque().getCodEstoque(),
+									itemEstoque.getProduto().getCodProduto()));
+				}
+			}
+		}
+
 		this.inserirItemEstoqueFluxo(itemEstoque);
 
 		return itemEstoque;
 	}
-	
+
 	private void inserirItemEstoqueFluxo(ItemEstoque itemEstoque) {
-		ItemEstoqueFluxo itemEstoqueFluxo = new ItemEstoqueFluxo(itemEstoque, notificacaoService.getDataAtual(), itemEstoqueFluxoRepository.getNextValMySequence());
+		ItemEstoqueFluxo itemEstoqueFluxo = new ItemEstoqueFluxo(itemEstoque, notificacaoService.getDataAtual(),
+				itemEstoqueFluxoRepository.getNextValMySequence());
 		itemEstoqueFluxoRepository.save(itemEstoqueFluxo);
 	}
 
-	//gets_____________________________________________________________________________________________________
+	// gets_____________________________________________________________________________________________________
 
 	public List<Produto> listaProduto(Integer codFesta, Integer codUsuario) {
 		this.validarUsuarioPorFesta(codFesta, codUsuario, TipoPermissao.VISUESTO.getCodigo());
@@ -216,31 +237,31 @@ public class ProdutoService {
 		this.validarUsuarioPorFesta(codFesta, codUsuario, TipoPermissao.VISUESTO.getCodigo());
 		return this.validarProduto(codProduto);
 	}
-	
+
 	public NotificacaoEstoqueTO getInfoEstoqueProduto(int codFesta, int codEstoque, int codProduto) {
 		Festa festa = validarFesta(codFesta);
 		ItemEstoque itemEstoque = this.validarProdutoEstoque(codEstoque, codProduto);
 		return notificacaoEstoqueTOFactory.getNotificacaoEstoqueTO(itemEstoque, festa);
 	}
 
-	//validadores________________________________________________________________________________________________
+	// validadores________________________________________________________________________________________________
 	private Festa validarFesta(int codFesta) {
 		Festa festa = festaRepository.findById(codFesta);
-		if(festa == null) 
+		if (festa == null)
 			throw new ValidacaoException("FSTANFOU");
 		return festa;
 	}
 
 	private Produto validarProduto(int codProduto) {
 		Produto produto = produtoRepository.findById(codProduto);
-		if(produto == null) 
+		if (produto == null)
 			throw new ValidacaoException("PRODNFOU");
 		return produto;
 	}
 
 	private Estoque validarEstoque(int codEstoque) {
 		Estoque estoque = estoqueRepository.findByEstoqueCodEstoque(codEstoque);
-		if(estoque == null) {
+		if (estoque == null) {
 			throw new ValidacaoException("ESTONFOU");// estoque não encontrado
 		}
 		return estoque;
@@ -250,38 +271,38 @@ public class ProdutoService {
 		this.validarEstoque(codEstoque);
 		this.validarProduto(codProduto);
 		ItemEstoque itemEstoque = itemEstoqueRepository.findItemEstoque(codEstoque, codProduto);
-		if(itemEstoque == null) {
+		if (itemEstoque == null) {
 			throw new ValidacaoException("ESTNPROD");// estoque não possui o produto
 		}
 		return itemEstoque;
 	}
 
 	private void verificarProdutoEstoque(int codEstoque, int codProduto) {
-		if(itemEstoqueRepository.findItemEstoque(codEstoque, codProduto) != null) {
-			throw new ValidacaoException("PRODCADA");//Produto já cadastrado
+		if (itemEstoqueRepository.findItemEstoque(codEstoque, codProduto) != null) {
+			throw new ValidacaoException("PRODCADA");// Produto já cadastrado
 		}
-		
+
 	}
 
-	private void validarUsuarioPorFesta(int codFesta, int codUsuario, int tipoPermissao) { //TipoPermissao.CADAESTO.getCodigo()
+	private void validarUsuarioPorFesta(int codFesta, int codUsuario, int tipoPermissao) { // TipoPermissao.CADAESTO.getCodigo()
 		List<Grupo> grupos = grupoRepository.findGrupoPermissaoUsuario(codFesta, codUsuario, tipoPermissao);
-		if(grupos.isEmpty()) {
+		if (grupos.isEmpty()) {
 			throw new ValidacaoException("USESPERM");// usuário sem permissão
 		}
 	}
 
 	private void validarUsuarioPorEstoque(int codUsuario, int codEstoque, int tipoPermissao) {
 		Estoque estoque = this.validarEstoque(codEstoque);
-		this.validarUsuarioPorFesta(estoque.getFesta().getCodFesta(), codUsuario , tipoPermissao);
+		this.validarUsuarioPorFesta(estoque.getFesta().getCodFesta(), codUsuario, tipoPermissao);
 	}
 
 	private ItemEstoque validarEstoqueProduto(int codEstoque, int codProduto) {
 		Estoque estoque = this.validarEstoque(codEstoque);
 		Produto produto = this.validarProduto(codProduto);
 
-		if(estoque.getFesta().getCodFesta() != produto.getCodFesta()) 
-			throw new ValidacaoException("PRODNEST");//Produto não pertence a mesma festa do estoque
-		
+		if (estoque.getFesta().getCodFesta() != produto.getCodFesta())
+			throw new ValidacaoException("PRODNEST");// Produto não pertence a mesma festa do estoque
+
 		ItemEstoque itemEstoque = new ItemEstoque();
 		itemEstoque.setEstoque(estoque);
 		itemEstoque.setProduto(produto);
@@ -289,49 +310,54 @@ public class ProdutoService {
 	}
 
 	private void validarQuantInformada(int quantidade) {
-		if(quantidade <= 0 ) {
-			throw new ValidacaoException("OPERAINV"); //quantidade inválida
+		if (quantidade <= 0) {
+			throw new ValidacaoException("OPERAINV"); // quantidade inválida
 		}
 	}
 
 	private void validaQuantAndPorcent(int quantidadeMax, int quantidadeAtual, int porcentagemMin) {
 
-		if(quantidadeMax <= 0 || quantidadeMax < quantidadeAtual) 
-			throw new ValidacaoException("QMAXINV"); //quantidade máxima inválida
+		if (quantidadeMax <= 0 || quantidadeMax < quantidadeAtual)
+			throw new ValidacaoException("QMAXINV"); // quantidade máxima inválida
 
-		if(porcentagemMin < 0) 
-			throw new ValidacaoException("PCMININV"); //porcentagemMin inválida
+		if (porcentagemMin < 0)
+			throw new ValidacaoException("PCMININV"); // porcentagemMin inválida
 
-		if(quantidadeAtual < 0)
-			throw new ValidacaoException("QATUAINV"); //quantidadeAtual inválida
+		if (quantidadeAtual < 0)
+			throw new ValidacaoException("QATUAINV"); // quantidadeAtual inválida
 	}
-	
+
 	private void validarProduto(String marca, int codFesta) {
 		Produto produtoMarcaIgual = produtoRepository.findByMarca(marca, codFesta);
-		if(produtoMarcaIgual != null) {
+		if (produtoMarcaIgual != null) {
 			throw new ValidacaoException("PROMIGUA");// produto com a mesma marca cadastrado na festa
 		}
 	}
-	
+
 	private void disparaNotificacaoCasoEstoqueEscasso(ItemEstoque itemEstoque) {
-		int quantidadeMax = itemEstoque.getQuantidadeMax();
-		int quantidadeAtual = itemEstoque.getQuantidadeAtual();
-		int porcentagemMin = itemEstoque.getPorcentagemMin();
-		
-		if(quantidadeMax * porcentagemMin * 0.01 >= quantidadeAtual ) {
-			int codFesta = itemEstoque.getEstoque().getFesta().getCodFesta();  //pega o código da festa
+		if (itemEstoque.quantidadeAtualAbaixoMin()) {
+			int codFesta = itemEstoque.getEstoque().getFesta().getCodFesta(); // pega o código da festa
 			List<Grupo> grupos = grupoRepository.findGruposPermissaoEstoque(codFesta);
-			
-			for(Grupo grupo : grupos) {
-				if(!notificacaoService.verificarNotificacaoGrupo(grupo.getCodGrupo(), TipoNotificacao.ESTBAIXO.getCodigo())) {
-					notificacaoService.inserirNotificacaoGrupo(grupo.getCodGrupo(), TipoNotificacao.ESTBAIXO.getCodigo(), TipoNotificacao.ESTBAIXO.getValor() + "?" + codFesta + "&" + itemEstoque.getEstoque().getCodEstoque() + "&" + itemEstoque.getProduto().getCodProduto());
-					List<Usuario> usuarios = usuarioRepository.findUsuariosPorGrupo(grupo.getCodGrupo());
-					for (Usuario usuario : usuarios) {
-						notificacaoService.inserirNotificacaoUsuario(usuario.getCodUsuario(), TipoNotificacao.ESTBAIXO.getCodigo(), TipoNotificacao.ESTBAIXO.getValor() + "?" + codFesta + "&" + itemEstoque.getEstoque().getCodEstoque() + "&" + itemEstoque.getProduto().getCodProduto());						
-					}
+
+			for (Grupo grupo : grupos) {
+				notificacaoService.inserirNotificacaoGrupo(grupo.getCodGrupo(), TipoNotificacao.ESTBAIXO.getCodigo(),
+						TipoNotificacao.ESTBAIXO.getValor() + "?" + codFesta + "&"
+								+ itemEstoque.getEstoque().getCodEstoque() + "&"
+								+ itemEstoque.getProduto().getCodProduto());
+				List<Usuario> usuarios = usuarioRepository.findUsuariosPorGrupo(grupo.getCodGrupo());
+				for (Usuario usuario : usuarios) {
+					notificacaoService.inserirNotificacaoUsuario(usuario.getCodUsuario(),
+							TipoNotificacao.ESTBAIXO.getCodigo(),
+							criarMensagemEstoqueBaixo(itemEstoque.getCodFesta(),
+									itemEstoque.getEstoque().getCodEstoque(),
+									itemEstoque.getProduto().getCodProduto()));
 				}
 			}
 		}
+	}
+
+	private String criarMensagemEstoqueBaixo(int codFesta, int codEstoque, int codProduto) {
+		return TipoNotificacao.ESTBAIXO.getValor() + "?" + codFesta + "&" + codEstoque + "&" + codProduto;
 	}
 
 }
