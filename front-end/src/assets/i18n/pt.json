@@ -407,6 +407,7 @@
     },
 
     "ESTOQUEPROD": {
+        "RECARGAPRODUTOESTOQUE": "Recarregar um produto do estoque",
         "ADDPRODESTOQUE": "Adicionar produto ao estoque",
         "EDITPRODUTOESTOQUE": "Editar produto do estoque",
         "DELETEPRODUTOESTOQUE": "Deletar produto do estoque",
