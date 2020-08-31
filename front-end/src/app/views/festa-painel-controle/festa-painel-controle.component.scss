@@ -1,5 +1,115 @@
 @import "../material/paleta.scss";
 
+.center-X {
+  position: relative;
+  
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.botoes-mobile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  &__item {
+    margin-bottom: 1rem;
+  }
+}
+
+.example-sidenav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #DADADA  ;
+}
+
+//botao sidenav
+.toggle{
+  top: 50%;
+  transform: translateY(-50%);
+  position: absolute;
+  padding: 0;
+}
+
+//MOBILE
+@media (max-width: 748px){
+
+    .status-list {
+      right: 0;
+      left: 0;
+      width: 100%;
+
+    }
+
+    .mat-button-toggle {
+      font-size: .9rem;
+
+      &-group {
+        margin: 0;
+      }
+    }
+
+
+    .example-container {
+      width: 100%;
+    }
+
+    .gerenciar-membros {
+      display: none;
+    }
+
+    .example-sidenav {
+      width: 100%;
+    }
+
+    .botao-editar-desktop {
+      display: none;
+    }
+
+    .ultima-celula {
+      max-width: 2rem;
+      padding: .5rem;
+    }
+
+    td.mat-cell:first-of-type {
+      padding-right: 1.5rem;
+    }
+
+
+    .toggle {
+      
+    }
+
+    .sidenavFechar {
+      transform: translateX(-3rem);
+    }
+
+}
+
+@media (min-width: 749px){
+
+  .sidenavFechar {
+    display: none;
+  }
+  .example-sidenav {
+    width: 10rem;
+  }
+
+  .gerenciar-membros-mobile {
+    display: none;
+  }
+
+  .gerenciar-membros {
+    float: right;
+  }
+
+  .botao-editar-mobile {
+    display: none;
+  }
+}
+
   .titulo2 {
     height: 5vh;
     width: 100%;
@@ -24,14 +134,11 @@
     left: 0;
     right: 0;
   }
-  
-  .example-sidenav {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 8.7%;
-    background: #DADADA  ;
+
+  .botao-editar-a {
+    display:block;
   }
+  
   
   .example-header {
     position: fixed;
@@ -46,13 +153,7 @@
     left: 0;
     right: 0;
   }
-  
-  .toggle{
-    top: 50%;
-    transform: translateY(-50%);
-    position: fixed;
-    padding: 0;
-  }
+
 //5.32
 //1.064
   .botao-sidenav{
@@ -74,12 +175,11 @@
     background-color: $color-primary;
     color: #ffffff;
     width: 200px;
-    float: right;
   }
 
   table {
     width: 75%;
-    margin-top: 3rem;
+    margin-top: 1rem;
   }
 
   .icon-edit{
@@ -92,8 +192,7 @@
     position: relative;
     float: right;
     //width: 100px;
-    margin-left: 2.5rem;
-    margin-right: 2.5rem;
+    margin-left: 1rem;
   }
 
   th{
@@ -109,7 +208,7 @@
     display: flex !important;
     justify-content: center !important;
     align-items: center !important;
-    margin-bottom: 1rem;
+    margin-bottom: 2rem;
   }
 
   .status-list mat-icon{
@@ -131,7 +230,7 @@
   
 
 .tabela{
-    margin-left: 12.5%;
+    
 }
 
 .botao-editar {
@@ -143,10 +242,8 @@
 }
 
 .botao-deletar {
-  margin-top: 1.5rem;
-  margin-bottom: 2rem;
-  margin-right: 18%;
-  float: right;
+  margin-top: 2rem;
+
   background-color: $color-tertiary;
   color: white;
   padding: 0;

@@ -24,6 +24,7 @@ export class FestaPainelControleComponent implements OnInit {
   options: FormGroup;
   public festa: any;
   public statusFesta: any;
+  public sidenavAberta: boolean;
 
   membros: TabelaMembros[] = [];
   displayedColumns: string[] = ['membro', 'status', 'edit'];
@@ -38,6 +39,7 @@ export class FestaPainelControleComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.sidenavAberta = false;
     this.membros = [];
     let idFesta = this.router.url;
     idFesta = idFesta.substring(idFesta.indexOf('&') + 1, idFesta.indexOf('/', idFesta.indexOf('&')));
