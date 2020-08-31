@@ -404,6 +404,7 @@
     },
 
     "ESTOQUEPROD": {
+        "RECARGAPRODUTOESTOQUE": "Refill a product from stock",
         "ADDPRODESTOQUE": "Add product to stock",
         "EDITPRODUTOESTOQUE": "Edit a product from stock",
         "DELETEPRODUTOESTOQUE": "Delete product from stock",
