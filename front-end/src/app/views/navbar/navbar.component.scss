@@ -42,6 +42,10 @@ mat-toolbar{
 
 @media (max-width: 748px){
 
+  .lang-btns {
+    
+  }
+
   .btn-navbar {
     display: none;
   }
@@ -81,8 +85,8 @@ mat-toolbar{
     }
   }
 
-  .btn {
-    visibility: hidden;
+  .button-index, .btn-navbar {
+    display: none;
   }
 
 }
