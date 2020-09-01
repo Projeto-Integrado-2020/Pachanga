@@ -213,13 +213,23 @@ export class EstoquePainelComponent implements OnInit {
     return observavel.subscribe(
       (resp: any) => {
         this.quantidadesProdutos = [];
+        this.dataSources = [];
         for (const estoque of resp) {
           const produtosQuantidade = [];
+          const produtos = [];
           if (estoque.itemEstoque) {
             for (const produtoEstoque of Object.keys(estoque.itemEstoque)) {
               produtosQuantidade.push(estoque.itemEstoque[produtoEstoque].quantidadeAtual);
+              produtos.push({
+                codProduto: estoque.itemEstoque[produtoEstoque].codProduto,
+                quantidadeMax: estoque.itemEstoque[produtoEstoque].quantidadeMax,
+                quantidadeAtual: estoque.itemEstoque[produtoEstoque].quantidadeAtual,
+                porcentagemMin: estoque.itemEstoque[produtoEstoque].porcentagemMin,
+                marca: estoque.itemEstoque[produtoEstoque].produto.marca
+              });
             }
           }
+          this.dataSources.push(new MatTableDataSource<TabelaProdutos>(produtos));
           this.quantidadesProdutos.push(produtosQuantidade);
         }
       }
