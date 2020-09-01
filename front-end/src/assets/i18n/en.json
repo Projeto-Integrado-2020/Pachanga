@@ -6,7 +6,8 @@
         "SAIR": "Logout",
         "CONTA_L": "My account",
         "INGRESSOS": "My tickets",
-        "FESTAS": "My parties"
+        "FESTAS": "My parties",
+        "IDIOMA": "Mudar idioma (PT-BR)"
     },
 
     "INDEX": {

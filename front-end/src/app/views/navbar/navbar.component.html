@@ -20,6 +20,7 @@
       <a *ngIf="loginService.usuarioAutenticado" mat-list-item  (click)="drawer.toggle()" routerLink="../minhas-festas">{{'NAV.FESTAS' | translate}}</a>
       <a *ngIf="loginService.usuarioAutenticado" mat-list-item  (click)="drawer.toggle()" routerLink="../perfil">{{'NAV.CONTA_L' | translate}}</a>
       <a  *ngIf="loginService.usuarioAutenticado" mat-list-item  (click)="loginComponent.signOut()">{{'NAV.SAIR' | translate}}</a>
+      <a mat-list-item (click)="switchIdioma()">{{'NAV.IDIOMA' | translate}}</a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>

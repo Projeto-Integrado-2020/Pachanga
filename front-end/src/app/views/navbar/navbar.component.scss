@@ -42,11 +42,8 @@ mat-toolbar{
 
 @media (max-width: 748px){
 
-  .lang-btns {
-    
-  }
 
-  .btn-navbar {
+  .btn {
     display: none;
   }
 
@@ -92,7 +89,7 @@ mat-toolbar{
 }
 
 @media (min-width: 748px){
-  .sidenav, #tog-btn {
+  .sidenav, #tog-btn  {
     display: none;
   }
 }
