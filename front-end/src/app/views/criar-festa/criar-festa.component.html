@@ -25,7 +25,7 @@
                 
                 <mat-form-field class="campo texto-input">
                     <mat-label>{{'CRIARFESTA.DESCFESTA' | translate}}</mat-label>
-                    <textarea ng-class="{ f.descFesta.errors }" #descricaoFesta formControlName="descFesta" matInput rows="4"></textarea>
+                    <textarea ng-class="{ f.descFesta.errors }" #descricaoFesta formControlName="descFesta" matInput rows="4" required></textarea>
                     <mat-error *ngIf="f.descFesta.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
                 </mat-form-field>
                 
