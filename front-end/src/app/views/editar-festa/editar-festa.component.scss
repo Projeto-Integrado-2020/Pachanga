@@ -1,5 +1,6 @@
 @import '../material/paleta.scss';
 
+//CSS RESET
 * {
   margin: 0;
   padding: 0;
@@ -7,56 +8,68 @@
   border: 0;
 }
 
-.main-container {
-    max-width: 1140px;
+.title {
+    margin: 6rem 0 0 2rem;
 }
 
-.content {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-left: 10%;
+.main-container {
+    max-width: 1140px;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+form {
+    margin-right: 0 !important;
 }
 
 .editar-festa {
-    margin-left: 5%;
-    margin-top: 13vh;
+    margin-top: 2rem;
 }
 
 .texto-input {
-    width: 100vh;
+    width: 60%;
 }
 
-.button-form {
-    background-color: $color-primary;
-    color: #ffffff;
-    padding: .2rem;
-    padding-right: .3rem;
-    margin-left: 50%;
-    margin-bottom: 3%;
+.button{
+    
+    &-return {
+        margin: 1rem 0 0 1rem;
+    }
+
+    &-form {
+        background-color: $color-primary;
+        color: #ffffff;
+        padding: .2rem .6rem .2rem .6rem;
+    }
 }
 
 .formulario-card {
-    margin-top: 1%;
+    margin-top: 1rem;
     width: 100%;
-    padding-bottom: 0!important;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 textarea {
     resize: none !important;
 }
 
-.date-input {
-    margin-left: 15%;
-    margin-right: 10%;
+.formulario {
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    align-items: center;
+
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+
 }
 
-.formulario {
-    padding-top: 1%;
+.campos-linha {
+    display: flex;
 }
 
 .title {
@@ -66,19 +79,45 @@ textarea {
     color: $color-primary;
 }
 
-.button-return {
-    margin-left: 10%;
-    margin-top: .5%;
-    margin-bottom: 2%;
+
+//MOBILE
+
+@media (max-width: 748px){
+    .content {
+        margin: 0;
+    }
+
+    .campo {
+        max-width: 100%;
+    }
+
+    .formulario {
+        max-width: 90%;
+    }
+
+    .campos-linha {
+        flex-direction: column;
+    }
+
+    .formulario-card {
+        width: 90%;
+    }
 }
 
-.categoria-principal {
-    margin-left: 9.5%;
-    margin-right: 6%;
-}
+//DESKTOP
+@media (min-width: 749px) {
+    .campo {
+        max-width: 100%;
+    }
 
-.categoria {
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-    width: 40%;
+    .formulario {
+        max-width: 60%;
+    }
+
+    .campos-linha {
+
+        gap: 1rem;
+    }
+
+
 }

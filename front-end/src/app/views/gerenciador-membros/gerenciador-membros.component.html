@@ -1,21 +1,25 @@
 <div class="main-container">
    <header>
-       <h1 class="title">{{ 'GRUPO.PARTYGROUPS' | translate }}</h1>
+      <h1 class="title">{{ 'GRUPO.PARTYGROUPS' | translate }}</h1>
 
-       <a routerLink="./criar-grupo">
-           <button class="btn-1" mat-raised-button>
-               <mat-icon>add</mat-icon> {{ 'GRUPO.CREATEGROUP' | translate }}
-           </button>
-       </a>
-       <a routerLink="./atribuir-grupos">
-         <button class="btn-1" mat-raised-button>
-            {{ 'GRUPO.ASSIGN' | translate }}
-         </button>
-      </a>
+      <div class="botoes-criar-atribuir">
+         <a routerLink="./criar-grupo">
+            <button class="btn-1" mat-raised-button>
+                  <mat-icon>add</mat-icon> {{ 'GRUPO.CREATEGROUP' | translate }}
+            </button>
+         </a>
+         <a routerLink="./atribuir-grupos">
+            <button class="btn-1" mat-raised-button>
+               {{ 'GRUPO.ASSIGN' | translate }}
+            </button>
+         </a>
+      </div>
    </header>
 
    <div *ngFor="let grupo of grupos; let i = index" class="lista-grupos">
+
       <mat-card class="grupo-tab">
+
          <mat-card-header>
             <mat-card-title>{{grupo.nomeGrupo}}</mat-card-title>
             <mat-card-subtitle><span class="subtitle">{{ 'GRUPO.MEMBERS' | translate }}: {{grupo.usuariosTO?.length + grupo.convidadosTO?.length}}</span></mat-card-subtitle>
@@ -32,7 +36,7 @@
                   <mat-icon matTooltip="{{'GRUPO.DELETE' | translate}}">delete</mat-icon>
                </button>
             </div>
-      </mat-card-header>
+         </mat-card-header>
          
          <mat-card-content class="card-content">
             <table mat-table [dataSource]="dataSources[i]" class="tabela">
@@ -55,13 +59,15 @@
                      <button mat-icon-button class="icon-edit" *ngIf="!element.convidado && !grupo.isOrganizador">
                         <mat-icon (click)="openDialogEdit(element.id, grupo, festa.codFesta)" matTooltip="{{'PAINELCONTROLE.EDIT' | translate}}">edit</mat-icon>
                      </button>   
-                   </td>
+                  </td>
                </ng-container>
                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-           </table>
+            </table>
          </mat-card-content>
+         
       </mat-card>
+
    </div>
    <a routerLink="../painel">
       <button mat-button cdkFocusInitial class="button-return">

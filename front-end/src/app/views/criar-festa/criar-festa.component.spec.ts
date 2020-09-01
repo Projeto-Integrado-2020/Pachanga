@@ -26,7 +26,9 @@ describe('CriarFestaComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CriarFestaComponent ],
+      declarations: [
+        CriarFestaComponent
+      ],
       imports: [
         CustomMaterialModule,
         NgxMaterialTimepickerModule,
@@ -50,6 +52,7 @@ describe('CriarFestaComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(CriarFestaComponent);
     component = fixture.componentInstance;
+    component.loginService.usuarioInfo = {codUsuario: '1', nomeUser: 'Teste', nomesexo: null, dtNasc: null};
     fixture.detectChanges();
   });
 

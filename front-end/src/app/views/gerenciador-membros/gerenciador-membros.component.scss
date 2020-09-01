@@ -14,11 +14,9 @@
     position: relative;
     left: 50%;
     transform: translateX(-50%);
-    padding: 0 2rem 0 2rem;
 }
 
 header {
-    display: flex;
     margin-top: 2rem;
 }
 
@@ -39,7 +37,7 @@ header {
     width: 88%;
     color: $color-tertiary;
     float: right;
-    padding-left: 3%;
+    padding-left: 0;
 }
 
 .subtitle {
@@ -47,7 +45,7 @@ header {
 }
 
 .card-content {
-    padding: 0 3.3rem 1rem 3.3rem;
+    padding: 1rem;
 }
 
 .button-main-action {
@@ -65,7 +63,6 @@ header {
     color: #ffffff;
     padding: .2rem;
     padding-right: .3rem;
-    margin-left: 2rem;
 }
 
 table {
@@ -74,8 +71,9 @@ table {
 }
 
 .tabela{
-    margin-left: 12.5%;
     border: 0;
+    width: 100%;
+    @include centralizar(true, false);
 }
 
 .btn-invite {
@@ -84,5 +82,47 @@ table {
 }
 
 .button-return {
-    margin-top: .5%;
+    margin-top: 0;
+}
+
+.botoes-criar-atribuir {
+    display: flex;
+}
+
+//MOBILE
+@media (max-width: 748px){
+
+    .title {
+        margin-left: 1rem;
+    }
+
+    .botoes-criar-atribuir {
+        flex-direction: column;
+        margin-top: 1rem;
+        gap: 1rem;
+        justify-items: center;
+        align-items: center;
+    }
+
+    .btn-1 {
+        width: 14rem;
+    }
+
+    mat-card {
+        width: 90%;
+        @include centralizar(true, false);
+    }
+
+    .mat-cell {
+        max-width: 2rem;
+        overflow: hidden;
+    }
+}
+
+//DESKTOP
+@media (min-width: 749px){
+
+    header {
+        display: flex;
+    }
 }

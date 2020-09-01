@@ -2,93 +2,117 @@
     <div class="criar-festa">
         <h1 class="title">{{'CRIARFESTA.CRIARFESTA' | translate}}</h1>
     </div>
-    <div class="content">
+
         <mat-card class="formulario-card">
             <form [formGroup]="form" class="formulario" 
-            (submit)="adicionarFesta(nomeFesta.value, descricaoFesta.value, codEnderecoFesta.value, dataInicio.value, horaInicio.value, dataFim.value, horaFim.value, categoriaPrincipal.value, categoriaSecundaria.value, organizador.value, descOrganizador.value)">
-                <mat-form-field class="texto-input">
+            (submit)="adicionarFesta(
+                nomeFesta.value,
+                descricaoFesta.value,
+                codEnderecoFesta.value,
+                dataInicio.value, horaInicio.value,
+                dataFim.value, horaFim.value,
+                categoriaPrincipal.value,
+                categoriaSecundaria.value,
+                organizador.value,
+                descOrganizador.value
+                )">
+                
+                <mat-form-field class="campo texto-input">
                     <mat-label>{{'CRIARFESTA.NOMEFESTA' | translate}}</mat-label>
                     <input ng-class="{ f.nomeFesta.errors }" #nomeFesta formControlName="nomeFesta" matInput required>
                     <mat-error *ngIf="f.nomeFesta.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
                 </mat-form-field>
-                <br>
-                <mat-form-field class="texto-input">
+                
+                <mat-form-field class="campo texto-input">
                     <mat-label>{{'CRIARFESTA.DESCFESTA' | translate}}</mat-label>
-                    <textarea ng-class="{ f.descFesta.errors }" #descricaoFesta formControlName="descFesta" matInput required rows="4"></textarea>
+                    <textarea ng-class="{ f.descFesta.errors }" #descricaoFesta formControlName="descFesta" matInput rows="4" required></textarea>
                     <mat-error *ngIf="f.descFesta.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
                 </mat-form-field>
-                <br>
-                <mat-form-field class="texto-input">
+                
+                <mat-form-field class=" campo texto-input">
                     <mat-label>{{'CRIARFESTA.ENDERECO' | translate}}</mat-label>
                     <input ng-class="{ f.endereco.errors }" #codEnderecoFesta formControlName="endereco" matInput required>
                     <mat-error *ngIf="f.endereco.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
                 </mat-form-field>
-                <br>
-                <mat-form-field class="date-input">
-                    <mat-label>{{'CRIARFESTA.INICIODATA' | translate}}</mat-label>
-                    <input [min]="minDate" ng-class="{ f.inicioData.errors }" #dataInicio formControlName="inicioData" matInput required (click)="pickerInicioData.open()" [matDatepicker]="pickerInicioData">
-                    <mat-datepicker-toggle matSuffix [for]="pickerInicioData" ></mat-datepicker-toggle>
-                    <mat-datepicker #pickerInicioData ></mat-datepicker>
-                    <mat-error *ngIf="f.inicioData.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
-                </mat-form-field>
-                <mat-form-field>
-                    <mat-label>{{'CRIARFESTA.INICIOHORA' | translate}}</mat-label>
-                    <input ng-class="{ f.inicioHora.errors }" #horaInicio formControlName="inicioHora" matInput required [ngxTimepicker]="pickerInicioHora" [format]=24>
-                    <ngx-material-timepicker #pickerInicioHora></ngx-material-timepicker>
-                    <mat-error *ngIf="f.inicioHora.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
-                </mat-form-field>
-                <br>
-                <mat-form-field class="date-input">
-                    <mat-label>{{'CRIARFESTA.FIMDATA' | translate}}</mat-label>
-                    <input [min]="minDate" ng-class="{ f.fimData.errors }" #dataFim formControlName="fimData" matInput required (click)="pickerFimData.open()" [matDatepicker]="pickerFimData">
-                    <mat-datepicker-toggle matSuffix [for]="pickerFimData" ></mat-datepicker-toggle>
-                    <mat-datepicker #pickerFimData ></mat-datepicker>
-                    <mat-error *ngIf="f.fimData.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
-                </mat-form-field>
-                <mat-form-field>
-                    <mat-label>{{'CRIARFESTA.FIMHORA' | translate}}</mat-label>
-                    <input ng-class="{ f.fimHora.errors }" #horaFim formControlName="fimHora" matInput required [ngxTimepicker]="pickerFimHora" [format]=24>
-                    <ngx-material-timepicker #pickerFimHora></ngx-material-timepicker>
-                    <mat-error *ngIf="f.fimHora.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
-                </mat-form-field>
-                <br>
-                <mat-form-field class="categoria categoria-principal">
-                    <mat-label>{{'FESTA.CATEGORIA1' | translate}}</mat-label>
-                    <mat-select ng-class="{ f.categoriaPrincipal.errors }" formControlName="categoriaPrincipal" #categoriaPrincipal required>
-                        <div *ngFor="let categoria of categorias">
-                            <mat-option value="{{categoria.codCategoria}}">{{'CATEGORIA.' + categoria.nomeCategoria | translate}}</mat-option>
-                        </div>
-                    </mat-select>
-                    <mat-error *ngIf="f.categoriaPrincipal.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
-                </mat-form-field>
-                <mat-form-field class="categoria">
-                    <mat-label>{{'FESTA.CATEGORIA2' | translate}}</mat-label>
-                    <mat-select formControlName="categoriaSecundaria" #categoriaSecundaria>
-                        <mat-option>{{'CATEGORIA.NONE' | translate}}</mat-option>
-                        <div *ngFor="let categoria of categorias">
-                            <mat-option value="{{categoria.codCategoria}}">{{'CATEGORIA.' + categoria.nomeCategoria | translate}}</mat-option>
-                        </div>
-                    </mat-select>
-                </mat-form-field>
-                <br>
-                <mat-form-field class="texto-input">
+                
+                <div class="campos-linha">
+                    <mat-form-field class="campo date-input">
+                        <mat-label>{{'CRIARFESTA.INICIODATA' | translate}}</mat-label>
+                        <input [min]="minDate" ng-class="{ f.inicioData.errors }" #dataInicio formControlName="inicioData" matInput required (click)="pickerInicioData.open()" [matDatepicker]="pickerInicioData">
+                        <mat-datepicker-toggle matSuffix [for]="pickerInicioData" ></mat-datepicker-toggle>
+                        <mat-datepicker #pickerInicioData ></mat-datepicker>
+                        <mat-error *ngIf="f.inicioData.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field class="campo">
+                        <mat-label>{{'CRIARFESTA.INICIOHORA' | translate}}</mat-label>
+                        <input ng-class="{ f.inicioHora.errors }" #horaInicio formControlName="inicioHora" matInput required [ngxTimepicker]="pickerInicioHora" [format]=24>
+                        <ngx-material-timepicker #pickerInicioHora></ngx-material-timepicker>
+                        <mat-error *ngIf="f.inicioHora.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
+                    </mat-form-field>
+                </div>
+
+                <div class="campos-linha">
+                    <mat-form-field class="campo date-input">
+                        <mat-label>{{'CRIARFESTA.FIMDATA' | translate}}</mat-label>
+                        <input [min]="minDate" ng-class="{ f.fimData.errors }" #dataFim formControlName="fimData" matInput required (click)="pickerFimData.open()" [matDatepicker]="pickerFimData">
+                        <mat-datepicker-toggle matSuffix [for]="pickerFimData" ></mat-datepicker-toggle>
+                        <mat-datepicker #pickerFimData ></mat-datepicker>
+                        <mat-error *ngIf="f.fimData.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field class="campo">
+                        <mat-label>{{'CRIARFESTA.FIMHORA' | translate}}</mat-label>
+                        <input ng-class="{ f.fimHora.errors }" #horaFim formControlName="fimHora" matInput required [ngxTimepicker]="pickerFimHora" [format]=24>
+                        <ngx-material-timepicker #pickerFimHora></ngx-material-timepicker>
+                        <mat-error *ngIf="f.fimHora.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
+                    </mat-form-field>
+                </div>
+
+                <div class="campos-linha">
+                    <mat-form-field class="campo categoria categoria-principal">
+                        <mat-label>{{'FESTA.CATEGORIA1' | translate}}</mat-label>
+                        <mat-select ng-class="{ f.categoriaPrincipal.errors }" formControlName="categoriaPrincipal" #categoriaPrincipal required>
+                            <div *ngFor="let categoria of categorias">
+                                <mat-option value="{{categoria.codCategoria}}">{{'CATEGORIA.' + categoria.nomeCategoria | translate}}</mat-option>
+                            </div>
+                        </mat-select>
+                        <mat-error *ngIf="f.categoriaPrincipal.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field class="campo categoria">
+                        <mat-label>{{'FESTA.CATEGORIA2' | translate}}</mat-label>
+                        <mat-select formControlName="categoriaSecundaria" #categoriaSecundaria>
+                            <mat-option>{{'CATEGORIA.NONE' | translate}}</mat-option>
+                            <div *ngFor="let categoria of categorias">
+                                <mat-option value="{{categoria.codCategoria}}">{{'CATEGORIA.' + categoria.nomeCategoria | translate}}</mat-option>
+                            </div>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <mat-form-field class="campo texto-input">
                     <mat-label>{{'CRIARFESTA.ORGANIZADOR' | translate}}</mat-label>
-                    <input ng-class="{ f.organizador.errors }" #organizador formControlName="organizador" matInput required>
+                    <input
+                        ng-class="{ f.organizador.errors }"
+                        #organizador
+                        formControlName="organizador"
+                        value="{{ loginService.usuarioInfo.nomeUser }}"
+                        matInput
+                        required>
                     <mat-error *ngIf="f.organizador.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
                 </mat-form-field>
-                <br>
-                <mat-form-field class="texto-input">
+    
+                <mat-form-field class="campo texto-input">
                     <mat-label>{{'CRIARFESTA.DESCORGANIZADOR' | translate}}</mat-label>
                     <textarea ng-class="{ f.descOrganizador.errors }" #descOrganizador formControlName="descOrganizador" matInput required rows="4"></textarea>
                     <mat-error *ngIf="f.descOrganizador.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
                 </mat-form-field>
-                <br>
+                
                 <button [disabled]="!form.valid" class="button-form" mat-raised-button>
                     <mat-icon>add</mat-icon> {{'CRIARFESTA.CRIARFESTA' | translate}}
                 </button>
             </form>
         </mat-card>
-    </div>
     <a routerLink="../minhas-festas">
         <button mat-button cdkFocusInitial class="button-return">
             <mat-icon>keyboard_return</mat-icon> {{'UTILS.RETURN' | translate}}
