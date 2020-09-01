@@ -42,7 +42,8 @@ mat-toolbar{
 
 @media (max-width: 748px){
 
-  .btn-navbar {
+
+  .btn {
     display: none;
   }
 
@@ -81,14 +82,14 @@ mat-toolbar{
     }
   }
 
-  .btn {
-    visibility: hidden;
+  .button-index, .btn-navbar {
+    display: none;
   }
 
 }
 
 @media (min-width: 748px){
-  .sidenav, #tog-btn {
+  .sidenav, #tog-btn  {
     display: none;
   }
 }

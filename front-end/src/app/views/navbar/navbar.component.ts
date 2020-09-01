@@ -48,6 +48,14 @@ export class NavbarComponent implements OnInit {
     this.translate.use('en');
   }
 
+  switchIdioma(): void {
+    if (this.translate.currentLang === 'pt') {
+      this.translate.use('en');
+    } else {
+      this.translate.use('pt');
+    }
+  }
+
  // método para abrir modal de login
   openDialogLogin(): void {
     this.dialog.open(LoginComponent, {

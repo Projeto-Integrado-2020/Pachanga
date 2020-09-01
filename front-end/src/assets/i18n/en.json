@@ -6,7 +6,8 @@
         "SAIR": "Logout",
         "CONTA_L": "My account",
         "INGRESSOS": "My tickets",
-        "FESTAS": "My parties"
+        "FESTAS": "My parties",
+        "IDIOMA": "Mudar idioma (PT-BR)"
     },
 
     "INDEX": {
@@ -404,6 +405,7 @@
     },
 
     "ESTOQUEPROD": {
+        "RECARGAPRODUTOESTOQUE": "Refill a product from stock",
         "ADDPRODESTOQUE": "Add product to stock",
         "EDITPRODUTOESTOQUE": "Edit a product from stock",
         "DELETEPRODUTOESTOQUE": "Delete product from stock",

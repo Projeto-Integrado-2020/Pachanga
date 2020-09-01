@@ -20,6 +20,7 @@
       <a *ngIf="loginService.usuarioAutenticado" mat-list-item  (click)="drawer.toggle()" routerLink="../minhas-festas">{{'NAV.FESTAS' | translate}}</a>
       <a *ngIf="loginService.usuarioAutenticado" mat-list-item  (click)="drawer.toggle()" routerLink="../perfil">{{'NAV.CONTA_L' | translate}}</a>
       <a  *ngIf="loginService.usuarioAutenticado" mat-list-item  (click)="loginComponent.signOut()">{{'NAV.SAIR' | translate}}</a>
+      <a mat-list-item (click)="switchIdioma()">{{'NAV.IDIOMA' | translate}}</a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
@@ -54,8 +55,8 @@
           <!-- Notificações -->
           <app-notificacoes></app-notificacoes>
 
-          <button class="btn btn--lang btn--lang--pt" mat-mini-fab color="accent" (click)="langPt()" [value]="'pt'"></button>
-          <button class="btn btn--lang btn--lang--en" mat-mini-fab color="warn" (click)="langEn()" [value]="'en'"></button>
+            <button class="btn btn--lang btn--lang--pt" mat-mini-fab color="accent" (click)="langPt()" [value]="'pt'"></button>
+            <button class="btn btn--lang btn--lang--en" mat-mini-fab color="warn" (click)="langEn()" [value]="'en'"></button>
         </div>
       </mat-toolbar-row>
     </mat-toolbar>

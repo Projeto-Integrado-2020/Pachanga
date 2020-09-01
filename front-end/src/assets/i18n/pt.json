@@ -6,7 +6,8 @@
         "SAIR": "Sair",
         "CONTA_L": "Minha conta",
         "INGRESSOS": "Meus ingressos",
-        "FESTAS": "Minhas festas"
+        "FESTAS": "Minhas festas",
+        "IDIOMA": "Change language (EN-US)"
     },
 
     "INDEX": {
@@ -407,6 +408,7 @@
     },
 
     "ESTOQUEPROD": {
+        "RECARGAPRODUTOESTOQUE": "Recarregar um produto do estoque",
         "ADDPRODESTOQUE": "Adicionar produto ao estoque",
         "EDITPRODUTOESTOQUE": "Editar produto do estoque",
         "DELETEPRODUTOESTOQUE": "Deletar produto do estoque",
