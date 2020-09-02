@@ -53,9 +53,9 @@ public class EstoqueService {
 		this.validarFesta(codFesta);
 		this.validarUsuario(idUsuario, codFesta, TipoPermissao.VISUESTO.getCodigo());
 		List<Estoque> estoques = estoqueRepository.findEstoqueByCodFesta(codFesta);
-		estoques.stream().forEach(e ->{
-			e.setItemEstoque(itemEstoqueRepository.findItensEstoqueByFestaAndEstoque(codFesta, e.getCodEstoque()));
-		});
+		estoques.stream().forEach(e ->
+			e.setItemEstoque(itemEstoqueRepository.findItensEstoqueByFestaAndEstoque(codFesta, e.getCodEstoque()))
+		);
 		return estoques;
 	}
 
