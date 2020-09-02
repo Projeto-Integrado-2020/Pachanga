@@ -18,6 +18,10 @@
   }
 }
 
+.botao-mobile {
+  width: 14rem;
+}
+
 .example-sidenav {
   display: flex;
   align-items: center;
@@ -174,7 +178,6 @@
   .prp-btn-member{
     background-color: $color-primary;
     color: #ffffff;
-    width: 200px;
   }
 
   table {

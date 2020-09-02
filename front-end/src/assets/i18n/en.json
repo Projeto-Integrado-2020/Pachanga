@@ -6,7 +6,8 @@
         "SAIR": "Logout",
         "CONTA_L": "My account",
         "INGRESSOS": "My tickets",
-        "FESTAS": "My parties"
+        "FESTAS": "My parties",
+        "IDIOMA": "Mudar idioma (PT-BR)"
     },
 
     "INDEX": {
@@ -101,7 +102,8 @@
         "ESTONFOU": "Stock not found.",
         "QMAXINV": "Invalid max quantity.",
         "ESTOMNOM": "Another stock is already using this name.",
-        "FESTFINA": "It is not possible to manage stock/product in finished parties."
+        "FESTFINA": "It is not possible to manage stock/product in finished parties.",
+        "PRODDMEZ": "Shot quantity should be more than zero."
     },
 
     "SUCCESS": {

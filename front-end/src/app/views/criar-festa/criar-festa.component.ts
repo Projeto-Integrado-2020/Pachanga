@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms'
 import { CadastrarFestaService } from 'src/app/services/cadastro-festa/cadastrar-festa.service';
 import { Router } from '@angular/router';
 import { GetCategoriasService } from 'src/app/services/get-categorias/get-categorias.service';
+import { LoginService } from 'src/app/services/loginService/login.service';
 
 @Component({
   selector: 'app-criar-festa',
@@ -15,8 +16,13 @@ export class CriarFestaComponent implements OnInit {
   minDate = new Date();
   categorias = [];
 
-  constructor(public formBuilder: FormBuilder, public festaService: CadastrarFestaService,
-              public router: Router, public getCategoria: GetCategoriasService) { }
+  constructor(
+    public formBuilder: FormBuilder,
+    public festaService: CadastrarFestaService,
+    public router: Router,
+    public getCategoria: GetCategoriasService,
+    public loginService: LoginService
+    ) { }
 
   ngOnInit() {
     this.buildForm();
