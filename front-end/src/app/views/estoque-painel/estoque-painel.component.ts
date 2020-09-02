@@ -32,7 +32,7 @@ export interface TabelaProdutos {
 
 export class EstoquePainelComponent implements OnInit {
 
-  displayedColumns: string[] = ['nome', 'quantidadeAtual', 'actions1', 'actions2'];
+  displayedColumns: string[] = ['nome', 'quantidadeMax', 'porcentagemMin', 'quantidadeAtual', 'actions1', 'actions2'];
 
   public festaNome: string;
   options: FormGroup;
@@ -78,7 +78,6 @@ export class EstoquePainelComponent implements OnInit {
       this.estoques = resp;
       for (const estoque of resp) {
         const produtos = [];
-        const produtosQuantidade = [];
         if (estoque.itemEstoque) {
           for (const produtoEstoque of Object.keys(estoque.itemEstoque)) {
             produtos.push({
@@ -88,10 +87,9 @@ export class EstoquePainelComponent implements OnInit {
               porcentagemMin: estoque.itemEstoque[produtoEstoque].porcentagemMin,
               marca: estoque.itemEstoque[produtoEstoque].produto.marca
             });
-            produtosQuantidade.push(estoque.itemEstoque[produtoEstoque].quantidadeAtual);
           }
         }
-        this.quantidadesProdutos.push(produtosQuantidade);
+        this.quantidadesProdutos.push(produtos);
         this.dataSources.push(new MatTableDataSource<TabelaProdutos>(produtos));
       }
       this.gerarForm();
@@ -183,7 +181,7 @@ export class EstoquePainelComponent implements OnInit {
     element = element.codProduto;
     this.baixaProdutoEstoque.baixaProdutoEstoque(quantidade, element, codEstoque).subscribe((resp: any) => {
       this.baixaProdutoEstoque.setFarol(false);
-      this.quantidadesProdutos[indexEstoque][indexProduto] -= quantidade;
+      this.quantidadesProdutos[indexEstoque][indexProduto].quantidadeAtual -= quantidade;
     });
   }
 
@@ -213,13 +211,17 @@ export class EstoquePainelComponent implements OnInit {
     return observavel.subscribe(
       (resp: any) => {
         this.quantidadesProdutos = [];
-        this.dataSources = [];
-        for (const estoque of resp) {
-          const produtosQuantidade = [];
+        for (const estoque of this.estoques) {
+          for (const estoqueAtualizado of resp) {
+            if (estoqueAtualizado.codEstoque === estoque.codEstoque) {
+              estoque.itemEstoque = estoqueAtualizado.itemEstoque;
+            }
+          }
+        }
+        for (const estoque of this.estoques) {
           const produtos = [];
           if (estoque.itemEstoque) {
             for (const produtoEstoque of Object.keys(estoque.itemEstoque)) {
-              produtosQuantidade.push(estoque.itemEstoque[produtoEstoque].quantidadeAtual);
               produtos.push({
                 codProduto: estoque.itemEstoque[produtoEstoque].codProduto,
                 quantidadeMax: estoque.itemEstoque[produtoEstoque].quantidadeMax,
@@ -229,8 +231,7 @@ export class EstoquePainelComponent implements OnInit {
               });
             }
           }
-          this.dataSources.push(new MatTableDataSource<TabelaProdutos>(produtos));
-          this.quantidadesProdutos.push(produtosQuantidade);
+          this.quantidadesProdutos.push(produtos);
         }
       }
     );

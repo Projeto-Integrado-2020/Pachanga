@@ -104,7 +104,8 @@
         "CONVNGRU": "Este convidado não esta no grupo.",
         "QMAXINV": "Quantidade máxima inválida.",
         "ESTOMNOM": "Um estoque com este nome já foi cadastrado.",
-        "FESTFINA": "Não é possível manipular estoque/produto em festas finalizadas."
+        "FESTFINA": "Não é possível manipular estoque/produto em festas finalizadas.",
+        "PRODDMEZ": "Quantidade de doses precisa ser maior que zero."
     },
 
     "SUCCESS": {
