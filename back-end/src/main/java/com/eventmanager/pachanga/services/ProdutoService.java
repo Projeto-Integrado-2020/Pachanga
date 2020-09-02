@@ -163,6 +163,13 @@ public class ProdutoService {
 	// baixa/recarga_____________________________________________________________________________________________________
 
 	public ItemEstoque baixaProduto(int codProduto, int codEstoque, int quantidade, int idUsuarioPermissao) {
+		
+		Estoque estoque = this.validarEstoque(codEstoque);
+		
+		Festa festa = estoque.getFesta();
+		
+		festaService.validarFestaInicializada(festa.getCodFesta());
+		
 		this.validarUsuarioPorEstoque(idUsuarioPermissao, codEstoque, TipoPermissao.EDIMESTO.getCodigo());
 
 		this.validarQuantInformada(quantidade);
@@ -186,6 +193,12 @@ public class ProdutoService {
 
 	public ItemEstoque recargaProduto(int codProduto, int codEstoque, int quantidade, int idUsuarioPermissao) {
 
+		Estoque estoque = this.validarEstoque(codEstoque);
+		
+		Festa festa = estoque.getFesta();
+		
+		festaService.validarFestaInicializada(festa.getCodFesta());
+		
 		this.validarQuantInformada(quantidade);
 		this.validarUsuarioPorEstoque(idUsuarioPermissao, codEstoque, TipoPermissao.EDIMESTO.getCodigo());
 
