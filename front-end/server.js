@@ -12,7 +12,6 @@ const app = express();
 const cspPolicy = {
   'default-src': csp.SRC_ANY,
   'style-src': [  csp.SRC_SELF,
-                  csp.SRC_UNSAFE_EVAL,
                   csp.SRC_USAFE_INLINE,
                   'https://fonts.googleapis.com/'
                 ],
@@ -21,7 +20,7 @@ const cspPolicy = {
                   csp.SRC_UNSAFE_EVAL,
                   'https://fonts.googleapis.com/',
                   'http://apis.google.com/',
-                  'http://connect.facebook.net/'
+                  'http://connect.facebook.net/',
                 ],
   'connect-src': csp.SRC_ANY,
   'img-src': csp.SRC_ANY,
@@ -41,6 +40,7 @@ app.use(referrerPolicy({ policy: 'same-origin' }));
 app.use(globalSTS);
 app.use(globalCSP);
 app.use(helmet.noSniff());
+app.use(helmet.frameguard());
 app.use(featurePolicy({
   features: {
     fullscreen: ["'self'"],
