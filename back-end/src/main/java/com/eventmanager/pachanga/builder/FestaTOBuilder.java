@@ -9,7 +9,7 @@ import com.eventmanager.pachanga.dtos.FestaTO;
 import com.eventmanager.pachanga.dtos.UsuarioTO;
 
 public class FestaTOBuilder {
-	
+
 	private int codFesta;
 	private String nomeFesta;
 	private String statusFesta; // Inicializado(I), Finalizado(F), Preparacao(P)
@@ -27,7 +27,7 @@ public class FestaTOBuilder {
 	private CategoriaTO categoriaSecundaria;
 	private Boolean isOrganizador;
 	private List<ConvidadoTO> convidados; 
-	
+
 	public static FestaTOBuilder getInstance() {
 		return new FestaTOBuilder();
 	}
@@ -76,12 +76,12 @@ public class FestaTOBuilder {
 		this.descOrganizador = descOrganizador;
 		return this;
 	}
-	
+
 	public FestaTOBuilder horarioFimFestaReal(LocalDateTime horarioFimFestaReal) {
 		this.horarioFimFestaReal = horarioFimFestaReal;
 		return this;
 	}
-	
+
 	public FestaTOBuilder funcionalidade(String funcionalidade) {
 		this.funcionalidade = funcionalidade;
 		return this;
@@ -93,10 +93,10 @@ public class FestaTOBuilder {
 	}
 
 	public FestaTOBuilder usuarios(List<UsuarioTO> usuarios) {
-		 this.usuarios = usuarios;
+		this.usuarios = usuarios;
 		return this;
 	}
-	
+
 	public FestaTOBuilder categoriaPrimaria(CategoriaTO categoriaPrimaria) {
 		this.categoriaPrimaria = categoriaPrimaria;
 		return this;
@@ -105,12 +105,12 @@ public class FestaTOBuilder {
 		this.categoriaSecundaria = categoriaSecundaria;
 		return this;
 	}
-	
+
 	public FestaTOBuilder isOrganizador(Boolean isOrganizador) {
 		this.isOrganizador = isOrganizador;
 		return this;
 	}
-	
+
 	public FestaTOBuilder convidados(List<ConvidadoTO> convidados) {
 		this.convidados = convidados;
 		return this;

@@ -44,7 +44,7 @@ public class FestaService {
 
 	@Autowired
 	private GrupoRepository grupoRepository;
-	
+
 	@Autowired
 	private ConvidadoRepository convidadoRepository;
 
@@ -53,10 +53,10 @@ public class FestaService {
 
 	@Autowired
 	private CategoriaRepository categoriaRepository;
-	
+
 	@Autowired 
 	private EstoqueRepository estoqueRepository;
-	
+
 	@Autowired
 	private ProdutoRepository produtoRepository;
 
@@ -65,10 +65,10 @@ public class FestaService {
 
 	@Autowired
 	private EstoqueService estoqueService;
-	
+
 	@Autowired
 	private FestaFactory festaFactory;
-	
+
 	@Autowired
 	private ConviteFestaFactory conviteFestaFactory;
 
@@ -134,11 +134,11 @@ public class FestaService {
 		Set<CategoriasFesta> categorias = categoriasFestaRepository.findCategoriasFesta(idFesta);
 		categoriasFestaRepository.deleteAll(categorias);
 		grupoRepository.deleteByCodFesta(idFesta);
-		
+
 		List<Estoque> estoques = estoqueRepository.findEstoqueByCodFesta(idFesta);
-		
+
 		for(Estoque estoque : estoques) {
-		estoqueRepository.deleteProdEstoque(idFesta, estoque.getCodEstoque());
+			estoqueRepository.deleteProdEstoque(idFesta, estoque.getCodEstoque());
 		}
 		produtoRepository.deleteProdFesta(idFesta);
 		estoqueRepository.deleteEstoque(idFesta);
@@ -291,7 +291,7 @@ public class FestaService {
 		Grupo grupo = this.validarGrupo(codGrupo);
 		return conviteFestaFactory.getConviteFestaTO(festa, grupo);
 	}
-	
+
 	public Grupo validarGrupo(int codGrupo) {
 		Grupo grupo = grupoRepository.findById(codGrupo);
 		if(grupo == null) {
@@ -299,11 +299,22 @@ public class FestaService {
 		}
 		return grupo;
 	}
-	
+
 	public void validarFestaFinalizada(int codFesta) {
 		Festa festa = festaRepository.findByCodFesta(codFesta);
 		if(TipoStatusFesta.FINALIZADO.getValor().equals(festa.getStatusFesta())) {
 			throw new ValidacaoException("FESTFINA"); //festa finalizada não pode alterar estoque/produto
+		}
+	}
+
+	public void validarFestaInicializada(int codFesta) {
+		Festa festa = festaRepository.findByCodFesta(codFesta);
+		if(TipoStatusFesta.PREPARACAO.getValor().equals(festa.getStatusFesta())) {
+			throw new ValidacaoException("FESTNINI"); //festa fora do estado inicializada, não pode fazer baixa
+		}else {
+			if(TipoStatusFesta.FINALIZADO.getValor().equals(festa.getStatusFesta())) {
+				throw new ValidacaoException("FESTNINI"); 	
+			}
 		}
 	}
 }
