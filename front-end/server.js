@@ -12,6 +12,7 @@ const app = express();
 const cspPolicy = {
   'report-uri': '/reporting',
   'default-src': csp.SRC_NONE,
+  'style-src': [csp.SRC_SELF, csp.SRC_DATA],
   'script-src': [ csp.SRC_SELF, csp.SRC_DATA ]
 };
 
@@ -24,7 +25,7 @@ const globalSTS = sts.getSTS({'max-age': 31536000, 'includeSubDomains': true});
 app.use(referrerPolicy({ policy: 'same-origin' }));
 app.use(globalSTS);
 app.use(globalCSP);
-app.use(helmet.frameguard())
+app.use(helmet());
 app.use(featurePolicy({
   features: {
     fullscreen: ["'self'"],
