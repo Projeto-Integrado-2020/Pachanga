@@ -5,7 +5,7 @@
     "ng": "ng",
     "start": "node server.js",
     "publishheroku": "cd ../ && git subtree push --prefix front-end pachanga master || true",
-    "build": "ng build --prod && tar -zcvf archive.tar.gz dist/*",
+    "build": "ng build",
     "test": "ng test --watch=false",
     "lint": "ng lint",
     "e2e": "ng e2e",

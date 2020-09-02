@@ -10,14 +10,29 @@ const referrerPolicy = require('referrer-policy');
 const app = express();
 
 const cspPolicy = {
-  'report-uri': '/reporting',
-  'default-src': csp.SRC_NONE,
-  'style-src': [csp.SRC_SELF, csp.SRC_DATA],
-  'script-src': [ csp.SRC_SELF, csp.SRC_DATA ]
+  'default-src': csp.SRC_ANY,
+  'style-src': [  csp.SRC_SELF,
+                  csp.SRC_UNSAFE_EVAL,
+                  csp.SRC_USAFE_INLINE,
+                  'https://fonts.googleapis.com/'
+                ],
+  'script-src': [ csp.SRC_SELF,
+                  csp.SRC_USAFE_INLINE,
+                  csp.SRC_UNSAFE_EVAL,
+                  'https://fonts.googleapis.com/',
+                  'http://apis.google.com/',
+                  'http://connect.facebook.net/'
+                ],
+  'connect-src': csp.SRC_ANY,
+  'img-src': csp.SRC_ANY,
+  'font-src': csp.SRC_ANY,
+  'child-src': csp.SRC_ANY,
+  'form-action': csp.SRC_ANY,
+  'frame-ancestors': csp.SRC_ANY
 };
 
 
-const globalCSP = csp.getCSP(csp.STARTER_OPTIONS);
+const globalCSP = csp.getCSP(cspPolicy);
 
 const globalSTS = sts.getSTS({'max-age': 31536000, 'includeSubDomains': true});
  
@@ -25,12 +40,11 @@ const globalSTS = sts.getSTS({'max-age': 31536000, 'includeSubDomains': true});
 app.use(referrerPolicy({ policy: 'same-origin' }));
 app.use(globalSTS);
 app.use(globalCSP);
-app.use(helmet());
+app.use(helmet.noSniff());
 app.use(featurePolicy({
   features: {
     fullscreen: ["'self'"],
-    vibrate: ["'none'"],
-    payment: ['example.com'],
+    payment: ['https://pachanga.herokuapp.com/'],
     syncXhr: ["'none'"]
   }
 }));
