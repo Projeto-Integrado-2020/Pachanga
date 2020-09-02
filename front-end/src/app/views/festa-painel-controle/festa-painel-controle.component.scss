@@ -22,6 +22,10 @@
   width: 14rem;
 }
 
+.sidenavAbrir {
+  z-index: 1
+}
+
 .example-sidenav {
   display: flex;
   align-items: center;
@@ -39,6 +43,10 @@
 
 //MOBILE
 @media (max-width: 748px){
+
+    .sidenavAbrir {
+      background-color: rgba(0, 0, 0, .07);
+    }
 
     .status-list {
       right: 0;

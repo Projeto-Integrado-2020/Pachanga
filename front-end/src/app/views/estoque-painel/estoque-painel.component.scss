@@ -1,5 +1,52 @@
 @import "../material/paleta.scss";
 
+.center-X {
+  position: relative;
+  
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+@media (max-width: 748px){
+
+
+  .mat-button-toggle {
+    font-size: .9rem;
+
+    &-group {
+      margin: 0;
+    }
+  }
+
+
+  .example-container {
+    width: 100%;
+  }
+
+  .example-sidenav {
+    width: 100%;
+  }
+
+  
+
+  .sidenavFechar {
+    transform: translateX(-3rem);
+  }
+
+}
+
+
+@media (min-width: 749px){
+
+  .sidenavFechar {
+    display: none;
+  }
+  .example-sidenav {
+    width: 10rem;
+  }
+}
+
+
   .titulo2 {
     height: 5vh;
     width: 100%;
