@@ -22,4 +22,7 @@ public interface ItemEstoqueRepository extends JpaRepository<ItemEstoque, Intege
 	@Query(value = "SELECT i FROM ItemEstoque i JOIN i.produto p JOIN i.estoque e JOIN e.festa f WHERE f.codFesta = :codFesta AND e.codEstoque = :codEstoque")
 	public Set<ItemEstoque> findItensEstoqueByFestaAndEstoque(int codFesta, int codEstoque);
 
+	@Query(value = "SELECT i FROM ItemEstoque i JOIN i.produto p JOIN i.estoque e JOIN e.festa f WHERE p.codProduto = :codProduto")
+	public List<ItemEstoque> findItensEstoqueByCodProduto(int codProduto);
+
 }

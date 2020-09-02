@@ -91,6 +91,8 @@ class ProdutoServiceTest {
 		produtoTO.setCodFesta(2); //o mesmo do festaTest()
 		produtoTO.setMarca("Cápsula");
 		produtoTO.setPrecoMedio(new BigDecimal("23.90"));
+		produtoTO.setDose(true);
+		produtoTO.setQuantDoses(14);
 		return produtoTO;
 
 	}
@@ -107,6 +109,8 @@ class ProdutoServiceTest {
 		produto.setCodFesta(2); //o mesmo do festaTest() 
 		produto.setMarca("Cápsula");
 		produto.setPrecoMedio(new BigDecimal("23.90"));
+		produto.setDose(true);
+		produto.setQuantDoses(15);
 		return produto;
 
 	}
@@ -1016,7 +1020,7 @@ class ProdutoServiceTest {
 		Mockito.when(grupoRepository.findGruposPermissaoEstoque(Mockito.anyInt())).thenReturn(criacaoGrupos());
 		
 		
-		ItemEstoque retorno = produtoService.baixaProduto(codProduto, codEstoque, quantidade, codUsuario);
+		ItemEstoque retorno = produtoService.baixaProduto(codProduto, codEstoque, quantidade, codUsuario, true);
 
 		assertEquals(retorno.getCodFesta(), codFesta);
 	}
@@ -1045,7 +1049,7 @@ class ProdutoServiceTest {
 
 		boolean erro = false;
 		try {
-			produtoService.baixaProduto(codProduto, codEstoque, quantidade, codUsuario);
+			produtoService.baixaProduto(codProduto, codEstoque, quantidade, codUsuario, false);
 		} catch (Exception e) {
 			erro = true;
 		}
@@ -1074,7 +1078,7 @@ class ProdutoServiceTest {
 
 		boolean erro = false;
 		try {
-			produtoService.baixaProduto(codProduto, codEstoque, quantidade, codUsuario);
+			produtoService.baixaProduto(codProduto, codEstoque, quantidade, codUsuario, false);
 		} catch (Exception e) {
 			erro = true;
 		}
@@ -1103,7 +1107,7 @@ class ProdutoServiceTest {
 
 		boolean erro = false;
 		try {
-			produtoService.baixaProduto(codProduto, codEstoque, quantidade, codUsuario);		
+			produtoService.baixaProduto(codProduto, codEstoque, quantidade, codUsuario, false);		
 		} catch (Exception e) {
 			erro = true;
 		}
@@ -1133,7 +1137,7 @@ class ProdutoServiceTest {
 
 		boolean erro = false;
 		try {
-			produtoService.baixaProduto(codProduto, codEstoque, quantidade, codUsuario);		
+			produtoService.baixaProduto(codProduto, codEstoque, quantidade, codUsuario, false);		
 		} catch (Exception e) {
 			erro = true;
 		}
@@ -1171,7 +1175,7 @@ class ProdutoServiceTest {
 		Mockito.when(grupoRepository.findGruposPermissaoEstoque(codFesta)).thenReturn(grupos);
 		Mockito.when(notificacaoService.verificarNotificacaoGrupo(Mockito.any(Integer.class), Mockito.anyString())).thenReturn(false);
 		
-		ItemEstoque retorno = produtoService.baixaProduto(codProduto, codEstoque, quantidade, codUsuario);
+		ItemEstoque retorno = produtoService.baixaProduto(codProduto, codEstoque, quantidade, codUsuario, false);
 
 		assertEquals(retorno.getCodFesta(), codFesta);
 	}
@@ -1206,7 +1210,7 @@ class ProdutoServiceTest {
 		Mockito.when(grupoRepository.findGruposPermissaoEstoque(codFesta)).thenReturn(grupos);
 		Mockito.when(notificacaoService.verificarNotificacaoGrupo(Mockito.any(Integer.class), Mockito.anyString())).thenReturn(false);
 		
-		ItemEstoque retorno = produtoService.baixaProduto(codProduto, codEstoque, quantidade, codUsuario);
+		ItemEstoque retorno = produtoService.baixaProduto(codProduto, codEstoque, quantidade, codUsuario, false);
 
 		assertEquals(retorno.getCodFesta(), codFesta);
 	}

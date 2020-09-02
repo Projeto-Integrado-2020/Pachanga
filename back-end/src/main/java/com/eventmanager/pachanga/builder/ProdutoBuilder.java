@@ -10,14 +10,25 @@ public class ProdutoBuilder {
     private int codFesta;
 	private BigDecimal precoMedio;
     private String marca;
+    private boolean dose;
+    private int quantDoses;
     
 	public static ProdutoBuilder getInstance() {
 		return new ProdutoBuilder();
 	}
 
-	
 	public ProdutoBuilder codProduto(int codProduto) {
 		this.codProduto = codProduto;
+		return this;
+	}
+	
+	public ProdutoBuilder dose(boolean dose) {
+		this.dose = dose;
+		return this;
+	}
+	
+	public ProdutoBuilder quantDoses(int quantDoses) {
+		this.quantDoses = quantDoses;
 		return this;
 	}
 
@@ -42,7 +53,8 @@ public class ProdutoBuilder {
 		produto.setCodProduto(codProduto);
 		produto.setMarca(marca);
 		produto.setPrecoMedio(precoMedio);
-	
+		produto.setDose(dose);
+		produto.setQuantDoses(quantDoses);
 		return produto;
 	}
 	

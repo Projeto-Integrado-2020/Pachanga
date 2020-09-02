@@ -20,7 +20,10 @@ public class ProdutoFactory {
 				.codProduto(produto.getCodProduto())
 				.codFesta(produto.getCodFesta())
 				.precoMedio(produto.getPrecoMedio())
-				.marca(produto.getMarca()).build();
+				.marca(produto.getMarca())
+				.dose(produto.getDose().booleanValue())
+				.quantDoses(produto.getQuantDoses())
+				.build();
 	}
 	
 	public Produto getProduto(ProdutoTO produtoTO) {
@@ -28,7 +31,10 @@ public class ProdutoFactory {
 				  .codProduto(produtoTO.getCodProduto())
 				  .codFesta(produtoTO.getCodFesta())
 				  .precoMedio(produtoTO.getPrecoMedio())
-				  .marca(produtoTO.getMarca()).build();
+				  .marca(produtoTO.getMarca())
+				  .dose(produtoTO.isDose())
+				  .quantDoses(produtoTO.getQuantDoses())
+				  .build();
 	}
 	
 	public List<ProdutoTO> getProdutosTO(List<Produto> produtos){
