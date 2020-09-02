@@ -307,14 +307,18 @@ public class FestaService {
 		}
 	}
 
-	public void validarFestaInicializada(int codFesta) {
+	public void validarFestaInicializadaPrep(int codFesta) {
 		Festa festa = festaRepository.findByCodFesta(codFesta);
 		if(TipoStatusFesta.PREPARACAO.getValor().equals(festa.getStatusFesta())) {
 			throw new ValidacaoException("FESTNINI"); //festa fora do estado inicializada, não pode fazer baixa
-		}else {
-			if(TipoStatusFesta.FINALIZADO.getValor().equals(festa.getStatusFesta())) {
-				throw new ValidacaoException("FESTNINI"); 	
-			}
+		}
+	}
+
+
+	public void validarFestaInicializadaFinal(int codFesta) {
+		Festa festa = festaRepository.findByCodFesta(codFesta);
+		if(TipoStatusFesta.FINALIZADO.getValor().equals(festa.getStatusFesta())) {
+			throw new ValidacaoException("FESTNINI"); 	
 		}
 	}
 }

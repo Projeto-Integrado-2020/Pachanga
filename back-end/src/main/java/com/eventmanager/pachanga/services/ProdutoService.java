@@ -163,13 +163,15 @@ public class ProdutoService {
 	// baixa/recarga_____________________________________________________________________________________________________
 
 	public ItemEstoque baixaProduto(int codProduto, int codEstoque, int quantidade, int idUsuarioPermissao) {
-		
+
 		Estoque estoque = this.validarEstoque(codEstoque);
-		
+
 		Festa festa = estoque.getFesta();
-		
-		festaService.validarFestaInicializada(festa.getCodFesta());
-		
+
+		festaService.validarFestaInicializadaPrep(festa.getCodFesta());
+
+		festaService.validarFestaInicializadaFinal(festa.getCodFesta());
+
 		this.validarUsuarioPorEstoque(idUsuarioPermissao, codEstoque, TipoPermissao.EDIMESTO.getCodigo());
 
 		this.validarQuantInformada(quantidade);
@@ -194,11 +196,13 @@ public class ProdutoService {
 	public ItemEstoque recargaProduto(int codProduto, int codEstoque, int quantidade, int idUsuarioPermissao) {
 
 		Estoque estoque = this.validarEstoque(codEstoque);
-		
+
 		Festa festa = estoque.getFesta();
-		
-		festaService.validarFestaInicializada(festa.getCodFesta());
-		
+
+		festaService.validarFestaInicializadaPrep(festa.getCodFesta());
+
+		festaService.validarFestaInicializadaFinal(festa.getCodFesta());
+
 		this.validarQuantInformada(quantidade);
 		this.validarUsuarioPorEstoque(idUsuarioPermissao, codEstoque, TipoPermissao.EDIMESTO.getCodigo());
 
@@ -206,7 +210,7 @@ public class ProdutoService {
 		int quantidadeAtual = itemEstoque.getQuantidadeAtual() + quantidade;
 		if (quantidadeAtual > itemEstoque.getQuantidadeMax())
 			throw new ValidacaoException("QATMMAXI"); // quantidade total fará que o estoque fique com uma quantidade
-														// maior que a máxima
+		// maior que a máxima
 
 		itemEstoque.setQuantidadeAtual(quantidadeAtual);
 
