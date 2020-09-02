@@ -404,6 +404,7 @@
     },
 
     "ESTOQUEPROD": {
+        "PERDAPRODUTOESTOQUE": "Product loss from stock",
         "RECARGAPRODUTOESTOQUE": "Refill a product from stock",
         "ADDPRODESTOQUE": "Add product to stock",
         "EDITPRODUTOESTOQUE": "Edit a product from stock",
@@ -449,6 +450,13 @@
     "RECARGA": {
         "TITULO": "Product refill",
         "QUANTIDADE": "Quantity to be topped up",
+        "CONFIRM": "Confirm",
+        "CANCEL": "Cancel"
+    },
+
+    "PERDAPRODUTO": {
+        "TITULO": "Product loss from stock",
+        "QUANTIDADE": "Lost quantity",
         "CONFIRM": "Confirm",
         "CANCEL": "Cancel"
     }

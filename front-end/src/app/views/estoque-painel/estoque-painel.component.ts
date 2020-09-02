@@ -15,6 +15,7 @@ import { BaixaProdutoEstoqueService } from 'src/app/services/baixa-produto-estoq
 import { RecargaProdutoEstoqueService } from 'src/app/services/recarga-produto-estoque/recarga-produto-estoque.service';
 import { RecargaProdutoEstoqueDialogComponent } from '../recarga-produto-estoque-dialog/recarga-produto-estoque-dialog.component';
 import { interval, Observable } from 'rxjs';
+import { PerdaProdutoEstoqueDialogComponent } from '../perda-produto-estoque-dialog/perda-produto-estoque-dialog.component';
 
 export interface TabelaProdutos {
   codEstoque: string;
@@ -207,6 +208,18 @@ export class EstoquePainelComponent implements OnInit {
           this.getQtdsAtualizadas(this.getEstoque.getEstoque(this.festa.codFesta));
         }
       );
+  }
+
+  openDialogPerda(estoque, produto) {
+    this.dialog.open(PerdaProdutoEstoqueDialogComponent, {
+      width: '20rem',
+      data: {
+        component: this,
+        produto,
+        estoque,
+        festa: this.festa
+      }
+    });
   }
 
   getQtdsAtualizadas(observavel: Observable<object>) {

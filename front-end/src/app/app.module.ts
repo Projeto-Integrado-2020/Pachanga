@@ -84,6 +84,7 @@ import { FestaDetalhesDialogComponent } from './views/festa-detalhes-dialog/fest
 import { RecargaProdutoEstoqueDialogComponent } from './views/recarga-produto-estoque-dialog/recarga-produto-estoque-dialog.component';
 import { NotificacoesComponent } from './views/notificacoes/notificacoes.component';
 import { AlertaEstoqueComponent } from './views/alerta-estoque/alerta-estoque.component';
+import { PerdaProdutoEstoqueDialogComponent } from './views/perda-produto-estoque-dialog/perda-produto-estoque-dialog.component';
 
 
 const config = new AuthServiceConfig([
@@ -148,7 +149,8 @@ export function provideConfig() {
     FestaDetalhesDialogComponent,
     RecargaProdutoEstoqueDialogComponent,
     NotificacoesComponent,
-    AlertaEstoqueComponent
+    AlertaEstoqueComponent,
+    PerdaProdutoEstoqueDialogComponent
   ],
   entryComponents: [
     LoginComponent,
@@ -175,7 +177,8 @@ export function provideConfig() {
     EditarProdutoEstoqueDialogComponent,
     FestaDetalhesDialogComponent,
     RecargaProdutoEstoqueDialogComponent,
-    AlertaEstoqueComponent
+    AlertaEstoqueComponent,
+    PerdaProdutoEstoqueDialogComponent
   ],
   imports: [
     BrowserModule,

@@ -73,6 +73,9 @@
                                             <button mat-icon-button (click)="recargaProduto(estoque, element, i, j)">
                                                 <mat-icon matTooltip="{{'ESTOQUEPROD.RECARGAPRODUTOESTOQUE' | translate}}">add_shopping_cart</mat-icon>
                                             </button>
+                                            <button mat-icon-button (click)="openDialogPerda(estoque, element)">
+                                                <mat-icon matTooltip="{{'ESTOQUEPROD.PERDAPRODUTOESTOQUE' | translate}}">report</mat-icon>
+                                            </button>
                                             <button mat-icon-button (click)="openDialogEditProdEstoque(estoque, element)">
                                                 <mat-icon matTooltip="{{'ESTOQUEPROD.EDITPRODUTOESTOQUE' | translate}}">edit</mat-icon>
                                             </button>

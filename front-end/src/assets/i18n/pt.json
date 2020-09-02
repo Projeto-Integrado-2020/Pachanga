@@ -407,6 +407,7 @@
     },
 
     "ESTOQUEPROD": {
+        "PERDAPRODUTOESTOQUE": "Perda de produto do estoque",
         "RECARGAPRODUTOESTOQUE": "Recarregar um produto do estoque",
         "ADDPRODESTOQUE": "Adicionar produto ao estoque",
         "EDITPRODUTOESTOQUE": "Editar produto do estoque",
@@ -451,6 +452,13 @@
     "RECARGA": {
         "TITULO": "Recarga de produto",
         "QUANTIDADE": "Quantidade à ser recarregada",
+        "CONFIRM": "Confirmar",
+        "CANCEL": "Cancelar"
+    },
+
+    "PERDAPRODUTO": {
+        "TITULO": "Perda de produto do estoque",
+        "QUANTIDADE": "Quantidade perdida",
         "CONFIRM": "Confirmar",
         "CANCEL": "Cancelar"
     }
