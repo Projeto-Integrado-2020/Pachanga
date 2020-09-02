@@ -8,7 +8,8 @@ public class ProdutoTO {
     private int codFesta;
 	private BigDecimal precoMedio;
     private String marca;
-	
+    private boolean dose;
+    private int quantDoses;
     
     public int getCodProduto() {
 		return codProduto;
@@ -34,7 +35,17 @@ public class ProdutoTO {
 	public void setMarca(String marca) {
 		this.marca = marca;
 	}
-    
-    
+	public boolean isDose() {
+		return dose;
+	}
+	public void setDose(boolean dose) {
+		this.dose = dose;
+	}
+	public int getQuantDoses() {
+		return quantDoses;
+	}
+	public void setQuantDoses(int quantDoses) {
+		this.quantDoses = quantDoses;
+	}
 
 }

@@ -10,6 +10,8 @@ public class ProdutoTOBuilder {
     private int codFesta;
 	private BigDecimal precoMedio;
     private String marca;
+    private boolean dose;
+    private int quantDoses;
     
 	public static ProdutoTOBuilder getInstance() {
 		return new ProdutoTOBuilder();
@@ -18,6 +20,16 @@ public class ProdutoTOBuilder {
 	
 	public ProdutoTOBuilder codProduto(int codProduto) {
 		this.codProduto = codProduto;
+		return this;
+	}
+	
+	public ProdutoTOBuilder dose(boolean dose) {
+		this.dose = dose;
+		return this;
+	}
+	
+	public ProdutoTOBuilder quantDoses(int quantDoses) {
+		this.quantDoses = quantDoses;
 		return this;
 	}
 
@@ -42,7 +54,8 @@ public class ProdutoTOBuilder {
 		produtoTO.setCodProduto(codProduto);
 		produtoTO.setMarca(marca);
 		produtoTO.setPrecoMedio(precoMedio);
-	
+		produtoTO.setDose(dose);
+		produtoTO.setQuantDoses(quantDoses);
 		return produtoTO;
 	}
 	

@@ -26,6 +26,12 @@ public class Produto {
     @Column(name = "marca")
     private String marca;
     
+    @Column(name = "dose")
+    private Boolean dose;
+    
+    @Column(name = "quant_doses")
+    private Integer quantDoses;
+    
     @OneToMany(fetch = FetchType.LAZY,
 			mappedBy = "produto")
 	private Set<ItemEstoque> itemEstoque;
@@ -68,6 +74,22 @@ public class Produto {
 
 	public void setItemEstoque(Set<ItemEstoque> itemEstoque) {
 		this.itemEstoque = itemEstoque;
+	}
+
+	public Boolean getDose() {
+		return dose;
+	}
+
+	public void setDose(Boolean dose) {
+		this.dose = dose;
+	}
+
+	public Integer getQuantDoses() {
+		return quantDoses;
+	}
+
+	public void setQuantDoses(Integer quantDoses) {
+		this.quantDoses = quantDoses;
 	}
     
 }

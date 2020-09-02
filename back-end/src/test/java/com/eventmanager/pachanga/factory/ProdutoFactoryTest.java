@@ -30,6 +30,8 @@ class ProdutoFactoryTest {
 		produtoTO.setCodFesta(2); //o mesmo do festaTest()
 		produtoTO.setMarca("Cápsula");
 		produtoTO.setPrecoMedio(new BigDecimal("23.90"));
+		produtoTO.setDose(true);
+		produtoTO.setQuantDoses(10);
 		return produtoTO;
 
 	}
@@ -40,6 +42,8 @@ class ProdutoFactoryTest {
 		produto.setCodFesta(2); //o mesmo do festaTest() 
 		produto.setMarca("Cápsula");
 		produto.setPrecoMedio(new BigDecimal("23.90"));
+		produto.setDose(true);
+		produto.setQuantDoses(10);
 		return produto;
 
 	}

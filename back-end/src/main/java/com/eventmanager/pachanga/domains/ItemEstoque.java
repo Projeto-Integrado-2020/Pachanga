@@ -36,6 +36,9 @@ public class ItemEstoque{
 	
 	@Column(name = "porcentagem_min")
 	private int porcentagemMin;
+	
+	@Column(name = "quantidade_perda")
+	private int quantPerda;
 
 	public Produto getProduto() {
 		return produto;
@@ -85,6 +88,14 @@ public class ItemEstoque{
 		this.codFesta = codFesta;
 	}
 	
+	public int getQuantPerda() {
+		return quantPerda;
+	}
+
+	public void setQuantPerda(int quantPerda) {
+		this.quantPerda = quantPerda;
+	}
+
 	public boolean quantidadeAtualAbaixoMin() {
 		return Math.round(quantidadeMax * porcentagemMin * 0.01) > quantidadeAtual;
 	}
