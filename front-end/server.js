@@ -1,5 +1,8 @@
 //Install express server
 const express = require('express');
+const https = require('https');
+const constants = require('constants');
+const fs = require('fs');
 const path = require('path');
 const compression = require('compression');
 const sts = require('strict-transport-security');
@@ -53,8 +56,6 @@ app.use(featurePolicy({
 app.use(express.static(__dirname + '/dist/front-end'));
 
 // Enable text compression - PWA requisit
-app.use(compression({ filter: shouldCompress }))
-
 function shouldCompress (req, res) {
   if (req.headers['x-no-compression']) {
     // don't compress responses with this request header
@@ -64,11 +65,40 @@ function shouldCompress (req, res) {
   // fallback to standard filter function
   return compression.filter(req, res)
 }
+app.use(compression({ filter: shouldCompress }));
 
-
+// Get
 app.get('/*', function(req,res) { 
     res.sendFile(path.join(__dirname+'/dist/front-end/index.html'));
 });
 
 // Start the app by listening on the default Heroku port
-app.listen(process.env.PORT || 8080);
+const server = https.createServer({
+	key: fs.readFileSync('./cert/key.pem', 'utf8'),
+  cert: fs.readFileSync('./cert/server.crt', 'utf8'),
+  secureOptions: constants.SSL_OP_NO_SSLv2 | constants.SSL_OP_NO_SSLv3 | constants.SSL_OP_NO_TLSv1_2,
+	ciphers: [
+ 		'ECDHE-RSA-AES128-GCM-SHA256',
+ 		'ECDHE-ECDSA-AES128-GCM-SHA256',
+ 		'ECDHE-RSA-AES256-GCM-SHA384',
+ 		'ECDHE-ECDSA-AES256-GCM-SHA384',
+ 		'DHE-RSA-AES128-GCM-SHA256',
+ 		'ECDHE-RSA-AES128-SHA256',
+ 		'DHE-RSA-AES128-SHA256',
+ 		'ECDHE-RSA-AES256-SHA384',
+ 		'DHE-RSA-AES256-SHA384',
+ 		'ECDHE-RSA-AES256-SHA256',
+ 		'DHE-RSA-AES256-SHA256',
+ 		'HIGH',
+ 		'!aNULL',
+ 		'!eNULL',
+ 		'!EXPORT',
+ 		'!DES',
+ 		'!RC4',
+ 		'!MD5',
+ 		'!PSK',
+ 		'!SRP',
+ 		'!CAMELLIA'
+	].join(':'),
+	honorCipherOrder: true
+}, app).listen(process.env.PORT || 8080);
