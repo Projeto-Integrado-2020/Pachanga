@@ -177,6 +177,16 @@ export class EstoquePainelComponent implements OnInit {
     });
   }
 
+  openDialogRemoverItens() {
+    this.dialog.open(DeletarProdutoEstoqueDialogComponent, {
+      width: '20rem',
+      data: {
+
+      }
+    });
+
+  }
+
   removerProduto(quantidade, element, codEstoque, indexEstoque, indexProduto) {
     element = element.codProduto;
     this.baixaProdutoEstoque.baixaProdutoEstoque(quantidade, element, codEstoque).subscribe((resp: any) => {

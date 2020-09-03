@@ -1,14 +1,18 @@
 @import "../material/paleta.scss";
 
-.center-X {
-  position: relative;
-  
-  left: 50%;
-  transform: translateX(-50%);
-}
 
 @media (max-width: 748px){
 
+  .example-container {
+    width: 100%;
+  }
+
+  ::ng-deep .mat-row {
+    overflow-x: scroll !important;
+  }
+  .example-sidenav {
+    width: 100% !important;
+  }
 
   .mat-button-toggle {
     font-size: .9rem;
@@ -18,19 +22,74 @@
     }
   }
 
+  .sidenavFechar {
+    right: 0;
+  }
 
-  .example-container {
+  .sidenavAbrir {
+    background-color: rgba(0, 0, 0, .07);
+  }
+
+  .status-list {
+    right: 0;
+    left: 0;
     width: 100%;
+
+  }
+
+  .mat-button-toggle {
+    font-size: .9rem;
+
+    &-group {
+      margin: 0;
+    }
+  }
+
+  ::ng-deep .mat-expansion-panel-body {
+    padding: 0 !important;
+  }
+
+  .mat-header-cell {
+    padding: 5px;
+  }
+  
+  .painel{
+    width: 100%;
+    padding: .5rem 0 .5rem 0;
   }
 
   .example-sidenav {
     width: 100%;
   }
 
-  
+  .botao-editar-desktop {
+    display: none;
+  }
+
+  .ultima-celula {
+    max-width: 2rem;
+    padding: .5rem;
+  }
+
+  .botoes {
+    flex-direction: column;
+    gap: 1rem;
+    justify-items: center;
+    align-items: center;
+  }
+
+  td.mat-cell:first-of-type {
+    padding-right: 1.5rem;
+  }
+
 
   .sidenavFechar {
     transform: translateX(-3rem);
+  }
+
+  .form_row {
+    display: flex;
+    flex-direction: column;
   }
 
 }
@@ -44,19 +103,46 @@
   .example-sidenav {
     width: 10rem;
   }
+
+  .botoes {
+    justify-content: center;
+    gap: 2rem;
+  }
+
+  .painel {
+    max-width: 60%;
+    @include centralizar(true, false);
+  }
+}
+
+.center-X {
+  @include centralizar(true, false);
+}
+
+.botao {
+  color: #ffffff;
+}
+
+.botoes {
+  display: flex;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.painel {
+  margin-top: 2rem;
 }
 
 
+
   .titulo2 {
-    height: 5vh;
-    width: 100%;
-    display: block;
-    margin: 31px;
-    text-align: center;
-    font-weight: bold;
-    font-size: 30px;
-    padding-top: 0%;
-    white-space: nowrap;
+    @include centralizar(true, false);
+    display: inline-block;
+  }
+  
+  .botao {
+    background-color: $color-tertiary;
+    color: #ffffff;
   }
 
   .bot-head-add {
@@ -66,7 +152,6 @@
 
   .main-container {
     max-width: 1140px;
-    margin-left: 10vh;
   }
 
   .example-container {
@@ -133,21 +218,7 @@
     justify-content: center !important;
     align-items: center !important;
   }
-  
 
-.tabela{
-  width: 80%;
-  margin-left: 10%;
-  margin-right: 12.5%;
-  margin-top: 2rem;
-  margin-bottom: 2rem;
-}
-
-.painel{
-  width: 75%;
-  margin-left: 12%;
-  margin-right: 20%;
-}
 
 .botao-editar {
   float: right;
@@ -190,7 +261,6 @@ tr.example-element-row:not(.example-expanded-row):active {
 }
 
 .example-element-diagram {
-  min-width: 80px;
   border: 2px solid black;
   padding: 8px;
   font-weight: lighter;
@@ -225,7 +295,6 @@ tr.example-element-row:not(.example-expanded-row):active {
 
 .prp-btn-delete {
   background-color: $color-primary;
-  color: #ffffff;
   width: 125px;
   float: left;
   margin-right: 1rem;
@@ -233,7 +302,6 @@ tr.example-element-row:not(.example-expanded-row):active {
 
 .prp-btn-edit {
   background-color: $color-secondary;
-  color: #ffffff;
   width: 125px;
   float: left;
   margin-right: 1rem;
@@ -241,20 +309,16 @@ tr.example-element-row:not(.example-expanded-row):active {
 
 .prp-btn-add {
   background-color: $color-secondary;
-  color: #ffffff;
   width: 200px;
 }
 
 .prp-btn-addprod {
   background-color: $color-secondary;
-  color: #ffffff;
-  width: 150px;
-  float: right;
+  width: 200px;
 }
 
 .prp-btn-prod {
   background-color: $color-tertiary;
-  color: #ffffff;
   width: 200px;
 }
 
@@ -263,8 +327,8 @@ tr.example-element-row:not(.example-expanded-row):active {
 }
 
 .icons-actions{
-  float: right;
-  transform: translateX(10%);
+  display: flex;
+  flex-direction: column;
 }
 
 .icons-remove{

@@ -6,8 +6,9 @@
             [fixedBottomGap]="options.value.bottom"
             
             >
-            <a routerLink="../painel"></a><button mat-button class="botao-sidenav">{{'PAINELCONTROLE.GERAL' | translate}} <mat-icon>tab</mat-icon></button>
-            <a routerLink="../estoque"><button mat-button class="botao-sidenav">{{'PAINELCONTROLE.ESTOQUE' | translate}} <mat-icon>store</mat-icon></button></a>
+
+            <button routerLink="../painel" mat-button class="botao-sidenav">{{'PAINELCONTROLE.GERAL' | translate}} <mat-icon>tab</mat-icon></button>
+            <button routerLink="../estoque" mat-button class="botao-sidenav">{{'PAINELCONTROLE.ESTOQUE' | translate}} <mat-icon>store</mat-icon></button>
             <button mat-button class="botao-sidenav">{{'PAINELCONTROLE.SEGURANÇA' | translate}} <mat-icon>security</mat-icon></button>
             <button mat-button class="botao-sidenav">{{'PAINELCONTROLE.INGRESSOS' | translate}} <mat-icon> local_offer</mat-icon></button>
             <button mat-button class="botao-sidenav">{{'PAINELCONTROLE.RELATORIO' | translate}} <mat-icon> format_list_numbered</mat-icon></button>
@@ -18,33 +19,22 @@
         
         <mat-sidenav-content class="center-x" [formGroup]="options">
             <button mat-icon-button class="toggle sidenavAbrir" (click)="sidenav.toggle()"><mat-icon>keyboard_arrow_right</mat-icon></button>
-            <mat-list class="header-mat-list">
-                <mat-list-item>
-                    <div class="titulo2">
-                        <span>{{festaNome}}</span><br>
-                    </div>
-                </mat-list-item>
-                <mat-list-item>
-                    <div class="bot-head-add">
-                        <button class="prp-btn-add" mat-button (click)="openDialogAdd()">{{'ESTOQUE.ADDESTOQUE' | translate}}</button>
-                    </div>
-                    <div>
-                        <a routerLink="./produtos">
-                            <button class="prp-btn-prod" mat-button>{{'ESTOQUE.GERENCIARPROD' | translate}}</button>
-                        </a>
-                    </div>
-                </mat-list-item>
-            </mat-list>
+
+            <h2 class="titulo2">{{festaNome}}</h2>
+            <div class="botoes">
+                <button class="botao botoes__prp-btn-add" mat-button (click)="openDialogAdd()">{{'ESTOQUE.ADDESTOQUE' | translate}}</button>
+                <button routerLink="./produtos" class="botao prp-btn-prod" mat-button>{{'ESTOQUE.GERENCIARPROD' | translate}}</button>
+            </div>
 
             <div *ngFor="let estoque of estoques; let i = index">
-                <mat-accordion>
+                <mat-accordion class="tabela">
                     <mat-expansion-panel hideToggle class="painel">
                         <mat-expansion-panel-header>
                             <mat-panel-title *ngIf="estoque.principal; else nomeBd">{{'ESTOQUE.PRINCIPAL' | translate}}</mat-panel-title>
                             <mat-panel-title><ng-template #nomeBd>{{estoque.nomeEstoque}}</ng-template></mat-panel-title>
                             <mat-panel-description>{{'ESTOQUE.DESCRIPTION' | translate}}</mat-panel-description>
                         </mat-expansion-panel-header>
-                        <table mat-table [dataSource]="dataSources[i]" class="tabela">
+                        <table mat-table [dataSource]="dataSources[i]">
                             <ng-container matColumnDef="nome">
                                 <th mat-header-cell *matHeaderCellDef>{{'ESTOQUE.PRODUTO' | translate}}</th>
                                 <td mat-cell *matCellDef="let element"> {{element.marca}} </td>
@@ -68,14 +58,15 @@
                             <ng-container matColumnDef="actions1">
                                 <th mat-header-cell *matHeaderCellDef></th>
                                 <td mat-cell *matCellDef="let element; let j = index">
-                                    <form [formGroup]="forms[estoque.codEstoque + '' + element.codProduto]" (submit)="removerProduto(quantidade.value, element, estoque.codEstoque, i, j)">
+    
+                                    <form class="form_row" [formGroup]="forms[estoque.codEstoque + '' + element.codProduto]" (submit)="removerProduto(quantidade.value, element, estoque.codEstoque, i, j)">
                                         <mat-form-field class="remove">
                                             <mat-label>{{'ESTOQUE.REMOVE1' | translate}}</mat-label>
                                             <input matInput #quantidade formControlName="quantidade" type="number" min="1">
                                             <mat-error *ngIf="f(estoque.codEstoque + '' + element.codProduto).quantidade.errors?.min">{{'FORMERRORS.MINQTDERROR' | translate}}</mat-error>
                                             <mat-error *ngIf="f(estoque.codEstoque + '' + element.codProduto).quantidade.errors?.required">{{'FORMERRORS.MINQTDERROR' | translate}}</mat-error>
                                         </mat-form-field>
-                                        <button mat-button class="icons-remove" mat-raised-button [disabled]="!forms[estoque.codEstoque + '' + element.codProduto].valid">
+                                        <button mat-button class="icons-remove" mat-raised-button >
                                             <mat-icon>remove_circle_outline</mat-icon>{{'ESTOQUE.REMOVE2' | translate}} 
                                         </button>
                                     </form>
@@ -102,9 +93,12 @@
                             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
                         </table>
-                        <button class="prp-btn-delete" mat-button (click)="openDialogDelete(estoque.codEstoque)" *ngIf="!estoque.principal">{{'ESTOQUE.DELETE' | translate}}</button>
-                        <button class="prp-btn-edit" mat-button (click)="openDialogEdit(estoque)" *ngIf="!estoque.principal">{{'ESTOQUE.EDITESTOQUE' | translate}}</button>
-                        <button class="prp-btn-addprod" mat-button (click)="openDialogAddProdEstoque(estoque)">{{'ESTOQUE.ADDPRODUTO' | translate}}</button>
+                        <div class="botoes">
+                            <button class="botao prp-btn-delete" mat-button (click)="openDialogDelete(estoque.codEstoque)" *ngIf="!estoque.principal">{{'ESTOQUE.DELETE' | translate}}</button>
+                            <button class="botao prp-btn-edit" mat-button (click)="openDialogEdit(estoque)" *ngIf="!estoque.principal">{{'ESTOQUE.EDITESTOQUE' | translate}}</button>
+                            <button class="botao prp-btn-addprod" mat-button (click)="openDialogAddProdEstoque(estoque)">{{'ESTOQUE.ADDPRODUTO' | translate}}</button>
+                        </div>
+        
                     </mat-expansion-panel>
                 </mat-accordion>
             </div>
