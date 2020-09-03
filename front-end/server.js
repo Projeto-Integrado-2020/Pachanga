@@ -76,28 +76,5 @@ app.get('/*', function(req,res) {
 const server = https.createServer({
 	key: fs.readFileSync('./cert/key.pem', 'utf8'),
   cert: fs.readFileSync('./cert/server.crt', 'utf8'),
-	ciphers: [
- 		'ECDHE-RSA-AES128-GCM-SHA256',
- 		'ECDHE-ECDSA-AES128-GCM-SHA256',
- 		'ECDHE-RSA-AES256-GCM-SHA384',
- 		'ECDHE-ECDSA-AES256-GCM-SHA384',
- 		'DHE-RSA-AES128-GCM-SHA256',
- 		'ECDHE-RSA-AES128-SHA256',
- 		'DHE-RSA-AES128-SHA256',
- 		'ECDHE-RSA-AES256-SHA384',
- 		'DHE-RSA-AES256-SHA384',
- 		'ECDHE-RSA-AES256-SHA256',
- 		'DHE-RSA-AES256-SHA256',
- 		'HIGH',
- 		'!aNULL',
- 		'!eNULL',
- 		'!EXPORT',
- 		'!DES',
- 		'!RC4',
- 		'!MD5',
- 		'!PSK',
- 		'!SRP',
- 		'!CAMELLIA'
-	].join(':'),
-	honorCipherOrder: true
+  secureOptions: constants.SSL_OP_NO_TLSv1_2
 }, app).listen(process.env.PORT || 8080);
