@@ -26,24 +26,24 @@ import com.eventmanager.pachanga.dtos.ProdutoTO;
 import com.eventmanager.pachanga.tipo.TipoStatusFesta;
 
 @RunWith(SpringRunner.class)
-@WebMvcTest(value=ItemEstoqueFactory.class)
-public class ItemEstoqueFactoryTest {
-	
+@WebMvcTest(value = ItemEstoqueFactory.class)
+class ItemEstoqueFactoryTest {
+
 	@Autowired
 	private ItemEstoqueFactory itemEstoqueFactory;
-	
+
 	@MockBean
 	private ProdutoFactory produtoFactory;
-	
+
 	private ItemEstoqueFactoryTest() {
 		this.itemEstoqueFactory = new ItemEstoqueFactory();
-		//this.produtoFactory = new ProdutoFactory();
+		// this.produtoFactory = new ProdutoFactory();
 	}
 //metodos auxiliares__________________________________________________________________________________
-	
+
 	private ItemEstoque itemEstoqueTest() throws Exception {
 		ItemEstoque itemEstoque = new ItemEstoque();
-		itemEstoque.setCodFesta(2); //o mesmo do festaTest() 
+		itemEstoque.setCodFesta(2); // o mesmo do festaTest()
 		itemEstoque.setQuantidadeMax(100);
 		itemEstoque.setPorcentagemMin(15);
 		itemEstoque.setQuantidadeAtual(20);
@@ -54,7 +54,7 @@ public class ItemEstoqueFactoryTest {
 
 	private ItemEstoqueTO itemEstoqueTOTest() {
 		ItemEstoqueTO itemEstoqueTO = new ItemEstoqueTO();
-		itemEstoqueTO.setCodFesta(2); //o mesmo do festaTest() 
+		itemEstoqueTO.setCodFesta(2); // o mesmo do festaTest()
 		itemEstoqueTO.setQuantidadeMax(100);
 		itemEstoqueTO.setPorcentagemMin(15);
 		itemEstoqueTO.setQuantidadeAtual(20);
@@ -62,28 +62,27 @@ public class ItemEstoqueFactoryTest {
 		itemEstoqueTO.setCodProduto(1);
 		return itemEstoqueTO;
 	}
-	
 
 	private ProdutoTO produtoTOTest() {
 		ProdutoTO produtoTO = new ProdutoTO();
 		produtoTO.setCodProduto(1);
-		produtoTO.setCodFesta(2); //o mesmo do festaTest()
+		produtoTO.setCodFesta(2); // o mesmo do festaTest()
 		produtoTO.setMarca("Cápsula");
 		produtoTO.setPrecoMedio(new BigDecimal("23.90"));
 		return produtoTO;
 
 	}
-	
+
 	private Produto produtoTest() {
 		Produto produto = new Produto();
 		produto.setCodProduto(1);
-		produto.setCodFesta(2); //o mesmo do festaTest() 
+		produto.setCodFesta(2); // o mesmo do festaTest()
 		produto.setMarca("Cápsula");
 		produto.setPrecoMedio(new BigDecimal("23.90"));
 		return produto;
 
 	}
-	
+
 	private Estoque estoqueTest() throws Exception {
 		Estoque estoque = new Estoque();
 		estoque.setCodEstoque(1);
@@ -92,8 +91,8 @@ public class ItemEstoqueFactoryTest {
 		estoque.setPrincipal(false);
 		return estoque;
 	}
-	
-	public Festa festaTest() throws Exception{
+
+	public Festa festaTest() throws Exception {
 		Festa festaTest = new Festa();
 		festaTest.setCodFesta(2);
 		festaTest.setCodEnderecoFesta("https//:minhacasa.org");
@@ -109,58 +108,57 @@ public class ItemEstoqueFactoryTest {
 		return festaTest;
 	}
 
-	
 //testes_________________________________________________________________________________________________
 	@Test
 	void getItemEstoqueSucesso() throws Exception {
 		ItemEstoqueTO itemEstoqueTO = itemEstoqueTOTest();
 		Produto produto = produtoTest();
 		Estoque estoque = estoqueTest();
-		
+
 		ItemEstoque itemEstoque = itemEstoqueFactory.getItemEstoque(itemEstoqueTO, produto, estoque);
-		
-		assertEquals( itemEstoque.getCodFesta(), itemEstoqueTO.getCodFesta());
-		assertEquals( itemEstoque.getQuantidadeMax(), itemEstoqueTO.getQuantidadeMax());
-		assertEquals( itemEstoque.getQuantidadeAtual(), itemEstoqueTO.getQuantidadeAtual());
-		assertEquals( itemEstoque.getPorcentagemMin(), itemEstoqueTO.getPorcentagemMin());
-		assertEquals( itemEstoque.getEstoque(), estoque);
-		assertEquals( itemEstoque.getProduto(), produto);
+
+		assertEquals(itemEstoque.getCodFesta(), itemEstoqueTO.getCodFesta());
+		assertEquals(itemEstoque.getQuantidadeMax(), itemEstoqueTO.getQuantidadeMax());
+		assertEquals(itemEstoque.getQuantidadeAtual(), itemEstoqueTO.getQuantidadeAtual());
+		assertEquals(itemEstoque.getPorcentagemMin(), itemEstoqueTO.getPorcentagemMin());
+		assertEquals(itemEstoque.getEstoque(), estoque);
+		assertEquals(itemEstoque.getProduto(), produto);
 	}
-	
+
 	@Test
 	void getItemEstoqueTOSucesso() throws Exception {
 		ItemEstoque itemEstoque = itemEstoqueTest();
 		ProdutoTO produtoTO = produtoTOTest();
-		
+
 		Mockito.when(produtoFactory.getProdutoTO(Mockito.any(Produto.class))).thenReturn(produtoTO);
 		ItemEstoqueTO itemEstoqueTO = itemEstoqueFactory.getItemEstoqueTO(itemEstoque);
-		
-		assertEquals( itemEstoqueTO.getCodFesta(), itemEstoque.getCodFesta());
-		assertEquals( itemEstoqueTO.getQuantidadeMax(), itemEstoque.getQuantidadeMax());
-		assertEquals( itemEstoqueTO.getQuantidadeAtual(), itemEstoque.getQuantidadeAtual());
-		assertEquals( itemEstoqueTO.getPorcentagemMin(), itemEstoque.getPorcentagemMin());
-		assertEquals( itemEstoqueTO.getCodEstoque(), itemEstoque.getEstoque().getCodEstoque());
-		assertEquals( itemEstoqueTO.getProduto().getCodProduto(), itemEstoque.getProduto().getCodProduto());
+
+		assertEquals(itemEstoqueTO.getCodFesta(), itemEstoque.getCodFesta());
+		assertEquals(itemEstoqueTO.getQuantidadeMax(), itemEstoque.getQuantidadeMax());
+		assertEquals(itemEstoqueTO.getQuantidadeAtual(), itemEstoque.getQuantidadeAtual());
+		assertEquals(itemEstoqueTO.getPorcentagemMin(), itemEstoque.getPorcentagemMin());
+		assertEquals(itemEstoqueTO.getCodEstoque(), itemEstoque.getEstoque().getCodEstoque());
+		assertEquals(itemEstoqueTO.getProduto().getCodProduto(), itemEstoque.getProduto().getCodProduto());
 	}
-	
+
 	@Test
 	void getListItemEstoqueTOSucesso() throws Exception {
 		Produto produto = produtoTest();
 		ItemEstoque itemEstoque = itemEstoqueTest();
 		itemEstoque.setProduto(produto);
-		
+
 		Set<ItemEstoque> itensEstoque = new HashSet<>();
 		itensEstoque.add(itemEstoque);
-		 
+
 		List<ItemEstoqueTO> itensEstoqueTO = itemEstoqueFactory.getListItemEstoqueTO(itensEstoque);
-		
+
 		ItemEstoqueTO itemEstoqueTO = itensEstoqueTO.get(0);
-		
-		assertEquals( itemEstoqueTO.getCodFesta(), itemEstoque.getCodFesta());
-		assertEquals( itemEstoqueTO.getQuantidadeMax(), itemEstoque.getQuantidadeMax());
-		assertEquals( itemEstoqueTO.getQuantidadeAtual(), itemEstoque.getQuantidadeAtual());
-		assertEquals( itemEstoqueTO.getPorcentagemMin(), itemEstoque.getPorcentagemMin());
-		assertEquals( itemEstoqueTO.getCodEstoque(), itemEstoque.getEstoque().getCodEstoque());
+
+		assertEquals(itemEstoqueTO.getCodFesta(), itemEstoque.getCodFesta());
+		assertEquals(itemEstoqueTO.getQuantidadeMax(), itemEstoque.getQuantidadeMax());
+		assertEquals(itemEstoqueTO.getQuantidadeAtual(), itemEstoque.getQuantidadeAtual());
+		assertEquals(itemEstoqueTO.getPorcentagemMin(), itemEstoque.getPorcentagemMin());
+		assertEquals(itemEstoqueTO.getCodEstoque(), itemEstoque.getEstoque().getCodEstoque());
 	}
 
 }

@@ -75,6 +75,7 @@ public class ProdutoService {
 		festaService.validarFestaFinalizada(codFesta);
 		this.validarUsuarioPorFesta(codFesta, idUsuarioPermissao, TipoPermissao.CADAESTO.getCodigo());
 		this.validarProduto(produtoTO.getMarca(), produtoTO.getCodFesta());
+		this.validarQuantidadeDoseProduto(produtoTO);
 		Produto produto = produtoFactory.getProduto(produtoTO);
 		produto.setCodProduto(produtoRepository.getNextValMySequence());
 		produto.setCodFesta(codFesta);
@@ -134,6 +135,41 @@ public class ProdutoService {
 		this.validarUsuarioPorFesta(produtoTO.getCodFesta(), idUsuarioPermissao, TipoPermissao.EDIMESTO.getCodigo());
 		Produto produto = this.validarProduto(produtoTO.getCodProduto());
 		produto.setPrecoMedio(produtoTO.getPrecoMedio());
+		int quantidadeDoses = 1;
+		boolean mudancaDose = false;
+		if (produto.getDose().booleanValue()) {
+			if (produtoTO.isDose()) {
+				produto.setQuantDoses(produtoTO.getQuantDoses());
+				this.validarQuantidadeDoseProduto(produtoTO);
+			} else {
+				produto.setDose(produtoTO.isDose());
+				quantidadeDoses = produto.getQuantDoses();
+				produto.setQuantDoses(0);
+				mudancaDose = true;
+			}
+		} else if (!produto.getDose().booleanValue() && produto.getDose().booleanValue() != produtoTO.isDose()) {
+			produto.setDose(produtoTO.isDose());
+			produto.setQuantDoses(produtoTO.getQuantDoses());
+			quantidadeDoses = produto.getQuantDoses();
+			mudancaDose = true;
+			this.validarQuantidadeDoseProduto(produtoTO);
+		}
+
+		List<ItemEstoque> itensEstoque = itemEstoqueRepository.findItensEstoqueByCodProduto(produto.getCodProduto());
+
+		if (!itensEstoque.isEmpty()) {
+			for (ItemEstoque itemEstoque : itensEstoque) {
+				if (produto.getDose().booleanValue() && mudancaDose) {
+					itemEstoque
+							.setQuantidadeAtual(Math.multiplyExact(quantidadeDoses, itemEstoque.getQuantidadeAtual()));
+					itemEstoque.setQuantidadeMax(Math.multiplyExact(quantidadeDoses, itemEstoque.getQuantidadeMax()));
+				} else if (!produto.getDose().booleanValue() && mudancaDose) {
+					itemEstoque.setQuantidadeAtual(Math.round(itemEstoque.getQuantidadeAtual() / quantidadeDoses));
+					itemEstoque.setQuantidadeMax(Math.round(quantidadeDoses / itemEstoque.getQuantidadeMax()));
+				}
+			}
+		}
+
 		this.validarProduto(produtoTO.getMarca(), produtoTO.getCodFesta());
 		produto.setMarca(produtoTO.getMarca());
 		produtoRepository.save(produto);
@@ -162,7 +198,17 @@ public class ProdutoService {
 
 	// baixa/recarga_____________________________________________________________________________________________________
 
-	public ItemEstoque baixaProduto(int codProduto, int codEstoque, int quantidade, int idUsuarioPermissao) {
+	public ItemEstoque baixaProduto(int codProduto, int codEstoque, int quantidade, int idUsuarioPermissao,
+			boolean quebra) {
+
+		Estoque estoque = this.validarEstoque(codEstoque);
+
+		Festa festa = estoque.getFesta();
+
+		festaService.validarFestaInicializadaPrep(festa.getCodFesta());
+
+		festaService.validarFestaInicializadaFinal(festa.getCodFesta());
+
 		this.validarUsuarioPorEstoque(idUsuarioPermissao, codEstoque, TipoPermissao.EDIMESTO.getCodigo());
 
 		this.validarQuantInformada(quantidade);
@@ -175,6 +221,10 @@ public class ProdutoService {
 
 		itemEstoque.setQuantidadeAtual(quantidadeAtual);
 
+		if (quebra) {
+			itemEstoque.setQuantPerda(quantidade);
+		}
+
 		itemEstoqueRepository.save(itemEstoque);
 
 		this.inserirItemEstoqueFluxo(itemEstoque);
@@ -186,6 +236,14 @@ public class ProdutoService {
 
 	public ItemEstoque recargaProduto(int codProduto, int codEstoque, int quantidade, int idUsuarioPermissao) {
 
+		Estoque estoque = this.validarEstoque(codEstoque);
+
+		Festa festa = estoque.getFesta();
+
+		festaService.validarFestaInicializadaPrep(festa.getCodFesta());
+
+		festaService.validarFestaInicializadaFinal(festa.getCodFesta());
+
 		this.validarQuantInformada(quantidade);
 		this.validarUsuarioPorEstoque(idUsuarioPermissao, codEstoque, TipoPermissao.EDIMESTO.getCodigo());
 
@@ -193,7 +251,7 @@ public class ProdutoService {
 		int quantidadeAtual = itemEstoque.getQuantidadeAtual() + quantidade;
 		if (quantidadeAtual > itemEstoque.getQuantidadeMax())
 			throw new ValidacaoException("QATMMAXI"); // quantidade total fará que o estoque fique com uma quantidade
-														// maior que a máxima
+		// maior que a máxima
 
 		itemEstoque.setQuantidadeAtual(quantidadeAtual);
 
@@ -249,6 +307,12 @@ public class ProdutoService {
 		if (festa == null)
 			throw new ValidacaoException("FSTANFOU");
 		return festa;
+	}
+
+	private void validarQuantidadeDoseProduto(ProdutoTO produtoTO) {
+		if (produtoTO.isDose() && produtoTO.getQuantDoses() <= 0) {
+			throw new ValidacaoException("PRODDMEZ"); // Quantidade de doses informada precisa ser maior que zero
+		}
 	}
 
 	private Produto validarProduto(int codProduto) {

@@ -18,7 +18,7 @@ import com.eventmanager.pachanga.tipo.TipoStatusFesta;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(value=ConviteFestaFactory.class)
-public class ConviteFestaFactoryTest {
+class ConviteFestaFactoryTest {
 	
 	@Autowired
 	ConviteFestaFactory conviteFestaFactory;

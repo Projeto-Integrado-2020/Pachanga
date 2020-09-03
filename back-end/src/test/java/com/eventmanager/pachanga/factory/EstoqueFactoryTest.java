@@ -27,15 +27,15 @@ import com.eventmanager.pachanga.dtos.ItemEstoqueTO;
 import com.eventmanager.pachanga.tipo.TipoStatusFesta;
 
 @RunWith(SpringRunner.class)
-@WebMvcTest(value=EstoqueFactory.class)
-public class EstoqueFactoryTest {
-	
+@WebMvcTest(value = EstoqueFactory.class)
+class EstoqueFactoryTest {
+
 	@Autowired
 	private EstoqueFactory estoqueFactory;
-	
+
 	@MockBean
 	private ItemEstoqueFactory itemEstoqueFactory;
-	
+
 	private Estoque estoqueTest() throws Exception {
 		Estoque estoque = new Estoque();
 		estoque.setCodEstoque(1);
@@ -44,8 +44,8 @@ public class EstoqueFactoryTest {
 		estoque.setPrincipal(false);
 		return estoque;
 	}
-	
-	public Festa festaTest() throws Exception{
+
+	public Festa festaTest() throws Exception {
 		Festa festaTest = new Festa();
 		festaTest.setCodFesta(2);
 		festaTest.setCodEnderecoFesta("https//:minhacasa.org");
@@ -60,10 +60,10 @@ public class EstoqueFactoryTest {
 
 		return festaTest;
 	}
-	
+
 	private ItemEstoque itemEstoqueTest() throws Exception {
 		ItemEstoque itemEstoque = new ItemEstoque();
-		itemEstoque.setCodFesta(2); //o mesmo do festaTest() 
+		itemEstoque.setCodFesta(2); // o mesmo do festaTest()
 		itemEstoque.setQuantidadeMax(100);
 		itemEstoque.setPorcentagemMin(15);
 		itemEstoque.setQuantidadeAtual(20);
@@ -74,7 +74,7 @@ public class EstoqueFactoryTest {
 
 	private ItemEstoqueTO itemEstoqueTOTest() {
 		ItemEstoqueTO itemEstoqueTO = new ItemEstoqueTO();
-		itemEstoqueTO.setCodFesta(2); //o mesmo do festaTest() 
+		itemEstoqueTO.setCodFesta(2); // o mesmo do festaTest()
 		itemEstoqueTO.setQuantidadeMax(100);
 		itemEstoqueTO.setPorcentagemMin(15);
 		itemEstoqueTO.setQuantidadeAtual(20);
@@ -86,13 +86,13 @@ public class EstoqueFactoryTest {
 	private Produto produtoTest() {
 		Produto produto = new Produto();
 		produto.setCodProduto(1);
-		produto.setCodFesta(2); //o mesmo do festaTest() 
+		produto.setCodFesta(2); // o mesmo do festaTest()
 		produto.setMarca("Cápsula");
 		produto.setPrecoMedio(new BigDecimal("23.90"));
 		return produto;
 
 	}
-	
+
 	@Test
 	void getEstoqueTOSucesso() throws Exception {
 		Estoque estoque = estoqueTest();
@@ -100,20 +100,20 @@ public class EstoqueFactoryTest {
 		Set<ItemEstoque> itensEstoque = new HashSet<>();
 		itensEstoque.add(itemEstoque);
 		estoque.setItemEstoque(itensEstoque);
-		
+
 		ItemEstoqueTO itemEstoqueTO = itemEstoqueTOTest();
 		List<ItemEstoqueTO> itensEstoqueTO = new ArrayList<>();
 		itensEstoqueTO.add(itemEstoqueTO);
-		
+
 		Mockito.when(itemEstoqueFactory.getListItemEstoqueTO(itensEstoque)).thenReturn(itensEstoqueTO);
 		EstoqueTO estoqueTO = estoqueFactory.getEstoqueTO(estoque);
-		
-		assertEquals( estoqueTO.getCodEstoque(), estoque.getCodEstoque());
-		assertEquals( estoqueTO.getNomeEstoque(), estoque.getNomeEstoque());
-		assertEquals( estoqueTO.isPrincipal(), estoque.isPrincipal());
-		//assertEquals( , );
+
+		assertEquals(estoqueTO.getCodEstoque(), estoque.getCodEstoque());
+		assertEquals(estoqueTO.getNomeEstoque(), estoque.getNomeEstoque());
+		assertEquals(estoqueTO.isPrincipal(), estoque.isPrincipal());
+		// assertEquals( , );
 	}
-	
+
 	@Test
 	void getEstoqueTOEstoqueNullSucesso() throws Exception {
 		Estoque estoque = estoqueTest();
@@ -121,54 +121,54 @@ public class EstoqueFactoryTest {
 		Set<ItemEstoque> itensEstoque = new HashSet<>();
 		itensEstoque.add(itemEstoque);
 		estoque.setItemEstoque(null);
-		
+
 		ItemEstoqueTO itemEstoqueTO = itemEstoqueTOTest();
 		List<ItemEstoqueTO> itensEstoqueTO = new ArrayList<>();
 		itensEstoqueTO.add(itemEstoqueTO);
-		
+
 		Mockito.when(itemEstoqueFactory.getListItemEstoqueTO(itensEstoque)).thenReturn(itensEstoqueTO);
 		EstoqueTO estoqueTO = estoqueFactory.getEstoqueTO(estoque);
-		
-		assertEquals( estoqueTO.getCodEstoque(), estoque.getCodEstoque());
-		assertEquals( estoqueTO.getNomeEstoque(), estoque.getNomeEstoque());
-		assertEquals( estoqueTO.isPrincipal(), estoque.isPrincipal());
-		//assertEquals( , );
+
+		assertEquals(estoqueTO.getCodEstoque(), estoque.getCodEstoque());
+		assertEquals(estoqueTO.getNomeEstoque(), estoque.getNomeEstoque());
+		assertEquals(estoqueTO.isPrincipal(), estoque.isPrincipal());
+		// assertEquals( , );
 	}
-	
+
 	@Test
 	void getEstoqueTOEstoqueVazioSucesso() throws Exception {
 		Estoque estoque = estoqueTest();
 		Set<ItemEstoque> itensEstoque = new HashSet<>();
-		estoque.setItemEstoque(itensEstoque );
-		
+		estoque.setItemEstoque(itensEstoque);
+
 		ItemEstoqueTO itemEstoqueTO = itemEstoqueTOTest();
 		List<ItemEstoqueTO> itensEstoqueTO = new ArrayList<>();
 		itensEstoqueTO.add(itemEstoqueTO);
-		
+
 		Mockito.when(itemEstoqueFactory.getListItemEstoqueTO(itensEstoque)).thenReturn(itensEstoqueTO);
 		EstoqueTO estoqueTO = estoqueFactory.getEstoqueTO(estoque);
-		
-		assertEquals( estoqueTO.getCodEstoque(), estoque.getCodEstoque());
-		assertEquals( estoqueTO.getNomeEstoque(), estoque.getNomeEstoque());
-		assertEquals( estoqueTO.isPrincipal(), estoque.isPrincipal());
+
+		assertEquals(estoqueTO.getCodEstoque(), estoque.getCodEstoque());
+		assertEquals(estoqueTO.getNomeEstoque(), estoque.getNomeEstoque());
+		assertEquals(estoqueTO.isPrincipal(), estoque.isPrincipal());
 	}
-	
+
 	@Test
 	void getEstoqueSucesso() throws Exception {
 		Estoque estoque = estoqueTest();
-		
+
 		String nomeEstoque = estoque.getNomeEstoque();
 		boolean principal = estoque.isPrincipal();
-		
+
 		Estoque retorno = estoqueFactory.getEstoque(nomeEstoque, principal);
-		
-		assertEquals( retorno.getNomeEstoque(), estoque.getNomeEstoque());
-		assertEquals( retorno.isPrincipal(), estoque.isPrincipal());
-		
+
+		assertEquals(retorno.getNomeEstoque(), estoque.getNomeEstoque());
+		assertEquals(retorno.isPrincipal(), estoque.isPrincipal());
+
 	}
-	
+
 	@Test
-	void  getListEstoqueTOSucesso() throws Exception {
+	void getListEstoqueTOSucesso() throws Exception {
 		List<Estoque> estoques = new ArrayList<>();
 		Estoque estoque = estoqueTest();
 		estoques.add(estoque);
@@ -176,20 +176,20 @@ public class EstoqueFactoryTest {
 		Set<ItemEstoque> itensEstoque = new HashSet<>();
 		itensEstoque.add(itemEstoque);
 		estoque.setItemEstoque(itensEstoque);
-		
+
 		ItemEstoqueTO itemEstoqueTO = itemEstoqueTOTest();
 		List<ItemEstoqueTO> itensEstoqueTO = new ArrayList<>();
 		itensEstoqueTO.add(itemEstoqueTO);
-		
+
 		Mockito.when(itemEstoqueFactory.getListItemEstoqueTO(itensEstoque)).thenReturn(itensEstoqueTO);
-		
+
 		List<EstoqueTO> estoquesTO = estoqueFactory.getListEstoqueTO(estoques);
-		
+
 		EstoqueTO estoqueTO = estoquesTO.get(0);
-		
-		assertEquals( estoqueTO.getCodEstoque(), estoque.getCodEstoque());
-		assertEquals( estoqueTO.getNomeEstoque(), estoque.getNomeEstoque());
-		assertEquals( estoqueTO.isPrincipal(), estoque.isPrincipal());
+
+		assertEquals(estoqueTO.getCodEstoque(), estoque.getCodEstoque());
+		assertEquals(estoqueTO.getNomeEstoque(), estoque.getNomeEstoque());
+		assertEquals(estoqueTO.isPrincipal(), estoque.isPrincipal());
 	}
 
 }

@@ -12,7 +12,7 @@ import com.eventmanager.pachanga.dtos.CategoriaTO;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(value=CategoriaFactory.class)
-public class CategoriaFactoryTest {
+class CategoriaFactoryTest {
 
 	private Categoria categoriaTest() {
 		Categoria categoria = new Categoria();
@@ -22,7 +22,7 @@ public class CategoriaFactoryTest {
 	}
 	
 	@Test
-	public void getCategoriaTOSucesso() throws Exception {
+	void getCategoriaTOSucesso() throws Exception {
 		Categoria categoria = categoriaTest();
 		
 		CategoriaTO categoriaTO  = CategoriaFactory.getCategoriaTO(categoria);
