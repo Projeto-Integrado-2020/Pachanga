@@ -76,7 +76,6 @@ app.get('/*', function(req,res) {
 const server = https.createServer({
 	key: fs.readFileSync('./cert/key.pem', 'utf8'),
   cert: fs.readFileSync('./cert/server.crt', 'utf8'),
-  secureOptions: constants.SSL_OP_NO_SSLv2 | constants.SSL_OP_NO_SSLv3 | constants.SSL_OP_NO_TLSv1_2,
 	ciphers: [
  		'ECDHE-RSA-AES128-GCM-SHA256',
  		'ECDHE-ECDSA-AES128-GCM-SHA256',
