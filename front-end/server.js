@@ -73,7 +73,4 @@ app.get('/*', function(req,res) {
 });
 
 // Start the app by listening on the default Heroku port
-const server = https.createServer({
-	key: fs.readFileSync('./cert/key.pem', 'utf8'),
-  cert: fs.readFileSync('./cert/server.crt', 'utf8')
-}, app).listen(process.env.PORT || 8080);
+const server = https.createServer(app).listen(process.env.PORT || 8080);
