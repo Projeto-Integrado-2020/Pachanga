@@ -19,26 +19,27 @@ import com.eventmanager.pachanga.dtos.UsuarioFestaTO;
 import com.eventmanager.pachanga.tipo.TipoStatusFesta;
 
 @RunWith(SpringRunner.class)
-@WebMvcTest(value=UsuarioFestaTOFactory.class)
-public class UsuarioFestaTOFactoryTest {
-	
+@WebMvcTest(value = UsuarioFestaTOFactory.class)
+class UsuarioFestaTOFactoryTest {
+
 	@Autowired
 	private UsuarioFestaTOFactory usuarioFestaTOFactory;
-	
+
 	@SuppressWarnings("deprecation")
-	public static Usuario usuarioTest() throws Exception{
+	public static Usuario usuarioTest() throws Exception {
 		Usuario usuarioTest = new Usuario();
 
 		usuarioTest.setCodUsuario(100);
 		usuarioTest.setEmail("gustavinhoTPD@fodasse.com.br");
-		usuarioTest.setSenha("fc68b677646b5f018d1762e9a19bf65180d9aab2794794340ade50e0d78a239affd43a613e7136a61b5d63b09f072c0c039dea4281873abe826d6e6285d9cefef0a0d868d3b0b0d4582ec787b473b4e0");
+		usuarioTest.setSenha(
+				"fc68b677646b5f018d1762e9a19bf65180d9aab2794794340ade50e0d78a239affd43a613e7136a61b5d63b09f072c0c039dea4281873abe826d6e6285d9cefef0a0d868d3b0b0d4582ec787b473b4e0");
 		usuarioTest.setDtNasc(new Date(2000, 8, 27));
 		usuarioTest.setSexo("M");
 		usuarioTest.setNomeUser("Gustavo Barbosa");
 
 		return usuarioTest;
 	}
-	
+
 	public Grupo grupoTest() throws Exception {
 		Grupo grupo = new Grupo();
 		grupo.setCodGrupo(1);
@@ -48,8 +49,8 @@ public class UsuarioFestaTOFactoryTest {
 		grupo.setQuantMaxPessoas(15);
 		return grupo;
 	}
-	
-	public Festa festaTest() throws Exception{
+
+	public Festa festaTest() throws Exception {
 		Festa festaTest = new Festa();
 		festaTest.setCodFesta(2);
 		festaTest.setCodEnderecoFesta("https//:minhacasa.org");
@@ -64,14 +65,14 @@ public class UsuarioFestaTOFactoryTest {
 
 		return festaTest;
 	}
-	
+
 	@Test
-	public void getUsuarioFestaTOSucesso() throws Exception {
+	void getUsuarioFestaTOSucesso() throws Exception {
 		Grupo grupo = grupoTest();
 		Usuario usuario = usuarioTest();
-		
+
 		UsuarioFestaTO usuarioFestaTO = usuarioFestaTOFactory.getUsuarioFestaTO(usuario, grupo);
-		
+
 		assertEquals(usuarioFestaTO.getNomeFesta(), grupo.getFesta().getNomeFesta());
 		assertEquals(usuarioFestaTO.getNomeGrupo(), grupo.getNomeGrupo());
 		assertEquals(usuarioFestaTO.getNomeUsuario(), usuario.getNomeUser());

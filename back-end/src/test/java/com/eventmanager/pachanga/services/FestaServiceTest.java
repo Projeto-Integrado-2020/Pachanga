@@ -169,6 +169,22 @@ class FestaServiceTest {
 
 		return festaTest;
 	}
+	
+	public Festa festaIniTest() throws Exception{
+		Festa festaTest = new Festa();
+		festaTest.setCodFesta(2);
+		festaTest.setCodEnderecoFesta("https//:minhacasa.org");
+		festaTest.setDescOrganizador("sou demente");
+		festaTest.setHorarioInicioFesta(LocalDateTime.of(2016, Month.JUNE, 22, 19, 10));
+		festaTest.setHorarioFimFesta(LocalDateTime.of(2016, Month.JUNE, 23, 19, 10));
+		festaTest.setNomeFesta("festao");
+		festaTest.setOrganizador("Joao Neves");
+		festaTest.setStatusFesta(TipoStatusFesta.INICIADO.getValor());
+		festaTest.setDescricaoFesta("Bugago");
+		festaTest.setHorarioFimFestaReal(LocalDateTime.of(2016, Month.JUNE, 23, 19, 10));
+
+		return festaTest;
+	}
 
 	private Categoria categoriaTest() {
 		Categoria categoria = new Categoria();
@@ -1227,4 +1243,58 @@ class FestaServiceTest {
 		assertEquals(true, erro);
 
 	}
+	
+	@Test
+	void testValidarFestaInicializadaPrepErroTest() throws Exception{
+		Festa festa = festaTest();
+		
+		Mockito.when(festaRepository.findByCodFesta(Mockito.anyInt())).thenReturn(festa);
+		
+		boolean erro = false;
+		
+		try {
+			festaService.validarFestaInicializadaPrep(2);
+		} catch (ValidacaoException e) {
+			erro = true;
+		}
+		
+		assertEquals(true, erro);
+	}
+	
+	@Test
+	void testValidarFestaInicializadaFinalErroTest() throws Exception{
+		Festa festa = festaTest();
+		festa.setStatusFesta(TipoStatusFesta.FINALIZADO.getValor());
+		
+		Mockito.when(festaRepository.findByCodFesta(Mockito.anyInt())).thenReturn(festa);
+		
+		boolean erro = false;
+		
+		try {
+			festaService.validarFestaInicializadaFinal(2);
+		} catch (ValidacaoException e) {
+			erro = true;
+		}
+		
+		assertEquals(true, erro);
+	}
+	
+	@Test
+	void validarFestaInicinalizadaPrepSucessTest() throws Exception {
+	
+		Mockito.when(festaRepository.findByCodFesta(Mockito.anyInt())).thenReturn(festaIniTest());
+		
+		festaService.validarFestaInicializadaPrep(2);
+
+	}
+	
+	@Test
+	void validarFestaInicinalizadaFinalSucessTest() throws Exception {
+
+		Mockito.when(festaRepository.findByCodFesta(Mockito.anyInt())).thenReturn(festaIniTest());
+		
+		festaService.validarFestaInicializadaFinal(2);
+
+	}
+	
 }

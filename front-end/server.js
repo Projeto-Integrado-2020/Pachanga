@@ -1,5 +1,8 @@
 //Install express server
 const express = require('express');
+const https = require('https');
+const constants = require('constants');
+const fs = require('fs');
 const path = require('path');
 const compression = require('compression');
 const sts = require('strict-transport-security');
@@ -53,8 +56,6 @@ app.use(featurePolicy({
 app.use(express.static(__dirname + '/dist/front-end'));
 
 // Enable text compression - PWA requisit
-app.use(compression({ filter: shouldCompress }))
-
 function shouldCompress (req, res) {
   if (req.headers['x-no-compression']) {
     // don't compress responses with this request header
@@ -64,11 +65,15 @@ function shouldCompress (req, res) {
   // fallback to standard filter function
   return compression.filter(req, res)
 }
+app.use(compression({ filter: shouldCompress }));
 
-
+// Get
 app.get('/*', function(req,res) { 
     res.sendFile(path.join(__dirname+'/dist/front-end/index.html'));
 });
 
 // Start the app by listening on the default Heroku port
-app.listen(process.env.PORT || 8080);
+const server = https.createServer({
+	key: fs.readFileSync('./cert/key.pem', 'utf8'),
+  cert: fs.readFileSync('./cert/server.crt', 'utf8')
+}, app).listen(process.env.PORT || 8080);

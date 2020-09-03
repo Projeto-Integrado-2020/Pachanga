@@ -16,20 +16,19 @@ import com.eventmanager.pachanga.domains.Estoque;
 import com.eventmanager.pachanga.domains.Festa;
 import com.eventmanager.pachanga.domains.ItemEstoque;
 import com.eventmanager.pachanga.domains.Produto;
-import com.eventmanager.pachanga.dtos.ItemEstoqueTO;
 import com.eventmanager.pachanga.dtos.NotificacaoEstoqueTO;
 import com.eventmanager.pachanga.tipo.TipoStatusFesta;
 
 @RunWith(SpringRunner.class)
-@WebMvcTest(value=NotificacaoEstoqueTOFactory.class)
-public class NotificacaoEstoqueTOFactoryTest {
-	
+@WebMvcTest(value = NotificacaoEstoqueTOFactory.class)
+class NotificacaoEstoqueTOFactoryTest {
+
 	@Autowired
 	private NotificacaoEstoqueTOFactory notificacaoEstoqueTOFactory;
-	
+
 	private ItemEstoque itemEstoqueTest() throws Exception {
 		ItemEstoque itemEstoque = new ItemEstoque();
-		itemEstoque.setCodFesta(2); //o mesmo do festaTest() 
+		itemEstoque.setCodFesta(2); // o mesmo do festaTest()
 		itemEstoque.setQuantidadeMax(100);
 		itemEstoque.setPorcentagemMin(15);
 		itemEstoque.setQuantidadeAtual(20);
@@ -41,13 +40,13 @@ public class NotificacaoEstoqueTOFactoryTest {
 	private Produto produtoTest() {
 		Produto produto = new Produto();
 		produto.setCodProduto(1);
-		produto.setCodFesta(2); //o mesmo do festaTest() 
+		produto.setCodFesta(2); // o mesmo do festaTest()
 		produto.setMarca("Cápsula");
 		produto.setPrecoMedio(new BigDecimal("23.90"));
 		return produto;
 
 	}
-	
+
 	private Estoque estoqueTest() throws Exception {
 		Estoque estoque = new Estoque();
 		estoque.setCodEstoque(1);
@@ -56,8 +55,8 @@ public class NotificacaoEstoqueTOFactoryTest {
 		estoque.setPrincipal(false);
 		return estoque;
 	}
-	
-	public Festa festaTest() throws Exception{
+
+	public Festa festaTest() throws Exception {
 		Festa festaTest = new Festa();
 		festaTest.setCodFesta(2);
 		festaTest.setCodEnderecoFesta("https//:minhacasa.org");
@@ -72,21 +71,18 @@ public class NotificacaoEstoqueTOFactoryTest {
 
 		return festaTest;
 	}
-	
-	
-	
-	
-	
+
 	@Test
 	void getNotificacaoEstoqueTOSucesso() throws Exception {
 		ItemEstoque itemEstoque = itemEstoqueTest();
 		Festa festa = festaTest();
-		
-		NotificacaoEstoqueTO notificacaoEstoqueTO = notificacaoEstoqueTOFactory.getNotificacaoEstoqueTO(itemEstoque, festa);
-		
-		assertEquals( notificacaoEstoqueTO.getNomeEstoque(), itemEstoque.getEstoque().getNomeEstoque());
-		assertEquals( notificacaoEstoqueTO.getNomeFesta(), festa.getNomeFesta());
-		assertEquals( notificacaoEstoqueTO.getNomeProduto(), itemEstoque.getProduto().getMarca());
-		assertEquals( (int) notificacaoEstoqueTO.getQuantAtual(), itemEstoque.getQuantidadeAtual());
+
+		NotificacaoEstoqueTO notificacaoEstoqueTO = notificacaoEstoqueTOFactory.getNotificacaoEstoqueTO(itemEstoque,
+				festa);
+
+		assertEquals(notificacaoEstoqueTO.getNomeEstoque(), itemEstoque.getEstoque().getNomeEstoque());
+		assertEquals(notificacaoEstoqueTO.getNomeFesta(), festa.getNomeFesta());
+		assertEquals(notificacaoEstoqueTO.getNomeProduto(), itemEstoque.getProduto().getMarca());
+		assertEquals((int) notificacaoEstoqueTO.getQuantAtual(), itemEstoque.getQuantidadeAtual());
 	}
 }

@@ -27,6 +27,9 @@ public class ItemEstoqueFluxo {
 	@Column(name = "quantidade_estoque")
 	private Integer quantidadeEstoque;
 	
+	@Column(name = "quantidade_perda")
+	private int quantPerda;
+	
 	@Column(name = "dt_horario")
 	private LocalDateTime dataHorario;
 	
@@ -40,6 +43,7 @@ public class ItemEstoqueFluxo {
 		this.codFesta = itemEstoque.getCodFesta();
 		this.quantidadeEstoque = itemEstoque.getQuantidadeAtual();
 		this.dataHorario = dataHorario;
+		this.quantPerda = itemEstoque.getQuantPerda();
 	}
 
 	public Integer getCodHistorico() {
@@ -88,6 +92,14 @@ public class ItemEstoqueFluxo {
 
 	public void setDataHorario(LocalDateTime dataHorario) {
 		this.dataHorario = dataHorario;
+	}
+
+	public int getQuantPerda() {
+		return quantPerda;
+	}
+
+	public void setQuantPerda(int quantPerda) {
+		this.quantPerda = quantPerda;
 	}
 
 }

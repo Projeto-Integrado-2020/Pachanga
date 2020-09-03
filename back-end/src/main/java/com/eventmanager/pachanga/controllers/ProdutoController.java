@@ -114,9 +114,9 @@ public class ProdutoController {
 	
 	@ResponseBody
 	@PutMapping(path="/baixaProdutoEstoque")
-	public ResponseEntity<Object> baixaProdutoEstoque(@RequestParam (required = true) Integer codEstoque, @RequestParam (required = true) Integer codProduto,@RequestParam (required = true) Integer quantidade, @RequestParam (required = true) Integer idUsuarioPermissao){	
+	public ResponseEntity<Object> baixaProdutoEstoque(@RequestParam (required = true) Integer codEstoque, @RequestParam (required = true) Integer codProduto,@RequestParam (required = true) Integer quantidade, @RequestParam (required = true) Integer idUsuarioPermissao, @RequestParam (required = true) Boolean quebra){	
 		try {
-			ItemEstoque itemEstoque = produtoService.baixaProduto(codProduto, codEstoque, quantidade, idUsuarioPermissao);
+			ItemEstoque itemEstoque = produtoService.baixaProduto(codProduto, codEstoque, quantidade, idUsuarioPermissao, quebra);
 			return ResponseEntity.ok(itemEstoqueFactory.getItemEstoqueTO(itemEstoque));
 		} catch (ValidacaoException e) {
 			return ResponseEntity.status(400).body(e.getMessage());

@@ -108,7 +108,7 @@ class ProdutoControllerTest {
 
 		MockHttpServletResponse response = result.getResponse();
 		
-		String expected = "{\"codProduto\":1,\"codFesta\":2,\"precoMedio\":23.90,\"marca\":\"capsula\"}";
+		String expected = "{\"codProduto\":1,\"codFesta\":2,\"precoMedio\":23.90,\"marca\":\"capsula\",\"dose\":false,\"quantDoses\":0}";
 
 		assertEquals(HttpStatus.OK.value(), response.getStatus());
 		JSONAssert.assertEquals(expected, result.getResponse().getContentAsString(), true);
@@ -303,7 +303,7 @@ class ProdutoControllerTest {
 
 		MockHttpServletResponse response = result.getResponse();
 			
-		String expected = "{\"codProduto\":1,\"codFesta\":2,\"precoMedio\":23.90,\"marca\":\"capsula\"}";
+		String expected = "{\"codProduto\":1,\"codFesta\":2,\"precoMedio\":23.90,\"marca\":\"capsula\",\"dose\":false,\"quantDoses\":0}";
 
 		assertEquals(HttpStatus.OK.value(), response.getStatus());
 		JSONAssert.assertEquals(expected, result.getResponse().getContentAsString(), true);
@@ -423,7 +423,7 @@ class ProdutoControllerTest {
 
 		MockHttpServletResponse response = result.getResponse();
 		
-		String expected = "[{\"codProduto\":1,\"codFesta\":2,\"precoMedio\":23.90,\"marca\":\"capsula\"}]";
+		String expected = "[{\"codProduto\":1,\"codFesta\":2,\"precoMedio\":23.90,\"marca\":\"capsula\",\"dose\":false,\"quantDoses\":0}]";
 	
 		assertEquals(200, response.getStatus());
 		assertEquals(expected, result.getResponse().getContentAsString());
@@ -476,7 +476,7 @@ class ProdutoControllerTest {
 
 		MockHttpServletResponse response = result.getResponse();
 		
-		String expected = "{\"codProduto\":1,\"codFesta\":2,\"precoMedio\":23.90,\"marca\":\"capsula\"}";
+		String expected = "{\"codProduto\":1,\"codFesta\":2,\"precoMedio\":23.90,\"marca\":\"capsula\",\"dose\":false,\"quantDoses\":0}";
 	
 		assertEquals(200, response.getStatus());
 		assertEquals(expected, result.getResponse().getContentAsString());
@@ -487,7 +487,7 @@ class ProdutoControllerTest {
 		String uri = "/produto/baixaProdutoEstoque";
 		ItemEstoque itemEstoque = ItemEstoqueTest();
 		
-		Mockito.when(produtoService.baixaProduto(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(itemEstoque);
+		Mockito.when(produtoService.baixaProduto(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt(), Mockito.anyBoolean())).thenReturn(itemEstoque);
 			
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.put(uri)
@@ -496,6 +496,7 @@ class ProdutoControllerTest {
 				.param("codEstoque", "1")
 				.param("quantidade", "1")
 				.param("idUsuarioPermissao", "1")
+				.param("quebra", "true")
 				.contentType(MediaType.APPLICATION_JSON);
 
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
@@ -510,7 +511,7 @@ class ProdutoControllerTest {
 		String uri = "/produto/baixaProdutoEstoque";
 		String erro = "Exception";
 		
-		Mockito.when(produtoService.baixaProduto(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenThrow(new ValidacaoException(erro));
+		Mockito.when(produtoService.baixaProduto(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt(), Mockito.anyBoolean())).thenThrow(new ValidacaoException(erro));
 			
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.put(uri)
@@ -519,6 +520,7 @@ class ProdutoControllerTest {
 				.param("codEstoque", "1")
 				.param("quantidade", "1")
 				.param("idUsuarioPermissao", "1")
+				.param("quebra", "false")
 				.contentType(MediaType.APPLICATION_JSON);
 
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
