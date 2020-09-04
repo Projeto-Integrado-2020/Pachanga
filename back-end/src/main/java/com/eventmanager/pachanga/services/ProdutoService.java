@@ -74,7 +74,7 @@ public class ProdutoService {
 	public Produto addProduto(ProdutoTO produtoTO, Integer codFesta, Integer idUsuarioPermissao) {
 		festaService.validarFestaFinalizada(codFesta);
 		this.validarUsuarioPorFesta(codFesta, idUsuarioPermissao, TipoPermissao.CADAESTO.getCodigo());
-		this.validarProduto(produtoTO.getMarca(), produtoTO.getCodFesta());
+		this.validarProduto(produtoTO.getMarca(), produtoTO.getCodFesta(), 0);
 		this.validarQuantidadeDoseProduto(produtoTO);
 		Produto produto = produtoFactory.getProduto(produtoTO);
 		produto.setCodProduto(produtoRepository.getNextValMySequence());
@@ -124,8 +124,10 @@ public class ProdutoService {
 	}
 
 	public void removerProdutoEstoque(Integer codProduto, Integer codEstoque, Integer idUsuarioPermissao) {
-		this.validarUsuarioPorEstoque(idUsuarioPermissao, codEstoque, TipoPermissao.DELMESTO.getCodigo());
+		Estoque estoque = this.validarUsuarioPorEstoque(idUsuarioPermissao, codEstoque, TipoPermissao.DELMESTO.getCodigo());
 		this.validarProdutoEstoque(codEstoque, codProduto);
+		List<Grupo>grupos = grupoRepository.findGruposFesta(estoque.getCodEstoque()); 
+		this.deleteNotificacoesItemEstoque(grupos, itemEstoqueRepository.findItemEstoque(codEstoque, codProduto));
 		produtoRepository.deleteProdutoEstoque(codProduto, codEstoque);
 	}
 
@@ -170,7 +172,7 @@ public class ProdutoService {
 			}
 		}
 
-		this.validarProduto(produtoTO.getMarca(), produtoTO.getCodFesta());
+		this.validarProduto(produtoTO.getMarca(), produtoTO.getCodFesta(), produtoTO.getCodProduto());
 		produto.setMarca(produtoTO.getMarca());
 		produtoRepository.save(produto);
 		return produto;
@@ -259,17 +261,7 @@ public class ProdutoService {
 
 		if (!itemEstoque.quantidadeAtualAbaixoMin()) {
 			List<Grupo> grupos = grupoRepository.findGruposPermissaoEstoque(itemEstoque.getCodFesta());
-			for (Grupo grupo : grupos) {
-				String mensagem = criarMensagemEstoqueBaixo(itemEstoque.getCodFesta(),
-						itemEstoque.getEstoque().getCodEstoque(), itemEstoque.getProduto().getCodProduto());
-				if (!notificacaoService.verificarNotificacaoGrupo(grupo.getCodGrupo(), mensagem)) {
-					notificacaoService.deletarNotificacaoGrupo(grupo.getCodGrupo(), mensagem);
-					List<Usuario> usuarios = usuarioRepository.findUsuariosPorGrupo(grupo.getCodGrupo());
-					for (Usuario usuario : usuarios) {
-						notificacaoService.deleteNotificacao(usuario.getCodUsuario(), mensagem);
-					}
-				}
-			}
+			this.deleteNotificacoesItemEstoque(grupos, itemEstoque);
 		}
 
 		this.inserirItemEstoqueFluxo(itemEstoque);
@@ -288,6 +280,20 @@ public class ProdutoService {
 	public List<Produto> listaProduto(Integer codFesta, Integer codUsuario) {
 		this.validarUsuarioPorFesta(codFesta, codUsuario, TipoPermissao.VISUESTO.getCodigo());
 		return produtoRepository.findProdutoByCodFesta(codFesta);
+	}
+	
+	private void deleteNotificacoesItemEstoque(List<Grupo> grupos, ItemEstoque itemEstoque) {
+		for (Grupo grupo : grupos) {
+			String mensagem = criarMensagemEstoqueBaixo(itemEstoque.getCodFesta(),
+					itemEstoque.getEstoque().getCodEstoque(), itemEstoque.getProduto().getCodProduto());
+			if (!notificacaoService.verificarNotificacaoGrupo(grupo.getCodGrupo(), mensagem)) {
+				notificacaoService.deletarNotificacaoGrupo(grupo.getCodGrupo(), mensagem);
+				List<Usuario> usuarios = usuarioRepository.findUsuariosPorGrupo(grupo.getCodGrupo());
+				for (Usuario usuario : usuarios) {
+					notificacaoService.deleteNotificacao(usuario.getCodUsuario(), mensagem);
+				}
+			}
+		}
 	}
 
 	public Produto getProduto(Integer codFesta, Integer codUsuario, Integer codProduto) {
@@ -354,9 +360,10 @@ public class ProdutoService {
 		}
 	}
 
-	private void validarUsuarioPorEstoque(int codUsuario, int codEstoque, int tipoPermissao) {
+	private Estoque validarUsuarioPorEstoque(int codUsuario, int codEstoque, int tipoPermissao) {
 		Estoque estoque = this.validarEstoque(codEstoque);
 		this.validarUsuarioPorFesta(estoque.getFesta().getCodFesta(), codUsuario, tipoPermissao);
+		return estoque;
 	}
 
 	private ItemEstoque validarEstoqueProduto(int codEstoque, int codProduto) {
@@ -390,9 +397,9 @@ public class ProdutoService {
 			throw new ValidacaoException("QATUAINV"); // quantidadeAtual inválida
 	}
 
-	private void validarProduto(String marca, int codFesta) {
+	private void validarProduto(String marca, int codFesta, int codProduto) {
 		Produto produtoMarcaIgual = produtoRepository.findByMarca(marca, codFesta);
-		if (produtoMarcaIgual != null) {
+		if (produtoMarcaIgual != null && produtoMarcaIgual.getCodProduto() != codProduto) {
 			throw new ValidacaoException("PROMIGUA");// produto com a mesma marca cadastrado na festa
 		}
 	}

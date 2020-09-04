@@ -101,6 +101,11 @@ public class NotificacaoService {
 		}
 	}
 	
+	public void deleteNotificacoesGrupos(List<Integer> codGrupo){
+		List<NotificacaoGrupo> notificacoesGrupo = notificacaoGrupoRepository.findNotificacoesGrupos(codGrupo);
+		notificacaoGrupoRepository.deleteAll(notificacoesGrupo);
+	}
+	
 	public void deletarNotificacoesConvidado(Integer codConvidado) {
 		this.validarConvidado(codConvidado);
 		notificacaoConvidadoRepository.deleteNotificacoesConvidado(codConvidado);
@@ -202,6 +207,10 @@ public class NotificacaoService {
 		this.validarGrupo(codGrupo);	
 		List<NotificacaoGrupo> notificacoesGrupo = notificacaoGrupoRepository.getNotificacoesGrupoByMensagem(codGrupo, mensagem);	
 		return notificacoesGrupo.isEmpty();
+	}
+	
+	public String criacaoMensagemNotificacaoUsuarioConvidado(int idGrupo, int idConvidado, String descNotificacao) { //o idConvidado pode ser tanto o id do convidado ou do usuário depende do tipo da mensagem
+		return descNotificacao + "?" + idGrupo + "&" + idConvidado;
 	}
 	
 	public LocalDateTime getDataAtual() {
