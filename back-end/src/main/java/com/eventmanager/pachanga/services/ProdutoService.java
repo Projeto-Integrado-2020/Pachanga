@@ -124,9 +124,10 @@ public class ProdutoService {
 	}
 
 	public void removerProdutoEstoque(Integer codProduto, Integer codEstoque, Integer idUsuarioPermissao) {
-		Estoque estoque = this.validarUsuarioPorEstoque(idUsuarioPermissao, codEstoque, TipoPermissao.DELMESTO.getCodigo());
+		Estoque estoque = this.validarUsuarioPorEstoque(idUsuarioPermissao, codEstoque,
+				TipoPermissao.DELMESTO.getCodigo());
 		this.validarProdutoEstoque(codEstoque, codProduto);
-		List<Grupo>grupos = grupoRepository.findGruposFesta(estoque.getCodEstoque()); 
+		List<Grupo> grupos = grupoRepository.findGruposFesta(estoque.getCodEstoque());
 		this.deleteNotificacoesItemEstoque(grupos, itemEstoqueRepository.findItemEstoque(codEstoque, codProduto));
 		produtoRepository.deleteProdutoEstoque(codProduto, codEstoque);
 	}
@@ -165,9 +166,11 @@ public class ProdutoService {
 					itemEstoque
 							.setQuantidadeAtual(Math.multiplyExact(quantidadeDoses, itemEstoque.getQuantidadeAtual()));
 					itemEstoque.setQuantidadeMax(Math.multiplyExact(quantidadeDoses, itemEstoque.getQuantidadeMax()));
+					itemEstoque.setQuantPerda(Math.multiplyExact(quantidadeDoses, itemEstoque.getQuantPerda()));
 				} else if (!produto.getDose().booleanValue() && mudancaDose) {
-					itemEstoque.setQuantidadeAtual(Math.round(itemEstoque.getQuantidadeAtual() / quantidadeDoses));
-					itemEstoque.setQuantidadeMax(Math.round(quantidadeDoses / itemEstoque.getQuantidadeMax()));
+					itemEstoque.setQuantidadeAtual((int) Math.ceil(itemEstoque.getQuantidadeAtual() / quantidadeDoses));
+					itemEstoque.setQuantidadeMax((int) Math.ceil(itemEstoque.getQuantidadeMax() / quantidadeDoses));
+					itemEstoque.setQuantPerda((int) Math.ceil(itemEstoque.getQuantPerda() / quantidadeDoses));
 				}
 			}
 		}
@@ -219,13 +222,13 @@ public class ProdutoService {
 
 		int quantidadeAtual = itemEstoque.getQuantidadeAtual() - quantidade;
 
-		this.validaQuantAndPorcent(itemEstoque.getQuantidadeMax(), quantidadeAtual, itemEstoque.getPorcentagemMin());
-
+		if (quebra) {
+			itemEstoque.setQuantPerda(quantidadeAtual);
+		}
+		
 		itemEstoque.setQuantidadeAtual(quantidadeAtual);
 
-		if (quebra) {
-			itemEstoque.setQuantPerda(quantidade);
-		}
+		this.validaQuantAndPorcent(itemEstoque.getQuantidadeMax(), quantidadeAtual, itemEstoque.getPorcentagemMin());
 
 		itemEstoqueRepository.save(itemEstoque);
 
@@ -271,7 +274,7 @@ public class ProdutoService {
 
 	private void inserirItemEstoqueFluxo(ItemEstoque itemEstoque) {
 		ItemEstoqueFluxo itemEstoqueFluxo = new ItemEstoqueFluxo(itemEstoque, notificacaoService.getDataAtual(),
-				itemEstoqueFluxoRepository.getNextValMySequence());
+				itemEstoqueFluxoRepository.getNextValMySequence(), itemEstoque.getProduto().getDose());
 		itemEstoqueFluxoRepository.save(itemEstoqueFluxo);
 	}
 
@@ -281,7 +284,7 @@ public class ProdutoService {
 		this.validarUsuarioPorFesta(codFesta, codUsuario, TipoPermissao.VISUESTO.getCodigo());
 		return produtoRepository.findProdutoByCodFesta(codFesta);
 	}
-	
+
 	private void deleteNotificacoesItemEstoque(List<Grupo> grupos, ItemEstoque itemEstoque) {
 		for (Grupo grupo : grupos) {
 			String mensagem = criarMensagemEstoqueBaixo(itemEstoque.getCodFesta(),

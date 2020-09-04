@@ -132,6 +132,7 @@ class ProdutoServiceTest {
 		itemEstoque.setQuantidadeMax(100);
 		itemEstoque.setPorcentagemMin(15);
 		itemEstoque.setQuantidadeAtual(30);
+		itemEstoque.setQuantPerda(0);
 		return itemEstoque;
 	}
 
