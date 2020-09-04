@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.eventmanager.pachanga.domains.Estoque;
 import com.eventmanager.pachanga.domains.Festa;
 import com.eventmanager.pachanga.domains.Grupo;
+import com.eventmanager.pachanga.domains.ItemEstoque;
 import com.eventmanager.pachanga.domains.Produto;
 import com.eventmanager.pachanga.dtos.EstoqueTO;
 import com.eventmanager.pachanga.errors.ValidacaoException;
@@ -111,6 +112,10 @@ public class EstoqueService {
 		festaService.validarFestaFinalizada(codFesta);
 		this.validarUsuario(codUsuario, codFesta, TipoPermissao.DELEESTO.getCodigo());
 		Estoque estoque = this.validarEstoque(codEstoque);
+		Set<ItemEstoque> itensEstoque = itemEstoqueRepository.findItensEstoqueByFestaAndEstoque(codFesta, codEstoque);
+		if(!itensEstoque.isEmpty()) {
+			throw new ValidacaoException("ESTOCITE");// estoque está com itens nele
+		}
 		if(estoque.isPrincipal()) {
 			throw new ValidacaoException("ESTOPRIN");//estoque principal
 		}

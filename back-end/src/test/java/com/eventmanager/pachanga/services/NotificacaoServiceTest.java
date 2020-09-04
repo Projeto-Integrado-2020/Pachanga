@@ -384,6 +384,15 @@ class NotificacaoServiceTest {
 		notificacaoService.deleteNotificacao(1,"teste");
 
 	}
+	
+	@Test
+	void criacaoMensagemNotificacaoUsuarioConvidadoTest() {
+		
+		String mensagem = notificacaoService.criacaoMensagemNotificacaoUsuarioConvidado(1, 2, TipoNotificacao.CONVACEI.getValor());
+		
+		assertEquals(TipoNotificacao.CONVACEI.getValor() + "?1&2", mensagem);
+
+	}
 
 	@Test
 	void destaqueNotificacaoUsuarioTest() {
