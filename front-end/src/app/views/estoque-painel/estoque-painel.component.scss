@@ -1,6 +1,5 @@
 @import "../material/paleta.scss";
 
-
 @media (max-width: 748px){
 
   .example-container {
@@ -45,9 +44,6 @@
     }
   }
 
-  ::ng-deep .mat-expansion-panel-body {
-    padding: 0 !important;
-  }
 
   .mat-header-cell {
     padding: 5px;
@@ -113,6 +109,11 @@
     max-width: 60%;
     @include centralizar(true, false);
   }
+}
+
+.mat-table {
+  margin: 0 !important;
+  width: 100% !important;
 }
 
 .center-X {
@@ -286,6 +287,7 @@ tr.example-element-row:not(.example-expanded-row):active {
   width: 4rem;
   position: relative;
   margin-top: 1rem;
+  margin: 1rem 1rem 0 0;
 }
 
 .red-back{
