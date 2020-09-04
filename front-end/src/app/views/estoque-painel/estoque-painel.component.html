@@ -59,16 +59,18 @@
                                 <th mat-header-cell *matHeaderCellDef></th>
                                 <td mat-cell *matCellDef="let element; let j = index">
     
-                                    <form class="form_row" [formGroup]="forms[estoque.codEstoque + '' + element.codProduto]" (submit)="removerProduto(quantidade.value, element, estoque.codEstoque, i, j)">
-                                        <mat-form-field class="remove">
-                                            <mat-label>{{'ESTOQUE.REMOVE1' | translate}}</mat-label>
-                                            <input matInput #quantidade formControlName="quantidade" type="number" min="1">
-                                            <mat-error *ngIf="f(estoque.codEstoque + '' + element.codProduto).quantidade.errors?.min">{{'FORMERRORS.MINQTDERROR' | translate}}</mat-error>
-                                            <mat-error *ngIf="f(estoque.codEstoque + '' + element.codProduto).quantidade.errors?.required">{{'FORMERRORS.MINQTDERROR' | translate}}</mat-error>
-                                        </mat-form-field>
-                                        <button mat-button class="icons-remove" mat-raised-button >
-                                            <mat-icon>remove_circle_outline</mat-icon>{{'ESTOQUE.REMOVE2' | translate}} 
-                                        </button>
+                                    <form [formGroup]="forms[estoque.codEstoque + '' + element.codProduto]" (submit)="removerProduto(quantidade.value, element, estoque.codEstoque, i, j)">
+                                        <div class="form_row">
+                                            <mat-form-field class="remove">
+                                                <mat-label>{{'ESTOQUE.REMOVE1' | translate}}</mat-label>
+                                                <input matInput #quantidade formControlName="quantidade" type="number" min="1">
+                                                <mat-error *ngIf="f(estoque.codEstoque + '' + element.codProduto).quantidade.errors?.min">{{'FORMERRORS.MINQTDERROR' | translate}}</mat-error>
+                                                <mat-error *ngIf="f(estoque.codEstoque + '' + element.codProduto).quantidade.errors?.required">{{'FORMERRORS.MINQTDERROR' | translate}}</mat-error>
+                                            </mat-form-field>
+                                            <button mat-button class="icons-remove" mat-raised-button >
+                                                <mat-icon>remove_circle_outline</mat-icon>{{'ESTOQUE.REMOVE2' | translate}} 
+                                            </button>
+                                        </div>
                                     </form>
                                 </td>
                             </ng-container>

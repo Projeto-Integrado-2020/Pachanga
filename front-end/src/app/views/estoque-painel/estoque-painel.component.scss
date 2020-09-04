@@ -334,7 +334,15 @@ tr.example-element-row:not(.example-expanded-row):active {
 }
 
 .icons-remove{
-  transform: translate(4.5rem, -2.5rem);
+  //transform: translate(4.5rem, -2.5rem);
   background-color: $color-tertiary;
   color: #ffffff;
+}
+
+.form_row {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-items: center;
+  align-items: center;
+  padding: 0 0 2rem 0;
 }

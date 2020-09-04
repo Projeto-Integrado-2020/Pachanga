@@ -17,6 +17,10 @@ mat-grid-tile{
     flex: 1 1 auto;
   }
 
+.form_row {
+  transform: translateX(-2rem);
+}
+
   @media screen and (orientation: portrait){
     body {
       transform: rotate(-90deg);
