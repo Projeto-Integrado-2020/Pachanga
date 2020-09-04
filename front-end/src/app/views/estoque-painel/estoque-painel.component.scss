@@ -1,5 +1,11 @@
 @import "../material/paleta.scss";
 
+@media (max-width: 748px) and (orientation: landscape){
+  .example-container {
+    width: 90%;
+  }
+}
+
 @media (max-width: 748px){
 
   .example-container {
