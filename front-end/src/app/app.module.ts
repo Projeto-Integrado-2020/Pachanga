@@ -84,8 +84,9 @@ import { FestaDetalhesDialogComponent } from './views/festa-detalhes-dialog/fest
 import { RecargaProdutoEstoqueDialogComponent } from './views/recarga-produto-estoque-dialog/recarga-produto-estoque-dialog.component';
 import { NotificacoesComponent } from './views/notificacoes/notificacoes.component';
 import { AlertaEstoqueComponent } from './views/alerta-estoque/alerta-estoque.component';
+/* tslint:disable */
 import { DialogDeletarItemEstoqueComponent } from './views/dialog-deletar-item-estoque/dialog-deletar-item-estoque/dialog-deletar-item-estoque.component';
-
+/* tslint:enable */
 
 const config = new AuthServiceConfig([
   {
