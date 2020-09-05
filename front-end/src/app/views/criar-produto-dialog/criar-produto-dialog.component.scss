@@ -12,5 +12,14 @@ mat-form-field {
 }
 
 .cancel-button {
-    transform: translate(8rem, -2.1rem)!important;
+    transform: translate(9rem, -2.25rem)!important;
+}
+
+.input-hidden{
+    height:0;
+    width:0;
+    visibility: hidden;
+    padding:0;
+    margin:0;
+    float:right;
 }

@@ -30,15 +30,22 @@ export class EditarProdutoEstoqueDialogComponent implements OnInit {
 
   gerarForm() {
     this.form = this.formBuilder.group({
-      quantidadeMax: new FormControl(this.produto.quantidadeMax, [Validators.required, Validators.min(1)]),
-      quantidadeAtual: new FormControl(this.produto.quantidadeAtual, [Validators.required, Validators.min(1)]),
-      porcentagemMin: new FormControl(this.produto.porcentagemMin, [Validators.required, Validators.min(0), Validators.max(100)]),
+      quantidadeMax: new FormControl(this.calcularUnidades(this.produto.quantidadeMax, this.produto.quantDoses),
+                                      [Validators.required, Validators.min(1)]),
+      quantidadeAtual: new FormControl(this.calcularUnidades(this.produto.quantidadeAtual, this.produto.quantDoses),
+                                      [Validators.required, Validators.min(1)]),
+      porcentagemMin: new FormControl(this.produto.porcentagemMin,
+                                      [Validators.required, Validators.min(0), Validators.max(100)]),
     });
   }
 
   get f() { return this.form.controls; }
 
   editarProdutoEstoque(quantidadeMax, quantidadeAtual, porcentagemMin) {
+    if (this.produto.dose) {
+      quantidadeMax *= this.produto.quantDoses;
+      quantidadeAtual *= this.produto.quantDoses;
+    }
     const itemEstoqueTO = {
       codProduto: this.produto.codProduto,
       codFesta: this.festa.codFesta,
@@ -53,6 +60,13 @@ export class EditarProdutoEstoqueDialogComponent implements OnInit {
       this.dialog.closeAll();
       this.component.ngOnInit();
     });
+  }
+
+  calcularUnidades(quantidade, doses) {
+    if (doses) {
+      return Math.ceil(quantidade / doses);
+    }
+    return quantidade;
   }
 
 }

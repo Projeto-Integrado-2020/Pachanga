@@ -11,6 +11,12 @@
             <input ng-class="{ f.preco.errors }" #preco formControlName="preco" type="number" min="0" matInput required>
             <mat-error *ngIf="f.preco.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
         </mat-form-field>
+        <mat-form-field *ngIf="showDosagem">
+            <mat-label>{{'PRODUTO.DOSAGEM' | translate}}</mat-label>
+            <input ng-class="{ f.dosagem.errors }" #dosagem formControlName="dosagem" type="number" min="1" matInput required>
+            <mat-error *ngIf="f.dosagem.errors?.dosagemTrue">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
+        </mat-form-field>
+        <mat-checkbox #checkbox formControlName="checkbox" color="primary" (click)="showHideDosagem()" class="check">{{'PRODUTO.EHDOSAGEM' | translate}}</mat-checkbox>
         <br>
         <button class="button-form" mat-raised-button [disabled]="!form.valid">{{'PRODUTO.CONFIRM' | translate}}</button>
     </form>

@@ -15,7 +15,23 @@
 
         <ng-container matColumnDef="preco">
             <th mat-header-cell *matHeaderCellDef>{{'PRODUTO.PRICE' | translate}}</th>
-            <td mat-cell *matCellDef="let element">R${{element.preco}}</td>
+            <td mat-cell *matCellDef="let element">BR${{element.preco}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="dose">
+            <th mat-header-cell *matHeaderCellDef>{{'PRODUTO.DOSAGEMCHECK' | translate}}</th>
+            <td mat-cell *matCellDef="let element">
+                <span *ngIf="element.dose"><mat-icon>check</mat-icon></span>
+                <span *ngIf="!element.dose"><mat-icon>cancel</mat-icon></span>
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="quantDose">
+            <th mat-header-cell *matHeaderCellDef>{{'PRODUTO.UNIDADEDOSE' | translate}}</th>
+            <td mat-cell *matCellDef="let element">
+                <span *ngIf="element.dose">{{element.quantDose}}</span>
+                <span *ngIf="!element.dose">-</span>
+            </td>
         </ng-container>
 
         <ng-container matColumnDef="actions">

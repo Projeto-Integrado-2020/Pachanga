@@ -46,7 +46,13 @@
 
                             <ng-container matColumnDef="quantidadeMax">
                                 <th mat-header-cell *matHeaderCellDef>{{'ESTOQUEPROD.QTDMAX' | translate}}</th>
-                                <td mat-cell *matCellDef="let element; let j = index"> {{quantidadesProdutos[i][j].quantidadeMax}} </td>
+                                <td mat-cell *matCellDef="let element; let j = index">
+                                    <span *ngIf="element.dose">
+                                        {{calcularUnidades(quantidadesProdutos[i][j].quantidadeMax, quantidadesProdutos[i][j].quantDoses)}}
+                                        ({{quantidadesProdutos[i][j].quantidadeMax}})
+                                    </span>
+                                    <span *ngIf="!element.dose">{{quantidadesProdutos[i][j].quantidadeMax}}</span>
+                                </td>
                             </ng-container>
 
                             <ng-container matColumnDef="porcentagemMin">
@@ -56,13 +62,19 @@
         
                             <ng-container matColumnDef="quantidadeAtual">
                                 <th mat-header-cell *matHeaderCellDef>{{'ESTOQUE.QUANTIDADE' | translate}}</th>
-                                <td mat-cell *matCellDef="let element; let j = index"> {{quantidadesProdutos[i][j].quantidadeAtual}} </td>
+                                <td mat-cell *matCellDef="let element; let j = index">
+                                    <span *ngIf="element.dose">
+                                        {{calcularUnidades(quantidadesProdutos[i][j].quantidadeAtual, quantidadesProdutos[i][j].quantDoses)}}
+                                        ({{quantidadesProdutos[i][j].quantidadeAtual}})
+                                    </span>
+                                    <span *ngIf="!element.dose">{{quantidadesProdutos[i][j].quantidadeAtual}}</span>
+                                </td>
                             </ng-container>
 
                             <ng-container matColumnDef="actions1">
                                 <th mat-header-cell *matHeaderCellDef></th>
                                 <td mat-cell *matCellDef="let element; let j = index">
-                                    <form [formGroup]="forms[estoque.codEstoque + '' + element.codProduto]" (submit)="removerProduto(quantidade.value, element, estoque.codEstoque, i, j)">
+                                    <form [formGroup]="forms[estoque.codEstoque + '' + element.codProduto]" (submit)="removerProduto(quantidade.value, quantidadesProdutos[i][j], estoque.codEstoque, i, j)">
                                         <mat-form-field class="remove">
                                             <mat-label>{{'ESTOQUE.REMOVE1' | translate}}</mat-label>
                                             <input matInput #quantidade formControlName="quantidade" type="number" min="1">
@@ -80,10 +92,10 @@
                                 <th mat-header-cell *matHeaderCellDef></th>
                                 <td mat-cell *matCellDef="let element; let j = index">
                                     <div class="icons-actions">
-                                        <button mat-icon-button (click)="recargaProduto(estoque, element, i, j)">
+                                        <button mat-icon-button (click)="recargaProduto(estoque, quantidadesProdutos[i][j], i, j)">
                                             <mat-icon matTooltip="{{'ESTOQUEPROD.RECARGAPRODUTOESTOQUE' | translate}}">add_shopping_cart</mat-icon>
                                         </button>
-                                        <button mat-icon-button (click)="openDialogPerda(estoque, element)">
+                                        <button mat-icon-button (click)="openDialogPerda(estoque, quantidadesProdutos[i][j], i, j)">
                                             <mat-icon matTooltip="{{'ESTOQUEPROD.PERDAPRODUTOESTOQUE' | translate}}">report</mat-icon>
                                         </button>
                                         <button mat-icon-button (click)="openDialogEditProdEstoque(estoque, quantidadesProdutos[i][j])">

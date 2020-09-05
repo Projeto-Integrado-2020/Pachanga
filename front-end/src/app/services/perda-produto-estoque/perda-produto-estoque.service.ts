@@ -13,13 +13,14 @@ import { MatDialog } from '@angular/material';
 })
 export class PerdaProdutoEstoqueService {
 
+  public quebra: true;
   farol = false;
-  private readonly urlBaixaProdutoEstoque = `${environment.URL_BACK}produto/perdaProdutoEstoque`;
+  private readonly urlBaixaProdutoEstoque = `${environment.URL_BACK}produto/baixaProdutoEstoque`;
 
   constructor(private http: HttpClient, public logService: LogService, public dialog: MatDialog,
               public loginService: LoginService) { }
 
-  baixaProdutoEstoque(quantidade, codProduto, codEstoque) {
+  perdaProdutoEstoque(quantidade, codProduto, codEstoque) {
     const httpParams = new HttpParams()
     .append('idUsuarioPermissao', this.loginService.usuarioInfo.codUsuario)
     .append('quantidade', quantidade)

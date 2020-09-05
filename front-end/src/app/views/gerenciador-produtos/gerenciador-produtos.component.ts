@@ -10,6 +10,8 @@ export interface TabelaProdutos {
   codProduto: string;
   marca: string;
   preco: string;
+  quantDose: string;
+  dose: boolean;
 }
 
 @Component({
@@ -21,7 +23,7 @@ export class GerenciadorProdutosComponent implements OnInit {
 
   produtos: TabelaProdutos[] = [];
   codFesta: string;
-  displayedColumns: string[] = ['marca', 'preco', 'actions'];
+  displayedColumns: string[] = ['marca', 'preco', 'dose', 'quantDose', 'actions'];
   dataSource = new MatTableDataSource<TabelaProdutos>(this.produtos);
 
   constructor(public dialog: MatDialog, public router: Router, public getProdutos: GetProdutosService) { }
@@ -37,7 +39,12 @@ export class GerenciadorProdutosComponent implements OnInit {
     this.getProdutos.getProdutos(this.codFesta).subscribe((resp: any) => {
       this.getProdutos.setFarol(false);
       for (const produto of resp) {
-        this.produtos.push({codProduto: produto.codProduto, marca: produto.marca, preco: parseFloat(produto.precoMedio).toFixed(2)});
+        this.produtos.push({codProduto: produto.codProduto,
+                            marca: produto.marca,
+                            dose: produto.dose,
+                            quantDose: produto.quantDoses,
+                            preco: parseFloat(produto.precoMedio).toFixed(2)
+                          });
       }
       this.dataSource.data = this.produtos;
     });

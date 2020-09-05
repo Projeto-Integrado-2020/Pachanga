@@ -46,13 +46,14 @@
     },
 
     "FORMERRORS":{
-        "REQUIRED": "Campo obrigatório",
-        "PASSPATTERN": "A senha deve ter pelo menos 8 caracteres, contendo letras maiúsculas e minúsculas, números e caracteres especiais",
-        "EMAIL": "E-mail inválido",
-        "TERMOS": "Aceitar os Termos de Uso é obrigatório",
-        "MATCH": "Senhas devem coincidir",
+        "REQUIRED": "Campo obrigatório.",
+        "PASSPATTERN": "A senha deve ter pelo menos 8 caracteres, contendo letras maiúsculas e minúsculas, números e caracteres especiais.",
+        "EMAIL": "E-mail inválido.",
+        "TERMOS": "Aceitar os Termos de Uso é obrigatório.",
+        "MATCH": "Senhas devem coincidir.",
         "MINQTDERROR": "A quantidade mínima permitida é de 1.",
-        "MAXQTDERROR": "A porcentagem máxima permitida é de 100%."
+        "MAXQTDERROR": "A porcentagem máxima permitida é de 100%.",
+        "MINCAMPOERROR": "Ao menos um campo deve ser preenchido."
     },
 
     "ERRO": {
@@ -399,7 +400,11 @@
         "EDIT": "Editar produto",
         "DELETE": "Excluir produto",
         "CONFIRM": "Confirmar",
-        "CANCEL": "Cancelar"
+        "CANCEL": "Cancelar",
+        "DOSAGEMCHECK": "Dose?",
+        "UNIDADEDOSE": "Doses por unidade",
+        "DOSAGEM": "Quantidade de doses",
+        "EHDOSAGEM": "Produto por dosagem?"
     },
 
     "DELETEPRODUTO": {
@@ -462,6 +467,10 @@
         "TITULO": "Perda de produto do estoque",
         "QUANTIDADE": "Quantidade perdida",
         "CONFIRM": "Confirmar",
+        "PERD25": "Quantidade perdida (25%)",
+        "PERD50": "Quantidade perdida (50%)",
+        "PERD75": "Quantidade perdida (75%)",
+        "PERD100": "Quantidade perdida (100%)",
         "CANCEL": "Cancelar"
     }
 }

@@ -86,7 +86,9 @@ export class EstoquePainelComponent implements OnInit {
               quantidadeMax: estoque.itemEstoque[produtoEstoque].quantidadeMax,
               quantidadeAtual: estoque.itemEstoque[produtoEstoque].quantidadeAtual,
               porcentagemMin: estoque.itemEstoque[produtoEstoque].porcentagemMin,
-              marca: estoque.itemEstoque[produtoEstoque].produto.marca
+              marca: estoque.itemEstoque[produtoEstoque].produto.marca,
+              dose: estoque.itemEstoque[produtoEstoque].produto.dose,
+              quantDoses: estoque.itemEstoque[produtoEstoque].produto.quantDoses
             });
           }
         }
@@ -208,14 +210,15 @@ export class EstoquePainelComponent implements OnInit {
       );
   }
 
-  openDialogPerda(estoque, produto) {
+  openDialogPerda(estoque, element, indexEstoque, indexProduto) {
     this.dialog.open(PerdaProdutoEstoqueDialogComponent, {
       width: '20rem',
       data: {
         component: this,
-        produto,
+        element,
         estoque,
-        festa: this.festa
+        indexEstoque,
+        indexProduto
       }
     });
   }
@@ -240,7 +243,9 @@ export class EstoquePainelComponent implements OnInit {
                 quantidadeMax: estoque.itemEstoque[produtoEstoque].quantidadeMax,
                 quantidadeAtual: estoque.itemEstoque[produtoEstoque].quantidadeAtual,
                 porcentagemMin: estoque.itemEstoque[produtoEstoque].porcentagemMin,
-                marca: estoque.itemEstoque[produtoEstoque].produto.marca
+                marca: estoque.itemEstoque[produtoEstoque].produto.marca,
+                dose: estoque.itemEstoque[produtoEstoque].produto.dose,
+                quantDoses: estoque.itemEstoque[produtoEstoque].produto.quantDoses
               });
             }
           }
@@ -248,6 +253,10 @@ export class EstoquePainelComponent implements OnInit {
         }
       }
     );
+  }
+
+  calcularUnidades(quantidade, doses) {
+    return Math.ceil(quantidade / doses);
   }
 
 }

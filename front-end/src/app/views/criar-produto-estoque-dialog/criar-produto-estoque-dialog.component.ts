@@ -48,15 +48,21 @@ export class CriarProdutoEstoqueDialogComponent implements OnInit {
   }
 
   addProdutoEstoque(codProduto, quantidadeMax, quantidadeAtual, porcentagemMin) {
+    let quantDoses = 1;
+    for (const produto of this.produtos) {
+      if (produto.codProduto === codProduto && produto.dose) {
+        quantDoses = produto.quantDoses;
+        break;
+      }
+    }
     const itemEstoqueTO = {
       codProduto,
       codFesta: this.codFesta,
       codEstoque: this.estoque.codEstoque,
-      quantidadeMax,
-      quantidadeAtual,
+      quantidadeMax: quantidadeMax * quantDoses,
+      quantidadeAtual: quantidadeAtual * quantDoses,
       porcentagemMin
     };
-
     this.addProdEstoqueService.addProdutoEstoque(itemEstoqueTO, this.estoque.codEstoque).subscribe((resp: any) => {
       this.addProdEstoqueService.setFarol(false);
       this.dialog.closeAll();

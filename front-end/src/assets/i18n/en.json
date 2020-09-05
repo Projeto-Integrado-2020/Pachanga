@@ -46,13 +46,14 @@
     },
 
     "FORMERRORS": {
-        "REQUIRED": "Required Field",
-        "PASSPATTERN": "The password must have at least 8 characters, containing upperCase, lowerCase, number/specialChar",
-        "EMAIL": "Invalid e-mail",
-        "TERMOS": "Accept the Terms of Use is required",
-        "MATCH": "Passwords must match",
-        "MINQTDERROR": "The minimum quantity allowed is 1",
-        "MAXQTDERROR": "The maximum percentage allowed is 100%."
+        "REQUIRED": "Required Field.",
+        "PASSPATTERN": "The password must have at least 8 characters, containing upperCase, lowerCase, number/specialChar.",
+        "EMAIL": "Invalid e-mail.",
+        "TERMOS": "Accept the Terms of Use is required.",
+        "MATCH": "Passwords must match.",
+        "MINQTDERROR": "The minimum quantity allowed is 1.",
+        "MAXQTDERROR": "The maximum percentage allowed is 100%.",
+        "MINCAMPOERROR": "At least one field must be filled."
     },
 
     "ERRO": {
@@ -396,7 +397,11 @@
         "EDIT": "Edit product",
         "DELETE": "Delete product",
         "CONFIRM": "Confirm",
-        "CANCEL": "Cancel"
+        "CANCEL": "Cancel",
+        "DOSAGEMCHECK": "Shot?",
+        "UNIDADEDOSE": "Shots per unit",
+        "DOSAGEM": "Number of doses",
+        "EHDOSAGEM": "Product by dosage?"
     },
 
     "DELETEPRODUTO": {
@@ -460,6 +465,10 @@
         "TITULO": "Product loss from stock",
         "QUANTIDADE": "Lost quantity",
         "CONFIRM": "Confirm",
+        "PERD25": "Amount lost (25%)",
+        "PERD50": "Amount lost (50%)",
+        "PERD75": "Amount lost (75%)",
+        "PERD100": "Amount lost (100%)",
         "CANCEL": "Cancel"
     }
 }
