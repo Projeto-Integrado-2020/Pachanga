@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialog, MatTableDataSource } from '@angular/material';
 import { GetFestaService } from 'src/app/services/get-festa/get-festa.service';
@@ -14,7 +14,7 @@ import { EditarProdutoEstoqueDialogComponent } from '../editar-produto-estoque-d
 import { BaixaProdutoEstoqueService } from 'src/app/services/baixa-produto-estoque/baixa-produto-estoque.service';
 import { RecargaProdutoEstoqueService } from 'src/app/services/recarga-produto-estoque/recarga-produto-estoque.service';
 import { RecargaProdutoEstoqueDialogComponent } from '../recarga-produto-estoque-dialog/recarga-produto-estoque-dialog.component';
-import { interval, Observable } from 'rxjs';
+import { interval, Observable, Subscription } from 'rxjs';
 import { PerdaProdutoEstoqueDialogComponent } from '../perda-produto-estoque-dialog/perda-produto-estoque-dialog.component';
 
 export interface TabelaProdutos {
@@ -212,12 +212,12 @@ export class EstoquePainelComponent implements OnInit {
   }
 
   updateQuantidades() {
-      const source = interval(1000);
-      source.subscribe(
-        () => {
-          this.getQtdsAtualizadas(this.getEstoque.getEstoque(this.festa.codFesta));
-        }
-      );
+    const source = interval(1000);
+    source.subscribe(
+      () => {
+        this.getQtdsAtualizadas(this.getEstoque.getEstoque(this.festa.codFesta));
+      }
+    );
   }
 
   openDialogPerda(estoque, element, indexEstoque, indexProduto) {

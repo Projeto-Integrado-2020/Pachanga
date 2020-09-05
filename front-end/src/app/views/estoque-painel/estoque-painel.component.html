@@ -47,7 +47,9 @@
                                         {{calcularUnidades(quantidadesProdutos[i][j].quantidadeMax, quantidadesProdutos[i][j].quantDoses)}}
                                         ({{quantidadesProdutos[i][j].quantidadeMax}})
                                     </span>
-                                    <span *ngIf="!element.dose">{{quantidadesProdutos[i][j].quantidadeMax}}</span>
+                                    <span *ngIf="!element.dose && quantidadesProdutos[i][j]">
+                                        {{quantidadesProdutos[i][j].quantidadeMax}}
+                                    </span>
                                 </td>
                             </ng-container>
 

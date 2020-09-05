@@ -41,9 +41,11 @@ export class RecargaProdutoEstoqueDialogComponent implements OnInit {
   get f() { return this.form.controls; }
 
   recargaProduto(quantidade, element) {
-    element = element.codProduto;
-
-    this.recargaProdutoEstoqueService.recargaProdutoEstoque(quantidade, element, this.estoque.codEstoque).subscribe((resp: any) => {
+    if (element.dose) {
+      quantidade *=  element.quantDoses;
+    }
+    this.recargaProdutoEstoqueService.recargaProdutoEstoque(quantidade, element.codProduto, this.estoque.codEstoque)
+    .subscribe((resp: any) => {
       this.recargaProdutoEstoqueService.setFarol(false);
       this.dialog.closeAll();
       this.component.quantidadesProdutos[this.indexEstoque][this.indexProduto].quantidadeAtual += Number(quantidade);

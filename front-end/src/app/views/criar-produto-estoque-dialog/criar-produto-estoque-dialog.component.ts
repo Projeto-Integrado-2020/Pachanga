@@ -50,7 +50,7 @@ export class CriarProdutoEstoqueDialogComponent implements OnInit {
   addProdutoEstoque(codProduto, quantidadeMax, quantidadeAtual, porcentagemMin) {
     let quantDoses = 1;
     for (const produto of this.produtos) {
-      if (produto.codProduto === codProduto && produto.dose) {
+      if (produto.codProduto.toString() === codProduto.toString() && produto.dose) {
         quantDoses = produto.quantDoses;
         break;
       }
@@ -63,6 +63,7 @@ export class CriarProdutoEstoqueDialogComponent implements OnInit {
       quantidadeAtual: quantidadeAtual * quantDoses,
       porcentagemMin
     };
+    console.log(itemEstoqueTO);
     this.addProdEstoqueService.addProdutoEstoque(itemEstoqueTO, this.estoque.codEstoque).subscribe((resp: any) => {
       this.addProdEstoqueService.setFarol(false);
       this.dialog.closeAll();
