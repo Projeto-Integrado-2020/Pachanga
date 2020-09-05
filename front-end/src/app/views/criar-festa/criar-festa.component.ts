@@ -40,7 +40,7 @@ export class CriarFestaComponent implements OnInit {
       fimHora: new FormControl('', Validators.required),
       categoriaPrincipal: new FormControl('', Validators.required),
       categoriaSecundaria: new FormControl(''),
-      organizador: new FormControl('', Validators.required),
+      organizador: new FormControl(this.loginService.usuarioInfo.nomeUser, Validators.required),
       descOrganizador: new FormControl('', Validators.required),
     });
   }

@@ -29,6 +29,9 @@ public class ItemEstoqueFluxo {
 	
 	@Column(name = "quantidade_perda")
 	private int quantPerda;
+
+	@Column(name = "dose")
+	private Boolean dose;
 	
 	@Column(name = "dt_horario")
 	private LocalDateTime dataHorario;
@@ -36,7 +39,7 @@ public class ItemEstoqueFluxo {
 	public ItemEstoqueFluxo() {
 	}
 	
-	public ItemEstoqueFluxo(ItemEstoque itemEstoque,LocalDateTime dataHorario, Integer codHistorico) {
+	public ItemEstoqueFluxo(ItemEstoque itemEstoque,LocalDateTime dataHorario, Integer codHistorico, boolean dose) {
 		this.codHistorico = codHistorico;
 		this.codProduto = itemEstoque.getProduto().getCodProduto();
 		this.codEstoque = itemEstoque.getEstoque().getCodEstoque();
@@ -44,6 +47,7 @@ public class ItemEstoqueFluxo {
 		this.quantidadeEstoque = itemEstoque.getQuantidadeAtual();
 		this.dataHorario = dataHorario;
 		this.quantPerda = itemEstoque.getQuantPerda();
+		this.dose = dose;
 	}
 
 	public Integer getCodHistorico() {

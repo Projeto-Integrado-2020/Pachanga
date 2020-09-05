@@ -15,25 +15,25 @@
 <div mat-dialog-content *ngIf="element.dose">
     <form [formGroup]="form" (submit)="perdaProdutoDose(quantidade25.value, quantidade50.value, quantidade75.value, quantidade100.value, element)">
         <mat-form-field>
-            <mat-label>{{'FORMERRORS.PERD100' | translate}}</mat-label>
+            <mat-label>{{'PERDAPRODUTO.PERD100' | translate}}</mat-label>
             <input ng-class="{ f.quantidade100.errors }" #quantidade100 formControlName="quantidade100" matInput required type="number" min="1">
             <mat-error *ngIf="f.quantidade100.errors?.requiredTrue">{{'FORMERRORS.MINCAMPOERROR' | translate}}</mat-error>
             <mat-error *ngIf="f.quantidade100.errors?.min">{{'FORMERRORS.MINQTDERROR' | translate}}</mat-error>
         </mat-form-field>
         <mat-form-field>
-            <mat-label>{{'FORMERRORS.PERD75' | translate}}</mat-label>
+            <mat-label>{{'PERDAPRODUTO.PERD75' | translate}}</mat-label>
             <input ng-class="{ f.quantidade75.errors }" #quantidade75 formControlName="quantidade75" matInput required type="number" min="1">
             <mat-error *ngIf="f.quantidade75.errors?.requiredTrue">{{'FORMERRORS.MINCAMPOERROR' | translate}}</mat-error>
             <mat-error *ngIf="f.quantidade75.errors?.min">{{'FORMERRORS.MINQTDERROR' | translate}}</mat-error>
         </mat-form-field>
         <mat-form-field>
-            <mat-label>{{'FORMERRORS.PERD50' | translate}}</mat-label>
+            <mat-label>{{'PERDAPRODUTO.PERD50' | translate}}</mat-label>
             <input ng-class="{ f.quantidade50.errors }" #quantidade50 formControlName="quantidade50" matInput required type="number" min="1">
             <mat-error *ngIf="f.quantidade50.errors?.requiredTrue">{{'FORMERRORS.MINCAMPOERROR' | translate}}</mat-error>
             <mat-error *ngIf="f.quantidade50.errors?.min">{{'FORMERRORS.MINQTDERROR' | translate}}</mat-error>
         </mat-form-field>
         <mat-form-field>
-            <mat-label>{{'FORMERRORS.PERD25' | translate}}</mat-label>
+            <mat-label>{{'PERDAPRODUTO.PERD25' | translate}}</mat-label>
             <input ng-class="{ f.quantidade25.errors }" #quantidade25 formControlName="quantidade25" matInput required type="number" min="1">
             <mat-error *ngIf="f.quantidade25.errors?.requiredTrue">{{'FORMERRORS.MINCAMPOERROR' | translate}}</mat-error>
             <mat-error *ngIf="f.quantidade25.errors?.min">{{'FORMERRORS.MINQTDERROR' | translate}}</mat-error>

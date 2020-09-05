@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {MAT_DATE_LOCALE} from '@angular/material/core';
 
@@ -34,7 +34,8 @@ import {
   MatSortModule,
   MatPaginatorModule,
   MatNativeDateModule,
-  MatBadgeModule
+  MatBadgeModule,
+  MatSidenavContainer
 } from '@angular/material';
 
 
@@ -119,7 +120,7 @@ import {
     MatBadgeModule
   ],
   providers: [
-    {provide: MAT_DATE_LOCALE, useValue: 'pt-br'},
+    {provide: MAT_DATE_LOCALE, useValue: 'pt-br'}
   ],
 })
 

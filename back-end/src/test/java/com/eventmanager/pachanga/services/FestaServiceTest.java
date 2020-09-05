@@ -66,7 +66,7 @@ class FestaServiceTest {
 	@MockBean
 	private CategoriaRepository categoriaRepository;
 
-	@MockBean 
+	@MockBean
 	private EstoqueRepository estoqueRepository;
 
 	@MockBean
@@ -80,9 +80,12 @@ class FestaServiceTest {
 
 	@MockBean
 	private FestaFactory festaFactory;
-	
+
 	@MockBean
 	private ConviteFestaFactory conviteFestaFactory;
+
+	@MockBean
+	private NotificacaoService notificacaoService;
 
 	@Autowired
 	private FestaService festaService;
@@ -455,6 +458,9 @@ class FestaServiceTest {
 		List<Estoque> estoques = new ArrayList<>();
 		estoques.add(estoqueTest());
 		
+		List<Usuario> usuarios = new ArrayList<>();
+		usuarios.add(usuarioTest());
+		
 		List<Integer> cods = new ArrayList<>();
 		cods.add(1);
 
@@ -466,6 +472,8 @@ class FestaServiceTest {
 		Mockito.when(grupoRepository.findCodGruposFesta(Mockito.anyInt())).thenReturn(cods);
 		Mockito.when(convidadoRepository.findCodConvidadosNoGrupo(Mockito.anyInt())).thenReturn(cods);
 		Mockito.when(estoqueRepository.findEstoqueByCodFesta(Mockito.anyInt())).thenReturn(estoques);
+		Mockito.when(usuarioRepository.findUsuariosPorGrupo(Mockito.anyInt())).thenReturn(usuarios);
+		Mockito.when(notificacaoService.criacaoMensagemNotificacaoUsuarioConvidado(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyString())).thenReturn("teste");
 		
 		doNothing().when(estoqueRepository).deleteProdEstoque(Mockito.anyInt(), Mockito.anyInt());
 		doNothing().when(convidadoRepository).deleteAllConvidadosNotificacao(Mockito.anyList());
@@ -473,6 +481,7 @@ class FestaServiceTest {
 		doNothing().when(grupoRepository).deleteUsuariosGrupo(Mockito.anyInt());
 		doNothing().when(convidadoRepository).deleteAllConvidadosGrupo(Mockito.anyInt());
 		doNothing().when(grupoRepository).deleteAll(Mockito.<Grupo>anyList());
+		doNothing().when(notificacaoService).deleteNotificacao(Mockito.anyInt(), Mockito.anyString());
 		doNothing().when(festaRepository).deleteById(Mockito.any(Integer.class));
 		doNothing().when(categoriasFestaRepository).deleteAll(Mockito.anySet());
 

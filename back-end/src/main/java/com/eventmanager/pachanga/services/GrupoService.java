@@ -19,6 +19,7 @@ import com.eventmanager.pachanga.repositories.FestaRepository;
 import com.eventmanager.pachanga.repositories.GrupoRepository;
 import com.eventmanager.pachanga.repositories.PermissaoRepository;
 import com.eventmanager.pachanga.repositories.UsuarioRepository;
+import com.eventmanager.pachanga.tipo.TipoNotificacao;
 import com.eventmanager.pachanga.tipo.TipoPermissao;
 
 @Service
@@ -42,7 +43,7 @@ public class GrupoService {
 
 	@Autowired
 	private ConvidadoRepository convidadoRepository;
-
+	
 	//usuarios______**********************************____________________________________________________________________________________________________
 
 	public Grupo addGrupoFesta(GrupoTO grupoTO, int idUsuario) {
@@ -156,6 +157,8 @@ public class GrupoService {
 		if(convxgrup == null) {
 			convidadoRepository.deleteConvidado(idConvidado);
 		}		
+		String mensagem = notificacaoService.criacaoMensagemNotificacaoUsuarioConvidado(idGrupo, idConvidado, TipoNotificacao.CONVFEST.getValor());
+		notificacaoService.deletarNotificacaoConvidado(idConvidado, TipoNotificacao.CONVFEST.getCodigo(), mensagem);
 	}
 
 	//permissão__________________________________________________________________________________________________________

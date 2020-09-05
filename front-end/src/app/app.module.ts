@@ -86,7 +86,6 @@ import { NotificacoesComponent } from './views/notificacoes/notificacoes.compone
 import { AlertaEstoqueComponent } from './views/alerta-estoque/alerta-estoque.component';
 import { PerdaProdutoEstoqueDialogComponent } from './views/perda-produto-estoque-dialog/perda-produto-estoque-dialog.component';
 
-
 const config = new AuthServiceConfig([
   {
     id: GoogleLoginProvider.PROVIDER_ID,

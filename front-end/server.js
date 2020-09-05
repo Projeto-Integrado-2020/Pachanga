@@ -1,4 +1,3 @@
-//Install express server
 const express = require('express');
 const path = require('path');
 const compression = require('compression');

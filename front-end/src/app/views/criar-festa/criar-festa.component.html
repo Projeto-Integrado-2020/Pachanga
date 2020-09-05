@@ -96,7 +96,6 @@
                         ng-class="{ f.organizador.errors }"
                         #organizador
                         formControlName="organizador"
-                        value="{{ loginService.usuarioInfo.nomeUser }}"
                         matInput
                         required>
                     <mat-error *ngIf="f.organizador.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
