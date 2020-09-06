@@ -104,7 +104,10 @@
         "QMAXINV": "Invalid max quantity.",
         "ESTOMNOM": "Another stock is already using this name.",
         "FESTFINA": "It is not possible to manage stock/product in finished parties.",
-        "PRODDMEZ": "Shot quantity should be more than zero."
+        "PRODDMEZ": "Shot quantity should be more than zero.",
+        "FESTNINI": "Party not initialized.",
+        "ESTOCITE": "Stock has product.",
+        "QNTATLDF": "Initial quantity can not be changed in initialized parties."
     },
 
     "SUCCESS": {

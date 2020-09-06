@@ -74,9 +74,6 @@
                     <ng-container matColumnDef="edit">
                         <th mat-header-cell *matHeaderCellDef><a routerLink="../membros"><button mat-raised-button class="gerenciar-membros prp-btn-member">{{'PAINELCONTROLE.GERENCIARMEMBROS' | translate}}</button></a></th>
                         <td class="ultima-celula" mat-cell *matCellDef="let element">
-                            <button mat-icon-button class="icon-delete">
-                                <mat-icon matTooltip="{{'PAINELCONTROLE.DELETE' | translate}}">delete</mat-icon>
-                            </button>
                         </td>
                     </ng-container>
                     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

@@ -106,7 +106,10 @@
         "QMAXINV": "Quantidade máxima inválida.",
         "ESTOMNOM": "Um estoque com este nome já foi cadastrado.",
         "FESTFINA": "Não é possível manipular estoque/produto em festas finalizadas.",
-        "PRODDMEZ": "Quantidade de doses precisa ser maior que zero."
+        "PRODDMEZ": "Quantidade de doses precisa ser maior que zero.",
+        "FESTNINI": "Festa não iniciada.",
+        "ESTOCITE": "Estoque possui produtos.",
+        "QNTATLDF": "Quantidade inicial não pode ser alterada em festas iniciadas."
     },
 
     "SUCCESS": {
