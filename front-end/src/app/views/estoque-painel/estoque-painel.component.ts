@@ -16,6 +16,7 @@ import { RecargaProdutoEstoqueService } from 'src/app/services/recarga-produto-e
 import { RecargaProdutoEstoqueDialogComponent } from '../recarga-produto-estoque-dialog/recarga-produto-estoque-dialog.component';
 import { interval, Observable, Subscription } from 'rxjs';
 import { PerdaProdutoEstoqueDialogComponent } from '../perda-produto-estoque-dialog/perda-produto-estoque-dialog.component';
+import { RemoverUnidadeDoseDialogComponent } from '../remover-unidade-dose-dialog/remover-unidade-dose-dialog.component';
 
 export interface TabelaProdutos {
   codEstoque: string;
@@ -28,7 +29,8 @@ export interface TabelaProdutos {
 @Component({
   selector: 'app-estoque-painel',
   templateUrl: './estoque-painel.component.html',
-  styleUrls: ['./estoque-painel.component.scss']
+  styleUrls: ['./estoque-painel.component.scss',
+  '../../../../node_modules/font-awesome/css/font-awesome.css']
 })
 
 export class EstoquePainelComponent implements OnInit {
@@ -222,6 +224,19 @@ export class EstoquePainelComponent implements OnInit {
 
   openDialogPerda(estoque, element, indexEstoque, indexProduto) {
     this.dialog.open(PerdaProdutoEstoqueDialogComponent, {
+      width: '20rem',
+      data: {
+        component: this,
+        element,
+        estoque,
+        indexEstoque,
+        indexProduto
+      }
+    });
+  }
+
+  openDialogBaixaDoseUnidade(estoque, element, indexEstoque, indexProduto) {
+    this.dialog.open(RemoverUnidadeDoseDialogComponent, {
       width: '20rem',
       data: {
         component: this,

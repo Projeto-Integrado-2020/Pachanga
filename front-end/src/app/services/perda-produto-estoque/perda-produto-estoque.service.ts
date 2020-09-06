@@ -15,18 +15,18 @@ export class PerdaProdutoEstoqueService {
 
   public quebra: true;
   farol = false;
-  private readonly urlBaixaProdutoEstoque = `${environment.URL_BACK}produto/baixaProdutoEstoque`;
+  private readonly urlQuebraProdutoEstoque = `${environment.URL_BACK}produto/quebraProdutoEstoque`;
 
   constructor(private http: HttpClient, public logService: LogService, public dialog: MatDialog,
               public loginService: LoginService) { }
 
-  perdaProdutoEstoque(quantidade, codProduto, codEstoque) {
+  perdaProdutoEstoque(codEstoque, dose, codProduto, quantidades) {
     const httpParams = new HttpParams()
     .append('idUsuarioPermissao', this.loginService.usuarioInfo.codUsuario)
-    .append('quantidade', quantidade)
     .append('codProduto', codProduto)
+    .append('dose', dose)
     .append('codEstoque', codEstoque);
-    return this.http.put(this.urlBaixaProdutoEstoque, quantidade, {params: httpParams}).pipe(
+    return this.http.put(this.urlQuebraProdutoEstoque, quantidades, {params: httpParams}).pipe(
       take(1),
       catchError(error => {
         return this.handleError(error, this.logService);

@@ -85,6 +85,7 @@ import { RecargaProdutoEstoqueDialogComponent } from './views/recarga-produto-es
 import { NotificacoesComponent } from './views/notificacoes/notificacoes.component';
 import { AlertaEstoqueComponent } from './views/alerta-estoque/alerta-estoque.component';
 import { PerdaProdutoEstoqueDialogComponent } from './views/perda-produto-estoque-dialog/perda-produto-estoque-dialog.component';
+import { RemoverUnidadeDoseDialogComponent } from './views/remover-unidade-dose-dialog/remover-unidade-dose-dialog.component';
 
 const config = new AuthServiceConfig([
   {
@@ -149,7 +150,8 @@ export function provideConfig() {
     RecargaProdutoEstoqueDialogComponent,
     NotificacoesComponent,
     AlertaEstoqueComponent,
-    PerdaProdutoEstoqueDialogComponent
+    PerdaProdutoEstoqueDialogComponent,
+    RemoverUnidadeDoseDialogComponent
   ],
   entryComponents: [
     LoginComponent,
@@ -177,7 +179,8 @@ export function provideConfig() {
     FestaDetalhesDialogComponent,
     RecargaProdutoEstoqueDialogComponent,
     AlertaEstoqueComponent,
-    PerdaProdutoEstoqueDialogComponent
+    PerdaProdutoEstoqueDialogComponent,
+    RemoverUnidadeDoseDialogComponent
   ],
   imports: [
     BrowserModule,

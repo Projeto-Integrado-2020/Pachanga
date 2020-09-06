@@ -419,6 +419,7 @@
         "ADDPRODESTOQUE": "Adicionar produto ao estoque",
         "EDITPRODUTOESTOQUE": "Editar produto do estoque",
         "DELETEPRODUTOESTOQUE": "Deletar produto do estoque",
+        "DELETEUNIDADEDOSE": "Deletar unidade de produto",
         "MARCA": "Produto",
         "QTDMAX": "Quantidade máxima",
         "QTDATUAL": "Quantidade atual",
@@ -471,6 +472,13 @@
         "PERD50": "Quantidade perdida (50%)",
         "PERD75": "Quantidade perdida (75%)",
         "PERD100": "Quantidade perdida (100%)",
+        "CANCEL": "Cancelar"
+    },
+
+    "PERDADOSEUNIDADE": {
+        "TITULO": "Remover produto por unidade",
+        "QUANTIDADE": "Quantidade de unidades:",
+        "CONFIRM": "Confirmar",
         "CANCEL": "Cancelar"
     }
 }
