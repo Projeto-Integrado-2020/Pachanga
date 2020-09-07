@@ -30,7 +30,6 @@
     "@auth0/angular-jwt": "^4.0.0",
     "@ngx-translate/core": "^12.1.2",
     "@ngx-translate/http-loader": "^4.0.0",
-    "ago-i18n": "^1.0.0",
     "angular4-social-login": "^1.1.1",
     "angularx-social-login": "^1.2.7",
     "buffer": "^5.6.0",
@@ -44,7 +43,6 @@
     "helmet": "^4.1.0",
     "heroku-ssl-redirect": "0.0.4",
     "https-localhost": "^4.6.0",
-    "i18n": "^0.13.2",
     "jwt-decode": "^2.2.0",
     "logdna": "^3.5.0",
     "material-design-icons": "^3.0.1",
@@ -85,8 +83,5 @@
   "engines": {
     "node": "10.16.2",
     "npm": "6.9.0"
-  },
-  "browser": {
-    "fs": false
   }
 }

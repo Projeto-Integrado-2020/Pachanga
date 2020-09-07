@@ -30,8 +30,6 @@ export class NotificacoesComponent implements OnInit {
   notificacoesGrupo: any[] = [];
   notificacaoConvidado: any[] = [];
 
-  horario: number = Date.now();
-
   convmsg: any;
 
   constructor(public dialog: MatDialog, public loginComponent: LoginComponent,
@@ -147,6 +145,4 @@ export class NotificacoesComponent implements OnInit {
     this.notifService.atualizarNotificacoes(alertas).subscribe();
     return notificacoes;
   }
-
-
 }
