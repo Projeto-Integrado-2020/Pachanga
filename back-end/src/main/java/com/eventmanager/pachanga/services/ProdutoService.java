@@ -164,7 +164,7 @@ public class ProdutoService {
 			for (ItemEstoque itemEstoque : itensEstoque) {
 				if (produto.getDose().booleanValue() && mudancaDose) {
 					itemEstoque
-							.setQuantidadeAtual(Math.multiplyExact(quantidadeDoses, itemEstoque.getQuantidadeAtual()));
+					.setQuantidadeAtual(Math.multiplyExact(quantidadeDoses, itemEstoque.getQuantidadeAtual()));
 					itemEstoque.setQuantidadeMax(Math.multiplyExact(quantidadeDoses, itemEstoque.getQuantidadeMax()));
 					itemEstoque.setQuantPerda(Math.multiplyExact(quantidadeDoses, itemEstoque.getQuantPerda()));
 				} else if (!produto.getDose().booleanValue() && mudancaDose) {
@@ -183,6 +183,7 @@ public class ProdutoService {
 
 	public ItemEstoque editarProdutoEstoque(ItemEstoqueTO itemEstoqueTO, Integer idUsuarioPermissao) {
 		festaService.validarFestaFinalizada(itemEstoqueTO.getCodFesta());
+		festaService.validarProdEstoqueIniciada(itemEstoqueTO, itemEstoqueTO.getCodFesta());
 		this.validarUsuarioPorEstoque(idUsuarioPermissao, itemEstoqueTO.getCodEstoque(),
 				TipoPermissao.EDIMESTO.getCodigo());
 		int codProduto = itemEstoqueTO.getCodProduto();
@@ -225,7 +226,7 @@ public class ProdutoService {
 		if (quebra) {
 			itemEstoque.setQuantPerda(quantidadeAtual);
 		}
-		
+
 		itemEstoque.setQuantidadeAtual(quantidadeAtual);
 
 		this.validaQuantAndPorcent(itemEstoque.getQuantidadeMax(), quantidadeAtual, itemEstoque.getPorcentagemMin());
@@ -339,7 +340,7 @@ public class ProdutoService {
 		return estoque;
 	}
 
-	private ItemEstoque validarProdutoEstoque(int codEstoque, int codProduto) {
+	public ItemEstoque validarProdutoEstoque(int codEstoque, int codProduto) {
 		this.validarEstoque(codEstoque);
 		this.validarProduto(codProduto);
 		ItemEstoque itemEstoque = itemEstoqueRepository.findItemEstoque(codEstoque, codProduto);
@@ -406,6 +407,9 @@ public class ProdutoService {
 			throw new ValidacaoException("PROMIGUA");// produto com a mesma marca cadastrado na festa
 		}
 	}
+	
+
+
 
 	private void disparaNotificacaoCasoEstoqueEscasso(ItemEstoque itemEstoque) {
 		if (itemEstoque.quantidadeAtualAbaixoMin()) {

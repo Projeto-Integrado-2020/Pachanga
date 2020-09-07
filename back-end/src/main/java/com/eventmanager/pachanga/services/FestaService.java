@@ -13,9 +13,11 @@ import com.eventmanager.pachanga.domains.CategoriasFesta;
 import com.eventmanager.pachanga.domains.Estoque;
 import com.eventmanager.pachanga.domains.Festa;
 import com.eventmanager.pachanga.domains.Grupo;
+import com.eventmanager.pachanga.domains.ItemEstoque;
 import com.eventmanager.pachanga.domains.Usuario;
 import com.eventmanager.pachanga.dtos.ConviteFestaTO;
 import com.eventmanager.pachanga.dtos.FestaTO;
+import com.eventmanager.pachanga.dtos.ItemEstoqueTO;
 import com.eventmanager.pachanga.errors.ValidacaoException;
 import com.eventmanager.pachanga.factory.ConviteFestaFactory;
 import com.eventmanager.pachanga.factory.FestaFactory;
@@ -66,6 +68,9 @@ public class FestaService {
 
 	@Autowired
 	private EstoqueService estoqueService;
+	
+	@Autowired
+	private ProdutoService produtoService;
 
 	@Autowired
 	private FestaFactory festaFactory;
@@ -341,6 +346,17 @@ public class FestaService {
 		Festa festa = festaRepository.findByCodFesta(codFesta);
 		if (TipoStatusFesta.FINALIZADO.getValor().equals(festa.getStatusFesta())) {
 			throw new ValidacaoException("FESTNINI");
+		}
+	}
+	
+	public void validarProdEstoqueIniciada(ItemEstoqueTO itemEstoqueTO, int codFesta) {
+		int codProduto = itemEstoqueTO.getCodProduto();
+		int codEstoque = itemEstoqueTO.getCodEstoque();
+		ItemEstoque itemEstoque = produtoService.validarProdutoEstoque(codEstoque, codProduto);
+		Festa festa = festaRepository.findByCodFesta(codFesta);
+		if(TipoStatusFesta.INICIADO.getValor().equals(festa.getStatusFesta()) &&
+				itemEstoqueTO.getQuantidadeAtual() != itemEstoque.getQuantidadeAtual()) {
+			throw new ValidacaoException("QNTATLDF"); // quantidade atual diferente tentando ser editada com festa inicializada
 		}
 	}
 }

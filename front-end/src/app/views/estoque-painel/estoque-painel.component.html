@@ -95,6 +95,9 @@
                                         <button mat-icon-button (click)="recargaProduto(estoque, quantidadesProdutos[i][j], i, j)">
                                             <mat-icon matTooltip="{{'ESTOQUEPROD.RECARGAPRODUTOESTOQUE' | translate}}">add_shopping_cart</mat-icon>
                                         </button>
+                                        <button *ngIf="element.dose" mat-icon-button (click)="openDialogBaixaDoseUnidade(estoque, quantidadesProdutos[i][j], i, j)">
+                                            <mat-icon matTooltip="{{'ESTOQUEPROD.DELETEUNIDADEDOSE' | translate}}"> remove_circle</mat-icon>
+                                        </button>
                                         <button mat-icon-button (click)="openDialogPerda(estoque, quantidadesProdutos[i][j], i, j)">
                                             <mat-icon matTooltip="{{'ESTOQUEPROD.PERDAPRODUTOESTOQUE' | translate}}">report</mat-icon>
                                         </button>

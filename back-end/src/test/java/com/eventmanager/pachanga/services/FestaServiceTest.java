@@ -28,6 +28,7 @@ import com.eventmanager.pachanga.domains.Grupo;
 import com.eventmanager.pachanga.domains.Usuario;
 import com.eventmanager.pachanga.dtos.ConviteFestaTO;
 import com.eventmanager.pachanga.dtos.FestaTO;
+import com.eventmanager.pachanga.dtos.ItemEstoqueTO;
 import com.eventmanager.pachanga.dtos.UsuarioTO;
 import com.eventmanager.pachanga.errors.ValidacaoException;
 import com.eventmanager.pachanga.factory.ConviteFestaFactory;
@@ -75,6 +76,9 @@ class FestaServiceTest {
 
 	@MockBean
 	private GrupoService grupoService;
+	
+	@MockBean
+	private ProdutoService produtoService;
 
 	@MockBean
 	private EstoqueService estoqueService;
@@ -156,6 +160,16 @@ class FestaServiceTest {
 		Estoque estoque = new Estoque();
 		estoque.setCodEstoque(1);
 		return estoque;
+	}
+	
+	private ItemEstoqueTO itemEstoqueTOTest() {
+		ItemEstoqueTO itemEstoqueTO = new ItemEstoqueTO();
+		itemEstoqueTO.setCodEstoque(1);
+		itemEstoqueTO.setCodFesta(2); // o mesmo do festaTest()
+		itemEstoqueTO.setCodProduto(1);
+		itemEstoqueTO.setQuantidadeMax(100);
+		itemEstoqueTO.setPorcentagemMin(15);
+		return itemEstoqueTO;
 	}
 
 	public Festa festaTest() throws Exception{
@@ -1685,6 +1699,20 @@ class FestaServiceTest {
 		
 		festaService.validarFestaInicializadaFinal(2);
 
+	}
+	
+	@Test
+	void validarProdEstoqueIniciadaSucesso() throws Exception{
+
+		ItemEstoqueTO itemEstoqueTO = itemEstoqueTOTest();
+		itemEstoqueTO.setQuantidadeMax(200);
+		itemEstoqueTO.setQuantidadeAtual(10);
+		itemEstoqueTO.setPorcentagemMin(20);
+
+		Mockito.when(festaRepository.findByCodFesta(Mockito.anyInt())).thenReturn(festaTest());	
+
+		festaService.validarProdEstoqueIniciada(itemEstoqueTO, 2);
+		
 	}
 	
 }

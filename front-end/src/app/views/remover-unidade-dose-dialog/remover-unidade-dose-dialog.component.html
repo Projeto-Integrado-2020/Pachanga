@@ -1,0 +1,14 @@
+<h1 mat-dialog-title>{{'PERDADOSEUNIDADE.TITULO' | translate}}</h1>
+<div mat-dialog-content>
+    <form [formGroup]="form" (submit)="removerProduto(quantidade.value)">
+        <mat-form-field class="label">
+            <mat-label>{{'PERDADOSEUNIDADE.QUANTIDADE' | translate}}</mat-label>
+            <input ng-class="{ f.quantidade.errors }" #quantidade formControlName="quantidade" matInput required type="number" min="1">
+            <mat-error *ngIf="f.quantidade.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
+            <mat-error *ngIf="f.quantidade.errors?.min">{{'FORMERRORS.MINQTDERROR' | translate}}</mat-error>
+        </mat-form-field>
+        <br>
+        <button class="button-form" mat-raised-button [disabled]="!form.valid">{{'PERDADOSEUNIDADE.CONFIRM' | translate}}</button>
+    </form>
+    <button class="cancel-button" mat-button mat-dialog-close>{{'PERDADOSEUNIDADE.CANCEL' | translate}}</button>
+</div>

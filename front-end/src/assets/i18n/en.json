@@ -104,7 +104,10 @@
         "QMAXINV": "Invalid max quantity.",
         "ESTOMNOM": "Another stock is already using this name.",
         "FESTFINA": "It is not possible to manage stock/product in finished parties.",
-        "PRODDMEZ": "Shot quantity should be more than zero."
+        "PRODDMEZ": "Shot quantity should be more than zero.",
+        "FESTNINI": "Party not initialized.",
+        "ESTOCITE": "Stock has product.",
+        "QNTATLDF": "Initial quantity can not be changed in initialized parties."
     },
 
     "SUCCESS": {
@@ -416,6 +419,7 @@
         "ADDPRODESTOQUE": "Add product to stock",
         "EDITPRODUTOESTOQUE": "Edit a product from stock",
         "DELETEPRODUTOESTOQUE": "Delete product from stock",
+        "DELETEUNIDADEDOSE": "Delete product unit",
         "MARCA": "Product",
         "QTDMAX": "Maximum quantity",
         "QTDMIN": "Minimum quantity",
@@ -469,6 +473,13 @@
         "PERD50": "Amount lost (50%)",
         "PERD75": "Amount lost (75%)",
         "PERD100": "Amount lost (100%)",
+        "CANCEL": "Cancel"
+    },
+
+    "PERDADOSEUNIDADE": {
+        "TITULO": "Remove product per unit",
+        "QUANTIDADE": "Number of units:",
+        "CONFIRM": "Confirm",
         "CANCEL": "Cancel"
     }
 }

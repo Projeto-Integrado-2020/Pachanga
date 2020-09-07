@@ -51,16 +51,15 @@ export class PerdaProdutoEstoqueDialogComponent implements OnInit {
   get f() { return this.form.controls; }
 
   perdaProduto(quantidade, element) {
-    element = element.codProduto;
-    element = element.codProduto;
-    const quantidadeTO = {
-      quantidade25: null,
-      quantidade50: null,
-      quantidade75: null,
-      quantidade100: quantidade
-    };
+    const quantidadeTO = [
+      null,
+      null,
+      null,
+      quantidade
+    ] ;
 
-    this.perdaProdutoEstoque.perdaProdutoEstoque(quantidadeTO, element, this.estoque.codEstoque).subscribe((resp: any) => {
+    this.perdaProdutoEstoque.perdaProdutoEstoque(this.estoque.codEstoque, element.dose, element.codProduto, quantidadeTO)
+    .subscribe((resp: any) => {
       this.perdaProdutoEstoque.setFarol(false);
       this.component.quantidadesProdutos[this.indexEstoque][this.indexProduto].quantidadeAtual -= quantidade;
       this.dialog.closeAll();
@@ -68,28 +67,18 @@ export class PerdaProdutoEstoqueDialogComponent implements OnInit {
   }
 
   perdaProdutoDose(quantidade25, quantidade50, quantidade75, quantidade100, element) {
-    element = element.codProduto;
-    const quantidadeTO = {
-      quantidade25,
-      quantidade50,
-      quantidade75,
-      quantidade100
-    };
+    const quantidadeTO = [
+      !quantidade25 ? 0 : quantidade25 * element.quantDoses,
+      !quantidade50 ? 0 : quantidade50 * element.quantDoses,
+      !quantidade75 ? 0 : quantidade75 * element.quantDoses,
+      !quantidade100 ? 0 : quantidade100 * element.quantDoses
+    ];
 
-    if (quantidade25 == null) {
-      quantidade25 = null;
-    } else if (quantidade50 == null) {
-      quantidade50 = null;
-    } else if (quantidade75 == null) {
-      quantidade75 = null;
-    } else if (quantidade100 == null) {
-      quantidade100 = null;
-    }
-
-    this.perdaProdutoEstoque.perdaProdutoEstoque(quantidadeTO, element, this.estoque.codEstoque).subscribe((resp: any) => {
+    this.perdaProdutoEstoque.perdaProdutoEstoque
+    (this.estoque.codEstoque, element.dose, element.codProduto, quantidadeTO).subscribe((resp: any) => {
       this.perdaProdutoEstoque.setFarol(false);
       this.component.quantidadesProdutos[this.indexEstoque][this.indexProduto].quantidadeAtual -=
-      ((quantidade25 * 0.25) + (quantidade50 * 0.50) + (quantidade75 * 0.75) + quantidade100);
+      (Math.ceil(quantidadeTO[0] * 0.25) + Math.ceil(quantidadeTO[1] * 0.50) + Math.ceil(quantidadeTO[2] * 0.75) + quantidadeTO[3]);
       this.dialog.closeAll();
     });
   }
