@@ -1785,14 +1785,7 @@ class FestaServiceTest {
 		
 		boolean erro = false;
 		
-		try {
-			festaService.validarProdEstoqueIniciada(itemEstoqueTO, 2);
-		} catch (ValidacaoException e) {
-			erro = true;
-		}
-		
-		assertEquals(true, erro);
-		
+		festaService.validarProdEstoqueIniciada(itemEstoqueTO, 2);
 	}
 	
 	@Test
@@ -1811,14 +1804,7 @@ class FestaServiceTest {
 		
 		boolean erro = false;
 		
-		try {
-			festaService.validarProdEstoqueIniciada(itemEstoqueTO, 2);
-		} catch (ValidacaoException e) {
-			erro = true;
-		}
-		
-		assertEquals(true, erro);
-		
+		festaService.validarProdEstoqueIniciada(itemEstoqueTO, 2);
 	}
 	
 }
