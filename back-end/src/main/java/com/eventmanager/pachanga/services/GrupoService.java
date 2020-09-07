@@ -98,10 +98,12 @@ public class GrupoService {
 			throw new ValidacaoException("EDITORGN");
 		}
 
-		if(grupoTO.getNomeGrupo() != null || grupoTO.getNomeGrupo().length() >= 1) {
+		if(grupoTO.getNomeGrupo() != null 
+				&& grupoTO.getNomeGrupo().length() >= 1) {
 			grupo.setNomeGrupo(grupoTO.getNomeGrupo());
 		}
-		if(grupoTO.getQuantMaxPessoas() >= 1 && grupoTO.getQuantMaxPessoas() >= this.procurarUsuariosPorGrupo(grupoTO.getCodGrupo()).size()){
+		if(grupoTO.getQuantMaxPessoas() >= 1 
+				&& grupoTO.getQuantMaxPessoas() >= this.procurarUsuariosPorGrupo(grupoTO.getCodGrupo()).size()){
 			grupo.setQuantMaxPessoas(grupoTO.getQuantMaxPessoas());
 		}
 
