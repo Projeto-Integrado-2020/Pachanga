@@ -4,6 +4,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.doNothing;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.ArrayList;
@@ -25,6 +26,8 @@ import com.eventmanager.pachanga.domains.CategoriasFesta;
 import com.eventmanager.pachanga.domains.Estoque;
 import com.eventmanager.pachanga.domains.Festa;
 import com.eventmanager.pachanga.domains.Grupo;
+import com.eventmanager.pachanga.domains.ItemEstoque;
+import com.eventmanager.pachanga.domains.Produto;
 import com.eventmanager.pachanga.domains.Usuario;
 import com.eventmanager.pachanga.dtos.ConviteFestaTO;
 import com.eventmanager.pachanga.dtos.FestaTO;
@@ -171,6 +174,16 @@ class FestaServiceTest {
 		itemEstoqueTO.setPorcentagemMin(15);
 		return itemEstoqueTO;
 	}
+	
+	private ItemEstoque itemEstoqueTest() {
+		ItemEstoque itemEstoque = new ItemEstoque();
+		itemEstoque.setEstoque(estoqueTest());
+		itemEstoque.setCodFesta(2); // o mesmo do festaTest()
+		itemEstoque.setProduto(produtoTest());
+		itemEstoque.setQuantidadeMax(100);
+		itemEstoque.setPorcentagemMin(15);
+		return itemEstoque;
+	}
 
 	public Festa festaTest() throws Exception{
 		Festa festaTest = new Festa();
@@ -218,7 +231,18 @@ class FestaServiceTest {
 		categoriasFesta.setTipCategoria(TipoCategoria.PRIMARIO.getDescricao());
 		return categoriasFesta;
 	}
+	
+	private Produto produtoTest() {
+		Produto produto = new Produto();
+		produto.setCodProduto(1);
+		produto.setCodFesta(2); // o mesmo do festaTest()
+		produto.setMarca("Cápsula");
+		produto.setPrecoMedio(new BigDecimal("23.90"));
+		produto.setDose(true);
+		produto.setQuantDoses(15);
+		return produto;
 
+	}
 
 
 	//procurarFestasTest_______________________________________________________________________________________________________________________________________	
@@ -478,6 +502,10 @@ class FestaServiceTest {
 		Usuario usuario1 = UsuarioServiceTest.usuarioTest();
 		usuario1.setCodUsuario(idUser);
 		usuario1.setNomeUser("Aires_qualquer_e_ficticio");
+		
+		Festa festaCreateByFactory = festaTest();
+		festaCreateByFactory.setCodFesta(33);
+		festaCreateByFactory.setNomeFesta("Batata2");
 
 		Mockito.when(usuarioRepository.findById(Mockito.anyInt())).thenReturn(usuario1);
 		Mockito.when(festaRepository.findByNomeFesta(festaTO.getNomeFesta())).thenReturn(festaTest);
@@ -488,7 +516,7 @@ class FestaServiceTest {
 		doNothing().when(categoriasFestaRepository).addCategoriasFesta(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyString());
 		Mockito.when(categoriaRepository.findByCodCategoria(Mockito.anyInt())).thenReturn(categoriaTest(),categoriaTest());
 		Mockito.when(grupoService.addGrupo(Mockito.anyInt(), Mockito.anyString(), Mockito.anyBoolean(), Mockito.isNull())).thenReturn(criacaoGrupo());
-		Mockito.when(festaFactory.getFesta(Mockito.any())).thenReturn(festaTest());
+		Mockito.when(festaFactory.getFesta(Mockito.any())).thenReturn(festaCreateByFactory);
 
 		Festa retorno = festaService.addFesta(festaTO, idUser);
 		assertEquals(retorno.getCodFesta(), festaTO.getCodFesta());
@@ -1712,6 +1740,84 @@ class FestaServiceTest {
 		Mockito.when(festaRepository.findByCodFesta(Mockito.anyInt())).thenReturn(festaTest());	
 
 		festaService.validarProdEstoqueIniciada(itemEstoqueTO, 2);
+		
+	}
+	
+	@Test
+	void validarProdEstoqueIniciadaElseSucesso() throws Exception{
+
+		ItemEstoqueTO itemEstoqueTO = itemEstoqueTOTest();
+		itemEstoqueTO.setQuantidadeMax(200);
+		itemEstoqueTO.setQuantidadeAtual(10);
+		itemEstoqueTO.setPorcentagemMin(20);
+		
+		Festa festa = festaTest();
+		festa.setStatusFesta(TipoStatusFesta.INICIADO.getValor());
+		
+		Mockito.when(festaRepository.findByCodFesta(Mockito.anyInt())).thenReturn(festa);	
+		Mockito.when(produtoService.validarProdutoEstoque(Mockito.anyInt(), Mockito.anyInt())).thenReturn(itemEstoqueTest());	
+		
+		boolean erro = false;
+		
+		try {
+			festaService.validarProdEstoqueIniciada(itemEstoqueTO, 2);
+		} catch (ValidacaoException e) {
+			erro = true;
+		}
+		
+		assertEquals(true, erro);
+		
+	}
+	
+	@Test
+	void validarProdEstoqueIniciadaElse1Sucesso() throws Exception{
+
+		ItemEstoqueTO itemEstoqueTO = itemEstoqueTOTest();
+		itemEstoqueTO.setQuantidadeMax(200);
+		itemEstoqueTO.setQuantidadeAtual(10);
+		itemEstoqueTO.setPorcentagemMin(20);
+		
+		Festa festa = festaTest();
+		festa.setStatusFesta(TipoStatusFesta.FINALIZADO.getValor());
+		
+		Mockito.when(festaRepository.findByCodFesta(Mockito.anyInt())).thenReturn(festa);	
+		Mockito.when(produtoService.validarProdutoEstoque(Mockito.anyInt(), Mockito.anyInt())).thenReturn(itemEstoqueTest());	
+		
+		boolean erro = false;
+		
+		try {
+			festaService.validarProdEstoqueIniciada(itemEstoqueTO, 2);
+		} catch (ValidacaoException e) {
+			erro = true;
+		}
+		
+		assertEquals(true, erro);
+		
+	}
+	
+	@Test
+	void validarProdEstoqueIniciadaElse3Sucesso() throws Exception{
+
+		ItemEstoqueTO itemEstoqueTO = itemEstoqueTOTest();
+		itemEstoqueTO.setQuantidadeMax(200);
+		itemEstoqueTO.setQuantidadeAtual(itemEstoqueTest().getQuantidadeAtual());
+		itemEstoqueTO.setPorcentagemMin(20);
+		
+		Festa festa = festaTest();
+		festa.setStatusFesta(TipoStatusFesta.INICIADO.getValor());
+		
+		Mockito.when(festaRepository.findByCodFesta(Mockito.anyInt())).thenReturn(festa);	
+		Mockito.when(produtoService.validarProdutoEstoque(Mockito.anyInt(), Mockito.anyInt())).thenReturn(itemEstoqueTest());	
+		
+		boolean erro = false;
+		
+		try {
+			festaService.validarProdEstoqueIniciada(itemEstoqueTO, 2);
+		} catch (ValidacaoException e) {
+			erro = true;
+		}
+		
+		assertEquals(true, erro);
 		
 	}
 	
