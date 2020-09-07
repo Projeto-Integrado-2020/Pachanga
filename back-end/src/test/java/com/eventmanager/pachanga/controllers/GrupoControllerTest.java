@@ -13,6 +13,7 @@ import java.util.Set;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
+import static org.mockito.Mockito.doThrow;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -29,7 +30,9 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import com.eventmanager.pachanga.domains.Convidado;
 import com.eventmanager.pachanga.domains.Festa;
 import com.eventmanager.pachanga.domains.Grupo;
+import com.eventmanager.pachanga.domains.Permissao;
 import com.eventmanager.pachanga.domains.Usuario;
+import com.eventmanager.pachanga.dtos.GrupoTO;
 import com.eventmanager.pachanga.errors.ValidacaoException;
 import com.eventmanager.pachanga.factory.ConvidadoFactory;
 import com.eventmanager.pachanga.services.ConvidadoService;
@@ -216,20 +219,275 @@ class GrupoControllerTest {
 	}
 	
 //updateUser___________________________________________________________________________________________________________________________________________________________________________________
-	/*
+	
+	
+//addPermissaoGrupo_________________________________________________________________________________________________________________________________________________________________________________
 	@Test
-	public void updateUserSucessoTest() throws Exception {
-		String uri = "/grupo/updateUser";  
-		String json = "{\"gruposId\": [1, 2, 3]}";
+	public void addPermissaoGrupoSucessoTest() throws Exception {
+		String uri = "/grupo/addPermissaoGrupo";  
+		Grupo grupo = grupoTest(2, "Banda", 4);
 		
-		Usuario usuario = usuarioTest();
+		Mockito.when(grupoService.validarGrupo(Mockito.anyInt())).thenReturn(grupo);
+		Mockito.when(grupoService.validarPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt())).thenReturn(true);
+		Mockito.doNothing().when(grupoService).addPermissaoGrupo(Mockito.anyInt(), Mockito.anyInt());
 		
-		Mockito.when(grupoService.editUsuarioFesta(Mockito.anyList(), Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(usuario);
+		RequestBuilder requestBuilder = MockMvcRequestBuilders
+				.get(uri)
+				.accept(MediaType.APPLICATION_JSON)
+				.param("idGrupo", "1")
+				.param("idPermissao", "1")
+				.param("idUsuario", "1")
+				.contentType(MediaType.APPLICATION_JSON);
 
+		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+
+		MockHttpServletResponse response = result.getResponse();
+		
+		//String expected = "[{\"codGrupo\":1,\"codFesta\":2,\"nomeGrupo\":\"GOGO-BOYS\",\"quantMaxPessoas\":0,\"usuariosTO\":[{\"dtNasc\":\"3900-09-27T03:00:00.000+0000\",\"codUsuario\":4,\"nomeUser\":\"Gustavo Barbosa\",\"tipConta\":\"P\",\"conta\":null,\"email\":\"gustavinhoTPD4@fodasse.com.br\",\"emailNovo\":null,\"senha\":null,\"senhaNova\":null,\"sexo\":\"M\",\"funcionalidade\":null},{\"dtNasc\":\"3900-09-27T03:00:00.000+0000\",\"codUsuario\":1,\"nomeUser\":\"Gustavo Barbosa\",\"tipConta\":\"P\",\"conta\":null,\"email\":\"gustavinhoTPD@fodasse.com.br\",\"emailNovo\":null,\"senha\":null,\"senhaNova\":null,\"sexo\":\"M\",\"funcionalidade\":null},{\"dtNasc\":\"3900-09-27T03:00:00.000+0000\",\"codUsuario\":1,\"nomeUser\":\"Gustavo Barbosa\",\"tipConta\":\"P\",\"conta\":null,\"email\":\"gustavinhoTPD@fodasse.com.br\",\"emailNovo\":null,\"senha\":null,\"senhaNova\":null,\"sexo\":\"M\",\"funcionalidade\":null},{\"dtNasc\":\"3900-09-27T03:00:00.000+0000\",\"codUsuario\":1,\"nomeUser\":\"Gustavo Barbosa\",\"tipConta\":\"P\",\"conta\":null,\"email\":\"gustavinhoTPD@fodasse.com.br\",\"emailNovo\":null,\"senha\":null,\"senhaNova\":null,\"sexo\":\"M\",\"funcionalidade\":null}],\"convidadosTO\":[],\"permissoesTO\":null,\"permissoes\":null},{\"codGrupo\":2,\"codFesta\":2,\"nomeGrupo\":\"Banda\",\"quantMaxPessoas\":0,\"usuariosTO\":[{\"dtNasc\":\"3900-09-27T03:00:00.000+0000\",\"codUsuario\":4,\"nomeUser\":\"Gustavo Barbosa\",\"tipConta\":\"P\",\"conta\":null,\"email\":\"gustavinhoTPD4@fodasse.com.br\",\"emailNovo\":null,\"senha\":null,\"senhaNova\":null,\"sexo\":\"M\",\"funcionalidade\":null},{\"dtNasc\":\"3900-09-27T03:00:00.000+0000\",\"codUsuario\":1,\"nomeUser\":\"Gustavo Barbosa\",\"tipConta\":\"P\",\"conta\":null,\"email\":\"gustavinhoTPD@fodasse.com.br\",\"emailNovo\":null,\"senha\":null,\"senhaNova\":null,\"sexo\":\"M\",\"funcionalidade\":null},{\"dtNasc\":\"3900-09-27T03:00:00.000+0000\",\"codUsuario\":1,\"nomeUser\":\"Gustavo Barbosa\",\"tipConta\":\"P\",\"conta\":null,\"email\":\"gustavinhoTPD@fodasse.com.br\",\"emailNovo\":null,\"senha\":null,\"senhaNova\":null,\"sexo\":\"M\",\"funcionalidade\":null},{\"dtNasc\":\"3900-09-27T03:00:00.000+0000\",\"codUsuario\":1,\"nomeUser\":\"Gustavo Barbosa\",\"tipConta\":\"P\",\"conta\":null,\"email\":\"gustavinhoTPD@fodasse.com.br\",\"emailNovo\":null,\"senha\":null,\"senhaNova\":null,\"sexo\":\"M\",\"funcionalidade\":null}],\"convidadosTO\":[],\"permissoesTO\":null,\"permissoes\":null},{\"codGrupo\":3,\"codFesta\":2,\"nomeGrupo\":\"SeuranÃ§a\",\"quantMaxPessoas\":0,\"usuariosTO\":[{\"dtNasc\":\"3900-09-27T03:00:00.000+0000\",\"codUsuario\":4,\"nomeUser\":\"Gustavo Barbosa\",\"tipConta\":\"P\",\"conta\":null,\"email\":\"gustavinhoTPD4@fodasse.com.br\",\"emailNovo\":null,\"senha\":null,\"senhaNova\":null,\"sexo\":\"M\",\"funcionalidade\":null},{\"dtNasc\":\"3900-09-27T03:00:00.000+0000\",\"codUsuario\":1,\"nomeUser\":\"Gustavo Barbosa\",\"tipConta\":\"P\",\"conta\":null,\"email\":\"gustavinhoTPD@fodasse.com.br\",\"emailNovo\":null,\"senha\":null,\"senhaNova\":null,\"sexo\":\"M\",\"funcionalidade\":null},{\"dtNasc\":\"3900-09-27T03:00:00.000+0000\",\"codUsuario\":1,\"nomeUser\":\"Gustavo Barbosa\",\"tipConta\":\"P\",\"conta\":null,\"email\":\"gustavinhoTPD@fodasse.com.br\",\"emailNovo\":null,\"senha\":null,\"senhaNova\":null,\"sexo\":\"M\",\"funcionalidade\":null},{\"dtNasc\":\"3900-09-27T03:00:00.000+0000\",\"codUsuario\":1,\"nomeUser\":\"Gustavo Barbosa\",\"tipConta\":\"P\",\"conta\":null,\"email\":\"gustavinhoTPD@fodasse.com.br\",\"emailNovo\":null,\"senha\":null,\"senhaNova\":null,\"sexo\":\"M\",\"funcionalidade\":null}],\"convidadosTO\":[],\"permissoesTO\":null,\"permissoes\":null},{\"codGrupo\":4,\"codFesta\":2,\"nomeGrupo\":\"STAF\",\"quantMaxPessoas\":0,\"usuariosTO\":[{\"dtNasc\":\"3900-09-27T03:00:00.000+0000\",\"codUsuario\":4,\"nomeUser\":\"Gustavo Barbosa\",\"tipConta\":\"P\",\"conta\":null,\"email\":\"gustavinhoTPD4@fodasse.com.br\",\"emailNovo\":null,\"senha\":null,\"senhaNova\":null,\"sexo\":\"M\",\"funcionalidade\":null},{\"dtNasc\":\"3900-09-27T03:00:00.000+0000\",\"codUsuario\":1,\"nomeUser\":\"Gustavo Barbosa\",\"tipConta\":\"P\",\"conta\":null,\"email\":\"gustavinhoTPD@fodasse.com.br\",\"emailNovo\":null,\"senha\":null,\"senhaNova\":null,\"sexo\":\"M\",\"funcionalidade\":null},{\"dtNasc\":\"3900-09-27T03:00:00.000+0000\",\"codUsuario\":1,\"nomeUser\":\"Gustavo Barbosa\",\"tipConta\":\"P\",\"conta\":null,\"email\":\"gustavinhoTPD@fodasse.com.br\",\"emailNovo\":null,\"senha\":null,\"senhaNova\":null,\"sexo\":\"M\",\"funcionalidade\":null},{\"dtNasc\":\"3900-09-27T03:00:00.000+0000\",\"codUsuario\":1,\"nomeUser\":\"Gustavo Barbosa\",\"tipConta\":\"P\",\"conta\":null,\"email\":\"gustavinhoTPD@fodasse.com.br\",\"emailNovo\":null,\"senha\":null,\"senhaNova\":null,\"sexo\":\"M\",\"funcionalidade\":null}],\"convidadosTO\":[],\"permissoesTO\":null,\"permissoes\":null}]";
+		
+		assertEquals(HttpStatus.OK.value(), response.getStatus());
+	}	
+	
+	@Test
+	public void addPermissaoGrupoExceptionTest() throws Exception {
+		String uri = "/grupo/addPermissaoGrupo";  
+		//Grupo grupo = grupoTest(2, "Banda", 4);
+		String expected = "erro";
+		
+		Mockito.when(grupoService.validarGrupo(Mockito.anyInt())).thenThrow(new ValidacaoException(expected));
+		Mockito.when(grupoService.validarPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt())).thenReturn(true);
+		Mockito.doNothing().when(grupoService).addPermissaoGrupo(Mockito.anyInt(), Mockito.anyInt());
+		
+		RequestBuilder requestBuilder = MockMvcRequestBuilders
+				.get(uri)
+				.accept(MediaType.APPLICATION_JSON)
+				.param("idGrupo", "1")
+				.param("idPermissao", "1")
+				.param("idUsuario", "1")
+				.contentType(MediaType.APPLICATION_JSON);
+
+		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+
+		MockHttpServletResponse response = result.getResponse();
+		
+		//String expected = "[{\"codGrupo\":1,\"codFesta\":2,\"nomeGrupo\":\"GOGO-BOYS\",\"quantMaxPessoas\":0,\"usuariosTO\":[{\"dtNasc\":\"3900-09-27T03:00:00.000+0000\",\"codUsuario\":4,\"nomeUser\":\"Gustavo Barbosa\",\"tipConta\":\"P\",\"conta\":null,\"email\":\"gustavinhoTPD4@fodasse.com.br\",\"emailNovo\":null,\"senha\":null,\"senhaNova\":null,\"sexo\":\"M\",\"funcionalidade\":null},{\"dtNasc\":\"3900-09-27T03:00:00.000+0000\",\"codUsuario\":1,\"nomeUser\":\"Gustavo Barbosa\",\"tipConta\":\"P\",\"conta\":null,\"email\":\"gustavinhoTPD@fodasse.com.br\",\"emailNovo\":null,\"senha\":null,\"senhaNova\":null,\"sexo\":\"M\",\"funcionalidade\":null},{\"dtNasc\":\"3900-09-27T03:00:00.000+0000\",\"codUsuario\":1,\"nomeUser\":\"Gustavo Barbosa\",\"tipConta\":\"P\",\"conta\":null,\"email\":\"gustavinhoTPD@fodasse.com.br\",\"emailNovo\":null,\"senha\":null,\"senhaNova\":null,\"sexo\":\"M\",\"funcionalidade\":null},{\"dtNasc\":\"3900-09-27T03:00:00.000+0000\",\"codUsuario\":1,\"nomeUser\":\"Gustavo Barbosa\",\"tipConta\":\"P\",\"conta\":null,\"email\":\"gustavinhoTPD@fodasse.com.br\",\"emailNovo\":null,\"senha\":null,\"senhaNova\":null,\"sexo\":\"M\",\"funcionalidade\":null}],\"convidadosTO\":[],\"permissoesTO\":null,\"permissoes\":null},{\"codGrupo\":2,\"codFesta\":2,\"nomeGrupo\":\"Banda\",\"quantMaxPessoas\":0,\"usuariosTO\":[{\"dtNasc\":\"3900-09-27T03:00:00.000+0000\",\"codUsuario\":4,\"nomeUser\":\"Gustavo Barbosa\",\"tipConta\":\"P\",\"conta\":null,\"email\":\"gustavinhoTPD4@fodasse.com.br\",\"emailNovo\":null,\"senha\":null,\"senhaNova\":null,\"sexo\":\"M\",\"funcionalidade\":null},{\"dtNasc\":\"3900-09-27T03:00:00.000+0000\",\"codUsuario\":1,\"nomeUser\":\"Gustavo Barbosa\",\"tipConta\":\"P\",\"conta\":null,\"email\":\"gustavinhoTPD@fodasse.com.br\",\"emailNovo\":null,\"senha\":null,\"senhaNova\":null,\"sexo\":\"M\",\"funcionalidade\":null},{\"dtNasc\":\"3900-09-27T03:00:00.000+0000\",\"codUsuario\":1,\"nomeUser\":\"Gustavo Barbosa\",\"tipConta\":\"P\",\"conta\":null,\"email\":\"gustavinhoTPD@fodasse.com.br\",\"emailNovo\":null,\"senha\":null,\"senhaNova\":null,\"sexo\":\"M\",\"funcionalidade\":null},{\"dtNasc\":\"3900-09-27T03:00:00.000+0000\",\"codUsuario\":1,\"nomeUser\":\"Gustavo Barbosa\",\"tipConta\":\"P\",\"conta\":null,\"email\":\"gustavinhoTPD@fodasse.com.br\",\"emailNovo\":null,\"senha\":null,\"senhaNova\":null,\"sexo\":\"M\",\"funcionalidade\":null}],\"convidadosTO\":[],\"permissoesTO\":null,\"permissoes\":null},{\"codGrupo\":3,\"codFesta\":2,\"nomeGrupo\":\"SeuranÃ§a\",\"quantMaxPessoas\":0,\"usuariosTO\":[{\"dtNasc\":\"3900-09-27T03:00:00.000+0000\",\"codUsuario\":4,\"nomeUser\":\"Gustavo Barbosa\",\"tipConta\":\"P\",\"conta\":null,\"email\":\"gustavinhoTPD4@fodasse.com.br\",\"emailNovo\":null,\"senha\":null,\"senhaNova\":null,\"sexo\":\"M\",\"funcionalidade\":null},{\"dtNasc\":\"3900-09-27T03:00:00.000+0000\",\"codUsuario\":1,\"nomeUser\":\"Gustavo Barbosa\",\"tipConta\":\"P\",\"conta\":null,\"email\":\"gustavinhoTPD@fodasse.com.br\",\"emailNovo\":null,\"senha\":null,\"senhaNova\":null,\"sexo\":\"M\",\"funcionalidade\":null},{\"dtNasc\":\"3900-09-27T03:00:00.000+0000\",\"codUsuario\":1,\"nomeUser\":\"Gustavo Barbosa\",\"tipConta\":\"P\",\"conta\":null,\"email\":\"gustavinhoTPD@fodasse.com.br\",\"emailNovo\":null,\"senha\":null,\"senhaNova\":null,\"sexo\":\"M\",\"funcionalidade\":null},{\"dtNasc\":\"3900-09-27T03:00:00.000+0000\",\"codUsuario\":1,\"nomeUser\":\"Gustavo Barbosa\",\"tipConta\":\"P\",\"conta\":null,\"email\":\"gustavinhoTPD@fodasse.com.br\",\"emailNovo\":null,\"senha\":null,\"senhaNova\":null,\"sexo\":\"M\",\"funcionalidade\":null}],\"convidadosTO\":[],\"permissoesTO\":null,\"permissoes\":null},{\"codGrupo\":4,\"codFesta\":2,\"nomeGrupo\":\"STAF\",\"quantMaxPessoas\":0,\"usuariosTO\":[{\"dtNasc\":\"3900-09-27T03:00:00.000+0000\",\"codUsuario\":4,\"nomeUser\":\"Gustavo Barbosa\",\"tipConta\":\"P\",\"conta\":null,\"email\":\"gustavinhoTPD4@fodasse.com.br\",\"emailNovo\":null,\"senha\":null,\"senhaNova\":null,\"sexo\":\"M\",\"funcionalidade\":null},{\"dtNasc\":\"3900-09-27T03:00:00.000+0000\",\"codUsuario\":1,\"nomeUser\":\"Gustavo Barbosa\",\"tipConta\":\"P\",\"conta\":null,\"email\":\"gustavinhoTPD@fodasse.com.br\",\"emailNovo\":null,\"senha\":null,\"senhaNova\":null,\"sexo\":\"M\",\"funcionalidade\":null},{\"dtNasc\":\"3900-09-27T03:00:00.000+0000\",\"codUsuario\":1,\"nomeUser\":\"Gustavo Barbosa\",\"tipConta\":\"P\",\"conta\":null,\"email\":\"gustavinhoTPD@fodasse.com.br\",\"emailNovo\":null,\"senha\":null,\"senhaNova\":null,\"sexo\":\"M\",\"funcionalidade\":null},{\"dtNasc\":\"3900-09-27T03:00:00.000+0000\",\"codUsuario\":1,\"nomeUser\":\"Gustavo Barbosa\",\"tipConta\":\"P\",\"conta\":null,\"email\":\"gustavinhoTPD@fodasse.com.br\",\"emailNovo\":null,\"senha\":null,\"senhaNova\":null,\"sexo\":\"M\",\"funcionalidade\":null}],\"convidadosTO\":[],\"permissoesTO\":null,\"permissoes\":null}]";
+		
+		assertEquals(400, response.getStatus());
+		assertEquals(expected, result.getResponse().getContentAsString());
+	}
+	
+//removePermissaoGrupo_____________________________________________________________________________________
+	@Test
+	public void removePermissaoGrupoSucessoTest() throws Exception {
+		String uri = "/grupo/removePermissaoGrupo";  
+		Grupo grupo = grupoTest(2, "Banda", 4);
+		
+		Mockito.when(grupoService.validarGrupo(Mockito.anyInt())).thenReturn(grupo);
+		Mockito.when(grupoService.validarPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt())).thenReturn(true);
+		Mockito.doNothing().when(grupoService).deletePermissaoGrupo(Mockito.anyInt(), Mockito.anyInt());
+		
+		RequestBuilder requestBuilder = MockMvcRequestBuilders
+				.delete(uri)
+				.accept(MediaType.APPLICATION_JSON)
+				.param("idGrupo", "1")
+				.param("idPermissao", "1")
+				.param("idUsuario", "1")
+				.contentType(MediaType.APPLICATION_JSON);
+
+		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+
+		MockHttpServletResponse response = result.getResponse();
+		
+		//String expected = "[{\"codGrupo\":1,\"codFesta\":2,\"nomeGrupo\":\"GOGO-BOYS\",\"quantMaxPessoas\":0,\"usuariosTO\":[{\"dtNasc\":\"3900-09-27T03:00:00.000+0000\",\"codUsuario\":4,\"nomeUser\":\"Gustavo Barbosa\",\"tipConta\":\"P\",\"conta\":null,\"email\":\"gustavinhoTPD4@fodasse.com.br\",\"emailNovo\":null,\"senha\":null,\"senhaNova\":null,\"sexo\":\"M\",\"funcionalidade\":null},{\"dtNasc\":\"3900-09-27T03:00:00.000+0000\",\"codUsuario\":1,\"nomeUser\":\"Gustavo Barbosa\",\"tipConta\":\"P\",\"conta\":null,\"email\":\"gustavinhoTPD@fodasse.com.br\",\"emailNovo\":null,\"senha\":null,\"senhaNova\":null,\"sexo\":\"M\",\"funcionalidade\":null},{\"dtNasc\":\"3900-09-27T03:00:00.000+0000\",\"codUsuario\":1,\"nomeUser\":\"Gustavo Barbosa\",\"tipConta\":\"P\",\"conta\":null,\"email\":\"gustavinhoTPD@fodasse.com.br\",\"emailNovo\":null,\"senha\":null,\"senhaNova\":null,\"sexo\":\"M\",\"funcionalidade\":null},{\"dtNasc\":\"3900-09-27T03:00:00.000+0000\",\"codUsuario\":1,\"nomeUser\":\"Gustavo Barbosa\",\"tipConta\":\"P\",\"conta\":null,\"email\":\"gustavinhoTPD@fodasse.com.br\",\"emailNovo\":null,\"senha\":null,\"senhaNova\":null,\"sexo\":\"M\",\"funcionalidade\":null}],\"convidadosTO\":[],\"permissoesTO\":null,\"permissoes\":null},{\"codGrupo\":2,\"codFesta\":2,\"nomeGrupo\":\"Banda\",\"quantMaxPessoas\":0,\"usuariosTO\":[{\"dtNasc\":\"3900-09-27T03:00:00.000+0000\",\"codUsuario\":4,\"nomeUser\":\"Gustavo Barbosa\",\"tipConta\":\"P\",\"conta\":null,\"email\":\"gustavinhoTPD4@fodasse.com.br\",\"emailNovo\":null,\"senha\":null,\"senhaNova\":null,\"sexo\":\"M\",\"funcionalidade\":null},{\"dtNasc\":\"3900-09-27T03:00:00.000+0000\",\"codUsuario\":1,\"nomeUser\":\"Gustavo Barbosa\",\"tipConta\":\"P\",\"conta\":null,\"email\":\"gustavinhoTPD@fodasse.com.br\",\"emailNovo\":null,\"senha\":null,\"senhaNova\":null,\"sexo\":\"M\",\"funcionalidade\":null},{\"dtNasc\":\"3900-09-27T03:00:00.000+0000\",\"codUsuario\":1,\"nomeUser\":\"Gustavo Barbosa\",\"tipConta\":\"P\",\"conta\":null,\"email\":\"gustavinhoTPD@fodasse.com.br\",\"emailNovo\":null,\"senha\":null,\"senhaNova\":null,\"sexo\":\"M\",\"funcionalidade\":null},{\"dtNasc\":\"3900-09-27T03:00:00.000+0000\",\"codUsuario\":1,\"nomeUser\":\"Gustavo Barbosa\",\"tipConta\":\"P\",\"conta\":null,\"email\":\"gustavinhoTPD@fodasse.com.br\",\"emailNovo\":null,\"senha\":null,\"senhaNova\":null,\"sexo\":\"M\",\"funcionalidade\":null}],\"convidadosTO\":[],\"permissoesTO\":null,\"permissoes\":null},{\"codGrupo\":3,\"codFesta\":2,\"nomeGrupo\":\"SeuranÃ§a\",\"quantMaxPessoas\":0,\"usuariosTO\":[{\"dtNasc\":\"3900-09-27T03:00:00.000+0000\",\"codUsuario\":4,\"nomeUser\":\"Gustavo Barbosa\",\"tipConta\":\"P\",\"conta\":null,\"email\":\"gustavinhoTPD4@fodasse.com.br\",\"emailNovo\":null,\"senha\":null,\"senhaNova\":null,\"sexo\":\"M\",\"funcionalidade\":null},{\"dtNasc\":\"3900-09-27T03:00:00.000+0000\",\"codUsuario\":1,\"nomeUser\":\"Gustavo Barbosa\",\"tipConta\":\"P\",\"conta\":null,\"email\":\"gustavinhoTPD@fodasse.com.br\",\"emailNovo\":null,\"senha\":null,\"senhaNova\":null,\"sexo\":\"M\",\"funcionalidade\":null},{\"dtNasc\":\"3900-09-27T03:00:00.000+0000\",\"codUsuario\":1,\"nomeUser\":\"Gustavo Barbosa\",\"tipConta\":\"P\",\"conta\":null,\"email\":\"gustavinhoTPD@fodasse.com.br\",\"emailNovo\":null,\"senha\":null,\"senhaNova\":null,\"sexo\":\"M\",\"funcionalidade\":null},{\"dtNasc\":\"3900-09-27T03:00:00.000+0000\",\"codUsuario\":1,\"nomeUser\":\"Gustavo Barbosa\",\"tipConta\":\"P\",\"conta\":null,\"email\":\"gustavinhoTPD@fodasse.com.br\",\"emailNovo\":null,\"senha\":null,\"senhaNova\":null,\"sexo\":\"M\",\"funcionalidade\":null}],\"convidadosTO\":[],\"permissoesTO\":null,\"permissoes\":null},{\"codGrupo\":4,\"codFesta\":2,\"nomeGrupo\":\"STAF\",\"quantMaxPessoas\":0,\"usuariosTO\":[{\"dtNasc\":\"3900-09-27T03:00:00.000+0000\",\"codUsuario\":4,\"nomeUser\":\"Gustavo Barbosa\",\"tipConta\":\"P\",\"conta\":null,\"email\":\"gustavinhoTPD4@fodasse.com.br\",\"emailNovo\":null,\"senha\":null,\"senhaNova\":null,\"sexo\":\"M\",\"funcionalidade\":null},{\"dtNasc\":\"3900-09-27T03:00:00.000+0000\",\"codUsuario\":1,\"nomeUser\":\"Gustavo Barbosa\",\"tipConta\":\"P\",\"conta\":null,\"email\":\"gustavinhoTPD@fodasse.com.br\",\"emailNovo\":null,\"senha\":null,\"senhaNova\":null,\"sexo\":\"M\",\"funcionalidade\":null},{\"dtNasc\":\"3900-09-27T03:00:00.000+0000\",\"codUsuario\":1,\"nomeUser\":\"Gustavo Barbosa\",\"tipConta\":\"P\",\"conta\":null,\"email\":\"gustavinhoTPD@fodasse.com.br\",\"emailNovo\":null,\"senha\":null,\"senhaNova\":null,\"sexo\":\"M\",\"funcionalidade\":null},{\"dtNasc\":\"3900-09-27T03:00:00.000+0000\",\"codUsuario\":1,\"nomeUser\":\"Gustavo Barbosa\",\"tipConta\":\"P\",\"conta\":null,\"email\":\"gustavinhoTPD@fodasse.com.br\",\"emailNovo\":null,\"senha\":null,\"senhaNova\":null,\"sexo\":\"M\",\"funcionalidade\":null}],\"convidadosTO\":[],\"permissoesTO\":null,\"permissoes\":null}]";
+		
+		assertEquals(HttpStatus.OK.value(), response.getStatus());
+	}
+	
+	@Test
+	public void removePermissaoGrupoExceptionTest() throws Exception {
+		String uri = "/grupo/removePermissaoGrupo";  
+		String expected = "erro";
+		
+		Mockito.when(grupoService.validarGrupo(Mockito.anyInt())).thenThrow(new ValidacaoException(expected));
+		Mockito.when(grupoService.validarPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt())).thenReturn(true);
+		Mockito.doNothing().when(grupoService).deletePermissaoGrupo(Mockito.anyInt(), Mockito.anyInt());
+		
+		RequestBuilder requestBuilder = MockMvcRequestBuilders
+				.delete(uri)
+				.accept(MediaType.APPLICATION_JSON)
+				.param("idGrupo", "1")
+				.param("idPermissao", "1")
+				.param("idUsuario", "1")
+				.contentType(MediaType.APPLICATION_JSON);
+
+		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+
+		MockHttpServletResponse response = result.getResponse();
+
+		assertEquals(400, response.getStatus());
+		assertEquals(expected, result.getResponse().getContentAsString());
+	}
+	
+///addGrupo_________________________________________________________________________________________________
+	@Test
+	public void addGrupoSucessoTest() throws Exception {
+		String uri = "/grupo/addGrupo";  
+		Grupo grupo = grupoTest(2, "Banda", 4);
+		
+		String json = "{\"codGrupo\": 1,\"codFesta\": 2,\"nomeGrupo\": \"Batata\",\"quantMaxPessoas\":3,\"isOrganizador\": \"false\"}";
+		
+		Mockito.when(grupoService.addGrupoFesta(Mockito.any(GrupoTO.class), Mockito.anyInt())).thenReturn(grupo);
+		
+		RequestBuilder requestBuilder = MockMvcRequestBuilders
+				.post(uri)
+				.accept(MediaType.APPLICATION_JSON)
+				.content(json)
+				.param("idUsuario", "1")
+				.contentType(MediaType.APPLICATION_JSON);
+
+		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+
+		MockHttpServletResponse response = result.getResponse();
+		
+		String expected = "{\"codGrupo\":2,\"codFesta\":2,\"nomeGrupo\":\"Banda\",\"quantMaxPessoas\":0,\"isOrganizador\":false,\"usuariosTO\":null,\"convidadosTO\":null,\"permissoesTO\":null,\"permissoes\":null}";
+				
+		assertEquals(HttpStatus.OK.value(), response.getStatus());
+		assertEquals(expected, result.getResponse().getContentAsString());
+	}
+	
+	@Test
+	public void addGrupoExceptionTest() throws Exception {
+		String uri = "/grupo/addGrupo";  
+		//Grupo grupo = grupoTest(2, "Banda", 4);
+		String expected = "erro";
+		String json = "{\"codGrupo\": 1,\"codFesta\": 2,\"nomeGrupo\": \"Batata\",\"quantMaxPessoas\":3,\"isOrganizador\": \"false\"}";
+		
+		Mockito.when(grupoService.addGrupoFesta(Mockito.any(GrupoTO.class), Mockito.anyInt())).thenThrow(new ValidacaoException(expected));
+		
+		RequestBuilder requestBuilder = MockMvcRequestBuilders
+				.post(uri)
+				.accept(MediaType.APPLICATION_JSON)
+				.content(json)
+				.param("idUsuario", "1")
+				.contentType(MediaType.APPLICATION_JSON);
+
+		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+
+		MockHttpServletResponse response = result.getResponse();
+				
+		assertEquals(400, response.getStatus());
+		assertEquals(expected, result.getResponse().getContentAsString());
+	}
+	
+//deleteGrupo______________________________________________________________________________________________
+	@Test
+	public void deleteGrupoSucessoTest() throws Exception {
+		String uri = "/grupo/deleteGrupo";  
+		Grupo grupo = grupoTest(2, "Banda", 4);
+	
+		Mockito.when(grupoService.deleteGrupo(Mockito.anyInt(), Mockito.anyInt())).thenReturn(grupo);
+		
+		RequestBuilder requestBuilder = MockMvcRequestBuilders
+				.delete(uri)
+				.accept(MediaType.APPLICATION_JSON)
+				.param("codGrupo", "1")
+				.param("idUsuario", "1")
+				.contentType(MediaType.APPLICATION_JSON);
+
+		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+
+		MockHttpServletResponse response = result.getResponse();
+		
+		String expected = "{\"codGrupo\":2,\"codFesta\":2,\"nomeGrupo\":\"Banda\",\"quantMaxPessoas\":0,\"isOrganizador\":false,\"usuariosTO\":null,\"convidadosTO\":null,\"permissoesTO\":null,\"permissoes\":null}";
+				
+		assertEquals(HttpStatus.OK.value(), response.getStatus());
+		assertEquals(expected, result.getResponse().getContentAsString());
+	}
+	
+	@Test
+	public void deleteGrupoExceptionTest() throws Exception {
+		String uri = "/grupo/deleteGrupo";  
+		//Grupo grupo = grupoTest(2, "Banda", 4);
+		String expected = "erro";
+		Mockito.when(grupoService.deleteGrupo(Mockito.anyInt(), Mockito.anyInt())).thenThrow(new ValidacaoException(expected));
+		
+		RequestBuilder requestBuilder = MockMvcRequestBuilders
+				.delete(uri)
+				.accept(MediaType.APPLICATION_JSON)
+				.param("codGrupo", "1")
+				.param("idUsuario", "1")
+				.contentType(MediaType.APPLICATION_JSON);
+
+		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+
+		MockHttpServletResponse response = result.getResponse();
+				
+		assertEquals(400, response.getStatus());
+		assertEquals(expected, result.getResponse().getContentAsString());
+	}
+	
+//updateGrupo______________________________________________________________________________________________
+	@Test
+	public void updateGrupoSucessoTest() throws Exception {
+		String uri = "/grupo/updateGrupo";  
+		Grupo grupo = grupoTest(2, "Banda", 4);
+		
+		String json = "{\"codGrupo\": 1,\"codFesta\": 2,\"nomeGrupo\": \"Batata\",\"quantMaxPessoas\":3,\"isOrganizador\": \"false\"}";
+		
+		Mockito.when(grupoService.atualizar(Mockito.any(GrupoTO.class), Mockito.anyInt())).thenReturn(grupo);
+		
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.put(uri)
 				.accept(MediaType.APPLICATION_JSON)
-				//.param("gruposId", "1", "2", "3")
+				.content(json)
+				.param("idUsuario", "1")
+				.contentType(MediaType.APPLICATION_JSON);
+
+		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+
+		MockHttpServletResponse response = result.getResponse();
+		
+		String expected = "{\"codGrupo\":2,\"codFesta\":2,\"nomeGrupo\":\"Banda\",\"quantMaxPessoas\":0,\"isOrganizador\":false,\"usuariosTO\":null,\"convidadosTO\":null,\"permissoesTO\":null,\"permissoes\":null}";
+				
+		assertEquals(HttpStatus.OK.value(), response.getStatus());
+		assertEquals(expected, result.getResponse().getContentAsString());
+	}
+	
+	@Test
+	public void updateGrupoExceptionTest() throws Exception {
+		String uri = "/grupo/updateGrupo";  
+		//Grupo grupo = grupoTest(2, "Banda", 4);
+		String expected = "erro";
+		String json = "{\"codGrupo\": 1,\"codFesta\": 2,\"nomeGrupo\": \"Batata\",\"quantMaxPessoas\":3,\"isOrganizador\": \"false\"}";
+		
+		Mockito.when(grupoService.atualizar(Mockito.any(GrupoTO.class), Mockito.anyInt())).thenThrow(new ValidacaoException(expected));
+		
+		RequestBuilder requestBuilder = MockMvcRequestBuilders
+				.put(uri)
+				.accept(MediaType.APPLICATION_JSON)
+				.content(json)
+				.param("idUsuario", "1")
+				.contentType(MediaType.APPLICATION_JSON);
+
+		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+
+		MockHttpServletResponse response = result.getResponse();
+				
+		assertEquals(400, response.getStatus());
+		assertEquals(expected, result.getResponse().getContentAsString());
+	}
+	
+//updateUser_______________________________________________________________________________________________
+	@Test
+	public void updateUserSucessoTest() throws Exception {
+		String uri = "/grupo/updateUser";  
+		//String json = "{\"gruposId\": [1, 2, 3]}";
+		String json = "[1, 2, 3]";
+		Mockito.doNothing().when(grupoService).editUsuario(Mockito.anyList(), Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt());
+	
+		RequestBuilder requestBuilder = MockMvcRequestBuilders
+				.put(uri)
+				.accept(MediaType.APPLICATION_JSON)
 				.content(json)
 				.param("grupoIdAtual", "1")
 				.param("idUsuario", "1")
@@ -240,14 +498,240 @@ class GrupoControllerTest {
 
 		MockHttpServletResponse response = result.getResponse();
 		
-		String expected = "[{\"codGrupo\":1,\"codFesta\":2,\"nomeGrupo\":\"GOGO-BOYS\",\"quantMaxPessoas\":0,\"usuariosTO\":[{\"dtNasc\":\"3900-09-27T03:00:00.000+0000\",\"codUsuario\":4,\"nomeUser\":\"Gustavo Barbosa\",\"tipConta\":\"P\",\"conta\":null,\"email\":\"gustavinhoTPD4@fodasse.com.br\",\"emailNovo\":null,\"senha\":null,\"senhaNova\":null,\"sexo\":\"M\",\"funcionalidade\":null},{\"dtNasc\":\"3900-09-27T03:00:00.000+0000\",\"codUsuario\":1,\"nomeUser\":\"Gustavo Barbosa\",\"tipConta\":\"P\",\"conta\":null,\"email\":\"gustavinhoTPD@fodasse.com.br\",\"emailNovo\":null,\"senha\":null,\"senhaNova\":null,\"sexo\":\"M\",\"funcionalidade\":null},{\"dtNasc\":\"3900-09-27T03:00:00.000+0000\",\"codUsuario\":1,\"nomeUser\":\"Gustavo Barbosa\",\"tipConta\":\"P\",\"conta\":null,\"email\":\"gustavinhoTPD@fodasse.com.br\",\"emailNovo\":null,\"senha\":null,\"senhaNova\":null,\"sexo\":\"M\",\"funcionalidade\":null},{\"dtNasc\":\"3900-09-27T03:00:00.000+0000\",\"codUsuario\":1,\"nomeUser\":\"Gustavo Barbosa\",\"tipConta\":\"P\",\"conta\":null,\"email\":\"gustavinhoTPD@fodasse.com.br\",\"emailNovo\":null,\"senha\":null,\"senhaNova\":null,\"sexo\":\"M\",\"funcionalidade\":null}],\"convidadosTO\":[],\"permissoesTO\":null,\"permissoes\":null},{\"codGrupo\":2,\"codFesta\":2,\"nomeGrupo\":\"Banda\",\"quantMaxPessoas\":0,\"usuariosTO\":[{\"dtNasc\":\"3900-09-27T03:00:00.000+0000\",\"codUsuario\":4,\"nomeUser\":\"Gustavo Barbosa\",\"tipConta\":\"P\",\"conta\":null,\"email\":\"gustavinhoTPD4@fodasse.com.br\",\"emailNovo\":null,\"senha\":null,\"senhaNova\":null,\"sexo\":\"M\",\"funcionalidade\":null},{\"dtNasc\":\"3900-09-27T03:00:00.000+0000\",\"codUsuario\":1,\"nomeUser\":\"Gustavo Barbosa\",\"tipConta\":\"P\",\"conta\":null,\"email\":\"gustavinhoTPD@fodasse.com.br\",\"emailNovo\":null,\"senha\":null,\"senhaNova\":null,\"sexo\":\"M\",\"funcionalidade\":null},{\"dtNasc\":\"3900-09-27T03:00:00.000+0000\",\"codUsuario\":1,\"nomeUser\":\"Gustavo Barbosa\",\"tipConta\":\"P\",\"conta\":null,\"email\":\"gustavinhoTPD@fodasse.com.br\",\"emailNovo\":null,\"senha\":null,\"senhaNova\":null,\"sexo\":\"M\",\"funcionalidade\":null},{\"dtNasc\":\"3900-09-27T03:00:00.000+0000\",\"codUsuario\":1,\"nomeUser\":\"Gustavo Barbosa\",\"tipConta\":\"P\",\"conta\":null,\"email\":\"gustavinhoTPD@fodasse.com.br\",\"emailNovo\":null,\"senha\":null,\"senhaNova\":null,\"sexo\":\"M\",\"funcionalidade\":null}],\"convidadosTO\":[],\"permissoesTO\":null,\"permissoes\":null},{\"codGrupo\":3,\"codFesta\":2,\"nomeGrupo\":\"SeuranÃ§a\",\"quantMaxPessoas\":0,\"usuariosTO\":[{\"dtNasc\":\"3900-09-27T03:00:00.000+0000\",\"codUsuario\":4,\"nomeUser\":\"Gustavo Barbosa\",\"tipConta\":\"P\",\"conta\":null,\"email\":\"gustavinhoTPD4@fodasse.com.br\",\"emailNovo\":null,\"senha\":null,\"senhaNova\":null,\"sexo\":\"M\",\"funcionalidade\":null},{\"dtNasc\":\"3900-09-27T03:00:00.000+0000\",\"codUsuario\":1,\"nomeUser\":\"Gustavo Barbosa\",\"tipConta\":\"P\",\"conta\":null,\"email\":\"gustavinhoTPD@fodasse.com.br\",\"emailNovo\":null,\"senha\":null,\"senhaNova\":null,\"sexo\":\"M\",\"funcionalidade\":null},{\"dtNasc\":\"3900-09-27T03:00:00.000+0000\",\"codUsuario\":1,\"nomeUser\":\"Gustavo Barbosa\",\"tipConta\":\"P\",\"conta\":null,\"email\":\"gustavinhoTPD@fodasse.com.br\",\"emailNovo\":null,\"senha\":null,\"senhaNova\":null,\"sexo\":\"M\",\"funcionalidade\":null},{\"dtNasc\":\"3900-09-27T03:00:00.000+0000\",\"codUsuario\":1,\"nomeUser\":\"Gustavo Barbosa\",\"tipConta\":\"P\",\"conta\":null,\"email\":\"gustavinhoTPD@fodasse.com.br\",\"emailNovo\":null,\"senha\":null,\"senhaNova\":null,\"sexo\":\"M\",\"funcionalidade\":null}],\"convidadosTO\":[],\"permissoesTO\":null,\"permissoes\":null},{\"codGrupo\":4,\"codFesta\":2,\"nomeGrupo\":\"STAF\",\"quantMaxPessoas\":0,\"usuariosTO\":[{\"dtNasc\":\"3900-09-27T03:00:00.000+0000\",\"codUsuario\":4,\"nomeUser\":\"Gustavo Barbosa\",\"tipConta\":\"P\",\"conta\":null,\"email\":\"gustavinhoTPD4@fodasse.com.br\",\"emailNovo\":null,\"senha\":null,\"senhaNova\":null,\"sexo\":\"M\",\"funcionalidade\":null},{\"dtNasc\":\"3900-09-27T03:00:00.000+0000\",\"codUsuario\":1,\"nomeUser\":\"Gustavo Barbosa\",\"tipConta\":\"P\",\"conta\":null,\"email\":\"gustavinhoTPD@fodasse.com.br\",\"emailNovo\":null,\"senha\":null,\"senhaNova\":null,\"sexo\":\"M\",\"funcionalidade\":null},{\"dtNasc\":\"3900-09-27T03:00:00.000+0000\",\"codUsuario\":1,\"nomeUser\":\"Gustavo Barbosa\",\"tipConta\":\"P\",\"conta\":null,\"email\":\"gustavinhoTPD@fodasse.com.br\",\"emailNovo\":null,\"senha\":null,\"senhaNova\":null,\"sexo\":\"M\",\"funcionalidade\":null},{\"dtNasc\":\"3900-09-27T03:00:00.000+0000\",\"codUsuario\":1,\"nomeUser\":\"Gustavo Barbosa\",\"tipConta\":\"P\",\"conta\":null,\"email\":\"gustavinhoTPD@fodasse.com.br\",\"emailNovo\":null,\"senha\":null,\"senhaNova\":null,\"sexo\":\"M\",\"funcionalidade\":null}],\"convidadosTO\":[],\"permissoesTO\":null,\"permissoes\":null}]";
-		
+		//String expected = "{\"codGrupo\":2,\"codFesta\":2,\"nomeGrupo\":\"Banda\",\"quantMaxPessoas\":0,\"isOrganizador\":false,\"usuariosTO\":null,\"convidadosTO\":null,\"permissoesTO\":null,\"permissoes\":null}";
+				
 		assertEquals(HttpStatus.OK.value(), response.getStatus());
-		JSONAssert.assertEquals(expected, result.getResponse().getContentAsString(), true);
-	}	
-	*/
+		//assertEquals(expected, result.getResponse().getContentAsString());
+	}
 	
-//addPermissaoGrupo_________________________________________________________________________________________________________________________________________________________________________________
+	@Test
+	public void updateUserExceptionTest() throws Exception {
+		String uri = "/grupo/updateUser";  
+		//Grupo grupo = grupoTest(2, "Banda", 4);
+		String expected = "erro";
+		String json = "[1, 2, 3]";
+		
+		doThrow(new ValidacaoException(expected)).when(grupoService).editUsuario(Mockito.anyList(), Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt());                             
+		
+		RequestBuilder requestBuilder = MockMvcRequestBuilders
+				.put(uri)
+				.accept(MediaType.APPLICATION_JSON)
+				.content(json)
+				.param("grupoIdAtual", "1")
+				.param("idUsuario", "1")
+				.param("idUsuarioPermissao", "1")
+				.contentType(MediaType.APPLICATION_JSON);
+
+		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+
+		MockHttpServletResponse response = result.getResponse();
+				
+		assertEquals(400, response.getStatus());
+		assertEquals(expected, result.getResponse().getContentAsString());
+	}
 	
+//updateUsers______________________________________________________________________________________________
+	@Test
+	public void updateUsersSucessoTest() throws Exception {
+		String uri = "/grupo/updateUsers";  
+		//String json = "{\"gruposId\": [1, 2, 3]}";
+		String json = "[1, 2, 3]";
+		Mockito.doNothing().when(grupoService).editUsuarios(Mockito.anyList(), Mockito.anyInt(), Mockito.anyInt());
 	
+		RequestBuilder requestBuilder = MockMvcRequestBuilders
+				.put(uri)
+				.accept(MediaType.APPLICATION_JSON)
+				.content(json)
+				.param("idGrupo", "1")
+				.param("idUsuarioPermissao", "1")
+				.contentType(MediaType.APPLICATION_JSON);
+
+		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+
+		MockHttpServletResponse response = result.getResponse();
+		
+		//String expected = "{\"codGrupo\":2,\"codFesta\":2,\"nomeGrupo\":\"Banda\",\"quantMaxPessoas\":0,\"isOrganizador\":false,\"usuariosTO\":null,\"convidadosTO\":null,\"permissoesTO\":null,\"permissoes\":null}";
+				
+		assertEquals(HttpStatus.OK.value(), response.getStatus());
+		//assertEquals(expected, result.getResponse().getContentAsString());
+	}
+	
+	@Test
+	public void updateUsersExceptionTest() throws Exception {
+		String uri = "/grupo/updateUsers";  
+		//Grupo grupo = grupoTest(2, "Banda", 4);
+		String expected = "erro";
+		String json = "[1, 2, 3]";
+		
+		doThrow(new ValidacaoException(expected)).when(grupoService).editUsuarios(Mockito.anyList(), Mockito.anyInt(), Mockito.anyInt());                             	
+
+		RequestBuilder requestBuilder = MockMvcRequestBuilders
+				.put(uri)
+				.accept(MediaType.APPLICATION_JSON)
+				.content(json)
+				.param("idGrupo", "1")
+				.param("idUsuarioPermissao", "1")
+				.contentType(MediaType.APPLICATION_JSON);
+
+		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+
+		MockHttpServletResponse response = result.getResponse();
+				
+		assertEquals(400, response.getStatus());
+		assertEquals(expected, result.getResponse().getContentAsString());
+	}
+	
+//deleteConvidado__________________________________________________________________________________________
+	@Test
+	public void deleteConvidadoSucessoTest() throws Exception {
+		String uri = "/grupo/deleteConvidado";  
+		
+		Mockito.doNothing().when(grupoService).deleteConvidado(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt());
+		
+		RequestBuilder requestBuilder = MockMvcRequestBuilders
+				.delete(uri)
+				.accept(MediaType.APPLICATION_JSON)
+				.param("idConvidado", "1")
+				.param("idGrupo", "1")
+				.param("idUsuarioPermissao", "1")
+				.contentType(MediaType.APPLICATION_JSON);
+
+		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+
+		MockHttpServletResponse response = result.getResponse();
+	
+		assertEquals(HttpStatus.OK.value(), response.getStatus());
+		//assertEquals(expected, result.getResponse().getContentAsString());
+	}
+	
+	@Test
+	public void deleteConvidadoExceptionTest() throws Exception {
+		String uri = "/grupo/deleteConvidado";  
+		String expected = "erro";
+		
+		doThrow(new ValidacaoException(expected)).when(grupoService).deleteConvidado(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt());                             	
+
+		RequestBuilder requestBuilder = MockMvcRequestBuilders
+				.delete(uri)
+				.accept(MediaType.APPLICATION_JSON)
+				.param("idConvidado", "1")
+				.param("idGrupo", "1")
+				.param("idUsuarioPermissao", "1")
+				.contentType(MediaType.APPLICATION_JSON);
+
+		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+
+		MockHttpServletResponse response = result.getResponse();
+				
+		assertEquals(400, response.getStatus());
+		assertEquals(expected, result.getResponse().getContentAsString());
+	}
+	
+//deleteMembro____________________________________________________________________________________________
+	@Test
+	public void deleteMembroSucessoTest() throws Exception {
+		String uri = "/grupo/deleteMembro";  
+		
+		Mockito.doNothing().when(grupoService).deleteMembro(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt());
+
+		RequestBuilder requestBuilder = MockMvcRequestBuilders
+				.delete(uri)
+				.accept(MediaType.APPLICATION_JSON)
+				.param("idMembro", "1")
+				.param("idGrupo", "1")
+				.param("idUsuarioPermissao", "1")
+				.contentType(MediaType.APPLICATION_JSON);
+
+		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+
+		MockHttpServletResponse response = result.getResponse();
+	
+		assertEquals(HttpStatus.OK.value(), response.getStatus());
+		//assertEquals(expected, result.getResponse().getContentAsString());
+	}
+	
+	@Test
+	public void deleteMembroExceptionTest() throws Exception {
+		String uri = "/grupo/deleteMembro";  
+		String expected = "erro";
+		
+		doThrow(new ValidacaoException(expected)).when(grupoService).deleteMembro(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt());                             	
+
+		RequestBuilder requestBuilder = MockMvcRequestBuilders
+				.delete(uri)
+				.accept(MediaType.APPLICATION_JSON)
+				.param("idMembro", "1")
+				.param("idGrupo", "1")
+				.param("idUsuarioPermissao", "1")
+				.contentType(MediaType.APPLICATION_JSON);
+
+		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+
+		MockHttpServletResponse response = result.getResponse();
+				
+		assertEquals(400, response.getStatus());
+		assertEquals(expected, result.getResponse().getContentAsString());
+	}
+
+//getGrupoFesta___________________________________________________________________________________________________________________________
+	@Test
+	public void getGrupoFestaSucessTest() throws Exception {
+		String uri = "/grupo/getGrupoFesta";  
+		Grupo grupo = grupoTest(2, "Banda", 4);
+		String expected = "{\"codGrupo\":2,\"codFesta\":2,\"nomeGrupo\":\"Banda\",\"quantMaxPessoas\":0,\"isOrganizador\":false,\"usuariosTO\":[],\"convidadosTO\":[],\"permissoesTO\":[],\"permissoes\":null}";
+		List<Permissao> permissoes = new ArrayList<>();
+		List<Usuario> usuarios = new ArrayList<>();
+		
+		Mockito.when(grupoService.validarGrupo(Mockito.anyInt())).thenReturn(grupo);
+		Mockito.when(grupoService.validarPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt())).thenReturn(true);
+		//grupoService.validarGrupo(Mockito.anyInt());
+		Mockito.when(grupoService.procurarPermissoesPorGrupo(Mockito.anyInt())).thenReturn(permissoes);
+		Mockito.when(grupoService.procurarUsuariosPorGrupo(Mockito.anyInt())).thenReturn(usuarios);
+		Mockito.when(convidadoService.pegarConvidadosGrupo(Mockito.anyInt())).thenReturn(null);
+		Mockito.when(convidadoFactory.getConvidadosTO(Mockito.anyList())).thenReturn(null);
+		
+		RequestBuilder requestBuilder = MockMvcRequestBuilders
+				.get(uri)
+				.accept(MediaType.APPLICATION_JSON)
+				.param("codGrupo", "1")
+				.param("idUsuario", "1")
+				.contentType(MediaType.APPLICATION_JSON);
+
+		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+
+		MockHttpServletResponse response = result.getResponse();
+				
+		assertEquals(HttpStatus.OK.value(), response.getStatus());
+		assertEquals(expected, result.getResponse().getContentAsString());
+	}
+	@Test
+	public void getGrupoFestaExceptionTest() throws Exception {
+		String uri = "/grupo/getGrupoFesta";  
+		Grupo grupo = grupoTest(2, "Banda", 4);
+		String expected = "batata";
+		List<Permissao> permissoes = new ArrayList<>();
+		List<Usuario> usuarios = new ArrayList<>();
+		
+		Mockito.when(grupoService.validarGrupo(Mockito.anyInt())).thenReturn(grupo);
+		Mockito.when(grupoService.validarPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt())).thenThrow(new ValidacaoException(expected));
+		//grupoService.validarGrupo(Mockito.anyInt());
+		Mockito.when(grupoService.procurarPermissoesPorGrupo(Mockito.anyInt())).thenReturn(permissoes);
+		Mockito.when(grupoService.procurarUsuariosPorGrupo(Mockito.anyInt())).thenReturn(usuarios);
+		Mockito.when(convidadoService.pegarConvidadosGrupo(Mockito.anyInt())).thenReturn(null);
+		Mockito.when(convidadoFactory.getConvidadosTO(Mockito.anyList())).thenReturn(null);
+		
+		RequestBuilder requestBuilder = MockMvcRequestBuilders
+				.get(uri)
+				.accept(MediaType.APPLICATION_JSON)
+				.param("codGrupo", "1")
+				.param("idUsuario", "1")
+				.contentType(MediaType.APPLICATION_JSON);
+
+		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+
+		MockHttpServletResponse response = result.getResponse();
+				
+		assertEquals(400, response.getStatus());
+		assertEquals(expected, result.getResponse().getContentAsString());
+	}
 }

@@ -17,7 +17,7 @@ import { TranslateService } from '@ngx-translate/core';
   providers: [LoginComponent]
 })
 export class NotificacoesComponent implements OnInit {
-
+  
   // variáveis para sistema de alerta
   alertNumbers: number;
   visibilidadeAlerta: boolean;

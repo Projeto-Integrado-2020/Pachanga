@@ -124,6 +124,12 @@ class NotificacaoServiceTest {
 		return notificacaoGrupoTo;
 	}
 	
+	private NotificacaoGrupo notificacaoGrupotest() {
+		NotificacaoGrupo notificacaoGrupo = new NotificacaoGrupo();
+		notificacaoGrupo.setMensagem(TipoNotificacao.ESTBAIXO.getValor() + "?12&" + "13&" + "13");
+		return notificacaoGrupo;
+	}
+	
 	private Grupo grupoTest() {	
 		Grupo grupo = new Grupo();	
 		grupo.setCodGrupo(1);	
@@ -276,6 +282,22 @@ class NotificacaoServiceTest {
 	}
 	
 	@Test
+	void  deleteNotificacoesGruposSucessoTest() {
+		NotificacaoGrupo notificacaoGrupo =  notificacaoGrupotest();
+		List<NotificacaoGrupo> notificacoesGrupo = new ArrayList<>();
+		notificacoesGrupo.add(notificacaoGrupo);
+		
+		List<Integer> codGrupo = new ArrayList<>();
+		codGrupo.add(1);
+
+		Mockito.when(notificacaoGrupoRepository.findNotificacoesGrupos(Mockito.anyList())).thenReturn(notificacoesGrupo);
+		doNothing().when(notificacaoGrupoRepository).deleteAll(Mockito.any());
+		
+		notificacaoService.deleteNotificacoesGrupos(codGrupo);
+
+	}
+	
+	@Test
 	void deletarNotificacaoConvidadoSucesso() {
 
 		doNothing().when(notificacaoConvidadoRepository).deleteNotificacoesConvidado(Mockito.anyInt());
@@ -368,12 +390,53 @@ class NotificacaoServiceTest {
 		notificacaoService.alterarStatus(1,1);
 
 	}
+	
+	@Test
+	void alterarStatusNotificacaoUsuarioNullTest() {
+		Mockito.when(notificacaoUsuarioRepository.getNotificacaoUsuario(Mockito.anyInt(), Mockito.anyInt())).thenReturn(null);
+
+		Mockito.when(usuarioRepository.findById(Mockito.anyInt())).thenReturn(usuarioTest());
+
+		Mockito.when(notificacaoUsuarioRepository.save(Mockito.any())).thenReturn(null);
+
+		notificacaoService.alterarStatus(1,1);
+
+	}
+	
+	@Test
+	void alterarStatusNotificacaoUsuarioDestaqueTrueTest() {
+		NotificacaoUsuario notificacaoUsuario = notificacaoUsuarioTest();
+		notificacaoUsuario.setDestaque(true);
+		
+		Mockito.when(notificacaoUsuarioRepository.getNotificacaoUsuario(Mockito.anyInt(), Mockito.anyInt())).thenReturn(notificacaoUsuario);
+
+		Mockito.when(usuarioRepository.findById(Mockito.anyInt())).thenReturn(usuarioTest());
+
+		Mockito.when(notificacaoUsuarioRepository.save(Mockito.any())).thenReturn(null);
+
+		notificacaoService.alterarStatus(1,1);
+
+	}
 
 	@Test
 	void deleteNotificacaoUsuarioTest() {
-		
 		List<NotificacaoUsuario> notificacoesUsuario = new ArrayList<>();
 		notificacoesUsuario.add(notificacaoUsuarioTest());
+
+		Mockito.when(notificacaoUsuarioRepository.getNotificacaoUsuarioByMensagem(Mockito.anyInt(), Mockito.anyString())).thenReturn(notificacoesUsuario);
+
+		Mockito.when(usuarioRepository.findById(Mockito.anyInt())).thenReturn(usuarioTest());
+
+		doNothing().when(notificacaoUsuarioRepository).delete(Mockito.any());
+
+		notificacaoService.deleteNotificacao(1,"teste");
+
+	}
+	
+	@Test
+	void deleteNotificacaoUsuarioIsEmptyTest() {
+		List<NotificacaoUsuario> notificacoesUsuario = new ArrayList<>();
+		//notificacoesUsuario.add(notificacaoUsuarioTest());
 
 		Mockito.when(notificacaoUsuarioRepository.getNotificacaoUsuarioByMensagem(Mockito.anyInt(), Mockito.anyString())).thenReturn(notificacoesUsuario);
 
@@ -398,6 +461,33 @@ class NotificacaoServiceTest {
 	void destaqueNotificacaoUsuarioTest() {
 
 		Mockito.when(notificacaoUsuarioRepository.getNotificacaoUsuario(Mockito.anyInt(), Mockito.anyInt())).thenReturn(notificacaoUsuarioTest());
+
+		Mockito.when(usuarioRepository.findById(Mockito.anyInt())).thenReturn(usuarioTest());
+
+		Mockito.when(notificacaoUsuarioRepository.save(Mockito.any())).thenReturn(null);
+
+		notificacaoService.destaqueNotificacao(1,1);
+
+	}
+	
+	@Test
+	void destaqueNotificacaoUsuarioNotificacaoUsuarioNullTest() {
+		Mockito.when(notificacaoUsuarioRepository.getNotificacaoUsuario(Mockito.anyInt(), Mockito.anyInt())).thenReturn(null);
+
+		Mockito.when(usuarioRepository.findById(Mockito.anyInt())).thenReturn(usuarioTest());
+
+		Mockito.when(notificacaoUsuarioRepository.save(Mockito.any())).thenReturn(null);
+
+		notificacaoService.destaqueNotificacao(1,1);
+
+	}
+	
+	@Test
+	void destaqueNotificacaoUsuarioNotificacaoUsuarioNullDestaqueTrueTest() {
+		NotificacaoUsuario notificacaoUsuario = notificacaoUsuarioTest();
+		notificacaoUsuario .setDestaque(true);
+
+		Mockito.when(notificacaoUsuarioRepository.getNotificacaoUsuario(Mockito.anyInt(), Mockito.anyInt())).thenReturn(notificacaoUsuario);
 
 		Mockito.when(usuarioRepository.findById(Mockito.anyInt())).thenReturn(usuarioTest());
 
