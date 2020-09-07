@@ -25,6 +25,9 @@ class="fila_notificacoes"
         <p class="dont-break-out">
           {{'NOTIFICACAO.CONVITE' | translate}} "{{ alert.conviteFesta.nomeFesta }}"
         </p>
+        <div class="time_not">
+          {{ horario | date:'shortTime' }} 
+        </div>
       </div>
       <mat-card-actions class="fila_notificacoes__convite__btn--invite">
         <button (click)="openDialogConvite(alert)" mat-button class="btn btn--prp">

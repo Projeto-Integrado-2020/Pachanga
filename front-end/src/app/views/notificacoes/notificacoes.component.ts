@@ -16,7 +16,7 @@ import { AlertaEstoqueComponent } from '../alerta-estoque/alerta-estoque.compone
   providers: [LoginComponent]
 })
 export class NotificacoesComponent implements OnInit {
-
+  
   // variáveis para sistema de alerta
   alertNumbers: number;
   visibilidadeAlerta: boolean;
@@ -29,6 +29,8 @@ export class NotificacoesComponent implements OnInit {
   notificacoesUsuario: any[] = [];
   notificacoesGrupo: any[] = [];
   notificacaoConvidado: any[] = [];
+
+  horario: number = Date.now();
 
   convmsg: any;
 
@@ -145,4 +147,6 @@ export class NotificacoesComponent implements OnInit {
     this.notifService.atualizarNotificacoes(alertas).subscribe();
     return notificacoes;
   }
+
+
 }
