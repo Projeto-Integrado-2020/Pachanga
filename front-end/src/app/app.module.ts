@@ -86,6 +86,7 @@ import { NotificacoesComponent } from './views/notificacoes/notificacoes.compone
 import { AlertaEstoqueComponent } from './views/alerta-estoque/alerta-estoque.component';
 import { PerdaProdutoEstoqueDialogComponent } from './views/perda-produto-estoque-dialog/perda-produto-estoque-dialog.component';
 import { RemoverUnidadeDoseDialogComponent } from './views/remover-unidade-dose-dialog/remover-unidade-dose-dialog.component';
+import { MomentModule } from 'ngx-moment';
 
 const config = new AuthServiceConfig([
   {
@@ -205,7 +206,8 @@ export function provideConfig() {
     MatSidenavModule,
     MatIconModule,
     MatListModule,
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+    MomentModule
   ],
   providers: [
     {

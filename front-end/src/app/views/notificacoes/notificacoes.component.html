@@ -25,6 +25,9 @@ class="fila_notificacoes"
         <p class="dont-break-out">
           {{'NOTIFICACAO.CONVITE' | translate}} "{{ alert.conviteFesta.nomeFesta }}"
         </p>
+        <p>
+          {{ alert.dataEmissao | amLocale:translate.currentLang | amTimeAgo }}
+        </p>
       </div>
       <mat-card-actions class="fila_notificacoes__convite__btn--invite">
         <button (click)="openDialogConvite(alert)" mat-button class="btn btn--prp">
@@ -45,6 +48,9 @@ class="fila_notificacoes"
                 </div>
                 <div class="fila_notificacoes__notificacao__horario">
                     <p class="mensagem">{{'NOTIFICACAO.ESTOQUEMIN1' | translate}} "{{ alert.notificacaoEstoque.nomeProduto }}" {{'NOTIFICACAO.ESTOQUEMIN2' | translate}} "{{ alert.notificacaoEstoque.nomeFesta }} - {{ alert.notificacaoEstoque.nomeEstoque }}". {{'NOTIFICACAO.ESTOQUEMIN3' | translate}}</p>
+                    <p>
+                      {{ alert.dataEmissao | amLocale:translate.currentLang | amTimeAgo }}
+                    </p>
                 </div>
             </div>
         </div>
@@ -62,7 +68,10 @@ class="fila_notificacoes"
               </div>
               <div class="fila_notificacoes__notificacao__horario">
                   <p class="mensagem">{{ alert.usuarioFesta.nomeUsuario }} {{'NOTIFICACAO.CONVITEACEITO1' | translate}} "{{ alert.usuarioFesta.nomeFesta }}" {{'NOTIFICACAO.CONVITEACEITO2' | translate}} "{{ alert.usuarioFesta.nomeGrupo }}"</p>
-              </div>
+                  <p>
+                    {{ alert.dataEmissao | amLocale:translate.currentLang | amTimeAgo }}
+                  </p>
+                </div>
             </div>
           <mat-icon class="btn--notif" (click)="abrirAlertaOpcoes(alert)">more_horiz</mat-icon>
         </div>

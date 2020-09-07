@@ -30,6 +30,7 @@ import { InfoCompleteComponent } from '../info-complete/info-complete.component'
 import { MenuFestasComponent } from '../menu-festas/menu-festas.component';
 import { FestaPainelControleComponent } from '../festa-painel-controle/festa-painel-controle.component';
 import { CriarFestaComponent } from '../criar-festa/criar-festa.component';
+import { MomentModule } from 'ngx-moment';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -80,6 +81,7 @@ describe('NotificacoesComponent', () => {
         CriarFestaComponent
       ],
       imports: [
+        MomentModule,
         CustomMaterialModule,
         NgxMaterialTimepickerModule,
         AppRoutingModule,

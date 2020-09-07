@@ -38,6 +38,7 @@ import { ClicarForaDirective } from './views/navbar/clicar-fora-fecha.directive'
 import { GerenciadorProdutosComponent } from './views/gerenciador-produtos/gerenciador-produtos.component';
 import { LoginService } from './services/loginService/login.service';
 import { NotificacoesComponent } from './views/notificacoes/notificacoes.component';
+import { MomentModule } from 'ngx-moment';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -88,6 +89,7 @@ describe('AppComponent', () => {
         NotificacoesComponent
       ],
       imports: [
+        MomentModule,
         BrowserModule,
         BrowserAnimationsModule,
         CustomMaterialModule,
