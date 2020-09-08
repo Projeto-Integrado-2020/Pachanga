@@ -22,11 +22,9 @@ import com.eventmanager.pachanga.domains.Estoque;
 import com.eventmanager.pachanga.domains.Festa;
 import com.eventmanager.pachanga.domains.Grupo;
 import com.eventmanager.pachanga.domains.ItemEstoque;
-import com.eventmanager.pachanga.domains.Permissao;
 import com.eventmanager.pachanga.domains.Produto;
 import com.eventmanager.pachanga.domains.Usuario;
 import com.eventmanager.pachanga.dtos.EstoqueTO;
-import com.eventmanager.pachanga.dtos.GrupoTO;
 import com.eventmanager.pachanga.errors.ValidacaoException;
 import com.eventmanager.pachanga.factory.EstoqueFactory;
 import com.eventmanager.pachanga.repositories.EstoqueRepository;
@@ -37,7 +35,7 @@ import com.eventmanager.pachanga.repositories.ProdutoRepository;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(value=EstoqueService.class)
-public class EstoqueServiceTest {
+class EstoqueServiceTest {
 	
 	@MockBean
 	private FestaRepository festaRepository;
@@ -86,16 +84,6 @@ public class EstoqueServiceTest {
 		return usuarioTest;
 	}
 	
-	private GrupoTO criacaoGrupoTO() {
-		GrupoTO grupoTO = new GrupoTO();
-		grupoTO.setCodGrupo(1);
-		grupoTO.setNomeGrupo("CONVIDADO");
-		grupoTO.setIsOrganizador(false);
-		grupoTO.setCodFesta(criacaoFesta().getCodFesta());
-		grupoTO.setQuantMaxPessoas(15);
-		return grupoTO;
-	}
-	
 	private Festa criacaoFesta() {
 		Festa festaTest = new Festa();
 
@@ -111,38 +99,6 @@ public class EstoqueServiceTest {
 		festaTest.setHorarioFimFestaReal(LocalDateTime.of(2016, Month.JUNE, 23, 19, 10));
 
 		return festaTest;
-	}
-
-	private Permissao PermissaoTest(int id, String desc, String tipo) {
-		Permissao permissao = new Permissao();
-		permissao.setCodPermissao(id);
-		permissao.setDescPermissao(desc);
-		permissao.setTipPermissao(tipo);
-		
-		return permissao;
-	}
-	
-	private List<Permissao> ColecaoDePermissaoTest() {
-		List<Permissao> permissoes = new ArrayList<>();
-		
-		permissoes.add(PermissaoTest(1, "EDITDFES", "G"));
-		permissoes.add(PermissaoTest(2, "CREGRPER", "G"));
-		permissoes.add(PermissaoTest(3, "DELGRPER", "G"));
-		permissoes.add(PermissaoTest(4, "EDIGRPER", "G"));
-		permissoes.add(PermissaoTest(5, "ADDMEMBE", "G"));
-		permissoes.add(PermissaoTest(6, "DELMEMBE", "G"));
-		permissoes.add(PermissaoTest(7, "DISMEMBE", "G"));
-		permissoes.add(PermissaoTest(8, "CADAESTO", "E"));
-		permissoes.add(PermissaoTest(9, "DELEESTO", "E"));
-		permissoes.add(PermissaoTest(10, "EDITESTO", "E"));
-		permissoes.add(PermissaoTest(11, "CADMESTO", "E"));
-		permissoes.add(PermissaoTest(12, "DELMESTO", "E"));
-		permissoes.add(PermissaoTest(13, "EDIMESTO", "E"));
-		permissoes.add(PermissaoTest(14, "ADDMESTO", "E"));
-		permissoes.add(PermissaoTest(15, "BAIMESTO", "E"));
-		permissoes.add(PermissaoTest(16, "DELEFEST", "G"));
-		
-		return permissoes;
 	}
 
 	public Estoque estoqueTest() {
@@ -187,7 +143,7 @@ public class EstoqueServiceTest {
 //estoquesFesta_____________________________________________________________________________________________
 	
 	@Test
-	public void estoquesFestaSucessTest() {
+	void estoquesFestaSucessTest() {
 		Festa festa = criacaoFesta();
 		Grupo grupo = criacaoGrupo();
 		List<Grupo> grupos = new ArrayList<>();
@@ -210,7 +166,7 @@ public class EstoqueServiceTest {
 	}
 	
 	@Test
-	public void estoquesFestaUSESPERMExceptionTest() {
+	void estoquesFestaUSESPERMExceptionTest() {
 		Festa festa = criacaoFesta();
 		List<Grupo> grupos = new ArrayList<>();
 		//grupos.add(grupo);
@@ -235,7 +191,7 @@ public class EstoqueServiceTest {
 	}
 	
 	@Test
-	public void estoquesFestaFESTNFOUExceptionTest() {
+	void estoquesFestaFESTNFOUExceptionTest() {
 		Festa festa = criacaoFesta();
 		Grupo grupo = criacaoGrupo();
 		List<Grupo> grupos = new ArrayList<>();
@@ -262,7 +218,7 @@ public class EstoqueServiceTest {
 	
 //estoquesFestaComProdutos__________________________________________________________________________________
 	@Test
-	public void estoquesFestaComProdutosSucessTest() {
+	void estoquesFestaComProdutosSucessTest() {
 		Festa festa = criacaoFesta();
 		Grupo grupo = criacaoGrupo();
 		List<Grupo> grupos = new ArrayList<>();
@@ -291,7 +247,7 @@ public class EstoqueServiceTest {
 //addEstoque_______________________________________________________________________________________________
 	
 	@Test
-	public void addEstoqueSucessTest() {
+	void addEstoqueSucessTest() {
 		Festa festa = criacaoFesta();
 		Grupo grupo = criacaoGrupo();
 		List<Grupo> grupos = new ArrayList<>();
@@ -315,7 +271,7 @@ public class EstoqueServiceTest {
 	}
 	
 	@Test
-	public void addEstoqueESTOMNOMExceptionTest() {
+	void addEstoqueESTOMNOMExceptionTest() {
 		Festa festa = criacaoFesta();
 		Grupo grupo = criacaoGrupo();
 		List<Grupo> grupos = new ArrayList<>();
@@ -343,7 +299,7 @@ public class EstoqueServiceTest {
 
 //updateEstoque____________________________________________________________________________________________
 	@Test
-	public void updateEstoqueSucessTest() {
+	void updateEstoqueSucessTest() {
 		EstoqueTO estoqueTO = estoqueTOTest();
 		Festa festa = criacaoFesta();
 		Grupo grupo = criacaoGrupo();
@@ -368,7 +324,7 @@ public class EstoqueServiceTest {
 	}
 	
 	@Test
-	public void updateEstoqueESTONOMEExceptionTest() {
+	void updateEstoqueESTONOMEExceptionTest() {
 		EstoqueTO estoqueTO = estoqueTOTest();
 		Festa festa = criacaoFesta();
 		Grupo grupo = criacaoGrupo();
@@ -396,7 +352,7 @@ public class EstoqueServiceTest {
 	}
 	
 	@Test
-	public void updateEstoqueESTONFOUExceptionTest() {
+	void updateEstoqueESTONFOUExceptionTest() {
 		EstoqueTO estoqueTO = estoqueTOTest();
 		Festa festa = criacaoFesta();
 		Grupo grupo = criacaoGrupo();
@@ -425,7 +381,7 @@ public class EstoqueServiceTest {
 
 //deleteEstoque____________________________________________________________________________________________
 	@Test
-	public void deleteEstoqueSucessTest() {
+	void deleteEstoqueSucessTest() {
 		Festa festa = criacaoFesta();
 		Grupo grupo = criacaoGrupo();
 		List<Grupo> grupos = new ArrayList<>();
@@ -444,7 +400,7 @@ public class EstoqueServiceTest {
 	}
 	
 	@Test
-	public void deleteEstoqueESTOCITEExceptionTest() {
+	void deleteEstoqueESTOCITEExceptionTest() {
 		Festa festa = criacaoFesta();
 		Grupo grupo = criacaoGrupo();
 		List<Grupo> grupos = new ArrayList<>();
@@ -472,7 +428,7 @@ public class EstoqueServiceTest {
 	}
 	
 	@Test
-	public void deleteEstoqueESTOPRINExceptionTest() {
+	void deleteEstoqueESTOPRINExceptionTest() {
 		Festa festa = criacaoFesta();
 		Grupo grupo = criacaoGrupo();
 		List<Grupo> grupos = new ArrayList<>();

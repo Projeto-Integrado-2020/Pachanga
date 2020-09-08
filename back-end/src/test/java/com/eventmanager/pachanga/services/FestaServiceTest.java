@@ -46,7 +46,6 @@ import com.eventmanager.pachanga.repositories.ItemEstoqueFluxoRepository;
 import com.eventmanager.pachanga.repositories.ProdutoRepository;
 import com.eventmanager.pachanga.repositories.UsuarioRepository;
 import com.eventmanager.pachanga.tipo.TipoCategoria;
-import com.eventmanager.pachanga.tipo.TipoPermissao;
 import com.eventmanager.pachanga.tipo.TipoStatusFesta;
 
 
@@ -1787,8 +1786,6 @@ class FestaServiceTest {
 		Mockito.when(festaRepository.findByCodFesta(Mockito.anyInt())).thenReturn(festa);	
 		Mockito.when(produtoService.validarProdutoEstoque(Mockito.anyInt(), Mockito.anyInt())).thenReturn(itemEstoqueTest());	
 		
-		boolean erro = false;
-		
 		festaService.validarProdEstoqueIniciada(itemEstoqueTO, 2);
 	}
 	
@@ -1805,8 +1802,6 @@ class FestaServiceTest {
 		
 		Mockito.when(festaRepository.findByCodFesta(Mockito.anyInt())).thenReturn(festa);	
 		Mockito.when(produtoService.validarProdutoEstoque(Mockito.anyInt(), Mockito.anyInt())).thenReturn(itemEstoqueTest());	
-		
-		boolean erro = false;
 		
 		festaService.validarProdEstoqueIniciada(itemEstoqueTO, 2);
 	}

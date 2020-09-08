@@ -43,6 +43,8 @@ class NotificacaoEstoqueTOFactoryTest {
 		produto.setCodFesta(2); // o mesmo do festaTest()
 		produto.setMarca("Cápsula");
 		produto.setPrecoMedio(new BigDecimal("23.90"));
+		produto.setDose(Boolean.TRUE);
+		produto.setQuantDoses(10);
 		return produto;
 
 	}
@@ -73,7 +75,7 @@ class NotificacaoEstoqueTOFactoryTest {
 	}
 
 	@Test
-	void getNotificacaoEstoqueTOSucesso() throws Exception {
+	void getNotificacaoEstoqueTODoseTrueSucesso() throws Exception {
 		ItemEstoque itemEstoque = itemEstoqueTest();
 		Festa festa = festaTest();
 
@@ -83,6 +85,19 @@ class NotificacaoEstoqueTOFactoryTest {
 		assertEquals(notificacaoEstoqueTO.getNomeEstoque(), itemEstoque.getEstoque().getNomeEstoque());
 		assertEquals(notificacaoEstoqueTO.getNomeFesta(), festa.getNomeFesta());
 		assertEquals(notificacaoEstoqueTO.getNomeProduto(), itemEstoque.getProduto().getMarca());
-		assertEquals((int) notificacaoEstoqueTO.getQuantAtual(), itemEstoque.getQuantidadeAtual());
+	}
+	
+	@Test
+	void getNotificacaoEstoqueTODoseFalseSucesso() throws Exception {
+		ItemEstoque itemEstoque = itemEstoqueTest();
+		Festa festa = festaTest();
+		itemEstoque.getProduto().setDose(Boolean.FALSE);
+
+		NotificacaoEstoqueTO notificacaoEstoqueTO = notificacaoEstoqueTOFactory.getNotificacaoEstoqueTO(itemEstoque,
+				festa);
+
+		assertEquals(notificacaoEstoqueTO.getNomeEstoque(), itemEstoque.getEstoque().getNomeEstoque());
+		assertEquals(notificacaoEstoqueTO.getNomeFesta(), festa.getNomeFesta());
+		assertEquals(notificacaoEstoqueTO.getNomeProduto(), itemEstoque.getProduto().getMarca());
 	}
 }

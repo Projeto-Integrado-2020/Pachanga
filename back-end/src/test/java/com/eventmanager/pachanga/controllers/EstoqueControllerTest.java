@@ -3,7 +3,6 @@ package com.eventmanager.pachanga.controllers;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.doThrow;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.ArrayList;
@@ -26,20 +25,15 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import com.eventmanager.pachanga.domains.Estoque;
 import com.eventmanager.pachanga.domains.Festa;
-import com.eventmanager.pachanga.domains.Grupo;
-import com.eventmanager.pachanga.domains.ItemEstoque;
-import com.eventmanager.pachanga.domains.Permissao;
-import com.eventmanager.pachanga.domains.Produto;
 import com.eventmanager.pachanga.domains.Usuario;
 import com.eventmanager.pachanga.dtos.EstoqueTO;
-import com.eventmanager.pachanga.dtos.GrupoTO;
 import com.eventmanager.pachanga.errors.ValidacaoException;
 import com.eventmanager.pachanga.factory.EstoqueFactory;
 import com.eventmanager.pachanga.services.EstoqueService;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(value=EstoqueController.class)
-public class EstoqueControllerTest {
+class EstoqueControllerTest {
 	
 	@MockBean
 	private EstoqueService estoqueService;
@@ -53,16 +47,6 @@ public class EstoqueControllerTest {
 	@Autowired
 	private MockMvc mockMvc;
 	
-	private Grupo criacaoGrupo() {
-		Grupo grupo = new Grupo();
-		grupo.setCodGrupo(1);
-		grupo.setNomeGrupo("CONVIDADO");
-		grupo.setOrganizador(false);
-		grupo.setFesta(criacaoFesta());
-		
-		return grupo;
-	}
-	
 	public static Usuario usuarioTest() throws Exception{
 		Usuario usuarioTest = new Usuario();
 
@@ -73,16 +57,6 @@ public class EstoqueControllerTest {
 		usuarioTest.setNomeUser("Gustavo Barbosa");
 
 		return usuarioTest;
-	}
-	
-	private GrupoTO criacaoGrupoTO() {
-		GrupoTO grupoTO = new GrupoTO();
-		grupoTO.setCodGrupo(1);
-		grupoTO.setNomeGrupo("CONVIDADO");
-		grupoTO.setIsOrganizador(false);
-		grupoTO.setCodFesta(criacaoFesta().getCodFesta());
-		grupoTO.setQuantMaxPessoas(15);
-		return grupoTO;
 	}
 	
 	private Festa criacaoFesta() {
@@ -102,38 +76,6 @@ public class EstoqueControllerTest {
 		return festaTest;
 	}
 
-	private Permissao PermissaoTest(int id, String desc, String tipo) {
-		Permissao permissao = new Permissao();
-		permissao.setCodPermissao(id);
-		permissao.setDescPermissao(desc);
-		permissao.setTipPermissao(tipo);
-		
-		return permissao;
-	}
-	
-	private List<Permissao> ColecaoDePermissaoTest() {
-		List<Permissao> permissoes = new ArrayList<>();
-		
-		permissoes.add(PermissaoTest(1, "EDITDFES", "G"));
-		permissoes.add(PermissaoTest(2, "CREGRPER", "G"));
-		permissoes.add(PermissaoTest(3, "DELGRPER", "G"));
-		permissoes.add(PermissaoTest(4, "EDIGRPER", "G"));
-		permissoes.add(PermissaoTest(5, "ADDMEMBE", "G"));
-		permissoes.add(PermissaoTest(6, "DELMEMBE", "G"));
-		permissoes.add(PermissaoTest(7, "DISMEMBE", "G"));
-		permissoes.add(PermissaoTest(8, "CADAESTO", "E"));
-		permissoes.add(PermissaoTest(9, "DELEESTO", "E"));
-		permissoes.add(PermissaoTest(10, "EDITESTO", "E"));
-		permissoes.add(PermissaoTest(11, "CADMESTO", "E"));
-		permissoes.add(PermissaoTest(12, "DELMESTO", "E"));
-		permissoes.add(PermissaoTest(13, "EDIMESTO", "E"));
-		permissoes.add(PermissaoTest(14, "ADDMESTO", "E"));
-		permissoes.add(PermissaoTest(15, "BAIMESTO", "E"));
-		permissoes.add(PermissaoTest(16, "DELEFEST", "G"));
-		
-		return permissoes;
-	}
-
 	public Estoque estoqueTest() {
 		Estoque estoque = new Estoque();
 		estoque.setCodEstoque(1);
@@ -151,31 +93,9 @@ public class EstoqueControllerTest {
 		return estoqueTO;
 	}
 	
-	private Produto produtoTest() {
-		Produto produto = new Produto();
-		produto.setCodProduto(1);
-		produto.setCodFesta(2); // o mesmo do festaTest()
-		produto.setMarca("Cápsula");
-		produto.setPrecoMedio(new BigDecimal("23.90"));
-		produto.setDose(true);
-		produto.setQuantDoses(15);
-		return produto;
-
-	}
-	
-	private ItemEstoque itemEstoqueTest() {
-		ItemEstoque itemEstoque = new ItemEstoque();
-		itemEstoque.setCodFesta(2); // o mesmo do festaTest()
-		itemEstoque.setQuantidadeMax(100);
-		itemEstoque.setPorcentagemMin(15);
-		itemEstoque.setQuantidadeAtual(30);
-		itemEstoque.setQuantPerda(0);
-		return itemEstoque;
-	}
-	
 //lista____________________________________________________________________________________________________
 	@Test
-	public void listaSucessoTest() throws Exception{
+	void listaSucessoTest() throws Exception{
 		String uri = "/estoque/lista";
 		String expected = "[{\"codEstoque\":1,\"principal\":false,\"nomeEstoque\":\"Estoque\",\"itemEstoque\":null}]";
 		
@@ -205,7 +125,7 @@ public class EstoqueControllerTest {
 	}
 	
 	@Test
-	public void listaExceptionTest() throws Exception{
+	void listaExceptionTest() throws Exception{
 		String uri = "/estoque/lista";
 		
 		String expected = "batata";
@@ -233,7 +153,7 @@ public class EstoqueControllerTest {
 
 //adicionar________________________________________________________________________________________________
 	@Test
-	public void adicionarSucessoTest() throws Exception{
+	void adicionarSucessoTest() throws Exception{
 		String uri = "/estoque/adicionar";
 		String expected = "{\"codEstoque\":1,\"principal\":false,\"nomeEstoque\":\"Estoque\",\"itemEstoque\":null}";
 		String json = "{\"codEstoque\":1,\"principal\":false,\"nomeEstoque\":\"Estoque\",\"itemEstoque\":null}";
@@ -262,7 +182,7 @@ public class EstoqueControllerTest {
 	}
 	
 	@Test
-	public void adicionarExceptionTest() throws Exception{
+	void adicionarExceptionTest() throws Exception{
 		String uri = "/estoque/adicionar";
 		String expected = "Batata";
 		String json = "{\"codEstoque\":1,\"principal\":false,\"nomeEstoque\":\"Estoque\",\"itemEstoque\":null}";
@@ -292,7 +212,7 @@ public class EstoqueControllerTest {
 	
 //delete___________________________________________________________________________________________________
 	@Test
-	public void deleteSucessoTest() throws Exception{
+	void deleteSucessoTest() throws Exception{
 		String uri = "/estoque/delete";
 		String expected = "DELEESTO";
 		
@@ -322,7 +242,7 @@ public class EstoqueControllerTest {
 	}
 	
 	@Test
-	public void deleteExceptionTest() throws Exception{
+	void deleteExceptionTest() throws Exception{
 		String uri = "/estoque/delete";
 		
 		String expected = "batata";
@@ -350,7 +270,7 @@ public class EstoqueControllerTest {
 	
 //atualizar________________________________________________________________________________________________
 	@Test
-	public void atualizarSucessoTest() throws Exception{
+	void atualizarSucessoTest() throws Exception{
 		String uri = "/estoque/atualizar";
 		String expected = "{\"codEstoque\":1,\"principal\":false,\"nomeEstoque\":\"Estoque\",\"itemEstoque\":null}";
 		String json = "{\"codEstoque\":1,\"principal\":false,\"nomeEstoque\":\"Estoque\",\"itemEstoque\":null}";
@@ -379,7 +299,7 @@ public class EstoqueControllerTest {
 	}
 	
 	@Test
-	public void atualizarExceptionTest() throws Exception{
+	void atualizarExceptionTest() throws Exception{
 		String uri = "/estoque/atualizar";
 		String expected = "Batata";
 		String json = "{\"codEstoque\":1,\"principal\":false,\"nomeEstoque\":\"Estoque\",\"itemEstoque\":null}";
