@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialog, MatTableDataSource } from '@angular/material';
 import { GetFestaService } from 'src/app/services/get-festa/get-festa.service';
@@ -33,7 +33,7 @@ export interface TabelaProdutos {
   '../../../../node_modules/font-awesome/css/font-awesome.css']
 })
 
-export class EstoquePainelComponent implements OnInit {
+export class EstoquePainelComponent implements OnInit, OnDestroy {
 
   displayedColumns: string[] = ['nome', 'quantidadeMax', 'porcentagemMin', 'quantidadeAtual', 'actions1', 'actions2'];
 
@@ -46,6 +46,8 @@ export class EstoquePainelComponent implements OnInit {
   estoques: any;
   dataSources = [];
   quantidadesProdutos = [];
+  subscription: Subscription;
+  source: any;
 
   constructor(public fb: FormBuilder, public dialog: MatDialog, public getFestaService: GetFestaService,
               public router: Router, public statusService: StatusFestaService, public getEstoque: GetEstoqueService,
@@ -214,8 +216,8 @@ export class EstoquePainelComponent implements OnInit {
   }
 
   updateQuantidades() {
-    const source = interval(1000);
-    source.subscribe(
+    this.source = interval(1000);
+    this.subscription = this.source.subscribe(
       () => {
         this.getQtdsAtualizadas(this.getEstoque.getEstoque(this.festa.codFesta));
       }
@@ -282,6 +284,11 @@ export class EstoquePainelComponent implements OnInit {
 
   calcularUnidades(quantidade, doses) {
     return Math.ceil(quantidade / doses);
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+    this.source = null;
   }
 
 }
