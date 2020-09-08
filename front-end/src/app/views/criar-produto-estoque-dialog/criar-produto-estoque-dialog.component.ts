@@ -63,7 +63,6 @@ export class CriarProdutoEstoqueDialogComponent implements OnInit {
       quantidadeAtual: quantidadeAtual * quantDoses,
       porcentagemMin
     };
-    console.log(itemEstoqueTO);
     this.addProdEstoqueService.addProdutoEstoque(itemEstoqueTO, this.estoque.codEstoque).subscribe((resp: any) => {
       this.addProdEstoqueService.setFarol(false);
       this.dialog.closeAll();

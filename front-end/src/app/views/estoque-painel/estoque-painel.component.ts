@@ -223,7 +223,6 @@ export class EstoquePainelComponent implements OnInit, OnDestroy {
     this.source = interval(1000);
     this.subscription = this.source.subscribe(
       () => {
-        console.log('ASDHASJDAWDUASD');
         this.getQtdsAtualizadas(this.getEstoque.getEstoque(this.festa.codFesta));
       }
     );
@@ -292,7 +291,9 @@ export class EstoquePainelComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
     this.source = null;
   }
 
