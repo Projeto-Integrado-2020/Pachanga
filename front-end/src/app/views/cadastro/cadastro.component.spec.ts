@@ -39,6 +39,7 @@ import { EstoquePainelComponent } from '../estoque-painel/estoque-painel.compone
 import { GerenciadorProdutosComponent } from '../gerenciador-produtos/gerenciador-produtos.component';
 import { FestaDetalhesDialogComponent } from '../festa-detalhes-dialog/festa-detalhes-dialog.component';
 import { NotificacoesComponent } from '../notificacoes/notificacoes.component';
+import { MomentModule } from 'ngx-moment';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -89,6 +90,7 @@ describe('CadastroComponent', () => {
         NotificacoesComponent
       ],
       imports: [
+        MomentModule,
         CustomMaterialModule,
         NgxMaterialTimepickerModule,
         BrowserAnimationsModule,

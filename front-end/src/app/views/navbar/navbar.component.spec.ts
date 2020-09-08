@@ -36,6 +36,7 @@ import { EstoquePainelComponent } from '../estoque-painel/estoque-painel.compone
 import { GerenciadorProdutosComponent } from '../gerenciador-produtos/gerenciador-produtos.component';
 import { FestaDetalhesDialogComponent } from '../festa-detalhes-dialog/festa-detalhes-dialog.component';
 import { NotificacoesComponent } from '../notificacoes/notificacoes.component';
+import { MomentModule } from 'ngx-moment';
 
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 100000;
 
@@ -89,6 +90,7 @@ describe('NavbarComponent', () => {
         NotificacoesComponent
        ],
       imports: [
+        MomentModule,
         CustomMaterialModule,
         NgxMaterialTimepickerModule,
         AppRoutingModule,

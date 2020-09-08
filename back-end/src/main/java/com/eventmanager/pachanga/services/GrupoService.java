@@ -98,7 +98,7 @@ public class GrupoService {
 			throw new ValidacaoException("EDITORGN");
 		}
 
-		if (grupoTO.getNomeGrupo() != null || grupoTO.getNomeGrupo().length() >= 1) {
+		if (grupoTO.getNomeGrupo() != null && grupoTO.getNomeGrupo().length() >= 1) {
 			grupo.setNomeGrupo(grupoTO.getNomeGrupo());
 		}
 		if (grupoTO.getQuantMaxPessoas() >= 1

@@ -256,7 +256,7 @@ public class FestaService {
 			throw new ValidacaoException("USERSPER");// Usuário sem permissão de fazer essa ação
 		}
 		Festa festa = festaRepository.findById(idFesta);
-		boolean festaFinalizadaDelete = TipoStatusFesta.FINALIZADO.getValor().equals(festa.getStatusFesta())
+		boolean festaFinalizadaDelete = TipoStatusFesta.FINALIZADO.getValor().equals(festa.getStatusFesta()) 
 				&& TipoPermissao.DELEFEST.getCodigo() == codPermissao;
 		if (!TipoStatusFesta.PREPARACAO.getValor().equals(festa.getStatusFesta()) && !festaFinalizadaDelete) {
 			throw new ValidacaoException("FESTINIC");// Não pode ser feita essa operação com a festa iniciada
@@ -269,7 +269,8 @@ public class FestaService {
 			throw new ValidacaoException("DATEINFE");// data inicial ou final incorreta
 		}
 		Festa festa = festaRepository.findByNomeFesta(festaTo.getNomeFesta());
-		if (festa != null && festa.getCodFesta() != festaTo.getCodFesta()
+		if (festa != null 
+				&& festa.getCodFesta() != festaTo.getCodFesta()
 				&& festa.getNomeFesta().equals(festaTo.getNomeFesta())) {
 			throw new ValidacaoException("FESTNOME");// outra festa está usando o msm nome
 		}

@@ -8,6 +8,7 @@ import { FestaDetalhesDialogComponent } from '../festa-detalhes-dialog/festa-det
 import { AceitoMembroDetalhesService } from 'src/app/services/aceito-membro-detalhes/aceito-membro-detalhes.service';
 import { EstoqueMinDetalhesService } from 'src/app/services/estoque-min-detalhes/estoque-min-detalhes.service';
 import { AlertaEstoqueComponent } from '../alerta-estoque/alerta-estoque.component';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-notificacoes',
@@ -34,7 +35,8 @@ export class NotificacoesComponent implements OnInit {
 
   constructor(public dialog: MatDialog, public loginComponent: LoginComponent,
               public loginService: LoginService, public notifService: NotificacoesService,
-              public accDetail: AceitoMembroDetalhesService, public estoqueMinDetail: EstoqueMinDetalhesService) {
+              public accDetail: AceitoMembroDetalhesService, public estoqueMinDetail: EstoqueMinDetalhesService,
+              public translate: TranslateService) {
 
   }
 

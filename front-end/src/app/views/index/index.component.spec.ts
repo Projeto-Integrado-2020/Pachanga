@@ -30,6 +30,7 @@ import { EditarGrupoComponent } from '../editar-grupo/editar-grupo.component';
 import { DistribuicaoPermissoesComponent } from '../distribuicao-permissoes/distribuicao-permissoes.component';
 import { EstoquePainelComponent } from '../estoque-painel/estoque-painel.component';
 import { GerenciadorProdutosComponent } from '../gerenciador-produtos/gerenciador-produtos.component';
+import { MomentModule } from 'ngx-moment';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -62,6 +63,7 @@ describe('IndexComponent', () => {
         GerenciadorProdutosComponent
       ],
       imports: [
+        MomentModule,
         CustomMaterialModule,
         NgxMaterialTimepickerModule,
         AppRoutingModule,
