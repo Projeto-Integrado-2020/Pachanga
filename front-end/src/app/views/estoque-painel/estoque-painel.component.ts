@@ -104,6 +104,10 @@ export class EstoquePainelComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
+    this.source = null;
     this.dataSources = [];
     this.estoques = [];
     let idFesta = this.router.url;
@@ -219,6 +223,7 @@ export class EstoquePainelComponent implements OnInit, OnDestroy {
     this.source = interval(1000);
     this.subscription = this.source.subscribe(
       () => {
+        console.log('ASDHASJDAWDUASD');
         this.getQtdsAtualizadas(this.getEstoque.getEstoque(this.festa.codFesta));
       }
     );

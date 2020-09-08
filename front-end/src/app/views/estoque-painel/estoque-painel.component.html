@@ -43,7 +43,7 @@
                             <ng-container matColumnDef="quantidadeMax">
                                 <th mat-header-cell *matHeaderCellDef>{{'ESTOQUEPROD.QTDMAX' | translate}}</th>
                                 <td mat-cell *matCellDef="let element; let j = index">
-                                    <span *ngIf="element.dose">
+                                    <span *ngIf="element.dose && quantidadesProdutos[i][j]">
                                         {{calcularUnidades(quantidadesProdutos[i][j].quantidadeMax, quantidadesProdutos[i][j].quantDoses)}}
                                         ({{quantidadesProdutos[i][j].quantidadeMax}})
                                     </span>
@@ -55,17 +55,21 @@
 
                             <ng-container matColumnDef="porcentagemMin">
                                 <th mat-header-cell *matHeaderCellDef>{{'ESTOQUEPROD.PORCENTAGEMMIN' | translate}}</th>
-                                <td mat-cell *matCellDef="let element; let j = index"> {{quantidadesProdutos[i][j].porcentagemMin}}% </td>
+                                <td mat-cell *matCellDef="let element; let j = index">
+                                    <span *ngIf="quantidadesProdutos[i][j]">
+                                        {{quantidadesProdutos[i][j].porcentagemMin}}%
+                                    </span>
+                                </td>
                             </ng-container>
         
                             <ng-container matColumnDef="quantidadeAtual">
                                 <th mat-header-cell *matHeaderCellDef>{{'ESTOQUE.QUANTIDADE' | translate}}</th>
                                 <td mat-cell *matCellDef="let element; let j = index">
-                                    <span *ngIf="element.dose">
+                                    <span *ngIf="element.dose && quantidadesProdutos[i][j]">
                                         {{calcularUnidades(quantidadesProdutos[i][j].quantidadeAtual, quantidadesProdutos[i][j].quantDoses)}}
                                         ({{quantidadesProdutos[i][j].quantidadeAtual}})
                                     </span>
-                                    <span *ngIf="!element.dose">{{quantidadesProdutos[i][j].quantidadeAtual}}</span>
+                                    <span *ngIf="!element.dose && quantidadesProdutos[i][j]">{{quantidadesProdutos[i][j].quantidadeAtual}}</span>
                                 </td>
                             </ng-container>
 

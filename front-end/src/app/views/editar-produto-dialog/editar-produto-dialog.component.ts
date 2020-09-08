@@ -66,7 +66,6 @@ export class EditarProdutoDialogComponent implements OnInit {
     return (formGroup: FormGroup) => {
       const checkboxInput = formGroup.get(checkbox);
       const dosagemInput = formGroup.get(dosagem);
-      console.log(dosagemInput.value);
 
       // set error on matchingControl if validation fails
       if (checkboxInput.value && !dosagemInput.value) {
