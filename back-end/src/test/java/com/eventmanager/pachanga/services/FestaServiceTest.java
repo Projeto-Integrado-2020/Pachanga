@@ -39,6 +39,7 @@ import com.eventmanager.pachanga.repositories.ConvidadoRepository;
 import com.eventmanager.pachanga.repositories.EstoqueRepository;
 import com.eventmanager.pachanga.repositories.FestaRepository;
 import com.eventmanager.pachanga.repositories.GrupoRepository;
+import com.eventmanager.pachanga.repositories.ItemEstoqueFluxoRepository;
 import com.eventmanager.pachanga.repositories.ProdutoRepository;
 import com.eventmanager.pachanga.repositories.UsuarioRepository;
 import com.eventmanager.pachanga.tipo.TipoCategoria;
@@ -90,6 +91,9 @@ class FestaServiceTest {
 
 	@MockBean
 	private NotificacaoService notificacaoService;
+	
+	@MockBean
+	private ItemEstoqueFluxoRepository itemEstoqueFluxoRepository;
 
 	@Autowired
 	private FestaService festaService;

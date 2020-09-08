@@ -27,6 +27,7 @@ import com.eventmanager.pachanga.repositories.ConvidadoRepository;
 import com.eventmanager.pachanga.repositories.EstoqueRepository;
 import com.eventmanager.pachanga.repositories.FestaRepository;
 import com.eventmanager.pachanga.repositories.GrupoRepository;
+import com.eventmanager.pachanga.repositories.ItemEstoqueFluxoRepository;
 import com.eventmanager.pachanga.repositories.ProdutoRepository;
 import com.eventmanager.pachanga.repositories.UsuarioRepository;
 import com.eventmanager.pachanga.tipo.TipoCategoria;
@@ -68,7 +69,7 @@ public class FestaService {
 
 	@Autowired
 	private EstoqueService estoqueService;
-	
+
 	@Autowired
 	private ProdutoService produtoService;
 
@@ -80,6 +81,9 @@ public class FestaService {
 
 	@Autowired
 	private NotificacaoService notificacaoService;
+
+	@Autowired
+	private ItemEstoqueFluxoRepository itemEstoqueFluxoRepository;
 
 	public List<Festa> procurarFestas() {
 		return festaRepository.findAll();
@@ -135,16 +139,18 @@ public class FestaService {
 		validarPermissaoUsuario(idUser, idFesta, TipoPermissao.DELEFEST.getCodigo());
 		List<Integer> codGrupos = grupoRepository.findCodGruposFesta(idFesta);
 		codGrupos.stream().forEach(g -> {
-			grupoRepository.deleteUsuariosGrupo(g);
 			List<Integer> codConvidados = convidadoRepository.findCodConvidadosNoGrupo(g);
 			convidadoRepository.deleteAllConvidadosNotificacao(codConvidados);
 			convidadoRepository.deleteAllConvidadosGrupo(g);
 			convidadoRepository.deleteConvidados(codConvidados);
 			List<Usuario> usuarios = usuarioRepository.findUsuariosPorGrupo(g);
-			usuarios.stream()
-					.forEach(u -> notificacaoService.deleteNotificacao(u.getCodUsuario(),
-							notificacaoService.criacaoMensagemNotificacaoUsuarioConvidado(g, u.getCodUsuario(),
-									TipoNotificacao.CONVACEI.getValor())));
+			usuarios.stream().forEach(u -> {
+				notificacaoService.deleteNotificacao(u.getCodUsuario(),
+						notificacaoService.criacaoMensagemNotificacaoUsuarioConvidado(g, u.getCodUsuario(),
+								TipoNotificacao.CONVACEI.getValor()));
+				notificacaoService.deleteNotificacao(idUser, TipoNotificacao.ESTBAIXO.getValor() + "?" + idFesta);
+			});
+			grupoRepository.deleteUsuariosGrupo(g);
 		});
 		grupoRepository.deletePermissoesGrupos(codGrupos);
 		notificacaoService.deleteNotificacoesGrupos(codGrupos);
@@ -157,6 +163,7 @@ public class FestaService {
 		for (Estoque estoque : estoques) {
 			estoqueRepository.deleteProdEstoque(idFesta, estoque.getCodEstoque());
 		}
+		itemEstoqueFluxoRepository.deleteByCodFesta(idFesta);
 		produtoRepository.deleteProdFesta(idFesta);
 		estoqueRepository.deleteEstoque(idFesta);
 		festaRepository.deleteById(idFesta);
@@ -347,15 +354,16 @@ public class FestaService {
 			throw new ValidacaoException("FESTNINI");
 		}
 	}
-	
+
 	public void validarProdEstoqueIniciada(ItemEstoqueTO itemEstoqueTO, int codFesta) {
 		int codProduto = itemEstoqueTO.getCodProduto();
 		int codEstoque = itemEstoqueTO.getCodEstoque();
 		ItemEstoque itemEstoque = produtoService.validarProdutoEstoque(codEstoque, codProduto);
 		Festa festa = festaRepository.findByCodFesta(codFesta);
-		if(TipoStatusFesta.INICIADO.getValor().equals(festa.getStatusFesta()) &&
-				itemEstoqueTO.getQuantidadeAtual() != itemEstoque.getQuantidadeAtual()) {
-			throw new ValidacaoException("QNTATLDF"); // quantidade atual diferente tentando ser editada com festa inicializada
+		if (TipoStatusFesta.INICIADO.getValor().equals(festa.getStatusFesta())
+				&& itemEstoqueTO.getQuantidadeAtual() != itemEstoque.getQuantidadeAtual()) {
+			throw new ValidacaoException("QNTATLDF"); // quantidade atual diferente tentando ser editada com festa
+														// inicializada
 		}
 	}
 }

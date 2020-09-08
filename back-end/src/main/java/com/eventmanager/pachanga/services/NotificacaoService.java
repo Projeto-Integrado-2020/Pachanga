@@ -213,6 +213,10 @@ public class NotificacaoService {
 		return descNotificacao + "?" + idGrupo + "&" + idConvidado;
 	}
 	
+	public String criarMensagemEstoqueBaixo(int codFesta, int codEstoque, int codProduto) {
+		return TipoNotificacao.ESTBAIXO.getValor() + "?" + codFesta + "&" + codEstoque + "&" + codProduto;
+	}
+	
 	public LocalDateTime getDataAtual() {
 		return LocalDateTime.now(ZoneId.of("America/Sao_Paulo"));
 	}

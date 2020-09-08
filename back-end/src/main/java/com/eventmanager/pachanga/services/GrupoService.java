@@ -19,7 +19,6 @@ import com.eventmanager.pachanga.repositories.FestaRepository;
 import com.eventmanager.pachanga.repositories.GrupoRepository;
 import com.eventmanager.pachanga.repositories.PermissaoRepository;
 import com.eventmanager.pachanga.repositories.UsuarioRepository;
-import com.eventmanager.pachanga.tipo.TipoNotificacao;
 import com.eventmanager.pachanga.tipo.TipoPermissao;
 
 @Service
@@ -34,7 +33,7 @@ public class GrupoService {
 
 	@Autowired
 	private UsuarioRepository usuarioRepository;
-	
+
 	@Autowired
 	private NotificacaoService notificacaoService;
 
@@ -43,30 +42,31 @@ public class GrupoService {
 
 	@Autowired
 	private ConvidadoRepository convidadoRepository;
-	
-	//usuarios______**********************************____________________________________________________________________________________________________
+
+	// usuarios______**********************************____________________________________________________________________________________________________
 
 	public Grupo addGrupoFesta(GrupoTO grupoTO, int idUsuario) {
 		this.validarPermissaoUsuario(grupoTO.getCodFesta(), idUsuario);
-		List<Grupo> gruposPreExistentes = grupoRepository.findGruposDuplicados(grupoTO.getCodFesta(), grupoTO.getNomeGrupo());
+		List<Grupo> gruposPreExistentes = grupoRepository.findGruposDuplicados(grupoTO.getCodFesta(),
+				grupoTO.getNomeGrupo());
 
-		if(gruposPreExistentes.isEmpty()) {
+		if (gruposPreExistentes.isEmpty()) {
 			return this.addGrupo(grupoTO.getCodFesta(), grupoTO.getNomeGrupo(), false, grupoTO.getPermissoes());
-		}else {
+		} else {
 			throw new ValidacaoException("GRPEXIST");
 		}
 	}
 
 	public Grupo addGrupo(int codFesta, String nomeGrupo, boolean organizador, List<Integer> permissoes) {
 		Festa festa = this.validarFesta(codFesta);
-		Grupo grupo = GrupoFactory.getGrupo(nomeGrupo,grupoRepository.getNextValMySequence(), festa, organizador);
+		Grupo grupo = GrupoFactory.getGrupo(nomeGrupo, grupoRepository.getNextValMySequence(), festa, organizador);
 		grupoRepository.save(grupo);
-		if(organizador) {
-			permissaoRepository.findAll().forEach(p -> grupoRepository.saveGrupoPermissao(grupo.getCodGrupo(), p.getCodPermissao()));
+		if (organizador) {
+			permissaoRepository.findAll()
+					.forEach(p -> grupoRepository.saveGrupoPermissao(grupo.getCodGrupo(), p.getCodPermissao()));
 		} else {
-			permissaoRepository.findPermissoes(permissoes).stream().forEach(permissao -> 
-			grupoRepository.saveGrupoPermissao(grupo.getCodGrupo(), permissao.getCodPermissao())				
-					);
+			permissaoRepository.findPermissoes(permissoes).stream().forEach(
+					permissao -> grupoRepository.saveGrupoPermissao(grupo.getCodGrupo(), permissao.getCodPermissao()));
 		}
 		return grupo;
 	}
@@ -78,7 +78,7 @@ public class GrupoService {
 	public Grupo deleteGrupo(int idGrupo, int idUsuario) {
 
 		Grupo grupo = this.validarGrupo(idGrupo);
-		this.validarPermissaoUsuario(grupo.getFesta().getCodFesta(), idUsuario);  
+		this.validarPermissaoUsuario(grupo.getFesta().getCodFesta(), idUsuario);
 		this.validarFesta(grupo.getFesta().getCodFesta());
 		this.validarOrganizador(grupo);
 		this.validarGrupoVazio(grupo);
@@ -94,21 +94,22 @@ public class GrupoService {
 		Grupo grupo = validarGrupo(grupoTO.getCodGrupo());
 		this.validarPermissaoUsuario(festa.getCodFesta(), idUsuario);
 
-		if(grupo.getOrganizador()) {
+		if (grupo.getOrganizador()) {
 			throw new ValidacaoException("EDITORGN");
 		}
 
-		if(grupoTO.getNomeGrupo() != null || grupoTO.getNomeGrupo().length() >= 1) {
+		if (grupoTO.getNomeGrupo() != null || grupoTO.getNomeGrupo().length() >= 1) {
 			grupo.setNomeGrupo(grupoTO.getNomeGrupo());
 		}
-		if(grupoTO.getQuantMaxPessoas() >= 1 && grupoTO.getQuantMaxPessoas() >= this.procurarUsuariosPorGrupo(grupoTO.getCodGrupo()).size()){
+		if (grupoTO.getQuantMaxPessoas() >= 1
+				&& grupoTO.getQuantMaxPessoas() >= this.procurarUsuariosPorGrupo(grupoTO.getCodGrupo()).size()) {
 			grupo.setQuantMaxPessoas(grupoTO.getQuantMaxPessoas());
 		}
 
 		permissaoRepository.deletePermissoesGrupo(grupoTO.getCodGrupo());
 
 		List<Integer> permissoes = grupoTO.getPermissoes();
-		for(Integer permissao: permissoes) {
+		for (Integer permissao : permissoes) {
 			grupoRepository.saveGrupoPermissao(grupoTO.getCodGrupo(), permissao);
 		}
 
@@ -116,14 +117,15 @@ public class GrupoService {
 		return grupo;
 	}
 
-	public void editUsuario(List<Integer> gruposId, Integer grupoIdAtual, Integer idUsuario, Integer idUsuarioPermissao) {
+	public void editUsuario(List<Integer> gruposId, Integer grupoIdAtual, Integer idUsuario,
+			Integer idUsuarioPermissao) {
 		Grupo grupo = grupoRepository.findByCod(grupoIdAtual);
 		Festa festa = grupo.getFesta();
 		this.validarPermissaoUsuarioGrupo(festa.getCodFesta(), idUsuarioPermissao, TipoPermissao.DISMEMBE.getCodigo());
 		grupoRepository.deleteMembroGrupo(grupoIdAtual, idUsuario);
 		List<Integer> grupos = grupoRepository.findGruposFestaIn(gruposId, festa.getCodFesta());
 		grupos.removeAll(grupoRepository.findGruposUsuarioByGrupos(grupos, idUsuario));
-		for(Integer grup : grupos) {
+		for (Integer grup : grupos) {
 			grupoRepository.saveUsuarioGrupo(idUsuario, grup);
 		}
 
@@ -135,7 +137,7 @@ public class GrupoService {
 		this.validarPermissaoUsuarioGrupo(festa.getCodFesta(), idUsuarioPermissao, TipoPermissao.DISMEMBE.getCodigo());
 		grupoRepository.deleteAllMembrosGrupo(grupoId);
 
-		for(Integer user : idUsuarios) {
+		for (Integer user : idUsuarios) {
 			grupoRepository.saveUsuarioGrupo(user, grupoId);
 		}
 	}
@@ -153,21 +155,16 @@ public class GrupoService {
 		this.validarPermissaoUsuarioGrupo(festa.getCodFesta(), idUsuarioPermissao, TipoPermissao.DELMEMBE.getCodigo());
 		notificacaoService.deletarNotificacoesConvidado(idConvidado);
 		grupoRepository.deleteConvidadoGrupo(idConvidado, idGrupo);
-		Integer convxgrup = grupoRepository.existsConvidadoGrupo(idConvidado);
-		if(convxgrup == null) {
-			convidadoRepository.deleteConvidado(idConvidado);
-		}		
-		String mensagem = notificacaoService.criacaoMensagemNotificacaoUsuarioConvidado(idGrupo, idConvidado, TipoNotificacao.CONVFEST.getValor());
-		notificacaoService.deletarNotificacaoConvidado(idConvidado, TipoNotificacao.CONVFEST.getCodigo(), mensagem);
+		convidadoRepository.deleteConvidado(idConvidado);
 	}
 
-	//permissão__________________________________________________________________________________________________________
+	// permissão__________________________________________________________________________________________________________
 	public void addPermissaoGrupo(int codPermissao, int codGrupo) {
 		this.validarPermissao(codPermissao);
 		this.validarGrupo(codGrupo);
-		if(this.grupoTemPermissao(codPermissao, codGrupo)) {
+		if (this.grupoTemPermissao(codPermissao, codGrupo)) {
 			throw new ValidacaoException("PERMDUPL");// permissao duplicada
-		}else {
+		} else {
 			grupoRepository.saveGrupoPermissao(codGrupo, codPermissao);
 		}
 	}
@@ -176,63 +173,63 @@ public class GrupoService {
 		this.validarPermissao(codPermissao);
 		this.validarGrupo(codGrupo);
 
-		if(this.grupoTemPermissao(codPermissao, codGrupo)) {
+		if (this.grupoTemPermissao(codPermissao, codGrupo)) {
 			grupoRepository.deleteGrupoPermissao(codGrupo, codPermissao);
-		}else {
+		} else {
 			throw new ValidacaoException("PERMINVA");// permissao invalida
 		}
 	}
 
-	//listagens________________________________________________________________________________________________________
+	// listagens________________________________________________________________________________________________________
 
-	public List<Grupo> procurarGruposPorUsuario(int idUser){
+	public List<Grupo> procurarGruposPorUsuario(int idUser) {
 		this.validarUsuario(idUser);
 		return grupoRepository.findGruposUsuario(idUser);
 	}
 
-	public List<Grupo> procurarGruposPorFesta(int idFesta){
+	public List<Grupo> procurarGruposPorFesta(int idFesta) {
 		this.validarFesta(idFesta);
 		return grupoRepository.findGruposFesta(idFesta);
 	}
 
-	public List<Permissao> procurarPermissoesPorGrupo(int codGrupo){
+	public List<Permissao> procurarPermissoesPorGrupo(int codGrupo) {
 		return grupoRepository.findPermissoesPorGrupo(codGrupo);
 	}
 
-	public List<Usuario> procurarUsuariosPorGrupo(int codGrupo){
+	public List<Usuario> procurarUsuariosPorGrupo(int codGrupo) {
 		this.validarGrupo(codGrupo);
 
 		return usuarioRepository.findUsuariosPorGrupo(codGrupo);
 	}
 
-	public Grupo procurarGrupoPorId(int idGrupo){
+	public Grupo procurarGrupoPorId(int idGrupo) {
 		return grupoRepository.findById(idGrupo);
 	}
 
-
-	//validadores__________________________________________________________________________________________________________	
+	// validadores__________________________________________________________________________________________________________
 
 	public boolean validarPermissaoUsuario(int codFesta, int idUsuario) {
-		List<Grupo> grupos = grupoRepository.findGrupoPermissaoUsuario(codFesta, idUsuario, TipoPermissao.ADDMEMBE.getCodigo());
-		if(grupos.isEmpty()) {
+		List<Grupo> grupos = grupoRepository.findGrupoPermissaoUsuario(codFesta, idUsuario,
+				TipoPermissao.ADDMEMBE.getCodigo());
+		if (grupos.isEmpty()) {
 			throw new ValidacaoException("USESPERM");// usuário sem permissão
-		}else {
+		} else {
 			return true;
 		}
 	}
-	
+
 	public boolean validarPermissaoUsuarioGrupo(int codFesta, int idUsuario, int tipoPermissao) {
 		List<Grupo> grupos = grupoRepository.findGrupoPermissaoUsuario(codFesta, idUsuario, tipoPermissao);
-		if(grupos.isEmpty()) {
+		if (grupos.isEmpty()) {
 			throw new ValidacaoException("USESPERM");// usuário sem permissão
-		}else {
+		} else {
 			return true;
 		}
 	}
 
 	private Usuario validarUsuario(int idUsuario) {
 		Usuario usuario = usuarioRepository.findById(idUsuario);
-		if(usuario == null) {
+		if (usuario == null) {
 			throw new ValidacaoException("USERNFOU");
 		}
 		return usuario;
@@ -240,7 +237,7 @@ public class GrupoService {
 
 	public Grupo validarGrupo(int codGrupo) {
 		Grupo grupo = grupoRepository.findById(codGrupo);
-		if(grupo == null) {
+		if (grupo == null) {
 			throw new ValidacaoException("GRUPNFOU");
 		}
 		return grupo;
@@ -248,7 +245,7 @@ public class GrupoService {
 
 	public Festa validarFesta(int idFesta) {
 		Festa festa = festaRepository.findById(idFesta);
-		if(festa == null) {
+		if (festa == null) {
 			throw new ValidacaoException("FESTNFOU");
 		}
 		return festa;
@@ -256,24 +253,24 @@ public class GrupoService {
 
 	private Permissao validarPermissao(int codPermissao) {
 		Permissao permissao = permissaoRepository.findById(codPermissao);
-		if(permissao == null) {
+		if (permissao == null) {
 			throw new ValidacaoException("PERMNFOU");
 		}
 		return permissao;
 	}
 
 	private Grupo validarOrganizador(Grupo grupo) {
-		if(grupo.getOrganizador()) {
+		if (grupo.getOrganizador()) {
 			throw new ValidacaoException("GRPOORGN"); // grupo é organizador
 		}
 		return grupo;
 	}
 
 	private Grupo validarGrupoVazio(Grupo grupo) {
-		if(grupo.getUsuarios().isEmpty()) {
+		if (grupo.getUsuarios().isEmpty()) {
 			return grupo;
-		}else {
-			throw new ValidacaoException("GRPONVAZ"); //grupo não vazio
+		} else {
+			throw new ValidacaoException("GRPONVAZ"); // grupo não vazio
 		}
 	}
 
@@ -281,8 +278,8 @@ public class GrupoService {
 		boolean retorno = false;
 		List<Permissao> permissoes = grupoRepository.findPermissoesPorGrupo(codGrupo);
 
-		for(Permissao permissao : permissoes) {
-			if(permissao.getCodPermissao() == codPermissao) {
+		for (Permissao permissao : permissoes) {
+			if (permissao.getCodPermissao() == codPermissao) {
 				retorno = true;
 				break;
 			}

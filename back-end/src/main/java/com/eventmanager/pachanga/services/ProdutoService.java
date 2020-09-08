@@ -288,7 +288,7 @@ public class ProdutoService {
 
 	private void deleteNotificacoesItemEstoque(List<Grupo> grupos, ItemEstoque itemEstoque) {
 		for (Grupo grupo : grupos) {
-			String mensagem = criarMensagemEstoqueBaixo(itemEstoque.getCodFesta(),
+			String mensagem = notificacaoService.criarMensagemEstoqueBaixo(itemEstoque.getCodFesta(),
 					itemEstoque.getEstoque().getCodEstoque(), itemEstoque.getProduto().getCodProduto());
 			if (!notificacaoService.verificarNotificacaoGrupo(grupo.getCodGrupo(), mensagem)) {
 				notificacaoService.deletarNotificacaoGrupo(grupo.getCodGrupo(), mensagem);
@@ -417,7 +417,7 @@ public class ProdutoService {
 			List<Grupo> grupos = grupoRepository.findGruposPermissaoEstoque(codFesta);
 
 			for (Grupo grupo : grupos) {
-				String mensagem = criarMensagemEstoqueBaixo(itemEstoque.getCodFesta(),
+				String mensagem = notificacaoService.criarMensagemEstoqueBaixo(itemEstoque.getCodFesta(),
 						itemEstoque.getEstoque().getCodEstoque(), itemEstoque.getProduto().getCodProduto());
 				if (notificacaoService.verificarNotificacaoGrupo(grupo.getCodGrupo(), mensagem)) {
 					notificacaoService.inserirNotificacaoGrupo(grupo.getCodGrupo(),
@@ -432,8 +432,6 @@ public class ProdutoService {
 		}
 	}
 
-	private String criarMensagemEstoqueBaixo(int codFesta, int codEstoque, int codProduto) {
-		return TipoNotificacao.ESTBAIXO.getValor() + "?" + codFesta + "&" + codEstoque + "&" + codProduto;
-	}
+	
 
 }

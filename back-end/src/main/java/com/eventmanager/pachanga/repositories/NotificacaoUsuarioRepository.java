@@ -24,7 +24,7 @@ public interface NotificacaoUsuarioRepository extends JpaRepository<NotificacaoU
 	@Query(value = "INSERT INTO notificacao_x_usuario (cod_notificacao_usuario, cod_usuario, cod_notificacao, destaque, status, mensagem, data_emissao) VALUES(:codNotificacaoUsuario, :codUsuario, :codNotificacao, :destaque, :status, :mensagem, :dataEmissao)", nativeQuery = true)
 	public void insertNotificacaoUsuario(int codNotificacaoUsuario ,Integer codUsuario, Integer codNotificacao, boolean destaque, String status, String mensagem, LocalDateTime dataEmissao);
 
-	@Query(value = "SELECT nu FROM NotificacaoUsuario nu JOIN nu.usuario u WHERE u.codUsuario = :idUser AND nu.mensagem = :mensagem")
+	@Query(value = "SELECT nu FROM NotificacaoUsuario nu JOIN nu.usuario u WHERE u.codUsuario = :idUser AND nu.mensagem LIKE %:mensagem%")
 	public List<NotificacaoUsuario> getNotificacaoUsuarioByMensagem(int idUser, String mensagem);
 
 }
