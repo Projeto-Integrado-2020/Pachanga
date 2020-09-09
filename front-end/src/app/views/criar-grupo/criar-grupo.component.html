@@ -13,12 +13,10 @@
                     </mat-form-field>
                     <br>
                     <div class="lista-permissoes">
-                        <div class="esq">
-                            <div *ngFor="let permissao of permissoes; let i = index;">
-                                <mat-checkbox *ngIf="permissoes?.length/2 > i" (click)='updateListaPermissao(permissao)' formControlName="{{permissao.descPermissao}}">
-                                    {{ 'PERMISSAO.' + permissao.descPermissao | translate }}
-                                </mat-checkbox>
-                            </div>
+                        <div *ngFor="let permissao of permissoes; let i = index;">
+                            <mat-checkbox *ngIf="permissoes?.length/2 > i" (click)='updateListaPermissao(permissao)' formControlName="{{permissao.descPermissao}}">
+                                {{ 'PERMISSAO.' + permissao.descPermissao | translate }}
+                            </mat-checkbox>
                         </div>
                         <div *ngFor="let permissao of permissoes; let i = index;">
                             <mat-checkbox *ngIf="i >= permissoes?.length/2" (click)='updateListaPermissao(permissao)' formControlName="{{permissao.descPermissao}}">

@@ -43,7 +43,7 @@ header {
 }
 
 .texto-input {
-    width: 100vh;
+    width: 60%;
 }
 
 .button-form {
@@ -51,23 +51,39 @@ header {
     color: #ffffff;
     padding: .2rem;
     padding-right: .3rem;
-    margin-bottom: 3%;
-    transform: translateX(100%);
 }
 
 .card-content {
-    padding: 0 3.3rem 0 3.3rem;
+    padding: 1rem 1rem 1rem 1rem;
 }
 
 .button-return {
-    margin-bottom: 2%;
+
 }
 
 .esq {
-    float: left;
-    margin-right: 15%;
+
 }
 
 .lista-permissoes {
-    margin-left: 2rem;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+@media (min-width: 749px){
+    .lista-permissoes {
+        max-height: 15rem;
+        overflow-y: scroll;
+    }
+
+    .card-content {
+        width: 100%;
+    }
+}
+@media (max-width: 748px){
+    .lista-permissoes {
+        flex-direction: column;
+        position: relative;
+    }
 }
