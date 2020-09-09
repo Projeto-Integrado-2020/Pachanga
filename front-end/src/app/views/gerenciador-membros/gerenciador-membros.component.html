@@ -3,16 +3,12 @@
       <h1 class="title">{{ 'GRUPO.PARTYGROUPS' | translate }}</h1>
 
       <div class="botoes-criar-atribuir">
-         <a routerLink="./criar-grupo">
-            <button class="btn-1" mat-raised-button>
+            <button routerLink="./criar-grupo" class="btn-1" mat-raised-button>
                   <mat-icon>add</mat-icon> {{ 'GRUPO.CREATEGROUP' | translate }}
             </button>
-         </a>
-         <a routerLink="./atribuir-grupos">
-            <button class="btn-1" mat-raised-button>
+            <button routerLink="./atribuir-grupos" class="btn-1" mat-raised-button>
                {{ 'GRUPO.ASSIGN' | translate }}
             </button>
-         </a>
       </div>
    </header>
 
