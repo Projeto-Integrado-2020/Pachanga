@@ -1,11 +1,12 @@
 import { TestBed } from '@angular/core/testing';
-import { HttpErrorResponse, HttpClientModule } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { CustomMaterialModule } from '../../views/material/material.module';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { EditarMembroGrupoService } from './editar-membro-grupo.service';
 
 describe('EditarMembroGrupoService', () => {
   let dialogSpy: MatDialog;
+  let service: EditarMembroGrupoService;
 
   beforeEach(() => {
     dialogSpy = jasmine.createSpyObj('MatDialog', ['open', 'closeAll']);
@@ -19,15 +20,15 @@ describe('EditarMembroGrupoService', () => {
         { provide: MatDialogRef, useValue: {} }
       ]
     });
+
+    service = TestBed.get(EditarMembroGrupoService);
   });
 
   it('should be created', () => {
-    const service: EditarMembroGrupoService = TestBed.get(EditarMembroGrupoService);
     expect(service).toBeTruthy();
   });
 
   it('should set farol', () => {
-    const service: EditarMembroGrupoService = TestBed.get(EditarMembroGrupoService);
     service.setFarol(true);
     expect(service.getFarol()).toBeTruthy();
     service.setFarol(false);
@@ -35,15 +36,23 @@ describe('EditarMembroGrupoService', () => {
   });
 
   it('should get farol', () => {
-    const service: EditarMembroGrupoService = TestBed.get(EditarMembroGrupoService);
     expect(service.getFarol()).toBeFalsy();
     service.setFarol(true);
     expect(service.getFarol()).toBeTruthy();
   });
 
   it('should open a dialog through a method', () => {
-    const service: EditarMembroGrupoService = TestBed.get(EditarMembroGrupoService);
     service.openErrorDialog('teste');
     expect(dialogSpy.open).toHaveBeenCalled();
+  });
+
+  it('should put Info at editarMembroColaborador', () => {
+    service.loginService.usuarioInfo = {codusuario: 'teste'};
+
+    expect(service.editarMembroColaborador('teste', 'teste', 'teste')).toBeTruthy();
+
+    expect(service.getFarol()).toBeTruthy();
+
+    expect(service.editarMembroColaborador('teste', 'teste', 'teste')).toBeFalsy();
   });
 });

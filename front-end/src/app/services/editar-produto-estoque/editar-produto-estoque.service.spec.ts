@@ -7,6 +7,7 @@ import { MatDialog, MatDialogRef } from '@angular/material';
 
 describe('EditarProdutoEstoqueService', () => {
   let dialogSpy: MatDialog;
+  let service: EditarProdutoEstoqueService;
 
   beforeEach(() => {
     dialogSpy = jasmine.createSpyObj('MatDialog', ['open', 'closeAll']);
@@ -20,15 +21,15 @@ describe('EditarProdutoEstoqueService', () => {
         { provide: MatDialogRef, useValue: {} }
       ]
     });
+
+    service = TestBed.get(EditarProdutoEstoqueService);
   });
 
   it('should be created', () => {
-    const service: EditarProdutoEstoqueService = TestBed.get(EditarProdutoEstoqueService);
     expect(service).toBeTruthy();
   });
 
   it('should set farol', () => {
-    const service: EditarProdutoEstoqueService = TestBed.get(EditarProdutoEstoqueService);
     service.setFarol(true);
     expect(service.getFarol()).toBeTruthy();
     service.setFarol(false);
@@ -36,15 +37,19 @@ describe('EditarProdutoEstoqueService', () => {
   });
 
   it('should get farol', () => {
-    const service: EditarProdutoEstoqueService = TestBed.get(EditarProdutoEstoqueService);
     expect(service.getFarol()).toBeFalsy();
     service.setFarol(true);
     expect(service.getFarol()).toBeTruthy();
   });
 
   it('should open a dialog through a method', () => {
-    const service: EditarProdutoEstoqueService = TestBed.get(EditarProdutoEstoqueService);
     service.openErrorDialog('teste');
     expect(dialogSpy.open).toHaveBeenCalled();
+  });
+
+  it('should put Info at editarProdutoEstoque', () => {
+    service.loginService.usuarioInfo = {codusuario: 'teste'};
+
+    expect(service.editarProdutoEstoque('teste')).toBeTruthy();
   });
 });

@@ -13,6 +13,7 @@ import { MatDialog } from '@angular/material';
 
 describe('EditarFestaService', () => {
   let dialogSpy: MatDialog;
+  let service: EditarFestaService;
   const router = {
     navigate: jasmine.createSpy('navigate')
   };
@@ -31,21 +32,20 @@ describe('EditarFestaService', () => {
         { provide: Router, useValue: router }
       ]
     });
+
+    service = TestBed.get(EditarFestaService);
   });
 
   it('should be created', () => {
-    const service: EditarFestaService = TestBed.get(EditarFestaService);
     expect(service).toBeTruthy();
   });
 
   it('should open a dialog through a method', () => {
-    const service: EditarFestaService = TestBed.get(EditarFestaService);
     service.openErrorDialog('teste');
     expect(dialogSpy.open).toHaveBeenCalled();
   });
 
   it('should set farol', () => {
-    const service: EditarFestaService = TestBed.get(EditarFestaService);
     service.setFarol(true);
     expect(service.getFarol()).toBeTruthy();
     service.setFarol(false);
@@ -53,9 +53,18 @@ describe('EditarFestaService', () => {
   });
 
   it('should get farol', () => {
-    const service: EditarFestaService = TestBed.get(EditarFestaService);
     expect(service.getFarol()).toBeFalsy();
     service.setFarol(true);
     expect(service.getFarol()).toBeTruthy();
+  });
+
+  it('should put Info at atualizarFesta', () => {
+    service.loginService.usuarioInfo = {codusuario: 'teste'};
+
+    expect(service.atualizarFesta('teste')).toBeTruthy();
+
+    expect(service.getFarol()).toBeTruthy();
+
+    expect(service.atualizarFesta('teste')).toBeFalsy();
   });
 });

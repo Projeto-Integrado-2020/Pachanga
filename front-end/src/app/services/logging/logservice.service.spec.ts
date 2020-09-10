@@ -5,15 +5,20 @@ import { LogService } from './log.service';
 import { HttpClientModule } from '@angular/common/http';
 
 describe('LogService', () => {
-  beforeEach(() => TestBed.configureTestingModule({
-    imports: [
-      HttpClientModule
-    ],
-    providers: [],
-  }));
+  let service: LogService;
+
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      imports: [
+        HttpClientModule
+      ],
+      providers: [],
+    });
+
+    service = TestBed.get(LogService);
+  });
 
   it('should be created', () => {
-    const service: LogService = TestBed.get(LogService);
     expect(service).toBeTruthy();
   });
 });

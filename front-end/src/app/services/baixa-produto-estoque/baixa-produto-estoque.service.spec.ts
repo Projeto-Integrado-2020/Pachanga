@@ -6,6 +6,7 @@ import { CustomMaterialModule } from 'src/app/views/material/material.module';
 
 describe('BaixaProdutoEstoqueService', () => {
   let dialogSpy: MatDialog;
+  let service: BaixaProdutoEstoqueService;
 
   beforeEach(() => {
     dialogSpy = jasmine.createSpyObj('MatDialog', ['open', 'closeAll']);
@@ -20,20 +21,15 @@ describe('BaixaProdutoEstoqueService', () => {
         { provide: MatDialogRef, useValue: {} }
       ]
     });
+
+    service = TestBed.get(BaixaProdutoEstoqueService);
   });
 
   it('should be created', () => {
-    const service: BaixaProdutoEstoqueService = TestBed.get(BaixaProdutoEstoqueService);
-    expect(service).toBeTruthy();
-  });
-
-  it('should be created', () => {
-    const service: BaixaProdutoEstoqueService = TestBed.get(BaixaProdutoEstoqueService);
     expect(service).toBeTruthy();
   });
 
   it('should set farol', () => {
-    const service: BaixaProdutoEstoqueService = TestBed.get(BaixaProdutoEstoqueService);
     service.setFarol(true);
     expect(service.getFarol()).toBeTruthy();
     service.setFarol(false);
@@ -41,15 +37,18 @@ describe('BaixaProdutoEstoqueService', () => {
   });
 
   it('should get farol', () => {
-    const service: BaixaProdutoEstoqueService = TestBed.get(BaixaProdutoEstoqueService);
     expect(service.getFarol()).toBeFalsy();
     service.setFarol(true);
     expect(service.getFarol()).toBeTruthy();
   });
 
   it('should open a dialog through a method', () => {
-    const service: BaixaProdutoEstoqueService = TestBed.get(BaixaProdutoEstoqueService);
     service.openErrorDialog('teste');
     expect(dialogSpy.open).toHaveBeenCalled();
+  });
+
+  it('should put Info at baixaProdutoEstoque', () => {
+    service.loginService.usuarioInfo = {codusuario: 'teste'};
+    expect(service.baixaProdutoEstoque('teste', 'teste', 'teste')).toBeTruthy();
   });
 });

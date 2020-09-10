@@ -6,6 +6,7 @@ import { GetCategoriasService } from './get-categorias.service';
 
 describe('GetCategoriasService', () => {
   let dialogSpy: MatDialog;
+  let service: GetCategoriasService;
 
   beforeEach(() => {
     dialogSpy = jasmine.createSpyObj('MatDialog', ['open']);
@@ -20,15 +21,15 @@ describe('GetCategoriasService', () => {
         { provide: MatDialogRef, useValue: {} }
       ]
     });
+
+    service = TestBed.get(GetCategoriasService);
   });
 
   it('should be created', () => {
-    const service: GetCategoriasService = TestBed.get(GetCategoriasService);
     expect(service).toBeTruthy();
   });
 
   it('should set farol', () => {
-    const service: GetCategoriasService = TestBed.get(GetCategoriasService);
     service.setFarol(true);
     expect(service.getFarol()).toBeTruthy();
     service.setFarol(false);
@@ -36,15 +37,21 @@ describe('GetCategoriasService', () => {
   });
 
   it('should get farol', () => {
-    const service: GetCategoriasService = TestBed.get(GetCategoriasService);
     expect(service.getFarol()).toBeFalsy();
     service.setFarol(true);
     expect(service.getFarol()).toBeTruthy();
   });
 
   it('should open a dialog through a method', () => {
-    const service: GetCategoriasService = TestBed.get(GetCategoriasService);
     service.openErrorDialog('teste');
     expect(dialogSpy.open).toHaveBeenCalled();
+  });
+
+  it('should get Info at getCategorias', () => {
+    expect(service.getCategorias()).toBeTruthy();
+
+    expect(service.getFarol()).toBeTruthy();
+
+    expect(service.getCategorias()).toBeFalsy();
   });
 });

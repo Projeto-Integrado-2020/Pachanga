@@ -1,23 +1,27 @@
-import { TestBed, inject } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 import { MenuFestasService } from './menu-festas.service';
 import { HttpClientModule } from '@angular/common/http';
 import { CustomMaterialModule } from '../../views/material/material.module';
 
 describe('MenuFestasService', () => {
-  beforeEach(() => TestBed.configureTestingModule({
+  let service: MenuFestasService;
+
+  beforeEach(() => {
+    TestBed.configureTestingModule({
       imports: [
         HttpClientModule,
         CustomMaterialModule
       ]
-  }));
+    });
+
+    service = TestBed.get(MenuFestasService);
+  });
 
   it('should be created', () => {
-    const service: MenuFestasService = TestBed.get(MenuFestasService);
     expect(service).toBeTruthy();
   });
 
   it('should set farol', () => {
-    const service: MenuFestasService = TestBed.get(MenuFestasService);
     service.setFarol(true);
     expect(service.getFarol()).toBeTruthy();
     service.setFarol(false);
@@ -25,9 +29,16 @@ describe('MenuFestasService', () => {
   });
 
   it('should get farol', () => {
-    const service: MenuFestasService = TestBed.get(MenuFestasService);
     expect(service.getFarol()).toBeFalsy();
     service.setFarol(true);
     expect(service.getFarol()).toBeTruthy();
+  });
+
+  it('should get Info at getFestas', () => {
+    expect(service.getFestas('teste')).toBeTruthy();
+
+    expect(service.getFarol()).toBeTruthy();
+
+    expect(service.getFestas('teste')).toBeFalsy();
   });
 });

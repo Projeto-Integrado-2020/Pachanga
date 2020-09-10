@@ -8,6 +8,7 @@ import { MatDialog } from '@angular/material';
 
 describe('EditarGrupoService', () => {
   let dialogSpy: MatDialog;
+  let service: EditarGrupoService;
   const router = {
     navigate: jasmine.createSpy('navigate')
   };
@@ -26,21 +27,20 @@ describe('EditarGrupoService', () => {
         { provide: Router, useValue: router }
       ]
     });
+
+    service = TestBed.get(EditarGrupoService);
   });
 
   it('should be created', () => {
-    const service: EditarGrupoService = TestBed.get(EditarGrupoService);
     expect(service).toBeTruthy();
   });
 
   it('should open a dialog through a method', () => {
-    const service: EditarGrupoService = TestBed.get(EditarGrupoService);
     service.openErrorDialog('teste');
     expect(dialogSpy.open).toHaveBeenCalled();
   });
 
   it('should set farol', () => {
-    const service: EditarGrupoService = TestBed.get(EditarGrupoService);
     service.setFarol(true);
     expect(service.getFarol()).toBeTruthy();
     service.setFarol(false);
@@ -48,9 +48,18 @@ describe('EditarGrupoService', () => {
   });
 
   it('should get farol', () => {
-    const service: EditarGrupoService = TestBed.get(EditarGrupoService);
     expect(service.getFarol()).toBeFalsy();
     service.setFarol(true);
     expect(service.getFarol()).toBeTruthy();
+  });
+
+  it('should put Info at editarGrupo', () => {
+    service.loginService.usuarioInfo = {codusuario: 'teste'};
+
+    expect(service.editarGrupo('teste')).toBeTruthy();
+
+    expect(service.getFarol()).toBeTruthy();
+
+    expect(service.editarGrupo('teste')).toBeFalsy();
   });
 });
