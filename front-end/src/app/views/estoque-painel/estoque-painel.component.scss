@@ -2,7 +2,11 @@
 
 @media (max-width: 748px) and (orientation: landscape){
   .example-container {
-    width: 90%;
+    width: 80%;
+  }
+
+  .example-sidenav {
+    width: 10rem;
   }
 }
 
@@ -173,7 +177,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 8.7%;
     background: #DADADA  ;
   }
   
