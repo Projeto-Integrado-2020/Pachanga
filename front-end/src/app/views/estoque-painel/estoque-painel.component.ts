@@ -257,7 +257,6 @@ export class EstoquePainelComponent implements OnInit, OnDestroy {
   getQtdsAtualizadas(observavel: Observable<object>) {
     return observavel.subscribe(
       (resp: any) => {
-        this.quantidadesProdutos = [];
         for (const estoque of this.estoques) {
           for (const estoqueAtualizado of resp) {
             if (estoqueAtualizado.codEstoque === estoque.codEstoque) {
@@ -266,21 +265,21 @@ export class EstoquePainelComponent implements OnInit, OnDestroy {
           }
         }
         for (const estoque of this.estoques) {
-          const produtos = [];
           if (estoque.itemEstoque) {
             for (const produtoEstoque of Object.keys(estoque.itemEstoque)) {
-              produtos.push({
-                codProduto: estoque.itemEstoque[produtoEstoque].codProduto,
-                quantidadeMax: estoque.itemEstoque[produtoEstoque].quantidadeMax,
-                quantidadeAtual: estoque.itemEstoque[produtoEstoque].quantidadeAtual,
-                porcentagemMin: estoque.itemEstoque[produtoEstoque].porcentagemMin,
-                marca: estoque.itemEstoque[produtoEstoque].produto.marca,
-                dose: estoque.itemEstoque[produtoEstoque].produto.dose,
-                quantDoses: estoque.itemEstoque[produtoEstoque].produto.quantDoses
-              });
+              for (const produto of this.quantidadesProdutos) {
+                if (produto.codProduto === estoque.itemEstoque[produtoEstoque].codProduto) {
+                  produto.codProduto = estoque.itemEstoque[produtoEstoque].codProduto;
+                  produto.quantidadeMax = estoque.itemEstoque[produtoEstoque].quantidadeMax;
+                  produto.quantidadeAtual = estoque.itemEstoque[produtoEstoque].quantidadeAtual;
+                  produto.porcentagemMin = estoque.itemEstoque[produtoEstoque].porcentagemMin;
+                  produto.marca = estoque.itemEstoque[produtoEstoque].produto.marca;
+                  produto.dose = estoque.itemEstoque[produtoEstoque].produto.dose;
+                  produto.quantDoses = estoque.itemEstoque[produtoEstoque].produto.quantDoses;
+                }
+              }
             }
           }
-          this.quantidadesProdutos.push(produtos);
         }
       }
     );
