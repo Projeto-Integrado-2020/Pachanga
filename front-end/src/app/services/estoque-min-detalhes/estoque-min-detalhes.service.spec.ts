@@ -6,6 +6,7 @@ import { EstoqueMinDetalhesService } from './estoque-min-detalhes.service';
 
 describe('EstoqueMinDetalhesService', () => {
   let dialogSpy: MatDialog;
+  let service: EstoqueMinDetalhesService;
 
   beforeEach(() => {
     dialogSpy = jasmine.createSpyObj('MatDialog', ['open']);
@@ -19,15 +20,15 @@ describe('EstoqueMinDetalhesService', () => {
         { provide: MatDialogRef, useValue: {} }
       ]
     });
+
+    service = TestBed.get(EstoqueMinDetalhesService);
   });
 
   it('should be created', () => {
-    const service: EstoqueMinDetalhesService = TestBed.get(EstoqueMinDetalhesService);
     expect(service).toBeTruthy();
   });
 
   it('should set farol', () => {
-    const service: EstoqueMinDetalhesService = TestBed.get(EstoqueMinDetalhesService);
     service.setFarol(true);
     expect(service.getFarol()).toBeTruthy();
     service.setFarol(false);
@@ -35,15 +36,21 @@ describe('EstoqueMinDetalhesService', () => {
   });
 
   it('should get farol', () => {
-    const service: EstoqueMinDetalhesService = TestBed.get(EstoqueMinDetalhesService);
     expect(service.getFarol()).toBeFalsy();
     service.setFarol(true);
     expect(service.getFarol()).toBeTruthy();
   });
 
   it('should open a dialog through a method', () => {
-    const service: EstoqueMinDetalhesService = TestBed.get(EstoqueMinDetalhesService);
     service.openErrorDialog('teste');
     expect(dialogSpy.open).toHaveBeenCalled();
+  });
+
+  it('should get Info at getDetalhes', () => {
+    expect(service.getDetalhes('teste', 'teste', 'teste')).toBeTruthy();
+
+    expect(service.getFarol()).toBeTruthy();
+
+    expect(service.getDetalhes('teste', 'teste', 'teste')).toBeFalsy();
   });
 });

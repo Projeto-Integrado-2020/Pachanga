@@ -6,6 +6,7 @@ import { MatDialog, MatDialogRef } from '@angular/material';
 
 describe('DeleterGrupoService', () => {
   let dialogSpy: MatDialog;
+  let service: DeleterGrupoService;
 
   beforeEach(() => {
     dialogSpy = jasmine.createSpyObj('MatDialog', ['open', 'closeAll']);
@@ -20,15 +21,15 @@ describe('DeleterGrupoService', () => {
         { provide: MatDialogRef, useValue: {} }
       ]
     });
+
+    service = TestBed.get(DeleterGrupoService);
   });
 
   it('should be created', () => {
-    const service: DeleterGrupoService = TestBed.get(DeleterGrupoService);
     expect(service).toBeTruthy();
   });
 
   it('should set farol', () => {
-    const service: DeleterGrupoService = TestBed.get(DeleterGrupoService);
     service.setFarol(true);
     expect(service.getFarol()).toBeTruthy();
     service.setFarol(false);
@@ -36,15 +37,23 @@ describe('DeleterGrupoService', () => {
   });
 
   it('should get farol', () => {
-    const service: DeleterGrupoService = TestBed.get(DeleterGrupoService);
     expect(service.getFarol()).toBeFalsy();
     service.setFarol(true);
     expect(service.getFarol()).toBeTruthy();
   });
 
   it('should open a dialog through a method', () => {
-    const service: DeleterGrupoService = TestBed.get(DeleterGrupoService);
     service.openErrorDialog('teste');
     expect(dialogSpy.open).toHaveBeenCalled();
+  });
+
+  it('should delete Info at deleteGrupo', () => {
+    service.loginService.usuarioInfo = {codusuario: 'teste'};
+
+    expect(service.deleteGrupo('teste')).toBeTruthy();
+
+    expect(service.getFarol()).toBeTruthy();
+
+    expect(service.deleteGrupo('teste')).toBeFalsy();
   });
 });

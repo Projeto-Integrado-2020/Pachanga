@@ -20,15 +20,18 @@ export class AtribuicaoGrupoService {
               public loginService: LoginService) { }
 
   atribuirMembros(listaUser, codGrupo) {
-    const httpParams = new HttpParams()
-    .append('idUsuarioPermissao', this.loginService.usuarioInfo.codUsuario)
-    .append('idGrupo', codGrupo);
-    return this.http.put(this.urlAtribuicao, listaUser, {params: httpParams}).pipe(
-      take(1),
-      catchError(error => {
-        return this.handleError(error, this.logService);
-      })
-    );
+    if (!this.farol) {
+      this.setFarol(true);
+      const httpParams = new HttpParams()
+      .append('idUsuarioPermissao', this.loginService.usuarioInfo.codUsuario)
+      .append('idGrupo', codGrupo);
+      return this.http.put(this.urlAtribuicao, listaUser, {params: httpParams}).pipe(
+        take(1),
+        catchError(error => {
+          return this.handleError(error, this.logService);
+        })
+      );
+    }
   }
 
   handleError = (error: HttpErrorResponse, logService: LogService) => {

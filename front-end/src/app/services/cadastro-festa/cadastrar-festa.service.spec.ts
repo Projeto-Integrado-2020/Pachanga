@@ -8,6 +8,7 @@ import { MatDialog } from '@angular/material';
 
 describe('CadastrarFestaService', () => {
   let dialogSpy: MatDialog;
+  let service: CadastrarFestaService;
 
   beforeEach(() => {
     dialogSpy = jasmine.createSpyObj('MatDialog', ['open']);
@@ -20,15 +21,15 @@ describe('CadastrarFestaService', () => {
         { provide: MatDialog, useValue: dialogSpy },
       ]
     });
+
+    service = TestBed.get(CadastrarFestaService);
   });
 
   it('should be created', () => {
-    const service: CadastrarFestaService = TestBed.get(CadastrarFestaService);
     expect(service).toBeTruthy();
   });
 
   it('should set farol', () => {
-    const service: CadastrarFestaService = TestBed.get(CadastrarFestaService);
     service.setFarol(true);
     expect(service.getFarol()).toBeTruthy();
     service.setFarol(false);
@@ -36,15 +37,18 @@ describe('CadastrarFestaService', () => {
   });
 
   it('should get farol', () => {
-    const service: CadastrarFestaService = TestBed.get(CadastrarFestaService);
     expect(service.getFarol()).toBeFalsy();
     service.setFarol(true);
     expect(service.getFarol()).toBeTruthy();
   });
 
   it('should open a dialog through a method', () => {
-    const service: CadastrarFestaService = TestBed.get(CadastrarFestaService);
     service.openErrorDialog('teste');
     expect(dialogSpy.open).toHaveBeenCalled();
+  });
+
+  it('should post Info at cadastrarFesta', () => {
+    service.loginService.usuarioInfo = {codusuario: 'teste'};
+    expect(service.cadastrarFesta('teste')).toBeTruthy();
   });
 });

@@ -6,6 +6,7 @@ import { MatDialog, MatDialogRef } from '@angular/material';
 
 describe('GetPermissoesService', () => {
   let dialogSpy: MatDialog;
+  let service: GetPermissoesService;
 
   beforeEach(() => {
     dialogSpy = jasmine.createSpyObj('MatDialog', ['open']);
@@ -20,15 +21,15 @@ describe('GetPermissoesService', () => {
         { provide: MatDialogRef, useValue: {} }
       ]
     });
+
+    service = TestBed.get(GetPermissoesService);
   });
 
   it('should be created', () => {
-    const service: GetPermissoesService = TestBed.get(GetPermissoesService);
     expect(service).toBeTruthy();
   });
 
   it('should set farol', () => {
-    const service: GetPermissoesService = TestBed.get(GetPermissoesService);
     service.setFarol(true);
     expect(service.getFarol()).toBeTruthy();
     service.setFarol(false);
@@ -36,15 +37,21 @@ describe('GetPermissoesService', () => {
   });
 
   it('should get farol', () => {
-    const service: GetPermissoesService = TestBed.get(GetPermissoesService);
     expect(service.getFarol()).toBeFalsy();
     service.setFarol(true);
     expect(service.getFarol()).toBeTruthy();
   });
 
   it('should open a dialog through a method', () => {
-    const service: GetPermissoesService = TestBed.get(GetPermissoesService);
     service.openErrorDialog('teste');
     expect(dialogSpy.open).toHaveBeenCalled();
+  });
+
+  it('should get Info at getPermissoes', () => {
+    expect(service.getPermissoes()).toBeTruthy();
+
+    expect(service.getFarol()).toBeTruthy();
+
+    expect(service.getPermissoes()).toBeFalsy();
   });
 });

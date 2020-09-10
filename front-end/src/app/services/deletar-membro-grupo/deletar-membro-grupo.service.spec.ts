@@ -6,6 +6,7 @@ import { DeletarMembroGrupo } from './deletar-membro-grupo.service';
 
 describe('ExcluirMembroGrupoService', () => {
   let dialogSpy: MatDialog;
+  let service: DeletarMembroGrupo;
 
   beforeEach(() => {
     dialogSpy = jasmine.createSpyObj('MatDialog', ['open', 'closeAll']);
@@ -19,15 +20,15 @@ describe('ExcluirMembroGrupoService', () => {
         { provide: MatDialogRef, useValue: {} }
       ]
     });
+
+    service = TestBed.get(DeletarMembroGrupo);
   });
 
   it('should be created', () => {
-    const service: DeletarMembroGrupo = TestBed.get(DeletarMembroGrupo);
     expect(service).toBeTruthy();
   });
 
   it('should set farol', () => {
-    const service: DeletarMembroGrupo = TestBed.get(DeletarMembroGrupo);
     service.setFarol(true);
     expect(service.getFarol()).toBeTruthy();
     service.setFarol(false);
@@ -35,15 +36,23 @@ describe('ExcluirMembroGrupoService', () => {
   });
 
   it('should get farol', () => {
-    const service: DeletarMembroGrupo = TestBed.get(DeletarMembroGrupo);
     expect(service.getFarol()).toBeFalsy();
     service.setFarol(true);
     expect(service.getFarol()).toBeTruthy();
   });
 
   it('should open a dialog through a method', () => {
-    const service: DeletarMembroGrupo = TestBed.get(DeletarMembroGrupo);
     service.openErrorDialog('teste');
     expect(dialogSpy.open).toHaveBeenCalled();
+  });
+
+  it('should delete Info at deletarMembroColaborador', () => {
+    service.loginService.usuarioInfo = {codusuario: 'teste'};
+
+    expect(service.deletarMembroColaborador('teste', 'teste')).toBeTruthy();
+
+    expect(service.getFarol()).toBeTruthy();
+
+    expect(service.deletarMembroColaborador('teste', 'teste')).toBeFalsy();
   });
 });

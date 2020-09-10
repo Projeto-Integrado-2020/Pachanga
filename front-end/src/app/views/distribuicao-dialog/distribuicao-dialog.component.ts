@@ -27,6 +27,7 @@ export class DistribuicaoDialogComponent implements OnInit {
 
   atribuirPermissoes() {
     this.assignService.atribuirMembros(this.listaUser, this.grupo.codGrupo).subscribe((resp: string) => {
+      this.assignService.setFarol(false);
       this.dialog.closeAll();
       this.openDialogSuccess('ATRIBSUC');
     });

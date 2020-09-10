@@ -6,6 +6,7 @@ import { ConviteMembroService } from './convite-membro.service';
 
 describe('ConviteMembroService', () => {
   let dialogSpy: MatDialog;
+  let service: ConviteMembroService;
 
   beforeEach(() => {
     dialogSpy = jasmine.createSpyObj('MatDialog', ['open']);
@@ -20,15 +21,15 @@ describe('ConviteMembroService', () => {
         { provide: MatDialogRef, useValue: {} }
       ]
     });
+
+    service = TestBed.get(ConviteMembroService);
   });
 
   it('should be created', () => {
-    const service: ConviteMembroService = TestBed.get(ConviteMembroService);
     expect(service).toBeTruthy();
   });
 
   it('should set farol', () => {
-    const service: ConviteMembroService = TestBed.get(ConviteMembroService);
     service.setFarol(true);
     expect(service.getFarol()).toBeTruthy();
     service.setFarol(false);
@@ -36,15 +37,23 @@ describe('ConviteMembroService', () => {
   });
 
   it('should get farol', () => {
-    const service: ConviteMembroService = TestBed.get(ConviteMembroService);
     expect(service.getFarol()).toBeFalsy();
     service.setFarol(true);
     expect(service.getFarol()).toBeTruthy();
   });
 
   it('should open a dialog through a method', () => {
-    const service: ConviteMembroService = TestBed.get(ConviteMembroService);
     service.openErrorDialog('teste');
     expect(dialogSpy.open).toHaveBeenCalled();
+  });
+
+  it('should post Info at convidarMembro', () => {
+    service.loginService.usuarioInfo = {codusuario: 'teste'};
+
+    expect(service.convidarMembro('teste', 'teste', [])).toBeTruthy();
+
+    expect(service.getFarol()).toBeTruthy();
+
+    expect(service.convidarMembro('teste', 'teste', [])).toBeFalsy();
   });
 });

@@ -9,6 +9,7 @@ let dialogSpy: MatDialog;
 
 describe('PerdaProdutoEstoqueService', () => {
   dialogSpy = jasmine.createSpyObj('MatDialog', ['open', 'closeAll']);
+  let service: PerdaProdutoEstoqueService;
 
   beforeEach(() => {
     dialogSpy = jasmine.createSpyObj('MatDialog', ['open', 'closeAll']);
@@ -23,10 +24,34 @@ describe('PerdaProdutoEstoqueService', () => {
         { provide: MatDialogRef, useValue: {} }
       ]
     });
+
+    service = TestBed.get(PerdaProdutoEstoqueService);
   });
 
   it('should be created', () => {
-    const service: PerdaProdutoEstoqueService = TestBed.get(PerdaProdutoEstoqueService);
     expect(service).toBeTruthy();
+  });
+
+  it('should set farol', () => {
+    service.setFarol(true);
+    expect(service.getFarol()).toBeTruthy();
+    service.setFarol(false);
+    expect(service.getFarol()).toBeFalsy();
+  });
+
+  it('should get farol', () => {
+    expect(service.getFarol()).toBeFalsy();
+    service.setFarol(true);
+    expect(service.getFarol()).toBeTruthy();
+  });
+
+  it('should open a dialog through a method', () => {
+    service.openErrorDialog('teste');
+    expect(dialogSpy.open).toHaveBeenCalled();
+  });
+
+  it('should put Info at perdaProdutoEstoque', () => {
+    service.loginService.usuarioInfo = {codusuario: 'teste'};
+    expect(service.perdaProdutoEstoque('teste', 'teste', 'teste', 'teste')).toBeTruthy();
   });
 });
