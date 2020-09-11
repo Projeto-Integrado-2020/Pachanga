@@ -31,7 +31,7 @@ import com.eventmanager.pachanga.repositories.UsuarioRepository;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(value=GrupoService.class)
-public class GrupoServiceTest {
+ class GrupoServiceTest {
 	@MockBean
 	private GrupoRepository grupoRepository;
 
@@ -64,7 +64,7 @@ public class GrupoServiceTest {
 		return grupo;
 	}
 	
-	public static Usuario usuarioTest() throws Exception{
+	private Usuario usuarioTest() throws Exception{
 		Usuario usuarioTest = new Usuario();
 
 		usuarioTest.setCodUsuario(100);
@@ -138,7 +138,7 @@ public class GrupoServiceTest {
 	
 //addGrupo_________________________________________________________________________________________________
 	@Test
-	public void addGrupoSucessTest() {
+	 void addGrupoSucessTest() {
 		int codGrupo = 4;
 		String nomeGrupo = "Otavio";
 		Festa festa = criacaoFesta();
@@ -161,12 +161,12 @@ public class GrupoServiceTest {
 		assertEquals(grupo.getCodGrupo(), codGrupo);
 		assertEquals(grupo.getFesta().getCodFesta(), festa.getCodFesta());
 		assertEquals(grupo.getNomeGrupo(), nomeGrupo);
-		assertEquals(grupo.getOrganizador(), true);
+		assertEquals(true, grupo.getOrganizador());
 		
 	}
 	
 	@Test
-	public void addGrupoFESTNFOUExceptionTest() {
+	 void addGrupoFESTNFOUExceptionTest() {
 		int codGrupo = 4;
 		String nomeGrupo = "Otavio";
 		Festa festa = criacaoFesta();
@@ -197,7 +197,7 @@ public class GrupoServiceTest {
 	}
 	
 	@Test
-	public void addGrupoNotOrganizadorSucessTest() {
+	 void addGrupoNotOrganizadorSucessTest() {
 		int codGrupo = 4;
 		String nomeGrupo = "Otavio";
 		Festa festa = criacaoFesta();
@@ -220,8 +220,7 @@ public class GrupoServiceTest {
 		assertEquals(grupo.getCodGrupo(), codGrupo);
 		assertEquals(grupo.getFesta().getCodFesta(), festa.getCodFesta());
 		assertEquals(grupo.getNomeGrupo(), nomeGrupo);
-		assertEquals(grupo.getOrganizador(), false);
-		//assertEquals(, );
+		assertEquals(false, grupo.getOrganizador());
 	}
 	
 	
@@ -229,7 +228,7 @@ public class GrupoServiceTest {
 //addGrupoFesta_________________________________________________________________________________________________
 	
 	@Test
-	public void addGrupoFestaSucessTest() {
+	 void addGrupoFestaSucessTest() {
 		GrupoTO grupoTO = criacaoGrupoTO();
 		int codGrupo = 4;
 		Festa festa = criacaoFesta();
@@ -264,7 +263,7 @@ public class GrupoServiceTest {
 	}
 	
 	@Test
-	public void addGrupoFestaUSESPERMExceptionTest() {
+	 void addGrupoFestaUSESPERMExceptionTest() {
 		GrupoTO grupoTO = criacaoGrupoTO();
 		int codGrupo = 4;
 		//Festa festa = criacaoFesta();
@@ -299,7 +298,7 @@ public class GrupoServiceTest {
 	}
 	
 	@Test
-	public void addGrupoFestaExceptionTest() {
+	 void addGrupoFestaExceptionTest() {
 		GrupoTO grupoTO = criacaoGrupoTO();
 		int codGrupo = 4;
 		//Festa festa = criacaoFesta();
@@ -338,7 +337,7 @@ public class GrupoServiceTest {
 //getByIdGrupo_________________________________________________________________________________________________
 	
 	@Test
-	public void getByIdGrupoSucessTest() {
+	 void getByIdGrupoSucessTest() {
 		Grupo grupo = criacaoGrupo();
 		
 		Mockito.when(grupoRepository.findById(Mockito.anyInt())).thenReturn(grupo);
@@ -352,7 +351,7 @@ public class GrupoServiceTest {
 	}
 	
 	@Test
-	public void getByIdGrupoGRUPNFOUExceptionTest() {
+	 void getByIdGrupoGRUPNFOUExceptionTest() {
 		Grupo grupo = criacaoGrupo();
 		
 		Mockito.when(grupoRepository.findById(Mockito.anyInt())).thenReturn(null);
@@ -370,7 +369,7 @@ public class GrupoServiceTest {
 
 //deleteGrupo___________________________________________________________________________________________________
 	@Test
-	public void deleteGrupoSucessTest() {
+	 void deleteGrupoSucessTest() {
 		Grupo grupo = criacaoGrupo();
 		Set<Usuario> usuarios = new HashSet<>();  //vazio
 		grupo.setUsuarios(usuarios);
@@ -394,7 +393,7 @@ public class GrupoServiceTest {
 	}
 	
 	@Test
-	public void deleteGrupoGRPOORGNExceptionTest() {
+	 void deleteGrupoGRPOORGNExceptionTest() {
 		Grupo grupo = criacaoGrupo();
 		grupo.setOrganizador(true);
 		Set<Usuario> usuarios = new HashSet<>();  //vazio
@@ -420,7 +419,7 @@ public class GrupoServiceTest {
 	}
 	
 	@Test
-	public void deleteGrupoGRPONVAZExceptionTest() throws Exception {
+	 void deleteGrupoGRPONVAZExceptionTest() throws Exception {
 		Grupo grupo = criacaoGrupo();
 		Set<Usuario> usuarios = new HashSet<>();  //vazio
 		usuarios.add(usuarioTest());
@@ -449,7 +448,7 @@ public class GrupoServiceTest {
 	
 //atualizar___________________________________________________________________________________________________
 	@Test
-	public void atualizarSucessTest() {
+	 void atualizarSucessTest() {
 		Grupo grupo = criacaoGrupo();
 		List<Integer> permissoes = new ArrayList<>();
 		permissoes.add(1);
@@ -481,7 +480,7 @@ public class GrupoServiceTest {
 	}
 	
 	@Test
-	public void atualizarOrganizadorExceptionTest() {
+	 void atualizarOrganizadorExceptionTest() {
 		Grupo grupo = criacaoGrupo();
 		grupo.setOrganizador(true);
 		List<Integer> permissoes = new ArrayList<>();
@@ -516,7 +515,7 @@ public class GrupoServiceTest {
 	}
 	
 	@Test
-	public void atualizarNomeGrupoNullSucessTest() {
+	 void atualizarNomeGrupoNullSucessTest() {
 		Grupo grupo = criacaoGrupo();
 		List<Integer> permissoes = new ArrayList<>();
 		permissoes.add(1);
@@ -548,7 +547,7 @@ public class GrupoServiceTest {
 	}
 	
 	@Test
-	public void atualizarNomeGrupoVazioSucessTest() {
+	 void atualizarNomeGrupoVazioSucessTest() {
 		Grupo grupo = criacaoGrupo();
 		List<Integer> permissoes = new ArrayList<>();
 		permissoes.add(1);
@@ -580,7 +579,7 @@ public class GrupoServiceTest {
 	}
 	
 	@Test
-	public void atualizarQuantMaxZeroSucessTest() {
+	 void atualizarQuantMaxZeroSucessTest() {
 		Grupo grupo = criacaoGrupo();
 		List<Integer> permissoes = new ArrayList<>();
 		permissoes.add(1);
@@ -613,7 +612,7 @@ public class GrupoServiceTest {
 	}
 	
 	@Test
-	public void atualizarQuantMaxInvalidSucessTest() throws Exception {
+	 void atualizarQuantMaxInvalidSucessTest() throws Exception {
 		Grupo grupo = criacaoGrupo();
 		List<Integer> permissoes = new ArrayList<>();
 		permissoes.add(1);
@@ -653,7 +652,7 @@ public class GrupoServiceTest {
 //atualizar___________________________________________________________________________________________________
 	
 	@Test
-	public void editUsuarioSucessTest() throws Exception {
+	 void editUsuarioSucessTest() throws Exception {
 		Grupo grupo = criacaoGrupo();
 		
 		List<Integer> gruposId = new ArrayList<>();
@@ -673,7 +672,7 @@ public class GrupoServiceTest {
 //editUsuarios___________________________________________________________________________________
 
 	@Test
-	public void editUsuariosSucessTest() throws Exception {
+	 void editUsuariosSucessTest() throws Exception {
 		Grupo grupo = criacaoGrupo();
 		
 		List<Integer> gruposId = new ArrayList<>();
@@ -691,7 +690,7 @@ public class GrupoServiceTest {
 	}
 	
 	@Test
-	public void editUsuariosUSESPERMExceptionTest() throws Exception {
+	 void editUsuariosUSESPERMExceptionTest() throws Exception {
 		Grupo grupo = criacaoGrupo();
 		
 		List<Integer> gruposId = new ArrayList<>();
@@ -720,7 +719,7 @@ public class GrupoServiceTest {
 	
 //deleteMembro___________________________________________________________________________________
 	@Test
-	public void deleteMembroSucessTest() throws Exception {
+	 void deleteMembroSucessTest() throws Exception {
 		Grupo grupo = criacaoGrupo();
 		
 		List<Integer> gruposId = new ArrayList<>();
@@ -738,7 +737,7 @@ public class GrupoServiceTest {
 	
 //deleteConvidado________________________________________________________________________________
 	@Test
-	public void deleteConvidadoSucessTest() throws Exception {
+	 void deleteConvidadoSucessTest() throws Exception {
 		Grupo grupo = criacaoGrupo();
 		
 		List<Integer> gruposId = new ArrayList<>();
@@ -764,7 +763,7 @@ public class GrupoServiceTest {
 	}
 	
 	@Test
-	public void deleteConvidadoConvxgrupNullSucessTest() throws Exception {
+	 void deleteConvidadoConvxgrupNullSucessTest() throws Exception {
 		Grupo grupo = criacaoGrupo();
 		
 		List<Integer> gruposId = new ArrayList<>();
@@ -791,7 +790,7 @@ public class GrupoServiceTest {
 	
 //addPermissaoGrupo_____________________________________________________________________________
 	@Test
-	public void addPermissaoGrupoSucessTest() throws Exception {
+	 void addPermissaoGrupoSucessTest() throws Exception {
 		Grupo grupo = criacaoGrupo();
 		Permissao permissao = PermissaoTest(21, "EDITDFE2", "G");
 		
@@ -804,7 +803,7 @@ public class GrupoServiceTest {
 	}
 	
 	@Test
-	public void addPermissaoGrupoPERMNFOUExceptionTest() throws Exception {
+	 void addPermissaoGrupoPERMNFOUExceptionTest() throws Exception {
 		Grupo grupo = criacaoGrupo();
 		Permissao permissao = PermissaoTest(21, "EDITDFE2", "G");
 		
@@ -824,7 +823,7 @@ public class GrupoServiceTest {
 	}
 	
 	@Test
-	public void addPermissaoGrupExceptionTest() throws Exception {
+	 void addPermissaoGrupExceptionTest() throws Exception {
 		Grupo grupo = criacaoGrupo();
 		Permissao permissao = PermissaoTest(1, "EDITDFES", "G");
 		
@@ -846,7 +845,7 @@ public class GrupoServiceTest {
 	
 //deletePermissaoGrupo___________________________________________________________________________
 	@Test
-	public void deletePermissaoGrupoSucessTest() throws Exception {
+	 void deletePermissaoGrupoSucessTest() throws Exception {
 		Grupo grupo = criacaoGrupo();
 		Permissao permissao = PermissaoTest(1, "EDITDFES", "G");
 		
@@ -859,7 +858,7 @@ public class GrupoServiceTest {
 	}
 	
 	@Test
-	public void deletePermissaoGrupoExceptionTest() throws Exception {
+	 void deletePermissaoGrupoExceptionTest() throws Exception {
 		Grupo grupo = criacaoGrupo();
 		Permissao permissao = PermissaoTest(1, "EDITDFES", "G");
 		List<Permissao> listaVazia = new ArrayList<>();
@@ -882,7 +881,7 @@ public class GrupoServiceTest {
 	
 //procurarGruposPorUsuario_________________________________________________________________________
 	@Test
-	public void procurarGruposPorUsuarioSucessoTest() throws Exception {
+	 void procurarGruposPorUsuarioSucessoTest() throws Exception {
 		Usuario usuario = usuarioTest();
 		Grupo grupo = criacaoGrupo();
 		List<Grupo> grupos = new ArrayList<>();
@@ -903,7 +902,7 @@ public class GrupoServiceTest {
 	}
 	
 	@Test
-	public void procurarGruposPorUsuarioUSERNFOUExceptionTest() throws Exception {
+	 void procurarGruposPorUsuarioUSERNFOUExceptionTest() throws Exception {
 		Usuario usuario = usuarioTest();
 		Grupo grupo = criacaoGrupo();
 		List<Grupo> grupos = new ArrayList<>();
@@ -924,7 +923,7 @@ public class GrupoServiceTest {
 	
 //procurarGruposPorFesta_____________________________________________________________________________
 	@Test
-	public void procurarGruposPorFestaSucessoTest() throws Exception {
+	 void procurarGruposPorFestaSucessoTest() throws Exception {
 		Grupo grupo = criacaoGrupo();
 		List<Grupo> grupos = new ArrayList<>();
 		grupos.add(grupo);
@@ -945,7 +944,7 @@ public class GrupoServiceTest {
 	
 //procurarPermissoesPorGrupo__________________________________________________________________________
 	@Test
-	public void procurarPermissoesPorGrupoSucessoTest() throws Exception {
+	 void procurarPermissoesPorGrupoSucessoTest() throws Exception {
 		Mockito.when(grupoRepository.findPermissoesPorGrupo(Mockito.anyInt())).thenReturn(ColecaoDePermissaoTest());
 		
 		List<Permissao> permissoes = grupoService.procurarPermissoesPorGrupo(2);
@@ -955,7 +954,7 @@ public class GrupoServiceTest {
 	
 //procurarGrupoPorId__________________________________________________________________________________
 	@Test
-	public void procurarGrupoPorIdSucessoTest() throws Exception {
+	 void procurarGrupoPorIdSucessoTest() throws Exception {
 		Grupo grupo = criacaoGrupo();
 		
 		Mockito.when(grupoRepository.findById(Mockito.anyInt())).thenReturn(grupo);

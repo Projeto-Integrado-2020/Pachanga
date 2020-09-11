@@ -18,9 +18,11 @@ import com.eventmanager.pachanga.domains.Usuario;
 import com.eventmanager.pachanga.dtos.ConviteFestaTO;
 import com.eventmanager.pachanga.dtos.FestaTO;
 import com.eventmanager.pachanga.dtos.ItemEstoqueTO;
+import com.eventmanager.pachanga.dtos.NotificacaoMudancaStatusTO;
 import com.eventmanager.pachanga.errors.ValidacaoException;
 import com.eventmanager.pachanga.factory.ConviteFestaFactory;
 import com.eventmanager.pachanga.factory.FestaFactory;
+import com.eventmanager.pachanga.factory.NotificacaoMudancaStatusFactory;
 import com.eventmanager.pachanga.repositories.CategoriaRepository;
 import com.eventmanager.pachanga.repositories.CategoriasFestaRepository;
 import com.eventmanager.pachanga.repositories.ConvidadoRepository;
@@ -65,6 +67,9 @@ public class FestaService {
 	private ProdutoRepository produtoRepository;
 
 	@Autowired
+	private NotificacaoMudancaStatusFactory notificacaoMudancaStatusFactory;
+
+	@Autowired
 	private GrupoService grupoService;
 
 	@Autowired
@@ -106,7 +111,7 @@ public class FestaService {
 		festaRepository.save(festa);
 		Grupo grupo = grupoService.addGrupo(festa.getCodFesta(), TipoGrupo.ORGANIZADOR.getValor(), true, null);
 		grupoRepository.saveUsuarioGrupo(usuario.getCodUsuario(), grupo.getCodGrupo());
-		estoqueService.addEstoque(festa.getNomeFesta(), festa.getCodFesta(), true, idUser);
+		estoqueService.addEstoque("Principal", festa.getCodFesta(), true, idUser);
 		this.criacaoCategoriaFesta(festaTo);
 		return festa;
 	}
@@ -170,10 +175,7 @@ public class FestaService {
 	}
 
 	public Festa updateFesta(FestaTO festaTo, int idUser) {
-		Festa festa = festaRepository.findById(festaTo.getCodFesta());
-		if (festa == null) {
-			throw new ValidacaoException("FESTNFOU");// festa nn encontrada
-		}
+		Festa festa = validarFestaExistente(festaTo.getCodFesta());
 		this.validarPermissaoUsuario(idUser, festaTo.getCodFesta(), TipoPermissao.EDITDFES.getCodigo());
 		this.validarFesta(festaTo);
 		Festa festaMudanca = validarMudancas(festaTo, festa);
@@ -256,7 +258,7 @@ public class FestaService {
 			throw new ValidacaoException("USERSPER");// Usuário sem permissão de fazer essa ação
 		}
 		Festa festa = festaRepository.findById(idFesta);
-		boolean festaFinalizadaDelete = TipoStatusFesta.FINALIZADO.getValor().equals(festa.getStatusFesta()) 
+		boolean festaFinalizadaDelete = TipoStatusFesta.FINALIZADO.getValor().equals(festa.getStatusFesta())
 				&& TipoPermissao.DELEFEST.getCodigo() == codPermissao;
 		if (!TipoStatusFesta.PREPARACAO.getValor().equals(festa.getStatusFesta()) && !festaFinalizadaDelete) {
 			throw new ValidacaoException("FESTINIC");// Não pode ser feita essa operação com a festa iniciada
@@ -269,8 +271,7 @@ public class FestaService {
 			throw new ValidacaoException("DATEINFE");// data inicial ou final incorreta
 		}
 		Festa festa = festaRepository.findByNomeFesta(festaTo.getNomeFesta());
-		if (festa != null 
-				&& festa.getCodFesta() != festaTo.getCodFesta()
+		if (festa != null && festa.getCodFesta() != festaTo.getCodFesta()
 				&& festa.getNomeFesta().equals(festaTo.getNomeFesta())) {
 			throw new ValidacaoException("FESTNOME");// outra festa está usando o msm nome
 		}
@@ -315,6 +316,11 @@ public class FestaService {
 		}
 		festaRepository.updateStatusFesta(statusFestaMaiusculo, idFesta);
 		festa.setStatusFesta(statusFestaMaiusculo);
+		List<Usuario> usuarios = usuarioRepository.findByIdFesta(idFesta);
+		for (Usuario usuario : usuarios) {
+			notificacaoService.inserirNotificacaoUsuario(usuario.getCodUsuario(), TipoNotificacao.STAALTER.getCodigo(),
+					notificacaoService.criarMensagemAlteracaoStatusFesta(idFesta, statusFestaMaiusculo));
+		}
 		return festa;
 	}
 
@@ -366,5 +372,18 @@ public class FestaService {
 			throw new ValidacaoException("QNTATLDF"); // quantidade atual diferente tentando ser editada com festa
 														// inicializada
 		}
+	}
+	
+	private Festa validarFestaExistente(int codFesta) {
+		Festa festa = festaRepository.findById(codFesta);
+		if(festa == null) {
+			throw new ValidacaoException("FESTNFOU");
+		}
+		return festa;
+	}
+
+	public NotificacaoMudancaStatusTO getNotificacaoMudancaStatus(int codFesta) {
+		Festa festa = validarFestaExistente(codFesta);
+		return notificacaoMudancaStatusFactory.getNotificacaoMudancaStatus(festa);
 	}
 }

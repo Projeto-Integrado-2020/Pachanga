@@ -142,13 +142,25 @@ class NotificacaoServiceTest {
 		List<NotificacaoConvidadoTO> notificacoesConvidado = new ArrayList<>();
 		List<NotificacaoGrupoTO> notificacoesGrupo = new ArrayList<>();
 		
+		NotificacaoUsuarioTO notificacaoUsuarioEstBaixo = notificacaoUsuarioTOtest();
+		notificacaoUsuarioEstBaixo.setMensagem(TipoNotificacao.ESTBAIXO.getValor() + "?12&" + "13&" + "13");
+		
+		NotificacaoUsuarioTO notificacaoUsuarioMudancaStatus = notificacaoUsuarioTOtest();
+		notificacaoUsuarioMudancaStatus.setMensagem(TipoNotificacao.STAALTER.getValor() + "?12&" + "I");
+		
 		NotificacaoUsuarioTO notificacaoUsuario = notificacaoUsuarioTOtest();
-		notificacaoUsuario.setMensagem(TipoNotificacao.ESTBAIXO.getValor() + "?12&" + "13&" + "13");
+		notificacaoUsuario.setMensagem("teste" + "?12&" + "I");
 		
 		notificacoesUsuario.add(notificacaoUsuarioTOtest());
+		notificacoesUsuario.add(notificacaoUsuarioMudancaStatus);
+		notificacoesUsuario.add(notificacaoUsuarioEstBaixo);
 		notificacoesUsuario.add(notificacaoUsuario);
 		
+		NotificacaoConvidadoTO notificacaoConvidado = notificacaoConvidadoTOtest();
+		notificacaoConvidado.setMensagem(TipoNotificacao.ESTBAIXO.getValor() + "?12&" + "13&" + "13");
+		
 		notificacoesConvidado.add(notificacaoConvidadoTOtest());
+		notificacoesConvidado.add(notificacaoConvidado);
 		
 		notificacoesGrupo.add(notificacaoGrupoTOtest());
 		
@@ -454,6 +466,24 @@ class NotificacaoServiceTest {
 		String mensagem = notificacaoService.criacaoMensagemNotificacaoUsuarioConvidado(1, 2, TipoNotificacao.CONVACEI.getValor());
 		
 		assertEquals(TipoNotificacao.CONVACEI.getValor() + "?1&2", mensagem);
+
+	}
+	
+	@Test
+	void criarMensagemEstoqueBaixoTest() {
+		
+		String mensagem = notificacaoService.criarMensagemEstoqueBaixo(1, 2, 3);
+		
+		assertEquals(TipoNotificacao.ESTBAIXO.getValor() + "?1&2&3", mensagem);
+
+	}
+	
+	@Test
+	void criarMensagemAlteracaoStatusFestaTest() {
+		
+		String mensagem = notificacaoService.criarMensagemAlteracaoStatusFesta(1, "I");
+		
+		assertEquals(TipoNotificacao.STAALTER.getValor() + "?1&I", mensagem);
 
 	}
 

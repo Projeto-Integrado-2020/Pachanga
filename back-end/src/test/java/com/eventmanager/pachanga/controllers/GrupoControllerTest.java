@@ -223,7 +223,7 @@ class GrupoControllerTest {
 	
 //addPermissaoGrupo_________________________________________________________________________________________________________________________________________________________________________________
 	@Test
-	public void addPermissaoGrupoSucessoTest() throws Exception {
+	void addPermissaoGrupoSucessoTest() throws Exception {
 		String uri = "/grupo/addPermissaoGrupo";  
 		Grupo grupo = grupoTest(2, "Banda", 4);
 		
@@ -249,7 +249,7 @@ class GrupoControllerTest {
 	}	
 	
 	@Test
-	public void addPermissaoGrupoExceptionTest() throws Exception {
+	void addPermissaoGrupoExceptionTest() throws Exception {
 		String uri = "/grupo/addPermissaoGrupo";  
 		//Grupo grupo = grupoTest(2, "Banda", 4);
 		String expected = "erro";
@@ -278,7 +278,7 @@ class GrupoControllerTest {
 	
 //removePermissaoGrupo_____________________________________________________________________________________
 	@Test
-	public void removePermissaoGrupoSucessoTest() throws Exception {
+	void removePermissaoGrupoSucessoTest() throws Exception {
 		String uri = "/grupo/removePermissaoGrupo";  
 		Grupo grupo = grupoTest(2, "Banda", 4);
 		
@@ -304,7 +304,7 @@ class GrupoControllerTest {
 	}
 	
 	@Test
-	public void removePermissaoGrupoExceptionTest() throws Exception {
+	void removePermissaoGrupoExceptionTest() throws Exception {
 		String uri = "/grupo/removePermissaoGrupo";  
 		String expected = "erro";
 		
@@ -330,7 +330,7 @@ class GrupoControllerTest {
 	
 ///addGrupo_________________________________________________________________________________________________
 	@Test
-	public void addGrupoSucessoTest() throws Exception {
+	void addGrupoSucessoTest() throws Exception {
 		String uri = "/grupo/addGrupo";  
 		Grupo grupo = grupoTest(2, "Banda", 4);
 		
@@ -356,7 +356,7 @@ class GrupoControllerTest {
 	}
 	
 	@Test
-	public void addGrupoExceptionTest() throws Exception {
+	void addGrupoExceptionTest() throws Exception {
 		String uri = "/grupo/addGrupo";  
 		//Grupo grupo = grupoTest(2, "Banda", 4);
 		String expected = "erro";
@@ -381,7 +381,7 @@ class GrupoControllerTest {
 	
 //deleteGrupo______________________________________________________________________________________________
 	@Test
-	public void deleteGrupoSucessoTest() throws Exception {
+	void deleteGrupoSucessoTest() throws Exception {
 		String uri = "/grupo/deleteGrupo";  
 		Grupo grupo = grupoTest(2, "Banda", 4);
 	
@@ -405,7 +405,7 @@ class GrupoControllerTest {
 	}
 	
 	@Test
-	public void deleteGrupoExceptionTest() throws Exception {
+	void deleteGrupoExceptionTest() throws Exception {
 		String uri = "/grupo/deleteGrupo";  
 		//Grupo grupo = grupoTest(2, "Banda", 4);
 		String expected = "erro";
@@ -428,7 +428,7 @@ class GrupoControllerTest {
 	
 //updateGrupo______________________________________________________________________________________________
 	@Test
-	public void updateGrupoSucessoTest() throws Exception {
+	void updateGrupoSucessoTest() throws Exception {
 		String uri = "/grupo/updateGrupo";  
 		Grupo grupo = grupoTest(2, "Banda", 4);
 		
@@ -454,7 +454,7 @@ class GrupoControllerTest {
 	}
 	
 	@Test
-	public void updateGrupoExceptionTest() throws Exception {
+	void updateGrupoExceptionTest() throws Exception {
 		String uri = "/grupo/updateGrupo";  
 		//Grupo grupo = grupoTest(2, "Banda", 4);
 		String expected = "erro";
@@ -479,7 +479,7 @@ class GrupoControllerTest {
 	
 //updateUser_______________________________________________________________________________________________
 	@Test
-	public void updateUserSucessoTest() throws Exception {
+	void updateUserSucessoTest() throws Exception {
 		String uri = "/grupo/updateUser";  
 		//String json = "{\"gruposId\": [1, 2, 3]}";
 		String json = "[1, 2, 3]";
@@ -505,7 +505,7 @@ class GrupoControllerTest {
 	}
 	
 	@Test
-	public void updateUserExceptionTest() throws Exception {
+	void updateUserExceptionTest() throws Exception {
 		String uri = "/grupo/updateUser";  
 		//Grupo grupo = grupoTest(2, "Banda", 4);
 		String expected = "erro";
@@ -532,7 +532,7 @@ class GrupoControllerTest {
 	
 //updateUsers______________________________________________________________________________________________
 	@Test
-	public void updateUsersSucessoTest() throws Exception {
+	void updateUsersSucessoTest() throws Exception {
 		String uri = "/grupo/updateUsers";  
 		//String json = "{\"gruposId\": [1, 2, 3]}";
 		String json = "[1, 2, 3]";
@@ -557,7 +557,7 @@ class GrupoControllerTest {
 	}
 	
 	@Test
-	public void updateUsersExceptionTest() throws Exception {
+	void updateUsersExceptionTest() throws Exception {
 		String uri = "/grupo/updateUsers";  
 		//Grupo grupo = grupoTest(2, "Banda", 4);
 		String expected = "erro";
@@ -583,7 +583,7 @@ class GrupoControllerTest {
 	
 //deleteConvidado__________________________________________________________________________________________
 	@Test
-	public void deleteConvidadoSucessoTest() throws Exception {
+	void deleteConvidadoSucessoTest() throws Exception {
 		String uri = "/grupo/deleteConvidado";  
 		
 		Mockito.doNothing().when(grupoService).deleteConvidado(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt());
@@ -605,7 +605,7 @@ class GrupoControllerTest {
 	}
 	
 	@Test
-	public void deleteConvidadoExceptionTest() throws Exception {
+	void deleteConvidadoExceptionTest() throws Exception {
 		String uri = "/grupo/deleteConvidado";  
 		String expected = "erro";
 		
@@ -629,7 +629,7 @@ class GrupoControllerTest {
 	
 //deleteMembro____________________________________________________________________________________________
 	@Test
-	public void deleteMembroSucessoTest() throws Exception {
+	void deleteMembroSucessoTest() throws Exception {
 		String uri = "/grupo/deleteMembro";  
 		
 		Mockito.doNothing().when(grupoService).deleteMembro(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt());
@@ -651,7 +651,7 @@ class GrupoControllerTest {
 	}
 	
 	@Test
-	public void deleteMembroExceptionTest() throws Exception {
+	void deleteMembroExceptionTest() throws Exception {
 		String uri = "/grupo/deleteMembro";  
 		String expected = "erro";
 		
@@ -675,7 +675,7 @@ class GrupoControllerTest {
 
 //getGrupoFesta___________________________________________________________________________________________________________________________
 	@Test
-	public void getGrupoFestaSucessTest() throws Exception {
+	void getGrupoFestaSucessTest() throws Exception {
 		String uri = "/grupo/getGrupoFesta";  
 		Grupo grupo = grupoTest(2, "Banda", 4);
 		String expected = "{\"codGrupo\":2,\"codFesta\":2,\"nomeGrupo\":\"Banda\",\"quantMaxPessoas\":0,\"isOrganizador\":false,\"usuariosTO\":[],\"convidadosTO\":[],\"permissoesTO\":[],\"permissoes\":null}";
@@ -705,7 +705,7 @@ class GrupoControllerTest {
 		assertEquals(expected, result.getResponse().getContentAsString());
 	}
 	@Test
-	public void getGrupoFestaExceptionTest() throws Exception {
+	void getGrupoFestaExceptionTest() throws Exception {
 		String uri = "/grupo/getGrupoFesta";  
 		Grupo grupo = grupoTest(2, "Banda", 4);
 		String expected = "batata";

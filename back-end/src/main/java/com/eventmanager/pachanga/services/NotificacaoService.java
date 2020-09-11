@@ -19,6 +19,7 @@ import com.eventmanager.pachanga.dtos.ConviteFestaTO;
 import com.eventmanager.pachanga.dtos.NotificacaoConvidadoTO;
 import com.eventmanager.pachanga.dtos.NotificacaoEstoqueTO;
 import com.eventmanager.pachanga.dtos.NotificacaoGrupoTO;
+import com.eventmanager.pachanga.dtos.NotificacaoMudancaStatusTO;
 import com.eventmanager.pachanga.dtos.NotificacaoTO;
 import com.eventmanager.pachanga.dtos.NotificacaoUsuarioTO;
 import com.eventmanager.pachanga.dtos.UsuarioFestaTO;
@@ -98,6 +99,9 @@ public class NotificacaoService {
 			} else if(NotificacaoUsuarioTO.class == notificacaoTO.getClass()) {
 				((NotificacaoUsuarioTO) notificacaoTO).setNotificacaoEstoque(notificacaoEstoqueTO);
 			}
+		} else if(TipoNotificacao.STAALTER.getValor().equals(codigo)) {
+			NotificacaoMudancaStatusTO notificacaoMudancaStatus = festaService.getNotificacaoMudancaStatus(Integer.parseInt(valores[0]));
+			((NotificacaoUsuarioTO) notificacaoTO).setNotificacaoMudancaStatus(notificacaoMudancaStatus);
 		}
 	}
 	
@@ -215,6 +219,10 @@ public class NotificacaoService {
 	
 	public String criarMensagemEstoqueBaixo(int codFesta, int codEstoque, int codProduto) {
 		return TipoNotificacao.ESTBAIXO.getValor() + "?" + codFesta + "&" + codEstoque + "&" + codProduto;
+	}
+	
+	public String criarMensagemAlteracaoStatusFesta(int codFesta, String status) {
+		return TipoNotificacao.STAALTER.getValor() + "?" + codFesta + "&" + status;
 	}
 	
 	public LocalDateTime getDataAtual() {

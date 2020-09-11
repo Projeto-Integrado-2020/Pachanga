@@ -2,7 +2,7 @@ package com.eventmanager.pachanga.tipo;
 
 public enum TipoGrupo {
 	
-	ORGANIZADOR("ORGANIZADOR"),
+	ORGANIZADOR("Organizador"),
 	CONVIDADO("CONVIDADO");
 	
 	private String valor;

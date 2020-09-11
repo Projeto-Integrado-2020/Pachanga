@@ -19,6 +19,8 @@ public class NotificacaoUsuarioTO {
 	private UsuarioFestaTO usuarioFesta;
 	
 	private NotificacaoEstoqueTO notificacaoEstoque;
+	
+	private NotificacaoMudancaStatusTO notificacaoMudancaStatus;
 
 	public int getNotificacao() {
 		return codNotificacao;
@@ -82,6 +84,14 @@ public class NotificacaoUsuarioTO {
 
 	public void setNotificacaoEstoque(NotificacaoEstoqueTO notificacaoEstoque) {
 		this.notificacaoEstoque = notificacaoEstoque;
+	}
+
+	public NotificacaoMudancaStatusTO getNotificacaoMudancaStatus() {
+		return notificacaoMudancaStatus;
+	}
+
+	public void setNotificacaoMudancaStatus(NotificacaoMudancaStatusTO notificacaoMudancaStatus) {
+		this.notificacaoMudancaStatus = notificacaoMudancaStatus;
 	}
 
 }

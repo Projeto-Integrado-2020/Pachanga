@@ -32,10 +32,12 @@ import com.eventmanager.pachanga.domains.Usuario;
 import com.eventmanager.pachanga.dtos.ConviteFestaTO;
 import com.eventmanager.pachanga.dtos.FestaTO;
 import com.eventmanager.pachanga.dtos.ItemEstoqueTO;
+import com.eventmanager.pachanga.dtos.NotificacaoMudancaStatusTO;
 import com.eventmanager.pachanga.dtos.UsuarioTO;
 import com.eventmanager.pachanga.errors.ValidacaoException;
 import com.eventmanager.pachanga.factory.ConviteFestaFactory;
 import com.eventmanager.pachanga.factory.FestaFactory;
+import com.eventmanager.pachanga.factory.NotificacaoMudancaStatusFactory;
 import com.eventmanager.pachanga.repositories.CategoriaRepository;
 import com.eventmanager.pachanga.repositories.CategoriasFestaRepository;
 import com.eventmanager.pachanga.repositories.ConvidadoRepository;
@@ -97,6 +99,9 @@ class FestaServiceTest {
 	
 	@MockBean
 	private ItemEstoqueFluxoRepository itemEstoqueFluxoRepository;
+	
+	@MockBean
+	private NotificacaoMudancaStatusFactory notificacaoMudancaStatusFactory;
 
 	@Autowired
 	private FestaService festaService;
@@ -135,6 +140,13 @@ class FestaServiceTest {
 		return festaTest;
 	}
 	
+	private NotificacaoMudancaStatusTO notificacaoMudancaoStatusTOTest() {
+		NotificacaoMudancaStatusTO notificacaoMudancaStatusTO = new NotificacaoMudancaStatusTO();
+		notificacaoMudancaStatusTO.setNomeFesta("teste");
+		notificacaoMudancaStatusTO.setTipoAlteracao(TipoStatusFesta.INICIADO.getValor());
+		return notificacaoMudancaStatusTO;
+	}
+	
 	private List<Grupo> criacaoGrupos(){
 		List<Grupo> grupos = new ArrayList<>();
 		grupos.add(criacaoGrupo());
@@ -142,7 +154,7 @@ class FestaServiceTest {
 	}
 
 	@SuppressWarnings("deprecation")
-	public Usuario usuarioTest() throws Exception{
+	private Usuario usuarioTest() throws Exception{
 		Usuario usuarioTest = new Usuario();
 
 		usuarioTest.setCodUsuario(100);
@@ -188,7 +200,7 @@ class FestaServiceTest {
 		return itemEstoque;
 	}
 
-	public Festa festaTest() throws Exception{
+	private Festa festaTest() throws Exception{
 		Festa festaTest = new Festa();
 		festaTest.setCodFesta(2);
 		festaTest.setCodEnderecoFesta("https//:minhacasa.org");
@@ -1545,6 +1557,9 @@ class FestaServiceTest {
 
 	@Test
 	void mudarStatusFestaSucesso() throws Exception {
+		
+		List<Usuario> usuarios = new ArrayList<>();
+		usuarios.add(usuarioTest());
 
 		Festa festaTest = festaTest();
 
@@ -1553,14 +1568,12 @@ class FestaServiceTest {
 		Mockito.when(usuarioRepository.findById(Mockito.anyInt())).thenReturn(usuarioTest());
 
 		Mockito.when(festaRepository.findByCodFesta(Mockito.anyInt())).thenReturn(festaTest);
+		
+		Mockito.when(usuarioRepository.findByIdFesta(Mockito.anyInt())).thenReturn(usuarios);
 
 		boolean erro = false;
 
-		try {
 			festaService.mudarStatusFesta(1,"I",2);
-		} catch (ValidacaoException e) {
-			erro = true;
-		}
 
 		assertEquals(false, erro);		
 
@@ -1804,6 +1817,19 @@ class FestaServiceTest {
 		Mockito.when(produtoService.validarProdutoEstoque(Mockito.anyInt(), Mockito.anyInt())).thenReturn(itemEstoqueTest());	
 		
 		festaService.validarProdEstoqueIniciada(itemEstoqueTO, 2);
+	}
+	
+	@Test
+	void getNotificacaoMudancaStatusSucesso() throws Exception{
+		
+		Festa festa = festaTest();
+		festa.setStatusFesta(TipoStatusFesta.INICIADO.getValor());
+		
+		Mockito.when(festaRepository.findById(Mockito.anyInt())).thenReturn(festa);	
+		Mockito.when(notificacaoMudancaStatusFactory.getNotificacaoMudancaStatus(Mockito.any())).thenReturn(notificacaoMudancaoStatusTOTest());
+		
+		NotificacaoMudancaStatusTO notificacaoMudancaoStatusTO = festaService.getNotificacaoMudancaStatus(2);
+		assertEquals(true, notificacaoMudancaoStatusTO.getNomeFesta().equals("teste"));
 	}
 	
 }
