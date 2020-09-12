@@ -6,6 +6,8 @@ public class NotificacaoMudancaStatusTO {
 	
 	private String tipoAlteracao;
 	
+	private int codFesta;
+	
 	public String getNomeFesta() {
 		return nomeFesta;
 	}
@@ -20,6 +22,14 @@ public class NotificacaoMudancaStatusTO {
 
 	public void setTipoAlteracao(String tipoAlteracao) {
 		this.tipoAlteracao = tipoAlteracao;
+	}
+
+	public int getCodFesta() {
+		return codFesta;
+	}
+
+	public void setCodFesta(int codFesta) {
+		this.codFesta = codFesta;
 	}
 
 }

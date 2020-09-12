@@ -11,7 +11,7 @@ public class NotificacaoMudancaStatusFactory {
 
 	public NotificacaoMudancaStatusTO getNotificacaoMudancaStatus(Festa festa) {
 		return NotificacaoMudancaStatusTOBuilder.getInstance().nomeFesta(festa.getNomeFesta())
-				.tipoAlteracao(festa.getStatusFesta()).build();
+				.codFesta(festa.getCodFesta()).tipoAlteracao(festa.getStatusFesta()).build();
 	}
 
 }
