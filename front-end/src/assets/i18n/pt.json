@@ -452,7 +452,10 @@
         "CONVITEACEITO2": "com",
         "ESTOQUEMIN1": "O produto",
         "ESTOQUEMIN2": "está com a quantidade mais baixa que o percentual mínimo permitido no estoque",
-        "ESTOQUEMIN3": "Recarga necessária!"
+        "ESTOQUEMIN3": "Recarga necessária!",
+        "STATUSCHANGE1": "A festa ",
+        "STATUSCHANGE2": "teve o status alterado para ",
+        "STATUSCHANGE3": "Ir para a festa"
     },
 
     "ALERTAESTOQUE": {

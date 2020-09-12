@@ -147,4 +147,25 @@ export class NotificacoesComponent implements OnInit {
     this.notifService.atualizarNotificacoes(alertas).subscribe();
     return notificacoes;
   }
+
+  createUrl(nomeFesta, codFesta) {
+    nomeFesta = nomeFesta.toLowerCase().replace('-', '').replace('–', '')
+                        .replace(/\s+/g, '-').replace('ç', 'c')
+                        .replace('º', '').replace('ª', '')
+                        .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+                        .replace(/[`~!@#$%^&*()_|+\=?;:'",.<>\{\}\[\]\\\/]/gi, '');
+    const url = '../festas/' + nomeFesta + '&' + codFesta;
+    return url;
+  }
+
+  createUrlEstoque(nomeFesta, mensagem) {
+    const codFesta = mensagem.split('&')[0].split('?')[1];
+    nomeFesta = nomeFesta.toLowerCase().replace('-', '').replace('–', '')
+                        .replace(/\s+/g, '-').replace('ç', 'c')
+                        .replace('º', '').replace('ª', '')
+                        .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+                        .replace(/[`~!@#$%^&*()_|+\=?;:'",.<>\{\}\[\]\\\/]/gi, '');
+    const url = '../festas/' + nomeFesta + '&' + codFesta;
+    return url;
+  }
 }

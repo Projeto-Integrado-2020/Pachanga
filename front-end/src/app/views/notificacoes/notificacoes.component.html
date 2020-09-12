@@ -48,6 +48,11 @@ class="fila_notificacoes"
                 </div>
                 <div class="fila_notificacoes__notificacao__horario">
                     <p class="mensagem">{{'NOTIFICACAO.ESTOQUEMIN1' | translate}} "{{ alert.notificacaoEstoque.nomeProduto }}" {{'NOTIFICACAO.ESTOQUEMIN2' | translate}} "{{ alert.notificacaoEstoque.nomeFesta }} - {{ alert.notificacaoEstoque.nomeEstoque }}". {{'NOTIFICACAO.ESTOQUEMIN3' | translate}}</p>
+                    <a routerLink="{{createUrlEstoque(alert.notificacaoEstoque.nomeFesta, alert.mensagem)+ '/estoque'}}">
+                      <button mat-button class="btn btn--prp">
+                        {{'NOTIFICACAO.STATUSCHANGE3' | translate}}
+                      </button>
+                    </a>
                     <p>
                       {{ alert.dataEmissao | amLocale:translate.currentLang | amTimeAgo }}
                     </p>
@@ -79,10 +84,10 @@ class="fila_notificacoes"
         *ngIf="alert.alertaOpcoes"
         (clicarFora)="alert.alertaOpcoes = false"
         >
-        <div *ngIf="!alert.destaque" class="desler">
+        <div *ngIf="alert.destaque" class="desler">
             <p (click)="alterarAlerta(alert)">{{'NOTIFICACAO.SETLIDO' | translate}}</p>
         </div>
-        <div *ngIf="alert.destaque" class="desler">
+        <div *ngIf="!alert.destaque" class="desler">
             <p (click)="alterarAlerta(alert)">{{'NOTIFICACAO.SETNLIDO' | translate}}</p>
         </div>
         <mat-divider></mat-divider>
@@ -92,6 +97,52 @@ class="fila_notificacoes"
         </mat-card>
       </div>
     </div>
+
+    <!-- NOTIFICACOES DE STATUS -->
+  <div class="fila_notificacoes__not-container" *ngFor="let alert of notificacoesUsuario">
+    <div *ngIf="alert.mensagem.includes('STAALTER')">
+      <mat-divider></mat-divider>
+      <div class="fila_notificacoes__flex">
+          <div class="fila_notificacoes__notificacao">
+            <div class="fila_notificacoes__notificacao__texto">
+                <p [ngStyle]="{'font-weight': (alert.status == 'N' || alert.destaque == true) ? 'bold' : 'normal'}">{{'NOTIFICACAO.CONVITEACEITO' | translate}}</p>
+            </div>
+            <div class="fila_notificacoes__notificacao__horario">
+                <p class="mensagem">{{'NOTIFICACAO.STATUSCHANGE1' | translate}} "{{ alert.notificacaoMudancaStatus.nomeFesta }}" {{'NOTIFICACAO.STATUSCHANGE2' | translate}} 
+                  <span *ngIf="alert.notificacaoMudancaStatus.tipoAlteracao === 'P'">"{{'FESTA.P' | translate}}"</span>
+                  <span *ngIf="alert.notificacaoMudancaStatus.tipoAlteracao === 'I'">"{{'FESTA.I' | translate}}"</span>
+                  <span *ngIf="alert.notificacaoMudancaStatus.tipoAlteracao === 'F'">"{{'FESTA.F' | translate}}"</span>
+                  .
+                </p>
+                <a routerLink="{{createUrl(alert.notificacaoMudancaStatus.nomeFesta, alert.notificacaoMudancaStatus.codFesta)+ '/painel'}}">
+                  <button mat-button class="btn btn--prp">
+                    {{'NOTIFICACAO.STATUSCHANGE3' | translate}}
+                  </button>
+                </a>
+                <p>
+                  {{ alert.dataEmissao | amLocale:translate.currentLang | amTimeAgo }}
+                </p>
+              </div>
+          </div>
+        <mat-icon class="btn--notif" (click)="abrirAlertaOpcoes(alert)">more_horiz</mat-icon>
+      </div>
+      <mat-card class="fila_notificacoes__notificacao__alertaOpcoes"
+      *ngIf="alert.alertaOpcoes"
+      (clicarFora)="alert.alertaOpcoes = false"
+      >
+      <div *ngIf="alert.destaque" class="desler">
+          <p (click)="alterarAlerta(alert)">{{'NOTIFICACAO.SETLIDO' | translate}}</p>
+      </div>
+      <div *ngIf="!alert.destaque" class="desler">
+          <p (click)="alterarAlerta(alert)">{{'NOTIFICACAO.SETNLIDO' | translate}}</p>
+      </div>
+      <mat-divider></mat-divider>
+      <div (click)="deletarAlerta(alert)" class="apagar-notif">
+          <p>{{'NOTIFICACAO.APAGAR' | translate}}</p>
+      </div>
+      </mat-card>
+    </div>
+  </div>
 
 </mat-card-content>
 </mat-card>

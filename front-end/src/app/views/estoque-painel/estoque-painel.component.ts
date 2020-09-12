@@ -110,6 +110,7 @@ export class EstoquePainelComponent implements OnInit, OnDestroy {
     this.source = null;
     this.dataSources = [];
     this.estoques = [];
+    this.quantidadesProdutos = [];
     let idFesta = this.router.url;
     idFesta = idFesta.substring(idFesta.indexOf('&') + 1, idFesta.indexOf('/', idFesta.indexOf('&')));
     this.getFestaService.acessarFesta(idFesta).subscribe((resp: any) => {

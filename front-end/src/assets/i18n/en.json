@@ -450,7 +450,10 @@
         "CONVITEACEITO2": "as",
         "ESTOQUEMIN1": "The product",
         "ESTOQUEMIN2": "quantity is below the minimum percentage at",
-        "ESTOQUEMIN3": "Refill required!"
+        "ESTOQUEMIN3": "Refill required!",
+        "STATUSCHANGE1": "The party ",
+        "STATUSCHANGE2": "had the status changed to ",
+        "STATUSCHANGE3": "Go to party"
     },
 
     "ALERTAESTOQUE": {
