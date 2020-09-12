@@ -9,6 +9,8 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { HttpLoaderFactory } from 'src/app/app.module';
 import { HttpClient } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
+import { DeletarMembroGrupo } from 'src/app/services/deletar-membro-grupo/deletar-membro-grupo.service';
+import { of } from 'rxjs';
 
 describe('DeleteMembroDialogComponent', () => {
   let component: DeleteMembroDialogComponent;
@@ -16,7 +18,7 @@ describe('DeleteMembroDialogComponent', () => {
   let dialogSpy: MatDialog;
 
   beforeEach(async(() => {
-    dialogSpy = jasmine.createSpyObj('MatDialog', ['open']);
+    dialogSpy = jasmine.createSpyObj('MatDialog', ['open', 'closeAll']);
 
     TestBed.configureTestingModule({
       declarations: [
@@ -38,6 +40,10 @@ describe('DeleteMembroDialogComponent', () => {
       providers: [
         { provide: MAT_DIALOG_DATA, useValue: {grupo: {codFesta: '1', codUsuario: '1', codGrupo: '1'}} },
         { provide: MatDialog, useValue: dialogSpy },
+        {provide: DeletarMembroGrupo, useValue: {
+          deletarMembroColaborador: () => of({}),
+          setFarol: () => false,
+        }}
       ]
     })
     .compileComponents();
@@ -51,5 +57,30 @@ describe('DeleteMembroDialogComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should deletarProduto', () => {
+    spyOn(component.membroExcluirService, 'deletarMembroColaborador')
+    .and
+    .callThrough();
+
+    spyOn(component.membroExcluirService, 'setFarol')
+    .and
+    .callThrough();
+
+    component.component = {
+      ngOnInit: () => true
+    };
+    spyOn(component.component, 'ngOnInit')
+    .and
+    .callThrough();
+
+    component.codUsuario = 'teste';
+    component.codGrupo = 'teste';
+    component.deleteMembroGrupo();
+    expect(component.membroExcluirService.deletarMembroColaborador).toHaveBeenCalledWith('teste', 'teste');
+    expect(component.membroExcluirService.setFarol).toHaveBeenCalledWith(false);
+    expect(dialogSpy.closeAll).toHaveBeenCalled();
+    expect(component.component.ngOnInit).toHaveBeenCalled();
   });
 });

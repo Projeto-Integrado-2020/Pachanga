@@ -9,6 +9,8 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { HttpLoaderFactory } from 'src/app/app.module';
 import { HttpClient } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
+import { of } from 'rxjs';
+import { DeletarProdutoService } from 'src/app/services/deletar-produto/deletar-produto.service';
 
 describe('DeletarProdutoDialogComponent', () => {
   let component: DeletarProdutoDialogComponent;
@@ -16,7 +18,7 @@ describe('DeletarProdutoDialogComponent', () => {
   let dialogSpy: MatDialog;
 
   beforeEach(async(() => {
-    dialogSpy = jasmine.createSpyObj('MatDialog', ['open']);
+    dialogSpy = jasmine.createSpyObj('MatDialog', ['open', 'closeAll']);
     TestBed.configureTestingModule({
       declarations: [ DeletarProdutoDialogComponent ],
       imports: [
@@ -37,6 +39,10 @@ describe('DeletarProdutoDialogComponent', () => {
           codFesta: 'teste'}
         },
         { provide: MatDialog, useValue: dialogSpy },
+        {provide: DeletarProdutoService, useValue: {
+          deleteProduto: () => of({}),
+          setFarol: () => false,
+        }}
       ]
     })
     .compileComponents();
@@ -56,5 +62,30 @@ describe('DeletarProdutoDialogComponent', () => {
   it('should open a dialog through a method', () => {
     component.openDialogSuccess('teste');
     expect(dialogSpy.open).toHaveBeenCalled();
+  });
+
+  it('should deletarProduto', () => {
+    spyOn(component.deleteService, 'deleteProduto')
+    .and
+    .callThrough();
+
+    spyOn(component, 'openDialogSuccess')
+    .and
+    .callThrough();
+
+    component.component = {
+      ngOnInit: () => true
+    };
+    spyOn(component.component, 'ngOnInit')
+    .and
+    .callThrough();
+
+    component.produto = {codProduto: 'teste'};
+    component.codFesta = 'teste';
+    component.deletarProduto();
+    expect(component.deleteService.deleteProduto).toHaveBeenCalledWith('teste', 'teste');
+    expect(dialogSpy.closeAll).toHaveBeenCalled();
+    expect(component.component.ngOnInit).toHaveBeenCalled();
+    expect(component.openDialogSuccess).toHaveBeenCalledWith('PRODDELE');
   });
 });

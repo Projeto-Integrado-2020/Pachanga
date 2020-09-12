@@ -11,6 +11,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SuccessDialogComponent } from '../success-dialog/success-dialog.component';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 import { RouterModule } from '@angular/router';
+import { of } from 'rxjs';
+import { DeleterGrupoService } from 'src/app/services/deletar-grupo/deleter-grupo.service';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -22,7 +24,7 @@ describe('DeletarGrupoComponent', () => {
   let dialogSpy: MatDialog;
 
   beforeEach(async(() => {
-    dialogSpy = jasmine.createSpyObj('MatDialog', ['open']);
+    dialogSpy = jasmine.createSpyObj('MatDialog', ['open', 'closeAll']);
     TestBed.configureTestingModule({
       declarations: [
         DeletarGrupoComponent, SuccessDialogComponent
@@ -43,6 +45,10 @@ describe('DeletarGrupoComponent', () => {
       providers: [
         { provide: MAT_DIALOG_DATA, useValue: {codFesta: '1', grupo: {nomeGrupo: 'Teste', codGrupo: 'Teste'}}},
         { provide: MatDialog, useValue: dialogSpy },
+        {provide: DeleterGrupoService, useValue: {
+          deleteGrupo: () => of({}),
+          setFarol: () => false,
+        }}
       ]
     })
     .overrideModule(BrowserDynamicTestingModule, { set: { entryComponents: [SuccessDialogComponent] } })
@@ -62,5 +68,34 @@ describe('DeletarGrupoComponent', () => {
   it('should open a dialog through a method', () => {
     component.openDialogSuccess('teste');
     expect(dialogSpy.open).toHaveBeenCalled();
+  });
+
+  it('should deletarGrupo', () => {
+    spyOn(component.deleteService, 'deleteGrupo')
+    .and
+    .callThrough();
+
+    spyOn(component.deleteService, 'setFarol')
+    .and
+    .callThrough();
+
+    spyOn(component, 'openDialogSuccess')
+    .and
+    .callThrough();
+
+    component.component = {
+      ngOnInit: () => true
+    };
+    spyOn(component.component, 'ngOnInit')
+    .and
+    .callThrough();
+
+    component.grupo = {codGrupo: 'teste'};
+    component.deletarGrupo();
+    expect(component.deleteService.deleteGrupo).toHaveBeenCalledWith('teste');
+    expect(component.deleteService.setFarol).toHaveBeenCalledWith(false);
+    expect(dialogSpy.closeAll).toHaveBeenCalled();
+    expect(component.component.ngOnInit).toHaveBeenCalled();
+    expect(component.openDialogSuccess).toHaveBeenCalledWith('GRUPDELE');
   });
 });

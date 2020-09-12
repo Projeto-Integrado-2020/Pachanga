@@ -15,7 +15,7 @@ import { MenuFestasComponent } from '../menu-festas/menu-festas.component';
 import { FestaPainelControleComponent } from '../festa-painel-controle/festa-painel-controle.component';
 import { CriarFestaComponent } from '../criar-festa/criar-festa.component';
 
-import { SocialLoginModule, AuthServiceConfig } from 'angular4-social-login';
+import { SocialLoginModule, AuthServiceConfig, AuthService, SocialUser } from 'angular4-social-login';
 import { GoogleLoginProvider, FacebookLoginProvider } from 'angular4-social-login';
 
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
@@ -336,12 +336,88 @@ describe('CadastroComponent', () => {
 
   it('should call cadastrar_se at SignUpWithPachanga', () => {
     spyOn(component, 'cadastrar_se');
-    component.signUpWithPachanga('teste', 'teste', 'teste', 'teste', 'teste');
-    expect(component.cadastrar_se).toHaveBeenCalled();
+    const userJson = {
+      tipConta: 'P',
+      email: 'Email',
+      senha: 'Senha123',
+      nomeUser: 'Name',
+      dtNasc: '2000-04-05',
+      sexo: 'M'
+    };
+    component.signUpWithPachanga('Name', '05/04/2000', 'M', 'Email', 'Senha123');
+    expect(component.cadastrar_se).toHaveBeenCalledWith(userJson);
   });
 
   it('should get f to get form controls', () => {
     expect(component.f).toBe(component.form.controls);
   });
+/*
+  it('should sign up facebook at signUpWithFB', () => {
+    spyOn(component, 'cadastrar_se');
 
+    const socialUser = {
+      provider: '',
+      id: 'teste123',
+      email: 'Email',
+      name: 'Name',
+      photoUrl: '',
+      firstName: '',
+      lastName: '',
+      authToken: ''
+    };
+    const spy = spyOn(component.authService, 'signIn')
+    .and
+    .returnValue(Promise.resolve(socialUser));
+
+    const userJson = {
+      tipConta: 'F',
+      email: 'Email',
+      nomeUser: 'Name',
+      dtNasc: '',
+      sexo: 'N',
+      conta: 'teste123'
+    };
+
+    component.signUpWithFB();
+
+    spy.calls.mostRecent().returnValue.then(() => {
+      expect(component.user).toEqual(socialUser);
+      expect(component.cadastrar_se).toHaveBeenCalledWith(userJson);
+    });
+  });
+
+  it('should sign up google at signUpWithGoogle', () => {
+    spyOn(component, 'cadastrar_se');
+
+    const socialUser = {
+      provider: '',
+      id: 'teste123',
+      email: 'Email',
+      name: 'Name',
+      photoUrl: '',
+      firstName: '',
+      lastName: '',
+      authToken: ''
+    };
+    const spy = spyOn(component.authService, 'signIn')
+    .and
+    .returnValue(Promise.resolve(socialUser));
+
+    const userJson = {
+      tipConta: 'G',
+      email: 'Email',
+      nomeUser: 'Name',
+      dtNasc: '',
+      sexo: 'N',
+      conta: 'teste123'
+    };
+
+    component.signUpWithGoogle();
+
+    spy.calls.mostRecent().returnValue.then(() => {
+      expect(component.user).toEqual(socialUser);
+      expect(component.cadastrar_se).toHaveBeenCalledWith(userJson);
+    });
+  });
+*/
 });

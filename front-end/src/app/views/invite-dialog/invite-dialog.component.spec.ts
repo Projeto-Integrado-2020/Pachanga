@@ -9,6 +9,8 @@ import { CustomMaterialModule } from '../material/material.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MAT_DIALOG_DATA } from '@angular/material';
 import { MatDialog } from '@angular/material';
+import { ConviteMembroService } from 'src/app/services/convite-membro/convite-membro.service';
+import { of } from 'rxjs';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -20,7 +22,7 @@ describe('InviteDialogComponent', () => {
   let fixture: ComponentFixture<InviteDialogComponent>;
 
   beforeEach(async(() => {
-    dialogSpy = jasmine.createSpyObj('MatDialog', ['open']);
+    dialogSpy = jasmine.createSpyObj('MatDialog', ['open', 'closeAll']);
     TestBed.configureTestingModule({
       declarations: [ InviteDialogComponent ],
       imports: [
@@ -37,7 +39,11 @@ describe('InviteDialogComponent', () => {
       ],
       providers: [
         { provide: MAT_DIALOG_DATA, useValue: {idFesta: '0', grupo: 'teste'} },
-        { provide: MatDialog, useValue: dialogSpy }
+        { provide: MatDialog, useValue: dialogSpy },
+        {provide: ConviteMembroService, useValue: {
+          convidarMembro: () => of({}),
+          setFarol: () => false,
+        }}
       ]
     })
     .compileComponents();
@@ -74,5 +80,30 @@ describe('InviteDialogComponent', () => {
     expect(result).toBeTruthy();
     result = component.validate('testeteste');
     expect(result).toBeFalsy();
+  });
+
+  it('should adicionarMembros', () => {
+    spyOn(component.conviteService, 'convidarMembro')
+    .and
+    .callThrough();
+
+    spyOn(component.conviteService, 'setFarol')
+    .and
+    .callThrough();
+
+    spyOn(component, 'openDialogSuccess')
+    .and
+    .callThrough();
+
+    component.idFesta = 'teste';
+    component.grupo = 'teste';
+    component.maillist = [
+      {address: 'email@email.com', valid: true},
+      {address: 'teste@teste.com', valid: true}
+    ];
+    component.adicionarMembros();
+    expect(component.conviteService.convidarMembro).toHaveBeenCalledWith('teste', 'teste', ['email@email.com', 'teste@teste.com']);
+    expect(component.conviteService.setFarol).toHaveBeenCalledWith(false);
+    expect(dialogSpy.closeAll).toHaveBeenCalled();
   });
 });

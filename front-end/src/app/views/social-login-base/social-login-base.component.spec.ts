@@ -12,6 +12,7 @@ import { RouterModule, Router } from '@angular/router';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginService } from 'src/app/services/loginService/login.service';
+import { of } from 'rxjs';
 
 const config = new AuthServiceConfig([
   {
@@ -52,7 +53,15 @@ describe('SocialLoginBaseComponent', () => {
           provide: AuthServiceConfig,
           useFactory: provideConfig
         },
-        { provide: Router, useValue: router }
+        { provide: Router, useValue: router },
+        {provide: LoginService, useValue: {
+          logar: () => of({nomeUser: 'teste'}),
+          cadastrar: () => of({}),
+          finalizarSessao: () => of({}),
+          setUsuarioAutenticado: () => of({}),
+          setusuarioInfo: () => of({}),
+          setFarol: () => false,
+        }}
       ],
     })
     .compileComponents();
@@ -70,11 +79,45 @@ describe('SocialLoginBaseComponent', () => {
   });
 
   it('should navigate ["/"] when signOut', () => {
-    spyOn(component.loginService, 'finalizarSessao');
-    spyOn(component.loginService, 'setUsuarioAutenticado');
+    spyOn(component.loginService, 'setUsuarioAutenticado')
+    .and
+    .callThrough();
+    spyOn(component.loginService, 'finalizarSessao')
+    .and
+    .callThrough();
+
     component.signOut();
     expect(component.loginService.finalizarSessao).toHaveBeenCalled();
     expect(component.loginService.setUsuarioAutenticado).toHaveBeenCalled();
     expect(router.navigate).toHaveBeenCalledWith(['/']);
+  });
+
+  it('should autenticar', () => {
+    spyOn(component.loginService, 'setusuarioInfo')
+    .and
+    .callThrough();
+    spyOn(component.loginService, 'setUsuarioAutenticado')
+    .and
+    .callThrough();
+    spyOn(component.loginService, 'setFarol')
+    .and
+    .callThrough();
+    spyOn(component.modal, 'closeAll')
+    .and
+    .callThrough();
+
+    component.autenticar({nomeUser: 'teste'});
+    expect(component.loginService.setUsuarioAutenticado).toHaveBeenCalledWith(true);
+    expect(component.loginService.setusuarioInfo).toHaveBeenCalledWith({nomeUser: 'teste'});
+    expect(component.loginService.setFarol).toHaveBeenCalledWith(false);
+  });
+
+  it('should cadastrar_se', () => {
+    spyOn(component.loginService, 'setFarol');
+    spyOn(component, 'autenticar');
+
+    component.cadastrar_se({nomeUser: 'teste'});
+    expect(component.loginService.setFarol).toHaveBeenCalledWith(false);
+    expect(component.autenticar).toHaveBeenCalledWith({nomeUser: 'teste'});
   });
 });

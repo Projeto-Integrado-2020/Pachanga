@@ -10,6 +10,9 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient } from '@angular/common/http';
 import { LoginService } from 'src/app/services/loginService/login.service';
+import { of } from 'rxjs';
+import { GetGruposService } from 'src/app/services/get-grupos/get-grupos.service';
+import { EditarMembroGrupoService } from 'src/app/services/editar-membro-grupo/editar-membro-grupo.service';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -21,7 +24,7 @@ describe('EditGrupoMembroComponent', () => {
   let dialogSpy: MatDialog;
 
   beforeEach(async(() => {
-    dialogSpy = jasmine.createSpyObj('MatDialog', ['open']);
+    dialogSpy = jasmine.createSpyObj('MatDialog', ['open', 'closeAll']);
     TestBed.configureTestingModule({
       declarations: [ EditGrupoMembroComponent ],
       imports: [
@@ -39,7 +42,15 @@ describe('EditGrupoMembroComponent', () => {
       })],
       providers: [
         { provide: MAT_DIALOG_DATA, useValue: { codUsuario: '1', codFesta: '1', grupo: {codGrupo: '1', nomeGrupo: 'Salve'}} },
-        { provide: MatDialog, useValue: dialogSpy }
+        { provide: MatDialog, useValue: dialogSpy },
+        {provide: GetGruposService, useValue: {
+          getGrupos: () => of([{codGrupo: 'teste'}]),
+          setFarol: () => false,
+        }},
+        {provide: EditarMembroGrupoService, useValue: {
+          editarMembroColaborador: () => of({}),
+          setFarol: () => false,
+        }}
     ]
     })
     .compileComponents();
@@ -61,6 +72,49 @@ describe('EditGrupoMembroComponent', () => {
     component.gerarForm();
     expect(component.form).toBeTruthy();
     expect(component.form.get('grupoSelect')).toBeTruthy();
+  });
+
+  it('should resgatarGrupo', () => {
+    spyOn(component.getGruposService, 'getGrupos')
+    .and
+    .callThrough();
+
+    spyOn(component.getGruposService, 'setFarol')
+    .and
+    .callThrough();
+
+    component.codFesta = 'testeFesta';
+    component.resgatarGrupo();
+    expect(component.getGruposService.getGrupos).toHaveBeenCalledWith('testeFesta');
+    expect(component.getGruposService.setFarol).toHaveBeenCalledWith(false);
+    expect(component.grupos).toEqual([{codGrupo: 'teste'}]);
+  });
+
+  it('should editarGrupo', () => {
+    spyOn(component.editMembroService, 'editarMembroColaborador')
+    .and
+    .callThrough();
+
+    spyOn(component.editMembroService, 'setFarol')
+    .and
+    .callThrough();
+
+    component.component = {
+      ngOnInit: () => true
+    };
+
+    spyOn(component.component, 'ngOnInit')
+    .and
+    .callThrough();
+
+    component.codFesta = 'testeFesta';
+    component.grupo = {codGrupo: 'testeGrupo'};
+    component.codUsuario = 'testeFesta';
+    component.editarGrupo(['teste']);
+    expect(component.editMembroService.editarMembroColaborador).toHaveBeenCalledWith('testeFesta', 'testeGrupo', ['teste']);
+    expect(component.editMembroService.setFarol).toHaveBeenCalledWith(false);
+    expect(dialogSpy.closeAll).toHaveBeenCalled();
+    expect(component.component.ngOnInit).toHaveBeenCalled();
   });
 
 });

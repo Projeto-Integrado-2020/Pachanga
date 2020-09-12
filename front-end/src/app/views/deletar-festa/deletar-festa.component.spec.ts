@@ -13,6 +13,8 @@ import { SuccessDialogComponent } from '../success-dialog/success-dialog.compone
 
 import { RouterModule } from '@angular/router';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
+import { DeletarFestaService } from 'src/app/services/deletar-festa/deletar-festa.service';
+import { of } from 'rxjs/internal/observable/of';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -24,7 +26,7 @@ describe('DeletarFestaComponent', () => {
   let dialogSpy: MatDialog;
 
   beforeEach(async(() => {
-    dialogSpy = jasmine.createSpyObj('MatDialog', ['open']);
+    dialogSpy = jasmine.createSpyObj('MatDialog', ['open', 'closeAll']);
 
     TestBed.configureTestingModule({
       declarations: [
@@ -47,6 +49,10 @@ describe('DeletarFestaComponent', () => {
       providers: [
         { provide: MAT_DIALOG_DATA, useValue: {festa: {nomeFesta: 'teste', codFesta: '1'}} },
         { provide: MatDialog, useValue: dialogSpy },
+        {provide: DeletarFestaService, useValue: {
+          deleteFesta: () => of('Sucesso'),
+          setFarol: () => false,
+        }}
       ]
     })
     .overrideModule(BrowserDynamicTestingModule, { set: { entryComponents: [SuccessDialogComponent] } })
@@ -66,5 +72,31 @@ describe('DeletarFestaComponent', () => {
   it('should open a dialog through a method', () => {
     component.openDialogSuccess('teste');
     expect(dialogSpy.open).toHaveBeenCalled();
+  });
+
+  it('should deletarFesta', () => {
+    spyOn(component.deleteService, 'deleteFesta')
+    .and
+    .callThrough();
+
+    spyOn(component.deleteService, 'setFarol')
+    .and
+    .callThrough();
+
+    spyOn(component, 'openDialogSuccess')
+    .and
+    .callThrough();
+
+    spyOn(component.router, 'navigate')
+    .and
+    .callThrough();
+
+    component.festa = {codFesta: 'teste'};
+    component.deletarFesta();
+    expect(component.deleteService.deleteFesta).toHaveBeenCalledWith('teste');
+    expect(component.deleteService.setFarol).toHaveBeenCalledWith(false);
+    expect(dialogSpy.closeAll).toHaveBeenCalled();
+    expect(component.router.navigate).toHaveBeenCalledWith(['minhas-festas']);
+    expect(component.openDialogSuccess).toHaveBeenCalledWith('Sucesso');
   });
 });

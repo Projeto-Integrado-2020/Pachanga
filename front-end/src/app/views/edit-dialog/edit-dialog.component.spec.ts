@@ -14,6 +14,8 @@ import {MAT_DIALOG_DATA, MatDialog} from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginService } from 'src/app/services/loginService/login.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { EditAccountService } from 'src/app/services/editAccountService/edit-account.service';
+import { of } from 'rxjs';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -25,7 +27,7 @@ describe('EditDialogComponent', () => {
   let dialogSpy: MatDialog;
 
   beforeEach(async(() => {
-    dialogSpy = jasmine.createSpyObj('MatDialog', ['open']);
+    dialogSpy = jasmine.createSpyObj('MatDialog', ['open', 'closeAll']);
     TestBed.configureTestingModule({
       declarations: [ EditDialogComponent ],
       imports: [
@@ -45,6 +47,10 @@ describe('EditDialogComponent', () => {
         { provide: MAT_DIALOG_DATA, useValue: {campo: 'nome'} },
         { provide: MatDialog, useValue: dialogSpy },
         { provide: LoginService, useValue: {usuarioInfo: {nomeUser: 'teste'}} },
+        {provide: EditAccountService, useValue: {
+          atualizar: () => of({nomeUser: 'teste'}),
+          setFarol: () => false,
+        }}
     ]
     })
     .compileComponents();
@@ -104,5 +110,16 @@ describe('EditDialogComponent', () => {
     expect(component.modJson.senhaNova).toBe('nova');
     expect(component.modJson.senha).toBe('antiga');
     expect(component.callService).toHaveBeenCalled();
+  });
+
+  it('should callService', () => {
+    spyOn(component.editService, 'atualizar')
+    .and
+    .callThrough();
+
+    component.modJson = {nomeUser: 'mockMod'};
+    component.callService();
+    expect(component.editService.atualizar).toHaveBeenCalledWith({nomeUser: 'mockMod'}, {nomeUser: 'teste'});
+    expect(component.loginService.usuarioInfo).toEqual({nomeUser: 'teste'});
   });
 });

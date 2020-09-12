@@ -9,6 +9,8 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { HttpClient } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { DeletarProdutoEstoqueService } from 'src/app/services/deletar-produto-estoque/deletar-produto-estoque.service';
+import { of } from 'rxjs';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -20,7 +22,7 @@ describe('DeletarProdutoEstoqueDialogComponent', () => {
   let dialogSpy: MatDialog;
 
   beforeEach(async(() => {
-    dialogSpy = jasmine.createSpyObj('MatDialog', ['open']);
+    dialogSpy = jasmine.createSpyObj('MatDialog', ['open', 'closeAll']);
     TestBed.configureTestingModule({
       declarations: [ DeletarProdutoEstoqueDialogComponent ],
       imports: [
@@ -41,6 +43,10 @@ describe('DeletarProdutoEstoqueDialogComponent', () => {
           codFesta: 'teste'}
         },
         { provide: MatDialog, useValue: dialogSpy },
+        {provide: DeletarProdutoEstoqueService, useValue: {
+          deletarProdutoEstoque: () => of({}),
+          setFarol: () => false,
+        }}
       ]
     })
     .compileComponents();
@@ -60,5 +66,34 @@ describe('DeletarProdutoEstoqueDialogComponent', () => {
   it('should open a dialog through a method', () => {
     component.openDialogSuccess('teste');
     expect(dialogSpy.open).toHaveBeenCalled();
+  });
+
+  it('should deletarProduto', () => {
+    spyOn(component.deleteProdEstoqueService, 'deletarProdutoEstoque')
+    .and
+    .callThrough();
+
+    spyOn(component.deleteProdEstoqueService, 'setFarol')
+    .and
+    .callThrough();
+
+    spyOn(component, 'openDialogSuccess')
+    .and
+    .callThrough();
+
+    component.component = {
+      ngOnInit: () => true
+    };
+    spyOn(component.component, 'ngOnInit')
+    .and
+    .callThrough();
+
+    component.produto = {codProduto: 'teste'};
+    component.estoque = {codEstoque: 'teste'};
+    component.deleteProdutoEstoque();
+    expect(component.deleteProdEstoqueService.deletarProdutoEstoque).toHaveBeenCalledWith('teste', 'teste');
+    expect(component.deleteProdEstoqueService.setFarol).toHaveBeenCalledWith(false);
+    expect(dialogSpy.closeAll).toHaveBeenCalled();
+    expect(component.component.ngOnInit).toHaveBeenCalled();
   });
 });

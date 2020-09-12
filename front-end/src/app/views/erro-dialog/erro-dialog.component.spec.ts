@@ -30,7 +30,7 @@ describe('ErroDialogComponent', () => {
         }
       })],
       providers: [
-        { provide: MAT_DIALOG_DATA, useValue: {erro: 'USERMAIL'} },
+        { provide: MAT_DIALOG_DATA, useValue: {erro: 'QNTATLDF'} },
     ]
     })
     .compileComponents();
@@ -44,5 +44,10 @@ describe('ErroDialogComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should show erro', () => {
+    component.ngOnInit();
+    expect(component.erro).toEqual('ERRO.SERVERRO');
   });
 });

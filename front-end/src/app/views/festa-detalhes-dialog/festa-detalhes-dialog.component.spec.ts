@@ -9,6 +9,8 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient } from '@angular/common/http';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { of } from 'rxjs';
+import { ConvidadoService } from 'src/app/services/convidado/convidado.service';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -20,7 +22,7 @@ describe('FestaDetalhesDialogComponent', () => {
   let dialogSpy: MatDialog;
 
   beforeEach(async(() => {
-    dialogSpy = jasmine.createSpyObj('MatDialog', ['open']);
+    dialogSpy = jasmine.createSpyObj('MatDialog', ['open', 'closeAll']);
     TestBed.configureTestingModule({
       declarations: [ FestaDetalhesDialogComponent ],
       imports: [
@@ -43,6 +45,10 @@ describe('FestaDetalhesDialogComponent', () => {
         }}
       },
         { provide: MatDialog, useValue: dialogSpy },
+        {provide: ConvidadoService, useValue: {
+          aceitarConvite: () => of({}),
+          recusarConvite: () => of({}),
+        }}
       ]
     })
     .compileComponents();
@@ -63,5 +69,38 @@ describe('FestaDetalhesDialogComponent', () => {
   it('should formatDateTime', () => {
     const result = component.formatDateTime('2000-04-05T10:00');
     expect(result).toEqual('05/04/2000 - 10:00');
+  });
+
+  it('should aceitarConvite', () => {
+    spyOn(component.convService, 'aceitarConvite')
+    .and
+    .callThrough();
+
+    spyOn(component.router, 'navigate')
+    .and
+    .callThrough();
+
+    component.alerta = {codConvidado: 'teste'};
+    component.idGrupo = 'teste';
+    component.aceitarConvite();
+    expect(component.convService.aceitarConvite).toHaveBeenCalledWith('teste', 'teste');
+    expect(dialogSpy.closeAll).toHaveBeenCalled();
+    expect(component.router.navigate).toHaveBeenCalledWith(['/minhas-festas']);
+  });
+
+  it('should recusarConvite', () => {
+    spyOn(component.convService, 'recusarConvite')
+    .and
+    .callThrough();
+
+    spyOn(component.router, 'navigate')
+    .and
+    .callThrough();
+
+    component.alerta = {codConvidado: 'teste'};
+    component.idGrupo = 'teste';
+    component.recusarConvite();
+    expect(component.convService.recusarConvite).toHaveBeenCalledWith('teste', 'teste');
+    expect(dialogSpy.closeAll).toHaveBeenCalled();
   });
 });

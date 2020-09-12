@@ -11,6 +11,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { FormControl, Validators } from '@angular/forms';
 import { LoginService } from 'src/app/services/loginService/login.service';
+import { GetPermissoesService } from 'src/app/services/get-permissoes/get-permissoes.service';
+import { of } from 'rxjs';
+import { GetFestaService } from 'src/app/services/get-festa/get-festa.service';
+import { CriarGrupoService } from 'src/app/services/criar-grupo/criar-grupo.service';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -37,6 +41,20 @@ describe('CriarGrupoComponent', () => {
           }
         }),
         RouterModule.forRoot([])
+      ],
+      providers: [
+        {provide: GetPermissoesService, useValue: {
+          getPermissoes: () => of([{descPermissao: 'Teste1'}, {descPermissao: 'Teste2'}]),
+          setFarol: () => false,
+        }},
+        {provide: GetFestaService, useValue: {
+          acessarFesta: () => of({nomeFesta: 'testeFesta'}),
+          setFarol: () => false,
+        }},
+        {provide: CriarGrupoService, useValue: {
+          adicionarGrupo: () => of({}),
+          setFarol: () => false,
+        }}
       ]
     })
     .compileComponents();
@@ -85,5 +103,71 @@ describe('CriarGrupoComponent', () => {
     component.form.get('teste1').setValue(true);
     component.updateListaPermissao({descPermissao: 'teste1', codPermissao: 1});
     expect(component.permissoesGrupo).toEqual([2]);
+  });
+
+  it('should resgatarPermissoes', () => {
+    spyOn(component.getPermissaoService, 'getPermissoes')
+    .and
+    .callThrough();
+
+    spyOn(component.getPermissaoService, 'setFarol')
+    .and
+    .callThrough();
+
+    spyOn(component, 'buildForm')
+    .and
+    .callThrough();
+
+    component.resgatarPermissoes();
+
+    expect(component.getPermissaoService.getPermissoes).toHaveBeenCalled();
+    expect(component.getPermissaoService.setFarol).toHaveBeenCalledWith(false);
+    expect(component.permissoes).toEqual([{descPermissao: 'Teste1'}, {descPermissao: 'Teste2'}]);
+    expect(component.buildForm).toHaveBeenCalled();
+  });
+
+  it('should callServiceGet', () => {
+    spyOn(component.getFestaService, 'acessarFesta')
+    .and
+    .callThrough();
+
+    spyOn(component.getFestaService, 'setFarol')
+    .and
+    .callThrough();
+
+    component.callServiceGet('teste');
+
+    expect(component.getFestaService.acessarFesta).toHaveBeenCalledWith('teste');
+    expect(component.getFestaService.setFarol).toHaveBeenCalledWith(false);
+    expect(component.festa).toEqual({nomeFesta: 'testeFesta'});
+  });
+
+  it('should criarGrupo', () => {
+    spyOn(component.addGrupoService, 'adicionarGrupo')
+    .and
+    .callThrough();
+
+    spyOn(component.addGrupoService, 'setFarol')
+    .and
+    .callThrough();
+
+    const grupo = {
+      nomeGrupo: 'teste',
+      codFesta: 'teste',
+      permissoes: []
+    };
+    component.festa = {codFesta: 'teste'};
+    component.permissoesGrupo = [];
+    component.criarGrupo('teste');
+
+    expect(component.addGrupoService.adicionarGrupo).toHaveBeenCalledWith(grupo);
+    expect(component.addGrupoService.setFarol).toHaveBeenCalledWith(false);
+  });
+
+  it('should buildForm', () => {
+    component.permissoes = [{descPermissao: 'Teste1'}, {descPermissao: 'Teste2'}];
+
+    expect(component.form.get('Teste1')).toBeTruthy();
+    expect(component.form.get('Teste2')).toBeTruthy();
   });
 });

@@ -11,6 +11,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { of } from 'rxjs';
+import { RecargaProdutoEstoqueService } from 'src/app/services/recarga-produto-estoque/recarga-produto-estoque.service';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -41,7 +43,11 @@ describe('RecargaProdutoEstoqueDialogComponent', () => {
         })],
         providers: [
           { provide: MAT_DIALOG_DATA, useValue: { codFesta: '1', estoque: { nomeEstoque: 'Estoque' } } },
-          { provide: MatDialog, useValue: dialogSpy }
+          { provide: MatDialog, useValue: dialogSpy },
+          {provide: RecargaProdutoEstoqueService, useValue: {
+            recargaProdutoEstoque: () => of({}),
+            setFarol: () => false,
+          }},
       ]
       })
       .compileComponents();
@@ -59,9 +65,42 @@ describe('RecargaProdutoEstoqueDialogComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  it('should get f to get form controls', () => {
+    expect(component.f).toBe(component.form.controls);
+  });
+
   it('should gerarForm', () => {
     component.gerarForm();
     expect(component.form).toBeTruthy();
     expect(component.form.get('quantidade')).toBeTruthy();
+  });
+
+  it('should recargaProduto', () => {
+    spyOn(component.recargaProdutoEstoqueService, 'recargaProdutoEstoque')
+    .and
+    .callThrough();
+
+    spyOn(component.recargaProdutoEstoqueService, 'setFarol')
+    .and
+    .callThrough();
+
+    const element = {
+      dose: true,
+      quantDoses: 10,
+      codProduto: 'teste'
+    };
+
+    component.estoque = {
+      codEstoque: 'teste'
+    };
+    component.component = {
+      quantidadesProdutos: [[{quantidadeAtual: 10}]]
+    };
+    component.indexEstoque = 0;
+    component.indexProduto = 0;
+    component.recargaProduto(10, element);
+    expect(component.recargaProdutoEstoqueService.recargaProdutoEstoque).toHaveBeenCalled();
+    expect(component.recargaProdutoEstoqueService.setFarol).toHaveBeenCalledWith(false);
+    expect(dialogSpy.closeAll).toHaveBeenCalled();
   });
 });

@@ -11,6 +11,8 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { HttpClient } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { LoginService } from 'src/app/services/loginService/login.service';
+import { GetProdutosService } from 'src/app/services/get-produtos/get-produtos.service';
+import { of } from 'rxjs';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -46,6 +48,16 @@ describe('GerenciadorProdutosComponent', () => {
           preco: 'teste'
         }}},
         { provide: MatDialog, useValue: dialogSpy },
+        {provide: GetProdutosService, useValue: {
+          getProdutos: () => of([{
+            codProduto: 'Teste',
+            marca: 'Teste',
+            dose: true,
+            quantDoses: 100,
+            precoMedio: 87
+          }]),
+          setFarol: () => false,
+        }}
       ]
     })
     .compileComponents();
@@ -77,5 +89,19 @@ describe('GerenciadorProdutosComponent', () => {
   it('should open a edit-dialog through a method', () => {
     component.openDialogEdit({marca: 'teste', preco: 'teste'});
     expect(dialogSpy.open).toHaveBeenCalled();
+  });
+
+  it('should resgatarProdutos', () => {
+    spyOn(component.getProdutos, 'getProdutos')
+    .and
+    .callThrough();
+
+    spyOn(component.getProdutos, 'setFarol')
+    .and
+    .callThrough();
+
+    component.resgatarProdutos();
+    expect(component.getProdutos.getProdutos).toHaveBeenCalled();
+    expect(component.getProdutos.setFarol).toHaveBeenCalledWith(false);
   });
 });

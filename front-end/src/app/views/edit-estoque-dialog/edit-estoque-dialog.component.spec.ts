@@ -11,6 +11,8 @@ import { HttpClient } from '@angular/common/http';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { LoginService } from 'src/app/services/loginService/login.service';
+import { of } from 'rxjs';
+import { EditarEstoqueService } from 'src/app/services/editar-estoque/editar-estoque.service';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -41,7 +43,11 @@ describe('EditEstoqueDialogComponent', () => {
         })],
         providers: [
           { provide: MAT_DIALOG_DATA, useValue: { codFesta: '1', estoque: { nomeEstoque: 'Estoque' } } },
-          { provide: MatDialog, useValue: dialogSpy }
+          { provide: MatDialog, useValue: dialogSpy },
+          {provide: EditarEstoqueService, useValue: {
+            atualizarEstoque: () => of({}),
+            setFarol: () => false,
+          }}
       ]
       })
       .compileComponents();
@@ -63,5 +69,37 @@ describe('EditEstoqueDialogComponent', () => {
     component.gerarForm();
     expect(component.form).toBeTruthy();
     expect(component.form.get('nomeEstoque')).toBeTruthy();
+  });
+
+  it('should editEstoque', () => {
+    spyOn(component.editarEstoque, 'atualizarEstoque')
+    .and
+    .callThrough();
+
+    spyOn(component.editarEstoque, 'setFarol')
+    .and
+    .callThrough();
+
+    component.component = {
+      ngOnInit: () => true
+    };
+
+    spyOn(component.component, 'ngOnInit')
+    .and
+    .callThrough();
+
+    const estoqueTO = {
+      codEstoque: 'testeCod',
+      nomeEstoque: 'testeNome'
+    };
+    component.codFesta = 'testeFesta';
+    component.estoque = {
+      codEstoque: 'testeCod',
+      nomeEstoque: 'testeNome'
+    };
+    component.editEstoque('testeNome');
+    expect(component.editarEstoque.atualizarEstoque).toHaveBeenCalledWith('testeFesta', estoqueTO);
+    expect(component.editarEstoque.setFarol).toHaveBeenCalledWith(false);
+    expect(component.component.ngOnInit).toHaveBeenCalled();
   });
 });

@@ -16,6 +16,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { MatDialog } from '@angular/material';
 import { LoginService } from 'src/app/services/loginService/login.service';
+import { GetCategoriasService } from 'src/app/services/get-categorias/get-categorias.service';
+import { of } from 'rxjs';
+import { GetFestaService } from 'src/app/services/get-festa/get-festa.service';
+import { EditarFestaService } from 'src/app/services/editar-festa/editar-festa.service';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -48,6 +52,31 @@ describe('EditarFestaComponent', () => {
       ],
       providers: [
         { provide: MatDialog, useValue: dialogSpy },
+        {provide: GetCategoriasService, useValue: {
+          getCategorias: () => of([ {categoria: 'Teste1'}, {categoria: 'Teste2'} ]),
+          setFarol: () => false,
+        }},
+        {provide: GetFestaService, useValue: {
+          acessarFesta: () => of({
+            nomeFesta: 'Teste',
+            descricaoFesta: 'Teste',
+            codEnderecoFesta: 'Teste',
+            organizador: 'Teste',
+            descOrganizador: 'Teste',
+            horarioInicioFesta: '2020-02-01T12:00:00',
+            horarioFimFesta: '2020-02-06T18:00:00',
+            categoriaPrimaria: {
+              codCategoria: 2,
+              nomeCategoria: 'RAVEAFIM'
+            },
+            categoriaSecundaria: null
+          }),
+          setFarol: () => false,
+        }},
+        {provide: EditarFestaService, useValue: {
+          atualizarFesta: () => of({}),
+          setFarol: () => false,
+        }},
       ]
     })
     .compileComponents();
@@ -58,6 +87,21 @@ describe('EditarFestaComponent', () => {
     component = fixture.componentInstance;
     const service: LoginService = TestBed.get(LoginService);
     service.usuarioInfo = {codUsuario: '1'};
+    component.festa = {
+      nomeFesta: 'Teste',
+      descricaoFesta: 'Teste',
+      codEnderecoFesta: 'Teste',
+      organizador: 'Teste',
+      descOrganizador: 'Teste',
+      horarioInicioFesta: '2020-02-01T12:00:00',
+      horarioFimFesta: '2020-02-06T18:00:00',
+      categoriaPrimaria: {
+        codCategoria: 2,
+        nomeCategoria: 'RAVEAFIM'
+      },
+      categoriaSecundaria: null
+    };
+    component.gerarForm();
     fixture.detectChanges();
   });
 
@@ -119,6 +163,79 @@ describe('EditarFestaComponent', () => {
     expect(component.f.inicioHora.value).toBe('12:00');
     expect(component.f.fimHora.value).toBe('18:00');
     expect(component.minDate).toEqual(new Date(component.festa.horarioInicioFesta));
+  });
+
+  it('should resgatarCategorias', () => {
+    spyOn(component.getCategoria, 'getCategorias')
+    .and
+    .callThrough();
+
+    spyOn(component.getCategoria, 'setFarol')
+    .and
+    .callThrough();
+
+    component.resgatarCategorias();
+
+    expect(component.getCategoria.getCategorias).toHaveBeenCalled();
+    expect(component.getCategoria.setFarol).toHaveBeenCalledWith(false);
+    expect(component.categorias).toEqual([{categoria: 'Teste1'}, {categoria: 'Teste2'}]);
+  });
+
+  it('should callServiceGet', () => {
+    spyOn(component.getFestaService, 'acessarFesta')
+    .and
+    .callThrough();
+
+    spyOn(component.getFestaService, 'setFarol')
+    .and
+    .callThrough();
+
+    spyOn(component, 'setFormValues')
+    .and
+    .callThrough();
+
+    component.callServiceGet('teste');
+
+    const festaResult = {
+      nomeFesta: 'Teste',
+      descricaoFesta: 'Teste',
+      codEnderecoFesta: 'Teste',
+      organizador: 'Teste',
+      descOrganizador: 'Teste',
+      horarioInicioFesta: '2020-02-01T12:00:00',
+      horarioFimFesta: '2020-02-06T18:00:00',
+      categoriaPrimaria: {
+        codCategoria: 2,
+        nomeCategoria: 'RAVEAFIM'
+      },
+      categoriaSecundaria: null
+    };
+
+    expect(component.getFestaService.acessarFesta).toHaveBeenCalled();
+    expect(component.getFestaService.setFarol).toHaveBeenCalledWith(false);
+    expect(component.festa).toEqual(festaResult);
+    expect(component.setFormValues).toHaveBeenCalled();
+  });
+
+  it('should callServiceAtualizacao', () => {
+    spyOn(component.festaService, 'atualizarFesta')
+    .and
+    .callThrough();
+
+    spyOn(component.festaService, 'setFarol')
+    .and
+    .callThrough();
+
+
+    spyOn(component, 'openDialogSuccess')
+    .and
+    .callThrough();
+
+    component.callServiceAtualizacao({nomeFesta: 'teste'});
+
+    expect(component.festaService.atualizarFesta).toHaveBeenCalledWith({nomeFesta: 'teste'});
+    expect(component.festaService.setFarol).toHaveBeenCalledWith(false);
+    expect(component.openDialogSuccess).toHaveBeenCalledWith('FESTAALT');
   });
 
 });

@@ -8,6 +8,8 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { CustomMaterialModule } from '../../views/material/material.module';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { of } from 'rxjs';
+import { StatusFestaService } from 'src/app/services/status-festa/status-festa.service';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -19,7 +21,7 @@ describe('StatusDialogComponent', () => {
   let dialogSpy: MatDialog;
 
   beforeEach(async(() => {
-    dialogSpy = jasmine.createSpyObj('MatDialog', ['open']);
+    dialogSpy = jasmine.createSpyObj('MatDialog', ['open', 'closeAll']);
 
     TestBed.configureTestingModule({
       declarations: [ StatusDialogComponent ],
@@ -40,6 +42,10 @@ describe('StatusDialogComponent', () => {
       providers: [
         { provide: MAT_DIALOG_DATA, useValue: {festa: {codFesta: '1', status: 'P', painel: null, codUsuario: '1'}} },
         { provide: MatDialog, useValue: dialogSpy },
+        {provide: StatusFestaService, useValue: {
+          mudarStatusFesta: () => of({}),
+          setFarol: () => false,
+        }},
       ]
     })
     .compileComponents();
@@ -53,6 +59,22 @@ describe('StatusDialogComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should setStatusFesta', () => {
+    spyOn(component.statusService, 'mudarStatusFesta')
+    .and
+    .callThrough();
+
+    spyOn(component.statusService, 'setFarol')
+    .and
+    .callThrough();
+
+    component.codFesta = 'teste';
+    component.status = 'teste';
+    component.setStatusFesta();
+    expect(component.statusService.mudarStatusFesta).toHaveBeenCalled();
+    expect(component.statusService.setFarol).toHaveBeenCalledWith(false);
   });
 
 });

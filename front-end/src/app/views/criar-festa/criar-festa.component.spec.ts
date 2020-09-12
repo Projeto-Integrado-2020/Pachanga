@@ -14,6 +14,9 @@ import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { RouterModule } from '@angular/router';
+import { of } from 'rxjs';
+import { GetCategoriasService } from 'src/app/services/get-categorias/get-categorias.service';
+import { CadastrarFestaService } from 'src/app/services/cadastro-festa/cadastrar-festa.service';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -44,6 +47,16 @@ describe('CriarFestaComponent', () => {
           }
         }),
         RouterModule.forRoot([])
+      ],
+      providers: [
+        {provide: GetCategoriasService, useValue: {
+          getCategorias: () => of([ {categoria: 'Teste1'}, {categoria: 'Teste2'} ]),
+          setFarol: () => false,
+        }},
+        {provide: CadastrarFestaService, useValue: {
+          cadastrarFesta: () => of({nomeFesta: 'TesteMix', codFesta: '87'}),
+          setFarol: () => false,
+        }}
       ]
     })
     .compileComponents();
@@ -68,6 +81,57 @@ describe('CriarFestaComponent', () => {
 
   it('should get f to get form controls', () => {
     expect(component.f).toBe(component.form.controls);
+  });
+
+  it('should buildForm', () => {
+    expect(component.form.get('nomeFesta')).toBeTruthy();
+    expect(component.form.get('descFesta')).toBeTruthy();
+    expect(component.form.get('endereco')).toBeTruthy();
+    expect(component.form.get('inicioData')).toBeTruthy();
+    expect(component.form.get('fimData')).toBeTruthy();
+    expect(component.form.get('inicioHora')).toBeTruthy();
+    expect(component.form.get('fimHora')).toBeTruthy();
+    expect(component.form.get('categoriaPrincipal')).toBeTruthy();
+    expect(component.form.get('categoriaSecundaria')).toBeTruthy();
+    expect(component.form.get('organizador')).toBeTruthy();
+    expect(component.form.get('descOrganizador')).toBeTruthy();
+  });
+
+  it('should resgatarCategorias', () => {
+    spyOn(component.getCategoria, 'getCategorias')
+    .and
+    .callThrough();
+
+    spyOn(component.getCategoria, 'setFarol')
+    .and
+    .callThrough();
+
+    component.resgatarCategorias();
+
+    expect(component.getCategoria.getCategorias).toHaveBeenCalled();
+    expect(component.getCategoria.setFarol).toHaveBeenCalledWith(false);
+    expect(component.categorias).toEqual([{categoria: 'Teste1'}, {categoria: 'Teste2'}]);
+  });
+
+  it('should callService', () => {
+    spyOn(component.festaService, 'cadastrarFesta')
+    .and
+    .callThrough();
+
+    spyOn(component.festaService, 'setFarol')
+    .and
+    .callThrough();
+
+    spyOn(component.router, 'navigate')
+    .and
+    .callThrough();
+
+    component.callService({});
+
+    expect(component.festaService.cadastrarFesta).toHaveBeenCalled();
+    expect(component.festaService.setFarol).toHaveBeenCalledWith(false);
+    expect(component.categorias).toEqual([{categoria: 'Teste1'}, {categoria: 'Teste2'}]);
+    expect(component.router.navigate).toHaveBeenCalledWith(['festas/testemix&87/painel/']);
   });
 
 });

@@ -10,6 +10,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material';
+import { of } from 'rxjs';
+import { EditarProdutoService } from 'src/app/services/editar-produto/editar-produto.service';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -21,7 +23,7 @@ describe('EditarProdutoDialogComponent', () => {
   let dialogSpy: MatDialog;
 
   beforeEach(async(() => {
-    dialogSpy = jasmine.createSpyObj('MatDialog', ['open']);
+    dialogSpy = jasmine.createSpyObj('MatDialog', ['open', 'closeAll']);
     TestBed.configureTestingModule({
       declarations: [ EditarProdutoDialogComponent ],
       imports: [
@@ -44,6 +46,10 @@ describe('EditarProdutoDialogComponent', () => {
           codFesta: 'teste'}
         },
         { provide: MatDialog, useValue: dialogSpy },
+        {provide: EditarProdutoService, useValue: {
+          editarProduto: () => of({}),
+          setFarol: () => false,
+        }}
       ]
     })
     .compileComponents();
@@ -61,5 +67,63 @@ describe('EditarProdutoDialogComponent', () => {
 
   it('should get f to get form controls', () => {
     expect(component.f).toBe(component.form.controls);
+  });
+
+  it('should editarProduto', () => {
+    spyOn(component.editarService, 'editarProduto')
+    .and
+    .callThrough();
+
+    spyOn(component.editarService, 'setFarol')
+    .and
+    .callThrough();
+
+    component.component = {
+      ngOnInit: () => {
+        return true;
+      }
+    };
+    spyOn(component.component, 'ngOnInit')
+    .and
+    .callThrough();
+
+    component.codFesta = 'teste';
+    const produto = {
+      codProduto: '1',
+      codFesta: 'teste',
+      marca: 'teste',
+      precoMedio: 'teste',
+      dose: 'teste',
+      quantDoses: 'teste'
+    };
+    component.form.get('checkbox').setValue('teste');
+    component.form.get('dosagem').setValue('teste');
+    component.editarProduto('teste', 'teste');
+
+    expect(component.editarService.editarProduto).toHaveBeenCalledWith(produto);
+    expect(component.editarService.setFarol).toHaveBeenCalledWith(false);
+    expect(component.component.ngOnInit).toHaveBeenCalled();
+    expect(dialogSpy.closeAll).toHaveBeenCalled();
+  });
+
+  it('should have dosagemValidator', () => {
+    component.form.get('marca').setValue('teste');
+    component.form.get('preco').setValue(5);
+    component.form.get('checkbox').setValue(false);
+    component.form.get('dosagem').setValue(null);
+    expect(component.form.valid).toBeTruthy();
+
+    component.form.get('checkbox').setValue(true);
+    expect(component.form.valid).toBeFalsy();
+
+    component.form.get('dosagem').setValue(1);
+    expect(component.form.valid).toBeTruthy();
+  });
+
+  it('should showHideDosagem', () => {
+    component.showHideDosagem();
+    expect(component.showDosagem).toBeTruthy();
+    component.showHideDosagem();
+    expect(component.showDosagem).toBeFalsy();
   });
 });

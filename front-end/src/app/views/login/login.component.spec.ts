@@ -216,4 +216,68 @@ describe('LoginComponent', () => {
     expect(component.f).toBe(component.form.controls);
   });
 
+  it('should sign in facebook at signUpWithFB', () => {
+    spyOn(component, 'autenticar');
+
+    const socialUser = {
+      provider: '',
+      id: 'teste123',
+      email: 'Email',
+      name: 'Name',
+      photoUrl: '',
+      firstName: '',
+      lastName: '',
+      authToken: ''
+    };
+    const spy = spyOn(component.authService, 'signIn')
+    .and
+    .returnValue(Promise.resolve(socialUser));
+
+    const userJson = {
+      tipConta: 'F',
+      email: 'Email',
+      nomeUser: 'Name',
+      conta: 'teste123'
+    };
+
+    component.signInWithFB();
+
+    spy.calls.mostRecent().returnValue.then(() => {
+      expect(component.user).toEqual(socialUser);
+      expect(component.autenticar).toHaveBeenCalledWith(userJson);
+    });
+  });
+
+  it('should sign in google at signInWithGoogle', () => {
+    spyOn(component, 'autenticar');
+
+    const socialUser = {
+      provider: '',
+      id: 'teste123',
+      email: 'Email',
+      name: 'Name',
+      photoUrl: '',
+      firstName: '',
+      lastName: '',
+      authToken: ''
+    };
+    const spy = spyOn(component.authService, 'signIn')
+    .and
+    .returnValue(Promise.resolve(socialUser));
+
+    const userJson = {
+      tipConta: 'G',
+      email: 'Email',
+      nomeUser: 'Name',
+      conta: 'teste123'
+    };
+
+    component.signInWithGoogle();
+
+    spy.calls.mostRecent().returnValue.then(() => {
+      expect(component.user).toEqual(socialUser);
+      expect(component.autenticar).toHaveBeenCalledWith(userJson);
+    });
+  });
+
 });

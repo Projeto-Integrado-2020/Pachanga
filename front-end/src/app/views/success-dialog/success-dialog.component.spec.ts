@@ -33,7 +33,7 @@ describe('SuccessDialogComponent', () => {
         }
       })],
       providers: [
-        { provide: MAT_DIALOG_DATA, useValue: {message: 'ALTERSUC'} },
+        { provide: MAT_DIALOG_DATA, useValue: {message: 'ATRIBSUC'} },
     ]
     })
     .compileComponents();
@@ -47,5 +47,10 @@ describe('SuccessDialogComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should show message', () => {
+    component.ngOnInit();
+    expect(component.message).toEqual('SUCCESS.ATRIBSUC');
   });
 });
