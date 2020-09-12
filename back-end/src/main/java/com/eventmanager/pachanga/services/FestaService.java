@@ -154,6 +154,7 @@ public class FestaService {
 						notificacaoService.criacaoMensagemNotificacaoUsuarioConvidado(g, u.getCodUsuario(),
 								TipoNotificacao.CONVACEI.getValor()));
 				notificacaoService.deleteNotificacao(idUser, TipoNotificacao.ESTBAIXO.getValor() + "?" + idFesta);
+				notificacaoService.deleteNotificacao(idUser, TipoNotificacao.STAALTER.getValor() + "?" + idFesta);
 			});
 			grupoRepository.deleteUsuariosGrupo(g);
 		});

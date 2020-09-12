@@ -12,7 +12,6 @@ public class GrupoTOBuilder {
 	private int codFesta;
 	private String nomeGrupo;
 	private boolean organizador;
-    private int quantMaxPessoas;
     private List<UsuarioTO> usuarios;
     private List<ConvidadoTO> convidados;
     private List<PermissaoTO> permissoes;
@@ -33,11 +32,6 @@ public class GrupoTOBuilder {
 	
 	public GrupoTOBuilder nomeGrupo(String nomeGrupo) {
 		this.nomeGrupo = nomeGrupo;
-		return this;
-	}
-	
-	public GrupoTOBuilder quantMaxPessoas(int quantMaxPessoas) {
-		this.quantMaxPessoas = quantMaxPessoas;
 		return this;
 	}
 	
@@ -67,7 +61,6 @@ public class GrupoTOBuilder {
 		grupoTO.setCodGrupo(codGrupo);
 		grupoTO.setCodFesta(codFesta);
 		grupoTO.setNomeGrupo(nomeGrupo);
-		grupoTO.setQuantMaxPessoas(quantMaxPessoas);
 		grupoTO.setIsOrganizador(organizador);
 		grupoTO.setUsuariosTO(usuarios);
 		grupoTO.setPermissoesTO(permissoes);

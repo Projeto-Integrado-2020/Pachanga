@@ -20,12 +20,10 @@ public class FestaTOBuilder {
 	private String codEnderecoFesta; //Url do local, talvez mude
 	private String descOrganizador;
 	private LocalDateTime horarioFimFestaReal;
-	private String funcionalidade;
 	private int quantidadeParticipantes;
 	private List<UsuarioTO> usuarios;
 	private CategoriaTO categoriaPrimaria;
 	private CategoriaTO categoriaSecundaria;
-	private Boolean isOrganizador;
 	private List<ConvidadoTO> convidados; 
 
 	public static FestaTOBuilder getInstance() {
@@ -82,11 +80,6 @@ public class FestaTOBuilder {
 		return this;
 	}
 
-	public FestaTOBuilder funcionalidade(String funcionalidade) {
-		this.funcionalidade = funcionalidade;
-		return this;
-	}
-
 	public FestaTOBuilder quantidadeParticipantes(int quantidadeParticipantes) {
 		this.quantidadeParticipantes = quantidadeParticipantes;
 		return this;
@@ -103,11 +96,6 @@ public class FestaTOBuilder {
 	}
 	public FestaTOBuilder categoriaSecundaria(CategoriaTO categoriaSecundaria) {
 		this.categoriaSecundaria = categoriaSecundaria;
-		return this;
-	}
-
-	public FestaTOBuilder isOrganizador(Boolean isOrganizador) {
-		this.isOrganizador = isOrganizador;
 		return this;
 	}
 
@@ -128,12 +116,10 @@ public class FestaTOBuilder {
 		festaTo.setOrganizador(organizador);
 		festaTo.setStatusFesta(statusFesta);
 		festaTo.setHorarioFimFestaReal(horarioFimFestaReal);
-		festaTo.setFuncionalidade(funcionalidade);
 		festaTo.setQuantidadeParticipantes(quantidadeParticipantes);
 		festaTo.setUsuarios(usuarios);
 		festaTo.setCategoriaPrimaria(categoriaPrimaria);
 		festaTo.setCategoriaSecundaria(categoriaSecundaria);
-		festaTo.setIsOrganizador(isOrganizador);
 		festaTo.setConvidados(convidados);
 		return festaTo;
 	}
