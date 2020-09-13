@@ -39,7 +39,24 @@
 
 }
 
+@media (min-width: 748.1px) {
+  .mat-card-content {
+    max-height: 60vh;
+    overflow-y: scroll;
+    //padding: 0 1rem 0 1rem;
+    background-color: #f0f0f0;
+  }
 
+  mat-divider {
+    position: relative;
+  }
+
+  .fila_notificacoes__flex {
+    margin: 5px 0 5px 0;
+    border-radius: 5px;
+    background-color: #ffffff;
+  }
+}
 //botao vermelho
 .btn {
 
@@ -135,7 +152,7 @@
   &__not-container {
 
     margin-bottom: 0;
-    padding: 0 1.6rem 0 1.6rem;
+    padding: 0 5px 0 5px;
 
     &:hover {
       background-color: #f0f0f0;

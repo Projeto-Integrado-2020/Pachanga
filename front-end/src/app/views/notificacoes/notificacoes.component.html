@@ -19,8 +19,8 @@ class="fila_notificacoes"
 <mat-card-content>
   <!-- CONVITES -->
   <div class="fila_notificacoes__not-container" *ngFor="let alert of notificacaoConvidado">
-    <mat-divider></mat-divider>
     <div class="fila_notificacoes__convite">
+      <mat-divider></mat-divider>
       <div>
         <p class="mensagem">
           {{'NOTIFICACAO.CONVITE' | translate}} "{{ alert.conviteFesta.nomeFesta }}".
@@ -40,9 +40,9 @@ class="fila_notificacoes"
   <!-- NOTIFICACOES DE Estoque Mínimo -->
   <div class="fila_notificacoes__not-container" *ngFor="let alert of notificacoesGrupo">
     <div *ngIf="alert.mensagem.includes('ESTBAIXO')">
-        <mat-divider></mat-divider>
         <div class="fila_notificacoes__flex">
             <div class="fila_notificacoes__notificacao">
+                <mat-divider></mat-divider>
                 <div class="fila_notificacoes__notificacao__texto">
                     <p [ngStyle]="{'font-weight': 'bold'}">{{ 'ALERTAESTOQUE.TITLE' | translate }}</p>
                 </div>
@@ -65,9 +65,9 @@ class="fila_notificacoes"
   <!-- NOTIFICACOES DE CONVITE ACEITO -->
   <div class="fila_notificacoes__not-container" *ngFor="let alert of notificacoesUsuario">
       <div *ngIf="alert.mensagem.includes('CONVACEI')">
-        <mat-divider></mat-divider>
         <div class="fila_notificacoes__flex">
             <div class="fila_notificacoes__notificacao">
+              <mat-divider></mat-divider>
               <div class="fila_notificacoes__notificacao__texto">
                   <p [ngStyle]="{'font-weight': (alert.status == 'N' || alert.destaque == true) ? 'bold' : 'normal'}">{{'NOTIFICACAO.CONVITEACEITO' | translate}}</p>
               </div>
@@ -90,7 +90,7 @@ class="fila_notificacoes"
         <div *ngIf="!alert.destaque" class="desler">
             <p (click)="alterarAlerta(alert)">{{'NOTIFICACAO.SETNLIDO' | translate}}</p>
         </div>
-        <mat-divider></mat-divider>
+        <!-- <mat-divider></mat-divider> -->
         <div (click)="deletarAlerta(alert)" class="apagar-notif">
             <p>{{'NOTIFICACAO.APAGAR' | translate}}</p>
         </div>
@@ -101,9 +101,9 @@ class="fila_notificacoes"
     <!-- NOTIFICACOES DE STATUS -->
   <div class="fila_notificacoes__not-container" *ngFor="let alert of notificacoesUsuario">
     <div *ngIf="alert.mensagem.includes('STAALTER')">
-      <mat-divider></mat-divider>
       <div class="fila_notificacoes__flex">
           <div class="fila_notificacoes__notificacao">
+            <!-- <mat-divider></mat-divider> -->
             <div class="fila_notificacoes__notificacao__texto">
                 <p [ngStyle]="{'font-weight': (alert.status == 'N' || alert.destaque == true) ? 'bold' : 'normal'}">{{'NOTIFICACAO.CONVITEACEITO' | translate}}</p>
             </div>
@@ -136,7 +136,7 @@ class="fila_notificacoes"
       <div *ngIf="!alert.destaque" class="desler">
           <p (click)="alterarAlerta(alert)">{{'NOTIFICACAO.SETNLIDO' | translate}}</p>
       </div>
-      <mat-divider></mat-divider>
+      <!-- <mat-divider></mat-divider> -->
       <div (click)="deletarAlerta(alert)" class="apagar-notif">
           <p>{{'NOTIFICACAO.APAGAR' | translate}}</p>
       </div>
