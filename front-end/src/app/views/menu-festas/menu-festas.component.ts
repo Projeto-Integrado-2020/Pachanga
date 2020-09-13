@@ -18,6 +18,7 @@ export class MenuFestasComponent implements OnInit {
   filtro = {admin: true};
   nenhumaFesta = false;
   buscaPorNome: any;
+  buscaPorAdmin = false;
 
   // MatPaginator Output
   pageEvent: PageEvent;

@@ -363,7 +363,8 @@
     },
 
     "ASSIGN": {
-        "MEMBERS": "Número de membros colaboradores confirmados"
+        "MEMBERS": "Número de membros colaboradores confirmados",
+        "NOROLES": "Esta festa ainda não possui grupos para atribuição."
     },
 
     "DELETEESTOQUE": {

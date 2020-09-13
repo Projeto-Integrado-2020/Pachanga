@@ -17,7 +17,7 @@
                 <mat-label>{{'FESTA.PARTYNAME' | translate}}</mat-label>
                 <input matInput [(ngModel)]="buscaPorNome">
             </mat-form-field>
-            <mat-checkbox class="checkb">{{'FESTA.AMIADM' | translate}}</mat-checkbox>
+            <mat-checkbox class="checkb" [(ngModel)]="buscaPorAdmin">{{'FESTA.AMIADM' | translate}}</mat-checkbox>
         </mat-card-content>
     </mat-card>
 
@@ -32,7 +32,7 @@
     <div class="nenhumafesta-msg" *ngIf="nenhumaFesta === true">
         <p>{{ 'FESTA.NONEPARTY' | translate }} <a routerLink="../criar-festa"   style="text-decoration: underline">{{ 'FESTA.CLICKHERE' | translate }}</a>.</p>
     </div>
-    <div *ngFor="let festa of festasMostradas | filtroFesta: buscaPorNome" class="lista-festas">
+    <div *ngFor="let festa of festasMostradas | filtroFesta: buscaPorNome:buscaPorAdmin" class="lista-festas">
         <a routerLink="{{createUrl(festa.nomeFesta, festa.codFesta)}}">
             <mat-card class="festa-tab">
                 <mat-card-header>

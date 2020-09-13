@@ -1,5 +1,6 @@
 <div class="main-container">
       <h1 class="title">Atribuição de Permissões</h1>
+      <div class="" *ngIf="grupos?.length === 1"><p>{{ 'ASSIGN.NOROLES' | translate }}</p></div>
       <mat-accordion>
         <div class="grupo-panels" *ngFor="let grupo of grupos; let i = index">
             <mat-expansion-panel hideToggle *ngIf="!grupo.isOrganizador">

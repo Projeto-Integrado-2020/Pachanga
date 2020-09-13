@@ -360,7 +360,8 @@
     },
 
     "ASSIGN": {
-        "MEMBERS": "Number of confirmed members"
+        "MEMBERS": "Number of confirmed members",
+        "NOROLES": "This party doesn't have any assignment groups yet."
     },
 
     "DELETEESTOQUE": {
