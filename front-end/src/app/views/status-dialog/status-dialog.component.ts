@@ -12,7 +12,7 @@ export class StatusDialogComponent implements OnInit {
 
   public codFesta: any;
   public status: any;
-  public painel: FestaPainelControleComponent;
+  public painel: any;
 
   constructor(@Inject(MAT_DIALOG_DATA) data, public dialog: MatDialog,
               public statusService: StatusFestaService) {

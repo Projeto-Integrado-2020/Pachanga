@@ -54,6 +54,10 @@ describe('StatusDialogComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(StatusDialogComponent);
     component = fixture.componentInstance;
+    component.painel = {
+      setFesta: (resp) =>  true,
+      ngOnInit: () => true,
+    };
     fixture.detectChanges();
   });
 

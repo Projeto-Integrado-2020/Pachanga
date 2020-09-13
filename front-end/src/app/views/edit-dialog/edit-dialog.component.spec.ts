@@ -16,6 +16,7 @@ import { LoginService } from 'src/app/services/loginService/login.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { EditAccountService } from 'src/app/services/editAccountService/edit-account.service';
 import { of } from 'rxjs';
+import { LoginComponent } from '../login/login.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -46,7 +47,6 @@ describe('EditDialogComponent', () => {
       providers: [
         { provide: MAT_DIALOG_DATA, useValue: {campo: 'nome'} },
         { provide: MatDialog, useValue: dialogSpy },
-        { provide: LoginService, useValue: {usuarioInfo: {nomeUser: 'teste'}} },
         {provide: EditAccountService, useValue: {
           atualizar: () => of({nomeUser: 'teste'}),
           setFarol: () => false,
@@ -59,6 +59,8 @@ describe('EditDialogComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(EditDialogComponent);
     component = fixture.componentInstance;
+    component.loginService = TestBed.get(LoginService);
+    component.loginService.usuarioInfo = {nomeUser: 'teste'};
     fixture.detectChanges();
   });
 
