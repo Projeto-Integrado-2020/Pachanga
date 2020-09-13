@@ -268,7 +268,8 @@ public class FestaService {
 
 	private void validarFesta(FestaTO festaTo) {
 		if (festaTo.getHorarioFimFesta().isBefore(festaTo.getHorarioInicioFesta())
-				|| Duration.between(festaTo.getHorarioInicioFesta(), festaTo.getHorarioFimFesta()).isZero()) {
+				|| Duration.between(festaTo.getHorarioInicioFesta(), festaTo.getHorarioFimFesta()).isZero()
+				|| !notificacaoService.getDataAtual().isBefore(festaTo.getHorarioInicioFesta())) {
 			throw new ValidacaoException("DATEINFE");// data inicial ou final incorreta
 		}
 		Festa festa = festaRepository.findByNomeFesta(festaTo.getNomeFesta());
@@ -374,10 +375,10 @@ public class FestaService {
 														// inicializada
 		}
 	}
-	
+
 	private Festa validarFestaExistente(int codFesta) {
 		Festa festa = festaRepository.findById(codFesta);
-		if(festa == null) {
+		if (festa == null) {
 			throw new ValidacaoException("FESTNFOU");
 		}
 		return festa;
