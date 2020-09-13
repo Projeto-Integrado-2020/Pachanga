@@ -136,6 +136,11 @@ describe('PerdaProdutoEstoqueDialogComponent', () => {
     component.estoque = {
       codEstoque: 'teste'
     };
+    component.component = {
+      quantidadesProdutos: [[{quantidadeAtual: 10}]]
+    };
+    component.indexEstoque = 0;
+    component.indexProduto = 0;
     component.perdaProdutoDose(25, 50, 75, 100, element);
     expect(component.perdaProdutoEstoque.perdaProdutoEstoque).toHaveBeenCalled();
     expect(component.perdaProdutoEstoque.setFarol).toHaveBeenCalledWith(false);
