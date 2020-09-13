@@ -355,3 +355,10 @@ tr.example-element-row:not(.example-expanded-row):active {
   align-items: center;
   padding: 0 0 2rem 0;
 }
+
+::ng-deep .mat-form-field-subscript-wrapper {
+  position: static !important;
+}
+::ng-deep .mat-form-field-underline {
+  position: static !important;
+}
