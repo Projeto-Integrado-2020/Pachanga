@@ -127,7 +127,7 @@ public class ProdutoService {
 		Estoque estoque = this.validarUsuarioPorEstoque(idUsuarioPermissao, codEstoque,
 				TipoPermissao.DELMESTO.getCodigo());
 		this.validarProdutoEstoque(codEstoque, codProduto);
-		List<Grupo> grupos = grupoRepository.findGruposFesta(estoque.getCodEstoque());
+		List<Grupo> grupos = grupoRepository.findGruposFesta(estoque.getFesta().getCodFesta());
 		this.deleteNotificacoesItemEstoque(grupos, itemEstoqueRepository.findItemEstoque(codEstoque, codProduto));
 		produtoRepository.deleteProdutoEstoque(codProduto, codEstoque);
 	}
