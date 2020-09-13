@@ -22,17 +22,17 @@ class="fila_notificacoes"
     <mat-divider></mat-divider>
     <div class="fila_notificacoes__convite">
       <div>
-        <p class="dont-break-out">
-          {{'NOTIFICACAO.CONVITE' | translate}} "{{ alert.conviteFesta.nomeFesta }}"
+        <p class="mensagem">
+          {{'NOTIFICACAO.CONVITE' | translate}} "{{ alert.conviteFesta.nomeFesta }}".
         </p>
+        <button (click)="openDialogConvite(alert)" mat-button class="btn btn--prp">
+          {{'NOTIFICACAO.VER' | translate}}
+        </button>
         <p>
           {{ alert.dataEmissao | amLocale:translate.currentLang | amTimeAgo }}
         </p>
       </div>
       <mat-card-actions class="fila_notificacoes__convite__btn--invite">
-        <button (click)="openDialogConvite(alert)" mat-button class="btn btn--prp">
-          {{'NOTIFICACAO.VER' | translate}}
-        </button>
       </mat-card-actions>
     </div>
   </div>

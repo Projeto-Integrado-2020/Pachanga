@@ -265,10 +265,10 @@ export class EstoquePainelComponent implements OnInit, OnDestroy {
             }
           }
         }
-        for (const estoque of this.estoques) {
+        for (const [indexEstoque, estoque] of this.estoques.entries()) {
           if (estoque.itemEstoque) {
             for (const produtoEstoque of Object.keys(estoque.itemEstoque)) {
-              for (const produto of this.quantidadesProdutos) {
+              for (const produto of this.quantidadesProdutos[indexEstoque]) {
                 if (produto.codProduto === estoque.itemEstoque[produtoEstoque].codProduto) {
                   produto.codProduto = estoque.itemEstoque[produtoEstoque].codProduto;
                   produto.quantidadeMax = estoque.itemEstoque[produtoEstoque].quantidadeMax;
