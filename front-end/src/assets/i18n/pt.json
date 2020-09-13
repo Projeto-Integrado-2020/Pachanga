@@ -456,7 +456,8 @@
         "ESTOQUEMIN3": "Recarga necessária!",
         "STATUSCHANGE1": "A festa ",
         "STATUSCHANGE2": "teve o status alterado para ",
-        "STATUSCHANGE3": "Ir para a festa"
+        "STATUSCHANGE3": "Ir para a festa",
+        "STATUSCHANGETITLE": "Mudança de Status"
     },
 
     "ALERTAESTOQUE": {
