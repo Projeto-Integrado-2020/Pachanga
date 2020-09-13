@@ -322,6 +322,10 @@ public class FestaService {
 		for (Usuario usuario : usuarios) {
 			notificacaoService.inserirNotificacaoUsuario(usuario.getCodUsuario(), TipoNotificacao.STAALTER.getCodigo(),
 					notificacaoService.criarMensagemAlteracaoStatusFesta(idFesta, statusFestaMaiusculo));
+			if(TipoStatusFesta.FINALIZADO.getValor().equals(festa.getStatusFesta())) {
+				notificacaoService.deleteNotificacao(usuario.getCodUsuario(), TipoNotificacao.ESTBAIXO.getValor() + "?" + idFesta);
+				notificacaoService.deletarNotificacaoGrupo(TipoNotificacao.ESTBAIXO.getValor() + "?" + idFesta);
+			}
 		}
 		return festa;
 	}

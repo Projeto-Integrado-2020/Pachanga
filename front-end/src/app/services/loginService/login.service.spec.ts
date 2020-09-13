@@ -84,6 +84,7 @@ describe('LoginService', () => {
   });
 
   it('should setUsuarioAutenticado', () => {
+    service.usuarioAutenticado = false;
     expect(service.getUsuarioAutenticado()).toBeFalsy();
     service.setUsuarioAutenticado(true);
     expect(service.getUsuarioAutenticado()).toBeTruthy();

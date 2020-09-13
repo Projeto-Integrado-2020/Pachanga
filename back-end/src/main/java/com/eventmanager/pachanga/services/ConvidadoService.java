@@ -51,14 +51,11 @@ public class ConvidadoService {
 		for (String email : emails) {
 			Convidado convidadoBanco = convidadoRepository.findByEmailByGrupo(email, idGrupo);
 			if (convidadoBanco == null) {
-				Usuario usuario = usuarioRepository.findByEmail(email);
-				if (usuario == null) {
+				Usuario usuarioFesta = usuarioRepository.findBycodFestaAndEmail(codFesta, email);
+				if (usuarioFesta == null) {
 					emailMensagem.enviarEmail(email, grupo.getNomeGrupo(), festa);
 					mensagemRetorno.append(email);
 					mensagemRetorno.append(" ");
-				}
-				Usuario usuarioFesta = usuarioRepository.findBycodFestaAndEmail(codFesta, email);
-				if (usuarioFesta == null) {
 					Convidado convidado = new Convidado(convidadoRepository.getNextValMySequence(), email);
 					convidadoRepository.save(convidado);
 					convidadoRepository.saveConvidadoGrupo(convidado.getCodConvidado(), idGrupo);

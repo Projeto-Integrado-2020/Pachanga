@@ -126,6 +126,10 @@ public class NotificacaoService {
 		this.validarGrupo(codGrupo);
 		notificacaoRepository.deleteNotificacaoGrupo(codGrupo, mensagem);
 	}
+	
+	public void deletarNotificacaoGrupo(String mensagem) {
+		notificacaoRepository.deleteNotificacaoGrupo(mensagem);
+	}
 
 	public void inserirNotificacaoGrupo(int codGrupo, int codNotificacao, String mensagem) {
 		this.validarNotificacao(codNotificacao);

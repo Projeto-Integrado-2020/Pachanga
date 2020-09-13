@@ -454,7 +454,8 @@
         "ESTOQUEMIN3": "Refill required!",
         "STATUSCHANGE1": "The party ",
         "STATUSCHANGE2": "had the status changed to ",
-        "STATUSCHANGE3": "Go to party"
+        "STATUSCHANGE3": "Go to party",
+        "STATUSCHANGETITLE": "Status change"
     },
 
     "ALERTAESTOQUE": {
