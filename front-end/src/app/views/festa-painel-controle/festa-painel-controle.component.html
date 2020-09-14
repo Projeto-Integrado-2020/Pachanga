@@ -29,10 +29,10 @@
                     <mat-list-item class="status-list center-x">
                         <div class="fila-status">
                             <mat-button-toggle-group name="status" value="{{statusFesta}}" aria-label="Status da Festa">
-                                <mat-button-toggle (click)="openDialogStatus('P')" disabled value="P">{{'FESTA.P' | translate}}</mat-button-toggle>
-                                <mat-button-toggle (click)="openDialogStatus('I')" disabled value="I">{{'FESTA.I' | translate}}</mat-button-toggle>
-                                <mat-button-toggle (click)="openDialogStatus('F')" disabled value="F">{{'FESTA.F' | translate}}</mat-button-toggle>
-                            </mat-button-toggle-group>                                
+                                <mat-button-toggle disabled value="P"><div (click)="openDialogStatus('P')">{{'FESTA.P' | translate}}</div></mat-button-toggle>
+                                <mat-button-toggle disabled value="I"><div (click)="openDialogStatus('I')">{{'FESTA.I' | translate}}</div></mat-button-toggle>
+                                <mat-button-toggle disabled value="F"><div (click)="openDialogStatus('F')">{{'FESTA.F' | translate}}</div></mat-button-toggle>
+                            </mat-button-toggle-group>
                         </div> 
 
                         <!-- BOTAO EDITAR FESTA DESKTOP -->
