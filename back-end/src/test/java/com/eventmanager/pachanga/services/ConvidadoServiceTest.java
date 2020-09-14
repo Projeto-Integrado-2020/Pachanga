@@ -132,7 +132,7 @@ class ConvidadoServiceTest {
 
 		StringBuilder retorno = convidadoService.addUsuariosFesta(emails, 14, 1, 13);
 
-		assertEquals(0, retorno.length());
+		assertEquals(20, retorno.length());
 	}
 
 	@Test
