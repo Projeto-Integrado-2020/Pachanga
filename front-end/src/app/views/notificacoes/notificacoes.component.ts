@@ -63,7 +63,7 @@ export class NotificacoesComponent implements OnInit {
 
   alterarAlerta(alerta): void {
     alerta.destaque ? this.alertNumbers++ : this.alertNumbers--;
-    this.notifService.destacarNotificacao(alerta.notificacao);
+    this.notifService.destacarNotificacao(alerta.notificacao).subscribe();
     alerta.destaque = !alerta.destaque;
     alerta.alertaOpcoes = false;
   }
