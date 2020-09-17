@@ -1444,6 +1444,55 @@ class ProdutoServiceTest {
 
 		assertEquals(retorno.getCodFesta(), codFesta);
 	}
+	
+	@Test
+	void recargaProdutoComOrigemTest() throws Exception {
+		Usuario usuario = usuarioTest();
+		ItemEstoque itemEstoque = itemEstoqueTest();
+		Produto produto = produtoTest();
+		Estoque estoque = estoqueTest();
+		Festa festa = festaTest();
+		int codUsuario = usuario.getCodUsuario();
+		int codProduto = produto.getCodProduto();
+		int codEstoque = estoque.getCodEstoque();
+		int codFesta = festa.getCodFesta();
+		int quantidade = 3;
+		itemEstoque.setProduto(produto);
+		itemEstoque.setEstoque(estoque);
+		List<Grupo> grupos = new ArrayList<>();
+		grupos.add(grupoTest());
+		List<Usuario> usuarios = new ArrayList<>();
+		usuarios.add(usuario);
+
+		Mockito.when(usuarioRepository.findUsuariosPorGrupo(Mockito.anyInt())).thenReturn(usuarios);
+		Mockito.when(produtoRepository.findById(codProduto)).thenReturn(produto);
+		Mockito.when(estoqueRepository.findByEstoqueCodEstoque(codEstoque)).thenReturn(estoque);
+		Mockito.when(itemEstoqueRepository.findItemEstoque(codEstoque, codProduto)).thenReturn(itemEstoque);
+		Mockito.when(produtoRepository.save(Mockito.any())).thenReturn(null);
+		Mockito.when(grupoRepository.findGruposPermissaoEstoque(codFesta)).thenReturn(grupos);
+		Mockito.when(
+				grupoRepository.findGrupoPermissaoUsuario(codFesta, codUsuario, TipoPermissao.EDIMESTO.getCodigo()))
+				.thenReturn(criacaoGrupos());
+		Mockito.when(notificacaoService.verificarNotificacaoGrupo(Mockito.any(Integer.class), Mockito.anyString()))
+				.thenReturn(false);
+		Mockito.when(usuarioRepository.findUsuariosPorGrupo(Mockito.anyInt())).thenReturn(usuarios);
+		Mockito.when(produtoRepository.findById(codProduto)).thenReturn(produto);
+		Mockito.when(estoqueRepository.findByEstoqueCodEstoque(codEstoque)).thenReturn(estoque);
+		Mockito.when(itemEstoqueRepository.findItemEstoque(codEstoque, codProduto)).thenReturn(itemEstoque);
+		Mockito.when(itemEstoqueRepository.save(Mockito.any())).thenReturn(null);
+		Mockito.when(notificacaoService.verificarNotificacaoGrupo(Mockito.anyInt(), Mockito.anyString()))
+				.thenReturn(true);
+		Mockito.when(notificacaoService.criarMensagemEstoqueBaixo(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt()))
+				.thenReturn("teste");
+		Mockito.when(
+				grupoRepository.findGrupoPermissaoUsuario(codFesta, codUsuario, TipoPermissao.EDIMESTO.getCodigo()))
+				.thenReturn(criacaoGrupos());
+		Mockito.when(grupoRepository.findGruposPermissaoEstoque(Mockito.anyInt())).thenReturn(criacaoGrupos());
+
+		ItemEstoque retorno = produtoService.recargaProdutoComOrigem(codProduto, codEstoque, quantidade, codUsuario, 1);
+
+		assertEquals(retorno.getCodFesta(), codFesta);
+	}
 
 	@Test
 	void recargaProdutoValorNegativoTest() throws Exception {

@@ -614,7 +614,7 @@ class ProdutoControllerTest {
 		String uri = "/produto/recargaProdutoEstoque";
 		ItemEstoque itemEstoque = ItemEstoqueTest();
 		
-		Mockito.when(produtoService.recargaProduto(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(itemEstoque);
+		Mockito.when(produtoService.recargaProdutoComOrigem(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt(), Mockito.any())).thenReturn(itemEstoque);
 			
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.put(uri)
@@ -623,6 +623,7 @@ class ProdutoControllerTest {
 				.param("codEstoque", "1")
 				.param("quantidade", "1")
 				.param("idUsuarioPermissao", "1")
+				.param("codEstoqueOrigem", "48")
 				.contentType(MediaType.APPLICATION_JSON);
 
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
@@ -637,7 +638,7 @@ class ProdutoControllerTest {
 		String uri = "/produto/recargaProdutoEstoque";
 		String erro = "Exception";
 		
-		Mockito.when(produtoService.recargaProduto(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenThrow(new ValidacaoException(erro));
+		Mockito.when(produtoService.recargaProdutoComOrigem(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt(), Mockito.any())).thenThrow(new ValidacaoException(erro));
 			
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.put(uri)

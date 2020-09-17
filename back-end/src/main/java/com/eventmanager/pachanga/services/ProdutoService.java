@@ -239,6 +239,14 @@ public class ProdutoService {
 
 		return itemEstoque;
 	}
+	
+	public ItemEstoque recargaProdutoComOrigem(Integer codProduto, Integer codEstoque, Integer quantidade,
+			Integer idUsuarioPermissao, Integer codEstoqueOrigem) {
+		if (codEstoqueOrigem != null) {
+			this.baixaProduto(codProduto, codEstoqueOrigem, quantidade, idUsuarioPermissao, false);
+		}
+		return this.recargaProduto(codProduto, codEstoque, quantidade, idUsuarioPermissao);
+	}
 
 	public ItemEstoque recargaProduto(int codProduto, int codEstoque, int quantidade, int idUsuarioPermissao) {
 
@@ -431,7 +439,4 @@ public class ProdutoService {
 			}
 		}
 	}
-
-	
-
 }
