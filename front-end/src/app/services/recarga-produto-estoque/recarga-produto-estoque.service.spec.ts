@@ -50,6 +50,6 @@ describe('RecargaProdutoEstoqueService', () => {
 
   it('should put Info at recargaProdutoEstoque', () => {
     service.loginService.usuarioInfo = {codusuario: 'teste'};
-    expect(service.recargaProdutoEstoque('teste', 'teste', 'teste')).toBeTruthy();
+    expect(service.recargaProdutoEstoque('teste', 'teste', 'teste', 'teste')).toBeTruthy();
   });
 });

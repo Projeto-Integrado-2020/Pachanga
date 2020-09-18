@@ -213,6 +213,7 @@ export class EstoquePainelComponent implements OnInit, OnDestroy {
       data: {
         component: this,
         estoque,
+        estoques: this.estoques,
         element,
         indexEstoque,
         indexProduto

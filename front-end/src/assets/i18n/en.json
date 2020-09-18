@@ -467,6 +467,8 @@
     "RECARGA": {
         "TITULO": "Product refill",
         "QUANTIDADE": "Quantity to be topped up",
+        "ESTOQUE": "Origin stock",
+        "NONE": "Direct recharge",
         "CONFIRM": "Confirm",
         "CANCEL": "Cancel"
     },

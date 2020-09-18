@@ -469,6 +469,8 @@
     "RECARGA": {
         "TITULO": "Recarga de produto",
         "QUANTIDADE": "Quantidade à ser recarregada",
+        "ESTOQUE": "Estoque de origem",
+        "NONE": "Recarga direta",
         "CONFIRM": "Confirmar",
         "CANCEL": "Cancelar"
     },

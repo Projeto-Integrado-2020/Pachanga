@@ -42,7 +42,7 @@ describe('RecargaProdutoEstoqueDialogComponent', () => {
           }
         })],
         providers: [
-          { provide: MAT_DIALOG_DATA, useValue: { codFesta: '1', estoque: { nomeEstoque: 'Estoque' } } },
+          { provide: MAT_DIALOG_DATA, useValue: { codFesta: '1', estoque: { nomeEstoque: 'Estoque' }, estoques: [{}] } },
           { provide: MatDialog, useValue: dialogSpy },
           {provide: RecargaProdutoEstoqueService, useValue: {
             recargaProdutoEstoque: () => of({}),
@@ -58,6 +58,7 @@ describe('RecargaProdutoEstoqueDialogComponent', () => {
     component = fixture.componentInstance;
     const service: LoginService = TestBed.get(LoginService);
     service.usuarioInfo = {codUsuario: '1'};
+    component.principal = '';
     fixture.detectChanges();
   });
 
@@ -98,7 +99,7 @@ describe('RecargaProdutoEstoqueDialogComponent', () => {
     };
     component.indexEstoque = 0;
     component.indexProduto = 0;
-    component.recargaProduto(10, element);
+    component.recargaProduto(10, 10, element);
     expect(component.recargaProdutoEstoqueService.recargaProdutoEstoque).toHaveBeenCalled();
     expect(component.recargaProdutoEstoqueService.setFarol).toHaveBeenCalledWith(false);
     expect(dialogSpy.closeAll).toHaveBeenCalled();
