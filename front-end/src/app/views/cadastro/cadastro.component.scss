@@ -20,17 +20,12 @@
     align-items: center;
     height: 60px;
   }
-  
-.termos {
-    position: relative;
-    left: 50%;
-    transform: translateX(-50%);
-  }
 
 button {
     display: block;
     width: 100%;
     margin-bottom: 15px;
+    margin-top: 1rem;
   }
 
 .mat-form-field {
@@ -42,4 +37,14 @@ button {
 }
 ::ng-deep .mat-form-field-underline {
   position: static !important;
+}
+
+.termos-dialog {
+  cursor: pointer;
+  text-decoration: underline;
+  white-space: pre-wrap;
+}
+
+.termos-dialog:hover {
+  color: blue;
 }

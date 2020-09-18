@@ -45,8 +45,10 @@
                 <mat-error *ngIf="f.confirmacaoSenha.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
                 <mat-error *ngIf="f.confirmacaoSenha.errors?.mustMatch">{{'FORMERRORS.MATCH' | translate}}</mat-error>
             </mat-form-field>
-            <section class="example-section"><p></p>
-                <mat-checkbox ng-class="{ f.termos.errors }" formControlName="termos" class="termos">{{'CADASTRO.TERMOS' | translate}}</mat-checkbox>
+            <section class="example-section">
+                <mat-checkbox ng-class="{ f.termos.errors }" formControlName="termos" class="termos">
+                    {{'CADASTRO.TERMOS' | translate}} <a (click)="openTermosUso()" class="termos-dialog">{{'CADASTRO.TERMOS2' | translate}}</a>
+                </mat-checkbox>
             </section>
             <mat-error *ngIf="f.termos.errors">{{'FORMERRORS.TERMOS' | translate}}</mat-error>
             <button [disabled]="!form.valid" class="butao purple-back cadastro-btn" mat-raised-button>{{'CADASTRO.CADASTRAR' | translate}}</button>

@@ -7,6 +7,7 @@ import { SocialLoginBaseComponent } from '../social-login-base/social-login-base
 import { FacebookLoginProvider, GoogleLoginProvider } from 'angular4-social-login';
 
 import { MustMatch } from '../utils/matchPassword';
+import { TermosUsoDialogComponent } from '../termos-uso-dialog/termos-uso-dialog.component';
 
 
 @Component({
@@ -81,6 +82,12 @@ export class CadastroComponent extends SocialLoginBaseComponent implements OnIni
         conta: this.user.id
       };
       this.cadastrar_se(userJson);
+    });
+  }
+
+  openTermosUso() {
+    this.modal.open(TermosUsoDialogComponent, {
+      width: '35rem'
     });
   }
 

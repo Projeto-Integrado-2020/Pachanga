@@ -1,0 +1,17 @@
+<h1 class="title" mat-dialog-title>{{'TERMOS.TITLE' | translate}}</h1>
+<div mat-dialog-content class="main">
+    <mat-tab-group mat-align-tabs="center">
+        <mat-tab label="{{'TERMOS.USO' | translate}}">
+            <div [innerHTML]="'USO.CONTENT' | translate">
+            </div>
+        </mat-tab>
+        <mat-tab label="{{'TERMOS.PRIVACIDADE' | translate}}">
+            <div [innerHTML]="'PRIVACIDADE.CONTENT' | translate">
+            </div>
+        </mat-tab>
+    </mat-tab-group>
+</div>
+<div mat-dialog-actions class="buttons">
+    <br>
+    <button mat-button mat-dialog-close cdkFocusInitial class="button">{{'TERMOS.FECHAR' | translate}}</button>
+</div>

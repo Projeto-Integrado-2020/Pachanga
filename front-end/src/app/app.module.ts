@@ -87,6 +87,7 @@ import { AlertaEstoqueComponent } from './views/alerta-estoque/alerta-estoque.co
 import { PerdaProdutoEstoqueDialogComponent } from './views/perda-produto-estoque-dialog/perda-produto-estoque-dialog.component';
 import { RemoverUnidadeDoseDialogComponent } from './views/remover-unidade-dose-dialog/remover-unidade-dose-dialog.component';
 import { MomentModule } from 'ngx-moment';
+import { TermosUsoDialogComponent } from './views/termos-uso-dialog/termos-uso-dialog.component';
 
 const config = new AuthServiceConfig([
   {
@@ -152,7 +153,8 @@ export function provideConfig() {
     NotificacoesComponent,
     AlertaEstoqueComponent,
     PerdaProdutoEstoqueDialogComponent,
-    RemoverUnidadeDoseDialogComponent
+    RemoverUnidadeDoseDialogComponent,
+    TermosUsoDialogComponent
   ],
   entryComponents: [
     LoginComponent,
@@ -181,7 +183,8 @@ export function provideConfig() {
     RecargaProdutoEstoqueDialogComponent,
     AlertaEstoqueComponent,
     PerdaProdutoEstoqueDialogComponent,
-    RemoverUnidadeDoseDialogComponent
+    RemoverUnidadeDoseDialogComponent,
+    TermosUsoDialogComponent
   ],
   imports: [
     BrowserModule,
