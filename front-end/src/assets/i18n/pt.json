@@ -463,7 +463,8 @@
 
     "ALERTAESTOQUE": {
         "REDIRECIONAR": "Ir para a tela de estoque",
-        "TITLE": "Alerta de Estoque"
+        "TITLE": "Alerta de Estoque",
+        "OR": "OU"
     },
 
     "RECARGA": {

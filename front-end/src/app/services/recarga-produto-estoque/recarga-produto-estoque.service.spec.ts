@@ -10,7 +10,7 @@ describe('RecargaProdutoEstoqueService', () => {
   let service: RecargaProdutoEstoqueService;
 
   beforeEach(() => {
-    dialogSpy = jasmine.createSpyObj('MatDialog', ['open', 'closeAll']);
+    dialogSpy = jasmine.createSpyObj('MatDialog', ['open']);
 
     TestBed.configureTestingModule({
       imports: [
