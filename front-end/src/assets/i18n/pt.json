@@ -463,12 +463,15 @@
 
     "ALERTAESTOQUE": {
         "REDIRECIONAR": "Ir para a tela de estoque",
-        "TITLE": "Alerta de Estoque"
+        "TITLE": "Alerta de Estoque",
+        "OR": "OU"
     },
 
     "RECARGA": {
         "TITULO": "Recarga de produto",
         "QUANTIDADE": "Quantidade à ser recarregada",
+        "ESTOQUE": "Estoque de origem",
+        "NONE": "Recarga direta",
         "CONFIRM": "Confirmar",
         "CANCEL": "Cancelar"
     },

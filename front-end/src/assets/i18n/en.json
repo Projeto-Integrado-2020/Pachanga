@@ -461,12 +461,15 @@
 
     "ALERTAESTOQUE": {
         "REDIRECIONAR": "Go to stock page",
-        "TITLE": "Stock alert"
+        "TITLE": "Stock alert",
+        "OR": "OR"
     },
 
     "RECARGA": {
         "TITULO": "Product refill",
         "QUANTIDADE": "Quantity to be topped up",
+        "ESTOQUE": "Origin stock",
+        "NONE": "Direct recharge",
         "CONFIRM": "Confirm",
         "CANCEL": "Cancel"
     },

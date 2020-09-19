@@ -19,10 +19,11 @@ export class RecargaProdutoEstoqueService {
   constructor(private http: HttpClient, public logService: LogService, public dialog: MatDialog,
               public loginService: LoginService) { }
 
-  recargaProdutoEstoque(quantidade, codProduto, codEstoque) {
+  recargaProdutoEstoque(quantidade, estoqueOrigem, codProduto, codEstoque) {
     const httpParams = new HttpParams()
     .append('idUsuarioPermissao', this.loginService.usuarioInfo.codUsuario)
     .append('quantidade', quantidade)
+    .append('codEstoqueOrigem', estoqueOrigem)
     .append('codProduto', codProduto)
     .append('codEstoque', codEstoque);
     return this.http.put(this.urlRecargaProdutoEstoque, quantidade, {params: httpParams}).pipe(
@@ -34,7 +35,6 @@ export class RecargaProdutoEstoqueService {
   }
 
   handleError = (error: HttpErrorResponse, logService: LogService) => {
-    this.dialog.closeAll();
     this.openErrorDialog(error.error);
     logService.initialize();
     logService.logHttpInfo(JSON.stringify(error), 0, error.url);

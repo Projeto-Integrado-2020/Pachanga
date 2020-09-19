@@ -10,7 +10,7 @@ describe('RecargaProdutoEstoqueService', () => {
   let service: RecargaProdutoEstoqueService;
 
   beforeEach(() => {
-    dialogSpy = jasmine.createSpyObj('MatDialog', ['open', 'closeAll']);
+    dialogSpy = jasmine.createSpyObj('MatDialog', ['open']);
 
     TestBed.configureTestingModule({
       imports: [
@@ -50,6 +50,6 @@ describe('RecargaProdutoEstoqueService', () => {
 
   it('should put Info at recargaProdutoEstoque', () => {
     service.loginService.usuarioInfo = {codusuario: 'teste'};
-    expect(service.recargaProdutoEstoque('teste', 'teste', 'teste')).toBeTruthy();
+    expect(service.recargaProdutoEstoque('teste', 'teste', 'teste', 'teste')).toBeTruthy();
   });
 });
