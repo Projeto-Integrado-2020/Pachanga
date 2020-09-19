@@ -14,10 +14,12 @@ import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.eventmanager.pachanga.PachangaApplication;
 import com.eventmanager.pachanga.domains.Estoque;
 import com.eventmanager.pachanga.domains.Festa;
 import com.eventmanager.pachanga.domains.Grupo;
@@ -34,7 +36,10 @@ import com.eventmanager.pachanga.repositories.ItemEstoqueRepository;
 import com.eventmanager.pachanga.repositories.ProdutoRepository;
 
 @RunWith(SpringRunner.class)
-@WebMvcTest(value=EstoqueService.class)
+@SpringBootTest(
+		webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
+		classes = PachangaApplication.class)
+@AutoConfigureMockMvc
 class EstoqueServiceTest {
 	
 	@MockBean

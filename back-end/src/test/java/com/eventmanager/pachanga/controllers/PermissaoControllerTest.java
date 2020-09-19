@@ -10,7 +10,8 @@ import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -20,13 +21,19 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.request.RequestPostProcessor;
 
+import com.eventmanager.pachanga.PachangaApplication;
 import com.eventmanager.pachanga.domains.Permissao;
 import com.eventmanager.pachanga.errors.ValidacaoException;
+import com.eventmanager.pachanga.securingweb.OAuthHelper;
 import com.eventmanager.pachanga.services.PermissaoService;
 
 @RunWith(SpringRunner.class)
-@WebMvcTest(value=PermissaoController.class)
+@SpringBootTest(
+		webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
+		classes = PachangaApplication.class)
+@AutoConfigureMockMvc
 class PermissaoControllerTest {
 	
 	@Autowired
@@ -34,6 +41,9 @@ class PermissaoControllerTest {
 	
 	@MockBean
 	private PermissaoService permissaoService;
+	
+	@Autowired
+	private OAuthHelper authHelper;
 	
 	public Permissao PermissaoTest(int id, String desc, String tipo) {
 		Permissao permissao = new Permissao();
@@ -76,9 +86,12 @@ class PermissaoControllerTest {
 		
 		Mockito.when(permissaoService.getAllPermissao()).thenReturn(permissoes);
 		
+		RequestPostProcessor bearerToken = authHelper.addBearerToken("pachanga", "ROLE_USER");
+		
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.get(uri)
 				.accept(MediaType.APPLICATION_JSON)
+				.with(bearerToken)
 				.contentType(MediaType.APPLICATION_JSON);
 		
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
@@ -98,11 +111,14 @@ class PermissaoControllerTest {
 		
 		String expected = "errox";	 
 		
-		Mockito.when(permissaoService.getAllPermissao()).thenThrow(new ValidacaoException(expected));;
+		Mockito.when(permissaoService.getAllPermissao()).thenThrow(new ValidacaoException(expected));
+		
+		RequestPostProcessor bearerToken = authHelper.addBearerToken("pachanga", "ROLE_USER");
 		
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.get(uri)
 				.accept(MediaType.APPLICATION_JSON)
+				.with(bearerToken)
 				.contentType(MediaType.APPLICATION_JSON);
 		
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();

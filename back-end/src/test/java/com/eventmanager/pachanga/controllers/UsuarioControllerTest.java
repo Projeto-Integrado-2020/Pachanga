@@ -9,7 +9,8 @@ import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -19,14 +20,20 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.request.RequestPostProcessor;
 
+import com.eventmanager.pachanga.PachangaApplication;
 import com.eventmanager.pachanga.domains.Usuario;
 import com.eventmanager.pachanga.dtos.UsuarioTO;
 import com.eventmanager.pachanga.errors.ValidacaoException;
+import com.eventmanager.pachanga.securingweb.OAuthHelper;
 import com.eventmanager.pachanga.services.UsuarioService;
 
 @RunWith(SpringRunner.class)
-@WebMvcTest(value=UsuarioController.class)
+@SpringBootTest(
+		webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
+		classes = PachangaApplication.class)
+@AutoConfigureMockMvc
 class UsuarioControllerTest {
 
 	@Autowired
@@ -34,6 +41,9 @@ class UsuarioControllerTest {
 	
 	@MockBean
 	private UsuarioService userService;
+	
+	@Autowired
+	private OAuthHelper authHelper;
 	
 	@SuppressWarnings("deprecation")
 	public Usuario usuarioTest() throws Exception{
@@ -61,11 +71,14 @@ class UsuarioControllerTest {
 		String uri = "/usuario/login";
 
 		Mockito.when(userService.logar(Mockito.any(UsuarioTO.class))).thenReturn(usuarioTest);
+		
+		RequestPostProcessor bearerToken = authHelper.addBearerToken("pachanga", "ROLE_USER");
 
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.post(uri)
 				.accept(MediaType.APPLICATION_JSON)
 				.content(usuarioLoginJson)
+				.with(bearerToken)
 				.contentType(MediaType.APPLICATION_JSON);
 
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
@@ -90,11 +103,14 @@ class UsuarioControllerTest {
 		String uri = "/usuario/login";
 
 		Mockito.when(userService.logar(Mockito.any(UsuarioTO.class))).thenThrow(new ValidacaoException("2"));
+		
+		RequestPostProcessor bearerToken = authHelper.addBearerToken("pachanga", "ROLE_USER");
 
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.post(uri)
 				.accept(MediaType.APPLICATION_JSON)
 				.content(usuarioLoginJson)
+				.with(bearerToken)
 				.contentType(MediaType.APPLICATION_JSON);
 
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
@@ -117,11 +133,14 @@ class UsuarioControllerTest {
 		String uri = "/usuario/login";
 		
 		Mockito.when(userService.logar(Mockito.any(UsuarioTO.class))).thenThrow(new ValidacaoException("3"));
+		
+		RequestPostProcessor bearerToken = authHelper.addBearerToken("pachanga", "ROLE_USER");
 
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.post(uri)
 				.accept(MediaType.APPLICATION_JSON)
 				.content(usuarioLoginJson)
+				.with(bearerToken)
 				.contentType(MediaType.APPLICATION_JSON);
 
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
@@ -148,10 +167,13 @@ class UsuarioControllerTest {
 		
 		Mockito.when(userService.cadastrar(Mockito.any(UsuarioTO.class))).thenReturn(usuarioTest);
 		
+		RequestPostProcessor bearerToken = authHelper.addBearerToken("pachanga", "ROLE_USER");
+		
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.post(uri)
 				.accept(MediaType.APPLICATION_JSON)
 				.content(usuarioCadastroJson )
+				.with(bearerToken)
 				.contentType(MediaType.APPLICATION_JSON);
 
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
@@ -174,10 +196,13 @@ class UsuarioControllerTest {
 		
 		Mockito.when(userService.cadastrar(Mockito.any(UsuarioTO.class))).thenThrow(new ValidacaoException("1"));
 		
+		RequestPostProcessor bearerToken = authHelper.addBearerToken("pachanga", "ROLE_USER");
+		
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.post(uri)
 				.accept(MediaType.APPLICATION_JSON)
 				.content(usuarioCadastroJson )
+				.with(bearerToken)
 				.contentType(MediaType.APPLICATION_JSON);
 
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
@@ -207,10 +232,13 @@ class UsuarioControllerTest {
 		
 		Mockito.when(userService.atualizar(Mockito.any(UsuarioTO.class))).thenReturn(usuarioTest);
 		
+		RequestPostProcessor bearerToken = authHelper.addBearerToken("pachanga", "ROLE_USER");
+		
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.put(uri)
 				.accept(MediaType.APPLICATION_JSON)
 				.content(usuarioAtualizacaoJson)
+				.with(bearerToken)
 				.contentType(MediaType.APPLICATION_JSON);
 
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
@@ -233,10 +261,13 @@ class UsuarioControllerTest {
 		
 		Mockito.when(userService.atualizar(Mockito.any(UsuarioTO.class))).thenThrow(new ValidacaoException("3"));
 		
+		RequestPostProcessor bearerToken = authHelper.addBearerToken("pachanga", "ROLE_USER");
+		
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.put(uri)
 				.accept(MediaType.APPLICATION_JSON)
 				.content(usuarioAtualizacaoJson)
+				.with(bearerToken)
 				.contentType(MediaType.APPLICATION_JSON);
 
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
