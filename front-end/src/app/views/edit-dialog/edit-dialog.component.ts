@@ -5,6 +5,9 @@ import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms'
 import { MustMatch } from '../utils/matchPassword';
 import { EditAccountService } from 'src/app/services/editAccountService/edit-account.service';
 import { SuccessDialogComponent } from '../success-dialog/success-dialog.component';
+import { TranslateService } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
 
 @Component({
   selector: 'app-edit-dialog',
@@ -16,12 +19,24 @@ export class EditDialogComponent implements OnInit {
   public campo: string;
   public form: FormGroup;
   public modJson;
+  options: string[] = [
+                        this.translate.instant('GENEROS.HOMEMCIS'),
+                        this.translate.instant('GENEROS.HOMEMTRANS'),
+                        this.translate.instant('GENEROS.HOMEMNAOBINARIO'),
+                        this.translate.instant('GENEROS.MULHERCIS'),
+                        this.translate.instant('GENEROS.MULHERTRANS'),
+                        this.translate.instant('GENEROS.MULHERNAOBINARIO'),
+                        this.translate.instant('GENEROS.INTERMASCULINO'),
+                        this.translate.instant('GENEROS.INTERFEMININO'),
+                        this.translate.instant('GENEROS.INTERNAOBINARIO')
+                      ];
+filteredOptions: Observable<string[]>;
 
   maxDate = new Date();
 
   constructor(@Inject(MAT_DIALOG_DATA) data, public loginService: LoginService,
               public formBuilder: FormBuilder, public editService: EditAccountService,
-              public modal: MatDialog) {
+              public modal: MatDialog, public translate: TranslateService) {
     this.campo = data.campo;
   }
 
@@ -56,6 +71,11 @@ export class EditDialogComponent implements OnInit {
           sexoAntigo: new FormControl({value: '', disabled: true}),
           sexo: new FormControl('', Validators.required),
         });
+        this.filteredOptions = this.form.get('sexo').valueChanges
+        .pipe(
+          startWith(''),
+          map(value => this._filter(value))
+        );
         break;
       case 'senha':
         this.form = this.formBuilder.group({
@@ -68,6 +88,11 @@ export class EditDialogComponent implements OnInit {
         });
         break;
     }
+  }
+
+  _filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
+    return this.options.filter(option => option.toLowerCase().includes(filterValue));
   }
 
   salvarNome(nome: string) {
@@ -87,7 +112,7 @@ export class EditDialogComponent implements OnInit {
   }
 
   salvarSexo(sexo: string) {
-    this.modJson.sexo = sexo;
+    this.modJson.sexo = sexo.toUpperCase();
     this.callService();
   }
 

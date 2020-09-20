@@ -28,7 +28,7 @@
         "PREENCHER": "Fill in the following information:",
         "NOME": "Name",
         "DATANASC": "Birth date",
-        "SEXO": "Gender",
+        "GENERO": "Gender",
         "EMAILERRO": "Please enter a valid email address.",
         "SENHA": "Password",
         "SENHA2": "Confirm password",
@@ -37,6 +37,18 @@
         "TERMOS": "I accept the ",
         "TERMOS2": "Terms of Use e Privacy",
         "CADASTRAR": "Register"
+    },
+
+    "GENEROS": {
+        "HOMEMCIS": "Cisgender man", 
+        "HOMEMTRANS": "Transgender man", 
+        "HOMEMNAOBINARIO": "Non-binary man", 
+        "MULHERCIS": "Cisgender woman", 
+        "MULHERTRANS": "Mulher transgênero", 
+        "MULHERNAOBINARIO": "Transgender woman",
+        "INTERMASCULINO": "Male intersex",
+        "INTERFEMININO": "Female intersex",
+        "INTERNAOBINARIO": "Non-binary intersex"
     },
 
     "SEXO": {
@@ -157,7 +169,7 @@
         "ADDRESS2": "Address 2",
         "CITY": "City",
         "STATE": "STATE",
-        "SEX": "Gender",
+        "GENERO": "Gender",
         "PASSWORDCONFIRM": "Confirm password",
         "NOTINFORMED": "Not Informed",
         "EMAIL": "E-mail"
@@ -173,8 +185,8 @@
         "NEWNAME": "New name",
         "OLDEMAIL": "Current e-mail",
         "NEWEMAIL": "New e-mail",
-        "OLDSEXO": "Current gender",
-        "NEWSEXO": "New gender",
+        "OLDGENERO": "Current gender",
+        "NEWGENERO": "New gender",
         "OLDDTNASC": "Current birthdate",
         "NEWDTNASC": "New birthdate",
         "OLDSENHA": "Current password",
@@ -182,7 +194,7 @@
         "SAVE": "Save new information",
         "ALTNAME": "Alter name",
         "ALTDTNASC": "Alter birthdate",
-        "ALTSEXO": "Alter gender",
+        "ALTGENERO": "Alter gender",
         "ALTEMAIL": "Alter e-mail",
         "ALTSENHA": "Alter password",
         "CONFPASS": "Confirm new password"

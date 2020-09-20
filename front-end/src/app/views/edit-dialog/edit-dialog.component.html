@@ -62,25 +62,24 @@
 </div>
 
 <div *ngIf="campo == 'sexo'">
-    <h1 mat-dialog-title>{{'EDIT.ALTSEXO' | translate}}</h1>
+    <h1 mat-dialog-title>{{'EDIT.ALTGENERO' | translate}}</h1>
     <div mat-dialog-content>
         <form [formGroup]="form" class="example-form" (submit)="salvarSexo(sexo.value)">
             <mat-form-field class="example-full-width">
-                <mat-label>{{'EDIT.OLDSEXO' | translate}}</mat-label>
+                <mat-label>{{'EDIT.OLDGENERO' | translate}}</mat-label>
                 <input formControlName="sexoAntigo" *ngIf="!loginService.usuarioInfo.sexo || loginService.usuarioInfo.sexo == 'N'" required matInput value="{{'PERFIL.NOTINFORMED' | translate}}">
-                <input formControlName="sexoAntigo" *ngIf="loginService.usuarioInfo.sexo && loginService.usuarioInfo.sexo == 'M'" required matInput value="{{'SEXO.MASC' | translate}}">
+                <!-- <input formControlName="sexoAntigo" *ngIf="loginService.usuarioInfo.sexo && loginService.usuarioInfo.sexo == 'M'" required matInput value="{{'SEXO.MASC' | translate}}">
                 <input formControlName="sexoAntigo" *ngIf="loginService.usuarioInfo.sexo && loginService.usuarioInfo.sexo == 'F'" required matInput value="{{'SEXO.FEM' | translate}}">
                 <input formControlName="sexoAntigo" *ngIf="loginService.usuarioInfo.sexo && loginService.usuarioInfo.sexo == 'T'" required matInput value="{{'SEXO.TRANS' | translate}}">
-                <input formControlName="sexoAntigo" *ngIf="loginService.usuarioInfo.sexo && loginService.usuarioInfo.sexo == 'O'" required matInput value="{{'SEXO.OUTRO' | translate}}">
+                <input formControlName="sexoAntigo" *ngIf="loginService.usuarioInfo.sexo && loginService.usuarioInfo.sexo == 'O'" required matInput value="{{'SEXO.OUTRO' | translate}}"> -->
+                <input formControlName="sexoAntigo" required disabled matInput value="{{ loginService.usuarioInfo.sexo.charAt(0).toUpperCase() + loginService.usuarioInfo.sexo.slice(1).toLowerCase() }}">
             </mat-form-field>
-            <mat-form-field class="example-full-width">
-                <mat-label>{{'EDIT.NEWSEXO' | translate}}</mat-label>
-                <mat-select ng-class="{ f.sexo.errors }" formControlName="sexo" #sexo required>
-                    <mat-option value="M">{{"SEXO.MASC" | translate}}</mat-option>
-                    <mat-option value="F">{{"SEXO.FEM" | translate}}</mat-option>
-                    <mat-option value="T">{{"SEXO.TRANS" | translate}}</mat-option>
-                    <mat-option value="O">{{"SEXO.OUTRO" | translate}}</mat-option>
-                </mat-select>
+            <mat-form-field>
+                <mat-label>{{'EDIT.NEWGENERO' | translate}}</mat-label>
+                <input ng-class="{ f.sexo.errors }" required #sexo formControlName="sexo" matInput [matAutocomplete]="auto">
+                <mat-autocomplete #auto="matAutocomplete">
+                    <mat-option *ngFor="let option of filteredOptions | async" [value]="option">{{option}}</mat-option>
+                </mat-autocomplete>
                 <mat-error *ngIf="f.sexo.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
             </mat-form-field>
             <button [disabled]="!form.valid" class="button-index" mat-raised-button color="accent">{{'EDIT.SAVE' | translate}}</button>

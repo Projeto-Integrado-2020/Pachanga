@@ -13,6 +13,10 @@ import { RouterModule, Router } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginService } from 'src/app/services/loginService/login.service';
 import { of } from 'rxjs';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { HttpLoaderFactory } from '../cadastro/cadastro.component.spec';
+import { HttpClient } from '@angular/common/http';
+
 
 const config = new AuthServiceConfig([
   {
@@ -46,7 +50,14 @@ describe('SocialLoginBaseComponent', () => {
         FormsModule,
         ReactiveFormsModule,
         CustomMaterialModule,
-        RouterModule.forRoot([])
+        RouterModule.forRoot([]),
+        TranslateModule.forRoot({
+          loader: {
+            provide: TranslateLoader,
+            useFactory: HttpLoaderFactory,
+            deps: [HttpClient]
+          }
+        })
       ],
       providers: [
         {

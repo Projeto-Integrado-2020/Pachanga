@@ -28,7 +28,7 @@
         "PREENCHER": "Preencha as informações a seguir:",
         "NOME": "Nome",
         "DATANASC": "Data de Nascimento",
-        "SEXO": "Sexo",
+        "GENERO": "Gênero",
         "EMAILERRO": "Por favor digite um e-mail válido.",
         "SENHA": "Senha",
         "SENHA2": "Confirmar senha",
@@ -37,6 +37,18 @@
         "TERMOS": "Eu aceito os ",
         "TERMOS2": "Termos de Uso e Privacidade",
         "CADASTRAR": "Cadastrar"
+    },
+
+    "GENEROS": {
+        "HOMEMCIS": "Homem cisgênero", 
+        "HOMEMTRANS": "Homem transgênero", 
+        "HOMEMNAOBINARIO": "Homem não-binário", 
+        "MULHERCIS": "Mulher cisgênero", 
+        "MULHERTRANS": "Mulher transgênero", 
+        "MULHERNAOBINARIO": "Mulher não-binário",
+        "INTERMASCULINO": "Intersexo masculino",
+        "INTERFEMININO": "Intersexo feminino",
+        "INTERNAOBINARIO": "Intersexo não-Binário"
     },
 
     "SEXO": {
@@ -159,7 +171,7 @@
         "ADDRESS2": "Complemento",
         "CITY": "Cidade",
         "STATE": "Estado",
-        "SEX": "Sexo",
+        "GENERO": "Gênero",
         "PASSWORDCONFIRM": "Confirmar senha",
         "NOTINFORMED": "Não Informado",
         "EMAIL": "E-mail"
@@ -175,8 +187,8 @@
         "NEWNAME": "Novo nome",
         "OLDEMAIL": "E-mail atual",
         "NEWEMAIL": "Novo e-mail",
-        "OLDSEXO": "Sexo atual",
-        "NEWSEXO": "Novo sexo",
+        "OLDGENERO": "Gênero atual",
+        "NEWGENERO": "Novo gênero",
         "OLDDTNASC": "Data de nascimento atual",
         "NEWDTNASC": "Nova data de nascimento",
         "OLDSENHA": "Senha atual",
@@ -184,7 +196,7 @@
         "SAVE": "Salvar alterações",
         "ALTNAME": "Alterar nome",
         "ALTDTNASC": "Alterar data de nascimento",
-        "ALTSEXO": "Alterar sexo",
+        "ALTGENERO": "Alterar gênero",
         "ALTEMAIL": "Alterar e-mail",
         "ALTSENHA": "Alterar senha",
         "CONFPASS": "Confirmar nova senha"

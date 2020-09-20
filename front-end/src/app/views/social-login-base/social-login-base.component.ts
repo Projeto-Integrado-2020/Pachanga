@@ -5,6 +5,7 @@ import { LoginService } from 'src/app/services/loginService/login.service';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { MatDialog } from '@angular/material';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-social-login-base',
@@ -18,7 +19,7 @@ export class SocialLoginBaseComponent implements OnInit {
   public form: FormGroup;
 
   constructor(public authService: AuthService, public loginService: LoginService,
-              public formBuilder: FormBuilder, public modal: MatDialog, public router: Router) { }
+              public formBuilder: FormBuilder, public modal: MatDialog, public router: Router, public translate: TranslateService) { }
 
   get f() { return this.form.controls; }
 

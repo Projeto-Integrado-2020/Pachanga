@@ -8,6 +8,8 @@ import { FacebookLoginProvider, GoogleLoginProvider } from 'angular4-social-logi
 
 import { MustMatch } from '../utils/matchPassword';
 import { TermosUsoDialogComponent } from '../termos-uso-dialog/termos-uso-dialog.component';
+import { Observable } from 'rxjs';
+import {map, startWith} from 'rxjs/operators';
 
 
 @Component({
@@ -25,6 +27,18 @@ export class CadastroComponent extends SocialLoginBaseComponent implements OnIni
   sexoCadastro;
   emailCadastro;
   senhaCadastro;
+  options: string[] = [
+                        this.translate.instant('GENEROS.HOMEMCIS'),
+                        this.translate.instant('GENEROS.HOMEMTRANS'),
+                        this.translate.instant('GENEROS.HOMEMNAOBINARIO'),
+                        this.translate.instant('GENEROS.MULHERCIS'),
+                        this.translate.instant('GENEROS.MULHERTRANS'),
+                        this.translate.instant('GENEROS.MULHERNAOBINARIO'),
+                        this.translate.instant('GENEROS.INTERMASCULINO'),
+                        this.translate.instant('GENEROS.INTERFEMININO'),
+                        this.translate.instant('GENEROS.INTERNAOBINARIO')
+                      ];
+  filteredOptions: Observable<string[]>;
 
   maxDate = new Date();
 
@@ -41,6 +55,16 @@ export class CadastroComponent extends SocialLoginBaseComponent implements OnIni
     }, {
       validator: MustMatch('senha', 'confirmacaoSenha')
       });
+    this.filteredOptions = this.form.get('sexo').valueChanges
+    .pipe(
+      startWith(''),
+      map(value => this._filter(value))
+    );
+  }
+
+  _filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
+    return this.options.filter(option => option.toLowerCase().includes(filterValue));
   }
 
   signUpWithPachanga(nome, dtNasc, sexo, email, senha): void {
@@ -50,7 +74,7 @@ export class CadastroComponent extends SocialLoginBaseComponent implements OnIni
       senha,
       nomeUser: nome,
       dtNasc: dtNasc.slice(6, 10) + '-' + dtNasc.slice(3, 5) + '-' + dtNasc.slice(0, 2),
-      sexo
+      sexo: sexo.toUpperCase()
     };
     this.cadastrar_se(userJson);
   }

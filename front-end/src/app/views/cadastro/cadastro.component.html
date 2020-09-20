@@ -18,13 +18,11 @@
                 <mat-error *ngIf="f.dtnasc.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
             </mat-form-field>
             <mat-form-field>
-                <mat-label>{{'CADASTRO.SEXO' | translate}}</mat-label>
-                <mat-select ng-class="{ f.sexo.errors }" formControlName="sexo" #sexoCadastro required>
-                    <mat-option value="M">{{"SEXO.MASC" | translate}}</mat-option>
-                    <mat-option value="F">{{"SEXO.FEM" | translate}}</mat-option>
-                    <mat-option value="T">{{"SEXO.TRANS" | translate}}</mat-option>
-                    <mat-option value="O">{{"SEXO.OUTRO" | translate}}</mat-option>
-                </mat-select>
+                <mat-label>{{'CADASTRO.GENERO' | translate}}</mat-label>
+                <input ng-class="{ f.sexo.errors }" required #sexoCadastro formControlName="sexo" matInput [matAutocomplete]="auto">
+                <mat-autocomplete #auto="matAutocomplete">
+                    <mat-option *ngFor="let option of filteredOptions | async" [value]="option">{{option}}</mat-option>
+                </mat-autocomplete>
                 <mat-error *ngIf="f.sexo.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
             </mat-form-field>
             <mat-form-field class="example-full-width">

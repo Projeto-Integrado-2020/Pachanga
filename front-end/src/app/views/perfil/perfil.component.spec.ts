@@ -38,7 +38,7 @@ describe('PerfilComponent', () => {
         }),
       ],
       providers: [
-        { provide: LoginService, useValue: {usuarioInfo: {nomeUser: 'Teste'}} },
+        { provide: LoginService, useValue: {usuarioInfo: {nomeUser: 'Teste', sexo: 'Masculino'}, } },
         { provide: MatDialog, useValue: dialogSpy },
       ]
     })
