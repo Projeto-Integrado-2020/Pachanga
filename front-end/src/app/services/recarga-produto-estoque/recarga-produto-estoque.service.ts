@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
-import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { ErroDialogComponent } from '../../views/erro-dialog/erro-dialog.component';
 import { LogService } from '../logging/log.service';
 import { take, catchError } from 'rxjs/operators';
@@ -26,7 +26,12 @@ export class RecargaProdutoEstoqueService {
     .append('codEstoqueOrigem', estoqueOrigem)
     .append('codProduto', codProduto)
     .append('codEstoque', codEstoque);
-    return this.http.put(this.urlRecargaProdutoEstoque, quantidade, {params: httpParams}).pipe(
+
+    let headers = new HttpHeaders();
+    headers = headers.append('Content-Type', 'application/json');
+    headers = headers.append('Authorization', 'Bearer ' + JSON.parse(localStorage.getItem('token')).token);
+
+    return this.http.put(this.urlRecargaProdutoEstoque, quantidade, {params: httpParams, headers}).pipe(
       take(1),
       catchError(error => {
         return this.handleError(error, this.logService);
@@ -35,7 +40,6 @@ export class RecargaProdutoEstoqueService {
   }
 
   handleError = (error: HttpErrorResponse, logService: LogService) => {
-    this.dialog.closeAll();
     this.openErrorDialog(error.error);
     logService.initialize();
     logService.logHttpInfo(JSON.stringify(error), 0, error.url);

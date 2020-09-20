@@ -11,9 +11,11 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.eventmanager.pachanga.PachangaApplication;
 import com.eventmanager.pachanga.domains.Convidado;
 import com.eventmanager.pachanga.domains.Festa;
 import com.eventmanager.pachanga.domains.Grupo;
@@ -28,7 +30,10 @@ import com.eventmanager.pachanga.dtos.NotificacaoUsuarioTO;
 import com.eventmanager.pachanga.tipo.TipoStatusNotificacao;
 
 @RunWith(SpringRunner.class)
-@WebMvcTest(value=NotificacaoFactory.class)
+@SpringBootTest(
+		webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
+		classes = PachangaApplication.class)
+@AutoConfigureMockMvc
 class NotificacaoFactoryTest {
 	
 	@Autowired
@@ -49,7 +54,7 @@ class NotificacaoFactoryTest {
 		usuarioTest.setEmail("gustavinhoTPD@fodasse.com.br");
 		usuarioTest.setSenha("fc68b677646b5f018d1762e9a19bf65180d9aab2794794340ade50e0d78a239affd43a613e7136a61b5d63b09f072c0c039dea4281873abe826d6e6285d9cefef0a0d868d3b0b0d4582ec787b473b4e0");
 		usuarioTest.setDtNasc(new Date(2000, 8, 27));
-		usuarioTest.setSexo("M");
+		usuarioTest.setGenero("M");
 		usuarioTest.setNomeUser("Gustavo Barbosa");
 
 		return usuarioTest;

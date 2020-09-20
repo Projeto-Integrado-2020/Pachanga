@@ -16,11 +16,13 @@ import java.util.Set;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.junit4.SpringRunner;
 
+import com.eventmanager.pachanga.PachangaApplication;
 import com.eventmanager.pachanga.domains.Categoria;
 import com.eventmanager.pachanga.domains.CategoriasFesta;
 import com.eventmanager.pachanga.domains.Estoque;
@@ -51,8 +53,11 @@ import com.eventmanager.pachanga.tipo.TipoCategoria;
 import com.eventmanager.pachanga.tipo.TipoStatusFesta;
 
 
-@RunWith(MockitoJUnitRunner.class)
-@WebMvcTest(value=FestaService.class)
+@RunWith(SpringRunner.class)
+@SpringBootTest(
+		webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
+		classes = PachangaApplication.class)
+@AutoConfigureMockMvc
 class FestaServiceTest {
 
 	@MockBean
@@ -161,7 +166,7 @@ class FestaServiceTest {
 		usuarioTest.setEmail("gustavinhoTPD@fodasse.com.br");
 		usuarioTest.setSenha("1234");
 		usuarioTest.setDtNasc(new Date(2000, 8, 27));
-		usuarioTest.setSexo("M");
+		usuarioTest.setGenero("M");
 		usuarioTest.setNomeUser("Gustavo Barbosa");
 
 		return usuarioTest;

@@ -9,7 +9,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -19,14 +20,20 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.request.RequestPostProcessor;
 
+import com.eventmanager.pachanga.PachangaApplication;
 import com.eventmanager.pachanga.domains.Notificacao;
 import com.eventmanager.pachanga.dtos.NotificacaoTO;
 import com.eventmanager.pachanga.errors.ValidacaoException;
+import com.eventmanager.pachanga.securingweb.OAuthHelper;
 import com.eventmanager.pachanga.services.NotificacaoService;
 
 @RunWith(SpringRunner.class)
-@WebMvcTest(value=NotificacaoController.class)
+@SpringBootTest(
+		webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
+		classes = PachangaApplication.class)
+@AutoConfigureMockMvc
 class NotificacaoControllerTest {
 	
 	@Autowired
@@ -34,6 +41,9 @@ class NotificacaoControllerTest {
 	
 	@MockBean
 	private NotificacaoService notificacaoService;
+	
+	@Autowired
+	private OAuthHelper authHelper;
 	
 	
 	private Notificacao NotificacaoTest() {
@@ -52,10 +62,13 @@ class NotificacaoControllerTest {
 		
 		Mockito.when(notificacaoService.procurarNotificacaoUsuario(Mockito.anyInt())).thenReturn(notificacaoTo);
 		
+		RequestPostProcessor bearerToken = authHelper.addBearerToken("pachanga", "ROLE_USER");
+		
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.get(uri)
 				.param("idUser", "1")
 				.accept(MediaType.APPLICATION_JSON)
+				.with(bearerToken)
 				.contentType(MediaType.APPLICATION_JSON);
 		
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
@@ -75,10 +88,13 @@ class NotificacaoControllerTest {
 		
 		Mockito.when(notificacaoService.procurarNotificacaoUsuario(Mockito.anyInt())).thenThrow(new ValidacaoException("teste"));
 		
+		RequestPostProcessor bearerToken = authHelper.addBearerToken("pachanga", "ROLE_USER");
+		
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.get(uri)
 				.param("idUser", "1")
 				.accept(MediaType.APPLICATION_JSON)
+				.with(bearerToken)
 				.contentType(MediaType.APPLICATION_JSON);
 		
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
@@ -98,12 +114,15 @@ class NotificacaoControllerTest {
 		String jsonContent = "[1]";
 		
 		Mockito.doNothing().when(notificacaoService).alterarStatus(Mockito.anyInt(),Mockito.anyInt());
+		
+		RequestPostProcessor bearerToken = authHelper.addBearerToken("pachanga", "ROLE_USER");
 				
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.put(uri)
 				.param("idUser", "1")
 				.content(jsonContent)
 				.accept(MediaType.APPLICATION_JSON)
+				.with(bearerToken)
 				.contentType(MediaType.APPLICATION_JSON);
 		
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
@@ -121,12 +140,15 @@ class NotificacaoControllerTest {
 		String jsonContent = "[1]";
 			
 		Mockito.doThrow(new ValidacaoException("teste")).when(notificacaoService).alterarStatus(Mockito.anyInt(),Mockito.anyInt());
+		
+		RequestPostProcessor bearerToken = authHelper.addBearerToken("pachanga", "ROLE_USER");
 				
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.put(uri)
 				.param("idUser", "1")
 				.content(jsonContent)
 				.accept(MediaType.APPLICATION_JSON)
+				.with(bearerToken)
 				.contentType(MediaType.APPLICATION_JSON);
 		
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
@@ -144,12 +166,15 @@ class NotificacaoControllerTest {
 		String uri = "/notificacao/destaque";
 		
 		Mockito.doNothing().when(notificacaoService).destaqueNotificacao(Mockito.anyInt(),Mockito.anyInt());
+		
+		RequestPostProcessor bearerToken = authHelper.addBearerToken("pachanga", "ROLE_USER");
 				
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.put(uri)
 				.param("idUser", "1")
 				.param("idNotificacao", "1")
 				.accept(MediaType.APPLICATION_JSON)
+				.with(bearerToken)
 				.contentType(MediaType.APPLICATION_JSON);
 		
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
@@ -166,12 +191,15 @@ class NotificacaoControllerTest {
 		
 			
 		Mockito.doThrow(new ValidacaoException("teste")).when(notificacaoService).destaqueNotificacao(Mockito.anyInt(),Mockito.anyInt());
+		
+		RequestPostProcessor bearerToken = authHelper.addBearerToken("pachanga", "ROLE_USER");
 				
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.put(uri)
 				.param("idUser", "1")
 				.param("idNotificacao", "1")
 				.accept(MediaType.APPLICATION_JSON)
+				.with(bearerToken)
 				.contentType(MediaType.APPLICATION_JSON);
 		
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
@@ -189,12 +217,15 @@ class NotificacaoControllerTest {
 		String uri = "/notificacao/delete";
 		
 		Mockito.doNothing().when(notificacaoService).deleteNotificacao(Mockito.anyInt(), Mockito.anyString());
+		
+		RequestPostProcessor bearerToken = authHelper.addBearerToken("pachanga", "ROLE_USER");
 				
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.delete(uri)
 				.param("idUser", "1")
 				.param("mensagem", "teste")
 				.accept(MediaType.APPLICATION_JSON)
+				.with(bearerToken)
 				.contentType(MediaType.APPLICATION_JSON);
 		
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
@@ -211,12 +242,15 @@ class NotificacaoControllerTest {
 		
 			
 		Mockito.doThrow(new ValidacaoException("teste")).when(notificacaoService).deleteNotificacao(Mockito.anyInt(), Mockito.anyString());
+		
+		RequestPostProcessor bearerToken = authHelper.addBearerToken("pachanga", "ROLE_USER");
 				
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.delete(uri)
 				.param("idUser", "1")
 				.param("mensagem", "teste")
 				.accept(MediaType.APPLICATION_JSON)
+				.with(bearerToken)
 				.contentType(MediaType.APPLICATION_JSON);
 		
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();

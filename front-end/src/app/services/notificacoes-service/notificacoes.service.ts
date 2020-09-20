@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { LogService } from '../logging/log.service';
 import { environment } from 'src/environments/environment';
 import { LoginService } from '../loginService/login.service';
@@ -23,7 +23,11 @@ export class NotificacoesService {
       const httpParams = new HttpParams()
       .append('idUser', this.loginService.usuarioInfo.codUsuario);
 
-      return this.http.get(this.URL + '/lista', {params: httpParams})
+      let headers = new HttpHeaders();
+      headers = headers.append('Content-Type', 'application/json');
+      headers = headers.append('Authorization', 'Bearer ' + JSON.parse(localStorage.getItem('token')).token);
+
+      return this.http.get(this.URL + '/lista', {params: httpParams, headers})
         .pipe(
         take(1),
         catchError(error => {
@@ -37,7 +41,12 @@ export class NotificacoesService {
   atualizarNotificacoes(notifIds: number[] ) {
       const httpParams = new HttpParams()
         .append('idUser', this.loginService.usuarioInfo.codUsuario);
-      return this.http.put(this.URL + '/mudarStatus', notifIds, {params: httpParams}).pipe(
+
+      let headers = new HttpHeaders();
+      headers = headers.append('Content-Type', 'application/json');
+      headers = headers.append('Authorization', 'Bearer ' + JSON.parse(localStorage.getItem('token')).token);
+
+      return this.http.put(this.URL + '/mudarStatus', notifIds, {params: httpParams, headers}).pipe(
         take(1),
         catchError(error => {
           return this.handleError(error, this.logService);
@@ -49,7 +58,12 @@ export class NotificacoesService {
       const httpParams = new HttpParams()
       .append('idUser', this.loginService.usuarioInfo.codUsuario)
       .append('idNotificacao', notifId.toString());
-      return this.http.put(this.URL + '/destaque', null, {params: httpParams}).pipe(
+
+      let headers = new HttpHeaders();
+      headers = headers.append('Content-Type', 'application/json');
+      headers = headers.append('Authorization', 'Bearer ' + JSON.parse(localStorage.getItem('token')).token);
+
+      return this.http.put(this.URL + '/destaque', null, {params: httpParams, headers}).pipe(
         take(1),
         catchError(error => {
           return this.handleError(error, this.logService);
@@ -61,7 +75,12 @@ export class NotificacoesService {
       const httpParams = new HttpParams()
       .append('idUser', this.loginService.usuarioInfo.codUsuario)
       .append('mensagem', notificacao.mensagem);
-      return this.http.delete(this.URL + '/delete', {params: httpParams}).pipe(
+
+      let headers = new HttpHeaders();
+      headers = headers.append('Content-Type', 'application/json');
+      headers = headers.append('Authorization', 'Bearer ' + JSON.parse(localStorage.getItem('token')).token);
+
+      return this.http.delete(this.URL + '/delete', {params: httpParams, headers}).pipe(
         take(1),
         catchError(error => {
           return this.handleError(error, this.logService);
@@ -73,6 +92,6 @@ export class NotificacoesService {
     logService.initialize();
     logService.logHttpInfo(JSON.stringify(error), 0, error.url);
     return throwError(error);
-}
+  }
 
 }

@@ -473,7 +473,8 @@
 
     "ALERTAESTOQUE": {
         "REDIRECIONAR": "Go to stock page",
-        "TITLE": "Stock alert"
+        "TITLE": "Stock alert",
+        "OR": "OR"
     },
 
     "RECARGA": {

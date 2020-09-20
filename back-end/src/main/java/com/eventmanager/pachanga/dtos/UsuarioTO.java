@@ -13,7 +13,7 @@ public class UsuarioTO {
     private String emailNovo;
     private String senha;
     private String senhaNova;
-    private String sexo;
+    private String genero;
     private String funcionalidade;
     
 	public Date getDtNasc() {
@@ -64,12 +64,12 @@ public class UsuarioTO {
 		this.senha = senha;
 	}
 
-	public String getSexo() {
-		return sexo;
+	public String getGenero() {
+		return genero;
 	}
 
-	public void setSexo(String sexo) {
-		this.sexo = sexo;
+	public void setGenero(String genero) {
+		this.genero = genero;
 	}
 
 	public String getEmailNovo() {

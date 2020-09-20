@@ -21,7 +21,11 @@ describe('CadastrarFestaService', () => {
         { provide: MatDialog, useValue: dialogSpy },
       ]
     });
-
+    const token = {
+      timeToken: '2020-09-21T01:14:04.028+0000',
+      token: 'teste'
+    };
+    localStorage.setItem('token', JSON.stringify(token));
     service = TestBed.get(CadastrarFestaService);
   });
 

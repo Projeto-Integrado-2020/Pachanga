@@ -13,7 +13,7 @@ public class UsuarioBuilder{
 	private String gmail;
 	private String email;
 	private String senha;
-	private String sexo;
+	private String genero;
 	
 	public static UsuarioBuilder getInstance() {
 		return new UsuarioBuilder();
@@ -54,8 +54,8 @@ public class UsuarioBuilder{
 		return this;
 	}
 
-	public UsuarioBuilder sexo(String sexo) {
-		this.sexo = sexo;
+	public UsuarioBuilder genero(String genero) {
+		this.genero = genero;
 		return this;
 	}
 
@@ -66,7 +66,7 @@ public class UsuarioBuilder{
 		user.setEmail(email);
 		user.setNomeUser(nomeUser);
 		user.setSenha(senha);
-		user.setSexo(sexo);
+		user.setGenero(genero);
 		user.setGmail(gmail);
 		user.setFacebook(facebook);
 		return user;

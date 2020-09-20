@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
-import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { LogService } from '../logging/log.service';
 import { take, catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
@@ -21,7 +21,12 @@ export class GetCategoriasService {
   getCategorias() {
     if (!this.farol) {
       this.setFarol(true);
-      return this.http.get(this.urlCategorias).pipe(
+
+      let headers = new HttpHeaders();
+      headers = headers.append('Content-Type', 'application/json');
+      headers = headers.append('Authorization', 'Bearer ' + JSON.parse(localStorage.getItem('token')).token);
+
+      return this.http.get(this.urlCategorias, {headers}).pipe(
         take(1),
         catchError(error => {
           return this.handleError(error, this.logService);

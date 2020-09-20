@@ -28,7 +28,7 @@ public class Usuario {
 	private String senha;
 	@Column(name = "dt_nasc")
 	private Date dtNasc;
-	private String sexo;
+	private String genero;
 
 	@ManyToMany(mappedBy = "usuarios",
 			fetch = FetchType.LAZY)
@@ -65,11 +65,11 @@ public class Usuario {
 	public void setDtNasc(Date dtNasc) {
 		this.dtNasc = dtNasc;
 	}
-	public String getSexo() {
-		return sexo;
+	public String getGenero() {
+		return genero;
 	}
-	public void setSexo(String sexo) {
-		this.sexo = sexo;
+	public void setGenero(String genero) {
+		this.genero = genero;
 	}
 	public int getCodUsuario() {
 		return codUsuario;

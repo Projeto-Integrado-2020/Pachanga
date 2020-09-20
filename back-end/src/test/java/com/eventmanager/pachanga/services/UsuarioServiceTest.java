@@ -10,10 +10,12 @@ import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.eventmanager.pachanga.PachangaApplication;
 import com.eventmanager.pachanga.domains.Grupo;
 import com.eventmanager.pachanga.domains.Usuario;
 import com.eventmanager.pachanga.dtos.UsuarioFestaTO;
@@ -26,7 +28,10 @@ import com.eventmanager.pachanga.tipo.TipoConta;
 import com.eventmanager.pachanga.tipo.TipoGrupo;
 
 @RunWith(SpringRunner.class)
-@WebMvcTest(value=UsuarioService.class)
+@SpringBootTest(
+		webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
+		classes = PachangaApplication.class)
+@AutoConfigureMockMvc
 class UsuarioServiceTest {
 
 	@MockBean
@@ -53,7 +58,7 @@ class UsuarioServiceTest {
 		usuarioTest.setEmail("gustavinhoTPD@fodasse.com.br");
 		usuarioTest.setSenha("1234");
 		usuarioTest.setDtNasc(new Date(2000, 8, 27));
-		usuarioTest.setSexo("M");
+		usuarioTest.setGenero("M");
 		usuarioTest.setNomeUser("Gustavo Barbosa");
 		usuarioTest.setTipConta("P");
 
@@ -75,7 +80,7 @@ class UsuarioServiceTest {
 		usuarioTest.setEmail("gustavinhoTPD@fodasse.com.br");
 		usuarioTest.setSenha("fc68b677646b5f018d1762e9a19bf65180d9aab2794794340ade50e0d78a239affd43a613e7136a61b5d63b09f072c0c039dea4281873abe826d6e6285d9cefef0a0d868d3b0b0d4582ec787b473b4e0");
 		usuarioTest.setDtNasc(new Date(2000, 8, 27));
-		usuarioTest.setSexo("M");
+		usuarioTest.setGenero("M");
 		usuarioTest.setNomeUser("Gustavo Barbosa");
 
 		return usuarioTest;
@@ -96,7 +101,7 @@ class UsuarioServiceTest {
 
 		assertEquals(usuarioTestLogin.getNomeUser(),usuarioRetorno.getNomeUser());
 		assertEquals(usuarioTestLogin.getDtNasc(),usuarioRetorno.getDtNasc());
-		assertEquals(usuarioTestLogin.getSexo(),usuarioRetorno.getSexo());
+		assertEquals(usuarioTestLogin.getGenero(),usuarioRetorno.getGenero());
 		assertEquals(usuarioTestLogin.getEmail(),usuarioRetorno.getEmail()); 
 	}
 
@@ -200,7 +205,7 @@ class UsuarioServiceTest {
 
 		assertEquals(usuarioTestLogin.getNomeUser(),usuarioRetorno.getNomeUser());
 		assertEquals(usuarioTestLogin.getDtNasc(),usuarioRetorno.getDtNasc());
-		assertEquals(usuarioTestLogin.getSexo(),usuarioRetorno.getSexo());
+		assertEquals(usuarioTestLogin.getGenero(),usuarioRetorno.getGenero());
 		assertEquals(usuarioTestLogin.getEmail(),usuarioRetorno.getEmail()); 
 	}
 
@@ -217,7 +222,7 @@ class UsuarioServiceTest {
 
 		assertEquals(usuarioTestLogin.getNomeUser(),usuarioRetorno.getNomeUser());
 		assertEquals(usuarioTestLogin.getDtNasc(),usuarioRetorno.getDtNasc());
-		assertEquals(usuarioTestLogin.getSexo(),usuarioRetorno.getSexo());
+		assertEquals(usuarioTestLogin.getGenero(),usuarioRetorno.getGenero());
 		assertEquals(usuarioTestLogin.getEmail(),usuarioRetorno.getEmail()); 
 	}
 
@@ -546,7 +551,7 @@ class UsuarioServiceTest {
 
 		UsuarioTO usuarioTestAtualizacao= usuarioToTest();
 		usuarioTestAtualizacao.setDtNasc(new Date(2002, 6, 27));
-		usuarioTestAtualizacao.setSexo("F");
+		usuarioTestAtualizacao.setGenero("F");
 		usuarioTestAtualizacao.setSenhaNova("1234");
 
 		Usuario usuarioRetorno = null;
@@ -571,7 +576,7 @@ class UsuarioServiceTest {
 
 		UsuarioTO usuarioTestAtualizacao= usuarioToTest();
 		usuarioTestAtualizacao.setDtNasc(new Date(2002, 6, 27));
-		usuarioTestAtualizacao.setSexo("F");
+		usuarioTestAtualizacao.setGenero("F");
 		usuarioTestAtualizacao.setSenha("1234");
 
 		Usuario usuarioRetorno;
@@ -593,7 +598,7 @@ class UsuarioServiceTest {
 		UsuarioTO usuarioTestAtualizacao= usuarioToTest();
 		usuarioTestAtualizacao.setTipConta("G");
 		usuarioTestAtualizacao.setDtNasc(new Date(2002, 6, 27));
-		usuarioTestAtualizacao.setSexo("F");
+		usuarioTestAtualizacao.setGenero("F");
 
 		Usuario usuarioRetorno;
 		boolean caiuException = false;
@@ -614,7 +619,7 @@ class UsuarioServiceTest {
 		UsuarioTO usuarioTestAtualizacao= usuarioToTest();
 		usuarioTestAtualizacao.setTipConta("G");
 		usuarioTestAtualizacao.setDtNasc(new Date(2002, 6, 27));
-		usuarioTestAtualizacao.setSexo("F");
+		usuarioTestAtualizacao.setGenero("F");
 
 		Usuario usuarioRetorno = null;
 		boolean caiuException = false;

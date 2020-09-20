@@ -1,13 +1,39 @@
 <h1 mat-dialog-title>{{'ALERTAESTOQUE.TITLE' | translate}}</h1>
     <div mat-dialog-content>
-        <p>{{'NOTIFICACAO.ESTOQUEMIN1' | translate}} "{{ notificacao.notificacaoEstoque.nomeProduto }}" {{'NOTIFICACAO.ESTOQUEMIN2' | translate}} "{{ notificacao.notificacaoEstoque.nomeFesta }} - {{ notificacao.notificacaoEstoque.nomeEstoque }}". {{'NOTIFICACAO.ESTOQUEMIN3' | translate}}</p>
+        <p class="message">{{'NOTIFICACAO.ESTOQUEMIN1' | translate}} "{{ notificacao.notificacaoEstoque.nomeProduto }}" {{'NOTIFICACAO.ESTOQUEMIN2' | translate}} "{{ notificacao.notificacaoEstoque.nomeFesta }} - {{ notificacao.notificacaoEstoque.nomeEstoque }}". {{'NOTIFICACAO.ESTOQUEMIN3' | translate}}</p>
         <p><strong>{{'FESTA.PARTYNAME' | translate}}:</strong> {{notificacao.notificacaoEstoque.nomeFesta}}</p>
         <p><strong>{{'ESTOQUE.NOMEESTOQUE' | translate}}:</strong> {{notificacao.notificacaoEstoque.nomeEstoque}}</p>
         <p><strong>{{'PRODUTO.PRODUCT' | translate}}:</strong> {{notificacao.notificacaoEstoque.nomeProduto}}</p>
         <p><strong>{{'ESTOQUEPROD.QTDATUAL' | translate}}:</strong> {{notificacao.notificacaoEstoque.quantAtual}}</p>
+        <div>
+            <h2 class="recarga">{{'RECARGA.TITULO' | translate}}</h2>
+            <form [formGroup]="form" (submit)="recargaProduto(quantidade.value, estoqueOrigem.value)">
+                <mat-form-field class="texto-input">
+                    <mat-label>{{'RECARGA.QUANTIDADE' | translate}}</mat-label>
+                    <input #quantidade formControlName="quantidade" required matInput type="number" min="1">
+                    <mat-error *ngIf="f.quantidade.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
+                </mat-form-field><br>
+                <mat-form-field>
+                    <mat-label>{{'RECARGA.ESTOQUE' | translate}}</mat-label>
+                    <mat-select formControlName="estoqueOrigem" #estoqueOrigem>
+                        <div *ngFor="let estoqueOption of estoques">
+                            <mat-option value="{{estoqueOption.codEstoque}}">
+                                <span *ngIf="estoqueOption.principal; else nomeBd">{{'ESTOQUE.PRINCIPAL' | translate}}</span>
+                                <ng-template #nomeBd>{{estoqueOption.nomeEstoque}}</ng-template>
+                            </mat-option>
+                        </div>
+                        <mat-option value="">{{'RECARGA.NONE' | translate}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <div class="center">
+                    <button class="button-form" mat-raised-button [disabled]="!form.valid">{{'RECARGA.CONFIRM' | translate}}</button>
+                </div>
+            </form>
+        </div>
+        <div class="center">
+            <p><strong>{{ 'ALERTAESTOQUE.OR' | translate }}</strong></p>
+        </div>
         <div class="botoes">
-            <a routerLink="{{ getUrlFesta() }}">
-                <button class="botoes__btn" mat-raised-button mat-dialog-close color="primary" > {{'ALERTAESTOQUE.REDIRECIONAR' | translate}} </button>
-            </a>
+            <button class="botoes__btn" mat-raised-button mat-dialog-close color="primary" ><a routerLink="{{ getUrlFesta() }}">{{'ALERTAESTOQUE.REDIRECIONAR' | translate}}</a></button>
         </div>
     </div>

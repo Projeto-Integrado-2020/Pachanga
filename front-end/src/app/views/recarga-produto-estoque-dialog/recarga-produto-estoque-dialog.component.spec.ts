@@ -74,6 +74,7 @@ describe('RecargaProdutoEstoqueDialogComponent', () => {
     component.gerarForm();
     expect(component.form).toBeTruthy();
     expect(component.form.get('quantidade')).toBeTruthy();
+    expect(component.form.get('estoqueOrigem')).toBeTruthy();
   });
 
   it('should recargaProduto', () => {
