@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { take, catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
-import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { LogService } from '../logging/log.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ErroDialogComponent } from '../../views/erro-dialog/erro-dialog.component';
@@ -24,7 +24,12 @@ export class CriarGrupoService {
       this.setFarol(true);
       const httpParams = new HttpParams()
         .append('idUsuario', this.loginService.usuarioInfo.codUsuario);
-      return this.http.post(this.urlAddGrupo, grupo, {params: httpParams, responseType: 'text'}).pipe(
+
+      let headers = new HttpHeaders();
+      headers = headers.append('Content-Type', 'application/json');
+      headers = headers.append('Authorization', 'Bearer ' + JSON.parse(localStorage.getItem('token')).token);
+
+      return this.http.post(this.urlAddGrupo, grupo, {params: httpParams, responseType: 'text', headers}).pipe(
         take(1),
         catchError(error => {
           return this.handleError(error, this.logService);

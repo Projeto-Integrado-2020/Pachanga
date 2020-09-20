@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
-import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { LogService } from '../logging/log.service';
 import { take, catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
@@ -27,7 +27,12 @@ export class GetGruposService {
       const httpParams = new HttpParams()
       .append('codFesta', idFesta)
       .append('idUsuario', this.loginService.usuarioInfo.codUsuario);
-      return this.http.get(this.urlGrupos, {params: httpParams}).pipe(
+
+      let headers = new HttpHeaders();
+      headers = headers.append('Content-Type', 'application/json');
+      headers = headers.append('Authorization', 'Bearer ' + JSON.parse(localStorage.getItem('token')).token);
+
+      return this.http.get(this.urlGrupos, {params: httpParams, headers}).pipe(
         take(1),
         catchError(error => {
           return this.handleError(error, this.logService);
@@ -42,7 +47,12 @@ export class GetGruposService {
       const httpParams = new HttpParams()
       .append('codGrupo', idGrupo)
       .append('idUsuario', this.loginService.usuarioInfo.codUsuario);
-      return this.http.get(this.urlGrupoUnico, {params: httpParams}).pipe(
+
+      let headers = new HttpHeaders();
+      headers = headers.append('Content-Type', 'application/json');
+      headers = headers.append('Authorization', 'Bearer ' + JSON.parse(localStorage.getItem('token')).token);
+
+      return this.http.get(this.urlGrupoUnico, {params: httpParams, headers}).pipe(
         take(1),
         catchError(error => {
           return this.handleError(error, this.logService);
