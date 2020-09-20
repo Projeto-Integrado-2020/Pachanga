@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { take, catchError } from 'rxjs/operators';
 import { throwError, Observable } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { ErroDialogComponent } from '../../views/erro-dialog/erro-dialog.component';
 import { LogService } from '../logging/log.service';
+import { AuthTokenService } from '../auth-token/auth-token.service';
 
 
 @Injectable({
@@ -22,12 +23,18 @@ export class LoginService {
   private readonly urlLogin = `${environment.URL_BACK}usuario/login`;
   private readonly urlCadastro = `${environment.URL_BACK}usuario/cadastro`;
 
-  constructor(private http: HttpClient, public logService: LogService, public dialog: MatDialog) {  }
+  constructor(private http: HttpClient, public logService: LogService, public dialog: MatDialog,
+              public authToken: AuthTokenService) {  }
 
   logar(usuario) {
     if (!this.farol) {
       this.setFarol(true);
-      return this.http.post(this.urlLogin, usuario).pipe(
+
+      let headers = new HttpHeaders();
+      headers = headers.append('Content-Type', 'application/json');
+      headers = headers.append('Authorization', 'Bearer ' + JSON.parse(localStorage.getItem('token')).token);
+
+      return this.http.post(this.urlLogin, usuario, {headers}).pipe(
         take(1),
         catchError(error => {
           return this.handleError(error, this.logService);
@@ -40,7 +47,12 @@ export class LoginService {
   cadastrar(usuario) {
     if (!this.farol) {
       this.setFarol(true);
-      return this.http.post(this.urlCadastro, usuario).pipe(
+
+      let headers = new HttpHeaders();
+      headers = headers.append('Content-Type', 'application/json');
+      headers = headers.append('Authorization', 'Bearer ' + JSON.parse(localStorage.getItem('token')).token);
+
+      return this.http.post(this.urlCadastro, usuario, {headers}).pipe(
         take(1),
         catchError(error => {
           return this.handleError(error, this.logService);
