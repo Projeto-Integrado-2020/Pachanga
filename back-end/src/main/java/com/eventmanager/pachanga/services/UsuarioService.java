@@ -57,7 +57,7 @@ public class UsuarioService {
 				userRepository.updateFacebookUsuario(usuarioExistente.getCodUsuario(), user.getConta());
 			}else {
 				usuarioExistente.setSenha(user.getSenha());
-				usuarioExistente.setSexo(user.getSexo());
+				usuarioExistente.setGenero(user.getGenero());
 				usuarioExistente.setDtNasc(user.getDtNasc());
 				usuarioExistente.setNomeUser(user.getNomeUser());
 				userRepository.save(usuarioExistente);
@@ -137,7 +137,7 @@ public class UsuarioService {
 	public Usuario atualizar(UsuarioTO user){
 		Usuario usuarioValidado = validacaoAtualizar(user);
 		usuarioValidado.setDtNasc(user.getDtNasc());
-		usuarioValidado.setSexo(user.getSexo());
+		usuarioValidado.setGenero(user.getGenero());
 		usuarioValidado.setNomeUser(user.getNomeUser());
 
 		userRepository.save(usuarioValidado);

@@ -23,17 +23,17 @@ public class UsuarioFactory {
 		}
 		return usuarioBuilder.codUsuario(userto.getCodUsuario()).dtNasc(userto.getDtNasc())
 				.email(userto.getEmail()).nomeUser(userto.getNomeUser()).senha(userto.getSenha())
-				.sexo(userto.getSexo()).build();
+				.genero(userto.getGenero()).build();
 	}
 	
 	public static UsuarioTO getUsuarioTO(Usuario user) {
 		return UsuarioTOBuilder.getInstance().codUsuario(user.getCodUsuario()).dtNasc(user.getDtNasc()).email(user.getEmail())
-				.nomeUser(user.getNomeUser()).sexo(user.getSexo()).tipConta(user.getSenha() != null ? TipoConta.PACHANGA.getDescricao() : TipoConta.GMAIL.getDescricao()).build();
+				.nomeUser(user.getNomeUser()).genero(user.getGenero()).tipConta(user.getSenha() != null ? TipoConta.PACHANGA.getDescricao() : TipoConta.GMAIL.getDescricao()).build();
 	}
 
 	public static UsuarioTO getUsuarioTO(Usuario user, String funcionalidade) {
 		return UsuarioTOBuilder.getInstance().codUsuario(user.getCodUsuario()).dtNasc(user.getDtNasc()).email(user.getEmail())
-				.nomeUser(user.getNomeUser()).sexo(user.getSexo()).tipConta(user.getSenha() != null ? TipoConta.PACHANGA.getDescricao() : TipoConta.GMAIL.getDescricao()).funcionalidade(funcionalidade).build();
+				.nomeUser(user.getNomeUser()).genero(user.getGenero()).tipConta(user.getSenha() != null ? TipoConta.PACHANGA.getDescricao() : TipoConta.GMAIL.getDescricao()).funcionalidade(funcionalidade).build();
 	}
 	
 	public static List<UsuarioTO> getUsuariosTO(List<Usuario> usuarios) {

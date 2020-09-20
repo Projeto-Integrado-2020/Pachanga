@@ -101,7 +101,7 @@ class ConvidadoServiceTest {
 		usuarioTest.setEmail("gustavinhoTPD@fodasse.com.br");
 		usuarioTest.setSenha("1234");
 		usuarioTest.setDtNasc(new Date(2000, 8, 27));
-		usuarioTest.setSexo("M");
+		usuarioTest.setGenero("M");
 		usuarioTest.setNomeUser("Gustavo Barbosa");
 		
 		return usuarioTest;

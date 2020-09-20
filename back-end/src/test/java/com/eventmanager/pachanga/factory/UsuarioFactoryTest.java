@@ -32,7 +32,7 @@ class UsuarioFactoryTest {
 		usuarioTest.setEmail("gustavinhoTPD@fodasse.com.br");
 		usuarioTest.setSenha("1234");
 		usuarioTest.setDtNasc(new Date(2000, 8, 27));
-		usuarioTest.setSexo("M");
+		usuarioTest.setGenero("M");
 		usuarioTest.setNomeUser("Gustavo Barbosa");
 		usuarioTest.setTipConta("P");
 		usuarioTest.setConta("Panamericano");
@@ -49,7 +49,7 @@ class UsuarioFactoryTest {
 		usuarioTest.setSenha(
 				"fc68b677646b5f018d1762e9a19bf65180d9aab2794794340ade50e0d78a239affd43a613e7136a61b5d63b09f072c0c039dea4281873abe826d6e6285d9cefef0a0d868d3b0b0d4582ec787b473b4e0");
 		usuarioTest.setDtNasc(new Date(2000, 8, 27));
-		usuarioTest.setSexo("M");
+		usuarioTest.setGenero("M");
 		usuarioTest.setNomeUser("Gustavo Barbosa");
 
 		return usuarioTest;
@@ -67,7 +67,7 @@ class UsuarioFactoryTest {
 		assertEquals(usuarioTO.getCodUsuario(), usuario.getCodUsuario());
 		assertEquals(usuarioTO.getDtNasc(), usuario.getDtNasc());
 		assertEquals(usuarioTO.getEmail(), usuario.getEmail());
-		assertEquals(usuarioTO.getSexo(), usuario.getSexo());
+		assertEquals(usuarioTO.getGenero(), usuario.getGenero());
 		assertEquals(usuarioTO.getSenha(), usuario.getSenha());
 		assertEquals(usuarioTO.getConta(), usuario.getGmail());
 	}
@@ -83,7 +83,7 @@ class UsuarioFactoryTest {
 		assertEquals(usuarioTO.getCodUsuario(), usuario.getCodUsuario());
 		assertEquals(usuarioTO.getDtNasc(), usuario.getDtNasc());
 		assertEquals(usuarioTO.getEmail(), usuario.getEmail());
-		assertEquals(usuarioTO.getSexo(), usuario.getSexo());
+		assertEquals(usuarioTO.getGenero(), usuario.getGenero());
 		assertEquals(usuarioTO.getSenha(), usuario.getSenha());
 		assertEquals(usuarioTO.getConta(), usuario.getFacebook());
 	}
@@ -98,7 +98,7 @@ class UsuarioFactoryTest {
 		assertEquals(usuarioTO.getCodUsuario(), usuario.getCodUsuario());
 		assertEquals(usuarioTO.getDtNasc(), usuario.getDtNasc());
 		assertEquals(usuarioTO.getEmail(), usuario.getEmail());
-		assertEquals(usuarioTO.getSexo(), usuario.getSexo());
+		assertEquals(usuarioTO.getGenero(), usuario.getGenero());
 		assertEquals(usuarioTO.getSenha(), usuario.getSenha());
 	}
 
@@ -115,7 +115,7 @@ class UsuarioFactoryTest {
 		assertEquals(usuarioTO.getCodUsuario(), usuario.getCodUsuario());
 		assertEquals(usuarioTO.getDtNasc(), usuario.getDtNasc());
 		assertEquals(usuarioTO.getEmail(), usuario.getEmail());
-		assertEquals(usuarioTO.getSexo(), usuario.getSexo());
+		assertEquals(usuarioTO.getGenero(), usuario.getGenero());
 		assertEquals(usuarioTO.getSenha(), usuario.getSenha());
 		assertEquals(usuarioTO.getTipConta(), TipoConta.GMAIL.getDescricao());
 	}
@@ -130,7 +130,7 @@ class UsuarioFactoryTest {
 		assertEquals(usuarioTO.getCodUsuario(), usuario.getCodUsuario());
 		assertEquals(usuarioTO.getDtNasc(), usuario.getDtNasc());
 		assertEquals(usuarioTO.getEmail(), usuario.getEmail());
-		assertEquals(usuarioTO.getSexo(), usuario.getSexo());
+		assertEquals(usuarioTO.getGenero(), usuario.getGenero());
 		assertEquals(usuarioTO.getTipConta(), TipoConta.PACHANGA.getDescricao());
 	}
 
@@ -147,7 +147,7 @@ class UsuarioFactoryTest {
 		assertEquals(usuarioTO.getCodUsuario(), usuario.getCodUsuario());
 		assertEquals(usuarioTO.getDtNasc(), usuario.getDtNasc());
 		assertEquals(usuarioTO.getEmail(), usuario.getEmail());
-		assertEquals(usuarioTO.getSexo(), usuario.getSexo());
+		assertEquals(usuarioTO.getGenero(), usuario.getGenero());
 		assertEquals(usuarioTO.getSenha(), usuario.getSenha());
 		assertEquals(usuarioTO.getTipConta(), TipoConta.GMAIL.getDescricao());
 		assertEquals(usuarioTO.getFuncionalidade(), funcionalidade);
@@ -164,7 +164,7 @@ class UsuarioFactoryTest {
 		assertEquals(usuarioTO.getCodUsuario(), usuario.getCodUsuario());
 		assertEquals(usuarioTO.getDtNasc(), usuario.getDtNasc());
 		assertEquals(usuarioTO.getEmail(), usuario.getEmail());
-		assertEquals(usuarioTO.getSexo(), usuario.getSexo());
+		assertEquals(usuarioTO.getGenero(), usuario.getGenero());
 		assertEquals(usuarioTO.getTipConta(), TipoConta.PACHANGA.getDescricao());
 		assertEquals(usuarioTO.getFuncionalidade(), funcionalidade);
 	}
@@ -189,7 +189,7 @@ class UsuarioFactoryTest {
 		assertEquals(usuarioTO.getCodUsuario(), usuario.getCodUsuario());
 		assertEquals(usuarioTO.getDtNasc(), usuario.getDtNasc());
 		assertEquals(usuarioTO.getEmail(), usuario.getEmail());
-		assertEquals(usuarioTO.getSexo(), usuario.getSexo());
+		assertEquals(usuarioTO.getGenero(), usuario.getGenero());
 		assertEquals(usuarioTO.getSenha(), usuario.getSenha());
 		assertEquals(usuarioTO.getTipConta(), TipoConta.GMAIL.getDescricao());
 	}

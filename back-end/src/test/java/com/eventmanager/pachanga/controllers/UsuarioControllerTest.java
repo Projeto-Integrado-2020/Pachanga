@@ -53,7 +53,7 @@ class UsuarioControllerTest {
 		usuarioTest.setEmail("gustavinhoTPD@fodasse.com.br");
 		usuarioTest.setSenha("1234");
 		usuarioTest.setDtNasc(new Date(2000, 8, 27));
-		usuarioTest.setSexo("M");
+		usuarioTest.setGenero("M");
 		usuarioTest.setNomeUser("Gustavo Barbosa");
 		
 		return usuarioTest;
@@ -225,7 +225,7 @@ class UsuarioControllerTest {
 		String usuarioAtualizacaoJson = "{\"dtNasc\":\"3900-09-26\",\"codUsuario\":100,\"nomeUser\":\"Gustavo Barbosa\",\"tipConta\":\"P\",\"email\":\"gustavinhoTPD@fodasse.com.br\",\"senha\":\"1234567\",\"sexo\":\"F\"}";
 
 		Usuario usuarioTest = usuarioTest();
-		usuarioTest.setSexo("F");
+		usuarioTest.setGenero("F");
 		usuarioTest.setDtNasc(new Date(2000, 8, 26));
 		
 		String uri = "/usuario/atualizacao";

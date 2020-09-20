@@ -10,7 +10,7 @@ public class UsuarioTOBuilder {
 	private Date dtNasc;
 	private String nomeUser;
 	private String email;
-	private String sexo;
+	private String genero;
 	private String tipConta;
 	private String funcionalidade;
 	
@@ -38,8 +38,8 @@ public class UsuarioTOBuilder {
 		return this;
 	}
 
-	public UsuarioTOBuilder sexo(String sexo) {
-		this.sexo = sexo;
+	public UsuarioTOBuilder genero(String genero) {
+		this.genero = genero;
 		return this;
 	}
 	
@@ -59,7 +59,7 @@ public class UsuarioTOBuilder {
 		user.setDtNasc(dtNasc);
 		user.setEmail(email);
 		user.setNomeUser(nomeUser);
-		user.setSexo(sexo);
+		user.setGenero(genero);
 		user.setTipConta(tipConta);
 		user.setFuncionalidade(funcionalidade);
 		return user;
