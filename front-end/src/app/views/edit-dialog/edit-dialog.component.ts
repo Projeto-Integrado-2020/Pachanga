@@ -112,7 +112,7 @@ filteredOptions: Observable<string[]>;
   }
 
   salvarSexo(sexo: string) {
-    this.modJson.sexo = sexo.toUpperCase();
+    this.modJson.genero = sexo.toUpperCase();
     this.callService();
   }
 

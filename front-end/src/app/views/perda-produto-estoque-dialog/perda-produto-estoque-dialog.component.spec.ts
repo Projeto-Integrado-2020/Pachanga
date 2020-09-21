@@ -60,6 +60,9 @@ describe('PerdaProdutoEstoqueDialogComponent', () => {
     component = fixture.componentInstance;
     const loginService = TestBed.get(LoginService);
     loginService.usuarioInfo = {codUsuario: '1', nomeUser: 'Teste', nomesexo: null, dtNasc: null};
+    component.component = {
+      quantidadesProdutos: [[{quantidadeAtual: 10}]]
+    };
     fixture.detectChanges();
   });
 

@@ -1,4 +1,4 @@
-<div class="info-complete" *ngIf="mensagem && loginService.usuarioAutenticado && (loginService.usuarioInfo.sexo == null || loginService.usuarioInfo.dtNasc == null)">
+<div class="info-complete" *ngIf="mensagem && loginService.usuarioAutenticado && (loginService.usuarioInfo.genero == null || loginService.usuarioInfo.dtNasc == null)">
     <mat-card class="message">
         <div class="txt">
             {{'INFOCOMPLETE.MESSAGE' | translate}}<a class="pefilLink" routerLink="../perfil">{{'INFOCOMPLETE.HERE' | translate}}</a>

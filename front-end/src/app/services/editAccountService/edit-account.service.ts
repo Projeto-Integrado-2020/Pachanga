@@ -20,7 +20,7 @@ export class EditAccountService {
 
   atualizar(usuarioAtualizado, userInfo) {
     if (!this.farol) {
-      if (usuarioAtualizado.nomeUser === userInfo.nomeUser && usuarioAtualizado.sexo === userInfo.sexo &&
+      if (usuarioAtualizado.nomeUser === userInfo.nomeUser && usuarioAtualizado.genero === userInfo.genero &&
           usuarioAtualizado.dtNasc === userInfo.dtNasc && (usuarioAtualizado.emailNovo === null ||
           usuarioAtualizado.emailNovo === userInfo.email) && usuarioAtualizado.senhaNova === null) {
           this.openErrorDialog('NOTMODIF');

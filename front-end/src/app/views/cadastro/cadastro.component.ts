@@ -74,7 +74,7 @@ export class CadastroComponent extends SocialLoginBaseComponent implements OnIni
       senha,
       nomeUser: nome,
       dtNasc: dtNasc.slice(6, 10) + '-' + dtNasc.slice(3, 5) + '-' + dtNasc.slice(0, 2),
-      sexo: sexo.toUpperCase()
+      genero: sexo.toUpperCase()
     };
     this.cadastrar_se(userJson);
   }
@@ -87,7 +87,7 @@ export class CadastroComponent extends SocialLoginBaseComponent implements OnIni
         nomeUser: this.user.name,
         email: this.user.email,
         dtNasc: '',
-        sexo: 'N',
+        genero: 'N',
         conta: this.user.id
       };
       this.cadastrar_se(userJson);
@@ -102,7 +102,7 @@ export class CadastroComponent extends SocialLoginBaseComponent implements OnIni
         email: this.user.email,
         nomeUser: this.user.name,
         dtNasc: '',
-        sexo: 'N',
+        genero: 'N',
         conta: this.user.id
       };
       this.cadastrar_se(userJson);

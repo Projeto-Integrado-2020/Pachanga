@@ -102,7 +102,7 @@ describe('EditDialogComponent', () => {
   it('should save sexo at salvarSexo and callService', () => {
     spyOn(component, 'callService');
     component.salvarSexo('M');
-    expect(component.modJson.sexo).toBe('M');
+    expect(component.modJson.genero).toBe('M');
     expect(component.callService).toHaveBeenCalled();
   });
 

@@ -342,7 +342,7 @@ describe('CadastroComponent', () => {
       senha: 'Senha123',
       nomeUser: 'Name',
       dtNasc: '2000-04-05',
-      sexo: 'M'
+      genero: 'M'
     };
     component.signUpWithPachanga('Name', '05/04/2000', 'M', 'Email', 'Senha123');
     expect(component.cadastrar_se).toHaveBeenCalledWith(userJson);

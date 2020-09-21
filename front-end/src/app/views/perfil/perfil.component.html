@@ -48,12 +48,8 @@
           <p>
             <mat-form-field class="example-full-width">
               <mat-label>{{'PERFIL.GENERO' | translate}}</mat-label>
-              <!-- <input formControlName="sexo" *ngIf="!loginService.usuarioInfo.sexo || loginService.usuarioInfo.sexo == 'N'" required matInput value="{{'PERFIL.NOTINFORMED' | translate}}">
-              <input formControlName="sexo" *ngIf="loginService.usuarioInfo.sexo && loginService.usuarioInfo.sexo == 'M'" required matInput value="{{'SEXO.MASC' | translate}}">
-              <input formControlName="sexo" *ngIf="loginService.usuarioInfo.sexo && loginService.usuarioInfo.sexo == 'F'" required matInput value="{{'SEXO.FEM' | translate}}">
-              <input formControlName="sexo" *ngIf="loginService.usuarioInfo.sexo && loginService.usuarioInfo.sexo == 'T'" required matInput value="{{'SEXO.TRANS' | translate}}">
-              <input formControlName="sexo" *ngIf="loginService.usuarioInfo.sexo && loginService.usuarioInfo.sexo == 'O'" required matInput value="{{'SEXO.OUTRO' | translate}}"> -->
-              <input formControlName="email" autocapitalize="word" required matInput value="{{ loginService.usuarioInfo.sexo.charAt(0).toUpperCase() + loginService.usuarioInfo.sexo.slice(1).toLowerCase() }}">
+              <input formControlName="sexo" *ngIf="!loginService.usuarioInfo.genero || loginService.usuarioInfo.genero == 'N'" required matInput value="{{'PERFIL.NOTINFORMED' | translate}}">
+              <input formControlName="email" *ngIf="loginService.usuarioInfo.genero && loginService.usuarioInfo.genero != 'N'" autocapitalize="word" required matInput value="{{ loginService.usuarioInfo.genero.charAt(0).toUpperCase() + loginService.usuarioInfo.genero.slice(1).toLowerCase() }}">
             </mat-form-field>
           </p>
           <p>
