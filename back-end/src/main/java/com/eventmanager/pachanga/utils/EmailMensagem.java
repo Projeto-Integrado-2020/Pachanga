@@ -26,6 +26,9 @@ public class EmailMensagem {
 	    props.put("mail.smtp.auth", "true");
 	    props.put("mail.smtp.port", "587");
 	    props.put("mail.smtp.starttls.enable", "true");
+	    props.put("mail.smtp.ssl.enable", "true"); // required for Gmail
+	    props.put("mail.smtp.sasl.enable", "true");
+	    props.put("mail.smtp.sasl.mechanisms", "XOAUTH2");
 	 
 	    Session session = Session.getInstance(props,
 	      new javax.mail.Authenticator() {
@@ -71,7 +74,8 @@ public class EmailMensagem {
 		      		"<p><strong>Equipe Pachanga</strong></p>");
 	      
 	      message.setContent(bodyEmail.toString(), "text/html");
-	      Transport.send(message);
+	      Transport transport = session.getTransport("smtp");
+	      transport.send(message);
 	 	 
 	     } catch (MessagingException e) {
 	        throw new ValidacaoException(e.getMessage());
