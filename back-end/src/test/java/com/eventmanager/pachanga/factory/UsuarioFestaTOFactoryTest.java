@@ -51,7 +51,6 @@ class UsuarioFestaTOFactoryTest {
 		grupo.setNomeGrupo("CONVIDADO");
 		grupo.setFesta(festaTest());
 		grupo.setOrganizador(false);
-		grupo.setQuantMaxPessoas(15);
 		return grupo;
 	}
 

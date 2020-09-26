@@ -188,8 +188,7 @@ public class NotificacaoService {
 		this.validacaoUsuario(idUser, null);
 		NotificacaoUsuario notificacaoUsuario = notificacaoUsuarioRepository.getNotificacaoUsuario(idUser, codNotificacao);
 		if(notificacaoUsuario != null && !notificacaoUsuario.isDestaque()) {
-			notificacaoUsuario.setStatus(TipoStatusNotificacao.LIDA.getDescricao());
-			notificacaoUsuarioRepository.save(notificacaoUsuario);
+			notificacaoUsuarioRepository.alterarStatusMensagem(notificacaoUsuario.getCodNotificacaoUsuario(), TipoStatusNotificacao.LIDA.getDescricao());
 		}
 	}
 
@@ -206,8 +205,7 @@ public class NotificacaoService {
 		this.validacaoUsuario(idUser, null);
 		NotificacaoUsuario notificacaoUsuario = notificacaoUsuarioRepository.getNotificacaoUsuario(idUser, codNotificacao);
 		if(notificacaoUsuario != null) {
-			notificacaoUsuario.setDestaque(!notificacaoUsuario.isDestaque());
-			notificacaoUsuarioRepository.save(notificacaoUsuario);
+			notificacaoUsuarioRepository.alterarDestaqueMensagem(notificacaoUsuario.getCodNotificacaoUsuario(), !notificacaoUsuario.isDestaque());
 		}
 	}
 	

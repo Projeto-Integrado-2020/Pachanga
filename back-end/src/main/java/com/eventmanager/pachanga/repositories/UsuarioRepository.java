@@ -31,11 +31,11 @@ public interface UsuarioRepository extends CrudRepository<Usuario, Integer>{
 	@Query(value = "SELECT u FROM Usuario u JOIN u.grupos g JOIN g.festa f WHERE f.codFesta = :codFesta AND u.codUsuario = :codUsuario")
 	public Usuario findBycodFestaAndUsuario(int codFesta, int codUsuario);
 	
-	@Modifying
+	@Modifying(clearAutomatically = true)
 	@Query(value = "UPDATE Usuario u SET u.facebook = :facebook WHERE u.codUsuario = :idUsuario")
 	public void updateFacebookUsuario(int idUsuario, String facebook);
 
-	@Modifying
+	@Modifying(clearAutomatically = true)
 	@Query(value = "UPDATE Usuario u SET u.gmail = :gmail WHERE u.codUsuario = :idUsuario")
 	public void updateGmailUsuario(int idUsuario, String gmail);
 

@@ -35,15 +35,15 @@ public interface GrupoRepository extends CrudRepository<Grupo, Integer>{
 	@Query(value = "SELECT * FROM Grupo WHERE cod_festa = :codFesta AND nome_grupo = :nomeGrupo", nativeQuery = true)
 	public List<Grupo> findGruposDuplicados(@Param("codFesta") int codFesta, @Param("nomeGrupo") String nomeGrupo);
 
-	@Modifying
+	@Modifying(clearAutomatically = true)
 	@Query(value = "DELETE FROM Grupo WHERE codGrupo = :codGrupo")
 	public void deleteGrupo(@Param("codGrupo") int codGrupo);
 	
-	@Modifying
+	@Modifying(clearAutomatically = true)
 	@Query(value = "DELETE FROM usuario_x_grupo WHERE cod_grupo = :codGrupo AND cod_usuario = :codUsuario", nativeQuery = true)
 	public void deleteUsuarioGrupo(@Param("codUsuario") int codUsuario, @Param("codGrupo") int codGrupo);
 	
-	@Modifying
+	@Modifying(clearAutomatically = true)
 	@Query(value = "DELETE FROM usuario_x_grupo WHERE cod_grupo = :codGrupo", nativeQuery = true)
 	public void deleteUsuariosGrupo(@Param("codGrupo") int codGrupo);
 
@@ -59,11 +59,11 @@ public interface GrupoRepository extends CrudRepository<Grupo, Integer>{
 	@Query(value = "SELECT g FROM Grupo g JOIN g.usuarios u JOIN g.permissoes p JOIN g.festa f WHERE f.codFesta = :codFesta AND p.codPermissao >= 9 AND p.codPermissao <= 15 GROUP BY g.codGrupo")
 	public List<Grupo> findGruposPermissaoEstoque(int codFesta);
 	
-	@Modifying
+	@Modifying(clearAutomatically = true)
 	@Query(value = "INSERT INTO permissao_x_grupo(cod_grupo, cod_permissao) VALUES(:codGrupo, :codPermissao)", nativeQuery = true)
 	public void saveGrupoPermissao(@Param("codGrupo")int codGrupo, @Param("codPermissao")int codPermissao);
 	
-	@Modifying
+	@Modifying(clearAutomatically = true)
 	@Query(value = "DELETE FROM permissao_x_grupo(cod_grupo, cod_permissao) WHERE cod_grupo = :codGrupo AND cod_permissao = :codPermissao", nativeQuery = true)
 	public void deleteGrupoPermissao(@Param("codGrupo")int codGrupo, @Param("codPermissao")int codPermissao);
 
@@ -73,7 +73,7 @@ public interface GrupoRepository extends CrudRepository<Grupo, Integer>{
 	@Query(value = "SELECT p FROM Grupo g JOIN g.permissoes p WHERE g.codGrupo = :codGrupo")
 	public List<Permissao> findPermissoesPorGrupo(int codGrupo);
 	
-	@Modifying
+	@Modifying(clearAutomatically = true)
 	@Query(value = "INSERT INTO usuario_x_grupo(cod_usuario, cod_grupo) VALUES(:codUsuario, :codGrupo)", nativeQuery = true)
 	public void saveUsuarioGrupo(@Param("codUsuario") int codUsuario, @Param("codGrupo") int codGrupo);
 	
@@ -90,11 +90,11 @@ public interface GrupoRepository extends CrudRepository<Grupo, Integer>{
 	@Query(value= "SELECT cod_convidado FROM convidado_x_grupo WHERE cod_convidado = :codConvidado", nativeQuery = true)
 	public Integer existsConvidadoGrupo(Integer codConvidado);
 	
-	@Modifying
+	@Modifying(clearAutomatically = true)
 	@Query(value = "DELETE FROM usuario_x_grupo WHERE cod_grupo = :codGrupo AND cod_usuario = :codUsuario", nativeQuery = true)
 	public void deleteMembroGrupo(Integer codGrupo, Integer codUsuario);
 	
-	@Modifying
+	@Modifying(clearAutomatically = true)
 	@Query(value = "DELETE FROM usuario_x_grupo WHERE cod_grupo = :codGrupo", nativeQuery = true)
 	public void deleteAllMembrosGrupo(Integer codGrupo);
 	
@@ -104,15 +104,15 @@ public interface GrupoRepository extends CrudRepository<Grupo, Integer>{
 	@Query(value = "SELECT g.codGrupo FROM Grupo g JOIN g.usuarios u WHERE g.codGrupo IN :codGrupos AND u.codUsuario = :codUsuario")
 	public List<Integer> findGruposUsuarioByGrupos(List<Integer> codGrupos, int codUsuario);
 	
-	@Modifying
+	@Modifying(clearAutomatically = true)
 	@Query(value = "DELETE FROM convidado_x_grupo WHERE cod_grupo = :codGrupo", nativeQuery = true)
 	public void deleteAllConvidadoGrupo(Integer codGrupo);
 	
-	@Modifying
+	@Modifying(clearAutomatically = true)
 	@Query(value = "DELETE FROM permissao_x_grupo WHERE cod_grupo IN :codGrupos", nativeQuery = true)
 	public void deletePermissoesGrupos(List<Integer> codGrupos);
 
-	@Modifying
+	@Modifying(clearAutomatically = true)
 	@Query(value = "DELETE FROM grupo WHERE cod_festa = :codFesta", nativeQuery = true)
 	public void deleteByCodFesta(int codFesta);
 }

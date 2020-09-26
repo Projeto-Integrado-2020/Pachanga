@@ -24,11 +24,11 @@ public interface EstoqueRepository extends CrudRepository<Estoque, Integer>{
 	@Query(value = "SELECT e FROM Estoque e WHERE e.nomeEstoque = :nomeEstoque")
 	public Estoque findByNomeEstoque(String nomeEstoque);
 	
-	@Modifying
+	@Modifying(clearAutomatically = true)
 	@Query(value = "DELETE FROM estoque WHERE cod_festa = :codFesta", nativeQuery = true)
 	public void deleteEstoque(int codFesta);
 	
-	@Modifying
+	@Modifying(clearAutomatically = true)
 	@Query(value = "DELETE FROM produto_x_estoque WHERE cod_festa = :codFesta AND cod_estoque = :codEstoque", nativeQuery = true)
 	public void deleteProdEstoque(int codFesta, int codEstoque);
 	

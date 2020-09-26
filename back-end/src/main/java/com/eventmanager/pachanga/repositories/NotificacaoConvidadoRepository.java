@@ -17,11 +17,11 @@ public interface NotificacaoConvidadoRepository extends JpaRepository<Notificaca
 	@Query(value = "SELECT nc FROM NotificacaoConvidado nc JOIN nc.convidado c WHERE c.email = :email")
 	public List<NotificacaoConvidado> findConvidadoNotificacaoByEmail(String email);
 	
-	@Modifying
+	@Modifying(clearAutomatically = true)
 	@Query(value = "INSERT INTO convidado_x_notificacao (cod_convidado_notificacao, cod_convidado, cod_notificacao, mensagem, data_emissao) VALUES(:codConvidadoNotificacao, :codConvidado, :codNotificacao, :mensagem, :dataEmissao)", nativeQuery = true)
 	public void insertConvidadoNotificacao(int codConvidadoNotificacao, int codConvidado, int codNotificacao, String mensagem, LocalDateTime dataEmissao);
 
-	@Modifying
+	@Modifying(clearAutomatically = true)
 	@Query(value = "DELETE FROM convidado_x_notificacao WHERE cod_convidado = :codConvidado", nativeQuery = true)
 	public void deleteNotificacoesConvidado(Integer codConvidado);
 

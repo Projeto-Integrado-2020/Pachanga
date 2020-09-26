@@ -352,7 +352,6 @@ import com.eventmanager.pachanga.repositories.UsuarioRepository;
 		assertEquals(retorno.getCodGrupo(), grupo.getCodGrupo());
 		assertEquals(retorno.getNomeGrupo(), grupo.getNomeGrupo());
 		assertEquals(retorno.getOrganizador(), grupo.getOrganizador());
-		assertEquals(retorno.getQuantMaxPessoas(), grupo.getQuantMaxPessoas());
 	}
 	
 	@Test
@@ -393,7 +392,6 @@ import com.eventmanager.pachanga.repositories.UsuarioRepository;
 		assertEquals(retorno.getCodGrupo(), grupo.getCodGrupo());
 		assertEquals(retorno.getNomeGrupo(), grupo.getNomeGrupo());
 		assertEquals(retorno.getOrganizador(), grupo.getOrganizador());
-		assertEquals(retorno.getQuantMaxPessoas(), grupo.getQuantMaxPessoas());
 		
 	}
 	
@@ -480,7 +478,6 @@ import com.eventmanager.pachanga.repositories.UsuarioRepository;
 		assertEquals(retorno.getCodGrupo(), grupo.getCodGrupo());
 		assertEquals(retorno.getNomeGrupo(), grupo.getNomeGrupo());
 		assertEquals(retorno.getOrganizador(), grupo.getOrganizador());
-		assertEquals(retorno.getQuantMaxPessoas(), grupo.getQuantMaxPessoas());
 		
 	}
 	
@@ -547,7 +544,6 @@ import com.eventmanager.pachanga.repositories.UsuarioRepository;
 		assertEquals(retorno.getCodGrupo(), grupo.getCodGrupo());
 		assertEquals(retorno.getNomeGrupo(), grupo.getNomeGrupo());
 		assertEquals(retorno.getOrganizador(), grupo.getOrganizador());
-		assertEquals(retorno.getQuantMaxPessoas(), grupo.getQuantMaxPessoas());
 		
 	}
 	
@@ -579,7 +575,6 @@ import com.eventmanager.pachanga.repositories.UsuarioRepository;
 		assertEquals(retorno.getCodGrupo(), grupo.getCodGrupo());
 		assertEquals(retorno.getNomeGrupo(), grupo.getNomeGrupo());
 		assertEquals(retorno.getOrganizador(), grupo.getOrganizador());
-		assertEquals(retorno.getQuantMaxPessoas(), grupo.getQuantMaxPessoas());
 		
 	}
 	
@@ -612,7 +607,6 @@ import com.eventmanager.pachanga.repositories.UsuarioRepository;
 		assertEquals(retorno.getCodGrupo(), grupo.getCodGrupo());
 		assertEquals(retorno.getNomeGrupo(), grupo.getNomeGrupo());
 		assertEquals(retorno.getOrganizador(), grupo.getOrganizador());
-		assertEquals(retorno.getQuantMaxPessoas(), grupo.getQuantMaxPessoas());
 		
 	}
 	
@@ -650,7 +644,6 @@ import com.eventmanager.pachanga.repositories.UsuarioRepository;
 		assertEquals(retorno.getCodGrupo(), grupo.getCodGrupo());
 		assertEquals(retorno.getNomeGrupo(), grupo.getNomeGrupo());
 		assertEquals(retorno.getOrganizador(), grupo.getOrganizador());
-		assertEquals(retorno.getQuantMaxPessoas(), grupo.getQuantMaxPessoas());
 		
 	}
 	
@@ -903,7 +896,6 @@ import com.eventmanager.pachanga.repositories.UsuarioRepository;
 		assertEquals(retorno.getFesta().getCodFesta(), grupo.getFesta().getCodFesta());
 		assertEquals(retorno.getNomeGrupo(), grupo.getNomeGrupo());
 		assertEquals(retorno.getOrganizador(), grupo.getOrganizador());
-		assertEquals(retorno.getQuantMaxPessoas(), grupo.getQuantMaxPessoas());
 	}
 	
 	@Test
@@ -944,7 +936,6 @@ import com.eventmanager.pachanga.repositories.UsuarioRepository;
 		assertEquals(retorno.getFesta().getCodFesta(), grupo.getFesta().getCodFesta());
 		assertEquals(retorno.getNomeGrupo(), grupo.getNomeGrupo());
 		assertEquals(retorno.getOrganizador(), grupo.getOrganizador());
-		assertEquals(retorno.getQuantMaxPessoas(), grupo.getQuantMaxPessoas());
 	}
 	
 //procurarPermissoesPorGrupo__________________________________________________________________________
@@ -970,7 +961,6 @@ import com.eventmanager.pachanga.repositories.UsuarioRepository;
 		assertEquals(retorno.getFesta().getCodFesta(), grupo.getFesta().getCodFesta());
 		assertEquals(retorno.getNomeGrupo(), grupo.getNomeGrupo());
 		assertEquals(retorno.getOrganizador(), grupo.getOrganizador());
-		assertEquals(retorno.getQuantMaxPessoas(), grupo.getQuantMaxPessoas());
 	}
 
 }

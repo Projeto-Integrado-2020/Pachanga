@@ -101,10 +101,6 @@ public class GrupoService {
 		if (grupoTO.getNomeGrupo() != null && grupoTO.getNomeGrupo().length() >= 1) {
 			grupo.setNomeGrupo(grupoTO.getNomeGrupo());
 		}
-		if (grupoTO.getQuantMaxPessoas() >= 1
-				&& grupoTO.getQuantMaxPessoas() >= this.procurarUsuariosPorGrupo(grupoTO.getCodGrupo()).size()) {
-			grupo.setQuantMaxPessoas(grupoTO.getQuantMaxPessoas());
-		}
 
 		permissaoRepository.deletePermissoesGrupo(grupoTO.getCodGrupo());
 

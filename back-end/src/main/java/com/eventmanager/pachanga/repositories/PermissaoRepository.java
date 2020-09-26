@@ -20,7 +20,7 @@ public interface PermissaoRepository extends CrudRepository<Permissao, Integer>{
 	@Query(value = "SELECT p FROM Permissao p")
 	public List<Permissao> findAllPermissao();
 	
-	@Modifying
+	@Modifying(clearAutomatically = true)
 	@Query(value = "DELETE FROM permissao_x_grupo WHERE cod_grupo = :codGrupo", nativeQuery = true)
 	public void deletePermissoesGrupo(int codGrupo);
 	

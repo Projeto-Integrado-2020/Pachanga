@@ -118,7 +118,6 @@ class FestaFactoryTest {
 		grupo.setNomeGrupo("CONVIDADO");
 		grupo.setFesta(festaTest());
 		grupo.setOrganizador(false);
-		grupo.setQuantMaxPessoas(15);
 		Set<Usuario> usuarios = new HashSet<>();
 		usuarios.add(usuarioTest());
 		grupo.setUsuarios(usuarios);

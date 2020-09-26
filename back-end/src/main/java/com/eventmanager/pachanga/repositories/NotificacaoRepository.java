@@ -15,15 +15,15 @@ public interface NotificacaoRepository extends JpaRepository<Notificacao, Intege
 	@Query(value = "SELECT n FROM Notificacao n JOIN n.notificacaoGrupo ng JOIN ng.grupo g JOIN g.usuarios u WHERE u.codUsuario = :idUser")
 	public List<Notificacao> findNotificacaoGrupoByUserId(int idUser);
 	
-	@Modifying
+	@Modifying(clearAutomatically = true)
 	@Query(value = "DELETE FROM convidado_x_notificacao WHERE cod_convidado = :codConvidado AND cod_notificacao = :codNotificacao AND mensagem = :mensagem", nativeQuery = true)
 	public void deleteConvidadoNotificacao(int codConvidado, int codNotificacao, String mensagem);
 
-	@Modifying
+	@Modifying(clearAutomatically = true)
 	@Query(value = "DELETE FROM notificacao_x_grupo WHERE mensagem = :mensagem AND cod_grupo = :codGrupo", nativeQuery = true)
 	public void deleteNotificacaoGrupo(int codGrupo, String mensagem);
 	
-	@Modifying
+	@Modifying(clearAutomatically = true)
 	@Query(value = "DELETE FROM notificacao_x_grupo WHERE mensagem LIKE %:mensagem%", nativeQuery = true)
 	public void deleteNotificacaoGrupo(String mensagem);
 	

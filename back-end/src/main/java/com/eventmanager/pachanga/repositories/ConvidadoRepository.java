@@ -17,7 +17,7 @@ public interface ConvidadoRepository extends CrudRepository<Convidado, Integer>{
 	@Query(value = "SELECT u FROM Grupo g JOIN g.usuarios u WHERE g.codGrupo = :codGrupo AND u.codUsuario = :codUsuario ")
 	public Usuario findUsuarioNoGrupo(@Param("codGrupo") int codGrupo, @Param("codUsuario") int codUsuario);
 	
-	@Modifying
+	@Modifying(clearAutomatically = true)
 	@Query(value = "INSERT INTO usuario_x_grupo(cod_usuario, cod_grupo) VALUES(:codUsuario, :codGrupo)", nativeQuery = true)
 	public void saveUsuarioGrupo(@Param("codUsuario") int codUsuario, @Param("codGrupo") int codGrupo);
 
@@ -30,7 +30,7 @@ public interface ConvidadoRepository extends CrudRepository<Convidado, Integer>{
 	@Query(value = "SELECT NEXTVAL('seq_convidado');", nativeQuery = true)
 	public int getNextValMySequence();
 	
-	@Modifying
+	@Modifying(clearAutomatically = true)
 	@Query(value = "INSERT INTO convidado_x_grupo(cod_convidado, cod_grupo) VALUES(:codConvidado, :codGrupo)", nativeQuery = true)
 	public void saveConvidadoGrupo(@Param("codConvidado") int codConvidado, @Param("codGrupo") int codGrupo);
 	
@@ -46,7 +46,7 @@ public interface ConvidadoRepository extends CrudRepository<Convidado, Integer>{
 	@Query(value = "SELECT u.codConvidado FROM Grupo g JOIN g.convidados u WHERE g.codGrupo = :codGrupo")
 	public List<Integer> findCodConvidadosNoGrupo(@Param("codGrupo") int codGrupo);
 	
-	@Modifying
+	@Modifying(clearAutomatically = true)
 	@Query(value = "DELETE FROM Convidado WHERE cod_convidado = :codConvidado", nativeQuery = true)
 	public void deleteConvidado(Integer codConvidado);
 	
@@ -57,15 +57,15 @@ public interface ConvidadoRepository extends CrudRepository<Convidado, Integer>{
 	@Query(value = "SELECT c FROM Convidado c JOIN c.grupos g JOIN g.festa f WHERE c.codConvidado = :codConvidado AND g.codGrupo = :idGrupo")
 	public Convidado findConvidadoGrupo(int codConvidado, int idGrupo);
 
-	@Modifying
+	@Modifying(clearAutomatically = true)
 	@Query(value = "DELETE FROM convidado WHERE cod_convidado IN :codConvidados", nativeQuery = true)
 	public void deleteConvidados(List<Integer> codConvidados);
 
-	@Modifying
+	@Modifying(clearAutomatically = true)
 	@Query(value = "DELETE FROM convidado_x_grupo WHERE cod_grupo = :codGrupo", nativeQuery = true)
 	public void deleteAllConvidadosGrupo(Integer codGrupo);
 	
-	@Modifying
+	@Modifying(clearAutomatically = true)
 	@Query(value = "DELETE FROM convidado_x_notificacao WHERE cod_convidado IN :codConvidados", nativeQuery = true)
 	public void deleteAllConvidadosNotificacao(List<Integer> codConvidados);
 	

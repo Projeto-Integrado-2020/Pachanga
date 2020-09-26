@@ -20,11 +20,19 @@ public interface NotificacaoUsuarioRepository extends JpaRepository<NotificacaoU
 	@Query(value = "SELECT nu FROM NotificacaoUsuario nu JOIN nu.usuario u WHERE u.codUsuario = :codUsuario")
 	public List<NotificacaoUsuario> getNotificacoesUsuario(int codUsuario);
 
-	@Modifying
-	@Query(value = "INSERT INTO notificacao_x_usuario (cod_notificacao_usuario, cod_usuario, cod_notificacao, destaque, status, mensagem, data_emissao) VALUES(:codNotificacaoUsuario, :codUsuario, :codNotificacao, :destaque, :status, :mensagem, :dataEmissao)", nativeQuery = true)
+	@Modifying(clearAutomatically = true)
+	@Query(value = "INSERT INTO notificacao_x_usuario (cod_notificacao_usuario, cod_usuario, cod_notificacao, destaque, status, mensagem, data_emissao) VALUES(:codNotificacaoUsuario, :codUsuario, :codNotificacao, :destaque, CAST(:status AS status_notificacao_usuario_t), :mensagem, :dataEmissao)", nativeQuery = true)
 	public void insertNotificacaoUsuario(int codNotificacaoUsuario ,Integer codUsuario, Integer codNotificacao, boolean destaque, String status, String mensagem, LocalDateTime dataEmissao);
 
 	@Query(value = "SELECT nu FROM NotificacaoUsuario nu JOIN nu.usuario u WHERE u.codUsuario = :idUser AND nu.mensagem LIKE %:mensagem%")
 	public List<NotificacaoUsuario> getNotificacaoUsuarioByMensagem(int idUser, String mensagem);
+	
+	@Modifying(clearAutomatically = true)
+	@Query(value = "update notificacao_x_usuario set destaque=:destaque where cod_notificacao_usuario=:codNotificacao", nativeQuery = true)
+	public void alterarDestaqueMensagem(Integer codNotificacao, boolean destaque);
+
+	@Modifying(clearAutomatically = true)
+	@Query(value = "update notificacao_x_usuario set status= CAST(:statuMensagem AS status_notificacao_usuario_t) where cod_notificacao_usuario=:codNotificacao", nativeQuery = true)
+	public void alterarStatusMensagem(Integer codNotificacao, String statuMensagem);
 
 }

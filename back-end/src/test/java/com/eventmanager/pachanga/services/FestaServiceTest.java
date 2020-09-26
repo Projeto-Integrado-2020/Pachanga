@@ -592,14 +592,12 @@ class FestaServiceTest {
 		Grupo grupo1 = this.criacaoGrupo();
 		grupo1.setCodGrupo(1);
 		grupo1.setFesta(festaTest);
-		grupo1.setQuantMaxPessoas(3);
 		grupo1.setNomeGrupo("Grupo1");
 		grupos.add(grupo1);
 
 		Grupo grupo2 = this.criacaoGrupo();
 		grupo2.setCodGrupo(2);
 		grupo2.setFesta(festaTest);
-		grupo2.setQuantMaxPessoas(3);
 		grupo2.setNomeGrupo("Grupo2");
 		grupos.add(grupo2);
 
@@ -658,14 +656,12 @@ class FestaServiceTest {
 		Grupo grupo1 = this.criacaoGrupo();
 		grupo1.setCodGrupo(1);
 		grupo1.setFesta(festaTest);
-		grupo1.setQuantMaxPessoas(3);
 		grupo1.setNomeGrupo("Grupo1");
 		grupos.add(grupo1);
 
 		Grupo grupo2 = this.criacaoGrupo();
 		grupo2.setCodGrupo(2);
 		grupo2.setFesta(festaTest);
-		grupo2.setQuantMaxPessoas(3);
 		grupo2.setNomeGrupo("Grupo2");
 		grupos.add(grupo2);
 
@@ -725,14 +721,12 @@ class FestaServiceTest {
 		Grupo grupo1 = this.criacaoGrupo();
 		grupo1.setCodGrupo(1);
 		grupo1.setFesta(festaTest);
-		grupo1.setQuantMaxPessoas(3);
 		grupo1.setNomeGrupo("Grupo1");
 		grupos.add(grupo1);
 
 		Grupo grupo2 = this.criacaoGrupo();
 		grupo2.setCodGrupo(2);
 		grupo2.setFesta(festaTest);
-		grupo2.setQuantMaxPessoas(3);
 		grupo2.setNomeGrupo("Grupo2");
 		grupos.add(grupo2);
 

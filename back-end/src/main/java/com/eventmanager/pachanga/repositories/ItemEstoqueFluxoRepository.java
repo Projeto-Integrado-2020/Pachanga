@@ -11,7 +11,7 @@ public interface ItemEstoqueFluxoRepository extends JpaRepository<ItemEstoqueFlu
 	@Query(value = "SELECT NEXTVAL('seq_historico');", nativeQuery = true)
 	public int getNextValMySequence();
 	
-	@Modifying
+	@Modifying(clearAutomatically = true)
 	@Query(value = "DELETE FROM ItemEstoqueFluxo i WHERE i.codFesta = :idFesta")
 	public void deleteByCodFesta(int idFesta);
 

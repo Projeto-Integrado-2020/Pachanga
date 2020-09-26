@@ -91,7 +91,7 @@ public class FestaService {
 	private ItemEstoqueFluxoRepository itemEstoqueFluxoRepository;
 
 	public List<Festa> procurarFestas() {
-		return festaRepository.findAll();
+		return (List<Festa>) festaRepository.findAll();
 	}
 
 	public List<Festa> procurarFestasPorUsuario(int idUser) {
@@ -108,7 +108,7 @@ public class FestaService {
 		this.validarFesta(festaTo);
 		this.validacaoCategorias(festaTo.getCodPrimaria(), festaTo.getCodSecundaria());
 		Festa festa = festaFactory.getFesta(festaTo);
-		festaRepository.save(festa);
+		festaRepository.saveFesta(festa);
 		Grupo grupo = grupoService.addGrupo(festa.getCodFesta(), TipoGrupo.ORGANIZADOR.getValor(), true, null);
 		grupoRepository.saveUsuarioGrupo(usuario.getCodUsuario(), grupo.getCodGrupo());
 		estoqueService.addEstoque("Principal", festa.getCodFesta(), true, idUser);
@@ -180,11 +180,12 @@ public class FestaService {
 		this.validarPermissaoUsuario(idUser, festaTo.getCodFesta(), TipoPermissao.EDITDFES.getCodigo());
 		this.validarFesta(festaTo);
 		Festa festaMudanca = validarMudancas(festaTo, festa);
-		festaRepository.save(festaMudanca);
+		festaRepository.updateFesta(festaMudanca);
 		return festaMudanca;
 	}
 
 	private Festa validarMudancas(FestaTO festaTo, Festa festa) {
+		mudarCategoriaFesta(festa, festaTo);
 		if (!festa.getNomeFesta().equals(festaTo.getNomeFesta())) {
 			festa.setNomeFesta(festaTo.getNomeFesta());
 		}
@@ -206,7 +207,6 @@ public class FestaService {
 		if (!festa.getDescOrganizador().equals(festaTo.getDescOrganizador())) {
 			festa.setDescOrganizador(festaTo.getDescOrganizador());
 		}
-		mudarCategoriaFesta(festa, festaTo);
 		return festa;
 	}
 
@@ -258,7 +258,7 @@ public class FestaService {
 		if (grupos.isEmpty()) {
 			throw new ValidacaoException("USERSPER");// Usuário sem permissão de fazer essa ação
 		}
-		Festa festa = festaRepository.findById(idFesta);
+		Festa festa = festaRepository.findByCodFesta(idFesta);
 		boolean festaFinalizadaDelete = TipoStatusFesta.FINALIZADO.getValor().equals(festa.getStatusFesta())
 				&& TipoPermissao.DELEFEST.getCodigo() == codPermissao;
 		if (!TipoStatusFesta.PREPARACAO.getValor().equals(festa.getStatusFesta()) && !festaFinalizadaDelete) {
@@ -381,7 +381,7 @@ public class FestaService {
 	}
 
 	private Festa validarFestaExistente(int codFesta) {
-		Festa festa = festaRepository.findById(codFesta);
+		Festa festa = festaRepository.findByCodFesta(codFesta);
 		if (festa == null) {
 			throw new ValidacaoException("FESTNFOU");
 		}

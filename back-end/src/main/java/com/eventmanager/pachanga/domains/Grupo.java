@@ -28,9 +28,6 @@ public class Grupo {
 	@Column(name = "organizador")
 	private boolean organizador;
 	
-	@Column(name = "quant_max_pessoas")
-	private int quantMaxPessoas;
-	
 	@ManyToMany(fetch = FetchType.LAZY,
 			cascade = CascadeType.ALL)
 	
@@ -58,10 +55,9 @@ public class Grupo {
 			fetch = FetchType.LAZY)
 	private Set<Convidado> convidados;
 	
-	public Grupo(int codGrupo, Festa festa, String nomeGrupo, int quant, boolean organizador) {
+	public Grupo(int codGrupo, Festa festa, String nomeGrupo, boolean organizador) {
 		this.codGrupo = codGrupo;
 		this.nomeGrupo = nomeGrupo;
-		this.quantMaxPessoas = quant;
 		this.festa = festa;
 		this.organizador = organizador;
 	}
@@ -80,12 +76,6 @@ public class Grupo {
 	}
 	public void setNomeGrupo(String nomeGrupo) {
 		this.nomeGrupo = nomeGrupo;
-	}
-	public int getQuantMaxPessoas() {
-		return quantMaxPessoas;
-	}
-	public void setQuantMaxPessoas(int quantMaxPessoas) {
-		this.quantMaxPessoas = quantMaxPessoas;
 	}
 	public Set<Usuario> getUsuarios() {
 		return usuarios;

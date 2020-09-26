@@ -88,7 +88,6 @@ class GrupoControllerTest {
 		grupo.setFesta(festaTest());
 		grupo.setNomeGrupo(nome);
 		grupo.setOrganizador(false);
-		grupo.setQuantMaxPessoas(quantMaxPessoas);
 		return grupo;
 	}
 	

@@ -25,7 +25,7 @@ public interface NotificacaoGrupoRepository extends JpaRepository<NotificacaoGru
 	@Query(value = "SELECT ng FROM NotificacaoGrupo ng JOIN ng.grupo g WHERE g.codGrupo = :codGrupo AND ng.mensagem = :mensagem")
 	public List<NotificacaoGrupo> getNotificacoesGrupoByMensagem(Integer codGrupo, String mensagem);
 	
-	@Modifying
+	@Modifying(clearAutomatically = true)
 	@Query(value = "INSERT INTO notificacao_x_grupo (cod_notificacao_grupo, cod_grupo, cod_notificacao, mensagem, data_emissao) VALUES(:codNotificacaoGrupo, :codGrupo, :codNotificacao, :mensagem, :dataEmissao)", nativeQuery = true)
 	public void insertNotificacaoGrupo(Integer codNotificacaoGrupo ,Integer codGrupo, Integer codNotificacao, String mensagem, LocalDateTime dataEmissao);
 
