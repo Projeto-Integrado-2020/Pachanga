@@ -61,12 +61,13 @@ export class AlertaEstoqueComponent implements OnInit {
     });
   }
 
-  recargaProduto(quantidade, estoqueOrigem) {
+  recargaProduto(quantidade) {
     const codEstoque = this.notificacao.mensagem.split('&')[1];
     const codProduto = this.notificacao.mensagem.split('&')[2];
     if (this.produto.dose) {
       quantidade *=  this.produto.quantDoses;
     }
+    let estoqueOrigem = this.form.get('estoqueOrigem').value;
     estoqueOrigem = estoqueOrigem ? estoqueOrigem : '';
     this.recargaProdutoEstoqueService.recargaProdutoEstoque(quantidade, estoqueOrigem, codProduto, codEstoque)
     .subscribe((resp: any) => {

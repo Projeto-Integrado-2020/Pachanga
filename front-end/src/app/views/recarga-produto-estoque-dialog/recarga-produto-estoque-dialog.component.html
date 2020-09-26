@@ -1,6 +1,6 @@
 <h1 mat-dialog-title>{{'RECARGA.TITULO' | translate}}</h1>
 <div mat-dialog-content>
-    <form [formGroup]="form" (submit)="recargaProduto(quantidade.value, estoqueOrigem.value, element)">
+    <form [formGroup]="form" (submit)="recargaProduto(quantidade.value, element)">
         <mat-form-field class="texto-input">
             <mat-label>{{'RECARGA.QUANTIDADE' | translate}}</mat-label>
             <input #quantidade formControlName="quantidade" required matInput type="number" min="1">
@@ -8,7 +8,7 @@
         </mat-form-field><br>
         <mat-form-field>
             <mat-label>{{'RECARGA.ESTOQUE' | translate}}</mat-label>
-            <mat-select formControlName="estoqueOrigem" #estoqueOrigem>
+            <mat-select formControlName="estoqueOrigem">
                 <div *ngFor="let estoqueOption of estoques">
                     <mat-option value="{{estoqueOption.codEstoque}}">
                         <span *ngIf="estoqueOption.principal; else nomeBd">{{'ESTOQUE.PRINCIPAL' | translate}}</span>

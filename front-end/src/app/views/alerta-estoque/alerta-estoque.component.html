@@ -7,7 +7,7 @@
         <p><strong>{{'ESTOQUEPROD.QTDATUAL' | translate}}:</strong> {{notificacao.notificacaoEstoque.quantAtual}}</p>
         <div>
             <h2 class="recarga">{{'RECARGA.TITULO' | translate}}</h2>
-            <form [formGroup]="form" (submit)="recargaProduto(quantidade.value, estoqueOrigem.value)">
+            <form [formGroup]="form" (submit)="recargaProduto(quantidade.value)">
                 <mat-form-field class="texto-input">
                     <mat-label>{{'RECARGA.QUANTIDADE' | translate}}</mat-label>
                     <input #quantidade formControlName="quantidade" required matInput type="number" min="1">

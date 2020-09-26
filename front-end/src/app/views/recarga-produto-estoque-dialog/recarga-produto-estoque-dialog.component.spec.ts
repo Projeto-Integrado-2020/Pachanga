@@ -100,7 +100,7 @@ describe('RecargaProdutoEstoqueDialogComponent', () => {
     };
     component.indexEstoque = 0;
     component.indexProduto = 0;
-    component.recargaProduto(10, 10, element);
+    component.recargaProduto(10, element);
     expect(component.recargaProdutoEstoqueService.recargaProdutoEstoque).toHaveBeenCalled();
     expect(component.recargaProdutoEstoqueService.setFarol).toHaveBeenCalledWith(false);
     expect(dialogSpy.closeAll).toHaveBeenCalled();

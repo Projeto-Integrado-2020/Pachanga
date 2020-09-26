@@ -98,7 +98,7 @@ describe('AlertaEstoqueComponent', () => {
     .and
     .callThrough();
 
-    component.recargaProduto(10, 10);
+    component.recargaProduto(10);
     expect(component.recargaProdutoEstoqueService.recargaProdutoEstoque).toHaveBeenCalled();
   });
 
