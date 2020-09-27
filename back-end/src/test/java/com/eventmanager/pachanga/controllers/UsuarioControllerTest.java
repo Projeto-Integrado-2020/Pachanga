@@ -91,7 +91,7 @@ class UsuarioControllerTest {
 
 		MockHttpServletResponse response = result.getResponse();
 
-		String expected = "{\"dtNasc\":\"3900-09-27T00:00:00.000+0000\",\"codUsuario\":100,\"nomeUser\":\"Gustavo Barbosa\",\"tipConta\":\"P\",\"conta\":null,\"email\":\"gustavinhoTPD@fodasse.com.br\",\"emailNovo\":null,\"senha\":null,\"senhaNova\": null,\"sexo\":\"M\",\"funcionalidade\": null}";
+		String expected = "{\"dtNasc\":\"3900-09-27T00:00:00.000+0000\",\"codUsuario\":100,\"nomeUser\":\"Gustavo Barbosa\",\"tipConta\":\"P\",\"conta\":null,\"email\":\"gustavinhoTPD@fodasse.com.br\",\"emailNovo\":null,\"senha\":null,\"senhaNova\": null,\"genero\":\"M\",\"funcionalidade\": null}";
 
 		assertEquals(HttpStatus.OK.value(), response.getStatus());
 
@@ -164,7 +164,7 @@ class UsuarioControllerTest {
 	@Test
 	@WithMockUser
 	void CadastroSucessoTest() throws Exception{
-		String usuarioCadastroJson = "{\"dtNasc\":\"3900-09-27\",\"codUsuario\":100,\"nomeUser\":\"Gustavo Barbosa\",\"tipConta\":\"P\",\"email\":\"gustavinhoTPD@fodasse.com.br\",\"senha\":\"1234\",\"sexo\":\"M\"}";
+		String usuarioCadastroJson = "{\"dtNasc\":\"3900-09-27\",\"codUsuario\":100,\"nomeUser\":\"Gustavo Barbosa\",\"tipConta\":\"P\",\"email\":\"gustavinhoTPD@fodasse.com.br\",\"senha\":\"1234\",\"genero\":\"M\"}";
 
 		Usuario usuarioTest = usuarioTest();
 		
@@ -183,7 +183,7 @@ class UsuarioControllerTest {
 		
 		MockHttpServletResponse response = result.getResponse();
 
-		String expected = "{\"dtNasc\":\"3900-09-27T00:00:00.000+0000\",\"codUsuario\":100,\"nomeUser\":\"Gustavo Barbosa\",\"tipConta\":\"P\",\"conta\":null,\"email\":\"gustavinhoTPD@fodasse.com.br\",\"emailNovo\":null,\"senha\":null,\"senhaNova\": null,\"sexo\":\"M\", \"funcionalidade\": null}";
+		String expected = "{\"dtNasc\":\"3900-09-27T00:00:00.000+0000\",\"codUsuario\":100,\"nomeUser\":\"Gustavo Barbosa\",\"tipConta\":\"P\",\"conta\":null,\"email\":\"gustavinhoTPD@fodasse.com.br\",\"emailNovo\":null,\"senha\":null,\"senhaNova\": null,\"genero\":\"M\", \"funcionalidade\": null}";
 
 		assertEquals(HttpStatus.OK.value(), response.getStatus());
 
@@ -194,7 +194,7 @@ class UsuarioControllerTest {
 	@Test
 	@WithMockUser
 	void CadastroValidacaoExceptionTest() throws Exception{
-		String usuarioCadastroJson = "{\"dtNasc\":\"3900-09-27\",\"codUsuario\":100,\"nomeUser\":\"Gustavo Barbosa\",\"tipConta\":\"P\",\"email\":\"gustavinhoTPD@fodasse.com.br\",\"senha\":\"1234\",\"sexo\":\"M\"}";
+		String usuarioCadastroJson = "{\"dtNasc\":\"3900-09-27\",\"codUsuario\":100,\"nomeUser\":\"Gustavo Barbosa\",\"tipConta\":\"P\",\"email\":\"gustavinhoTPD@fodasse.com.br\",\"senha\":\"1234\",\"genero\":\"M\"}";
 		
 		String uri = "/usuario/cadastro";
 		
@@ -225,7 +225,7 @@ class UsuarioControllerTest {
 	@Test
 	@WithMockUser
 	void AtualizacaoSucessoTest() throws Exception{
-		String usuarioAtualizacaoJson = "{\"dtNasc\":\"3900-09-26\",\"codUsuario\":100,\"nomeUser\":\"Gustavo Barbosa\",\"tipConta\":\"P\",\"email\":\"gustavinhoTPD@fodasse.com.br\",\"senha\":\"1234567\",\"sexo\":\"F\"}";
+		String usuarioAtualizacaoJson = "{\"dtNasc\":\"3900-09-26\",\"codUsuario\":100,\"nomeUser\":\"Gustavo Barbosa\",\"tipConta\":\"P\",\"email\":\"gustavinhoTPD@fodasse.com.br\",\"senha\":\"1234567\",\"genero\":\"F\"}";
 
 		Usuario usuarioTest = usuarioTest();
 		usuarioTest.setGenero("F");
@@ -246,7 +246,7 @@ class UsuarioControllerTest {
 		
 		MockHttpServletResponse response = result.getResponse();
 
-		String expected = "{\"dtNasc\":\"3900-09-26T00:00:00.000+0000\",\"codUsuario\":100,\"nomeUser\":\"Gustavo Barbosa\",\"tipConta\":\"P\",\"conta\":null,\"email\":\"gustavinhoTPD@fodasse.com.br\",\"emailNovo\":null,\"senha\":null,\"senhaNova\": null,\"sexo\":\"F\",\"funcionalidade\": null}";
+		String expected = "{\"dtNasc\":\"3900-09-26T00:00:00.000+0000\",\"codUsuario\":100,\"nomeUser\":\"Gustavo Barbosa\",\"tipConta\":\"P\",\"conta\":null,\"email\":\"gustavinhoTPD@fodasse.com.br\",\"emailNovo\":null,\"senha\":null,\"senhaNova\": null,\"genero\":\"F\",\"funcionalidade\": null}";
 
 		assertEquals(HttpStatus.OK.value(), response.getStatus());
 
@@ -257,7 +257,7 @@ class UsuarioControllerTest {
 	@Test
 	@WithMockUser
 	void AtualizacaoValidacaoExceptionTest() throws Exception{
-		String usuarioAtualizacaoJson = "{\"dtNasc\":\"3900-09-26\",\"codUsuario\":100,\"nomeUser\":\"Gustavo Barbosa\",\"tipConta\":\"P\",\"email\":\"luisinhofoda1234@fodasse.com.br\",\"senha\":\"1234567\",\"sexo\":\"F\"}";
+		String usuarioAtualizacaoJson = "{\"dtNasc\":\"3900-09-26\",\"codUsuario\":100,\"nomeUser\":\"Gustavo Barbosa\",\"tipConta\":\"P\",\"email\":\"luisinhofoda1234@fodasse.com.br\",\"senha\":\"1234567\",\"genero\":\"F\"}";
 		
 		String uri = "/usuario/atualizacao";
 		
