@@ -15,18 +15,18 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
+import org.springframework.security.oauth2.provider.token.AuthorizationServerTokenServices;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.request.RequestPostProcessor;
 
 import com.eventmanager.pachanga.PachangaApplication;
 import com.eventmanager.pachanga.domains.Notificacao;
 import com.eventmanager.pachanga.dtos.NotificacaoTO;
 import com.eventmanager.pachanga.errors.ValidacaoException;
-import com.eventmanager.pachanga.securingweb.OAuthHelper;
 import com.eventmanager.pachanga.services.NotificacaoService;
 
 @RunWith(SpringRunner.class)
@@ -42,8 +42,8 @@ class NotificacaoControllerTest {
 	@MockBean
 	private NotificacaoService notificacaoService;
 	
-	@Autowired
-	private OAuthHelper authHelper;
+	@MockBean
+	private AuthorizationServerTokenServices defaultAuthorizationServerTokenServices;
 	
 	
 	private Notificacao NotificacaoTest() {
@@ -54,6 +54,7 @@ class NotificacaoControllerTest {
 	}
 	
 	@Test
+	@WithMockUser
 	void listaNotificacaoSucesso() throws Exception {
 		
 		String uri = "/notificacao/lista";
@@ -62,13 +63,11 @@ class NotificacaoControllerTest {
 		
 		Mockito.when(notificacaoService.procurarNotificacaoUsuario(Mockito.anyInt())).thenReturn(notificacaoTo);
 		
-		RequestPostProcessor bearerToken = authHelper.addBearerToken("pachanga", "ROLE_USER");
 		
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.get(uri)
 				.param("idUser", "1")
 				.accept(MediaType.APPLICATION_JSON)
-				.with(bearerToken)
 				.contentType(MediaType.APPLICATION_JSON);
 		
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
@@ -79,6 +78,7 @@ class NotificacaoControllerTest {
 	}
 	
 	@Test
+	@WithMockUser
 	void listaNotificacaoError() throws Exception {
 		
 		String uri = "/notificacao/lista";
@@ -88,13 +88,11 @@ class NotificacaoControllerTest {
 		
 		Mockito.when(notificacaoService.procurarNotificacaoUsuario(Mockito.anyInt())).thenThrow(new ValidacaoException("teste"));
 		
-		RequestPostProcessor bearerToken = authHelper.addBearerToken("pachanga", "ROLE_USER");
 		
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.get(uri)
 				.param("idUser", "1")
 				.accept(MediaType.APPLICATION_JSON)
-				.with(bearerToken)
 				.contentType(MediaType.APPLICATION_JSON);
 		
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
@@ -107,6 +105,7 @@ class NotificacaoControllerTest {
 	}
 	
 	@Test
+	@WithMockUser
 	void mudarStatusSucesso() throws Exception {
 		
 		String uri = "/notificacao/mudarStatus";
@@ -115,14 +114,12 @@ class NotificacaoControllerTest {
 		
 		Mockito.doNothing().when(notificacaoService).alterarStatus(Mockito.anyInt(),Mockito.anyInt());
 		
-		RequestPostProcessor bearerToken = authHelper.addBearerToken("pachanga", "ROLE_USER");
 				
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.put(uri)
 				.param("idUser", "1")
 				.content(jsonContent)
 				.accept(MediaType.APPLICATION_JSON)
-				.with(bearerToken)
 				.contentType(MediaType.APPLICATION_JSON);
 		
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
@@ -133,6 +130,7 @@ class NotificacaoControllerTest {
 	}
 	
 	@Test
+	@WithMockUser
 	void mudarStatusError() throws Exception {
 		
 		String uri = "/notificacao/mudarStatus";
@@ -141,14 +139,12 @@ class NotificacaoControllerTest {
 			
 		Mockito.doThrow(new ValidacaoException("teste")).when(notificacaoService).alterarStatus(Mockito.anyInt(),Mockito.anyInt());
 		
-		RequestPostProcessor bearerToken = authHelper.addBearerToken("pachanga", "ROLE_USER");
 				
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.put(uri)
 				.param("idUser", "1")
 				.content(jsonContent)
 				.accept(MediaType.APPLICATION_JSON)
-				.with(bearerToken)
 				.contentType(MediaType.APPLICATION_JSON);
 		
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
@@ -161,20 +157,19 @@ class NotificacaoControllerTest {
 	}
 	
 	@Test
+	@WithMockUser
 	void destaqueSucesso() throws Exception {
 		
 		String uri = "/notificacao/destaque";
 		
 		Mockito.doNothing().when(notificacaoService).destaqueNotificacao(Mockito.anyInt(),Mockito.anyInt());
 		
-		RequestPostProcessor bearerToken = authHelper.addBearerToken("pachanga", "ROLE_USER");
 				
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.put(uri)
 				.param("idUser", "1")
 				.param("idNotificacao", "1")
 				.accept(MediaType.APPLICATION_JSON)
-				.with(bearerToken)
 				.contentType(MediaType.APPLICATION_JSON);
 		
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
@@ -185,6 +180,7 @@ class NotificacaoControllerTest {
 	}
 	
 	@Test
+	@WithMockUser
 	void destaqueError() throws Exception {
 		
 		String uri = "/notificacao/destaque";
@@ -192,14 +188,12 @@ class NotificacaoControllerTest {
 			
 		Mockito.doThrow(new ValidacaoException("teste")).when(notificacaoService).destaqueNotificacao(Mockito.anyInt(),Mockito.anyInt());
 		
-		RequestPostProcessor bearerToken = authHelper.addBearerToken("pachanga", "ROLE_USER");
 				
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.put(uri)
 				.param("idUser", "1")
 				.param("idNotificacao", "1")
 				.accept(MediaType.APPLICATION_JSON)
-				.with(bearerToken)
 				.contentType(MediaType.APPLICATION_JSON);
 		
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
@@ -212,20 +206,19 @@ class NotificacaoControllerTest {
 	}
 	
 	@Test
+	@WithMockUser
 	void deleteNotificacoesSucesso() throws Exception {
 		
 		String uri = "/notificacao/delete";
 		
 		Mockito.doNothing().when(notificacaoService).deleteNotificacao(Mockito.anyInt(), Mockito.anyString());
 		
-		RequestPostProcessor bearerToken = authHelper.addBearerToken("pachanga", "ROLE_USER");
 				
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.delete(uri)
 				.param("idUser", "1")
 				.param("mensagem", "teste")
 				.accept(MediaType.APPLICATION_JSON)
-				.with(bearerToken)
 				.contentType(MediaType.APPLICATION_JSON);
 		
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
@@ -236,6 +229,7 @@ class NotificacaoControllerTest {
 	}
 	
 	@Test
+	@WithMockUser
 	void deleteNotificacoesError() throws Exception {
 		
 		String uri = "/notificacao/delete";
@@ -243,14 +237,12 @@ class NotificacaoControllerTest {
 			
 		Mockito.doThrow(new ValidacaoException("teste")).when(notificacaoService).deleteNotificacao(Mockito.anyInt(), Mockito.anyString());
 		
-		RequestPostProcessor bearerToken = authHelper.addBearerToken("pachanga", "ROLE_USER");
 				
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.delete(uri)
 				.param("idUser", "1")
 				.param("mensagem", "teste")
 				.accept(MediaType.APPLICATION_JSON)
-				.with(bearerToken)
 				.contentType(MediaType.APPLICATION_JSON);
 		
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();

@@ -16,17 +16,17 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
+import org.springframework.security.oauth2.provider.token.AuthorizationServerTokenServices;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.request.RequestPostProcessor;
 
 import com.eventmanager.pachanga.PachangaApplication;
 import com.eventmanager.pachanga.domains.Permissao;
 import com.eventmanager.pachanga.errors.ValidacaoException;
-import com.eventmanager.pachanga.securingweb.OAuthHelper;
 import com.eventmanager.pachanga.services.PermissaoService;
 
 @RunWith(SpringRunner.class)
@@ -42,8 +42,8 @@ class PermissaoControllerTest {
 	@MockBean
 	private PermissaoService permissaoService;
 	
-	@Autowired
-	private OAuthHelper authHelper;
+	@MockBean
+	private AuthorizationServerTokenServices defaultAuthorizationServerTokenServices;
 	
 	public Permissao PermissaoTest(int id, String desc, String tipo) {
 		Permissao permissao = new Permissao();
@@ -78,6 +78,7 @@ class PermissaoControllerTest {
 	}
 	
 	@Test
+	@WithMockUser
 	void getAllPermissaoSucessoTest() throws Exception {
 		//String festaJson = "{\"codFesta\":\"2\",\"nomeFesta\":\"festao\",\"statusFesta\":\"I\",\"organizador\":\"Joao Neves\",\"horarioInicioFesta\":\"2016-06-22T19:10:00\",\"horarioFimFesta\":\"2016-06-23T19:10:00\",\"descricaoFesta\":\"Bugago\",\"codEnderecoFesta\":\"https//:minhacasa.org\",\"descOrganizador\":\"sou demente\"}";
 		String uri = "/permissao/getAllPermissao";
@@ -86,12 +87,10 @@ class PermissaoControllerTest {
 		
 		Mockito.when(permissaoService.getAllPermissao()).thenReturn(permissoes);
 		
-		RequestPostProcessor bearerToken = authHelper.addBearerToken("pachanga", "ROLE_USER");
 		
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.get(uri)
 				.accept(MediaType.APPLICATION_JSON)
-				.with(bearerToken)
 				.contentType(MediaType.APPLICATION_JSON);
 		
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
@@ -106,6 +105,7 @@ class PermissaoControllerTest {
 	}
 	
 	@Test
+	@WithMockUser
 	void getAllPermissaoExceptionTest() throws Exception {
 		String uri = "/permissao/getAllPermissao";
 		
@@ -113,12 +113,10 @@ class PermissaoControllerTest {
 		
 		Mockito.when(permissaoService.getAllPermissao()).thenThrow(new ValidacaoException(expected));
 		
-		RequestPostProcessor bearerToken = authHelper.addBearerToken("pachanga", "ROLE_USER");
 		
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.get(uri)
 				.accept(MediaType.APPLICATION_JSON)
-				.with(bearerToken)
 				.contentType(MediaType.APPLICATION_JSON);
 		
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();

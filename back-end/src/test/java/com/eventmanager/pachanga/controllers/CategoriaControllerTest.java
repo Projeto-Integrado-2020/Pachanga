@@ -15,31 +15,42 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
+import org.springframework.security.oauth2.provider.token.AuthorizationServerTokenServices;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.request.RequestPostProcessor;
 
 import com.eventmanager.pachanga.domains.Categoria;
 import com.eventmanager.pachanga.errors.ValidacaoException;
-import com.eventmanager.pachanga.securingweb.OAuthHelper;
+import com.eventmanager.pachanga.securingweb.JwtAuthenticationEntryPoint;
+import com.eventmanager.pachanga.securingweb.JwtTokenUtil;
+import com.eventmanager.pachanga.securingweb.JwtUserDetailsService;
 import com.eventmanager.pachanga.services.CategoriaService;
 
 @RunWith(SpringRunner.class)
-@WebMvcTest(value=ConvidadoController.class)
+@WebMvcTest(value=CategoriaController.class)
 class CategoriaControllerTest {
 	
 	@Autowired
 	private MockMvc mockMvc;
 	
-	@Autowired
-	private OAuthHelper authHelper;
-	
 	@MockBean
 	private CategoriaService categoriaService;
+	
+	@MockBean
+	private AuthorizationServerTokenServices defaultAuthorizationServerTokenServices;
+	
+	@MockBean
+	private JwtUserDetailsService defaultJwtUserDetailsService;
+	
+	@MockBean
+	private JwtTokenUtil defaultJwtTokenUtil;
+	
+	@MockBean
+	private JwtAuthenticationEntryPoint defaultJwtAuthenticationEntryPoint;
 	
 	private Categoria categoriaTest() {
 		Categoria categoria = new Categoria();
@@ -55,8 +66,6 @@ class CategoriaControllerTest {
 	void listaCategoriasSucesso() throws Exception {
 		String uri = "/categoria/lista";
 		
-		RequestPostProcessor bearerToken = authHelper.addBearerToken("pachanga", "ROLE_USER");
-		
 		List<Categoria> categorias = new ArrayList<Categoria>();
 		categorias.add(categoriaTest());
 		
@@ -66,7 +75,6 @@ class CategoriaControllerTest {
 		
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.get(uri)
-				.with(bearerToken)
 				.accept(MediaType.APPLICATION_JSON)
 				.contentType(MediaType.APPLICATION_JSON);
 		
@@ -80,10 +88,9 @@ class CategoriaControllerTest {
 	}
 	
 	@Test
+	@WithMockUser
 	void listaCategoriasErro() throws Exception {
 		String uri = "/categoria/lista";
-		
-		RequestPostProcessor bearerToken = authHelper.addBearerToken("pachanga", "ROLE_USER");
 		
 		List<Categoria> categorias = new ArrayList<Categoria>();
 		categorias.add(categoriaTest());
@@ -92,7 +99,6 @@ class CategoriaControllerTest {
 		
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.get(uri)
-				.with(bearerToken)
 				.accept(MediaType.APPLICATION_JSON)
 				.contentType(MediaType.APPLICATION_JSON);
 		

@@ -18,12 +18,13 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
+import org.springframework.security.oauth2.provider.token.AuthorizationServerTokenServices;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.request.RequestPostProcessor;
 
 import com.eventmanager.pachanga.PachangaApplication;
 import com.eventmanager.pachanga.domains.Estoque;
@@ -32,7 +33,9 @@ import com.eventmanager.pachanga.domains.Usuario;
 import com.eventmanager.pachanga.dtos.EstoqueTO;
 import com.eventmanager.pachanga.errors.ValidacaoException;
 import com.eventmanager.pachanga.factory.EstoqueFactory;
-import com.eventmanager.pachanga.securingweb.OAuthHelper;
+import com.eventmanager.pachanga.securingweb.JwtAuthenticationEntryPoint;
+import com.eventmanager.pachanga.securingweb.JwtTokenUtil;
+import com.eventmanager.pachanga.securingweb.JwtUserDetailsService;
 import com.eventmanager.pachanga.services.EstoqueService;
 
 @RunWith(SpringRunner.class)
@@ -52,10 +55,19 @@ class EstoqueControllerTest {
 	EstoqueController estoqueController;
 	
 	@Autowired
-	private OAuthHelper authHelper;
-	
-	@Autowired
 	private MockMvc mockMvc;
+	
+	@MockBean
+	private AuthorizationServerTokenServices defaultAuthorizationServerTokenServices;
+	
+	@MockBean
+	private JwtUserDetailsService defaultJwtUserDetailsService;
+	
+	@MockBean
+	private JwtTokenUtil defaultJwtTokenUtil;
+	
+	@MockBean
+	private JwtAuthenticationEntryPoint defaultJwtAuthenticationEntryPoint;
 	
 	public static Usuario usuarioTest() throws Exception{
 		Usuario usuarioTest = new Usuario();
@@ -105,6 +117,7 @@ class EstoqueControllerTest {
 	
 //lista____________________________________________________________________________________________________
 	@Test
+	@WithMockUser
 	void listaSucessoTest() throws Exception{
 		String uri = "/estoque/lista";
 		String expected = "[{\"codEstoque\":1,\"principal\":false,\"nomeEstoque\":\"Estoque\",\"itemEstoque\":null}]";
@@ -118,14 +131,11 @@ class EstoqueControllerTest {
 		Mockito.when(estoqueService.estoquesFesta(Mockito.anyInt(), Mockito.anyInt())).thenReturn(estoques);
 		Mockito.when(estoqueFactory.getListEstoqueTO(estoques)).thenReturn(estoquesTO);
 		
-		RequestPostProcessor bearerToken = authHelper.addBearerToken("pachanga", "ROLE_USER");
-		
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.get(uri)
 				.accept(MediaType.APPLICATION_JSON)
 				.param("codFesta", "1")
 				.param("codUsuario", "14")
-				.with(bearerToken)
 				.contentType(MediaType.APPLICATION_JSON);
 		
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
@@ -138,6 +148,7 @@ class EstoqueControllerTest {
 	}
 	
 	@Test
+	@WithMockUser
 	void listaExceptionTest() throws Exception{
 		String uri = "/estoque/lista";
 		
@@ -146,14 +157,11 @@ class EstoqueControllerTest {
 		estoques.add(estoqueTest());
 		
 		Mockito.when(estoqueService.estoquesFesta(Mockito.anyInt(), Mockito.anyInt())).thenThrow(new ValidacaoException(expected));
-
-		RequestPostProcessor bearerToken = authHelper.addBearerToken("pachanga", "ROLE_USER");
 		
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.get(uri)
 				.accept(MediaType.APPLICATION_JSON)
 				.param("codFesta", "1")
-				.with(bearerToken)
 				.param("codUsuario", "14")
 				.contentType(MediaType.APPLICATION_JSON);
 		
@@ -168,6 +176,7 @@ class EstoqueControllerTest {
 
 //adicionar________________________________________________________________________________________________
 	@Test
+	@WithMockUser
 	void adicionarSucessoTest() throws Exception{
 		String uri = "/estoque/adicionar";
 		String expected = "{\"codEstoque\":1,\"principal\":false,\"nomeEstoque\":\"Estoque\",\"itemEstoque\":null}";
@@ -179,7 +188,6 @@ class EstoqueControllerTest {
 		Mockito.when(estoqueService.addEstoque(Mockito.anyString(), Mockito.anyInt(), Mockito.anyBoolean(), Mockito.anyInt())).thenReturn(estoque);
 		Mockito.when(estoqueFactory.getEstoqueTO(estoque)).thenReturn(estoqueTO);
 		
-		RequestPostProcessor bearerToken = authHelper.addBearerToken("pachanga", "ROLE_USER");
 		
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.post(uri)
@@ -187,7 +195,6 @@ class EstoqueControllerTest {
 				.content(json)
 				.param("codFesta", "1")
 				.param("codUsuario", "14")
-				.with(bearerToken)
 				.contentType(MediaType.APPLICATION_JSON);
 		
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
@@ -200,6 +207,7 @@ class EstoqueControllerTest {
 	}
 	
 	@Test
+	@WithMockUser
 	void adicionarExceptionTest() throws Exception{
 		String uri = "/estoque/adicionar";
 		String expected = "Batata";
@@ -211,7 +219,6 @@ class EstoqueControllerTest {
 		Mockito.when(estoqueService.addEstoque(Mockito.anyString(), Mockito.anyInt(), Mockito.anyBoolean(), Mockito.anyInt())).thenThrow(new ValidacaoException(expected));
 		Mockito.when(estoqueFactory.getEstoqueTO(estoque)).thenReturn(estoqueTO);
 		
-		RequestPostProcessor bearerToken = authHelper.addBearerToken("pachanga", "ROLE_USER");
 		
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.post(uri)
@@ -219,7 +226,6 @@ class EstoqueControllerTest {
 				.content(json)
 				.param("codFesta", "1")
 				.param("codUsuario", "14")
-				.with(bearerToken)
 				.contentType(MediaType.APPLICATION_JSON);
 		
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
@@ -233,6 +239,7 @@ class EstoqueControllerTest {
 	
 //delete___________________________________________________________________________________________________
 	@Test
+	@WithMockUser
 	void deleteSucessoTest() throws Exception{
 		String uri = "/estoque/delete";
 		String expected = "DELEESTO";
@@ -245,7 +252,6 @@ class EstoqueControllerTest {
 		
 		Mockito.doNothing().when(estoqueService).deleteEstoque(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt());
 		
-		RequestPostProcessor bearerToken = authHelper.addBearerToken("pachanga", "ROLE_USER");
 		
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.delete(uri)
@@ -253,7 +259,6 @@ class EstoqueControllerTest {
 				.param("codEstoque", "1")
 				.param("codFesta", "1")
 				.param("codUsuario", "14")
-				.with(bearerToken)
 				.contentType(MediaType.APPLICATION_JSON);
 		
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
@@ -266,6 +271,7 @@ class EstoqueControllerTest {
 	}
 	
 	@Test
+	@WithMockUser
 	void deleteExceptionTest() throws Exception{
 		String uri = "/estoque/delete";
 		
@@ -275,7 +281,6 @@ class EstoqueControllerTest {
 		
 		doThrow(new ValidacaoException(expected)).when(estoqueService).deleteEstoque(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt());
 		
-		RequestPostProcessor bearerToken = authHelper.addBearerToken("pachanga", "ROLE_USER");
 		
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.delete(uri)
@@ -283,7 +288,6 @@ class EstoqueControllerTest {
 				.param("codEstoque", "1")
 				.param("codFesta", "1")
 				.param("codUsuario", "14")
-				.with(bearerToken)
 				.contentType(MediaType.APPLICATION_JSON);
 		
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
@@ -297,6 +301,7 @@ class EstoqueControllerTest {
 	
 //atualizar________________________________________________________________________________________________
 	@Test
+	@WithMockUser
 	void atualizarSucessoTest() throws Exception{
 		String uri = "/estoque/atualizar";
 		String expected = "{\"codEstoque\":1,\"principal\":false,\"nomeEstoque\":\"Estoque\",\"itemEstoque\":null}";
@@ -307,7 +312,6 @@ class EstoqueControllerTest {
 		
 		Mockito.when(estoqueService.updateEstoque(Mockito.any(EstoqueTO.class), Mockito.anyInt(), Mockito.anyInt())).thenReturn(estoque);
 		
-		RequestPostProcessor bearerToken = authHelper.addBearerToken("pachanga", "ROLE_USER");
 		
 		Mockito.when(estoqueFactory.getEstoqueTO(estoque)).thenReturn(estoqueTO);
 		
@@ -317,7 +321,6 @@ class EstoqueControllerTest {
 				.content(json)
 				.param("codFesta", "1")
 				.param("codUsuario", "14")
-				.with(bearerToken)
 				.contentType(MediaType.APPLICATION_JSON);
 		
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
@@ -330,6 +333,7 @@ class EstoqueControllerTest {
 	}
 	
 	@Test
+	@WithMockUser
 	void atualizarExceptionTest() throws Exception{
 		String uri = "/estoque/atualizar";
 		String expected = "Batata";
@@ -341,7 +345,6 @@ class EstoqueControllerTest {
 		Mockito.when(estoqueService.updateEstoque(Mockito.any(EstoqueTO.class), Mockito.anyInt(), Mockito.anyInt())).thenThrow(new ValidacaoException(expected));
 		Mockito.when(estoqueFactory.getEstoqueTO(estoque)).thenReturn(estoqueTO);
 		
-		RequestPostProcessor bearerToken = authHelper.addBearerToken("pachanga", "ROLE_USER");
 		
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.put(uri)
@@ -349,7 +352,6 @@ class EstoqueControllerTest {
 				.content(json)
 				.param("codFesta", "1")
 				.param("codUsuario", "14")
-				.with(bearerToken)
 				.contentType(MediaType.APPLICATION_JSON);
 		
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();

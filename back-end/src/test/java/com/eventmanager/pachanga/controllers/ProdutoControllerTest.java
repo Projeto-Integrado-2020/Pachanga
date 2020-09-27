@@ -17,12 +17,13 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
+import org.springframework.security.oauth2.provider.token.AuthorizationServerTokenServices;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.request.RequestPostProcessor;
 
 import com.eventmanager.pachanga.PachangaApplication;
 import com.eventmanager.pachanga.domains.ItemEstoque;
@@ -32,7 +33,6 @@ import com.eventmanager.pachanga.dtos.ProdutoTO;
 import com.eventmanager.pachanga.errors.ValidacaoException;
 import com.eventmanager.pachanga.factory.ItemEstoqueFactory;
 import com.eventmanager.pachanga.factory.ProdutoFactory;
-import com.eventmanager.pachanga.securingweb.OAuthHelper;
 import com.eventmanager.pachanga.services.ProdutoService;
 
 @RunWith(SpringRunner.class)
@@ -54,8 +54,8 @@ class ProdutoControllerTest {
 	@MockBean
 	private ItemEstoqueFactory itemEstoqueFactory;
 	
-	@Autowired
-	private OAuthHelper authHelper;
+	@MockBean
+	private AuthorizationServerTokenServices defaultAuthorizationServerTokenServices;
 	
 	private Produto produtoTest() {
 		Produto produto = new Produto();
@@ -97,6 +97,7 @@ class ProdutoControllerTest {
 	
 //addProduto___________________________________________________________________________________________________
 	@Test
+	@WithMockUser
 	void addProdutoSucessoTest() throws Exception {
 		String uri = "/produto/addProduto";
 		String json = "{\"codFesta\":2,\"precoMedio\":23.90,\"marca\":\"capsula\"}";
@@ -106,7 +107,6 @@ class ProdutoControllerTest {
 		Mockito.when(produtoService.addProduto(Mockito.any(ProdutoTO.class), Mockito.anyInt(), Mockito.anyInt())).thenReturn(produto);
 		Mockito.when(produtoFactory.getProdutoTO(Mockito.any(Produto.class))).thenReturn(produtoTo);
 		
-		RequestPostProcessor bearerToken = authHelper.addBearerToken("pachanga", "ROLE_USER");
 
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.post(uri)
@@ -114,7 +114,6 @@ class ProdutoControllerTest {
 				.content(json)
 				.param("codFesta", "1")
 				.param("idUsuarioPermissao", "1")
-				.with(bearerToken)
 				.contentType(MediaType.APPLICATION_JSON);
 
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
@@ -128,6 +127,7 @@ class ProdutoControllerTest {
 	}
 	
 	@Test
+	@WithMockUser
 	void addProdutoExceptionTest() throws Exception {
 		String uri = "/produto/addProduto";
 		String json = "{\"codFesta\":2,\"precoMedio\":23.90,\"marca\":\"capsula\"}";
@@ -135,7 +135,6 @@ class ProdutoControllerTest {
 		
 		Mockito.when(produtoService.addProduto(Mockito.any(ProdutoTO.class), Mockito.anyInt(), Mockito.anyInt())).thenThrow(new ValidacaoException(erro));
 		
-		RequestPostProcessor bearerToken = authHelper.addBearerToken("pachanga", "ROLE_USER");
 
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.post(uri)
@@ -143,7 +142,6 @@ class ProdutoControllerTest {
 				.content(json)
 				.param("codFesta", "1")
 				.param("idUsuarioPermissao", "1")
-				.with(bearerToken)
 				.contentType(MediaType.APPLICATION_JSON);
 
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
@@ -156,6 +154,7 @@ class ProdutoControllerTest {
 	
 //addProdutoEstoque____________________________________________________________________________________________
 	@Test
+	@WithMockUser
 	void addProdutoEstoqueSucessoTest() throws Exception {
 		String uri = "/produto/addProdutoEstoque";
 		String json = "{\"codFesta\":2,\"quantidadeMax\":100,\"quantiadadeAtual\":23,\"porcentagemMin\":15}";
@@ -164,7 +163,6 @@ class ProdutoControllerTest {
 		Mockito.when(produtoService.addProdutoEstoque(Mockito.any(ItemEstoqueTO.class), Mockito.anyInt(), Mockito.anyInt())).thenReturn(itemEstoque);
 		Mockito.when(itemEstoqueFactory.getItemEstoqueTO(Mockito.any(ItemEstoque.class))).thenReturn(itemEstoqueToTest());
 		
-		RequestPostProcessor bearerToken = authHelper.addBearerToken("pachanga", "ROLE_USER");
 		
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.post(uri)
@@ -173,7 +171,6 @@ class ProdutoControllerTest {
 				.param("codProduto", "1")
 				.param("codEstoque", "1")
 				.param("idUsuarioPermissao", "1")
-				.with(bearerToken)
 				.contentType(MediaType.APPLICATION_JSON);
 
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
@@ -187,6 +184,7 @@ class ProdutoControllerTest {
 	}
 	
 	@Test
+	@WithMockUser
 	void addProdutoExceptionSucessoTest() throws Exception {
 		String uri = "/produto/addProdutoEstoque";
 		String json = "{\"codFesta\":2,\"quantidadeMax\":100,\"quantiadadeAtual\":23,\"porcentagemMin\":15}";
@@ -194,7 +192,6 @@ class ProdutoControllerTest {
 		
 		Mockito.when(produtoService.addProdutoEstoque(Mockito.any(ItemEstoqueTO.class), Mockito.anyInt(), Mockito.anyInt())).thenThrow(new ValidacaoException(erro));
 		
-		RequestPostProcessor bearerToken = authHelper.addBearerToken("pachanga", "ROLE_USER");
 		
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.post(uri)
@@ -203,7 +200,6 @@ class ProdutoControllerTest {
 				.param("codProduto", "1")
 				.param("codEstoque", "1")
 				.param("idUsuarioPermissao", "1")
-				.with(bearerToken)
 				.contentType(MediaType.APPLICATION_JSON);
 
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
@@ -216,12 +212,12 @@ class ProdutoControllerTest {
 	
 //removerProduto___________________________________________________________________________________________________
 	@Test
+	@WithMockUser
 	void removerProdutoSucessoTest() throws Exception {
 		String uri = "/produto/removerProduto";
 		
 		Mockito.doNothing().when(produtoService).removerProduto(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt());
 		
-		RequestPostProcessor bearerToken = authHelper.addBearerToken("pachanga", "ROLE_USER");
 
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.delete(uri)
@@ -229,7 +225,6 @@ class ProdutoControllerTest {
 				.param("codProduto", "1")
 				.param("codFesta", "1")
 				.param("idUsuarioPermissao", "1")
-				.with(bearerToken)
 				.contentType(MediaType.APPLICATION_JSON);
 
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
@@ -240,13 +235,13 @@ class ProdutoControllerTest {
 	}
 	
 	@Test
+	@WithMockUser
 	void removerProdutoExceptionTest() throws Exception {
 		String uri = "/produto/removerProduto";
 		String erro = "Exception";
 		
 		Mockito.doThrow(new ValidacaoException(erro)).when(produtoService).removerProduto(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt());
 		
-		RequestPostProcessor bearerToken = authHelper.addBearerToken("pachanga", "ROLE_USER");
 		
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.delete(uri)
@@ -254,7 +249,6 @@ class ProdutoControllerTest {
 				.param("codProduto", "1")
 				.param("codFesta", "1")
 				.param("idUsuarioPermissao", "1")
-				.with(bearerToken)
 				.contentType(MediaType.APPLICATION_JSON);
 
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
@@ -267,12 +261,12 @@ class ProdutoControllerTest {
 		
 //removerProdutoEstoque____________________________________________________________________________________________
 	@Test
+	@WithMockUser
 	void removerProdutoEstoqueSucessoTest() throws Exception {
 		String uri = "/produto/removerProdutoEstoque";
 		
 		Mockito.doNothing().when(produtoService).removerProdutoEstoque(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt());
 		
-		RequestPostProcessor bearerToken = authHelper.addBearerToken("pachanga", "ROLE_USER");
 			
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.delete(uri)
@@ -280,7 +274,6 @@ class ProdutoControllerTest {
 				.param("codProduto", "1")
 				.param("codEstoque", "1")
 				.param("idUsuarioPermissao", "1")
-				.with(bearerToken)
 				.contentType(MediaType.APPLICATION_JSON);
 
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
@@ -291,13 +284,13 @@ class ProdutoControllerTest {
 	}
 	
 	@Test
+	@WithMockUser
 	void removerProdutoEstoqueExceptionTest() throws Exception {
 		String uri = "/produto/removerProdutoEstoque";
 		String erro = "Exception";
 		
 		Mockito.doThrow(new ValidacaoException(erro)).when(produtoService).removerProdutoEstoque(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt());
 		
-		RequestPostProcessor bearerToken = authHelper.addBearerToken("pachanga", "ROLE_USER");
 		
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.delete(uri)
@@ -305,7 +298,6 @@ class ProdutoControllerTest {
 				.param("codProduto", "1")
 				.param("codEstoque", "1")
 				.param("idUsuarioPermissao", "1")
-				.with(bearerToken)
 				.contentType(MediaType.APPLICATION_JSON);
 
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
@@ -318,6 +310,7 @@ class ProdutoControllerTest {
 		
 //editarProduto_________________________________________________________________________________________________	
 	@Test
+	@WithMockUser
 	void editarProdutoSucessoTest() throws Exception {
 		String uri = "/produto/editarProduto";
 		String json = "{\"codProduto\":1,\"codFesta\":2,\"precoMedio\":23.90,\"marca\":\"capsula\"}";
@@ -327,14 +320,12 @@ class ProdutoControllerTest {
 		Mockito.when(produtoService.editarProduto(Mockito.any(ProdutoTO.class), Mockito.anyInt())).thenReturn(produto);
 		Mockito.when(produtoFactory.getProdutoTO(Mockito.any(Produto.class))).thenReturn(produtoTo);
 		
-		RequestPostProcessor bearerToken = authHelper.addBearerToken("pachanga", "ROLE_USER");
 		
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.put(uri)
 				.accept(MediaType.APPLICATION_JSON)
 				.content(json)
 				.param("idUsuarioPermissao", "1")
-				.with(bearerToken)
 				.contentType(MediaType.APPLICATION_JSON);
 
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
@@ -348,6 +339,7 @@ class ProdutoControllerTest {
 	}
 	
 	@Test
+	@WithMockUser
 	void editarProdutoExceptionTest() throws Exception {
 		String uri = "/produto/editarProduto";
 		String json = "{\"codProduto\":1,\"codFesta\":2,\"precoMedio\":23.90,\"marca\":\"capsula\"}";
@@ -355,14 +347,12 @@ class ProdutoControllerTest {
 			
 		Mockito.when(produtoService.editarProduto(Mockito.any(ProdutoTO.class), Mockito.anyInt())).thenThrow(new ValidacaoException(erro));
 		
-		RequestPostProcessor bearerToken = authHelper.addBearerToken("pachanga", "ROLE_USER");
 		
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.put(uri)
 				.accept(MediaType.APPLICATION_JSON)
 				.content(json)
 				.param("idUsuarioPermissao", "1")
-				.with(bearerToken)
 				.contentType(MediaType.APPLICATION_JSON);
 
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
@@ -375,6 +365,7 @@ class ProdutoControllerTest {
 		
 //addProdutoEstoque____________________________________________________________________________________________
 	@Test
+	@WithMockUser
 	void editarProdutoEstoqueSucessoTest() throws Exception {
 		String uri = "/produto/editarProdutoEstoque";
 		String json = "{\"codProduto\":1,\"codEstoque\":1,\"codFesta\":2,\"quantidadeMax\":100,\"quantiadadeAtual\":23,\"porcentagemMin\":15}";
@@ -382,14 +373,12 @@ class ProdutoControllerTest {
 			
 		Mockito.when(produtoService.editarProdutoEstoque(Mockito.any(ItemEstoqueTO.class), Mockito.anyInt())).thenReturn(itemEstoque);
 		
-		RequestPostProcessor bearerToken = authHelper.addBearerToken("pachanga", "ROLE_USER");
 		
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.put(uri)
 				.accept(MediaType.APPLICATION_JSON)
 				.content(json)
 				.param("idUsuarioPermissao", "1")
-				.with(bearerToken)
 				.contentType(MediaType.APPLICATION_JSON);
 
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
@@ -400,6 +389,7 @@ class ProdutoControllerTest {
 	}
 	
 	@Test
+	@WithMockUser
 	void editarProdutoEstoqueExceptionTest() throws Exception {
 		String uri = "/produto/editarProdutoEstoque";
 		String json = "{\"codProduto\":1,\"codEstoque\":1,\"codFesta\":2,\"quantidadeMax\":100,\"quantiadadeAtual\":23,\"porcentagemMin\":15}";
@@ -407,14 +397,12 @@ class ProdutoControllerTest {
 			
 		Mockito.when(produtoService.editarProdutoEstoque(Mockito.any(ItemEstoqueTO.class), Mockito.anyInt())).thenThrow(new ValidacaoException(erro));
 		
-		RequestPostProcessor bearerToken = authHelper.addBearerToken("pachanga", "ROLE_USER");
 		
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.put(uri)
 				.accept(MediaType.APPLICATION_JSON)
 				.content(json)
 				.param("idUsuarioPermissao", "1")
-				.with(bearerToken)
 				.contentType(MediaType.APPLICATION_JSON);
 
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
@@ -426,6 +414,7 @@ class ProdutoControllerTest {
 	}
 	
 	@Test
+	@WithMockUser
 	void listaProdutoExceptionTest() throws Exception {
 		String uri = "/produto/lista";
 		String erro = "Exception";
@@ -435,14 +424,12 @@ class ProdutoControllerTest {
 			
 		Mockito.when(produtoService.listaProduto(Mockito.anyInt(), Mockito.anyInt())).thenThrow(new ValidacaoException(erro));
 		
-		RequestPostProcessor bearerToken = authHelper.addBearerToken("pachanga", "ROLE_USER");
 		
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.get(uri)
 				.accept(MediaType.APPLICATION_JSON)
 				.param("codFesta", "1")
 				.param("codUsuario", "1")
-				.with(bearerToken)
 				.contentType(MediaType.APPLICATION_JSON);
 
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
@@ -454,6 +441,7 @@ class ProdutoControllerTest {
 	}
 	
 	@Test
+	@WithMockUser
 	void listaProdutoSucessoTest() throws Exception {
 		String uri = "/produto/lista";
 		
@@ -465,14 +453,12 @@ class ProdutoControllerTest {
 		Mockito.when(produtoService.listaProduto(Mockito.anyInt(), Mockito.anyInt())).thenReturn(produtos);
 		Mockito.when(produtoFactory.getProdutosTO(Mockito.anyList())).thenReturn(produtosTo);
 		
-		RequestPostProcessor bearerToken = authHelper.addBearerToken("pachanga", "ROLE_USER");
 		
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.get(uri)
 				.accept(MediaType.APPLICATION_JSON)
 				.param("codFesta", "1")
 				.param("codUsuario", "1")
-				.with(bearerToken)
 				.contentType(MediaType.APPLICATION_JSON);
 
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
@@ -486,6 +472,7 @@ class ProdutoControllerTest {
 	}
 	
 	@Test
+	@WithMockUser
 	void getProdutoExceptionTest() throws Exception {
 		String uri = "/produto/produtoUnico";
 		String erro = "Exception";
@@ -496,7 +483,6 @@ class ProdutoControllerTest {
 		Mockito.when(produtoService.getProduto(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenThrow(new ValidacaoException(erro));
 		Mockito.when(produtoFactory.getProdutoTO(Mockito.any())).thenReturn(produtoToTest());
 		
-		RequestPostProcessor bearerToken = authHelper.addBearerToken("pachanga", "ROLE_USER");
 		
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.get(uri)
@@ -504,7 +490,6 @@ class ProdutoControllerTest {
 				.param("codFesta", "1")
 				.param("codUsuario", "1")
 				.param("codProduto", "1")
-				.with(bearerToken)
 				.contentType(MediaType.APPLICATION_JSON);
 
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
@@ -516,6 +501,7 @@ class ProdutoControllerTest {
 	}
 	
 	@Test
+	@WithMockUser
 	void getProdutoSucessoTest() throws Exception {
 		String uri = "/produto/produtoUnico";
 		
@@ -525,7 +511,6 @@ class ProdutoControllerTest {
 		Mockito.when(produtoService.getProduto(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(produtoTest());
 		Mockito.when(produtoFactory.getProdutoTO(Mockito.any())).thenReturn(produtoToTest());
 		
-		RequestPostProcessor bearerToken = authHelper.addBearerToken("pachanga", "ROLE_USER");
 		
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.get(uri)
@@ -533,7 +518,6 @@ class ProdutoControllerTest {
 				.param("codFesta", "1")
 				.param("codUsuario", "1")
 				.param("codProduto", "1")
-				.with(bearerToken)
 				.contentType(MediaType.APPLICATION_JSON);
 
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
@@ -547,13 +531,13 @@ class ProdutoControllerTest {
 	}
 	
 	@Test
+	@WithMockUser
 	void baixaProdutoEstoqueSucessoTest() throws Exception {
 		String uri = "/produto/baixaProdutoEstoque";
 		ItemEstoque itemEstoque = ItemEstoqueTest();
 		
 		Mockito.when(produtoService.baixaProduto(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt(), Mockito.anyBoolean())).thenReturn(itemEstoque);
 		
-		RequestPostProcessor bearerToken = authHelper.addBearerToken("pachanga", "ROLE_USER");
 			
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.put(uri)
@@ -562,7 +546,6 @@ class ProdutoControllerTest {
 				.param("codEstoque", "1")
 				.param("quantidade", "1")
 				.param("idUsuarioPermissao", "1")
-				.with(bearerToken)
 				.contentType(MediaType.APPLICATION_JSON);
 
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
@@ -573,6 +556,7 @@ class ProdutoControllerTest {
 	}
 	
 	@Test
+	@WithMockUser
 	void quebraProdutoEstoqueSucessoTest() throws Exception {
 		String uri = "/produto/quebraProdutoEstoque";
 		ItemEstoque itemEstoque = ItemEstoqueTest();
@@ -581,7 +565,6 @@ class ProdutoControllerTest {
 		
 		Mockito.when(produtoService.baixaProduto(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt(), Mockito.anyBoolean())).thenReturn(itemEstoque);
 		
-		RequestPostProcessor bearerToken = authHelper.addBearerToken("pachanga", "ROLE_USER");
 			
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.put(uri)
@@ -592,7 +575,6 @@ class ProdutoControllerTest {
 				.param("dose", "true")
 				.param("quantidade", "1")
 				.param("idUsuarioPermissao", "1")
-				.with(bearerToken)
 				.contentType(MediaType.APPLICATION_JSON);
 
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
@@ -603,6 +585,7 @@ class ProdutoControllerTest {
 	}
 	
 	@Test
+	@WithMockUser
 	void quebraProdutoEstoqueSemDoseSucessoTest() throws Exception {
 		String uri = "/produto/quebraProdutoEstoque";
 		ItemEstoque itemEstoque = ItemEstoqueTest();
@@ -611,7 +594,6 @@ class ProdutoControllerTest {
 		
 		Mockito.when(produtoService.baixaProduto(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt(), Mockito.anyBoolean())).thenReturn(itemEstoque);
 		
-		RequestPostProcessor bearerToken = authHelper.addBearerToken("pachanga", "ROLE_USER");
 			
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.put(uri)
@@ -622,7 +604,6 @@ class ProdutoControllerTest {
 				.param("dose", "false")
 				.param("quantidade", "1")
 				.param("idUsuarioPermissao", "1")
-				.with(bearerToken)
 				.contentType(MediaType.APPLICATION_JSON);
 
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
@@ -633,13 +614,13 @@ class ProdutoControllerTest {
 	}
 	
 	@Test
+	@WithMockUser
 	void quebraProdutoEstoqueSemDoseExceptionTest() throws Exception {
 		String uri = "/produto/quebraProdutoEstoque";
 		String quantidades = "[1,2]";
 		
 		Mockito.when(produtoService.baixaProduto(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt(), Mockito.anyBoolean())).thenThrow(new ValidacaoException("teste"));
 		
-		RequestPostProcessor bearerToken = authHelper.addBearerToken("pachanga", "ROLE_USER");
 			
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.put(uri)
@@ -650,7 +631,6 @@ class ProdutoControllerTest {
 				.param("dose", "false")
 				.param("quantidade", "1")
 				.param("idUsuarioPermissao", "1")
-				.with(bearerToken)
 				.contentType(MediaType.APPLICATION_JSON);
 
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
@@ -662,13 +642,13 @@ class ProdutoControllerTest {
 	}
 	
 	@Test
+	@WithMockUser
 	void baixaProdutoEstoqueExceptionTest() throws Exception {
 		String uri = "/produto/baixaProdutoEstoque";
 		String erro = "Exception";
 		
 		Mockito.when(produtoService.baixaProduto(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt(), Mockito.anyBoolean())).thenThrow(new ValidacaoException(erro));
 		
-		RequestPostProcessor bearerToken = authHelper.addBearerToken("pachanga", "ROLE_USER");
 			
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.put(uri)
@@ -677,7 +657,6 @@ class ProdutoControllerTest {
 				.param("codEstoque", "1")
 				.param("quantidade", "1")
 				.param("idUsuarioPermissao", "1")
-				.with(bearerToken)
 				.contentType(MediaType.APPLICATION_JSON);
 
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
@@ -689,13 +668,13 @@ class ProdutoControllerTest {
 	}
 	
 	@Test
+	@WithMockUser
 	void recargaProdutoEstoqueSucessoTest() throws Exception {
 		String uri = "/produto/recargaProdutoEstoque";
 		ItemEstoque itemEstoque = ItemEstoqueTest();
 		
 		Mockito.when(produtoService.recargaProdutoComOrigem(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt(), Mockito.any())).thenReturn(itemEstoque);
 		
-		RequestPostProcessor bearerToken = authHelper.addBearerToken("pachanga", "ROLE_USER");
 			
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.put(uri)
@@ -705,7 +684,6 @@ class ProdutoControllerTest {
 				.param("quantidade", "1")
 				.param("idUsuarioPermissao", "1")
 				.param("codEstoqueOrigem", "48")
-				.with(bearerToken)
 				.contentType(MediaType.APPLICATION_JSON);
 
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
@@ -716,13 +694,13 @@ class ProdutoControllerTest {
 	}
 	
 	@Test
+	@WithMockUser
 	void recargaProdutoEstoqueExceptionTest() throws Exception {
 		String uri = "/produto/recargaProdutoEstoque";
 		String erro = "Exception";
 		
 		Mockito.when(produtoService.recargaProdutoComOrigem(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt(), Mockito.any())).thenThrow(new ValidacaoException(erro));
 		
-		RequestPostProcessor bearerToken = authHelper.addBearerToken("pachanga", "ROLE_USER");
 			
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.put(uri)
@@ -731,7 +709,6 @@ class ProdutoControllerTest {
 				.param("codEstoque", "1")
 				.param("quantidade", "1")
 				.param("idUsuarioPermissao", "1")
-				.with(bearerToken)
 				.contentType(MediaType.APPLICATION_JSON);
 
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();

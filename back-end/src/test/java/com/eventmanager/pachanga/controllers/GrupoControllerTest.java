@@ -22,12 +22,13 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
+import org.springframework.security.oauth2.provider.token.AuthorizationServerTokenServices;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.request.RequestPostProcessor;
 
 import com.eventmanager.pachanga.PachangaApplication;
 import com.eventmanager.pachanga.domains.Convidado;
@@ -38,7 +39,6 @@ import com.eventmanager.pachanga.domains.Usuario;
 import com.eventmanager.pachanga.dtos.GrupoTO;
 import com.eventmanager.pachanga.errors.ValidacaoException;
 import com.eventmanager.pachanga.factory.ConvidadoFactory;
-import com.eventmanager.pachanga.securingweb.OAuthHelper;
 import com.eventmanager.pachanga.services.ConvidadoService;
 import com.eventmanager.pachanga.services.GrupoService;
 
@@ -61,8 +61,8 @@ class GrupoControllerTest {
 	@MockBean
 	private ConvidadoFactory convidadoFactory;
 	
-	@Autowired
-	private OAuthHelper authHelper;
+	@MockBean
+	private AuthorizationServerTokenServices defaultAuthorizationServerTokenServices;
 	
 	public Convidado convidadoTest(int cod, String email) {
 		Convidado convidado = new Convidado();
@@ -175,6 +175,7 @@ class GrupoControllerTest {
 //getAllGruposFesta______________________________________________________________________________________________	
 
 	@Test
+	@WithMockUser
 	void getAllGruposFestaSucessoTest() throws Exception {
 		String uri = "/grupo/getAllGruposFesta";
 		
@@ -185,15 +186,12 @@ class GrupoControllerTest {
 		Mockito.when(grupoService.procurarGruposPorFesta(Mockito.anyInt())).thenReturn(grupos);
 		Mockito.when(grupoService.procurarUsuariosPorGrupo(Mockito.anyInt())).thenReturn(usuarios);
 		Mockito.when(convidadoService.pegarConvidadosGrupo(Mockito.anyInt())).thenReturn(convidados);
-		
-		RequestPostProcessor bearerToken = authHelper.addBearerToken("pachanga", "ROLE_USER");
 
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.get(uri)
 				.accept(MediaType.APPLICATION_JSON)
 				.param("codFesta", "1")
 				.param("idUsuario", "1")
-				.with(bearerToken)
 				.contentType(MediaType.APPLICATION_JSON);
 
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
@@ -207,6 +205,7 @@ class GrupoControllerTest {
 	}
 	
 	@Test
+	@WithMockUser
 	void getAllGruposFestaExceptionTest() throws Exception {
 		String uri = "/grupo/getAllGruposFesta";
 		String expected = "erro";
@@ -215,14 +214,12 @@ class GrupoControllerTest {
 		Mockito.when(grupoService.procurarUsuariosPorGrupo(Mockito.anyInt())).thenThrow(new ValidacaoException(expected));
 		Mockito.when(convidadoService.pegarConvidadosGrupo(Mockito.anyInt())).thenThrow(new ValidacaoException(expected));
 		
-		RequestPostProcessor bearerToken = authHelper.addBearerToken("pachanga", "ROLE_USER");
 
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.get(uri)
 				.accept(MediaType.APPLICATION_JSON)
 				.param("codFesta", "1")
 				.param("idUsuario", "1")
-				.with(bearerToken)
 				.contentType(MediaType.APPLICATION_JSON);
 
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
@@ -238,6 +235,7 @@ class GrupoControllerTest {
 	
 //addPermissaoGrupo_________________________________________________________________________________________________________________________________________________________________________________
 	@Test
+	@WithMockUser
 	void addPermissaoGrupoSucessoTest() throws Exception {
 		String uri = "/grupo/addPermissaoGrupo";  
 		Grupo grupo = grupoTest(2, "Banda", 4);
@@ -246,7 +244,6 @@ class GrupoControllerTest {
 		Mockito.when(grupoService.validarPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt())).thenReturn(true);
 		Mockito.doNothing().when(grupoService).addPermissaoGrupo(Mockito.anyInt(), Mockito.anyInt());
 		
-		RequestPostProcessor bearerToken = authHelper.addBearerToken("pachanga", "ROLE_USER");
 		
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.get(uri)
@@ -254,7 +251,6 @@ class GrupoControllerTest {
 				.param("idGrupo", "1")
 				.param("idPermissao", "1")
 				.param("idUsuario", "1")
-				.with(bearerToken)
 				.contentType(MediaType.APPLICATION_JSON);
 
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
@@ -267,6 +263,7 @@ class GrupoControllerTest {
 	}	
 	
 	@Test
+	@WithMockUser
 	void addPermissaoGrupoExceptionTest() throws Exception {
 		String uri = "/grupo/addPermissaoGrupo";  
 		//Grupo grupo = grupoTest(2, "Banda", 4);
@@ -276,7 +273,6 @@ class GrupoControllerTest {
 		Mockito.when(grupoService.validarPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt())).thenReturn(true);
 		Mockito.doNothing().when(grupoService).addPermissaoGrupo(Mockito.anyInt(), Mockito.anyInt());
 		
-		RequestPostProcessor bearerToken = authHelper.addBearerToken("pachanga", "ROLE_USER");
 		
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.get(uri)
@@ -284,7 +280,6 @@ class GrupoControllerTest {
 				.param("idGrupo", "1")
 				.param("idPermissao", "1")
 				.param("idUsuario", "1")
-				.with(bearerToken)
 				.contentType(MediaType.APPLICATION_JSON);
 
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
@@ -299,6 +294,7 @@ class GrupoControllerTest {
 	
 //removePermissaoGrupo_____________________________________________________________________________________
 	@Test
+	@WithMockUser
 	void removePermissaoGrupoSucessoTest() throws Exception {
 		String uri = "/grupo/removePermissaoGrupo";  
 		Grupo grupo = grupoTest(2, "Banda", 4);
@@ -307,7 +303,6 @@ class GrupoControllerTest {
 		Mockito.when(grupoService.validarPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt())).thenReturn(true);
 		Mockito.doNothing().when(grupoService).deletePermissaoGrupo(Mockito.anyInt(), Mockito.anyInt());
 		
-		RequestPostProcessor bearerToken = authHelper.addBearerToken("pachanga", "ROLE_USER");
 		
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.delete(uri)
@@ -315,7 +310,6 @@ class GrupoControllerTest {
 				.param("idGrupo", "1")
 				.param("idPermissao", "1")
 				.param("idUsuario", "1")
-				.with(bearerToken)
 				.contentType(MediaType.APPLICATION_JSON);
 
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
@@ -328,6 +322,7 @@ class GrupoControllerTest {
 	}
 	
 	@Test
+	@WithMockUser
 	void removePermissaoGrupoExceptionTest() throws Exception {
 		String uri = "/grupo/removePermissaoGrupo";  
 		String expected = "erro";
@@ -336,7 +331,6 @@ class GrupoControllerTest {
 		Mockito.when(grupoService.validarPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt())).thenReturn(true);
 		Mockito.doNothing().when(grupoService).deletePermissaoGrupo(Mockito.anyInt(), Mockito.anyInt());
 		
-		RequestPostProcessor bearerToken = authHelper.addBearerToken("pachanga", "ROLE_USER");
 		
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.delete(uri)
@@ -344,7 +338,6 @@ class GrupoControllerTest {
 				.param("idGrupo", "1")
 				.param("idPermissao", "1")
 				.param("idUsuario", "1")
-				.with(bearerToken)
 				.contentType(MediaType.APPLICATION_JSON);
 
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
@@ -357,6 +350,7 @@ class GrupoControllerTest {
 	
 ///addGrupo_________________________________________________________________________________________________
 	@Test
+	@WithMockUser
 	void addGrupoSucessoTest() throws Exception {
 		String uri = "/grupo/addGrupo";  
 		Grupo grupo = grupoTest(2, "Banda", 4);
@@ -365,14 +359,12 @@ class GrupoControllerTest {
 		
 		Mockito.when(grupoService.addGrupoFesta(Mockito.any(GrupoTO.class), Mockito.anyInt())).thenReturn(grupo);
 		
-		RequestPostProcessor bearerToken = authHelper.addBearerToken("pachanga", "ROLE_USER");
 		
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.post(uri)
 				.accept(MediaType.APPLICATION_JSON)
 				.content(json)
 				.param("idUsuario", "1")
-				.with(bearerToken)
 				.contentType(MediaType.APPLICATION_JSON);
 
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
@@ -386,6 +378,7 @@ class GrupoControllerTest {
 	}
 	
 	@Test
+	@WithMockUser
 	void addGrupoExceptionTest() throws Exception {
 		String uri = "/grupo/addGrupo";  
 		//Grupo grupo = grupoTest(2, "Banda", 4);
@@ -394,14 +387,12 @@ class GrupoControllerTest {
 		
 		Mockito.when(grupoService.addGrupoFesta(Mockito.any(GrupoTO.class), Mockito.anyInt())).thenThrow(new ValidacaoException(expected));
 		
-		RequestPostProcessor bearerToken = authHelper.addBearerToken("pachanga", "ROLE_USER");
 		
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.post(uri)
 				.accept(MediaType.APPLICATION_JSON)
 				.content(json)
 				.param("idUsuario", "1")
-				.with(bearerToken)
 				.contentType(MediaType.APPLICATION_JSON);
 
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
@@ -414,20 +405,19 @@ class GrupoControllerTest {
 	
 //deleteGrupo______________________________________________________________________________________________
 	@Test
+	@WithMockUser
 	void deleteGrupoSucessoTest() throws Exception {
 		String uri = "/grupo/deleteGrupo";  
 		Grupo grupo = grupoTest(2, "Banda", 4);
 	
 		Mockito.when(grupoService.deleteGrupo(Mockito.anyInt(), Mockito.anyInt())).thenReturn(grupo);
 		
-		RequestPostProcessor bearerToken = authHelper.addBearerToken("pachanga", "ROLE_USER");
 		
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.delete(uri)
 				.accept(MediaType.APPLICATION_JSON)
 				.param("codGrupo", "1")
 				.param("idUsuario", "1")
-				.with(bearerToken)
 				.contentType(MediaType.APPLICATION_JSON);
 
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
@@ -441,20 +431,19 @@ class GrupoControllerTest {
 	}
 	
 	@Test
+	@WithMockUser
 	void deleteGrupoExceptionTest() throws Exception {
 		String uri = "/grupo/deleteGrupo";  
 		//Grupo grupo = grupoTest(2, "Banda", 4);
 		String expected = "erro";
 		Mockito.when(grupoService.deleteGrupo(Mockito.anyInt(), Mockito.anyInt())).thenThrow(new ValidacaoException(expected));
 		
-		RequestPostProcessor bearerToken = authHelper.addBearerToken("pachanga", "ROLE_USER");
 		
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.delete(uri)
 				.accept(MediaType.APPLICATION_JSON)
 				.param("codGrupo", "1")
 				.param("idUsuario", "1")
-				.with(bearerToken)
 				.contentType(MediaType.APPLICATION_JSON);
 
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
@@ -467,6 +456,7 @@ class GrupoControllerTest {
 	
 //updateGrupo______________________________________________________________________________________________
 	@Test
+	@WithMockUser
 	void updateGrupoSucessoTest() throws Exception {
 		String uri = "/grupo/updateGrupo";  
 		Grupo grupo = grupoTest(2, "Banda", 4);
@@ -475,14 +465,12 @@ class GrupoControllerTest {
 		
 		Mockito.when(grupoService.atualizar(Mockito.any(GrupoTO.class), Mockito.anyInt())).thenReturn(grupo);
 		
-		RequestPostProcessor bearerToken = authHelper.addBearerToken("pachanga", "ROLE_USER");
 		
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.put(uri)
 				.accept(MediaType.APPLICATION_JSON)
 				.content(json)
 				.param("idUsuario", "1")
-				.with(bearerToken)
 				.contentType(MediaType.APPLICATION_JSON);
 
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
@@ -496,13 +484,13 @@ class GrupoControllerTest {
 	}
 	
 	@Test
+	@WithMockUser
 	void updateGrupoExceptionTest() throws Exception {
 		String uri = "/grupo/updateGrupo";  
 		//Grupo grupo = grupoTest(2, "Banda", 4);
 		String expected = "erro";
 		String json = "{\"codGrupo\": 1,\"codFesta\": 2,\"nomeGrupo\": \"Batata\",\"quantMaxPessoas\":3,\"isOrganizador\": \"false\"}";
 		
-		RequestPostProcessor bearerToken = authHelper.addBearerToken("pachanga", "ROLE_USER");
 		
 		Mockito.when(grupoService.atualizar(Mockito.any(GrupoTO.class), Mockito.anyInt())).thenThrow(new ValidacaoException(expected));
 		
@@ -511,7 +499,6 @@ class GrupoControllerTest {
 				.accept(MediaType.APPLICATION_JSON)
 				.content(json)
 				.param("idUsuario", "1")
-				.with(bearerToken)
 				.contentType(MediaType.APPLICATION_JSON);
 
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
@@ -524,13 +511,13 @@ class GrupoControllerTest {
 	
 //updateUser_______________________________________________________________________________________________
 	@Test
+	@WithMockUser
 	void updateUserSucessoTest() throws Exception {
 		String uri = "/grupo/updateUser";  
 		//String json = "{\"gruposId\": [1, 2, 3]}";
 		String json = "[1, 2, 3]";
 		Mockito.doNothing().when(grupoService).editUsuario(Mockito.anyList(), Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt());
 		
-		RequestPostProcessor bearerToken = authHelper.addBearerToken("pachanga", "ROLE_USER");
 	
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.put(uri)
@@ -539,7 +526,6 @@ class GrupoControllerTest {
 				.param("grupoIdAtual", "1")
 				.param("idUsuario", "1")
 				.param("idUsuarioPermissao", "1")
-				.with(bearerToken)
 				.contentType(MediaType.APPLICATION_JSON);
 
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
@@ -553,6 +539,7 @@ class GrupoControllerTest {
 	}
 	
 	@Test
+	@WithMockUser
 	void updateUserExceptionTest() throws Exception {
 		String uri = "/grupo/updateUser";  
 		//Grupo grupo = grupoTest(2, "Banda", 4);
@@ -561,7 +548,6 @@ class GrupoControllerTest {
 		
 		doThrow(new ValidacaoException(expected)).when(grupoService).editUsuario(Mockito.anyList(), Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt());                             
 		
-		RequestPostProcessor bearerToken = authHelper.addBearerToken("pachanga", "ROLE_USER");
 		
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.put(uri)
@@ -570,7 +556,6 @@ class GrupoControllerTest {
 				.param("grupoIdAtual", "1")
 				.param("idUsuario", "1")
 				.param("idUsuarioPermissao", "1")
-				.with(bearerToken)
 				.contentType(MediaType.APPLICATION_JSON);
 
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
@@ -583,13 +568,13 @@ class GrupoControllerTest {
 	
 //updateUsers______________________________________________________________________________________________
 	@Test
+	@WithMockUser
 	void updateUsersSucessoTest() throws Exception {
 		String uri = "/grupo/updateUsers";  
 		//String json = "{\"gruposId\": [1, 2, 3]}";
 		String json = "[1, 2, 3]";
 		Mockito.doNothing().when(grupoService).editUsuarios(Mockito.anyList(), Mockito.anyInt(), Mockito.anyInt());
 		
-		RequestPostProcessor bearerToken = authHelper.addBearerToken("pachanga", "ROLE_USER");
 	
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.put(uri)
@@ -597,7 +582,6 @@ class GrupoControllerTest {
 				.content(json)
 				.param("idGrupo", "1")
 				.param("idUsuarioPermissao", "1")
-				.with(bearerToken)
 				.contentType(MediaType.APPLICATION_JSON);
 
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
@@ -611,6 +595,7 @@ class GrupoControllerTest {
 	}
 	
 	@Test
+	@WithMockUser
 	void updateUsersExceptionTest() throws Exception {
 		String uri = "/grupo/updateUsers";  
 		//Grupo grupo = grupoTest(2, "Banda", 4);
@@ -619,7 +604,6 @@ class GrupoControllerTest {
 		
 		doThrow(new ValidacaoException(expected)).when(grupoService).editUsuarios(Mockito.anyList(), Mockito.anyInt(), Mockito.anyInt());           
 		
-		RequestPostProcessor bearerToken = authHelper.addBearerToken("pachanga", "ROLE_USER");
 
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.put(uri)
@@ -627,7 +611,6 @@ class GrupoControllerTest {
 				.content(json)
 				.param("idGrupo", "1")
 				.param("idUsuarioPermissao", "1")
-				.with(bearerToken)
 				.contentType(MediaType.APPLICATION_JSON);
 
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
@@ -640,12 +623,12 @@ class GrupoControllerTest {
 	
 //deleteConvidado__________________________________________________________________________________________
 	@Test
+	@WithMockUser
 	void deleteConvidadoSucessoTest() throws Exception {
 		String uri = "/grupo/deleteConvidado";  
 		
 		Mockito.doNothing().when(grupoService).deleteConvidado(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt());
 		
-		RequestPostProcessor bearerToken = authHelper.addBearerToken("pachanga", "ROLE_USER");
 		
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.delete(uri)
@@ -653,7 +636,6 @@ class GrupoControllerTest {
 				.param("idConvidado", "1")
 				.param("idGrupo", "1")
 				.param("idUsuarioPermissao", "1")
-				.with(bearerToken)
 				.contentType(MediaType.APPLICATION_JSON);
 
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
@@ -665,13 +647,13 @@ class GrupoControllerTest {
 	}
 	
 	@Test
+	@WithMockUser
 	void deleteConvidadoExceptionTest() throws Exception {
 		String uri = "/grupo/deleteConvidado";  
 		String expected = "erro";
 		
 		doThrow(new ValidacaoException(expected)).when(grupoService).deleteConvidado(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt());  
 		
-		RequestPostProcessor bearerToken = authHelper.addBearerToken("pachanga", "ROLE_USER");
 
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.delete(uri)
@@ -679,7 +661,6 @@ class GrupoControllerTest {
 				.param("idConvidado", "1")
 				.param("idGrupo", "1")
 				.param("idUsuarioPermissao", "1")
-				.with(bearerToken)
 				.contentType(MediaType.APPLICATION_JSON);
 
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
@@ -692,12 +673,12 @@ class GrupoControllerTest {
 	
 //deleteMembro____________________________________________________________________________________________
 	@Test
+	@WithMockUser
 	void deleteMembroSucessoTest() throws Exception {
 		String uri = "/grupo/deleteMembro";  
 		
 		Mockito.doNothing().when(grupoService).deleteMembro(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt());
 		
-		RequestPostProcessor bearerToken = authHelper.addBearerToken("pachanga", "ROLE_USER");
 
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.delete(uri)
@@ -705,7 +686,6 @@ class GrupoControllerTest {
 				.param("idMembro", "1")
 				.param("idGrupo", "1")
 				.param("idUsuarioPermissao", "1")
-				.with(bearerToken)
 				.contentType(MediaType.APPLICATION_JSON);
 
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
@@ -717,13 +697,13 @@ class GrupoControllerTest {
 	}
 	
 	@Test
+	@WithMockUser
 	void deleteMembroExceptionTest() throws Exception {
 		String uri = "/grupo/deleteMembro";  
 		String expected = "erro";
 		
 		doThrow(new ValidacaoException(expected)).when(grupoService).deleteMembro(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt());            
 		
-		RequestPostProcessor bearerToken = authHelper.addBearerToken("pachanga", "ROLE_USER");
 
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.delete(uri)
@@ -731,7 +711,6 @@ class GrupoControllerTest {
 				.param("idMembro", "1")
 				.param("idGrupo", "1")
 				.param("idUsuarioPermissao", "1")
-				.with(bearerToken)
 				.contentType(MediaType.APPLICATION_JSON);
 
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
@@ -744,6 +723,7 @@ class GrupoControllerTest {
 
 //getGrupoFesta___________________________________________________________________________________________________________________________
 	@Test
+	@WithMockUser
 	void getGrupoFestaSucessTest() throws Exception {
 		String uri = "/grupo/getGrupoFesta";  
 		Grupo grupo = grupoTest(2, "Banda", 4);
@@ -759,14 +739,12 @@ class GrupoControllerTest {
 		Mockito.when(convidadoService.pegarConvidadosGrupo(Mockito.anyInt())).thenReturn(null);
 		Mockito.when(convidadoFactory.getConvidadosTO(Mockito.anyList())).thenReturn(null);
 		
-		RequestPostProcessor bearerToken = authHelper.addBearerToken("pachanga", "ROLE_USER");
 		
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.get(uri)
 				.accept(MediaType.APPLICATION_JSON)
 				.param("codGrupo", "1")
 				.param("idUsuario", "1")
-				.with(bearerToken)
 				.contentType(MediaType.APPLICATION_JSON);
 
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
@@ -776,7 +754,9 @@ class GrupoControllerTest {
 		assertEquals(HttpStatus.OK.value(), response.getStatus());
 		assertEquals(expected, result.getResponse().getContentAsString());
 	}
+
 	@Test
+	@WithMockUser
 	void getGrupoFestaExceptionTest() throws Exception {
 		String uri = "/grupo/getGrupoFesta";  
 		Grupo grupo = grupoTest(2, "Banda", 4);
@@ -792,14 +772,12 @@ class GrupoControllerTest {
 		Mockito.when(convidadoService.pegarConvidadosGrupo(Mockito.anyInt())).thenReturn(null);
 		Mockito.when(convidadoFactory.getConvidadosTO(Mockito.anyList())).thenReturn(null);
 		
-		RequestPostProcessor bearerToken = authHelper.addBearerToken("pachanga", "ROLE_USER");
 		
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.get(uri)
 				.accept(MediaType.APPLICATION_JSON)
 				.param("codGrupo", "1")
 				.param("idUsuario", "1")
-				.with(bearerToken)
 				.contentType(MediaType.APPLICATION_JSON);
 
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();

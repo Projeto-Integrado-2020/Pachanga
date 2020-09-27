@@ -15,18 +15,18 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
+import org.springframework.security.oauth2.provider.token.AuthorizationServerTokenServices;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.request.RequestPostProcessor;
 
 import com.eventmanager.pachanga.PachangaApplication;
 import com.eventmanager.pachanga.domains.Usuario;
 import com.eventmanager.pachanga.dtos.UsuarioTO;
 import com.eventmanager.pachanga.errors.ValidacaoException;
-import com.eventmanager.pachanga.securingweb.OAuthHelper;
 import com.eventmanager.pachanga.services.UsuarioService;
 
 @RunWith(SpringRunner.class)
@@ -42,8 +42,8 @@ class UsuarioControllerTest {
 	@MockBean
 	private UsuarioService userService;
 	
-	@Autowired
-	private OAuthHelper authHelper;
+	@MockBean
+	private AuthorizationServerTokenServices defaultAuthorizationServerTokenServices;
 	
 	@SuppressWarnings("deprecation")
 	public Usuario usuarioTest() throws Exception{
@@ -62,6 +62,7 @@ class UsuarioControllerTest {
 //login__________________________________________________________________________________________________________	
 	
 	@Test
+	@WithMockUser
 	void loginSucessoTest() throws Exception{
 
 		String usuarioLoginJson = "{\"email\":\"gustavinhoTPD@fodasse.com.br\",\"senha\":\"1234\",\"tipConta\": \"P\"}";
@@ -72,13 +73,11 @@ class UsuarioControllerTest {
 
 		Mockito.when(userService.logar(Mockito.any(UsuarioTO.class))).thenReturn(usuarioTest);
 		
-		RequestPostProcessor bearerToken = authHelper.addBearerToken("pachanga", "ROLE_USER");
 
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.post(uri)
 				.accept(MediaType.APPLICATION_JSON)
 				.content(usuarioLoginJson)
-				.with(bearerToken)
 				.contentType(MediaType.APPLICATION_JSON);
 
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
@@ -93,6 +92,7 @@ class UsuarioControllerTest {
 	}
 
 	@Test
+	@WithMockUser
 	void loginSenhaIncorretaTest() throws Exception{
 
 		String usuarioLoginJson = "{\"email\":\"gustavinhoTPD@fodasse.com.br\",\"senha\":\"123456\",\"tipConta\": \"P\"}";
@@ -104,13 +104,11 @@ class UsuarioControllerTest {
 
 		Mockito.when(userService.logar(Mockito.any(UsuarioTO.class))).thenThrow(new ValidacaoException("2"));
 		
-		RequestPostProcessor bearerToken = authHelper.addBearerToken("pachanga", "ROLE_USER");
 
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.post(uri)
 				.accept(MediaType.APPLICATION_JSON)
 				.content(usuarioLoginJson)
-				.with(bearerToken)
 				.contentType(MediaType.APPLICATION_JSON);
 
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
@@ -126,6 +124,7 @@ class UsuarioControllerTest {
 	}
 	
 	@Test
+	@WithMockUser
 	void loginEmailInesistenteTest() throws Exception{
 
 		String usuarioLoginJson = "{\"email\":\"gustavinhoTPDnaoexiste@fodasse.com.br\",\"senha\":\"1234\",\"tipConta\": \"P\"}";
@@ -134,13 +133,11 @@ class UsuarioControllerTest {
 		
 		Mockito.when(userService.logar(Mockito.any(UsuarioTO.class))).thenThrow(new ValidacaoException("3"));
 		
-		RequestPostProcessor bearerToken = authHelper.addBearerToken("pachanga", "ROLE_USER");
 
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.post(uri)
 				.accept(MediaType.APPLICATION_JSON)
 				.content(usuarioLoginJson)
-				.with(bearerToken)
 				.contentType(MediaType.APPLICATION_JSON);
 
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
@@ -158,6 +155,7 @@ class UsuarioControllerTest {
 //cadastro__________________________________________________________________________________________________________	
 	
 	@Test
+	@WithMockUser
 	void CadastroSucessoTest() throws Exception{
 		String usuarioCadastroJson = "{\"dtNasc\":\"3900-09-27\",\"codUsuario\":100,\"nomeUser\":\"Gustavo Barbosa\",\"tipConta\":\"P\",\"email\":\"gustavinhoTPD@fodasse.com.br\",\"senha\":\"1234\",\"sexo\":\"M\"}";
 
@@ -167,13 +165,11 @@ class UsuarioControllerTest {
 		
 		Mockito.when(userService.cadastrar(Mockito.any(UsuarioTO.class))).thenReturn(usuarioTest);
 		
-		RequestPostProcessor bearerToken = authHelper.addBearerToken("pachanga", "ROLE_USER");
 		
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.post(uri)
 				.accept(MediaType.APPLICATION_JSON)
 				.content(usuarioCadastroJson )
-				.with(bearerToken)
 				.contentType(MediaType.APPLICATION_JSON);
 
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
@@ -189,6 +185,7 @@ class UsuarioControllerTest {
 	}
 
 	@Test
+	@WithMockUser
 	void CadastroValidacaoExceptionTest() throws Exception{
 		String usuarioCadastroJson = "{\"dtNasc\":\"3900-09-27\",\"codUsuario\":100,\"nomeUser\":\"Gustavo Barbosa\",\"tipConta\":\"P\",\"email\":\"gustavinhoTPD@fodasse.com.br\",\"senha\":\"1234\",\"sexo\":\"M\"}";
 		
@@ -196,13 +193,11 @@ class UsuarioControllerTest {
 		
 		Mockito.when(userService.cadastrar(Mockito.any(UsuarioTO.class))).thenThrow(new ValidacaoException("1"));
 		
-		RequestPostProcessor bearerToken = authHelper.addBearerToken("pachanga", "ROLE_USER");
 		
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.post(uri)
 				.accept(MediaType.APPLICATION_JSON)
 				.content(usuarioCadastroJson )
-				.with(bearerToken)
 				.contentType(MediaType.APPLICATION_JSON);
 
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
@@ -221,6 +216,7 @@ class UsuarioControllerTest {
 	
 	@SuppressWarnings("deprecation")
 	@Test
+	@WithMockUser
 	void AtualizacaoSucessoTest() throws Exception{
 		String usuarioAtualizacaoJson = "{\"dtNasc\":\"3900-09-26\",\"codUsuario\":100,\"nomeUser\":\"Gustavo Barbosa\",\"tipConta\":\"P\",\"email\":\"gustavinhoTPD@fodasse.com.br\",\"senha\":\"1234567\",\"sexo\":\"F\"}";
 
@@ -232,13 +228,11 @@ class UsuarioControllerTest {
 		
 		Mockito.when(userService.atualizar(Mockito.any(UsuarioTO.class))).thenReturn(usuarioTest);
 		
-		RequestPostProcessor bearerToken = authHelper.addBearerToken("pachanga", "ROLE_USER");
 		
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.put(uri)
 				.accept(MediaType.APPLICATION_JSON)
 				.content(usuarioAtualizacaoJson)
-				.with(bearerToken)
 				.contentType(MediaType.APPLICATION_JSON);
 
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
@@ -254,6 +248,7 @@ class UsuarioControllerTest {
 	}
 
 	@Test
+	@WithMockUser
 	void AtualizacaoValidacaoExceptionTest() throws Exception{
 		String usuarioAtualizacaoJson = "{\"dtNasc\":\"3900-09-26\",\"codUsuario\":100,\"nomeUser\":\"Gustavo Barbosa\",\"tipConta\":\"P\",\"email\":\"luisinhofoda1234@fodasse.com.br\",\"senha\":\"1234567\",\"sexo\":\"F\"}";
 		
@@ -261,13 +256,11 @@ class UsuarioControllerTest {
 		
 		Mockito.when(userService.atualizar(Mockito.any(UsuarioTO.class))).thenThrow(new ValidacaoException("3"));
 		
-		RequestPostProcessor bearerToken = authHelper.addBearerToken("pachanga", "ROLE_USER");
 		
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.put(uri)
 				.accept(MediaType.APPLICATION_JSON)
 				.content(usuarioAtualizacaoJson)
-				.with(bearerToken)
 				.contentType(MediaType.APPLICATION_JSON);
 
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();

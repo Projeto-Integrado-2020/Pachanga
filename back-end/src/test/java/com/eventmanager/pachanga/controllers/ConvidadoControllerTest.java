@@ -12,16 +12,19 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
+import org.springframework.security.oauth2.provider.token.AuthorizationServerTokenServices;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.request.RequestPostProcessor;
 
 import com.eventmanager.pachanga.PachangaApplication;
 import com.eventmanager.pachanga.errors.ValidacaoException;
-import com.eventmanager.pachanga.securingweb.OAuthHelper;
+import com.eventmanager.pachanga.securingweb.JwtAuthenticationEntryPoint;
+import com.eventmanager.pachanga.securingweb.JwtTokenUtil;
+import com.eventmanager.pachanga.securingweb.JwtUserDetailsService;
 import com.eventmanager.pachanga.services.ConvidadoService;
 
 @RunWith(SpringRunner.class)
@@ -34,11 +37,20 @@ class ConvidadoControllerTest {
 	@Autowired
 	private MockMvc mockMvc;
 	
-	@Autowired
-	private OAuthHelper authHelper;
-	
 	@MockBean
 	private ConvidadoService convidadoService;
+	
+	@MockBean
+	private AuthorizationServerTokenServices defaultAuthorizationServerTokenServices;
+	
+	@MockBean
+	private JwtUserDetailsService defaultJwtUserDetailsService;
+	
+	@MockBean
+	private JwtTokenUtil defaultJwtTokenUtil;
+	
+	@MockBean
+	private JwtAuthenticationEntryPoint defaultJwtAuthenticationEntryPoint;
 	
 	private StringBuilder criacaoStringEmails() {
 		StringBuilder emails = new StringBuilder();
@@ -49,10 +61,9 @@ class ConvidadoControllerTest {
 	
 ///addUserFesta_______________________________________________________________________________________________
 	@Test
+	@WithMockUser
 	void addUserFestaTest() throws Exception{
 		String uri = "/convidado/addUserFesta";
-		
-		RequestPostProcessor bearerToken = authHelper.addBearerToken("pachanga", "ROLE_USER");
 		
 		String emailsEnviados = "[\"luis_iruca@hotmail.com\",\"guga.72@hotmail.com\"]";
 		
@@ -67,7 +78,6 @@ class ConvidadoControllerTest {
 				.param("idUsuario", "14")
 				.param("idGrupo", "14")
 				.content(emailsEnviados)
-				.with(bearerToken)
 				.contentType(MediaType.APPLICATION_JSON);
 		
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
@@ -83,10 +93,9 @@ class ConvidadoControllerTest {
 	}
 	
 	@Test
+	@WithMockUser
 	void addUserFestaExceptionTest() throws Exception{
 		String uri = "/convidado/addUserFesta";
-		
-		RequestPostProcessor bearerToken = authHelper.addBearerToken("pachanga", "ROLE_USER");
 		
 		String expected = "addUserFesta";
 		
@@ -101,7 +110,6 @@ class ConvidadoControllerTest {
 				.param("idUsuario", "14")
 				.param("idGrupo", "14")
 				.content(emailsEnviados)
-				.with(bearerToken)
 				.contentType(MediaType.APPLICATION_JSON);
 		
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
@@ -115,10 +123,9 @@ class ConvidadoControllerTest {
 	
 //accConvite____________________________________________________________________________________________________________________________________________
 	@Test
+	@WithMockUser
 	void accConviteTest() throws Exception{
 		String uri = "/convidado/accConvite";
-		
-		RequestPostProcessor bearerToken = authHelper.addBearerToken("pachanga", "ROLE_USER");
 		
 		Mockito.doNothing().when(convidadoService).aceitarConvite(Mockito.anyInt(), Mockito.anyInt());
 		
@@ -127,7 +134,6 @@ class ConvidadoControllerTest {
 				.accept(MediaType.APPLICATION_JSON)
 				.param("codConvidado", "1")
 				.param("idGrupo", "14")
-				.with(bearerToken)
 				.contentType(MediaType.APPLICATION_JSON);
 		
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
@@ -139,10 +145,9 @@ class ConvidadoControllerTest {
 	}
 	
 	@Test
+	@WithMockUser
 	void accConviteErroTest() throws Exception{
 		String uri = "/convidado/accConvite";
-		
-		RequestPostProcessor bearerToken = authHelper.addBearerToken("pachanga", "ROLE_USER");
 		
 		Mockito.doThrow(new ValidacaoException("teste")).when(convidadoService).aceitarConvite(Mockito.anyInt(), Mockito.anyInt());
 		
@@ -151,7 +156,6 @@ class ConvidadoControllerTest {
 				.accept(MediaType.APPLICATION_JSON)
 				.param("codConvidado", "1")
 				.param("idGrupo", "14")
-				.with(bearerToken)
 				.contentType(MediaType.APPLICATION_JSON);
 		
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
@@ -164,10 +168,9 @@ class ConvidadoControllerTest {
 	
 //recuConvite___________________________________________________________________________________________________________________________________
 	@Test
+	@WithMockUser
 	void recuConviteTest() throws Exception{
 		String uri = "/convidado/recuConvite";
-		
-		RequestPostProcessor bearerToken = authHelper.addBearerToken("pachanga", "ROLE_USER");
 		
 		Mockito.doNothing().when(convidadoService).recusarConvite(Mockito.anyInt(), Mockito.anyInt());
 		
@@ -176,7 +179,6 @@ class ConvidadoControllerTest {
 				.accept(MediaType.APPLICATION_JSON)
 				.param("codConvidado", "1")
 				.param("idGrupo", "14")
-				.with(bearerToken)
 				.contentType(MediaType.APPLICATION_JSON);
 		
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
@@ -188,10 +190,9 @@ class ConvidadoControllerTest {
 	}
 	
 	@Test
+	@WithMockUser
 	void recuConviteErroTest() throws Exception{
 		String uri = "/convidado/recuConvite";
-		
-		RequestPostProcessor bearerToken = authHelper.addBearerToken("pachanga", "ROLE_USER");
 		
 		Mockito.doThrow(new ValidacaoException("teste")).when(convidadoService).recusarConvite(Mockito.anyInt(), Mockito.anyInt());
 		
@@ -199,7 +200,6 @@ class ConvidadoControllerTest {
 				.post(uri)
 				.accept(MediaType.APPLICATION_JSON)
 				.param("codConvidado", "1")
-				.with(bearerToken)
 				.param("idGrupo", "14")
 				.contentType(MediaType.APPLICATION_JSON);
 		

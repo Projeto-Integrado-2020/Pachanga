@@ -23,12 +23,13 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
+import org.springframework.security.oauth2.provider.token.AuthorizationServerTokenServices;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.request.RequestPostProcessor;
 
 import com.eventmanager.pachanga.PachangaApplication;
 import com.eventmanager.pachanga.domains.Categoria;
@@ -40,7 +41,9 @@ import com.eventmanager.pachanga.dtos.FestaTO;
 import com.eventmanager.pachanga.errors.ValidacaoException;
 import com.eventmanager.pachanga.factory.ConvidadoFactory;
 import com.eventmanager.pachanga.factory.FestaFactory;
-import com.eventmanager.pachanga.securingweb.OAuthHelper;
+import com.eventmanager.pachanga.securingweb.JwtAuthenticationEntryPoint;
+import com.eventmanager.pachanga.securingweb.JwtTokenUtil;
+import com.eventmanager.pachanga.securingweb.JwtUserDetailsService;
 import com.eventmanager.pachanga.services.CategoriaService;
 import com.eventmanager.pachanga.services.ConvidadoService;
 import com.eventmanager.pachanga.services.FestaService;
@@ -71,11 +74,20 @@ class FestaControllerTest {
 	@MockBean
 	private ConvidadoFactory convidadoFactory;
 	
-	@Autowired
-	private OAuthHelper authHelper;
-	
 	@MockBean
 	private FestaFactory festaFactory;
+	
+	@MockBean
+	private AuthorizationServerTokenServices defaultAuthorizationServerTokenServices;
+	
+	@MockBean
+	private JwtUserDetailsService defaultJwtUserDetailsService;
+	
+	@MockBean
+	private JwtTokenUtil defaultJwtTokenUtil;
+	
+	@MockBean
+	private JwtAuthenticationEntryPoint defaultJwtAuthenticationEntryPoint;
 	
 	//metodos auxiliares___________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________	
 	private Festa festaTest() throws Exception{
@@ -178,6 +190,7 @@ class FestaControllerTest {
 
 	//Adicionar_____________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________	
 	@Test
+	@WithMockUser
 	void adicionarFestaSucessoTest() throws Exception {
 		String festaJson = "{\"codFesta\":\"2\",\"nomeFesta\":\"festao\",\"statusFesta\":\"I\",\"organizador\":\"Joao Neves\",\"horarioInicioFesta\":\"2016-06-22T19:10:00\",\"horarioFimFesta\":\"2016-06-23T19:10:00\",\"descricaoFesta\":\"Bugago\",\"codEnderecoFesta\":\"https//:minhacasa.org\",\"descOrganizador\":\"sou demente\"}";
 
@@ -189,14 +202,12 @@ class FestaControllerTest {
 		Mockito.when(categoriaService.procurarCategoriaFesta(Mockito.anyInt(), Mockito.anyString())).thenReturn(categoriaTest(), null);
 		Mockito.when(festaFactory.getFestaTO(Mockito.any(), Mockito.isNull(), Mockito.anyBoolean(), Mockito.any(), Mockito.any(), Mockito.isNull())).thenReturn(festaToTest());
 		
-		RequestPostProcessor bearerToken = authHelper.addBearerToken("pachanga", "ROLE_USER");
 
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.post(uri)
 				.accept(MediaType.APPLICATION_JSON)
 				.content(festaJson)
 				.param("idUser", "1")
-				.with(bearerToken)
 				.contentType(MediaType.APPLICATION_JSON);
 
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
@@ -211,6 +222,7 @@ class FestaControllerTest {
 	}
 
 	@Test
+	@WithMockUser
 	void adicionarFestaExceptionTest() throws Exception {
 		String festaJson = "{\"codFesta\":\"2\",\"nomeFesta\":\"festao\",\"statusFesta\":\"I\",\"organizador\":\"Joao Neves\",\"horarioInicioFesta\":\"2016-06-22T19:10:00\",\"horarioFimFesta\":\"2016-06-23T19:10:00\",\"descricaoFesta\":\"Bugago\",\"codEnderecoFesta\":\"https//:minhacasa.org\",\"descOrganizador\":\"sou demente\"}";
 
@@ -219,14 +231,12 @@ class FestaControllerTest {
 		Mockito.when(festaService.addFesta(Mockito.any(FestaTO.class), Mockito.any(Integer.class))).thenThrow(new ValidacaoException("addFesta"));
 		Mockito.when(categoriaService.procurarCategoriaFesta(Mockito.anyInt(), Mockito.anyString())).thenReturn(categoriaTest(), null);
 		
-		RequestPostProcessor bearerToken = authHelper.addBearerToken("pachanga", "ROLE_USER");
 
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.post(uri)
 				.accept(MediaType.APPLICATION_JSON)
 				.content(festaJson)
 				.param("idUser", "1")
-				.with(bearerToken)
 				.contentType(MediaType.APPLICATION_JSON);
 
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
@@ -243,6 +253,7 @@ class FestaControllerTest {
 
 
 	@Test
+	@WithMockUser
 	void listarFestaSucessoTest() throws Exception {
 		List<Festa> festas = new ArrayList<>();
 		festas.add(festaTest());
@@ -254,14 +265,12 @@ class FestaControllerTest {
 		Mockito.when(convidadoService.pegarConvidadosFesta(Mockito.anyInt())).thenReturn(convidados);
 		Mockito.when(festaFactory.getFestaTO(Mockito.any(), Mockito.anyList(), Mockito.anyBoolean(), Mockito.any(), Mockito.any(), Mockito.anyList(), Mockito.anyInt())).thenReturn(festaToTest());
 		
-		RequestPostProcessor bearerToken = authHelper.addBearerToken("pachanga", "ROLE_USER");
 
 		String uri = "/festa/lista";
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.get(uri)
 				.accept(MediaType.APPLICATION_JSON)
 				.param("idUser", "1")
-				.with(bearerToken)
 				.contentType(MediaType.APPLICATION_JSON);
 
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
@@ -276,6 +285,7 @@ class FestaControllerTest {
 	}
 	
 	@Test
+	@WithMockUser
 	void listarFestaUsuarioZeroTest() throws Exception {
 		List<Festa> festas = new ArrayList<>();
 		festas.add(festaTest());
@@ -287,14 +297,12 @@ class FestaControllerTest {
 		Mockito.when(convidadoService.pegarConvidadosFesta(Mockito.anyInt())).thenReturn(convidados);
 		Mockito.when(userService.getUsuariosFesta(Mockito.any(Integer.class))).thenReturn(colecaoDeUsuario(2));
 		
-		RequestPostProcessor bearerToken = authHelper.addBearerToken("pachanga", "ROLE_USER");
 
 		String uri = "/festa/lista";
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.get(uri)
 				.accept(MediaType.APPLICATION_JSON)
 				.param("idUser", "0")
-				.with(bearerToken)
 				.contentType(MediaType.APPLICATION_JSON);
 
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
@@ -309,6 +317,7 @@ class FestaControllerTest {
 	}
 
 	@Test
+	@WithMockUser
 	void listarFestaProcurarFestasPorUsuarioExceptionTest() throws Exception {
 
 		Mockito.when(festaService.procurarFestasPorUsuario(Mockito.any(Integer.class))).thenThrow(new ValidacaoException("procurarFestasPorUsuario"));
@@ -317,14 +326,12 @@ class FestaControllerTest {
 
 		String uri = "/festa/lista";
 		
-		RequestPostProcessor bearerToken = authHelper.addBearerToken("pachanga", "ROLE_USER");
 
 		//problema com o festaService.procurarFestasPorUsuario
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.get(uri)
 				.accept(MediaType.APPLICATION_JSON)
 				.param("idUser", "1")
-				.with(bearerToken)
 				.contentType(MediaType.APPLICATION_JSON);
 
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
@@ -339,6 +346,7 @@ class FestaControllerTest {
 	}
 
 	@Test
+	@WithMockUser
 	void listarFestaProcurarFestasExceptionTest() throws Exception {
 
 		Mockito.when(festaService.procurarFestasPorUsuario(Mockito.any(Integer.class))).thenThrow(new ValidacaoException("procurarFestasPorUsuario"));
@@ -347,12 +355,10 @@ class FestaControllerTest {
 
 		String uri = "/festa/lista";
 		
-		RequestPostProcessor bearerToken = authHelper.addBearerToken("pachanga", "ROLE_USER");
 
 		//problema com o festaService.procurarFestasPorUsuario
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.get(uri)
-				.with(bearerToken)
 				.accept(MediaType.APPLICATION_JSON)
 				.contentType(MediaType.APPLICATION_JSON);
 
@@ -368,19 +374,18 @@ class FestaControllerTest {
 
 
 	@Test
+	@WithMockUser
 	void deletarFestaSucessoTest() throws Exception {
 		String uri = "/festa/delete";	
 
 		doNothing().when(festaService).deleteFesta(Mockito.any(Integer.class), Mockito.any(Integer.class));
 		
-		RequestPostProcessor bearerToken = authHelper.addBearerToken("pachanga", "ROLE_USER");
 
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.delete(uri)
 				.accept(MediaType.APPLICATION_JSON)
 				.param("idFesta", "2")
 				.param("idUser", "1")
-				.with(bearerToken)
 				.contentType(MediaType.APPLICATION_JSON);
 
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
@@ -392,6 +397,7 @@ class FestaControllerTest {
 
 
 	@Test
+	@WithMockUser
 	void deletarFestaExceptionTest() throws Exception {
 		String uri = "/festa/delete";
 
@@ -399,14 +405,12 @@ class FestaControllerTest {
 
 		doThrow(new ValidacaoException(expected)).when(festaService).deleteFesta(Mockito.any(Integer.class), Mockito.any(Integer.class));
 
-		RequestPostProcessor bearerToken = authHelper.addBearerToken("pachanga", "ROLE_USER");
 
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.delete(uri)
 				.accept(MediaType.APPLICATION_JSON)
 				.param("idFesta", "2")
 				.param("idUser", "1")
-				.with(bearerToken)
 				.contentType(MediaType.APPLICATION_JSON);
 
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
@@ -421,6 +425,7 @@ class FestaControllerTest {
 	//atualizar________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________	
 
 	@Test
+	@WithMockUser
 	void atualizarFestaSucessoTest() throws Exception {
 		String festaJson = "{\"codFesta\":\"2\",\"nomeFesta\":\"festao\",\"statusFesta\":\"I\",\"organizador\":\"Joao Neves\",\"horarioInicioFesta\":\"2016-06-22T19:10:00\",\"horarioFimFesta\":\"2016-06-23T19:10:00\",\"descricaoFesta\":\"Bugago\",\"codEnderecoFesta\":\"https//:minhacasa.org\",\"descOrganizador\":\"sou demente\"}";
 
@@ -432,14 +437,12 @@ class FestaControllerTest {
 		Mockito.when(categoriaService.procurarCategoriaFesta(Mockito.anyInt(), Mockito.anyString())).thenReturn(categoriaTest(), null);
 		Mockito.when(festaFactory.getFestaTO(Mockito.any(), Mockito.isNull(), Mockito.anyBoolean(), Mockito.any(), Mockito.any(), Mockito.isNull())).thenReturn(festaToTest());
 		
-		RequestPostProcessor bearerToken = authHelper.addBearerToken("pachanga", "ROLE_USER");
 
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.put(uri)
 				.accept(MediaType.APPLICATION_JSON)
 				.content(festaJson)
 				.param("idUser", "1")
-				.with(bearerToken)
 				.contentType(MediaType.APPLICATION_JSON);
 
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
@@ -455,6 +458,7 @@ class FestaControllerTest {
 	}
 
 	@Test
+	@WithMockUser
 	void atualizarFestaExceptionTest() throws Exception {
 		String festaJson = "{\"codFesta\":\"2\",\"nomeFesta\":\"festao\",\"statusFesta\":\"I\",\"organizador\":\"Joao Neves\",\"horarioInicioFesta\":\"2016-06-22T19:10:00\",\"horarioFimFesta\":\"2016-06-23T19:10:00\",\"descricaoFesta\":\"Bugago\",\"codEnderecoFesta\":\"https//:minhacasa.org\",\"descOrganizador\":\"sou demente\"}";
 
@@ -465,14 +469,12 @@ class FestaControllerTest {
 		Mockito.when(festaService.updateFesta(Mockito.any(FestaTO.class), Mockito.any(Integer.class))).thenThrow(new ValidacaoException(expected));
 		Mockito.when(categoriaService.procurarCategoriaFesta(Mockito.anyInt(), Mockito.anyString())).thenReturn(categoriaTest(), null);
 		
-		RequestPostProcessor bearerToken = authHelper.addBearerToken("pachanga", "ROLE_USER");
 
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.put(uri)
 				.accept(MediaType.APPLICATION_JSON)
 				.content(festaJson)
 				.param("idUser", "1")
-				.with(bearerToken)
 				.contentType(MediaType.APPLICATION_JSON);
 
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
@@ -489,6 +491,7 @@ class FestaControllerTest {
 	//get festa unica________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________	
 
 	@Test
+	@WithMockUser
 	void getFestaSucessoTest() throws Exception {
 
 		Festa festaTest = festaTest();
@@ -500,14 +503,12 @@ class FestaControllerTest {
 		Mockito.when(categoriaService.procurarCategoriaFesta(Mockito.anyInt(), Mockito.anyString())).thenReturn(categoriaTest(), null);
 		Mockito.when(festaFactory.getFestaTO(Mockito.any(), Mockito.anyList(), Mockito.anyBoolean(), Mockito.any(), Mockito.any(), Mockito.anyList(), Mockito.anyInt())).thenReturn(festaToTest());
 		
-		RequestPostProcessor bearerToken = authHelper.addBearerToken("pachanga", "ROLE_USER");
 
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.get(uri)
 				.accept(MediaType.APPLICATION_JSON)
 				.param("idFesta", "2")
 				.param("idUsuario", "1")
-				.with(bearerToken)
 				.contentType(MediaType.APPLICATION_JSON);
 
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
@@ -522,6 +523,7 @@ class FestaControllerTest {
 	}
 
 	@Test
+	@WithMockUser
 	void getFestaNaoEncontradaTest() throws Exception {
 
 		String uri = "/festa/festaUnica";
@@ -532,13 +534,11 @@ class FestaControllerTest {
 		Mockito.when(userService.getUsuariosFesta(Mockito.any(Integer.class))).thenReturn(colecaoDeUsuario(2));
 		Mockito.when(categoriaService.procurarCategoriaFesta(Mockito.anyInt(), Mockito.anyString())).thenReturn(categoriaTest(), null);
 		
-		RequestPostProcessor bearerToken = authHelper.addBearerToken("pachanga", "ROLE_USER");
 
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.get(uri)
 				.param("idFesta", "2")
 				.param("idUsuario", "2")
-				.with(bearerToken)
 				.accept(MediaType.APPLICATION_JSON)
 				.contentType(MediaType.APPLICATION_JSON);
 
@@ -551,6 +551,7 @@ class FestaControllerTest {
 	}
 
 	@Test
+	@WithMockUser
 	void getFestaExceptionTest() throws Exception {
 
 		String expected = "";
@@ -561,14 +562,12 @@ class FestaControllerTest {
 		Mockito.when(userService.getUsuariosFesta(Mockito.any(Integer.class))).thenThrow(new ValidacaoException(expected));
 		Mockito.when(categoriaService.procurarCategoriaFesta(Mockito.anyInt(), Mockito.anyString())).thenReturn(categoriaTest(), null);
 		
-		RequestPostProcessor bearerToken = authHelper.addBearerToken("pachanga", "ROLE_USER");
 
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.get(uri)
 				.accept(MediaType.APPLICATION_JSON)
 				.param("idFesta", "2")
 				.param("idUsuario", "2")
-				.with(bearerToken)
 				.contentType(MediaType.APPLICATION_JSON);
 
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
@@ -583,6 +582,7 @@ class FestaControllerTest {
 
 	//alterar status festa________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
 	@Test
+	@WithMockUser
 	void alterarStatusFestaSucesso() throws Exception{
 
 		String uri = "/festa/festaMudancaStatus";
@@ -598,7 +598,6 @@ class FestaControllerTest {
 
 		Mockito.when(categoriaService.procurarCategoriaFesta(Mockito.anyInt(), Mockito.anyString())).thenReturn(categoriaTest(), null);
 		
-		RequestPostProcessor bearerToken = authHelper.addBearerToken("pachanga", "ROLE_USER");
 
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.put(uri)
@@ -606,7 +605,6 @@ class FestaControllerTest {
 				.param("idFesta", "2")
 				.param("idUsuario", "1")
 				.param("statusFesta", "I")
-				.with(bearerToken)
 				.contentType(MediaType.APPLICATION_JSON);
 
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
@@ -617,6 +615,7 @@ class FestaControllerTest {
 	}
 
 	@Test
+	@WithMockUser
 	void alterarStatusFestaErro() throws Exception{
 
 		String expected = "teste";
@@ -631,7 +630,6 @@ class FestaControllerTest {
 
 		Mockito.when(userService.funcionalidadeUsuarioFesta(Mockito.anyInt(), Mockito.anyInt())).thenReturn(null);
 		
-		RequestPostProcessor bearerToken = authHelper.addBearerToken("pachanga", "ROLE_USER");
 
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.put(uri)
@@ -639,7 +637,6 @@ class FestaControllerTest {
 				.param("idFesta", "2")
 				.param("idUsuario", "1")
 				.param("statusFesta", "I")
-				.with(bearerToken)
 				.contentType(MediaType.APPLICATION_JSON);
 
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
