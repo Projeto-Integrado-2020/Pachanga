@@ -16,8 +16,7 @@ import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -30,7 +29,6 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import com.eventmanager.pachanga.PachangaApplication;
 import com.eventmanager.pachanga.domains.Convidado;
 import com.eventmanager.pachanga.domains.Festa;
 import com.eventmanager.pachanga.domains.Grupo;
@@ -39,14 +37,14 @@ import com.eventmanager.pachanga.domains.Usuario;
 import com.eventmanager.pachanga.dtos.GrupoTO;
 import com.eventmanager.pachanga.errors.ValidacaoException;
 import com.eventmanager.pachanga.factory.ConvidadoFactory;
+import com.eventmanager.pachanga.securingweb.JwtAuthenticationEntryPoint;
+import com.eventmanager.pachanga.securingweb.JwtTokenUtil;
+import com.eventmanager.pachanga.securingweb.JwtUserDetailsService;
 import com.eventmanager.pachanga.services.ConvidadoService;
 import com.eventmanager.pachanga.services.GrupoService;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(
-		webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
-		classes = PachangaApplication.class)
-@AutoConfigureMockMvc
+@WebMvcTest(value=GrupoController.class)
 class GrupoControllerTest {
 	
 	@Autowired
@@ -63,6 +61,15 @@ class GrupoControllerTest {
 	
 	@MockBean
 	private AuthorizationServerTokenServices defaultAuthorizationServerTokenServices;
+	
+	@MockBean
+	private JwtUserDetailsService defaultJwtUserDetailsService;
+	
+	@MockBean
+	private JwtTokenUtil defaultJwtTokenUtil;
+	
+	@MockBean
+	private JwtAuthenticationEntryPoint defaultJwtAuthenticationEntryPoint;
 	
 	public Convidado convidadoTest(int cod, String email) {
 		Convidado convidado = new Convidado();

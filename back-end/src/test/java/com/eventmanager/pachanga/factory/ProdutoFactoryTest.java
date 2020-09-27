@@ -8,25 +8,32 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.oauth2.provider.token.AuthorizationServerTokenServices;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.eventmanager.pachanga.PachangaApplication;
 import com.eventmanager.pachanga.domains.Produto;
 import com.eventmanager.pachanga.dtos.ProdutoTO;
+import com.eventmanager.pachanga.securingweb.JwtAuthenticationEntryPoint;
+import com.eventmanager.pachanga.securingweb.JwtTokenUtil;
+import com.eventmanager.pachanga.securingweb.JwtUserDetailsService;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(
-		webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
-		classes = PachangaApplication.class)
-@AutoConfigureMockMvc
+@WebMvcTest(value=ProdutoFactory.class)
 class ProdutoFactoryTest {
 	
 	@MockBean
 	private AuthorizationServerTokenServices defaultAuthorizationServerTokenServices;
+	
+	@MockBean
+	private JwtUserDetailsService defaultJwtUserDetailsService;
+	
+	@MockBean
+	private JwtTokenUtil defaultJwtTokenUtil;
+	
+	@MockBean
+	private JwtAuthenticationEntryPoint defaultJwtAuthenticationEntryPoint;
 	
 	private ProdutoFactory produtoFactory;
 	
