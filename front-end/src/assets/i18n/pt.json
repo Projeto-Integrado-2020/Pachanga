@@ -27,6 +27,7 @@
         "CADASTRO": "Cadastro",
         "PREENCHER": "Preencha as informações a seguir:",
         "NOME": "Nome",
+        "PRONOME": "Pronomes",
         "DATANASC": "Data de Nascimento",
         "GENERO": "Gênero",
         "EMAILERRO": "Por favor digite um e-mail válido.",
@@ -36,19 +37,22 @@
         "GMAIL": "Cadastrar com Gmail",
         "TERMOS": "Eu aceito os ",
         "TERMOS2": "Termos de Uso e Privacidade",
-        "CADASTRAR": "Cadastrar"
+        "CADASTRAR": "Cadastrar",
+        "CAMPOABERTO": "(Campo Aberto)"
     },
 
     "GENEROS": {
         "HOMEMCIS": "Homem cisgênero", 
         "HOMEMTRANS": "Homem transgênero", 
-        "HOMEMNAOBINARIO": "Homem não-binário", 
+        "NAOBINARIO": "Não-binário", 
         "MULHERCIS": "Mulher cisgênero", 
         "MULHERTRANS": "Mulher transgênero", 
-        "MULHERNAOBINARIO": "Mulher não-binário",
-        "INTERMASCULINO": "Intersexo masculino",
-        "INTERFEMININO": "Intersexo feminino",
-        "INTERNAOBINARIO": "Intersexo não-Binário"
+        "NAODIZER": "Prefiro não informar"
+    },
+
+    "PRONOMES": {
+        "MASC": "Ele/dele",
+        "FEMI": "Ela/dela"
     },
 
     "SEXO": {
@@ -172,6 +176,7 @@
         "CITY": "Cidade",
         "STATE": "Estado",
         "GENERO": "Gênero",
+        "PRONOME": "Pronome",
         "PASSWORDCONFIRM": "Confirmar senha",
         "NOTINFORMED": "Não Informado",
         "EMAIL": "E-mail"
@@ -193,10 +198,13 @@
         "NEWDTNASC": "Nova data de nascimento",
         "OLDSENHA": "Senha atual",
         "NEWSENHA": "Nova senha",
+        "OLDPRONOME": "Pronome atual",
+        "NEWPRONOME": "Novo pronome",
         "SAVE": "Salvar alterações",
         "ALTNAME": "Alterar nome",
         "ALTDTNASC": "Alterar data de nascimento",
         "ALTGENERO": "Alterar gênero",
+        "ALTPRONOME": "Alterar pronome",
         "ALTEMAIL": "Alterar e-mail",
         "ALTSENHA": "Alterar senha",
         "CONFPASS": "Confirmar nova senha"

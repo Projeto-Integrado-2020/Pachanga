@@ -142,6 +142,7 @@ describe('CadastroComponent', () => {
     const field5 = 'senha';
     const field6 = 'confirmacaoSenha';
     const field7 = 'termos';
+    const field8 = 'pronome';
 
     const nome = component.form.controls[field1];
     const dtnasc = component.form.controls[field2];
@@ -150,10 +151,12 @@ describe('CadastroComponent', () => {
     const senha = component.form.controls[field5];
     const confirmacaoSenha = component.form.controls[field6];
     const termos = component.form.controls[field7];
+    const pronome = component.form.controls[field8];
 
     nome.setValue('Teste de Form');
     dtnasc.setValue(new Date());
     sexo.setValue('M');
+    pronome.setValue('M');
     email.setValue('teste@teste.com');
     senha.setValue('123123Aa!');
     confirmacaoSenha.setValue('123123Aa!');
@@ -216,6 +219,18 @@ describe('CadastroComponent', () => {
     nome.setValue('Teste');
 
     expect(nome.valid).toBeTruthy();
+  });
+
+  it('pronome valid', () => {
+    const field = 'pronome';
+
+    const pronome = component.form.controls[field];
+
+    expect(pronome.valid).toBeFalsy();
+
+    pronome.setValue('ELE');
+
+    expect(pronome.valid).toBeTruthy();
   });
 
   it('sexo valid', () => {
@@ -339,12 +354,13 @@ describe('CadastroComponent', () => {
     const userJson = {
       tipConta: 'P',
       email: 'Email',
+      pronome: 'ELE',
       senha: 'Senha123',
       nomeUser: 'Name',
       dtNasc: '2000-04-05',
       genero: 'M'
     };
-    component.signUpWithPachanga('Name', '05/04/2000', 'M', 'Email', 'Senha123');
+    component.signUpWithPachanga('Name', 'Ele', '05/04/2000', 'M', 'Email', 'Senha123');
     expect(component.cadastrar_se).toHaveBeenCalledWith(userJson);
   });
 

@@ -22,15 +22,17 @@ export class EditDialogComponent implements OnInit {
   options: string[] = [
                         this.translate.instant('GENEROS.HOMEMCIS'),
                         this.translate.instant('GENEROS.HOMEMTRANS'),
-                        this.translate.instant('GENEROS.HOMEMNAOBINARIO'),
                         this.translate.instant('GENEROS.MULHERCIS'),
                         this.translate.instant('GENEROS.MULHERTRANS'),
-                        this.translate.instant('GENEROS.MULHERNAOBINARIO'),
-                        this.translate.instant('GENEROS.INTERMASCULINO'),
-                        this.translate.instant('GENEROS.INTERFEMININO'),
-                        this.translate.instant('GENEROS.INTERNAOBINARIO')
+                        this.translate.instant('GENEROS.NAOBINARIO'),
+                        this.translate.instant('GENEROS.NAODIZER')
                       ];
-filteredOptions: Observable<string[]>;
+  optionsPronome: string[] = [
+                        this.translate.instant('PRONOMES.MASC'),
+                        this.translate.instant('PRONOMES.FEMI')
+                      ];
+  filteredOptions: Observable<string[]>;
+  filteredOptionsPronome: Observable<string[]>;
 
   maxDate = new Date();
 
@@ -52,6 +54,17 @@ filteredOptions: Observable<string[]>;
           nomeAntigo: new FormControl({value: '', disabled: true}),
           nome: new FormControl('', Validators.required),
         });
+        break;
+      case 'pronome':
+        this.form = this.formBuilder.group({
+          pronomeAntigo: new FormControl({value: '', disabled: true}),
+          pronome: new FormControl('', Validators.required),
+        });
+        this.filteredOptionsPronome = this.form.get('pronome').valueChanges
+        .pipe(
+          startWith(''),
+          map(value => this._filterPronome(value))
+        );
         break;
       case 'email':
         this.form = this.formBuilder.group({
@@ -95,6 +108,11 @@ filteredOptions: Observable<string[]>;
     return this.options.filter(option => option.toLowerCase().includes(filterValue));
   }
 
+  _filterPronome(value: string): string[] {
+    const filterValue = value.toLowerCase();
+    return this.optionsPronome.filter(option => option.toLowerCase().includes(filterValue));
+  }
+
   salvarNome(nome: string) {
     this.modJson.nomeUser = nome;
     this.callService();
@@ -113,6 +131,11 @@ filteredOptions: Observable<string[]>;
 
   salvarSexo(sexo: string) {
     this.modJson.genero = sexo.toUpperCase();
+    this.callService();
+  }
+
+  salvarPronome(pronome: string) {
+    this.modJson.pronome = pronome.toUpperCase();
     this.callService();
   }
 

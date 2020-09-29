@@ -10,6 +10,19 @@
         <form [formGroup]="form" class="form_edit">
           <p>
             <mat-form-field class="example-full-width">
+              <mat-label>{{'PERFIL.PRONOME' | translate}}</mat-label>
+              <input formControlName="pronome" *ngIf="!loginService.usuarioInfo.pronome || loginService.usuarioInfo.pronome == 'N'" required matInput value="{{'PERFIL.NOTINFORMED' | translate}}">
+              <input formControlName="pronome" *ngIf="loginService.usuarioInfo.pronome && loginService.usuarioInfo.pronome != 'N'" autocapitalize="word" required matInput value="{{ loginService.usuarioInfo.pronome.charAt(0).toUpperCase() + loginService.usuarioInfo.pronome.slice(1).toLowerCase() }}">
+            </mat-form-field>
+          </p>
+          <p>
+            <button (click)="openDialogEdit('pronome')">
+              <mat-icon>edit</mat-icon>
+            </button>
+          </p>
+
+          <p>
+            <mat-form-field class="example-full-width">
               <mat-label>{{'PERFIL.NAME' | translate}}</mat-label>
               <input formControlName="nome" required matInput value="{{ loginService.usuarioInfo.nomeUser }}">
             </mat-form-field>
@@ -49,7 +62,7 @@
             <mat-form-field class="example-full-width">
               <mat-label>{{'PERFIL.GENERO' | translate}}</mat-label>
               <input formControlName="sexo" *ngIf="!loginService.usuarioInfo.genero || loginService.usuarioInfo.genero == 'N'" required matInput value="{{'PERFIL.NOTINFORMED' | translate}}">
-              <input formControlName="email" *ngIf="loginService.usuarioInfo.genero && loginService.usuarioInfo.genero != 'N'" autocapitalize="word" required matInput value="{{ loginService.usuarioInfo.genero.charAt(0).toUpperCase() + loginService.usuarioInfo.genero.slice(1).toLowerCase() }}">
+              <input formControlName="sexo" *ngIf="loginService.usuarioInfo.genero && loginService.usuarioInfo.genero != 'N'" autocapitalize="word" required matInput value="{{ loginService.usuarioInfo.genero.charAt(0).toUpperCase() + loginService.usuarioInfo.genero.slice(1).toLowerCase() }}">
             </mat-form-field>
           </p>
           <p>

@@ -24,6 +24,7 @@ export class PerfilComponent implements OnInit {
   ngOnInit() {
     this.form = this.formBuilder.group({
       nome: new FormControl({value: '', disabled: true}),
+      pronome: new FormControl({value: '', disabled: true}),
       email: new FormControl({value: '', disabled: true}),
       dtNasc: new FormControl({value: '', disabled: true}),
       sexo: new FormControl({value: '', disabled: true}),

@@ -4,7 +4,15 @@
         <button mat-raised-button color="primary" (click)="signUpWithFB()"><i class="fa fa-facebook-official"></i> {{'CADASTRO.FACE' | translate}}</button>
         <button mat-raised-button color="warn" (click)="signUpWithGoogle()"><i class="fa fa-google"></i> {{'CADASTRO.GMAIL' | translate}}</button>
         <mat-divider></mat-divider>
-        <form [formGroup]="form" class="example-form" (submit)="signUpWithPachanga(nomeCadastro.value, dtnascCadastro.value, sexoCadastro.value, emailCadastro.value, senhaCadastro.value)">
+        <form [formGroup]="form" class="example-form" (submit)="signUpWithPachanga(nomeCadastro.value, pronomeCadastro.value, dtnascCadastro.value, sexoCadastro.value, emailCadastro.value, senhaCadastro.value)">
+            <mat-form-field class="example-full-width pronome">
+                <mat-label>{{'CADASTRO.PRONOME' | translate}} {{'CADASTRO.CAMPOABERTO' | translate}}</mat-label>
+                <input ng-class="{ f.pronome.errors }" required #pronomeCadastro formControlName="pronome" matInput [matAutocomplete]="autoPronome">
+                <mat-autocomplete #autoPronome="matAutocomplete">
+                    <mat-option *ngFor="let option of filteredOptionsPronome | async" [value]="option">{{option}}</mat-option>
+                </mat-autocomplete>
+                <mat-error *ngIf="f.pronome.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
+            </mat-form-field>
             <mat-form-field class="example-full-width">
                 <mat-label>{{'CADASTRO.NOME' | translate}}</mat-label>
                 <input ng-class="{ f.nome.errors }" #nomeCadastro matInput required formControlName="nome">
@@ -17,8 +25,8 @@
                 <mat-datepicker #picker ></mat-datepicker>
                 <mat-error *ngIf="f.dtnasc.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
             </mat-form-field>
-            <mat-form-field>
-                <mat-label>{{'CADASTRO.GENERO' | translate}}</mat-label>
+            <mat-form-field class="example-full-width">
+                <mat-label>{{'CADASTRO.GENERO' | translate}} {{'CADASTRO.CAMPOABERTO' | translate}}</mat-label>
                 <input ng-class="{ f.sexo.errors }" required #sexoCadastro formControlName="sexo" matInput [matAutocomplete]="auto">
                 <mat-autocomplete #auto="matAutocomplete">
                     <mat-option *ngFor="let option of filteredOptions | async" [value]="option">{{option}}</mat-option>

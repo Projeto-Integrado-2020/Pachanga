@@ -114,6 +114,13 @@ describe('EditDialogComponent', () => {
     expect(component.callService).toHaveBeenCalled();
   });
 
+  it('should save pronome at salvarPronome and callService', () => {
+    spyOn(component, 'callService');
+    component.salvarPronome('Ele');
+    expect(component.modJson.pronome).toBe('ELE');
+    expect(component.callService).toHaveBeenCalled();
+  });
+
   it('should callService', () => {
     spyOn(component.editService, 'atualizar')
     .and

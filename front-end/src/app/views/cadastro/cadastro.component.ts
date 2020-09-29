@@ -23,6 +23,7 @@ import {map, startWith} from 'rxjs/operators';
 export class CadastroComponent extends SocialLoginBaseComponent implements OnInit {
 
   nomeCadastro;
+  pronomeCadastro;
   dtnascCadastro;
   sexoCadastro;
   emailCadastro;
@@ -30,15 +31,17 @@ export class CadastroComponent extends SocialLoginBaseComponent implements OnIni
   options: string[] = [
                         this.translate.instant('GENEROS.HOMEMCIS'),
                         this.translate.instant('GENEROS.HOMEMTRANS'),
-                        this.translate.instant('GENEROS.HOMEMNAOBINARIO'),
                         this.translate.instant('GENEROS.MULHERCIS'),
                         this.translate.instant('GENEROS.MULHERTRANS'),
-                        this.translate.instant('GENEROS.MULHERNAOBINARIO'),
-                        this.translate.instant('GENEROS.INTERMASCULINO'),
-                        this.translate.instant('GENEROS.INTERFEMININO'),
-                        this.translate.instant('GENEROS.INTERNAOBINARIO')
+                        this.translate.instant('GENEROS.NAOBINARIO'),
+                        this.translate.instant('GENEROS.NAODIZER')
+                      ];
+  optionsPronome: string[] = [
+                        this.translate.instant('PRONOMES.MASC'),
+                        this.translate.instant('PRONOMES.FEMI')
                       ];
   filteredOptions: Observable<string[]>;
+  filteredOptionsPronome: Observable<string[]>;
 
   maxDate = new Date();
 
@@ -51,6 +54,7 @@ export class CadastroComponent extends SocialLoginBaseComponent implements OnIni
       sexo: new FormControl('', Validators.required),
       dtnasc: new FormControl('', Validators.required),
       nome: new FormControl('', Validators.required),
+      pronome: new FormControl('', Validators.required),
       termos: new FormControl(false, Validators.requiredTrue)
     }, {
       validator: MustMatch('senha', 'confirmacaoSenha')
@@ -60,6 +64,12 @@ export class CadastroComponent extends SocialLoginBaseComponent implements OnIni
       startWith(''),
       map(value => this._filter(value))
     );
+
+    this.filteredOptionsPronome = this.form.get('pronome').valueChanges
+    .pipe(
+      startWith(''),
+      map(value => this._filterPronome(value))
+    );
   }
 
   _filter(value: string): string[] {
@@ -67,11 +77,17 @@ export class CadastroComponent extends SocialLoginBaseComponent implements OnIni
     return this.options.filter(option => option.toLowerCase().includes(filterValue));
   }
 
-  signUpWithPachanga(nome, dtNasc, sexo, email, senha): void {
+  _filterPronome(value: string): string[] {
+    const filterValue = value.toLowerCase();
+    return this.optionsPronome.filter(option => option.toLowerCase().includes(filterValue));
+  }
+
+  signUpWithPachanga(nome, pronome, dtNasc, sexo, email, senha): void {
     const userJson = {
       tipConta: 'P',
       email,
       senha,
+      pronome: pronome.toUpperCase(),
       nomeUser: nome,
       dtNasc: dtNasc.slice(6, 10) + '-' + dtNasc.slice(3, 5) + '-' + dtNasc.slice(0, 2),
       genero: sexo.toUpperCase()
@@ -87,6 +103,7 @@ export class CadastroComponent extends SocialLoginBaseComponent implements OnIni
         nomeUser: this.user.name,
         email: this.user.email,
         dtNasc: '',
+        pronome: 'N',
         genero: 'N',
         conta: this.user.id
       };
@@ -102,6 +119,7 @@ export class CadastroComponent extends SocialLoginBaseComponent implements OnIni
         email: this.user.email,
         nomeUser: this.user.name,
         dtNasc: '',
+        pronome: 'N',
         genero: 'N',
         conta: this.user.id
       };

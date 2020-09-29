@@ -71,12 +71,34 @@
                 <input formControlName="sexoAntigo" *ngIf="loginService.usuarioInfo.genero && loginService.usuarioInfo.genero != 'N'" required matInput value="{{ loginService.usuarioInfo.genero.charAt(0).toUpperCase() + loginService.usuarioInfo.genero.slice(1).toLowerCase() }}">
             </mat-form-field>
             <mat-form-field>
-                <mat-label>{{'EDIT.NEWGENERO' | translate}}</mat-label>
+                <mat-label>{{'EDIT.NEWGENERO' | translate}} {{'CADASTRO.CAMPOABERTO' | translate}}</mat-label>
                 <input ng-class="{ f.sexo.errors }" required #sexo formControlName="sexo" matInput [matAutocomplete]="auto">
                 <mat-autocomplete #auto="matAutocomplete">
                     <mat-option *ngFor="let option of filteredOptions | async" [value]="option">{{option}}</mat-option>
                 </mat-autocomplete>
                 <mat-error *ngIf="f.sexo.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
+            </mat-form-field>
+            <button [disabled]="!form.valid" class="button-index" mat-raised-button color="accent">{{'EDIT.SAVE' | translate}}</button>
+        </form>
+    </div>
+</div>
+
+<div *ngIf="campo == 'pronome'">
+    <h1 mat-dialog-title>{{'EDIT.ALTPRONOME' | translate}}</h1>
+    <div mat-dialog-content>
+        <form [formGroup]="form" class="example-form" (submit)="salvarPronome(pronome.value)">
+            <mat-form-field class="example-full-width">
+                <mat-label>{{'EDIT.OLDPRONOME' | translate}}</mat-label>
+                <input formControlName="pronomeAntigo" *ngIf="!loginService.usuarioInfo.pronome || loginService.usuarioInfo.pronome == 'N'" required matInput value="{{'PERFIL.NOTINFORMED' | translate}}">
+                <input formControlName="pronomeAntigo" *ngIf="loginService.usuarioInfo.pronome && loginService.usuarioInfo.pronome != 'N'" required matInput value="{{ loginService.usuarioInfo.pronome.charAt(0).toUpperCase() + loginService.usuarioInfo.pronome.slice(1).toLowerCase() }}">
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>{{'EDIT.NEWPRONOME' | translate}} {{'CADASTRO.CAMPOABERTO' | translate}}</mat-label>
+                <input ng-class="{ f.pronome.errors }" required #pronome formControlName="pronome" matInput [matAutocomplete]="autoPronome">
+                <mat-autocomplete #autoPronome="matAutocomplete">
+                    <mat-option *ngFor="let option of filteredOptionsPronome | async" [value]="option">{{option}}</mat-option>
+                </mat-autocomplete>
+                <mat-error *ngIf="f.pronome.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
             </mat-form-field>
             <button [disabled]="!form.valid" class="button-index" mat-raised-button color="accent">{{'EDIT.SAVE' | translate}}</button>
         </form>
