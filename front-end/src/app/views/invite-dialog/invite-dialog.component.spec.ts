@@ -52,6 +52,11 @@ describe('InviteDialogComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(InviteDialogComponent);
     component = fixture.componentInstance;
+    component.component = {
+      ngOnInit: () => {
+        return true;
+      }
+    };
     fixture.detectChanges();
   });
 
