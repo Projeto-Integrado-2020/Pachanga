@@ -91,7 +91,7 @@ class UsuarioControllerTest {
 
 		MockHttpServletResponse response = result.getResponse();
 
-		String expected = "{\"dtNasc\":\"3900-09-27T00:00:00.000+0000\",\"codUsuario\":100,\"nomeUser\":\"Gustavo Barbosa\",\"tipConta\":\"P\",\"conta\":null,\"email\":\"gustavinhoTPD@fodasse.com.br\",\"emailNovo\":null,\"senha\":null,\"senhaNova\": null,\"genero\":\"M\",\"funcionalidade\": null}";
+		String expected = "{\"dtNasc\":\"3900-09-27T00:00:00.000+0000\",\"codUsuario\":100,\"nomeUser\":\"Gustavo Barbosa\",\"tipConta\":\"P\",\"conta\":null,\"email\":\"gustavinhoTPD@fodasse.com.br\",\"emailNovo\":null,\"senha\":null,\"senhaNova\": null,\"genero\":\"M\",\"funcionalidade\": null, \"pronome\": null}";
 
 		assertEquals(HttpStatus.OK.value(), response.getStatus());
 
@@ -183,7 +183,7 @@ class UsuarioControllerTest {
 		
 		MockHttpServletResponse response = result.getResponse();
 
-		String expected = "{\"dtNasc\":\"3900-09-27T00:00:00.000+0000\",\"codUsuario\":100,\"nomeUser\":\"Gustavo Barbosa\",\"tipConta\":\"P\",\"conta\":null,\"email\":\"gustavinhoTPD@fodasse.com.br\",\"emailNovo\":null,\"senha\":null,\"senhaNova\": null,\"genero\":\"M\", \"funcionalidade\": null}";
+		String expected = "{\"dtNasc\":\"3900-09-27T00:00:00.000+0000\",\"codUsuario\":100,\"nomeUser\":\"Gustavo Barbosa\",\"tipConta\":\"P\",\"conta\":null,\"email\":\"gustavinhoTPD@fodasse.com.br\",\"emailNovo\":null,\"senha\":null,\"senhaNova\": null,\"genero\":\"M\", \"funcionalidade\": null, \"pronome\": null}";
 
 		assertEquals(HttpStatus.OK.value(), response.getStatus());
 
@@ -246,7 +246,7 @@ class UsuarioControllerTest {
 		
 		MockHttpServletResponse response = result.getResponse();
 
-		String expected = "{\"dtNasc\":\"3900-09-26T00:00:00.000+0000\",\"codUsuario\":100,\"nomeUser\":\"Gustavo Barbosa\",\"tipConta\":\"P\",\"conta\":null,\"email\":\"gustavinhoTPD@fodasse.com.br\",\"emailNovo\":null,\"senha\":null,\"senhaNova\": null,\"genero\":\"F\",\"funcionalidade\": null}";
+		String expected = "{\"dtNasc\":\"3900-09-26T00:00:00.000+0000\",\"codUsuario\":100,\"nomeUser\":\"Gustavo Barbosa\",\"tipConta\":\"P\",\"conta\":null,\"email\":\"gustavinhoTPD@fodasse.com.br\",\"emailNovo\":null,\"senha\":null,\"senhaNova\": null,\"genero\":\"F\",\"funcionalidade\": null, \"pronome\": null}";
 
 		assertEquals(HttpStatus.OK.value(), response.getStatus());
 

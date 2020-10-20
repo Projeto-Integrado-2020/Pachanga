@@ -14,6 +14,7 @@ public class UsuarioBuilder{
 	private String email;
 	private String senha;
 	private String genero;
+	private String pronome;
 	
 	public static UsuarioBuilder getInstance() {
 		return new UsuarioBuilder();
@@ -21,6 +22,11 @@ public class UsuarioBuilder{
 	
 	public UsuarioBuilder dtNasc(Date dtNasc) {
 		this.dtNasc = dtNasc;
+		return this;
+	}
+	
+	public UsuarioBuilder pronome(String pronome) {
+		this.pronome = pronome;
 		return this;
 	}
 
@@ -69,6 +75,7 @@ public class UsuarioBuilder{
 		user.setGenero(genero);
 		user.setGmail(gmail);
 		user.setFacebook(facebook);
+		user.setPronome(pronome);
 		return user;
 	}
 

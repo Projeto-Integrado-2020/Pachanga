@@ -29,6 +29,8 @@ public class Usuario {
 	@Column(name = "dt_nasc")
 	private Date dtNasc;
 	private String genero;
+	@Column(name = "pronome")
+	private String pronome;
 
 	@ManyToMany(mappedBy = "usuarios",
 			fetch = FetchType.LAZY)
@@ -85,6 +87,12 @@ public class Usuario {
 	}
 	public void setGmail(String gmail) {
 		this.gmail = gmail;
+	}
+	public String getPronome() {
+		return pronome;
+	}
+	public void setPronome(String pronome) {
+		this.pronome = pronome;
 	}
 	
 }

@@ -15,6 +15,7 @@ public class UsuarioTO {
     private String senhaNova;
     private String genero;
     private String funcionalidade;
+    private String pronome;
     
 	public Date getDtNasc() {
 		return dtNasc;
@@ -102,6 +103,14 @@ public class UsuarioTO {
 
 	public void setConta(String conta) {
 		this.conta = conta;
+	}
+
+	public String getPronome() {
+		return pronome;
+	}
+
+	public void setPronome(String pronome) {
+		this.pronome = pronome;
 	}
 	    
 }

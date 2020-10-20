@@ -139,6 +139,7 @@ public class UsuarioService {
 		usuarioValidado.setDtNasc(user.getDtNasc());
 		usuarioValidado.setGenero(user.getGenero());
 		usuarioValidado.setNomeUser(user.getNomeUser());
+		usuarioValidado.setPronome(user.getPronome());
 
 		userRepository.save(usuarioValidado);
 		return usuarioValidado;

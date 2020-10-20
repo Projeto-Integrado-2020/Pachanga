@@ -13,6 +13,7 @@ public class UsuarioTOBuilder {
 	private String genero;
 	private String tipConta;
 	private String funcionalidade;
+	private String pronome;
 	
 	public static UsuarioTOBuilder getInstance() {
 		return new UsuarioTOBuilder();
@@ -25,6 +26,11 @@ public class UsuarioTOBuilder {
 	
 	public UsuarioTOBuilder dtNasc(Date dtNasc) {
 		this.dtNasc = dtNasc;
+		return this;
+	}
+	
+	public UsuarioTOBuilder pronome(String pronome) {
+		this.pronome = pronome;
 		return this;
 	}
 
@@ -62,6 +68,7 @@ public class UsuarioTOBuilder {
 		user.setGenero(genero);
 		user.setTipConta(tipConta);
 		user.setFuncionalidade(funcionalidade);
+		user.setPronome(pronome);
 		return user;
 	}
 
