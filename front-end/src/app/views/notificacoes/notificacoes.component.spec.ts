@@ -31,6 +31,8 @@ import { MenuFestasComponent } from '../menu-festas/menu-festas.component';
 import { FestaPainelControleComponent } from '../festa-painel-controle/festa-painel-controle.component';
 import { CriarFestaComponent } from '../criar-festa/criar-festa.component';
 import { MomentModule } from 'ngx-moment';
+import { RelatoriosPainelComponent } from '../relatorios-painel/relatorios-painel.component';
+import { FormsPainelComponent } from '../forms-painel/forms-painel.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -78,7 +80,9 @@ describe('NotificacoesComponent', () => {
         GerenciadorProdutosComponent,
         FestaDetalhesDialogComponent,
         NotificacoesComponent,
-        CriarFestaComponent
+        CriarFestaComponent,
+        RelatoriosPainelComponent,
+        FormsPainelComponent
       ],
       imports: [
         MomentModule,

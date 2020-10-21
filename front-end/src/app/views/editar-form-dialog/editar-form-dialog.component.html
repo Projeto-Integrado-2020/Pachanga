@@ -1,0 +1,18 @@
+<h1 mat-dialog-title>{{'FORMS.EDIT' | translate}}</h1>
+<div mat-dialog-content>
+    <form [formGroup]="form" (submit)="editarForm(nome.value, url.value)">
+        <mat-form-field>
+            <mat-label>{{'FORMS.NOME' | translate}}</mat-label>
+            <input ng-class="{ f.nome.errors }" #nome formControlName="nome" matInput required>
+            <mat-error *ngIf="f.nome.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>{{'FORMS.URL' | translate}}</mat-label>
+            <textarea ng-class="{ f.url.errors }" #url formControlName="url" matInput required></textarea>
+            <mat-error *ngIf="f.url.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
+        </mat-form-field>
+        <br>
+        <button class="button-form" mat-raised-button [disabled]="!form.valid">{{'FORMS.CONFIRM' | translate}}</button>
+    </form>
+    <button class="cancel-button" mat-button mat-dialog-close>{{'FORMS.CANCEL' | translate}}</button>
+</div>

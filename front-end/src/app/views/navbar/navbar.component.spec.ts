@@ -37,6 +37,8 @@ import { GerenciadorProdutosComponent } from '../gerenciador-produtos/gerenciado
 import { FestaDetalhesDialogComponent } from '../festa-detalhes-dialog/festa-detalhes-dialog.component';
 import { NotificacoesComponent } from '../notificacoes/notificacoes.component';
 import { MomentModule } from 'ngx-moment';
+import { FormsPainelComponent } from '../forms-painel/forms-painel.component';
+import { RelatoriosPainelComponent } from '../relatorios-painel/relatorios-painel.component';
 
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 100000;
 
@@ -87,7 +89,9 @@ describe('NavbarComponent', () => {
         EstoquePainelComponent,
         GerenciadorProdutosComponent,
         FestaDetalhesDialogComponent,
-        NotificacoesComponent
+        NotificacoesComponent,
+        RelatoriosPainelComponent,
+        FormsPainelComponent
        ],
       imports: [
         MomentModule,

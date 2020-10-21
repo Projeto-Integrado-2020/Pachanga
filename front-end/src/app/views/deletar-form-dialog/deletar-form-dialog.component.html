@@ -1,0 +1,8 @@
+<h1 mat-dialog-title>{{'FORMS.DELETE' | translate}}</h1>
+<div mat-dialog-content>
+    <p>{{'DELETEFORM.MESSAGE' | translate}} "{{ form.nome }}"?</p>
+</div>
+<div mat-dialog-actions class="buttons">
+    <button class="red-back" mat-button (click)="deletarForm()" cdkFocusInitial>{{'DELETEFORM.CONFIRM' | translate}}</button>
+    <button  mat-button mat-dialog-close cdkFocusInitial>{{'DELETEFORM.CANCEL' | translate}}</button>
+</div>

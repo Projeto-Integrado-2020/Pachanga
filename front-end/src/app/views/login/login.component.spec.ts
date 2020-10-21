@@ -36,6 +36,8 @@ import { GerenciadorProdutosComponent } from '../gerenciador-produtos/gerenciado
 import { FestaDetalhesDialogComponent } from '../festa-detalhes-dialog/festa-detalhes-dialog.component';
 import { NotificacoesComponent } from '../notificacoes/notificacoes.component';
 import { MomentModule } from 'ngx-moment';
+import { RelatoriosPainelComponent } from '../relatorios-painel/relatorios-painel.component';
+import { FormsPainelComponent } from '../forms-painel/forms-painel.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -83,7 +85,9 @@ describe('LoginComponent', () => {
         EstoquePainelComponent,
         GerenciadorProdutosComponent,
         FestaDetalhesDialogComponent,
-        NotificacoesComponent
+        NotificacoesComponent,
+        RelatoriosPainelComponent,
+        FormsPainelComponent
       ],
       imports: [
         MomentModule,
