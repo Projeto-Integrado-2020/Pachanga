@@ -227,8 +227,13 @@ public class NotificacaoService {
 		return TipoNotificacao.STAALTER.getValor() + "?" + codFesta + "&" + status;
 	}
 	
+	public String criarMensagemAreaProblema(int codArea, int codProblema) {
+		return TipoNotificacao.AREAPROB.getValor() + "?" + codArea + "&" + codProblema;
+	}
+	
 	public LocalDateTime getDataAtual() {
 		return LocalDateTime.now(ZoneId.of("America/Sao_Paulo"));
 	}
+
 
 }

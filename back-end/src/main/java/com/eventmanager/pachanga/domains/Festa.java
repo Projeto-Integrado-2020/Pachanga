@@ -53,6 +53,10 @@ public class Festa {
 			mappedBy = "festa")
 	private Set<Estoque> estoques;
 	
+	@OneToMany(fetch = FetchType.LAZY,
+			mappedBy = "festa")
+	private Set<AreaSegurancaProblema> areaSegurancaProblema;
+	
 	public int getCodFesta() {
 		return codFesta;
 	}
@@ -132,6 +136,13 @@ public class Festa {
 	
 	public void setEstoques(Set<Estoque> estoques) {
 		this.estoques = estoques;
+	}
+	
+	public Set<AreaSegurancaProblema> getAreaSegurancaProblema() {
+		return areaSegurancaProblema;
+	}
+	public void setAreaSegurancaProblema(Set<AreaSegurancaProblema> areaSegurancaProblema) {
+		this.areaSegurancaProblema = areaSegurancaProblema;
 	}
 	
 	public Boolean isOrganizador(int codUsuario) {
