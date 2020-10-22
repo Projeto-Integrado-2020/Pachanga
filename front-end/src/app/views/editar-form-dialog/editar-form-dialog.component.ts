@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material';
+import { EditarFormService } from 'src/app/services/editar-form/editar-form.service';
 
 @Component({
   selector: 'app-editar-form-dialog',
@@ -14,7 +15,7 @@ export class EditarFormDialogComponent implements OnInit {
   googleForm: any;
   form: FormGroup;
 
-  constructor(@Inject(MAT_DIALOG_DATA) data,
+  constructor(@Inject(MAT_DIALOG_DATA) data, public editarService: EditarFormService,
               public dialog: MatDialog, public formBuilder: FormBuilder) {
     this.googleForm = data.form;
     this.codFesta = data.codFesta;
@@ -31,12 +32,18 @@ export class EditarFormDialogComponent implements OnInit {
   get f() { return this.form.controls; }
 
   editarForm(nome, url) {
-    const produto = {
+    const formEditado = {
       codQuestionario: this.googleForm.codQuestionario,
       codFesta: this.codFesta,
       nome,
       url
     };
+
+    this.editarService.editarQuestionario(formEditado).subscribe((resp: any) => {
+      this.editarService.setFarol(false);
+      this.component.ngOnInit();
+      this.dialog.closeAll();
+    });
   }
 
 }

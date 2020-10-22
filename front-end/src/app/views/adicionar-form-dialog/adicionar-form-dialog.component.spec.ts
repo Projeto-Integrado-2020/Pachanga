@@ -10,6 +10,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material';
 import { AdicionarFormDialogComponent } from './adicionar-form-dialog.component';
+import { AdicionarFormService } from 'src/app/services/adicionar-form/adicionar-form.service';
+import { of } from 'rxjs';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -42,7 +44,11 @@ describe('AdicionarFormDialogComponent', () => {
       ],
       providers: [
         { provide: MAT_DIALOG_DATA, useValue: {codFesta: 'teste'}},
-        { provide: MatDialog, useValue: dialogSpy }
+        { provide: MatDialog, useValue: dialogSpy },
+        {provide: AdicionarFormService, useValue: {
+          adicionarQuestionario: () => of({}),
+          setFarol: () => false,
+        }}
       ]
     })
     .compileComponents();
@@ -60,5 +66,36 @@ describe('AdicionarFormDialogComponent', () => {
 
   it('should get f to get form controls', () => {
     expect(component.f).toBe(component.form.controls);
+  });
+
+  it('should adicionarForm', () => {
+    spyOn(component.criarService, 'adicionarQuestionario')
+    .and
+    .callThrough();
+
+    spyOn(component.criarService, 'setFarol')
+    .and
+    .callThrough();
+
+    component.component = {
+      ngOnInit: () => {
+        return true;
+      }
+    };
+    spyOn(component.component, 'ngOnInit')
+    .and
+    .callThrough();
+
+    component.codFesta = 'teste';
+    const form = {
+      url: 'teste',
+      nome: 'teste'
+    };
+    component.adicionarForm('teste', 'teste');
+
+    expect(component.criarService.adicionarQuestionario).toHaveBeenCalledWith(form, 'teste');
+    expect(component.criarService.setFarol).toHaveBeenCalledWith(false);
+    expect(component.component.ngOnInit).toHaveBeenCalled();
+    expect(dialogSpy.closeAll).toHaveBeenCalled();
   });
 });

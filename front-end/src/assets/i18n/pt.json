@@ -138,7 +138,8 @@
         "GRUPDELE": "Grupo deletado com sucesso.",
         "GRUPOALT": "Grupo alterado com sucesso.",
         "ATRIBSUC": "Atribuição salva com sucesso.",
-        "PRODDELE": "Produto deletado com sucesso."
+        "PRODDELE": "Produto deletado com sucesso.",
+        "FORMDELE": "Questionário deletado com sucesso."
     },
     
     "PERFIL":{

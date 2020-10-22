@@ -9,6 +9,8 @@ import { HttpClient } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 
 import { DeletarFormDialogComponent } from './deletar-form-dialog.component';
+import { DeletarFormService } from 'src/app/services/deletar-form/deletar-form.service';
+import { of } from 'rxjs';
 
 describe('DeletarFormDialogComponent', () => {
   let component: DeletarFormDialogComponent;
@@ -37,6 +39,10 @@ describe('DeletarFormDialogComponent', () => {
           codFesta: 'teste'}
         },
         { provide: MatDialog, useValue: dialogSpy },
+        {provide: DeletarFormService, useValue: {
+          deleteQuestionario: () => of({}),
+          setFarol: () => false,
+        }}
       ]
     })
     .compileComponents();
@@ -56,5 +62,30 @@ describe('DeletarFormDialogComponent', () => {
   it('should open a dialog through a method', () => {
     component.openDialogSuccess('teste');
     expect(dialogSpy.open).toHaveBeenCalled();
+  });
+
+  it('should deletarForm', () => {
+    spyOn(component.deleteService, 'deleteQuestionario')
+    .and
+    .callThrough();
+
+    spyOn(component, 'openDialogSuccess')
+    .and
+    .callThrough();
+
+    component.component = {
+      ngOnInit: () => true
+    };
+    spyOn(component.component, 'ngOnInit')
+    .and
+    .callThrough();
+
+    component.form = {codQuestionario: 'teste'};
+    component.codFesta = 'teste';
+    component.deletarForm();
+    expect(component.deleteService.deleteQuestionario).toHaveBeenCalledWith('teste', 'teste');
+    expect(dialogSpy.closeAll).toHaveBeenCalled();
+    expect(component.component.ngOnInit).toHaveBeenCalled();
+    expect(component.openDialogSuccess).toHaveBeenCalledWith('FORMDELE');
   });
 });

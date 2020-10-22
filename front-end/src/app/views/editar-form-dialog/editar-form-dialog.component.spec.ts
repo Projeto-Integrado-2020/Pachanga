@@ -11,6 +11,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material';
+import { LoginService } from 'src/app/services/loginService/login.service';
+import { EditarFormService } from 'src/app/services/editar-form/editar-form.service';
+import { of } from 'rxjs';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -44,7 +47,11 @@ describe('EditarFormDialogComponent', () => {
         { provide: MAT_DIALOG_DATA, useValue: {googleForm: {nome: 'Teste', url: 'urlTeste'},
           codFesta: 'teste'}
         },
-        { provide: MatDialog, useValue: dialogSpy }
+        { provide: MatDialog, useValue: dialogSpy },
+        {provide: EditarFormService, useValue: {
+          editarQuestionario: () => of({}),
+          setFarol: () => false,
+        }}
       ]
     })
     .compileComponents();
@@ -54,6 +61,8 @@ describe('EditarFormDialogComponent', () => {
     fixture = TestBed.createComponent(EditarFormDialogComponent);
     component = fixture.componentInstance;
     component.googleForm = {nome: 'Teste', url: 'urlTeste'};
+    const service: LoginService = TestBed.get(LoginService);
+    service.usuarioInfo = {codUsuario: '1'};
     fixture.detectChanges();
   });
 
@@ -63,5 +72,42 @@ describe('EditarFormDialogComponent', () => {
 
   it('should get f to get form controls', () => {
     expect(component.f).toBe(component.form.controls);
+  });
+
+  it('should editarForm', () => {
+    spyOn(component.editarService, 'editarQuestionario')
+    .and
+    .callThrough();
+
+    spyOn(component.editarService, 'setFarol')
+    .and
+    .callThrough();
+
+    component.component = {
+      ngOnInit: () => {
+        return true;
+      }
+    };
+    spyOn(component.component, 'ngOnInit')
+    .and
+    .callThrough();
+
+    component.codFesta = 'teste';
+    component.googleForm = {
+      codQuestionario: 'teste'
+    };
+    const form = {
+      codQuestionario: 'teste',
+      codFesta: 'teste',
+      nome: 'teste',
+      url: 'teste'
+    };
+
+    component.editarForm('teste', 'teste');
+
+    expect(component.editarService.editarQuestionario).toHaveBeenCalledWith(form);
+    expect(component.editarService.setFarol).toHaveBeenCalledWith(false);
+    expect(component.component.ngOnInit).toHaveBeenCalled();
+    expect(dialogSpy.closeAll).toHaveBeenCalled();
   });
 });

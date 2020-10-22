@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { MAT_DIALOG_DATA, MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material';
 import { CustomMaterialModule } from '../material/material.module';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -9,9 +9,9 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { HttpClient } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { LoginService } from 'src/app/services/loginService/login.service';
-import { GetProdutosService } from 'src/app/services/get-produtos/get-produtos.service';
 import { of } from 'rxjs';
 import { FormsPainelComponent } from './forms-painel.component';
+import { GetFormsService } from 'src/app/services/get-forms/get-forms.service';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -42,7 +42,15 @@ describe('FormsPainelComponent', () => {
         }),
       ],
       providers: [
-        { provide: MatDialog, useValue: dialogSpy }
+        { provide: MatDialog, useValue: dialogSpy },
+        {provide: GetFormsService, useValue: {
+          getQuestionarios: () => of([{
+            codQuestionario: 'Teste',
+            nome: 'Teste',
+            url: 'testeURL'
+          }]),
+          setFarol: () => false,
+        }}
       ]
     })
     .compileComponents();
@@ -74,5 +82,19 @@ describe('FormsPainelComponent', () => {
   it('should open a edit-dialog through a method', () => {
     component.openDialogEdit({marca: 'teste', preco: 'teste'});
     expect(dialogSpy.open).toHaveBeenCalled();
+  });
+
+  it('should resgatarQuestionarios', () => {
+    spyOn(component.getQuestionarios, 'getQuestionarios')
+    .and
+    .callThrough();
+
+    spyOn(component.getQuestionarios, 'setFarol')
+    .and
+    .callThrough();
+
+    component.resgatarQuestionarios();
+    expect(component.getQuestionarios.getQuestionarios).toHaveBeenCalled();
+    expect(component.getQuestionarios.setFarol).toHaveBeenCalledWith(false);
   });
 });

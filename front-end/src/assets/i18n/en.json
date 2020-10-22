@@ -136,7 +136,8 @@
         "GRUPDELE": "Role deleted.",
         "GRUPOALT": "Role updated.",
         "ATRIBSUC": "Distribution successfully saved.",
-        "PRODDELE": "Product successfully deleted."
+        "PRODDELE": "Product successfully deleted.",
+        "FORMDELE": "Form successfully deleted."
     },
 
     "PERFIL":{
