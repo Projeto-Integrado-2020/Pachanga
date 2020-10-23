@@ -15,7 +15,7 @@ matrix:
           repo: Projeto-Integrado-2020/Pachanga
     - language: java
       jdk:
-        - openjdk8
+        - oraclejdk8
       addons:
       apt:
       packages:
