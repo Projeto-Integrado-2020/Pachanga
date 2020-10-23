@@ -15,7 +15,7 @@ export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
 }
 
-describe('RelatoriosPainelComponent', () => {
+fdescribe('RelatoriosPainelComponent', () => {
   let component: RelatoriosPainelComponent;
   let fixture: ComponentFixture<RelatoriosPainelComponent>;
 
@@ -45,6 +45,11 @@ describe('RelatoriosPainelComponent', () => {
     component = fixture.componentInstance;
     const service: LoginService = TestBed.get(LoginService);
     service.usuarioInfo = {codUsuario: '1'};
+    const token = {
+      timeToken: '2020-09-21T01:14:04.028+0000',
+      token: 'teste'
+    };
+    localStorage.setItem('token', JSON.stringify(token));
     fixture.detectChanges();
   });
 
