@@ -15,7 +15,7 @@ export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
 }
 
-fdescribe('RelatoriosPainelComponent', () => {
+describe('RelatoriosPainelComponent', () => {
   let component: RelatoriosPainelComponent;
   let fixture: ComponentFixture<RelatoriosPainelComponent>;
 

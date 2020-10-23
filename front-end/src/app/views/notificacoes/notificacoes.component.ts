@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog} from '@angular/material';
-import { LoginComponent } from '../login/login.component';
-import { Observable, interval, Subscription } from 'rxjs';
+import { Observable, interval } from 'rxjs';
 import { LoginService } from 'src/app/services/loginService/login.service';
 import { NotificacoesService } from 'src/app/services/notificacoes-service/notificacoes.service';
 import { FestaDetalhesDialogComponent } from '../festa-detalhes-dialog/festa-detalhes-dialog.component';
@@ -13,8 +12,7 @@ import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-notificacoes',
   templateUrl: './notificacoes.component.html',
-  styleUrls: ['./notificacoes.component.scss'],
-  providers: [LoginComponent]
+  styleUrls: ['./notificacoes.component.scss']
 })
 export class NotificacoesComponent implements OnInit {
 
@@ -33,7 +31,7 @@ export class NotificacoesComponent implements OnInit {
 
   convmsg: any;
 
-  constructor(public dialog: MatDialog, public loginComponent: LoginComponent,
+  constructor(public dialog: MatDialog,
               public loginService: LoginService, public notifService: NotificacoesService,
               public accDetail: AceitoMembroDetalhesService, public estoqueMinDetail: EstoqueMinDetalhesService,
               public translate: TranslateService) {
@@ -41,14 +39,7 @@ export class NotificacoesComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (this.loginService.usuarioAutenticado) {
-      this.carregarArray(this.notifService.getNotificacoes());
-      this.contarAlertasNaoLidos();
-      this.visibilidadeAlerta = this.notificacoesUsuario.length +
-                              this.notificacoesGrupo.length +
-                              this.notificacaoConvidado.length === 0;
-      this.puxarNovosAlertas();
-    }
+    this.puxarNovosAlertas();
   }
 
   contarAlertasNaoLidos(): void {
@@ -93,14 +84,25 @@ export class NotificacoesComponent implements OnInit {
 
   puxarNovosAlertas() {
     if (this.loginService.usuarioAutenticado) {
-      const source = interval(5000);
-      source.subscribe(
-        () => {
+      this.carregarArray(this.notifService.getNotificacoes());
+      this.contarAlertasNaoLidos();
+      this.visibilidadeAlerta = this.notificacoesUsuario.length +
+                              this.notificacoesGrupo.length +
+                              this.notificacaoConvidado.length === 0;
+    }
+    const source = interval(5000);
+    source.subscribe(
+      () => {
+        if (this.loginService.usuarioAutenticado) {
           this.carregarArray(this.notifService.getNotificacoes());
           this.contarAlertasNaoLidos();
+        } else {
+          this.notificacoesUsuario = [];
+          this.notificacoesGrupo = [];
+          this.notificacaoConvidado = [];
         }
-      );
-    }
+      }
+    );
   }
 
   carregarArray(observavel: Observable<object>) {
