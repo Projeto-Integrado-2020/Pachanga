@@ -16,6 +16,10 @@ matrix:
     - language: java
       jdk:
         - openjdk8
+      addons:
+      apt:
+      packages:
+      - oracle-java8-installer
       script: "cd back-end && mvn clean install"
       deploy:
         provider: heroku
