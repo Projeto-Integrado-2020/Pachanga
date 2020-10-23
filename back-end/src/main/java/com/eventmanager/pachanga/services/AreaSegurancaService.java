@@ -71,14 +71,13 @@ public class AreaSegurancaService {
 	public AreaSeguranca atualizarAreSegurancaFesta(int codUsuario, AreaSeguranca area) {
 		this.validarArea(area);
 		this.validarPermissaoUsuario(codUsuario, area.getCodFesta(), TipoPermissao.EDITAREA.getCodigo());
-		Optional<AreaSeguranca> areaBanco = areaSegurancaRepository.findById(area.getCodArea());
-		areaBanco.ifPresentOrElse(a -> {
-			areaSegurancaRepository.updateNomeArea(a.getCodArea(), area.getNomeArea());
-		}, () -> {
+		AreaSeguranca areaBanco = areaSegurancaRepository.findAreaCodArea(area.getCodArea());
+		if(areaBanco == null) {
 			throw new ValidacaoException("AREANFOU");// area não encontrada
-		});
-		areaBanco.get().setNomeArea(area.getNomeArea());
-		return areaBanco.get();
+		}
+		areaSegurancaRepository.updateNomeArea(areaBanco.getCodArea(), area.getNomeArea());
+		areaBanco.setNomeArea(area.getNomeArea());
+		return areaBanco;
 	}
 
 	private void validarArea(AreaSeguranca area) {

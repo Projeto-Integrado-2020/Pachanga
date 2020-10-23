@@ -18,6 +18,9 @@ public interface AreaSegurancaRepository extends JpaRepository<AreaSeguranca, In
 	@Modifying(clearAutomatically = true)
 	@Query(value = "INSERT INTO area_seguranca VALUES (:#{#areaSeguranca.codArea}, :#{#areaSeguranca.codFesta}, :#{#areaSeguranca.nomeArea}, CAST(:#{#areaSeguranca.statusSeguranca} AS status_seguranca_t))", nativeQuery = true)
 	public void salvarArea(AreaSeguranca areaSeguranca);
+	
+	@Query(value = "SELECT a FROM AreaSeguranca a WHERE codArea = :codArea")
+	public AreaSeguranca findAreaCodArea(int codArea);
 
 	@Query(value = "SELECT a FROM AreaSeguranca a WHERE codFesta = :codFesta")
 	public List<AreaSeguranca> findAllAreasByCodFesta(int codFesta);
