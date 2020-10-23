@@ -15,11 +15,7 @@ matrix:
           repo: Projeto-Integrado-2020/Pachanga
     - language: java
       jdk:
-        - oraclejdk8
-      addons:
-      apt:
-      packages:
-      - oracle-java8-installer
+        - openjdk8
       script: "cd back-end && mvn clean install"
       deploy:
         provider: heroku
