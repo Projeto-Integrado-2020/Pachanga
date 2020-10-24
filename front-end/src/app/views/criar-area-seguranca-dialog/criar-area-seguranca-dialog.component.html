@@ -1,0 +1,14 @@
+<h1 mat-dialog-title>Criar área de segurança</h1>
+<div mat-dialog-content>
+    <form [formGroup]="form" (submit)="addAreaSeguranca(nomeArea.value)">
+        <mat-form-field class="texto-input">
+            <mat-label>Nome da área de segurança</mat-label>
+            <input #nomeArea formControlName="nomeArea" required matInput>
+            <mat-error *ngIf="f.nomeArea.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
+        </mat-form-field><br>
+        <button class="button-form" mat-raised-button [disabled]="!form.valid">{{'ESTOQUE.CONFIRM' | translate}}</button>
+    </form>
+</div>
+<div mat-dialog-actions class="buttons">
+    <button class="cancel-button" mat-button mat-dialog-close>{{'ESTOQUE.CANCEL' | translate}}</button>
+</div>

@@ -31,6 +31,7 @@ import { DistribuicaoPermissoesComponent } from '../distribuicao-permissoes/dist
 import { EstoquePainelComponent } from '../estoque-painel/estoque-painel.component';
 import { GerenciadorProdutosComponent } from '../gerenciador-produtos/gerenciador-produtos.component';
 import { MomentModule } from 'ngx-moment';
+import { PainelSegurancaComponent } from '../painel-seguranca/painel-seguranca.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -60,7 +61,8 @@ describe('IndexComponent', () => {
         EditarGrupoComponent,
         DistribuicaoPermissoesComponent,
         EstoquePainelComponent,
-        GerenciadorProdutosComponent
+        GerenciadorProdutosComponent,
+        PainelSegurancaComponent
       ],
       imports: [
         MomentModule,

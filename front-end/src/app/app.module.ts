@@ -88,6 +88,10 @@ import { PerdaProdutoEstoqueDialogComponent } from './views/perda-produto-estoqu
 import { RemoverUnidadeDoseDialogComponent } from './views/remover-unidade-dose-dialog/remover-unidade-dose-dialog.component';
 import { MomentModule } from 'ngx-moment';
 import { TermosUsoDialogComponent } from './views/termos-uso-dialog/termos-uso-dialog.component';
+import { PainelSegurancaComponent } from './views/painel-seguranca/painel-seguranca.component';
+import { CriarAreaSegurancaDialogComponent } from './views/criar-area-seguranca-dialog/criar-area-seguranca-dialog.component';
+import { DeleteAreaSegurancaDialogComponent } from './views/delete-area-seguranca-dialog/delete-area-seguranca-dialog.component';
+import { EditarAreaSegurancaDialogComponent } from './views/editar-area-seguranca-dialog/editar-area-seguranca-dialog.component';
 
 const config = new AuthServiceConfig([
   {
@@ -154,7 +158,11 @@ export function provideConfig() {
     AlertaEstoqueComponent,
     PerdaProdutoEstoqueDialogComponent,
     RemoverUnidadeDoseDialogComponent,
-    TermosUsoDialogComponent
+    TermosUsoDialogComponent,
+    PainelSegurancaComponent,
+    CriarAreaSegurancaDialogComponent,
+    DeleteAreaSegurancaDialogComponent,
+    EditarAreaSegurancaDialogComponent
   ],
   entryComponents: [
     LoginComponent,
@@ -184,7 +192,10 @@ export function provideConfig() {
     AlertaEstoqueComponent,
     PerdaProdutoEstoqueDialogComponent,
     RemoverUnidadeDoseDialogComponent,
-    TermosUsoDialogComponent
+    TermosUsoDialogComponent,
+    CriarAreaSegurancaDialogComponent,
+    DeleteAreaSegurancaDialogComponent,
+    EditarAreaSegurancaDialogComponent
   ],
   imports: [
     BrowserModule,

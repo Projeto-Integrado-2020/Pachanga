@@ -39,6 +39,7 @@ import { GerenciadorProdutosComponent } from './views/gerenciador-produtos/geren
 import { LoginService } from './services/loginService/login.service';
 import { NotificacoesComponent } from './views/notificacoes/notificacoes.component';
 import { MomentModule } from 'ngx-moment';
+import { PainelSegurancaComponent } from './views/painel-seguranca/painel-seguranca.component';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -86,7 +87,8 @@ describe('AppComponent', () => {
         EstoquePainelComponent,
         ClicarForaDirective,
         GerenciadorProdutosComponent,
-        NotificacoesComponent
+        NotificacoesComponent,
+        PainelSegurancaComponent
       ],
       imports: [
         MomentModule,

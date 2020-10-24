@@ -14,6 +14,7 @@ import { EditarGrupoComponent } from './views/editar-grupo/editar-grupo.componen
 import { DistribuicaoPermissoesComponent } from './views/distribuicao-permissoes/distribuicao-permissoes.component';
 import { EstoquePainelComponent } from './views/estoque-painel/estoque-painel.component';
 import { GerenciadorProdutosComponent } from './views/gerenciador-produtos/gerenciador-produtos.component';
+import { PainelSegurancaComponent } from './views/painel-seguranca/painel-seguranca.component';
 
 const routes: Routes = [
 
@@ -37,6 +38,12 @@ const routes: Routes = [
     {
       path: 'festas/:festa&:id/painel',
       component: FestaPainelControleComponent,
+      canActivate: [AuthGuard]
+    },
+
+    {
+      path: 'festas/:festa&:id/painel-seguranca',
+      component: PainelSegurancaComponent,
       canActivate: [AuthGuard]
     },
 
