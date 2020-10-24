@@ -7,7 +7,7 @@ import { SegurancaProblemasService } from './seguranca-problemas.service';
 
 describe('Service: SegurancaProblemas', () => {
   let service: SegurancaProblemasService;
-  
+
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [

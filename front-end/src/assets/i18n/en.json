@@ -537,6 +537,7 @@
     "AREASEGURANCA": {
         "DESCRIPTION": "Click here to view the details of the security area",
         "NOME": "Name",
+        "CREATE": "Create security area",
         "DELETE": "Delete security area",
         "EDIT": "Edit security area",
         "NOMEAREA": "Security area name",
