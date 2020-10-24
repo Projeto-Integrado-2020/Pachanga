@@ -16,6 +16,7 @@ import com.eventmanager.pachanga.domains.NotificacaoGrupo;
 import com.eventmanager.pachanga.domains.NotificacaoUsuario;
 import com.eventmanager.pachanga.domains.Usuario;
 import com.eventmanager.pachanga.dtos.ConviteFestaTO;
+import com.eventmanager.pachanga.dtos.NotificacaoAreaSegurancaTO;
 import com.eventmanager.pachanga.dtos.NotificacaoConvidadoTO;
 import com.eventmanager.pachanga.dtos.NotificacaoEstoqueTO;
 import com.eventmanager.pachanga.dtos.NotificacaoGrupoTO;
@@ -71,6 +72,9 @@ public class NotificacaoService {
 
 	@Autowired
 	private NotificacaoConvidadoRepository notificacaoConvidadoRepository;
+	
+	@Autowired
+	private AreaSegurancaService areaService;
 
 	public NotificacaoTO procurarNotificacaoUsuario(int codUsuario) {
 		Usuario usuario = this.validacaoUsuario(codUsuario, null);
@@ -102,6 +106,9 @@ public class NotificacaoService {
 		} else if(TipoNotificacao.STAALTER.getValor().equals(codigo)) {
 			NotificacaoMudancaStatusTO notificacaoMudancaStatus = festaService.getNotificacaoMudancaStatus(Integer.parseInt(valores[0]));
 			((NotificacaoUsuarioTO) notificacaoTO).setNotificacaoMudancaStatus(notificacaoMudancaStatus);
+		} else if(TipoNotificacao.AREAPROB.getValor().equals(codigo)) {
+			NotificacaoAreaSegurancaTO notificacaoArea = areaService.getNotificacaoProblemaArea(Integer.parseInt(valores[0]), Integer.parseInt(valores[1]));
+			((NotificacaoUsuarioTO) notificacaoTO).setNotificacaoArea(notificacaoArea);
 		}
 	}
 	
@@ -191,7 +198,7 @@ public class NotificacaoService {
 			notificacaoUsuarioRepository.alterarStatusMensagem(notificacaoUsuario.getCodNotificacaoUsuario(), TipoStatusNotificacao.LIDA.getDescricao());
 		}
 	}
-
+	
 	public void deleteNotificacao(int idUser, String mensagem) {
 		this.validacaoUsuario(idUser, null);
 		List<NotificacaoUsuario> notificacaoUsuario = notificacaoUsuarioRepository.getNotificacaoUsuarioByMensagem(idUser, mensagem);
