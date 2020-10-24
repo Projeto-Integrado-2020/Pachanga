@@ -86,6 +86,9 @@ class NotificacaoServiceTest {
 	private AuthorizationServerTokenServices defaultAuthorizationServerTokenServices;
 	
 	@MockBean
+	private AreaSegurancaService areaService;
+	
+	@MockBean
 	private JwtUserDetailsService defaultJwtUserDetailsService;
 	
 	@MockBean
@@ -167,10 +170,14 @@ class NotificacaoServiceTest {
 		NotificacaoUsuarioTO notificacaoUsuario = notificacaoUsuarioTOtest();
 		notificacaoUsuario.setMensagem("teste" + "?12&" + "I");
 		
+		NotificacaoUsuarioTO notificacaoAreaProblema = notificacaoUsuarioTOtest();
+		notificacaoUsuario.setMensagem(TipoNotificacao.AREAPROB.getValor() + "?12&" + "1");
+		
 		notificacoesUsuario.add(notificacaoUsuarioTOtest());
 		notificacoesUsuario.add(notificacaoUsuarioMudancaStatus);
 		notificacoesUsuario.add(notificacaoUsuarioEstBaixo);
 		notificacoesUsuario.add(notificacaoUsuario);
+		notificacoesUsuario.add(notificacaoAreaProblema);
 		
 		NotificacaoConvidadoTO notificacaoConvidado = notificacaoConvidadoTOtest();
 		notificacaoConvidado.setMensagem(TipoNotificacao.ESTBAIXO.getValor() + "?12&" + "13&" + "13");
@@ -500,6 +507,24 @@ class NotificacaoServiceTest {
 		String mensagem = notificacaoService.criarMensagemAlteracaoStatusFesta(1, "I");
 		
 		assertEquals(TipoNotificacao.STAALTER.getValor() + "?1&I", mensagem);
+
+	}
+	
+	@Test
+	void deletarNotificacaoGrupoTest() {
+		
+		Mockito.doNothing().when(notificacaoRepository).deleteNotificacaoGrupo(Mockito.anyString());
+		
+		notificacaoService.deletarNotificacaoGrupo("teste");
+		
+	}
+	
+	@Test
+	void criarMensagemAreaProblemaTest() {
+		
+		String mensagem = notificacaoService.criarMensagemAreaProblema(1, 1);
+		
+		assertEquals(TipoNotificacao.AREAPROB.getValor() + "?1&1", mensagem);
 
 	}
 

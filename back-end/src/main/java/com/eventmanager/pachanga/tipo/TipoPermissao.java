@@ -18,7 +18,12 @@ public enum TipoPermissao {
 	ADDMESTO(14,"ADDMESTO"),//permissão para adicionar quantidade à marca
 	BAIMESTO(15,"BAIMESTO"),//permissão para dar baixa em produto no estoque
 	DELEFEST(16,"DELEFEST"),//deletar festa
-	VISUESTO(17,"VISUESTO");//deletar festa
+	VISUESTO(17,"VISUESTO"),//visualizar festa
+	VISUAREA(18,"VISUAREA"),//visualizar areas
+	ADDAREAS(19,"ADDAREAS"),//inserir areas
+	DELEAREA(20,"DELEAREA"),//deletar areas
+	EDITAREA(21,"EDITAREA");//editar areas
+	
 
 	private String valor;
 	private int codigo;

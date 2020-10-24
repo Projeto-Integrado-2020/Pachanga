@@ -140,7 +140,8 @@
         "GRUPDELE": "Grupo deletado com sucesso.",
         "GRUPOALT": "Grupo alterado com sucesso.",
         "ATRIBSUC": "Atribuição salva com sucesso.",
-        "PRODDELE": "Produto deletado com sucesso."
+        "PRODDELE": "Produto deletado com sucesso.",
+        "FORMDELE": "Questionário deletado com sucesso."
     },
     
     "PERFIL":{
@@ -544,5 +545,23 @@
         "CONFIRM": "Confirmar",
         "MESSAGE": "Você realmente deseja deletar esta área de segurança",
         "CANCEL": "Cancelar"
+    },
+
+    "FORMS": {
+        "TITLE": "Planilhas de Pesquisa do Google Forms",
+        "ADDFORM": "Adicionar formulário",
+        "NOME": "Nome",
+        "URL": "URL",
+        "EDIT": "Editar formulário",
+        "DELETE": "Deletar formulário",
+        "ADD": "Adicionar Google Forms",
+        "CONFIRM": "Confirmar",
+        "CANCEL": "Cancelar"
+    },
+
+    "DELETEFORM": {
+        "CANCEL": "Cancelar",
+        "CONFIRM": "Confirmar",
+        "MESSAGE": "Você deseja excluir o formulário "
     }
 }

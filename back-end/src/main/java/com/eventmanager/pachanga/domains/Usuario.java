@@ -39,6 +39,14 @@ public class Usuario {
 	@OneToMany(fetch = FetchType.LAZY,
 			mappedBy = "usuario")
 	private Set<NotificacaoUsuario> notificacaoUsuario;
+	
+	@OneToMany(fetch = FetchType.LAZY,
+			mappedBy = "codUsuarioResolv")
+	private Set<AreaSegurancaProblema> areaSegurancaProblemaResolv;
+	
+	@OneToMany(fetch = FetchType.LAZY,
+			mappedBy = "codUsuarioEmissor")
+	private Set<AreaSegurancaProblema> areaSegurancaProblemaEmissor;
 
 	public void setCodUsuario(int codUsuario) {
 		this.codUsuario = codUsuario;

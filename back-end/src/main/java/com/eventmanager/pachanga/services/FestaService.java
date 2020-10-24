@@ -380,7 +380,7 @@ public class FestaService {
 		}
 	}
 
-	private Festa validarFestaExistente(int codFesta) {
+	public Festa validarFestaExistente(int codFesta) {
 		Festa festa = festaRepository.findByCodFesta(codFesta);
 		if (festa == null) {
 			throw new ValidacaoException("FESTNFOU");

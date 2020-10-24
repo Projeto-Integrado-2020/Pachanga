@@ -41,6 +41,8 @@ import { FestaDetalhesDialogComponent } from '../festa-detalhes-dialog/festa-det
 import { NotificacoesComponent } from '../notificacoes/notificacoes.component';
 import { MomentModule } from 'ngx-moment';
 import { PainelSegurancaComponent } from '../painel-seguranca/painel-seguranca.component';
+import { RelatoriosPainelComponent } from '../relatorios-painel/relatorios-painel.component';
+import { FormsPainelComponent } from '../forms-painel/forms-painel.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -89,7 +91,9 @@ describe('CadastroComponent', () => {
         GerenciadorProdutosComponent,
         FestaDetalhesDialogComponent,
         NotificacoesComponent,
-        PainelSegurancaComponent
+        PainelSegurancaComponent,
+        RelatoriosPainelComponent,
+        FormsPainelComponent
       ],
       imports: [
         MomentModule,

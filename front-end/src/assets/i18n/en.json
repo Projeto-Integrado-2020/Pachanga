@@ -138,7 +138,8 @@
         "GRUPDELE": "Role deleted.",
         "GRUPOALT": "Role updated.",
         "ATRIBSUC": "Distribution successfully saved.",
-        "PRODDELE": "Product successfully deleted."
+        "PRODDELE": "Product successfully deleted.",
+        "FORMDELE": "Form successfully deleted."
     },
 
     "PERFIL":{
@@ -542,5 +543,23 @@
         "CONFIRM": "Confirm",
         "MESSAGE": "Do you really want to delete this security area",
         "CANCEL": "Cancel"
+    },
+    
+    "FORMS": {
+        "TITLE": "Google Forms Survey Sheets",
+        "ADDFORM": "Add form",
+        "NOME": "Name",
+        "URL": "URL",
+        "EDIT": "Edit form",
+        "DELETE": "Delete form",
+        "ADD": "Add Google Forms",
+        "CONFIRM": "Confirm",
+        "CANCEL": "Cancel"
+    },
+
+    "DELETEFORM": {
+        "CANCEL": "Cancel",
+        "CONFIRM": "Confirm",
+        "MESSAGE": "Do you want to delete the form "
     }
 }

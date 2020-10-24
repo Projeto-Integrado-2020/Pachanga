@@ -5,7 +5,8 @@ public enum TipoNotificacao {
 	CONVFEST(1, "CONVFEST"),// Notificacao de convite de festa
 	CONVACEI(2, "CONVACEI"),// Convidado aceitou a festa (notificação para o admin)
 	ESTBAIXO(3, "ESTBAIXO"),// Estoque abaixo do porcentual mínimo
-	STAALTER(4, "STAALTER");// Status da festa foi alterado
+	STAALTER(4, "STAALTER"),// Status da festa foi alterado
+	AREAPROB(5, "AREAPROB");// notificação para quando está ocorrendo um problema em uma area
 	
 	private String valor;
 	private int codigo;

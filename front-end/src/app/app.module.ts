@@ -92,6 +92,11 @@ import { PainelSegurancaComponent } from './views/painel-seguranca/painel-segura
 import { CriarAreaSegurancaDialogComponent } from './views/criar-area-seguranca-dialog/criar-area-seguranca-dialog.component';
 import { DeleteAreaSegurancaDialogComponent } from './views/delete-area-seguranca-dialog/delete-area-seguranca-dialog.component';
 import { EditarAreaSegurancaDialogComponent } from './views/editar-area-seguranca-dialog/editar-area-seguranca-dialog.component';
+import { RelatoriosPainelComponent } from './views/relatorios-painel/relatorios-painel.component';
+import { FormsPainelComponent } from './views/forms-painel/forms-painel.component';
+import { EditarFormDialogComponent } from './views/editar-form-dialog/editar-form-dialog.component';
+import { DeletarFormDialogComponent } from './views/deletar-form-dialog/deletar-form-dialog.component';
+import { AdicionarFormDialogComponent } from './views/adicionar-form-dialog/adicionar-form-dialog.component';
 
 const config = new AuthServiceConfig([
   {
@@ -162,7 +167,12 @@ export function provideConfig() {
     PainelSegurancaComponent,
     CriarAreaSegurancaDialogComponent,
     DeleteAreaSegurancaDialogComponent,
-    EditarAreaSegurancaDialogComponent
+    EditarAreaSegurancaDialogComponent,
+    RelatoriosPainelComponent,
+    FormsPainelComponent,
+    EditarFormDialogComponent,
+    DeletarFormDialogComponent,
+    AdicionarFormDialogComponent
   ],
   entryComponents: [
     LoginComponent,
@@ -195,7 +205,10 @@ export function provideConfig() {
     TermosUsoDialogComponent,
     CriarAreaSegurancaDialogComponent,
     DeleteAreaSegurancaDialogComponent,
-    EditarAreaSegurancaDialogComponent
+    EditarAreaSegurancaDialogComponent,
+    EditarFormDialogComponent,
+    DeletarFormDialogComponent,
+    AdicionarFormDialogComponent
   ],
   imports: [
     BrowserModule,
