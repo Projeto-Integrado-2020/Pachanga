@@ -97,6 +97,7 @@ import { FormsPainelComponent } from './views/forms-painel/forms-painel.componen
 import { EditarFormDialogComponent } from './views/editar-form-dialog/editar-form-dialog.component';
 import { DeletarFormDialogComponent } from './views/deletar-form-dialog/deletar-form-dialog.component';
 import { AdicionarFormDialogComponent } from './views/adicionar-form-dialog/adicionar-form-dialog.component';
+import { RelatarProblemaDialogComponent } from './views/relatar-problema-dialog/relatar-problema-dialog.component';
 
 const config = new AuthServiceConfig([
   {
@@ -172,7 +173,8 @@ export function provideConfig() {
     FormsPainelComponent,
     EditarFormDialogComponent,
     DeletarFormDialogComponent,
-    AdicionarFormDialogComponent
+    AdicionarFormDialogComponent,
+    RelatarProblemaDialogComponent
   ],
   entryComponents: [
     LoginComponent,
@@ -208,7 +210,8 @@ export function provideConfig() {
     EditarAreaSegurancaDialogComponent,
     EditarFormDialogComponent,
     DeletarFormDialogComponent,
-    AdicionarFormDialogComponent
+    AdicionarFormDialogComponent,
+    RelatarProblemaDialogComponent
   ],
   imports: [
     BrowserModule,

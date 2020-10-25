@@ -8,6 +8,7 @@ import { GetSegurancaService } from 'src/app/services/get-seguranca/get-seguranc
 import { CriarAreaSegurancaDialogComponent } from '../criar-area-seguranca-dialog/criar-area-seguranca-dialog.component';
 import { DeleteAreaSegurancaDialogComponent } from '../delete-area-seguranca-dialog/delete-area-seguranca-dialog.component';
 import { EditarAreaSegurancaDialogComponent } from '../editar-area-seguranca-dialog/editar-area-seguranca-dialog.component';
+import { RelatarProblemaDialogComponent } from '../relatar-problema-dialog/relatar-problema-dialog.component';
 
 export interface TabelaSeguranca {
   nome: string;
@@ -68,6 +69,17 @@ export class PainelSegurancaComponent implements OnInit {
 
   setFesta(festa) {
     this.festa = festa;
+  }
+
+  openDialogRelatarProblema(area) {
+    this.dialog.open(RelatarProblemaDialogComponent, {
+      width: '20rem',
+      data: {
+        codFesta: this.festa.codFesta,
+        component: this,
+        area
+      }
+    });
   }
 
   openDialogCriarArea() {

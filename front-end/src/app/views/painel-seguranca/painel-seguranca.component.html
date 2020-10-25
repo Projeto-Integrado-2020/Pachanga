@@ -44,6 +44,7 @@
                             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
                         </table>
                         <div class="botoes">
+                            <button class="botao prp-btn-delete" mat-button (click)="openDialogRelatarProblema(area)">Relatar Problema</button>
                             <button class="botao prp-btn-delete" mat-button (click)="openDialogDelete(area.codArea)">{{'AREASEGURANCA.DELETE' | translate}}</button>
                             <button class="botao prp-btn-edit" mat-button (click)="openDialogEdit(area)">{{'AREASEGURANCA.EDIT' | translate}}</button>
                         </div>
