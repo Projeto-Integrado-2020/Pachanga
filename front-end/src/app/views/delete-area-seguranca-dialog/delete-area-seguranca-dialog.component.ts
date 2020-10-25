@@ -15,7 +15,7 @@ export class DeleteAreaSegurancaDialogComponent implements OnInit {
   public codArea: any;
 
   constructor(@Inject(MAT_DIALOG_DATA) data, public dialog: MatDialog,
-              public deletarAreaSeguranca: DeletarAreaSegurancaService) {
+              public deleteAreaSegurancaService: DeletarAreaSegurancaService) {
     this.codFesta = data.codFesta;
     this.codArea = data.codArea;
     this.component = data.component;
@@ -24,10 +24,10 @@ export class DeleteAreaSegurancaDialogComponent implements OnInit {
   ngOnInit() {
   }
 
-  deleteProdutoEstoque() {
-    this.deletarAreaSeguranca.deletarAreaSeguranca(this.codArea).subscribe((resp: any) => {
+  deleteAreaSeguranca() {
+    this.deleteAreaSegurancaService.deletarAreaSeguranca(this.codArea).subscribe((resp: any) => {
       this.dialog.closeAll();
-      this.deletarAreaSeguranca.setFarol(false);
+      this.deleteAreaSegurancaService.setFarol(false);
       this.component.ngOnInit();
     });
   }
