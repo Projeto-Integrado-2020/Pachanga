@@ -27,4 +27,8 @@ export class RelatarProblemaDialogComponent implements OnInit {
     console.log(this.area);
   }
 
+  relatarProblema(){
+    
+  }
+
 }
