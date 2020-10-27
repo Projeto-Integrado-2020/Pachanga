@@ -15,10 +15,6 @@ public interface AreaSegurancaRepository extends JpaRepository<AreaSeguranca, In
 	@Query(value = "SELECT NEXTVAL('seq_area_seguranca');", nativeQuery = true)
 	public int getNextValMySequence();
 	
-	@Modifying(clearAutomatically = true)
-	@Query(value = "INSERT INTO area_seguranca VALUES (:#{#areaSeguranca.codArea}, :#{#areaSeguranca.codFesta}, :#{#areaSeguranca.nomeArea}, CAST(:#{#areaSeguranca.statusSeguranca} AS status_seguranca_t))", nativeQuery = true)
-	public void salvarArea(AreaSeguranca areaSeguranca);
-	
 	@Query(value = "SELECT a FROM AreaSeguranca a WHERE codArea = :codArea")
 	public AreaSeguranca findAreaCodArea(int codArea);
 
@@ -33,13 +29,5 @@ public interface AreaSegurancaRepository extends JpaRepository<AreaSeguranca, In
 	
 	@Query(value = "SELECT a FROM AreaSeguranca a WHERE codArea = :codArea")
 	public AreaSeguranca findAreaByCodFesta(int codArea);
-
-	@Modifying(clearAutomatically = true)
-	@Query(value = "UPDATE area_seguranca SET nome_area =:#{#areaSeguranca.nomeArea}, cod_area = :#{#areaSeguranca.codArea}, cod_festa = :#{#areaSeguranca.codFesta} WHERE cod_area = :#{#areaSeguranca.codArea}", nativeQuery = true)
-	public void updateArea(AreaSeguranca areaSeguranca);
-	
-	@Modifying(clearAutomatically = true)
-	@Query(value = "UPDATE area_seguranca SET nome_area =:nomeArea WHERE cod_area = :codArea", nativeQuery = true)
-	public void updateNomeArea(int codArea, String nomeArea);
 
 }

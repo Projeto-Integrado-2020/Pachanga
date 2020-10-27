@@ -246,8 +246,6 @@ class AreaSegurancaServiceTest {
 		Mockito.when(areaSegurancaRepository.findAreaByNomeArea(Mockito.anyString(), Mockito.anyInt())).thenReturn(null);
 		Mockito.when(areaSegurancaRepository.findAreaCodArea(Mockito.anyInt())).thenReturn(area);
 		
-		Mockito.doNothing().when(areaSegurancaRepository).updateNomeArea(Mockito.anyInt(), Mockito.anyString());
-		
 		AreaSeguranca areaRetorno = areaService.atualizarAreSegurancaFesta(1, this.areaTest());
 		
 		assertEquals(true, areaRetorno.getNomeArea().equals(area.getNomeArea()));
