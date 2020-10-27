@@ -42,8 +42,6 @@ export class EditarAreaSegurancaDialogComponent implements OnInit {
       codArea: this.area.codArea
     };
 
-    console.log(areaTO);
-
     this.editarAreaSeguranca.atualizarAreaSeguranca(areaTO).subscribe((resp: any) => {
       this.editarAreaSeguranca.setFarol(false);
       this.dialog.closeAll();

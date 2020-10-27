@@ -8,57 +8,81 @@ import { LoginService } from '../loginService/login.service';
 })
 export class SegurancaProblemasService {
 
-  baseUrl = `${environment.URL_BACK}areaSeguranca`;
+  baseUrl = `${environment.URL_BACK}areaSegurancaProblema`;
   constructor(
     private httpClient: HttpClient,
     public loginService: LoginService
     ) { }
 
-  // /lista get
-  getListaAreaSeg(codFesta) {
+  adicionarProblema(problemaTO) {
 
     const httpParams = new HttpParams()
+      .append('idUsuario', this.loginService.getusuarioInfo().idUsuario);
+
+    return this.httpClient.post('/adicionar', problemaTO, {params: httpParams});
+  }
+
+  atualizarProblema(problemaTO) {
+    const httpParams = new HttpParams()
+      .append('idUsuario', this.loginService.getusuarioInfo().idUsuario);
+
+    return this.httpClient.put('/atualizar', problemaTO, {params: httpParams});
+  }
+
+  deletarProblema(codArea, codFesta, codProblema) {
+    const httpParams = new HttpParams()
+      .append('codAreaSeguranca', codArea)
+      .append('codProblema', codProblema)
       .append('codFesta', codFesta)
-      .append('codUsuario', this.loginService.getusuarioInfo().codUsuario);
+      .append('idUsuario', this.loginService.getusuarioInfo().codUsuario);
+
+    return this.httpClient.delete('/delete', {params: httpParams});
+  }
+
+  findAllProblema(codArea, codFesta) {
+
+    const httpParams = new HttpParams()
+      .append('codAreaSeguranca', codArea)
+      .append('codFesta', codFesta)
+      .append('idUsuario', this.loginService.getusuarioInfo().codUsuario);
 
     return this.httpClient.get('/lista', {params: httpParams});
 
   }
 
-  // /areaUnica get param: codUsuario
-  getAreaSeg(codFesta, codArea) {
+  // /areaUnica get param: idUsuario
+  getProblema(codProblema, codArea, codFesta) {
 
     const httpParams = new HttpParams()
       .append('codFesta', codFesta)
-      .append('codArea', codArea)
-      .append('codUsuario', this.loginService.getusuarioInfo().codUsuario);
+      .append('codProblema', codProblema)
+      .append('codAreaSeguranca', codArea)
+      .append('idUsuario', this.loginService.getusuarioInfo().codUsuario);
 
     return this.httpClient.get('/areaUnica', {params: httpParams});
   }
 
-  // model é o objeto criado pelo form
-  criarAreaSeg(model) {
-    const httpParams = new HttpParams()
-      .append('codUsuario', this.loginService.getusuarioInfo().codUsuario);
+  // /lista get
+  getAllProblemasArea(codArea, codFesta) {
 
-    return this.httpClient.post('/adicionar', model, {params: httpParams});
+    const httpParams = new HttpParams()
+      .append('codAreaSeguranca', codArea)
+      .append('codFesta', codFesta)
+      .append('idUsuario', this.loginService.getusuarioInfo().codUsuario);
+
+    return this.httpClient.get('/lista', {params: httpParams});
+
   }
 
-  // model é o objeto criado pelo form
-  atualizarAreaSeg(model) {
-    const httpParams = new HttpParams()
-      .append('codUsuario', this.loginService.getusuarioInfo().codUsuario);
+    // /lista get
+    getAllProblemasFesta(codFesta) {
 
-    return this.httpClient.put('/atualizar', model, {params: httpParams});
-  }
+      const httpParams = new HttpParams()
+        .append('codFesta', codFesta)
+        .append('idUsuario', this.loginService.getusuarioInfo().codUsuario);
 
-  // /delete delete param: codUsuario
-  deletarAreaSeg(codArea) {
-    const httpParams = new HttpParams()
-      .append('codArea', codArea)
-      .append('codUsuario', this.loginService.getusuarioInfo().codUsuario);
+      return this.httpClient.get('/lista', {params: httpParams});
 
-    return this.httpClient.delete('/delete', {params: httpParams});
-  }
+    }
 
 }
