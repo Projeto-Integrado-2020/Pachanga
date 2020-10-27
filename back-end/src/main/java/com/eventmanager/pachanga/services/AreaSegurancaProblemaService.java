@@ -58,7 +58,7 @@ public class AreaSegurancaProblemaService {
 		AreaSegurancaProblema problemaSeguranca = AreaSegurancaProblemaFactory.getProblemaSeguranca(problemaSegurancaTO, festa, areaSeguranca, problema, usuarioEmissor, usuarioResolv);
 		this.validarAreaSegurancaProblema(problemaSeguranca);
 		
-		areaSegurancaProblemaRepository.salvarAreaSegurancaProblema(problemaSeguranca);
+		areaSegurancaProblemaRepository.save(problemaSeguranca);
 		return problemaSeguranca;
 	}
 	
@@ -84,7 +84,7 @@ public class AreaSegurancaProblemaService {
 		this.validarAreaSegurancaProblema(problemaSeguranca);
 		//areaSegurancaProblemaRepository.salvarAreaSegurancaProblema(problemaSeguranca);
 		//areaSegurancaProblemaRepository.atualizarAreaSegurancaProblema(problemaSeguranca);
-		areaSegurancaProblemaRepository.atualizarAreaSegurancaProblema(problemaSeguranca);
+		areaSegurancaProblemaRepository.save(problemaSeguranca);
 		//areaSegurancaProblemaRepository.save(problemaSeguranca);
 		
 		//TipoStatusPoblema.ANDAMENTO.getValor();

@@ -108,7 +108,7 @@ public class FestaService {
 		this.validarFesta(festaTo);
 		this.validacaoCategorias(festaTo.getCodPrimaria(), festaTo.getCodSecundaria());
 		Festa festa = festaFactory.getFesta(festaTo);
-		festaRepository.saveFesta(festa);
+		festaRepository.save(festa);
 		Grupo grupo = grupoService.addGrupo(festa.getCodFesta(), TipoGrupo.ORGANIZADOR.getValor(), true, null);
 		grupoRepository.saveUsuarioGrupo(usuario.getCodUsuario(), grupo.getCodGrupo());
 		estoqueService.addEstoque("Principal", festa.getCodFesta(), true, idUser);
@@ -180,7 +180,7 @@ public class FestaService {
 		this.validarPermissaoUsuario(idUser, festaTo.getCodFesta(), TipoPermissao.EDITDFES.getCodigo());
 		this.validarFesta(festaTo);
 		Festa festaMudanca = validarMudancas(festaTo, festa);
-		festaRepository.updateFesta(festaMudanca);
+		festaRepository.save(festaMudanca);
 		return festaMudanca;
 	}
 
@@ -316,8 +316,8 @@ public class FestaService {
 				&& TipoStatusFesta.FINALIZADO.getValor().equals(statusFestaMaiusculo)) {
 			throw new ValidacaoException("FSTANINI");// festa precisa estar iniciada para fazer essa ação
 		}
-		festaRepository.updateStatusFesta(statusFestaMaiusculo, idFesta);
 		festa.setStatusFesta(statusFestaMaiusculo);
+		festaRepository.save(festa);
 		List<Usuario> usuarios = usuarioRepository.findByIdFesta(idFesta);
 		for (Usuario usuario : usuarios) {
 			notificacaoService.inserirNotificacaoUsuario(usuario.getCodUsuario(), TipoNotificacao.STAALTER.getCodigo(),

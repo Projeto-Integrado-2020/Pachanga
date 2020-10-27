@@ -68,7 +68,7 @@ public class AreaSegurancaService {
 		area.setStatusSeguranca(TipoAreaSeguranca.SEGURO.getDescricao());
 		area.setCodArea(areaSegurancaRepository.getNextValMySequence());
 		this.validarArea(area);
-		areaSegurancaRepository.salvarArea(area);
+		areaSegurancaRepository.save(area);
 		return area;
 	}
 
@@ -86,8 +86,8 @@ public class AreaSegurancaService {
 		this.validarArea(area);
 		this.validarPermissaoUsuario(codUsuario, area.getCodFesta(), TipoPermissao.EDITAREA.getCodigo());
 		AreaSeguranca areaBanco = this.validarAreaExistente(area.getCodArea());
-		areaSegurancaRepository.updateNomeArea(areaBanco.getCodArea(), area.getNomeArea());
 		areaBanco.setNomeArea(area.getNomeArea());
+		areaSegurancaRepository.save(areaBanco);
 		return areaBanco;
 	}
 
