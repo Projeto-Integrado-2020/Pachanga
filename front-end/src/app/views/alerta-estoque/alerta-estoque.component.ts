@@ -2,6 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { GetEstoqueService } from 'src/app/services/get-estoque/get-estoque.service';
+import { GetProdutosService } from 'src/app/services/get-produtos/get-produtos.service';
 import { RecargaProdutoEstoqueService } from 'src/app/services/recarga-produto-estoque/recarga-produto-estoque.service';
 
 @Component({
@@ -17,7 +18,7 @@ export class AlertaEstoqueComponent implements OnInit {
   principal = '';
   produto: any;
 
-  constructor(@Inject(MAT_DIALOG_DATA) data, public getEstoque: GetEstoqueService,
+  constructor(@Inject(MAT_DIALOG_DATA) data, public getEstoque: GetEstoqueService, public getProduto: GetProdutosService,
               public formBuilder: FormBuilder, public recargaProdutoEstoqueService: RecargaProdutoEstoqueService,
               private dialogRef: MatDialogRef<AlertaEstoqueComponent>) {
     this.notificacao = data.alerta;
@@ -26,6 +27,20 @@ export class AlertaEstoqueComponent implements OnInit {
   ngOnInit() {
     this.gerarForm();
     this.resgatarEstoques();
+    this.resgatarProduto();
+  }
+
+  resgatarProduto() {
+    const codFesta = this.notificacao.mensagem.split('&')[0].split('?')[1];
+    const codProduto = this.notificacao.mensagem.split('&')[2];
+    this.getProduto.getProdutos(codFesta).subscribe((resp: any) => {
+      this.getProduto.setFarol(false);
+      for (const produto of resp) {
+        if (produto.codProduto.toString() === codProduto.toString()) {
+          this.produto = produto;
+        }
+      }
+    });
   }
 
   resgatarEstoques() {
@@ -41,7 +56,6 @@ export class AlertaEstoqueComponent implements OnInit {
               if (estoque.principal) {
                 this.principal = estoque.codEstoque;
               }
-              this.produto = produtoEstoque;
               produtos.push(estoque);
             }
           }

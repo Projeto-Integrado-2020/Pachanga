@@ -13,6 +13,7 @@ import { of } from 'rxjs';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginService } from 'src/app/services/loginService/login.service';
+import { GetProdutosService } from 'src/app/services/get-produtos/get-produtos.service';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -59,6 +60,12 @@ describe('AlertaEstoqueComponent', () => {
             principal: true,
             itemEstoque: [{codProduto: 'testeCod9', dose: true, quantDoses: 10}]
           }])
+        }},
+        {provide: GetProdutosService, useValue: {
+          getProdutos: () => of([{
+            codProduto: 'testeCod9', dose: true, quantDoses: 10
+          }]),
+          setFarol: () => false
         }}
       ]
     })
@@ -100,6 +107,15 @@ describe('AlertaEstoqueComponent', () => {
 
     component.recargaProduto(10);
     expect(component.recargaProdutoEstoqueService.recargaProdutoEstoque).toHaveBeenCalled();
+  });
+
+  it('should resgatarProduto', () => {
+    spyOn(component.getProduto, 'getProdutos')
+    .and
+    .callThrough();
+
+    component.resgatarProduto();
+    expect(component.getProduto.getProdutos).toHaveBeenCalledWith('testeCod7');
   });
 
   it('should resgatarEstoques', () => {
