@@ -22,8 +22,12 @@ public enum TipoPermissao {
 	VISUAREA(18,"VISUAREA"),//visualizar areas
 	ADDAREAS(19,"ADDAREAS"),//inserir areas
 	DELEAREA(20,"DELEAREA"),//deletar areas
-	EDITAREA(21,"EDITAREA");//editar areas
-	
+	EDITAREA(21,"EDITAREA"),//editar areas
+	VISUPSEG(22,"VISUPSEG"),//visualizar area seguranca problema / problema seguranca
+	ADDPSEGU(23,"ADDPSEGu"),//inserir area seguranca problema / problema seguranca
+	DELEPSEG(24,"DELEPSEG"),//deletar area seguranca problema / problema seguranca
+	EDITPSEG(25,"EDITPSEG");//editar area seguranca problema / problema seguranca
+
 
 	private String valor;
 	private int codigo;
