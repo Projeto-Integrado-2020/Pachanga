@@ -144,5 +144,30 @@ class="fila_notificacoes"
     </div>
   </div>
 
+  <!-- NOTIFICACOES DE PROBLEMA DE SEGURANÇA -->
+  <div class="fila_notificacoes__not-container" *ngFor="let alert of notificacoesGrupo">
+    <div *ngIf="alert.mensagem.includes('AREAPROB')">
+        <div class="fila_notificacoes__flex">
+            <div class="fila_notificacoes__notificacao">
+                <!-- <mat-divider></mat-divider> -->
+                <div class="fila_notificacoes__notificacao__texto">
+                    <p [ngStyle]="{'font-weight': 'bold'}">{{ 'ALERTASEGURANCA.TITLE' | translate }}</p>
+                </div>
+                <div class="fila_notificacoes__notificacao__horario">
+                    <p class="mensagem">{{'NOTIFICACAO.SEGURANCA1' | translate}} "{{ alert.notificacaoArea.nomeArea }}", {{'NOTIFICACAO.SEGURANCA2' | translate}} "{{ alert.notificacaoArea.nomeFesta }}", {{'NOTIFICACAO.SEGURANCA3' | translate}}: {{ 'PROBLEMA.' + notificacao.notificacaoArea.descProblema | translate }}. {{'NOTIFICACAO.SEGURANCA4' | translate}}</p>
+                    <a routerLink="{{createUrlSeguranca(alert.notificacaoArea.nomeFesta, alert.notificacaoArea.codFesta)+ '/painel-seguranca'}}">
+                      <button mat-button class="btn btn--prp">
+                        {{'NOTIFICACAO.STATUSCHANGE3' | translate}}
+                      </button>
+                    </a>
+                    <p>
+                      {{ alert.dataEmissao | amLocale:translate.currentLang | amTimeAgo }}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+
 </mat-card-content>
 </mat-card>

@@ -483,13 +483,23 @@
         "STATUSCHANGE1": "The party ",
         "STATUSCHANGE2": "had the status changed to ",
         "STATUSCHANGE3": "Go to party",
-        "STATUSCHANGETITLE": "Status change"
+        "STATUSCHANGETITLE": "Status change",
+        "SEGURANCA1": "The security area",
+        "SEGURANCA2": "of",
+        "SEGURANCA3": "has the following problem",
+        "SEGURANCA4": "Action required!"
     },
 
     "ALERTAESTOQUE": {
         "REDIRECIONAR": "Go to stock page",
         "TITLE": "Stock alert",
         "OR": "OR"
+    },
+
+    "ALERTASEGURANCA": {
+        "REDIRECIONAR": "Go to security painel",
+        "TITLE": "Security alert",
+        "PROBLEM": "Problem"
     },
 
     "RECARGA": {
@@ -540,6 +550,8 @@
         "CREATE": "Create security area",
         "DELETE": "Delete security area",
         "EDIT": "Edit security area",
+        "AREA": "Security area",
+        "PROBLEMA": "Problem",
         "NOMEAREA": "Security area name",
         "CONFIRM": "Confirm",
         "MESSAGE": "Do you really want to delete this security area",

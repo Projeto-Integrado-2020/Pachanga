@@ -1,0 +1,36 @@
+@import "../material/paleta.scss";
+
+.botoes {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+
+    &__btn {
+        background-color: $color-primary;
+    }
+}
+
+.button-form {
+    background-color: $color-tertiary;
+    color: #ffffff;
+}
+
+mat-form-field {
+    width: 15rem!important;
+}
+
+.center {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
+
+.recarga {
+    margin-bottom: .5rem;
+}
+
+.message {
+    margin-top: 0;
+}

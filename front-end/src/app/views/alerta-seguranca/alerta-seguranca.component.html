@@ -1,0 +1,10 @@
+<h1 mat-dialog-title>{{'ALERTASEGURANCA.TITLE' | translate}}</h1>
+<div mat-dialog-content>
+    <p class="message">{{'NOTIFICACAO.SEGURANCA1' | translate}} "{{ notificacao.notificacaoArea.nomeArea }}", {{'NOTIFICACAO.SEGURANCA2' | translate}} "{{ notificacao.notificacaoArea.nomeFesta }}", {{'NOTIFICACAO.SEGURANCA3' | translate}}: {{ notificacao.notificacaoArea.descProblema }}. {{'NOTIFICACAO.SEGURANCA4' | translate}}</p>
+    <p><strong>{{'FESTA.PARTYNAME' | translate}}:</strong> {{notificacao.notificacaoArea.nomeFesta}}</p>
+    <p><strong>{{'AREASEGURANCA.AREA' | translate}}:</strong> {{notificacao.notificacaoArea.nomeArea}}</p>
+    <p><strong>{{'AREASEGURANCA.PROBLEMA' | translate}}:</strong> {{ 'PROBLEMA.' + notificacao.notificacaoArea.descProblema | translate }}</p>
+    <div class="botoes">
+        <button class="botoes__btn" mat-raised-button mat-dialog-close color="primary" ><a routerLink="{{ getUrlFesta() }}">{{'ALERTASEGURANCA.REDIRECIONAR' | translate}}</a></button>
+    </div>
+</div>

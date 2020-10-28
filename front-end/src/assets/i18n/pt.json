@@ -485,13 +485,23 @@
         "STATUSCHANGE1": "A festa ",
         "STATUSCHANGE2": "teve o status alterado para ",
         "STATUSCHANGE3": "Ir para a festa",
-        "STATUSCHANGETITLE": "Mudança de Status"
+        "STATUSCHANGETITLE": "Mudança de Status",
+        "SEGURANCA1": "A área de segurança",
+        "SEGURANCA2": "da festa",
+        "SEGURANCA3": "está com o seguinte problema",
+        "SEGURANCA4": "Controle necessário!"
     },
 
     "ALERTAESTOQUE": {
         "REDIRECIONAR": "Ir para a tela de estoque",
         "TITLE": "Alerta de Estoque",
         "OR": "OU"
+    },
+
+    "ALERTASEGURANCA": {
+        "REDIRECIONAR": "Ir para a tela de segurança da festa",
+        "TITLE": "Alerta de Segurança",
+        "PROBLEM": "Problema"
     },
 
     "RECARGA": {
@@ -542,6 +552,8 @@
         "CREATE": "Criar área de segurança",
         "DELETE": "Deletar área de segurança",
         "EDIT": "Editar área de segurança",
+        "AREA": "Área de segurança",
+        "PROBLEMA": "Problema",
         "NOMEAREA": "Nome da área de segurança",
         "CONFIRM": "Confirmar",
         "MESSAGE": "Você realmente deseja deletar esta área de segurança",
