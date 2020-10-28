@@ -154,7 +154,7 @@ class="fila_notificacoes"
                     <p [ngStyle]="{'font-weight': 'bold'}">{{ 'ALERTASEGURANCA.TITLE' | translate }}</p>
                 </div>
                 <div class="fila_notificacoes__notificacao__horario">
-                    <p class="mensagem">{{'NOTIFICACAO.SEGURANCA1' | translate}} "{{ alert.notificacaoArea.nomeArea }}", {{'NOTIFICACAO.SEGURANCA2' | translate}} "{{ alert.notificacaoArea.nomeFesta }}", {{'NOTIFICACAO.SEGURANCA3' | translate}}: {{ 'PROBLEMA.' + notificacao.notificacaoArea.descProblema | translate }}. {{'NOTIFICACAO.SEGURANCA4' | translate}}</p>
+                    <p class="mensagem">{{'NOTIFICACAO.SEGURANCA1' | translate}} "{{ alert.notificacaoArea.nomeArea }}", {{'NOTIFICACAO.SEGURANCA2' | translate}} "{{ alert.notificacaoArea.nomeFesta }}", {{'NOTIFICACAO.SEGURANCA3' | translate}}: {{ 'PROBLEMA.' + alert.notificacaoArea.descProblema | translate }}. {{'NOTIFICACAO.SEGURANCA4' | translate}}</p>
                     <a routerLink="{{createUrlSeguranca(alert.notificacaoArea.nomeFesta, alert.notificacaoArea.codFesta)+ '/painel-seguranca'}}">
                       <button mat-button class="btn btn--prp">
                         {{'NOTIFICACAO.STATUSCHANGE3' | translate}}
