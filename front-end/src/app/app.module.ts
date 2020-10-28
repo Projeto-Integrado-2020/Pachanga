@@ -99,6 +99,7 @@ import { DeletarFormDialogComponent } from './views/deletar-form-dialog/deletar-
 import { AdicionarFormDialogComponent } from './views/adicionar-form-dialog/adicionar-form-dialog.component';
 import { RelatarProblemaDialogComponent } from './views/relatar-problema-dialog/relatar-problema-dialog.component';
 import { AlertaSegurancaComponent } from './views/alerta-seguranca/alerta-seguranca.component';
+import { DatePipe } from '@angular/common';
 
 const config = new AuthServiceConfig([
   {
@@ -245,7 +246,7 @@ export function provideConfig() {
   providers: [
     {
       provide: AuthServiceConfig,
-      useFactory: provideConfig
+      useFactory: provideConfig,
     },
     AuthService,
     LoginService,
@@ -254,6 +255,7 @@ export function provideConfig() {
     LogService,
     MenuFestasService,
     CadastrarFestaService,
+    DatePipe,
     {
       provide: MatPaginatorIntl,
       useClass: MatPaginatorPtBr
