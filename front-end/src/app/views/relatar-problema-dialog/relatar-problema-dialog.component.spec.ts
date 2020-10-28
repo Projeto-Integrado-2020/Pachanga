@@ -12,6 +12,7 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { HttpClient } from '@angular/common/http';
 import { HttpLoaderFactory } from 'src/app/app.module';
 import { of } from 'rxjs';
+import { DatePipe } from '@angular/common';
 
 describe('RelatarProblemaDialogComponent', () => {
   let component: RelatarProblemaDialogComponent;
@@ -39,7 +40,8 @@ describe('RelatarProblemaDialogComponent', () => {
         {provide: RelatarProblemaDialogComponent, useValue: {
           atualizarAreaSeguranca: () => of({}),
           setFarol: () => false,
-        }}
+        }},
+        {provide: DatePipe}
       ]
     })
     .compileComponents();
