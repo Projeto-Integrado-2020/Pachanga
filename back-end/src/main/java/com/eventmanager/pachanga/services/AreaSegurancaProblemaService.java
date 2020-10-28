@@ -19,7 +19,6 @@ import com.eventmanager.pachanga.repositories.AreaSegurancaRepository;
 import com.eventmanager.pachanga.repositories.FestaRepository;
 import com.eventmanager.pachanga.repositories.ProblemaRepository;
 import com.eventmanager.pachanga.repositories.UsuarioRepository;
-import com.eventmanager.pachanga.tipo.TipoStatusPoblema;
 
 @Service
 @Transactional
@@ -82,13 +81,7 @@ public class AreaSegurancaProblemaService {
 		problemaSeguranca.setFesta(festa);
 		
 		this.validarAreaSegurancaProblema(problemaSeguranca);
-		//areaSegurancaProblemaRepository.salvarAreaSegurancaProblema(problemaSeguranca);
-		//areaSegurancaProblemaRepository.atualizarAreaSegurancaProblema(problemaSeguranca);
 		areaSegurancaProblemaRepository.save(problemaSeguranca);
-		//areaSegurancaProblemaRepository.save(problemaSeguranca);
-		
-		//TipoStatusPoblema.ANDAMENTO.getValor();
-		
 		return problemaSeguranca;
 	}
 	

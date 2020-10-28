@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -51,7 +52,7 @@ public class AreaSegurancaProblemaController {
 	}
 	
 	@ResponseBody
-	@GetMapping(path = "/remover")
+	@DeleteMapping(path = "/remover")
 	public ResponseEntity<Object> deleteProblemaSeguranca(@RequestParam(required = true) int codAreaSeguranca, @RequestParam(required = true) int codProblema, @RequestParam(required = true) int codFesta, @RequestParam(required = true) int idUsuario){
 		try {
 			AreaSegurancaProblema problemaSeguranca = areaSegurancaProblemaService.deleteProblemaSeguranca(codAreaSeguranca, codProblema, codFesta, idUsuario);
@@ -73,7 +74,7 @@ public class AreaSegurancaProblemaController {
 	}
 	
 	@ResponseBody
-	@GetMapping(path = "/ findAllProblemasSegurancaArea")
+	@GetMapping(path = "/findAllProblemasSegurancaArea")
 	public ResponseEntity<Object>  findAllProblemasSegurancaArea(@RequestParam(required = true) int codAreaSeguranca, @RequestParam(required = true) int codFesta, @RequestParam(required = true) int idUsuario){
 		try {
 			List<AreaSegurancaProblema> problemasSeguranca = areaSegurancaProblemaService.findAllProblemasSegurancaArea(codAreaSeguranca, codFesta, idUsuario);
@@ -84,7 +85,7 @@ public class AreaSegurancaProblemaController {
 	}
 	
 	@ResponseBody
-	@GetMapping(path = "/ findAllProblemasSegurancaFesta")
+	@GetMapping(path = "/findAllProblemasSegurancaFesta")
 	public ResponseEntity<Object>  findAllProblemasSegurancaFesta(@RequestParam(required = true) int codFesta, @RequestParam(required = true) int idUsuario){
 		try {
 			List<AreaSegurancaProblema> problemasSeguranca = areaSegurancaProblemaService.findAllProblemasSegurancaFesta(codFesta, idUsuario);
