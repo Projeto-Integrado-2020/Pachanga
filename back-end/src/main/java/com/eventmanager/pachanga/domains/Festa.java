@@ -65,6 +65,10 @@ public class Festa {
 			mappedBy = "festa")
 	private Set<Ingresso> ingressos;
 	
+	@OneToMany(fetch = FetchType.LAZY,
+			mappedBy = "festa")
+	private Set<QuestionarioForms> questionariosForms;
+	
 	public int getCodFesta() {
 		return codFesta;
 	}
@@ -167,6 +171,15 @@ public class Festa {
 	public void setIngressos(Set<Ingresso> ingressos) {
 		this.ingressos = ingressos;
 	}
+	
+	public Set<Lote> getQuestionariosForms() {
+		return lotes;
+	}
+	
+	public void setQuestionariosForms(Set<QuestionarioForms> questionariosForms) {
+		this.questionariosForms = questionariosForms;
+	}
+
 	public Boolean isOrganizador(int codUsuario) {
 		for(Grupo grupo: this.grupos) {
 			if(grupo.getOrganizador()) {

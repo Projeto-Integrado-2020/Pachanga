@@ -3,13 +3,14 @@
     <form [formGroup]="form" (submit)="adicionarForm(nome.value, url.value)">
         <mat-form-field>
             <mat-label>{{'FORMS.NOME' | translate}}</mat-label>
-            <input ng-class="{ f.nome.errors }" #nome formControlName="nome" matInput required>
+            <input ng-class="{ f.nome.errors }" #nome formControlName="nome" maxlength="50" matInput required>
             <mat-error *ngIf="f.nome.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
         </mat-form-field>
-        <mat-form-field>
+        <mat-form-field class="url">
             <mat-label>{{'FORMS.URL' | translate}}</mat-label>
-            <textarea ng-class="{ f.url.errors }" #url formControlName="url" matInput required></textarea>
+            <textarea ng-class="{ f.url.errors }" #url formControlName="url" matInput required maxlength="255"></textarea>
             <mat-error *ngIf="f.url.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
+            <mat-error *ngIf="f.url.errors?.pattern">{{'FORMERRORS.URL' | translate}}</mat-error>
         </mat-form-field>
         <br>
         <button class="button-form" mat-raised-button [disabled]="!form.valid">{{'FORMS.CONFIRM' | translate}}</button>

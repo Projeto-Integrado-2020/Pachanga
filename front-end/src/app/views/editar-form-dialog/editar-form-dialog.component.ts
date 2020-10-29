@@ -25,18 +25,20 @@ export class EditarFormDialogComponent implements OnInit {
   ngOnInit() {
     this.form = this.formBuilder.group({
       nome: new FormControl(this.googleForm.nome, Validators.required),
-      url: new FormControl(this.googleForm.url, Validators.required)
+      /* tslint:disable */
+      url: new FormControl(this.googleForm.url, [Validators.required, Validators.pattern(/^[A-Za-z][A-Za-z\d.+-]*:\/*(?:\w+(?::\w+)?@)?[^\s/]+(?::\d+)?(?:\/[\w#!:.?+=&%@\-/]*)?$/)]),
+      /* tslint:enable */
     });
   }
 
   get f() { return this.form.controls; }
 
-  editarForm(nome, url) {
+  editarForm(nomeQuestionario, urlQuestionario) {
     const formEditado = {
       codQuestionario: this.googleForm.codQuestionario,
       codFesta: this.codFesta,
-      nome,
-      url
+      nomeQuestionario,
+      urlQuestionario
     };
 
     this.editarService.editarQuestionario(formEditado).subscribe((resp: any) => {

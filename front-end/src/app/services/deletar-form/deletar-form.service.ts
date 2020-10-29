@@ -14,18 +14,17 @@ import { LoginService } from '../loginService/login.service';
 export class DeletarFormService {
 
   farol = false;
-  private readonly urlDeletarForm = `${environment.URL_BACK}questionario/removerQuestionario`;
+  private readonly urlDeletarForm = `${environment.URL_BACK}questionario/remover`;
 
   constructor(private http: HttpClient, public logService: LogService, public dialog: MatDialog,
               public loginService: LoginService) { }
 
-  deleteQuestionario(codQuestionario, codFesta) {
+  deleteQuestionario(codQuestionario) {
     if (!this.farol) {
       this.setFarol(true);
       const httpParams = new HttpParams()
         .append('codQuestionario', codQuestionario)
-        .append('codFesta', codFesta)
-        .append('idUsuarioPermissao', this.loginService.usuarioInfo.codUsuario);
+        .append('codUsuario', this.loginService.usuarioInfo.codUsuario);
 
       let headers = new HttpHeaders();
       headers = headers.append('Content-Type', 'application/json');

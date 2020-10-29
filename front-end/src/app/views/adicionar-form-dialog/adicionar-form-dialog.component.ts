@@ -22,16 +22,19 @@ export class AdicionarFormDialogComponent implements OnInit {
   ngOnInit() {
     this.form = this.formBuilder.group({
       nome: new FormControl('', Validators.required),
-      url: new FormControl('', Validators.required),
+      /* tslint:disable */
+      url: new FormControl('', [Validators.required, Validators.pattern(/^[A-Za-z][A-Za-z\d.+-]*:\/*(?:\w+(?::\w+)?@)?[^\s/]+(?::\d+)?(?:\/[\w#!:.?+=&%@\-/]*)?$/)]),
+      /* tslint:enable */
     });
   }
 
   get f() { return this.form.controls; }
 
-  adicionarForm(nome, url) {
+  adicionarForm(nomeQuestionario, urlQuestionario) {
     const form = {
-      nome,
-      url
+      codFesta: this.codFesta,
+      nomeQuestionario,
+      urlQuestionario
     };
 
     this.criarService.adicionarQuestionario(form, this.codFesta).subscribe((resp: any) => {

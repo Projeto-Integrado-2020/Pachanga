@@ -30,7 +30,11 @@ public enum TipoPermissao {
 	VISULOTE(26,"VISULOTE"),//visualizar lote
 	ADDLOTES(27,"ADDLOTES"),//inserir lote
 	DELELOTE(28,"DELELOTE"),//deletar lote
-	EDITLOTE(29,"EDITLOTE");//editar lote
+	EDITLOTE(29,"EDITLOTE"),//editar lote
+	VISUFORM(30,"VISUFORM"),//visualizar questionario
+	ADDFORMS(31,"ADDFORMS"),//inserir questionarios
+	DELEFORM(32,"DELEFORM"),//deletar questionario
+	EDITFORM(33,"EDITFORM");//editar questionario
 
 	private String valor;
 	private int codigo;
