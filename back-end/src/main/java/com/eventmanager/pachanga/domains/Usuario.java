@@ -47,6 +47,10 @@ public class Usuario {
 	@OneToMany(fetch = FetchType.LAZY,
 			mappedBy = "codUsuarioEmissor")
 	private Set<AreaSegurancaProblema> areaSegurancaProblemaEmissor;
+	
+	@OneToMany(fetch = FetchType.LAZY,
+			mappedBy = "usuario")
+	private Set<Ingresso> ingressos;
 
 	public void setCodUsuario(int codUsuario) {
 		this.codUsuario = codUsuario;
@@ -101,6 +105,12 @@ public class Usuario {
 	}
 	public void setPronome(String pronome) {
 		this.pronome = pronome;
+	}
+	public Set<Ingresso> getIngressos() {
+		return ingressos;
+	}
+	public void setIngressos(Set<Ingresso> ingressos) {
+		this.ingressos = ingressos;
 	}
 	
 }

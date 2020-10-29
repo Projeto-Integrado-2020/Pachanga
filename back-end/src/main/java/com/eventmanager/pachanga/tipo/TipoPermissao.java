@@ -26,8 +26,11 @@ public enum TipoPermissao {
 	VISUPSEG(22,"VISUPSEG"),//visualizar area seguranca problema / problema seguranca
 	ADDPSEGU(23,"ADDPSEGu"),//inserir area seguranca problema / problema seguranca
 	DELEPSEG(24,"DELEPSEG"),//deletar area seguranca problema / problema seguranca
-	EDITPSEG(25,"EDITPSEG");//editar area seguranca problema / problema seguranca
-
+	EDITPSEG(25,"EDITPSEG"),//editar area seguranca problema / problema seguranca
+	VISULOTE(26,"VISULOTE"),//visualizar lote
+	ADDLOTES(27,"ADDLOTES"),//inserir lote
+	DELELOTE(28,"DELELOTE"),//deletar lote
+	EDITLOTE(29,"EDITLOTE");//editar lote
 
 	private String valor;
 	private int codigo;

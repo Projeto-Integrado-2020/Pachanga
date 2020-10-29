@@ -45,21 +45,7 @@ public class AreaSegurancaController {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
 	}
-
-	@ResponseBody
-	@GetMapping(path = "/areaUnica")
-	public ResponseEntity<Object> areaSegurancaFesta(@RequestParam(required = true) int codFesta,
-			@RequestParam(required = true) int codArea, @RequestParam(required = true) int codUsuario) {
-		try {
-			AreaSeguranca areaSeguranca = areaSegurancaService.areaSegurancaFesta(codFesta, codArea, codUsuario);
-
-			return ResponseEntity.ok(areaSegurancaFactory.getAreaTo(areaSeguranca));
-
-		} catch (ValidacaoException e) {
-			return ResponseEntity.badRequest().body(e.getMessage());
-		}
-	}
-
+	
 	@ResponseBody
 	@PostMapping(path = "/adicionar")
 	public ResponseEntity<Object> criarAreaSegurancaFesta(@RequestBody AreaSegurancaTO areaSegurancaTo,

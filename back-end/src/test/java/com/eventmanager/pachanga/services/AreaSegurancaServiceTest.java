@@ -148,38 +148,6 @@ class AreaSegurancaServiceTest {
 	}
 	
 	@Test
-	void areaSegurancaFestaSucesso() {
-		
-		AreaSeguranca area = areaTest();
-		
-		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(criacaoGrupos());
-		Mockito.when(areaSegurancaRepository.findAreaCodArea(Mockito.anyInt())).thenReturn(area);
-		
-		AreaSeguranca areaRetorno = areaService.areaSegurancaFesta(1, 1, 1);
-		
-		assertEquals(true, areaRetorno != null);
-		
-	}
-	
-	@Test
-	void areaSegurancaFestaAreaNaoEncontrada() {
-		
-		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(criacaoGrupos());
-		Mockito.when(areaSegurancaRepository.findAreaCodArea(Mockito.anyInt())).thenReturn(null);
-		
-		String expect = "";
-		
-		try {
-			areaService.areaSegurancaFesta(1, 1, 1);			
-		} catch (ValidacaoException e) {
-			expect = e.getMessage();
-		}
-		
-		assertEquals("AREANFOU",expect);
-		
-	}
-	
-	@Test
 	void criacaoAreSegurancaFestaSucesso() {
 		
 		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(criacaoGrupos());
@@ -208,6 +176,38 @@ class AreaSegurancaServiceTest {
 		}
 		
 		assertEquals("NOMEAREA",expect);
+		
+	}
+	
+	@Test
+	void deletarAreSegurancaFestaAreaNaoEncontrada() {
+		
+		List<Grupo> grupos = this.criacaoGrupos();
+		
+		List<Usuario> usuarios = new ArrayList<>();
+		usuarios.add(usuarioTest());
+		
+		List<AreaSegurancaProblema> areasSegurancasProblemas = new ArrayList<>();
+		
+		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(criacaoGrupos());
+		Mockito.when(areaSegurancaRepository.findAreaCodArea(Mockito.anyInt())).thenReturn(null);
+		Mockito.when(grupoRepository.findGruposFesta(Mockito.anyInt())).thenReturn(grupos);
+		Mockito.when(usuarioRepository.findUsuariosPorGrupo(Mockito.anyInt())).thenReturn(usuarios);
+		Mockito.doNothing().when(notificacaoService).deleteNotificacao(Mockito.anyInt(), Mockito.anyString());
+		Mockito.doNothing().when(notificacaoService).deletarNotificacaoGrupo(Mockito.anyInt(), Mockito.anyString());
+		Mockito.doNothing().when(areaSegurancaProblemaRepository).deleteAll(Mockito.anyIterable());
+		Mockito.doNothing().when(areaSegurancaRepository).delete(Mockito.any());
+		Mockito.when(areaSegurancaProblemaRepository.findProblemasArea(Mockito.anyInt())).thenReturn(areasSegurancasProblemas);
+		
+		String expect = "";
+		
+		try {			
+			areaService.deletarAreSegurancaFesta(1, 1);
+		} catch (ValidacaoException e) {
+			expect = e.getMessage();
+		}
+		
+		assertEquals("AREANFOU",expect);
 		
 	}
 	
