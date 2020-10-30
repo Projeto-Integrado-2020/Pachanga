@@ -42,6 +42,14 @@ public class LoteService {
 		grupoService.validarPermissaoUsuarioGrupo(codFesta, codUsuario, TipoPermissao.VISULOTE.getCodigo());
 		return loteRepository.listaLoteFesta(codFesta);
 	}
+	
+	public Lote encontrarLote(int codLote, int codUsuario) {
+		Lote lote = this.validarLoteExistente(codLote);
+		festaService.validarFestaExistente(lote.getFesta().getCodFesta());
+		festaService.validarUsuarioFesta(codUsuario, lote.getFesta().getCodFesta());
+		grupoService.validarPermissaoUsuarioGrupo(lote.getFesta().getCodFesta(), codUsuario, TipoPermissao.VISULOTE.getCodigo());
+		return lote;
+	}
 
 	public Lote adicionarLote(LoteTO loteTo, int codUsuario) {
 		Festa festa = festaService.validarFestaExistente(loteTo.getCodFesta());
@@ -72,12 +80,15 @@ public class LoteService {
 		lote.setPreco(loteTo.getPreco());
 		lote.setQuantidade(loteTo.getQuantidade());
 		lote.setNumeroLote(loteTo.getNumeroLote());
+		lote.setHorarioInicio(loteTo.getHorarioInicio());
+		lote.setHorarioFim(loteTo.getHorarioFim());
 		loteRepository.save(lote);
 		return lote;
 	}
 
 	public void removerLote(int codLote, int codUsuario) {
 		Lote lote = this.validarLoteExistente(codLote);
+		festaService.validarUsuarioFesta(codUsuario, lote.getFesta().getCodFesta());
 		grupoService.validarPermissaoUsuarioGrupo(lote.getFesta().getCodFesta(), codUsuario,
 				TipoPermissao.DELELOTE.getCodigo());
 		List<Ingresso> ingressos = ingressoRepository.findIngressosLote(codLote);

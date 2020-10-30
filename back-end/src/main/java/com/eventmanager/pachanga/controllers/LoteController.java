@@ -45,6 +45,17 @@ public class LoteController {
 	}
 
 	@ResponseBody
+	@GetMapping(path = "/loteUnico")
+	public ResponseEntity<Object> loteUnico(@RequestParam(required = true) int codLote,
+			@RequestParam(required = true) int codUsuario) {
+		try {
+			return ResponseEntity.ok(loteFactory.getLoteTO(loteService.encontrarLote(codLote, codUsuario)));
+		} catch (ValidacaoException e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+	}
+
+	@ResponseBody
 	@PostMapping(path = "/adicionar")
 	public ResponseEntity<Object> adicionarLote(@RequestBody LoteTO loteTo,
 			@RequestParam(required = true) int codUsuario) {
