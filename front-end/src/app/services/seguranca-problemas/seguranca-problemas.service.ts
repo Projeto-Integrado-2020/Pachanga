@@ -37,12 +37,13 @@ export class SegurancaProblemasService {
     return this.httpClient.post(this.baseUrl + '/adicionar', problemaTO, {headers, params: httpParams});
   }
 
-  atualizarProblema(problemaTO) {
-    const httpParams = new HttpParams()
-      .append('idUsuario', this.loginService.getusuarioInfo().codUsuario);
+  // acredito que não sirva para nada
+  // atualizarProblema(problemaTO) {
+  //   const httpParams = new HttpParams()
+  //     .append('idUsuario', this.loginService.getusuarioInfo().codUsuario);
 
-    return this.httpClient.put(this.baseUrl + '/atualizar', problemaTO, {params: httpParams});
-  }
+  //   return this.httpClient.put(this.baseUrl + '/atualizar', problemaTO, {params: httpParams});
+  // }
 
   deletarProblema(codArea, codFesta, codProblema) {
     const httpParams = new HttpParams()
