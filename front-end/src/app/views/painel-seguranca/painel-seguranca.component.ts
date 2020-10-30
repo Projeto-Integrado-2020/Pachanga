@@ -81,6 +81,10 @@ export class PainelSegurancaComponent implements OnInit {
         {
           codProblema: 1,
           descProblema: "Crise de Mísseis"
+        },
+        {
+          codProblema: 1,
+          descProblema: "Seu Barriga cobrando aluguel"
         }
       ]
     }
