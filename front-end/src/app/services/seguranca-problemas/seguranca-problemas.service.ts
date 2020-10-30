@@ -34,7 +34,7 @@ export class SegurancaProblemasService {
     const httpParams = new HttpParams()
       .append('idUsuario', this.loginService.getusuarioInfo().codUsuario);
 
-    return this.httpClient.post(this.baseUrl + '/adicionar', problemaTO, {headers, params: httpParams},);
+    return this.httpClient.post(this.baseUrl + '/adicionar', problemaTO, {headers, params: httpParams});
   }
 
   atualizarProblema(problemaTO) {
@@ -80,12 +80,16 @@ export class SegurancaProblemasService {
   // /lista get
   getAllProblemasArea(codArea, codFesta) {
 
+    let headers = new HttpHeaders();
+    headers = headers.append('Content-Type', 'application/json');
+    headers = headers.append('Authorization', 'Bearer ' + JSON.parse(localStorage.getItem('token')).token);
+
     const httpParams = new HttpParams()
       .append('codAreaSeguranca', codArea)
       .append('codFesta', codFesta)
       .append('idUsuario', this.loginService.getusuarioInfo().codUsuario);
 
-    return this.httpClient.get(this.baseUrl + '/lista', {params: httpParams});
+    return this.httpClient.get(this.baseUrl + '/findAllProblemasSegurancaArea', {headers, params: httpParams});
 
   }
 
