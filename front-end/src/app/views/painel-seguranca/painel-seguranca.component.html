@@ -32,8 +32,8 @@
                         </mat-expansion-panel-header>
                         <div class="problemas">
                             <div class="problema" *ngFor="let problema of area.problemas">
-                                <span>{{problema.descProblema}}</span>
-                                <button (click)="resolverProblema()">Resolver</button>
+                                <span [style.textDecoration]="problema.resolvido ? 'line-through': 'none'">{{problema.descProblema}}</span>
+                                <button (click)="resolverProblema(problema)">Resolver</button>
                             </div>
                             <!-- <div class="problema" *ngFor="let problema of this.getProblemasArea(area)">
                                 <span>{{problema.descProblema}}</span>

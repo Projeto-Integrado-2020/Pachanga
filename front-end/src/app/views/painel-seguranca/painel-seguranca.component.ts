@@ -60,11 +60,13 @@ export class PainelSegurancaComponent implements OnInit {
       problemas: [
         {
           codProblema: 1,
-          descProblema: "Invasão Alienígena"
+          descProblema: "Invasão Alienígena",
+          resolvido: false
         },
         {
           codProblema: 2,
-          descProblema: 'Nicolas Cage buscando tesouro'
+          descProblema: 'Nicolas Cage buscando tesouro',
+          resolvido: false
         }
       ]
     },
@@ -76,15 +78,18 @@ export class PainelSegurancaComponent implements OnInit {
       problemas: [
         {
           codProblema: 1,
-          descProblema: "Elevador viajando na horizontal"
+          descProblema: "Elevador viajando na horizontal",
+          resolvido: false
         },
         {
           codProblema: 1,
-          descProblema: "Crise de Mísseis"
+          descProblema: "Crise de Mísseis",
+          resolvido: false
         },
         {
           codProblema: 1,
-          descProblema: "Seu Barriga cobrando aluguel"
+          descProblema: "Seu Barriga cobrando aluguel",
+          resolvido: false
         }
       ]
     }
@@ -141,7 +146,8 @@ export class PainelSegurancaComponent implements OnInit {
     }
   }
 
-  resolverProblema() {
+  resolverProblema(problema) {
+    problema.resolvido = true;
     console.log("Problema resolvido, finja que funcionou");
   }
 
