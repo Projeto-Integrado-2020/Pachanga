@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { GetFestaService } from 'src/app/services/get-festa/get-festa.service';
 import { GetSegurancaService } from 'src/app/services/get-seguranca/get-seguranca.service';
+import { SegurancaProblemasService } from 'src/app/services/seguranca-problemas/seguranca-problemas.service';
 import { CriarAreaSegurancaDialogComponent } from '../criar-area-seguranca-dialog/criar-area-seguranca-dialog.component';
 import { DeleteAreaSegurancaDialogComponent } from '../delete-area-seguranca-dialog/delete-area-seguranca-dialog.component';
 import { EditarAreaSegurancaDialogComponent } from '../editar-area-seguranca-dialog/editar-area-seguranca-dialog.component';
@@ -23,25 +24,77 @@ export interface TabelaSeguranca {
 
 export class PainelSegurancaComponent implements OnInit {
 
-  constructor(public fb: FormBuilder, public dialog: MatDialog, public getFestaService: GetFestaService,
-              public router: Router, public getSeguranca: GetSegurancaService) {
+  constructor(
+    public fb: FormBuilder,
+    public dialog: MatDialog,
+    public getFestaService: GetFestaService,
+    private segProbService: SegurancaProblemasService,
+    public router: Router,
+    public getSeguranca: GetSegurancaService
+    ) {
     this.options = fb.group({
         bottom: 55,
         top: 0
       });
   }
 
-  public festaNome: string;
-  public areas: any;
+  festaNome: string;
+  codFesta: any;
+  areas: any = [];
   options: FormGroup;
-  public festa: any;
-  public statusFesta: any;
+  festa: any;
+  statusFesta: any;
   panelOpenState = false;
   public forms = {};
   estoques: any;
   dataSources = [];
   subscription: Subscription;
   source: any;
+  public idFesta: string;
+  mockAreas: any = [
+    {
+      codArea: 1,
+      codFesta: 1,
+      nomeArea: 'Área 51',
+      statusSeguranca: 'S',
+      problemas: [
+        {
+          codProblema: 1,
+          descProblema: 'Invasão Alienígena',
+          resolvido: false
+        },
+        {
+          codProblema: 2,
+          descProblema: 'Nicolas Cage buscando tesouro',
+          resolvido: false
+        }
+      ]
+    },
+    {
+      codArea: 2,
+      codFesta: 1,
+      nomeArea: 'Area de Serviço',
+      statusSeguranca: 'S',
+      problemas: [
+        {
+          codProblema: 1,
+          descProblema: 'Elevador viajando na horizontal',
+          resolvido: false
+        },
+        {
+          codProblema: 1,
+          descProblema: 'Crise de Mísseis',
+          resolvido: false
+        },
+        {
+          codProblema: 1,
+          descProblema: 'Seu Barriga cobrando aluguel',
+          resolvido: false
+        }
+      ]
+    }
+  ];
+
 
   displayedColumns: string[] = ['nome', 'status'];
 
@@ -54,13 +107,15 @@ export class PainelSegurancaComponent implements OnInit {
 
   ngOnInit() {
     this.source = null;
-    this.areas = [];
-    let idFesta = this.router.url;
+    const url = this.router.url;
     this.dataSources = [];
-    idFesta = idFesta.substring(idFesta.indexOf('&') + 1, idFesta.indexOf('/', idFesta.indexOf('&')));
+    this.idFesta = url.substring(url.indexOf('&') + 1, url.indexOf('/', url.indexOf('&')));
+    this.resgatarDadosFesta();
+    this.resgatarEstoquePanel();
+  }
 
-    this.getFestaService.acessarFesta(idFesta).subscribe((resp: any) => {
-      this.getFestaService.setFarol(false);
+  resgatarDadosFesta() {
+    this.getFestaService.acessarFesta(this.idFesta).subscribe((resp: any) => {
       this.festa = resp;
       this.festaNome = resp.nomeFesta;
       this.statusFesta = resp.statusFesta;
@@ -68,8 +123,39 @@ export class PainelSegurancaComponent implements OnInit {
     });
   }
 
-  setFesta(festa) {
-    this.festa = festa;
+  resgatarEstoquePanel() {
+    this.getSeguranca.getAreaSeguranca(this.idFesta).subscribe((resp: any) => {
+      this.areas = resp;
+      console.log(resp);
+      this.getSeguranca.setFarol(false);
+    });
+  }
+
+  getProblemasArea(area) {
+    let problemas: any = [];
+    this.segProbService.getAllProblemasArea(area.codArea, this.idFesta).subscribe(
+      (resp: any) => {
+        problemas = resp;
+      }
+    );
+
+    return problemas;
+  }
+
+  atribuirProblemasAreas(areas) {
+    for (const area of areas) {
+      // Object.assign(
+      //   area,
+      //   {problemas: this.getProblemasArea(area)}
+      // );
+
+      console.log(this.getProblemasArea(area));
+    }
+  }
+
+  resolverProblema(problema) {
+    problema.resolvido = true;
+    console.log('Problema resolvido, finja que funcionou');
   }
 
   openDialogRelatarProblema(area) {

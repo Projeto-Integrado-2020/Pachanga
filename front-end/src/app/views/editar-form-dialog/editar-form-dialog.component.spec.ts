@@ -99,8 +99,8 @@ describe('EditarFormDialogComponent', () => {
     const form = {
       codQuestionario: 'teste',
       codFesta: 'teste',
-      nome: 'teste',
-      url: 'teste'
+      nomeQuestionario: 'teste',
+      urlQuestionario: 'teste'
     };
 
     component.editarForm('teste', 'teste');

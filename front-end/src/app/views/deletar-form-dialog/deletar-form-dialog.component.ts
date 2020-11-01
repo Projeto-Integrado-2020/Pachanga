@@ -24,7 +24,8 @@ export class DeletarFormDialogComponent implements OnInit {
   }
 
   deletarForm() {
-    this.deleteService.deleteQuestionario(this.form.codQuestionario, this.codFesta).subscribe((resp: string) => {
+    this.deleteService.deleteQuestionario(this.form.codQuestionario).subscribe((resp: string) => {
+      this.deleteService.setFarol(false);
       this.dialog.closeAll();
       this.component.ngOnInit();
       this.openDialogSuccess('FORMDELE');

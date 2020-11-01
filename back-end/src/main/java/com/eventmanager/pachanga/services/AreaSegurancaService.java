@@ -58,11 +58,6 @@ public class AreaSegurancaService {
 
 	}
 
-	public AreaSeguranca areaSegurancaFesta(int codFesta, int codArea, int codUsuario) {
-		this.validarPermissaoUsuario(codUsuario, codFesta, TipoPermissao.VISUAREA.getCodigo());
-		return this.validarAreaExistente(codArea);
-	}
-
 	public AreaSeguranca criacaoAreSegurancaFesta(int codUsuario, AreaSeguranca area) {
 		this.validarPermissaoUsuario(codUsuario, area.getCodFesta(), TipoPermissao.ADDAREAS.getCodigo());
 		area.setStatusSeguranca(TipoAreaSeguranca.SEGURO.getDescricao());

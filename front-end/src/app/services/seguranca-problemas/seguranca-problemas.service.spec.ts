@@ -24,7 +24,53 @@ describe('Service: SegurancaProblemas', () => {
     service = TestBed.get(SegurancaProblemasService);
   });
 
-  it('should ...', inject([SegurancaProblemasService], (service: SegurancaProblemasService) => {
-    expect(service).toBeTruthy();
+  it('should ...', inject([SegurancaProblemasService], (serviceProblema: SegurancaProblemasService) => {
+    expect(serviceProblema).toBeTruthy();
   }));
+
+  it('should get Info at listarProblemas', () => {
+    service.loginService.usuarioInfo = {codusuario: 'teste'};
+    expect(service.listarProblemas()).toBeTruthy();
+  });
+
+  it('should post Info at adicionarProblema', () => {
+    service.loginService.usuarioInfo = {codusuario: 'teste'};
+    const problemaTO = {};
+    expect(service.adicionarProblema(problemaTO)).toBeTruthy();
+  });
+
+  it('should delete Info at deletarProblema', () => {
+    service.loginService.usuarioInfo = {codusuario: 'teste'};
+    const problemaTO = {};
+    expect(service.adicionarProblema(problemaTO)).toBeTruthy();
+  });
+
+  it('should delete Info at deletarProblema', () => {
+    service.loginService.usuarioInfo = {codusuario: 'teste'};
+    const problemaTO = {};
+    expect(service.adicionarProblema(problemaTO)).toBeTruthy();
+  });
+
+  it('should get Info at getAllProblemasArea', () => {
+    service.loginService.usuarioInfo = {codusuario: 'teste'};
+    const codArea = 1;
+    const codFesta = 1;
+    expect(service.getAllProblemasArea(codArea, codFesta)).toBeTruthy();
+  });
+
+  it('should get Info at getAllProblemasFesta', () => {
+    service.loginService.usuarioInfo = {codusuario: 'teste'};
+    const codFesta = 1;
+    expect(service.getAllProblemasFesta(codFesta)).toBeTruthy();
+  });
+
+  // it('should get Info at getEstoque', () => {
+  //   service.loginService.usuarioInfo = {codusuario: 'teste'};
+  //   expect(service.getEstoque('teste')).toBeTruthy();
+  // });
+
+  // it('should get Info at getEstoque', () => {
+  //   service.loginService.usuarioInfo = {codusuario: 'teste'};
+  //   expect(service.getEstoque('teste')).toBeTruthy();
+  // });
 });

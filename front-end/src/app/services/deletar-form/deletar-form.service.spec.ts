@@ -52,10 +52,10 @@ describe('DeletarFormService', () => {
   it('should delete Info at deleteQuestionario', () => {
     service.loginService.usuarioInfo = {codusuario: 'teste'};
 
-    expect(service.deleteQuestionario('teste', 'teste')).toBeTruthy();
+    expect(service.deleteQuestionario('teste')).toBeTruthy();
 
     expect(service.getFarol()).toBeTruthy();
 
-    expect(service.deleteQuestionario('teste', 'teste')).toBeFalsy();
+    expect(service.deleteQuestionario('teste')).toBeFalsy();
   });
 });

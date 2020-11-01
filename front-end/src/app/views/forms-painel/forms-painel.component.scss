@@ -103,4 +103,26 @@ th {
 
 th, td {
   font-size: 1rem;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  min-width: 255px;
+  max-width: 255px;
+}
+
+.url {
+  min-width: 550px;
+  max-width: 550px;
+}
+
+.nome {
+  min-width: 255px;
+  max-width: 255px;
+}
+
+.mat-row {
+  height: auto;
+}
+
+.mat-cell {
+  padding: 10px 10px 10px 0;
 }

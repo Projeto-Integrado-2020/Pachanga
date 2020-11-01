@@ -88,8 +88,9 @@ describe('AdicionarFormDialogComponent', () => {
 
     component.codFesta = 'teste';
     const form = {
-      url: 'teste',
-      nome: 'teste'
+      codFesta: 'teste',
+      urlQuestionario: 'teste',
+      nomeQuestionario: 'teste'
     };
     component.adicionarForm('teste', 'teste');
 

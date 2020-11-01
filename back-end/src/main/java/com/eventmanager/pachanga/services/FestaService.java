@@ -127,7 +127,7 @@ public class FestaService {
 		}
 	}
 
-	private void validarUsuarioFesta(int idUsuario, int idFesta) {
+	public void validarUsuarioFesta(int idUsuario, int idFesta) {
 		Usuario usuario = usuarioRepository.findById(idUsuario);
 		if (usuario == null) {
 			throw new ValidacaoException("USERNFOU");

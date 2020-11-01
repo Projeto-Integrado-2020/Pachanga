@@ -8,6 +8,7 @@ import { AceitoMembroDetalhesService } from 'src/app/services/aceito-membro-deta
 import { EstoqueMinDetalhesService } from 'src/app/services/estoque-min-detalhes/estoque-min-detalhes.service';
 import { AlertaEstoqueComponent } from '../alerta-estoque/alerta-estoque.component';
 import { TranslateService } from '@ngx-translate/core';
+import { AlertaSegurancaComponent } from '../alerta-seguranca/alerta-seguranca.component';
 
 @Component({
   selector: 'app-notificacoes',
@@ -135,12 +136,24 @@ export class NotificacoesComponent implements OnInit {
     });
   }
 
+  openDialogSegurancaAlert(alerta): void {
+    this.dialog.open(AlertaSegurancaComponent, {
+      width: '23rem',
+      data: {
+        alerta
+      }
+    });
+  }
+
   procurarAlertas(resp) {
     const notificacoes = [];
     const alertas = [];
     for (const notificacao of resp) {
       if (notificacao.mensagem.includes('ESTBAIXO') && notificacao.status === 'N') {
         this.openDialogEstoqueAlert(notificacao);
+        alertas.push(notificacao.notificacao);
+      } else if (notificacao.mensagem.includes('AREAPROB') && notificacao.status === 'N') {
+        this.openDialogSegurancaAlert(notificacao);
         alertas.push(notificacao.notificacao);
       } else {
         notificacoes.push(notificacao);
@@ -162,6 +175,16 @@ export class NotificacoesComponent implements OnInit {
 
   createUrlEstoque(nomeFesta, mensagem) {
     const codFesta = mensagem.split('&')[0].split('?')[1];
+    nomeFesta = nomeFesta.toLowerCase().replace('-', '').replace('–', '')
+                        .replace(/\s+/g, '-').replace('ç', 'c')
+                        .replace('º', '').replace('ª', '')
+                        .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+                        .replace(/[`~!@#$%^&*()_|+\=?;:'",.<>\{\}\[\]\\\/]/gi, '');
+    const url = '../festas/' + nomeFesta + '&' + codFesta;
+    return url;
+  }
+
+  createUrlSeguranca(nomeFesta, codFesta) {
     nomeFesta = nomeFesta.toLowerCase().replace('-', '').replace('–', '')
                         .replace(/\s+/g, '-').replace('ç', 'c')
                         .replace('º', '').replace('ª', '')
