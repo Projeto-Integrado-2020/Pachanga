@@ -10,16 +10,18 @@ import { LoginService } from '../loginService/login.service';
 @Injectable({
   providedIn: 'root'
 })
-export class GetSegurancaService {
+export class GetLoteService {
 
-  private readonly urlAreaSergurancaGet = `${environment.URL_BACK}areaSeguranca/lista`;
+  private readonly urlLoteGet = `${environment.URL_BACK}lote/lista`;
+
+  private readonly urlLoteGetUnico = `${environment.URL_BACK}lote/loteUnico`;
 
   public farol = false;
 
   constructor(private http: HttpClient, public logService: LogService, public router: Router,
               public loginService: LoginService) { }
 
-  getAreaSeguranca(idFesta) {
+  getLote(idFesta) {
     if (!this.farol) {
       this.setFarol(true);
       const httpParams = new HttpParams()
@@ -30,7 +32,7 @@ export class GetSegurancaService {
       headers = headers.append('Content-Type', 'application/json');
       headers = headers.append('Authorization', 'Bearer ' + JSON.parse(localStorage.getItem('token')).token);
 
-      return this.http.get(this.urlAreaSergurancaGet, {params: httpParams, headers}).pipe(
+      return this.http.get(this.urlLoteGet, {params: httpParams, headers}).pipe(
         take(1),
         catchError(error => {
           return this.handleError(error, this.logService);
@@ -43,7 +45,6 @@ export class GetSegurancaService {
     logService.initialize();
     logService.logHttpInfo(JSON.stringify(error), 0, error.url);
     this.setFarol(false);
-    this.router.navigate(['404']);
     return throwError(error);
   }
 
@@ -55,3 +56,4 @@ export class GetSegurancaService {
     return this.farol;
   }
 }
+

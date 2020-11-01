@@ -1,0 +1,95 @@
+<div class="main-container">
+    <div class="criar-festa">
+        <h1 class="title">Editar lote de ingressos</h1>
+    </div>
+
+        <mat-card class="formulario-card">
+            <form [formGroup]="form" class="formulario" 
+            (submit)="editLote(numeroLote.value, 
+                              nomeLote.value, 
+                              quantidade.value, 
+                              preco.value, 
+                              descLote.value, 
+                              dataInicio.value, 
+                              horaInicio.value, 
+                              dataFim.value, 
+                              horaFim.value)"
+            >
+            
+                <mat-form-field class=" campo texto-input">
+                    <mat-label>{{'INGRESSO.NUMERO' | translate}}</mat-label>
+                    <input ng-class="{ f.numeroLote.errors }" #numeroLote formControlName="numeroLote" matInput required type="number" min="1">
+                    <mat-error *ngIf="f.numeroLote.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
+                    <mat-error *ngIf="f.numeroLote.errors?.min">{{'FORMERRORS.MINQTDERROR' | translate}}</mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="campo texto-input">
+                    <mat-label>{{'INGRESSO.NOME' | translate}}</mat-label>
+                    <input ng-class="{ f.nomeLote.errors }" #nomeLote formControlName="nomeLote" matInput required type="text">
+                    <mat-error *ngIf="f.nomeLote.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
+                    <mat-error *ngIf="f.nomeLote.errors?.min">{{'FORMERRORS.MINQTDERROR' | translate}}</mat-error>
+                </mat-form-field>
+
+                <mat-form-field class=" campo texto-input">
+                    <mat-label>{{'INGRESSO.QUANTIDADE' | translate}}</mat-label>
+                    <input ng-class="{ f.quantidade.errors }" #quantidade formControlName="quantidade" matInput required type="number" min="1">
+                    <mat-error *ngIf="f.quantidade.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
+                    <mat-error *ngIf="f.quantidade.errors?.min">{{'FORMERRORS.MINQTDERROR' | translate}}</mat-error>
+                </mat-form-field>
+
+                <mat-form-field class=" campo texto-input">
+                    <mat-label>{{'INGRESSO.PRECO' | translate}}</mat-label>
+                    <input ng-class="{ f.preco.errors }" #preco formControlName="preco" matInput required type="number" min="0">
+                    <mat-error *ngIf="f.preco.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
+                    <mat-error *ngIf="f.preco.errors?.min">{{'FORMERRORS.MINQTDERROR' | translate}}</mat-error>
+                </mat-form-field>
+                
+                <mat-form-field class="campo texto-input">
+                    <mat-label>{{'INGRESSO.DESCRICAO' | translate}}</mat-label>
+                    <input ng-class="{ f.descLote.errors }" #descLote formControlName="descLote" matInput required type="text">
+                    <mat-error *ngIf="f.descLote.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
+                </mat-form-field>
+                
+                <div class="campos-linha">
+                    <mat-form-field class="campo date-input">
+                        <mat-label>{{'INGRESSO.DATAINI' | translate}}</mat-label>
+                        <input [min]="minDate" ng-class="{ f.inicioData.errors }" #dataInicio formControlName="inicioData" matInput required (click)="pickerInicioData.open()" [matDatepicker]="pickerInicioData">
+                        <mat-datepicker-toggle matSuffix [for]="pickerInicioData" ></mat-datepicker-toggle>
+                        <mat-datepicker #pickerInicioData ></mat-datepicker>
+                        <mat-error *ngIf="f.inicioData.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field class="campo">
+                        <mat-label>{{'INGRESSO.HORAINI' | translate}}</mat-label>
+                        <input ng-class="{ f.dthrInicio.errors }" #horaInicio formControlName="dthrInicio" matInput required [ngxTimepicker]="dthrInicio" [format]=24>
+                        <ngx-material-timepicker #dthrInicio></ngx-material-timepicker>
+                        <mat-error *ngIf="f.dthrInicio.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
+                    </mat-form-field>
+                </div>
+
+                <div class="campos-linha">
+                    <mat-form-field class="campo date-input">
+                        <mat-label>{{'INGRESSO.DATAFIM' | translate}}</mat-label>
+                        <input [min]="minDate" ng-class="{ f.fimData.errors }" #dataFim formControlName="fimData" matInput required (click)="pickerFimData.open()" [matDatepicker]="pickerFimData">
+                        <mat-datepicker-toggle matSuffix [for]="pickerFimData" ></mat-datepicker-toggle>
+                        <mat-datepicker #pickerFimData ></mat-datepicker>
+                        <mat-error *ngIf="f.fimData.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field class="campo">
+                        <mat-label>{{'INGRESSO.HORAFIM' | translate}}</mat-label>
+                        <input ng-class="{ f.dthrFim.errors }" #horaFim formControlName="dthrFim" matInput required [ngxTimepicker]="dthrFim" [format]=24>
+                        <ngx-material-timepicker #dthrFim></ngx-material-timepicker>
+                        <mat-error *ngIf="f.dthrFim.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
+                    </mat-form-field>
+                </div>
+                
+                <button [disabled]="!form.valid" class="button-form" mat-raised-button>{{'INGRESSO.CONFIRMEDIT' | translate}}</button>
+            </form>
+        </mat-card>
+    <a routerLink="../../">
+        <button mat-button cdkFocusInitial class="button-return">
+            <mat-icon>keyboard_return</mat-icon> {{'UTILS.RETURN' | translate}}
+        </button>
+    </a>
+</div>

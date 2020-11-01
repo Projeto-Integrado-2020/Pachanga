@@ -148,7 +148,8 @@
         "GRUPOALT": "Role updated.",
         "ATRIBSUC": "Distribution successfully saved.",
         "PRODDELE": "Product successfully deleted.",
-        "FORMDELE": "Form successfully deleted."
+        "FORMDELE": "Form successfully deleted.",
+        "LOTEALT": "Batch successfully updated."
     },
 
     "PERFIL":{
@@ -591,5 +592,27 @@
         "CANCEL": "Cancel",
         "CONFIRM": "Confirm",
         "MESSAGE": "Do you want to delete the form "
+    },
+
+    "INGRESSO": {
+        "CREATE": "Create batch of tickets",
+        "CONFIRMCREATE": "Create batch",
+        "CONFIRMEDIT": "Edit batch",
+        "MESSAGE": "Do you want to delete the batch ",
+        "NOME": "Batch name",
+        "NUMERO": "Batch number",
+        "QUANTIDADE": "Tickets quantity in batch",
+        "PRECO": "Batch ticket price: ",
+        "DATAHRINI": "Batch availability start date and time",
+        "DATAHRFIM": "Batch availability end date and time",
+        "DATAINI": "Batch sale start date",
+        "DATAFIM": "Batch sale end date",
+        "HORAINI": "Start time for sale",
+        "HORAFIM": "End time for sale",
+        "EDIT": "Edit batch",
+        "DELETE": "Delete batch",
+        "DESCRICAO": "Batch description",
+        "CANCEL": "Cancel",
+        "CONFIRM": "Confirm"
     }
 }

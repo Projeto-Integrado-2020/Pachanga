@@ -1,36 +1,36 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
+import { MatDialog } from '@angular/material/dialog';
+import { ErroDialogComponent } from '../../views/erro-dialog/erro-dialog.component';
 import { LogService } from '../logging/log.service';
 import { take, catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
-import { Router } from '@angular/router';
 import { LoginService } from '../loginService/login.service';
+
 
 @Injectable({
   providedIn: 'root'
 })
-export class GetSegurancaService {
+export class EditarLoteService {
 
-  private readonly urlAreaSergurancaGet = `${environment.URL_BACK}areaSeguranca/lista`;
+  farol = false;
+  private readonly urlEditarLote = `${environment.URL_BACK}lote/atualizar`;
 
-  public farol = false;
-
-  constructor(private http: HttpClient, public logService: LogService, public router: Router,
+  constructor(private http: HttpClient, public logService: LogService, public dialog: MatDialog,
               public loginService: LoginService) { }
 
-  getAreaSeguranca(idFesta) {
+  editarLote(lote) {
     if (!this.farol) {
       this.setFarol(true);
       const httpParams = new HttpParams()
-      .append('codFesta', idFesta)
       .append('codUsuario', this.loginService.usuarioInfo.codUsuario);
 
       let headers = new HttpHeaders();
       headers = headers.append('Content-Type', 'application/json');
       headers = headers.append('Authorization', 'Bearer ' + JSON.parse(localStorage.getItem('token')).token);
 
-      return this.http.get(this.urlAreaSergurancaGet, {params: httpParams, headers}).pipe(
+      return this.http.put(this.urlEditarLote, lote, {params: httpParams, headers}).pipe(
         take(1),
         catchError(error => {
           return this.handleError(error, this.logService);
@@ -40,11 +40,19 @@ export class GetSegurancaService {
   }
 
   handleError = (error: HttpErrorResponse, logService: LogService) => {
+    this.dialog.closeAll();
+    this.openErrorDialog(error.error);
     logService.initialize();
     logService.logHttpInfo(JSON.stringify(error), 0, error.url);
     this.setFarol(false);
-    this.router.navigate(['404']);
     return throwError(error);
+  }
+
+  openErrorDialog(error) {
+    const dialogRef = this.dialog.open(ErroDialogComponent, {
+      width: '250px',
+      data: {erro: error}
+    });
   }
 
   setFarol(flag: boolean) {

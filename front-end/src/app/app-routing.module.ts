@@ -17,6 +17,9 @@ import { GerenciadorProdutosComponent } from './views/gerenciador-produtos/geren
 import { PainelSegurancaComponent } from './views/painel-seguranca/painel-seguranca.component';
 import { RelatoriosPainelComponent } from './views/relatorios-painel/relatorios-painel.component';
 import { FormsPainelComponent } from './views/forms-painel/forms-painel.component';
+import { PainelIngressoComponent } from './views/painel-ingresso/painel-ingresso.component';
+import { CriarLoteComponent } from './views/criar-lote/criar-lote.component';
+import { EditarLoteComponent } from './views/editar-lote/editar-lote.component';
 
 const routes: Routes = [
 
@@ -50,6 +53,12 @@ const routes: Routes = [
     },
 
     {
+      path: 'festas/:festa&:id/ingressos',
+      component: PainelIngressoComponent,
+      canActivate: [AuthGuard]
+    },
+
+    {
       path: 'festas/:festa&:id/estoque',
       component: EstoquePainelComponent,
       canActivate: [AuthGuard]
@@ -64,6 +73,18 @@ const routes: Routes = [
     {
       path: 'criar-festa',
       component: CriarFestaComponent,
+      canActivate: [AuthGuard]
+    },
+
+    {
+      path: 'festas/:festa&:id/ingressos/criar-lote',
+      component: CriarLoteComponent,
+      canActivate: [AuthGuard]
+    },
+
+    {
+      path: 'festas/:festa&:id/ingressos/editar-lote/:idLote',
+      component: EditarLoteComponent,
       canActivate: [AuthGuard]
     },
 

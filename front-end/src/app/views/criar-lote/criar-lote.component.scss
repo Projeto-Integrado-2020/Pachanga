@@ -1,0 +1,122 @@
+@import '../material/paleta.scss';
+
+//CSS RESET
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  border: 0;
+}
+
+.title {
+    margin: 6rem 0 0 2rem;
+}
+
+.main-container {
+    max-width: 1140px;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+form {
+    margin-right: 0 !important;
+}
+
+.criar-festa {
+}
+
+.texto-input {
+    width: 60%;
+}
+
+.button{
+    
+    &-return {
+        margin: 1rem 0 0 1rem;
+    }
+
+    &-form {
+        background-color: $color-primary;
+        color: #ffffff;
+        padding: .2rem .6rem .2rem .6rem;
+    }
+}
+
+.formulario-card {
+    margin-top: 1rem;
+    width: 100%;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+textarea {
+    resize: none !important;
+}
+
+.formulario {
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    align-items: center;
+
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+
+}
+
+.campos-linha {
+    display: flex;
+}
+
+.title {
+    font-size: 1.8rem;
+    font-weight: lighter;
+    width: 100%;
+    color: $color-primary;
+}
+
+
+//MOBILE
+
+@media (max-width: 748px){
+    .content {
+        margin: 0;
+    }
+
+    .campo {
+        max-width: 100%;
+    }
+
+    .formulario {
+        max-width: 90%;
+    }
+
+    .campos-linha {
+        flex-direction: column;
+    }
+
+    .formulario-card {
+        width: 90%;
+    }
+}
+
+//DESKTOP
+@media (min-width: 749px) {
+    .campo {
+        max-width: 100%;
+    }
+
+    .formulario {
+        max-width: 60%;
+    }
+
+    .campos-linha {
+
+        gap: 1rem;
+    }
+
+
+}

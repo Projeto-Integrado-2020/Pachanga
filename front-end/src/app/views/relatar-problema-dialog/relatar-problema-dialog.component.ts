@@ -49,15 +49,15 @@ export class RelatarProblemaDialogComponent implements OnInit {
     console.log(this.area);
     this.segurancaProblemaService.listarProblemas().subscribe(
       (resp: any) => {
-        //console.log(resp);
+        // console.log(resp);
         this.listaProblemas = resp;
         console.log(this.listaProblemas);
       }
     );
-    //console.log(this.listaProblemas);
+    // console.log(this.listaProblemas);
   }
 
-  relatarProblema(problemaTO){
+  relatarProblema(problemaTO) {
     /*
       problemaTO:
         codFesta,

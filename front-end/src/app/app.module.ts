@@ -98,6 +98,10 @@ import { EditarFormDialogComponent } from './views/editar-form-dialog/editar-for
 import { DeletarFormDialogComponent } from './views/deletar-form-dialog/deletar-form-dialog.component';
 import { AdicionarFormDialogComponent } from './views/adicionar-form-dialog/adicionar-form-dialog.component';
 import { RelatarProblemaDialogComponent } from './views/relatar-problema-dialog/relatar-problema-dialog.component';
+import { PainelIngressoComponent } from './views/painel-ingresso/painel-ingresso.component';
+import { CriarLoteComponent } from './views/criar-lote/criar-lote.component';
+import { EditarLoteComponent } from './views/editar-lote/editar-lote.component';
+import { DeletarLoteDialogComponent } from './views/deletar-lote-dialog/deletar-lote-dialog.component';
 import { AlertaSegurancaComponent } from './views/alerta-seguranca/alerta-seguranca.component';
 import { DatePipe } from '@angular/common';
 
@@ -177,6 +181,10 @@ export function provideConfig() {
     DeletarFormDialogComponent,
     AdicionarFormDialogComponent,
     RelatarProblemaDialogComponent,
+    PainelIngressoComponent,
+    CriarLoteComponent,
+    EditarLoteComponent,
+    DeletarLoteDialogComponent,
     AlertaSegurancaComponent
   ],
   entryComponents: [
@@ -215,6 +223,7 @@ export function provideConfig() {
     DeletarFormDialogComponent,
     AdicionarFormDialogComponent,
     RelatarProblemaDialogComponent,
+    DeletarLoteDialogComponent,
     AlertaSegurancaComponent
   ],
   imports: [

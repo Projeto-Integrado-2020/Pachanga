@@ -24,8 +24,8 @@ describe('Service: SegurancaProblemas', () => {
     service = TestBed.get(SegurancaProblemasService);
   });
 
-  it('should ...', inject([SegurancaProblemasService], (service: SegurancaProblemasService) => {
-    expect(service).toBeTruthy();
+  it('should ...', inject([SegurancaProblemasService], (serviceProblema: SegurancaProblemasService) => {
+    expect(serviceProblema).toBeTruthy();
   }));
 
   it('should get Info at listarProblemas', () => {
@@ -35,32 +35,32 @@ describe('Service: SegurancaProblemas', () => {
 
   it('should post Info at adicionarProblema', () => {
     service.loginService.usuarioInfo = {codusuario: 'teste'};
-    let problemaTO = {}
+    const problemaTO = {};
     expect(service.adicionarProblema(problemaTO)).toBeTruthy();
   });
 
   it('should delete Info at deletarProblema', () => {
     service.loginService.usuarioInfo = {codusuario: 'teste'};
-    let problemaTO = {}
+    const problemaTO = {};
     expect(service.adicionarProblema(problemaTO)).toBeTruthy();
   });
 
   it('should delete Info at deletarProblema', () => {
     service.loginService.usuarioInfo = {codusuario: 'teste'};
-    let problemaTO = {}
+    const problemaTO = {};
     expect(service.adicionarProblema(problemaTO)).toBeTruthy();
   });
 
   it('should get Info at getAllProblemasArea', () => {
     service.loginService.usuarioInfo = {codusuario: 'teste'};
-    let codArea = 1;
-    let codFesta = 1
+    const codArea = 1;
+    const codFesta = 1;
     expect(service.getAllProblemasArea(codArea, codFesta)).toBeTruthy();
   });
 
   it('should get Info at getAllProblemasFesta', () => {
     service.loginService.usuarioInfo = {codusuario: 'teste'};
-    let codFesta = 1
+    const codFesta = 1;
     expect(service.getAllProblemasFesta(codFesta)).toBeTruthy();
   });
 

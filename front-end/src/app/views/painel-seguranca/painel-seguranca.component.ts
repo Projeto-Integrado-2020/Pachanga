@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { MatDialog, MatTableDataSource } from '@angular/material';
+import { MatDialog } from '@angular/material';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { GetFestaService } from 'src/app/services/get-festa/get-festa.service';
@@ -55,12 +55,12 @@ export class PainelSegurancaComponent implements OnInit {
     {
       codArea: 1,
       codFesta: 1,
-      nomeArea: "Área 51",
-      statusSeguranca: "S",
+      nomeArea: 'Área 51',
+      statusSeguranca: 'S',
       problemas: [
         {
           codProblema: 1,
-          descProblema: "Invasão Alienígena",
+          descProblema: 'Invasão Alienígena',
           resolvido: false
         },
         {
@@ -73,31 +73,37 @@ export class PainelSegurancaComponent implements OnInit {
     {
       codArea: 2,
       codFesta: 1,
-      nomeArea: "Area de Serviço",
-      statusSeguranca: "S",
+      nomeArea: 'Area de Serviço',
+      statusSeguranca: 'S',
       problemas: [
         {
           codProblema: 1,
-          descProblema: "Elevador viajando na horizontal",
+          descProblema: 'Elevador viajando na horizontal',
           resolvido: false
         },
         {
           codProblema: 1,
-          descProblema: "Crise de Mísseis",
+          descProblema: 'Crise de Mísseis',
           resolvido: false
         },
         {
           codProblema: 1,
-          descProblema: "Seu Barriga cobrando aluguel",
+          descProblema: 'Seu Barriga cobrando aluguel',
           resolvido: false
         }
       ]
     }
-  ]
+  ];
 
 
   displayedColumns: string[] = ['nome', 'status'];
 
+  resgatarAreaSeguranca() {
+    this.getSeguranca.getAreaSeguranca(this.festa.codFesta).subscribe((resp: any) => {
+      this.areas = resp;
+      this.getSeguranca.setFarol(false);
+    });
+  }
 
   ngOnInit() {
     this.source = null;
@@ -113,6 +119,7 @@ export class PainelSegurancaComponent implements OnInit {
       this.festa = resp;
       this.festaNome = resp.nomeFesta;
       this.statusFesta = resp.statusFesta;
+      this.resgatarAreaSeguranca();
     });
   }
 
@@ -136,7 +143,7 @@ export class PainelSegurancaComponent implements OnInit {
   }
 
   atribuirProblemasAreas(areas) {
-    for (let area of areas) {
+    for (const area of areas) {
       // Object.assign(
       //   area,
       //   {problemas: this.getProblemasArea(area)}
@@ -148,7 +155,7 @@ export class PainelSegurancaComponent implements OnInit {
 
   resolverProblema(problema) {
     problema.resolvido = true;
-    console.log("Problema resolvido, finja que funcionou");
+    console.log('Problema resolvido, finja que funcionou');
   }
 
   openDialogRelatarProblema(area) {

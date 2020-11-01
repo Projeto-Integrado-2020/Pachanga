@@ -135,6 +135,20 @@ describe('EditarFestaComponent', () => {
     expect(component.getTimeFromDTF('2020-07-19T12:00:00')).toBe('12:00');
   });
 
+  it('should buildForm', () => {
+    expect(component.form.get('nomeFesta')).toBeTruthy();
+    expect(component.form.get('descFesta')).toBeTruthy();
+    expect(component.form.get('endereco')).toBeTruthy();
+    expect(component.form.get('inicioData')).toBeTruthy();
+    expect(component.form.get('fimData')).toBeTruthy();
+    expect(component.form.get('inicioHora')).toBeTruthy();
+    expect(component.form.get('fimHora')).toBeTruthy();
+    expect(component.form.get('categoriaPrincipal')).toBeTruthy();
+    expect(component.form.get('categoriaSecundaria')).toBeTruthy();
+    expect(component.form.get('organizador')).toBeTruthy();
+    expect(component.form.get('descOrganizador')).toBeTruthy();
+  });
+
   it('should setFormValues', () => {
     component.festa = {
       nomeFesta: 'Teste',

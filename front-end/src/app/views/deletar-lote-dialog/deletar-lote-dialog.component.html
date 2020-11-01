@@ -1,0 +1,8 @@
+<h1 mat-dialog-title>{{'INGRESSO.DELETE' | translate}}</h1>
+<div mat-dialog-content>
+    <p>{{'INGRESSO.MESSAGE' | translate}}"{{ lote.nomeLote }}"?</p>
+</div>
+<div mat-dialog-actions class="buttons">
+    <button class="red-back" mat-button (click)="deletarLote()" cdkFocusInitial>{{'INGRESSO.CONFIRM' | translate}}</button>
+    <button  mat-button mat-dialog-close cdkFocusInitial>{{'INGRESSO.CANCEL' | translate}}</button>
+</div>
