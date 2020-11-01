@@ -13,6 +13,8 @@ public class NotificacaoGrupoTO {
 	private LocalDateTime dataEmissao;
 	
 	private NotificacaoEstoqueTO notificacaoEstoque;
+	
+	private NotificacaoAreaSegurancaTO notificacaoArea;
 
 	public int getGrupo() {
 		return codGrupo;
@@ -52,6 +54,14 @@ public class NotificacaoGrupoTO {
 
 	public void setNotificacaoEstoque(NotificacaoEstoqueTO notificacaoEstoque) {
 		this.notificacaoEstoque = notificacaoEstoque;
+	}
+
+	public NotificacaoAreaSegurancaTO getNotificacaoArea() {
+		return notificacaoArea;
+	}
+
+	public void setNotificacaoArea(NotificacaoAreaSegurancaTO notificacaoArea) {
+		this.notificacaoArea = notificacaoArea;
 	}
 
 }

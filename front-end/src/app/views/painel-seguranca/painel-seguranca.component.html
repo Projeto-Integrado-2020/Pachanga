@@ -23,26 +23,22 @@
                 <button class="botao prp-btn-prod" (click)="openDialogCriarArea()" mat-button>{{'AREASEGURANCA.CREATE' | translate}}</button>
             </div>
 
-            <div *ngFor="let area of areas; let i = index">
+            <div *ngFor="let area of this.mockAreas; let i = index">
                 <mat-accordion class="tabela">
                     <mat-expansion-panel hideToggle class="painel">
                         <mat-expansion-panel-header>
                             <mat-panel-title>{{area.nomeArea}}</mat-panel-title>
                             <mat-panel-description>{{'AREASEGURANCA.DESCRIPTION' | translate}}</mat-panel-description>
                         </mat-expansion-panel-header>
-                        <table mat-table [dataSource]="dataSources[i]">
-                            <ng-container matColumnDef="nome">
-                                <th mat-header-cell *matHeaderCellDef>{{'AREASEGURANCA.NOME' | translate}}</th>
-                                <td mat-cell *matCellDef="let element"> {{element.nomeArea}} </td>
-                            </ng-container>
-                            <ng-container matColumnDef="status">
-                                <th mat-header-cell *matHeaderCellDef>Status</th>
-                                <td mat-cell *matCellDef="let element"> {{element.statusSeguranca}} </td>
-                            </ng-container>
-
-                            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-                        </table>
+                        <div class="problemas">
+                            <div class="problema" *ngFor="let problema of area.problemas">
+                                <span [style.textDecoration]="problema.resolvido ? 'line-through': 'none'">{{problema.descProblema}}</span>
+                                <button (click)="resolverProblema(problema)">Resolver</button>
+                            </div>
+                            <!-- <div class="problema" *ngFor="let problema of this.getProblemasArea(area)">
+                                <span>{{problema.descProblema}}</span>
+                            </div> -->
+                        </div>
                         <div class="botoes">
                             <button class="botao prp-btn-delete" mat-button (click)="openDialogRelatarProblema(area)">Relatar Problema</button>
                             <button class="botao prp-btn-delete" mat-button (click)="openDialogDelete(area.codArea)">{{'AREASEGURANCA.DELETE' | translate}}</button>

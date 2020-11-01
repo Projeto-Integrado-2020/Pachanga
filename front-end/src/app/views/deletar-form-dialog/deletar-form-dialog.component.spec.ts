@@ -83,7 +83,7 @@ describe('DeletarFormDialogComponent', () => {
     component.form = {codQuestionario: 'teste'};
     component.codFesta = 'teste';
     component.deletarForm();
-    expect(component.deleteService.deleteQuestionario).toHaveBeenCalledWith('teste', 'teste');
+    expect(component.deleteService.deleteQuestionario).toHaveBeenCalledWith('teste');
     expect(dialogSpy.closeAll).toHaveBeenCalled();
     expect(component.component.ngOnInit).toHaveBeenCalled();
     expect(component.openDialogSuccess).toHaveBeenCalledWith('FORMDELE');

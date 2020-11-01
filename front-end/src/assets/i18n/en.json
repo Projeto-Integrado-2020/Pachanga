@@ -70,7 +70,8 @@
         "MATCH": "Passwords must match.",
         "MINQTDERROR": "The minimum quantity allowed is 1.",
         "MAXQTDERROR": "The maximum percentage allowed is 100%.",
-        "MINCAMPOERROR": "At least one field must be filled."
+        "MINCAMPOERROR": "At least one field must be filled.",
+        "URL": "This field must contain a public Google Sheets response URL for your Google Forms."
     },
 
     "ERRO": {
@@ -84,7 +85,7 @@
         "NOTMODIF": "Nothing to modify.",
         "FESTNFOU": "Party not found.",
         "USERSPER": "User without permission for this action.",
-        "DATEINFE": "Party start or end invalid.",
+        "DATEINFE": "Invalid dates/time.",
         "FESTNEND": "Party without address.",
         "FESTNOME": "Another party is using this name.",
         "STATERRA": "This party status does not exist.",
@@ -126,7 +127,15 @@
         "ESTOCITE": "Stock has product.",
         "QNTATLDF": "Initial quantity can not be changed in initialized parties.",
         "NOMEAREA": "An area with this name is already in use.",
-        "AREANFOU": "Area not found."
+        "AREANFOU": "Area not found.",
+        "LOTEVING": "Tickets for this lot have already been sold.",
+        "PREILOTE": "Invalid price.",
+        "QUAILOTE": "Invalid lot quantity.",
+        "NOMELOTE": "This name is already being used at this party.",
+        "LOTENFOU": "Lot not found.",
+        "FORMNFOU": "Survey Google Forms not found.",
+        "URLFORMS": "This URL has already been registered.",
+        "NOMEFORM": "This name has already been registered."
     },
 
     "SUCCESS": {
@@ -377,7 +386,15 @@
         "VISUAREA": "View security area.",
         "ADDAREAS": "Add security areas.",
         "DELEAREA": "Delete security areas.",
-        "EDITAREA": "Edit security areas."
+        "EDITAREA": "Edit security areas.",
+        "VISULOTE": "View lots and tickets.",
+        "ADDLOTES": "Add lots and tickets.",
+        "DELELOTE": "Delete lots and tickets.",
+        "EDITLOTE": "Edit lots and tickets.",
+        "VISUFORM": "View Google Forms surveys.",
+        "ADDFORMS": "Add Google Forms surveys.",
+        "DELEFORM": "Delete Google Forms surveys.",
+        "EDITFORM": "Edit Google Forms surveys."
     },
 
     "ASSIGNDIALOG": {
@@ -483,13 +500,23 @@
         "STATUSCHANGE1": "The party ",
         "STATUSCHANGE2": "had the status changed to ",
         "STATUSCHANGE3": "Go to party",
-        "STATUSCHANGETITLE": "Status change"
+        "STATUSCHANGETITLE": "Status change",
+        "SEGURANCA1": "The security area",
+        "SEGURANCA2": "of",
+        "SEGURANCA3": "has the following problem",
+        "SEGURANCA4": "Action required!"
     },
 
     "ALERTAESTOQUE": {
         "REDIRECIONAR": "Go to stock page",
         "TITLE": "Stock alert",
         "OR": "OR"
+    },
+
+    "ALERTASEGURANCA": {
+        "REDIRECIONAR": "Go to security painel",
+        "TITLE": "Security alert",
+        "PROBLEM": "Problem"
     },
 
     "RECARGA": {
@@ -540,6 +567,8 @@
         "CREATE": "Create security area",
         "DELETE": "Delete security area",
         "EDIT": "Edit security area",
+        "AREA": "Security area",
+        "PROBLEMA": "Problem",
         "NOMEAREA": "Security area name",
         "CONFIRM": "Confirm",
         "MESSAGE": "Do you really want to delete this security area",

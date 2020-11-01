@@ -108,7 +108,11 @@ public class NotificacaoService {
 			((NotificacaoUsuarioTO) notificacaoTO).setNotificacaoMudancaStatus(notificacaoMudancaStatus);
 		} else if(TipoNotificacao.AREAPROB.getValor().equals(codigo)) {
 			NotificacaoAreaSegurancaTO notificacaoArea = areaService.getNotificacaoProblemaArea(Integer.parseInt(valores[0]), Integer.parseInt(valores[1]));
-			((NotificacaoUsuarioTO) notificacaoTO).setNotificacaoArea(notificacaoArea);
+			if(NotificacaoGrupoTO.class == notificacaoTO.getClass()) {
+				((NotificacaoGrupoTO) notificacaoTO).setNotificacaoArea(notificacaoArea);	
+			}else if(NotificacaoUsuarioTO.class == notificacaoTO.getClass()) {
+				((NotificacaoUsuarioTO) notificacaoTO).setNotificacaoArea(notificacaoArea);				
+			}
 		}
 	}
 	

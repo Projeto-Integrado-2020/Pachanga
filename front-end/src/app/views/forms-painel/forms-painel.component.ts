@@ -40,8 +40,8 @@ export class FormsPainelComponent implements OnInit {
       for (const form of resp) {
         this.forms.push({
                             codQuestionario: form.codQuestionario,
-                            nome: form.nome,
-                            url: form.url
+                            nome: form.nomeQuestionario,
+                            url: form.urlQuestionario
                           });
       }
       this.dataSource.data = this.forms;

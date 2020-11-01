@@ -70,7 +70,8 @@
         "MATCH": "Senhas devem coincidir.",
         "MINQTDERROR": "A quantidade mínima permitida é de 1.",
         "MAXQTDERROR": "A porcentagem máxima permitida é de 100%.",
-        "MINCAMPOERROR": "Ao menos um campo deve ser preenchido."
+        "MINCAMPOERROR": "Ao menos um campo deve ser preenchido.",
+        "URL": "Este campo deve conter a URL pública da planilha de resposta do seu Google Forms."
     },
 
     "ERRO": {
@@ -128,7 +129,15 @@
         "ESTOCITE": "Estoque possui produtos.",
         "QNTATLDF": "Quantidade inicial não pode ser alterada em festas iniciadas.",
         "NOMEAREA": "Uma área com este nome já está sendo usada.",
-        "AREANFOU": "Área não encontrada."
+        "AREANFOU": "Área não encontrada.",
+        "LOTEVING": "Ingressos deste lote já foram vendidos.",
+        "PREILOTE": "Preço inválido.",
+        "QUAILOTE": "Quantidade de lote inválida.",
+        "NOMELOTE": "Este nome já está sendo utilizado nesta festa.",
+        "LOTENFOU": "Lote não encontrado.",
+        "FORMNFOU": "Questionário não encontrado.",
+        "URLFORMS": "Esta URL já foi registrada.",
+        "NOMEFORM": "Este nome já foi registrado."
     },
 
     "SUCCESS": {
@@ -380,7 +389,15 @@
         "VISUAREA": "Visualizar área de segurança.",
         "ADDAREAS": "Adicionar áreas de segurança.",
         "DELEAREA": "Deletar áreas de segurança.",
-        "EDITAREA": "Editar áreas de segurança."
+        "EDITAREA": "Editar áreas de segurança.",
+        "VISULOTE": "Visualizar lotes e ingressos.",
+        "ADDLOTES": "Adicionar lotes e ingressos.",
+        "DELELOTE": "Remover lotes e ingressos.",
+        "EDITLOTE": "Editar lotes e ingressos.",
+        "VISUFORM": "Visualizar questionários Google Forms.",
+        "ADDFORMS": "Registrar questionários Google Forms.",
+        "DELEFORM": "Remover questionários Google Forms.",
+        "EDITFORM": "Editar questionários Google Forms."
     },
 
     "ASSIGNDIALOG": {
@@ -485,13 +502,23 @@
         "STATUSCHANGE1": "A festa ",
         "STATUSCHANGE2": "teve o status alterado para ",
         "STATUSCHANGE3": "Ir para a festa",
-        "STATUSCHANGETITLE": "Mudança de Status"
+        "STATUSCHANGETITLE": "Mudança de Status",
+        "SEGURANCA1": "A área de segurança",
+        "SEGURANCA2": "da festa",
+        "SEGURANCA3": "está com o seguinte problema",
+        "SEGURANCA4": "Controle necessário!"
     },
 
     "ALERTAESTOQUE": {
         "REDIRECIONAR": "Ir para a tela de estoque",
         "TITLE": "Alerta de Estoque",
         "OR": "OU"
+    },
+
+    "ALERTASEGURANCA": {
+        "REDIRECIONAR": "Ir para a tela de segurança da festa",
+        "TITLE": "Alerta de Segurança",
+        "PROBLEM": "Problema"
     },
 
     "RECARGA": {
@@ -542,6 +569,8 @@
         "CREATE": "Criar área de segurança",
         "DELETE": "Deletar área de segurança",
         "EDIT": "Editar área de segurança",
+        "AREA": "Área de segurança",
+        "PROBLEMA": "Problema",
         "NOMEAREA": "Nome da área de segurança",
         "CONFIRM": "Confirmar",
         "MESSAGE": "Você realmente deseja deletar esta área de segurança",

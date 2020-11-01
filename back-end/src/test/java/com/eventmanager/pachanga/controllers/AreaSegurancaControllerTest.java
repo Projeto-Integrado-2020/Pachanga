@@ -123,51 +123,6 @@ class AreaSegurancaControllerTest {
 
 	@Test
 	@WithMockUser
-	void areaSegurancaFestaSucesso() throws Exception {
-		String uri = "/areaSeguranca/areaUnica";
-
-		String expected = "{\"codArea\":1,\"codFesta\":3,\"nomeArea\":\"teste123\",\"statusSeguranca\":\"S\"}";
-
-		Mockito.when(areaSegurancaService.areaSegurancaFesta(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt()))
-				.thenReturn(areaTest());
-		Mockito.when(areaSegurancaFactory.getAreaTo(Mockito.any())).thenReturn(areaTOTest());
-
-		RequestBuilder requestBuilder = MockMvcRequestBuilders.get(uri).accept(MediaType.APPLICATION_JSON)
-				.param("codFesta", "1").param("codUsuario", "1").param("codArea", "1")
-				.contentType(MediaType.APPLICATION_JSON);
-
-		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
-
-		MockHttpServletResponse response = result.getResponse();
-
-		assertEquals(HttpStatus.OK.value(), response.getStatus());
-
-		JSONAssert.assertEquals(expected, result.getResponse().getContentAsString(), true);
-	}
-
-	@Test
-	@WithMockUser
-	void areaSegurancaFestaErro() throws Exception {
-		String uri = "/areaSeguranca/areaUnica";
-
-		Mockito.when(areaSegurancaService.areaSegurancaFesta(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt()))
-				.thenThrow(new ValidacaoException("teste"));
-
-		RequestBuilder requestBuilder = MockMvcRequestBuilders.get(uri).accept(MediaType.APPLICATION_JSON)
-				.param("codFesta", "1").param("codUsuario", "1").param("codArea", "1")
-				.contentType(MediaType.APPLICATION_JSON);
-
-		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
-
-		MockHttpServletResponse response = result.getResponse();
-
-		assertEquals(HttpStatus.BAD_REQUEST.value(), response.getStatus());
-
-		assertEquals("teste", result.getResponse().getContentAsString());
-	}
-
-	@Test
-	@WithMockUser
 	void criarAreaSegurancaFestaSucesso() throws Exception {
 		String uri = "/areaSeguranca/adicionar";
 

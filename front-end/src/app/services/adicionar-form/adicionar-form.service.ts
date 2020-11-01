@@ -14,7 +14,7 @@ import { LoginService } from '../loginService/login.service';
 export class AdicionarFormService {
 
   farol = false;
-  private readonly urlAddQuestionario = `${environment.URL_BACK}questionario/addQuestionario`;
+  private readonly urlAddQuestionario = `${environment.URL_BACK}questionario/adicionar`;
 
   constructor(private http: HttpClient, public logService: LogService, public dialog: MatDialog,
               public loginService: LoginService) { }
@@ -23,8 +23,7 @@ export class AdicionarFormService {
     if (!this.farol) {
       this.setFarol(true);
       const httpParams = new HttpParams()
-        .append('codFesta', codFesta)
-        .append('idUsuarioPermissao', this.loginService.usuarioInfo.codUsuario);
+        .append('codUsuario', this.loginService.usuarioInfo.codUsuario);
 
       let headers = new HttpHeaders();
       headers = headers.append('Content-Type', 'application/json');
@@ -40,7 +39,6 @@ export class AdicionarFormService {
   }
 
   handleError = (error: HttpErrorResponse, logService: LogService) => {
-    this.dialog.closeAll();
     this.openErrorDialog(error.error);
     logService.initialize();
     logService.logHttpInfo(JSON.stringify(error), 0, error.url);
