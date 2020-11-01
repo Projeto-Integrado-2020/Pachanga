@@ -10,27 +10,27 @@ import { LoginService } from '../loginService/login.service';
 @Injectable({
   providedIn: 'root'
 })
-export class GetSegurancaService {
+export class GetLoteUnicoService {
 
-  private readonly urlAreaSergurancaGet = `${environment.URL_BACK}areaSeguranca/lista`;
+  private readonly urlLoteGetUnico = `${environment.URL_BACK}lote/loteUnico`;
 
   public farol = false;
 
   constructor(private http: HttpClient, public logService: LogService, public router: Router,
               public loginService: LoginService) { }
 
-  getAreaSeguranca(idFesta) {
+  getLoteUnico(codLote) {
     if (!this.farol) {
       this.setFarol(true);
       const httpParams = new HttpParams()
-      .append('codFesta', idFesta)
+      .append('codLote', codLote)
       .append('codUsuario', this.loginService.usuarioInfo.codUsuario);
 
       let headers = new HttpHeaders();
       headers = headers.append('Content-Type', 'application/json');
       headers = headers.append('Authorization', 'Bearer ' + JSON.parse(localStorage.getItem('token')).token);
 
-      return this.http.get(this.urlAreaSergurancaGet, {params: httpParams, headers}).pipe(
+      return this.http.get(this.urlLoteGetUnico, {params: httpParams, headers}).pipe(
         take(1),
         catchError(error => {
           return this.handleError(error, this.logService);
@@ -43,7 +43,6 @@ export class GetSegurancaService {
     logService.initialize();
     logService.logHttpInfo(JSON.stringify(error), 0, error.url);
     this.setFarol(false);
-    this.router.navigate(['404']);
     return throwError(error);
   }
 
@@ -55,3 +54,4 @@ export class GetSegurancaService {
     return this.farol;
   }
 }
+

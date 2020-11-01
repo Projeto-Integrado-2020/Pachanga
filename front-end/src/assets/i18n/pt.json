@@ -141,7 +141,8 @@
         "GRUPOALT": "Grupo alterado com sucesso.",
         "ATRIBSUC": "Atribuição salva com sucesso.",
         "PRODDELE": "Produto deletado com sucesso.",
-        "FORMDELE": "Questionário deletado com sucesso."
+        "FORMDELE": "Questionário deletado com sucesso.",
+        "LOTEALT": "Lote alterado com sucesso."
     },
     
     "PERFIL":{
@@ -564,5 +565,27 @@
         "CANCEL": "Cancelar",
         "CONFIRM": "Confirmar",
         "MESSAGE": "Você deseja excluir o formulário "
+    },
+
+    "INGRESSO": {
+        "CREATE": "Criar lote de ingressos",
+        "CONFIRMCREATE": "Criar lote",
+        "CONFIRMEDIT": "Editar lote",
+        "MESSAGE": "Você deseja deletar o lote ",
+        "NOME": "Nome do lote",
+        "NUMERO": "Número do lote",
+        "QUANTIDADE": "Quantidade de ingressos do lote",
+        "PRECO": "Preço dos ingressos do lote",
+        "DATAHRINI": "Data e horário de início da disponibilidade do lote",
+        "DATAHRFIM": "Data e horário de fim da disponibilidade do lote",
+        "DATAINI": "Data de início da venda do lote",
+        "DATAFIM": "Data de fim da venda do lote",
+        "HORAINI": "Horário inicial para venda",
+        "HORAFIM": "Horário final para venda",
+        "EDIT": "Editar lote",
+        "DELETE": "Deletar lote",
+        "DESCRICAO": "Descrição do lote",
+        "CANCEL": "Cancelar",
+        "CONFIRM": "Confirmar"
     }
 }

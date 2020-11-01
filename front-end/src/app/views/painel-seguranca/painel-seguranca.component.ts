@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { MatDialog, MatTableDataSource } from '@angular/material';
+import { MatDialog } from '@angular/material';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { GetFestaService } from 'src/app/services/get-festa/get-festa.service';
@@ -45,7 +45,7 @@ export class PainelSegurancaComponent implements OnInit {
 
   displayedColumns: string[] = ['nome', 'status'];
 
-  resgatarEstoquePanel() {
+  resgatarAreaSeguranca() {
     this.getSeguranca.getAreaSeguranca(this.festa.codFesta).subscribe((resp: any) => {
       this.areas = resp;
       this.getSeguranca.setFarol(false);
@@ -64,7 +64,7 @@ export class PainelSegurancaComponent implements OnInit {
       this.festa = resp;
       this.festaNome = resp.nomeFesta;
       this.statusFesta = resp.statusFesta;
-      this.resgatarEstoquePanel();
+      this.resgatarAreaSeguranca();
     });
   }
 

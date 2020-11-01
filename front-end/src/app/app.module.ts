@@ -98,6 +98,10 @@ import { EditarFormDialogComponent } from './views/editar-form-dialog/editar-for
 import { DeletarFormDialogComponent } from './views/deletar-form-dialog/deletar-form-dialog.component';
 import { AdicionarFormDialogComponent } from './views/adicionar-form-dialog/adicionar-form-dialog.component';
 import { RelatarProblemaDialogComponent } from './views/relatar-problema-dialog/relatar-problema-dialog.component';
+import { PainelIngressoComponent } from './views/painel-ingresso/painel-ingresso.component';
+import { CriarLoteComponent } from './views/criar-lote/criar-lote.component';
+import { EditarLoteComponent } from './views/editar-lote/editar-lote.component';
+import { DeletarLoteDialogComponent } from './views/deletar-lote-dialog/deletar-lote-dialog.component';
 
 const config = new AuthServiceConfig([
   {
@@ -174,7 +178,11 @@ export function provideConfig() {
     EditarFormDialogComponent,
     DeletarFormDialogComponent,
     AdicionarFormDialogComponent,
-    RelatarProblemaDialogComponent
+    RelatarProblemaDialogComponent,
+    PainelIngressoComponent,
+    CriarLoteComponent,
+    EditarLoteComponent,
+    DeletarLoteDialogComponent
   ],
   entryComponents: [
     LoginComponent,
@@ -211,7 +219,8 @@ export function provideConfig() {
     EditarFormDialogComponent,
     DeletarFormDialogComponent,
     AdicionarFormDialogComponent,
-    RelatarProblemaDialogComponent
+    RelatarProblemaDialogComponent,
+    DeletarLoteDialogComponent
   ],
   imports: [
     BrowserModule,

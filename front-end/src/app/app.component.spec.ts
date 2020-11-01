@@ -42,6 +42,9 @@ import { MomentModule } from 'ngx-moment';
 import { PainelSegurancaComponent } from './views/painel-seguranca/painel-seguranca.component';
 import { RelatoriosPainelComponent } from './views/relatorios-painel/relatorios-painel.component';
 import { FormsPainelComponent } from './views/forms-painel/forms-painel.component';
+import { PainelIngressoComponent } from './views/painel-ingresso/painel-ingresso.component';
+import { CriarLoteComponent } from './views/criar-lote/criar-lote.component';
+import { EditarLoteComponent } from './views/editar-lote/editar-lote.component';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -92,7 +95,10 @@ describe('AppComponent', () => {
         NotificacoesComponent,
         PainelSegurancaComponent,
         RelatoriosPainelComponent,
-        FormsPainelComponent
+        FormsPainelComponent,
+        PainelIngressoComponent,
+        CriarLoteComponent,
+        EditarLoteComponent
       ],
       imports: [
         MomentModule,
