@@ -115,4 +115,7 @@ public interface GrupoRepository extends CrudRepository<Grupo, Integer>{
 	@Modifying(clearAutomatically = true)
 	@Query(value = "DELETE FROM grupo WHERE cod_festa = :codFesta", nativeQuery = true)
 	public void deleteByCodFesta(int codFesta);
+	
+	@Query(value = "SELECT g FROM Grupo g JOIN g.usuarios u JOIN g.permissoes p JOIN g.festa f WHERE f.codFesta = :codFesta AND p.codPermissao >= 22 AND p.codPermissao <= 25 GROUP BY g.codGrupo")
+	public List<Grupo> findGruposPermissaoAreaSegurancaProblema(int codFesta);
 }

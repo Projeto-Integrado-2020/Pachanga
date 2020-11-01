@@ -21,7 +21,9 @@ import com.eventmanager.pachanga.repositories.FestaRepository;
 import com.eventmanager.pachanga.repositories.GrupoRepository;
 import com.eventmanager.pachanga.repositories.ProblemaRepository;
 import com.eventmanager.pachanga.repositories.UsuarioRepository;
+import com.eventmanager.pachanga.tipo.TipoNotificacao;
 import com.eventmanager.pachanga.tipo.TipoPermissao;
+import com.eventmanager.pachanga.tipo.TipoStatusProblema;
 
 @Service
 @Transactional
@@ -45,8 +47,6 @@ public class AreaSegurancaProblemaService {
 	@Autowired
 	NotificacaoService notificacaoService;
 	
-	@Autowired
-	GrupoService grupoService;
 	
 	@Autowired
 	private GrupoRepository grupoRepository;
@@ -55,32 +55,27 @@ public class AreaSegurancaProblemaService {
 	private AreaSegurancaProblemaRepository areaSegurancaProblemaRepository;
 	
 	public AreaSegurancaProblema addProblemaSeguranca(AreaSegurancaProblemaTO problemaSegurancaTO, int idUsuario) {
-		this.validarUsuarioFesta(idUsuario, problemaSegurancaTO.getCodFesta());
-		//this.validarPermissaoUsuario(problemaSegurancaTO.getCodFesta(), idUsuario, TipoPermissao.ADDPSEGU.getCodigo());
+		this.validarPermissaoUsuario(problemaSegurancaTO.getCodFesta(), idUsuario, TipoPermissao.ADDPSEGU.getCodigo());
 		if(this.getAreaSegurancaProblema(problemaSegurancaTO.getCodAreaSeguranca(), problemaSegurancaTO.getCodProblema()) != null) {
 			throw new ValidacaoException("PRSEEXST"); //ProblemaSeguranca já existe
 		}
 		
+		problemaSegurancaTO.setStatusProblema(TipoStatusProblema.ANDAMENTO.getValor()); //só se cria em andamento
+		
 		Usuario usuarioEmissor = this.validarUsuarioFesta(problemaSegurancaTO.getCodUsuarioEmissor(), problemaSegurancaTO.getCodFesta());
-		Usuario usuarioResolv = this.validarUsuarioFesta(problemaSegurancaTO.getCodUsuarioResolv(), problemaSegurancaTO.getCodFesta());
 		Problema problema = this.validarProblema(problemaSegurancaTO.getCodProblema());
 		AreaSeguranca areaSeguranca = areaSegurancaRepository.findAreaByCodFestaAndCodArea(problemaSegurancaTO.getCodFesta(), problemaSegurancaTO.getCodAreaSeguranca());								 
 		Festa festa = this.validarFesta(problemaSegurancaTO.getCodFesta());
 		
-		AreaSegurancaProblema problemaSeguranca = AreaSegurancaProblemaFactory.getProblemaSeguranca(problemaSegurancaTO, festa, areaSeguranca, problema, usuarioEmissor, usuarioResolv);
+		AreaSegurancaProblema problemaSeguranca = AreaSegurancaProblemaFactory.getProblemaSeguranca(problemaSegurancaTO, festa, areaSeguranca, problema, usuarioEmissor, null);
 		this.validarAreaSegurancaProblema(problemaSeguranca);
 		areaSegurancaProblemaRepository.save(problemaSeguranca);
-		
-		String mensagem = "Foi reportado um problema de " + problema.getDescProblema() + " na área " 
-		                  + areaSeguranca.getNomeArea() + ": " + problemaSeguranca.getDescProblema();
-		this.notificarGrupos(festa.getCodFesta(), mensagem);
-		
+		this.disparaNotificacao(problemaSeguranca);
 		return problemaSeguranca;
 	}
 	
 	public AreaSegurancaProblema updateProblemaSeguranca(AreaSegurancaProblemaTO problemaSegurancaTO, int idUsuario) {
-		this.validarUsuarioFesta(idUsuario, problemaSegurancaTO.getCodFesta());
-		//this.validarPermissaoUsuario(problemaSegurancaTO.getCodFesta(), idUsuario, TipoPermissao.EDITPSEG.getCodigo());
+		this.validarPermissaoUsuario(problemaSegurancaTO.getCodFesta(), idUsuario, TipoPermissao.EDITPSEG.getCodigo());
 		AreaSegurancaProblema problemaSeguranca = getAreaSegurancaProblema(problemaSegurancaTO.getCodAreaSeguranca(), problemaSegurancaTO.getCodProblema());
 		if(problemaSeguranca == null) {
 			throw new ValidacaoException("PRSENFOU"); //ProblemaSeguranca nao existe
@@ -101,16 +96,11 @@ public class AreaSegurancaProblemaService {
 		this.validarAreaSegurancaProblema(problemaSeguranca);
 		areaSegurancaProblemaRepository.save(problemaSeguranca);
 		
-		String mensagem = "O problema de " + problemaSeguranca.getProblema().getDescProblema() + " na área " 
-                		  + problemaSeguranca.getArea().getNomeArea() + " foi atualizado: " + problemaSeguranca.getDescProblema();
-		this.notificarGrupos(festa.getCodFesta(), mensagem);
-		
 		return problemaSeguranca;
 	}
 	
 	public AreaSegurancaProblema deleteProblemaSeguranca(int codAreaSeguranca, int codProblema, int codFesta, int idUsuario) {
-		this.validarUsuarioFesta(idUsuario, codFesta);
-		//this.validarPermissaoUsuario(codFesta, idUsuario, TipoPermissao.DELEPSEG.getCodigo());
+		this.validarPermissaoUsuario(codFesta, idUsuario, TipoPermissao.DELEPSEG.getCodigo());
 		AreaSegurancaProblema problemaSeguranca = getAreaSegurancaProblema(codAreaSeguranca, codProblema);
 		if(problemaSeguranca == null) {
 			throw new ValidacaoException("PRSENFOU"); //ProblemaSeguranca nao existe
@@ -118,30 +108,23 @@ public class AreaSegurancaProblemaService {
 	
 		areaSegurancaProblemaRepository.delete(problemaSeguranca);
 		
-		String mensagem = "O problema de " + problemaSeguranca.getProblema().getDescProblema() + " na área " 
-      		  + problemaSeguranca.getArea().getNomeArea() + " foi encerrado: " + problemaSeguranca.getDescProblema();
-		this.notificarGrupos(problemaSeguranca.getFesta().getCodFesta(), mensagem);
-		
 		return problemaSeguranca;
 	}
 	
 	public AreaSegurancaProblema findProblemaSeguranca(int codAreaSeguranca, int codProblema, int codFesta, int idUsuario) {
-		this.validarUsuarioFesta(idUsuario, codFesta);
-		//this.validarPermissaoUsuario(codFesta, idUsuario, TipoPermissao.VISUPSEG.getCodigo());
-		AreaSegurancaProblema problemaSeguranca = areaSegurancaProblemaRepository.findAreaSegurancaProblema(codAreaSeguranca, codProblema);;
+		this.validarPermissaoUsuario(codFesta, idUsuario, TipoPermissao.VISUPSEG.getCodigo());
+		AreaSegurancaProblema problemaSeguranca = areaSegurancaProblemaRepository.findAreaSegurancaProblema(codAreaSeguranca, codProblema);
 		return problemaSeguranca;
 	}
 	
 	public List<AreaSegurancaProblema> findAllProblemasSegurancaArea(int codAreaProblema, int codFesta, int idUsuario) {
-		this.validarUsuarioFesta(idUsuario, codFesta);
-		//this.validarPermissaoUsuario(codFesta, idUsuario, TipoPermissao.VISUPSEG.getCodigo());
+		this.validarPermissaoUsuario(codFesta, idUsuario, TipoPermissao.VISUPSEG.getCodigo());
 		List<AreaSegurancaProblema> problemasSeguranca = areaSegurancaProblemaRepository.findAllAreaSegurancaProblemaArea(codAreaProblema, codFesta);
 		return problemasSeguranca;
 	}
 	
 	public List<AreaSegurancaProblema> findAllProblemasSegurancaFesta(int codFesta, int idUsuario) {
-		this.validarUsuarioFesta(idUsuario, codFesta);
-		//this.validarPermissaoUsuario(codFesta, idUsuario, TipoPermissao.VISUPSEG.getCodigo());
+		this.validarPermissaoUsuario(codFesta, idUsuario, TipoPermissao.VISUPSEG.getCodigo());
 		List<AreaSegurancaProblema> problemasSeguranca = areaSegurancaProblemaRepository.findAllAreaSegurancaProblemaFesta(codFesta);
 		return problemasSeguranca;
 	}
@@ -153,11 +136,10 @@ public class AreaSegurancaProblemaService {
 		if (usuario == null) {
 			throw new ValidacaoException("USERNFOU");
 		}
-		if (idFesta != 0) {
-			usuario = usuarioRepository.findBycodFestaAndUsuario(idFesta, idUsuario);
-			if (usuario == null) {
-				throw new ValidacaoException("USERNFES");// usuário não relacionado a festa
-			}
+	
+		usuario = usuarioRepository.findBycodFestaAndUsuario(idFesta, idUsuario);
+		if (usuario == null) {
+			throw new ValidacaoException("USERNFES");// usuário não relacionado a festa
 		}
 		return usuario;
 	}
@@ -170,6 +152,12 @@ public class AreaSegurancaProblemaService {
 	private void validarAreaSegurancaProblema(AreaSegurancaProblema problemaSeguranca) {
 		if(problemaSeguranca.getHorarioFim().isBefore(problemaSeguranca.getHorarioInicio())) {
 			throw new ValidacaoException("DATEINFE");
+		}
+		if((problemaSeguranca.getStatusProblema().equals(TipoStatusProblema.ANDAMENTO.getValor()) 
+		   || problemaSeguranca.getStatusProblema().equals(TipoStatusProblema.ENGANO.getValor()))  
+		   && problemaSeguranca.getCodUsuarioResolv() != null) {
+			
+			throw new ValidacaoException("STSINVL");  // STATUS INVALIDO		
 		}
 	}
 	
@@ -189,13 +177,6 @@ public class AreaSegurancaProblemaService {
 		return festa;
 	}
 	
-	private void notificarGrupos(int codFesta, String mensagem) {
-		List<Grupo> grupos =grupoRepository.findGruposFesta(codFesta);
-		for(Grupo grupo : grupos) {
-			notificacaoService.inserirNotificacaoGrupo(grupo.getCodGrupo(), 5, mensagem);	
-		}
-	}
-	
 	private void validarPermissaoUsuario(int codFesta, int idUsuario, int codPermissao) {
 		List<Grupo> grupos = grupoRepository.findGrupoPermissaoUsuario(codFesta, idUsuario, codPermissao);
 		if (grupos.isEmpty()) {
@@ -203,4 +184,20 @@ public class AreaSegurancaProblemaService {
 		} 
 	}
 
+	private void disparaNotificacao(AreaSegurancaProblema problemaSeguranca) {
+			List<Grupo> grupos = grupoRepository.findGruposPermissaoAreaSegurancaProblema(problemaSeguranca.getFesta().getCodFesta());
+			String mensagem = notificacaoService.criarMensagemAreaProblema(problemaSeguranca.getArea().getCodArea(),
+																		   problemaSeguranca.getProblema().getCodProblema());
+			for (Grupo grupo : grupos) {
+				if (notificacaoService.verificarNotificacaoGrupo(grupo.getCodGrupo(), mensagem)) {
+					notificacaoService.inserirNotificacaoGrupo(grupo.getCodGrupo(),	                                   
+															   TipoNotificacao.AREAPROB.getCodigo(), mensagem);
+					List<Usuario> usuarios = usuarioRepository.findUsuariosPorGrupo(grupo.getCodGrupo());
+					for (Usuario usuario : usuarios) {
+						notificacaoService.inserirNotificacaoUsuario(usuario.getCodUsuario(),
+								                                     TipoNotificacao.AREAPROB.getCodigo(), mensagem);
+					}
+			    }
+		    }
+	}
 }

@@ -240,6 +240,10 @@ public class NotificacaoService {
 		return TipoNotificacao.AREAPROB.getValor() + "?" + codArea + "&" + codProblema;
 	}
 	
+	//public String criarMensagemProblemaSeguranca(int codArea, int codProblema) {
+	//	return TipoNotificacao.AREAPROB.getValor() + "?" + codArea + "&" + codProblema;
+	//}
+	
 	public LocalDateTime getDataAtual() {
 		return LocalDateTime.now(ZoneId.of("America/Sao_Paulo"));
 	}

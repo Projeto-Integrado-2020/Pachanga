@@ -1,6 +1,6 @@
 package com.eventmanager.pachanga.tipo;
 
-public enum TipoStatusPoblema {
+public enum TipoStatusProblema {
 	
 	ANDAMENTO("A"), 
 	FINALIZADO("F"), 
@@ -8,7 +8,7 @@ public enum TipoStatusPoblema {
 	
 	private String valor;
 
-	private TipoStatusPoblema(String valor) {
+	private TipoStatusProblema(String valor) {
 		this.valor = valor;
 	}
 

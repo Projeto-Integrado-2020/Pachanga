@@ -11,18 +11,19 @@ import com.eventmanager.pachanga.domains.Festa;
 import com.eventmanager.pachanga.domains.Problema;
 import com.eventmanager.pachanga.domains.Usuario;
 import com.eventmanager.pachanga.dtos.AreaSegurancaProblemaTO;
-
 public class AreaSegurancaProblemaFactory {
 	private AreaSegurancaProblemaFactory() {
 	}
 
 	public static AreaSegurancaProblemaTO getAreaSegurancaProblemaTO(AreaSegurancaProblema problemaSeguranca) {
+		int codUsuarioResolv = 0;
+		if(problemaSeguranca.getCodUsuarioResolv() != null) codUsuarioResolv = problemaSeguranca.getCodUsuarioResolv().getCodUsuario();
 		return AreaSegurancaProblemaTOBuilder.getInstance()
 									     .codAreaSeguranca(problemaSeguranca.getArea().getCodArea())
 									     .codFesta(problemaSeguranca.getFesta().getCodFesta())
 									     .codProblema(problemaSeguranca.getProblema().getCodProblema())
 									     .codUsuarioEmissor(problemaSeguranca.getCodUsuarioEmissor().getCodUsuario())
-									     .codUsuarioResolv(problemaSeguranca.getCodUsuarioResolv().getCodUsuario())
+									     .codUsuarioResolv(codUsuarioResolv)
 									     .descProblema(problemaSeguranca.getDescProblema())
 									     .horarioFim(problemaSeguranca.getHorarioFim())
 									     .horarioInicio(problemaSeguranca.getHorarioInicio())
