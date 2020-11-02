@@ -3,6 +3,8 @@ package com.eventmanager.pachanga.factory;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+
 import com.eventmanager.pachanga.builder.AreaSegurancaProblemaBuilder;
 import com.eventmanager.pachanga.builder.AreaSegurancaProblemaTOBuilder;
 import com.eventmanager.pachanga.domains.AreaSeguranca;
@@ -11,6 +13,8 @@ import com.eventmanager.pachanga.domains.Festa;
 import com.eventmanager.pachanga.domains.Problema;
 import com.eventmanager.pachanga.domains.Usuario;
 import com.eventmanager.pachanga.dtos.AreaSegurancaProblemaTO;
+
+@Component(value = "areaSegurancaProblemaFactory")
 public class AreaSegurancaProblemaFactory {
 	private AreaSegurancaProblemaFactory() {
 	}
