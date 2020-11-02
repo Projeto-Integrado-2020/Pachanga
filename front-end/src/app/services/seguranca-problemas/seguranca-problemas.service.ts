@@ -24,12 +24,17 @@ export class SegurancaProblemasService {
     ) { }
 
   listarProblemas() {
-    if (this.farol) {
+    if (!this.farol) {
       let headers = new HttpHeaders();
       headers = headers.append('Content-Type', 'application/json');
       headers = headers.append('Authorization', 'Bearer ' + JSON.parse(localStorage.getItem('token')).token);
 
-      return this.httpClient.get(this.listaProblemas, {headers});
+      return this.httpClient.get(this.listaProblemas, {headers}).pipe(
+        take(1),
+        catchError(error => {
+          return this.handleError(error, this.logService);
+        })
+      );
     }
   }
 
@@ -42,7 +47,12 @@ export class SegurancaProblemasService {
       const httpParams = new HttpParams()
         .append('idUsuario', this.loginService.getusuarioInfo().codUsuario);
 
-      return this.httpClient.post(this.baseUrl + '/adicionar', problemaTO, {headers, params: httpParams});
+      return this.httpClient.post(this.baseUrl + '/adicionar', problemaTO, {headers, params: httpParams}).pipe(
+        take(1),
+        catchError(error => {
+          return this.handleError(error, this.logService);
+        })
+      );
     }
   }
 
@@ -62,7 +72,12 @@ export class SegurancaProblemasService {
         .append('codFesta', codFesta)
         .append('idUsuario', this.loginService.getusuarioInfo().codUsuario);
 
-      return this.httpClient.delete(this.baseUrl + '/delete', {params: httpParams});
+      return this.httpClient.delete(this.baseUrl + '/delete', {params: httpParams}).pipe(
+        take(1),
+        catchError(error => {
+          return this.handleError(error, this.logService);
+        })
+      );
     }
   }
 

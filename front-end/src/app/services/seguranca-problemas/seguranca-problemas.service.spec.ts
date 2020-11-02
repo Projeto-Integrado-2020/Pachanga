@@ -2,6 +2,7 @@
 
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { TestBed, inject } from '@angular/core/testing';
+import { RouterModule } from '@angular/router';
 import { CustomMaterialModule } from 'src/app/views/material/material.module';
 import { SegurancaProblemasService } from './seguranca-problemas.service';
 
@@ -12,7 +13,8 @@ describe('Service: SegurancaProblemas', () => {
     TestBed.configureTestingModule({
       imports: [
         HttpClientTestingModule,
-        CustomMaterialModule
+        CustomMaterialModule,
+        RouterModule.forRoot([])
       ],
       providers: [SegurancaProblemasService]
     });
@@ -62,6 +64,19 @@ describe('Service: SegurancaProblemas', () => {
     service.loginService.usuarioInfo = {codusuario: 'teste'};
     const codFesta = 1;
     expect(service.getAllProblemasFesta(codFesta)).toBeTruthy();
+  });
+
+  it('should set farol', () => {
+    service.setFarol(true);
+    expect(service.getFarol()).toBeTruthy();
+    service.setFarol(false);
+    expect(service.getFarol()).toBeFalsy();
+  });
+
+  it('should get farol', () => {
+    expect(service.getFarol()).toBeFalsy();
+    service.setFarol(true);
+    expect(service.getFarol()).toBeTruthy();
   });
 
   // it('should get Info at getEstoque', () => {

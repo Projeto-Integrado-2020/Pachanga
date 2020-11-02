@@ -13,6 +13,7 @@ import { HttpClient } from '@angular/common/http';
 import { HttpLoaderFactory } from 'src/app/app.module';
 import { of } from 'rxjs';
 import { DatePipe } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 describe('RelatarProblemaDialogComponent', () => {
   let component: RelatarProblemaDialogComponent;
@@ -27,6 +28,7 @@ describe('RelatarProblemaDialogComponent', () => {
         CustomMaterialModule,
         HttpClientTestingModule,
         BrowserAnimationsModule,
+        RouterModule.forRoot([]),
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
