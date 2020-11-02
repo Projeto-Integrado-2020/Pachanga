@@ -37,7 +37,7 @@ export class CriarLoteComponent implements OnInit {
       numeroLote: new FormControl('', Validators.required),
       quantidade: new FormControl('', [Validators.required, Validators.min(1)]),
       preco: new FormControl('', Validators.required),
-      nomeLote: new FormControl('', [Validators.required, Validators.min(1)]),
+      nomeLote: new FormControl('', Validators.required),
       descLote: new FormControl('', Validators.required),
       inicioData: new FormControl('', Validators.required),
       dthrInicio: new FormControl('', Validators.required),
