@@ -109,8 +109,6 @@ export class PainelSegurancaComponent implements OnInit {
 
   resgatarAreaSeguranca() {
     this.getSeguranca.getAreaSeguranca(this.festa.codFesta).subscribe((resp: any) => {
-      console.log("resgatarAreaSeg");
-      console.log(resp);
       this.areas = resp;
       this.getSeguranca.setFarol(false);
     });
@@ -119,8 +117,6 @@ export class PainelSegurancaComponent implements OnInit {
   resgatarDadosFesta() {
     this.getFestaService.acessarFesta(this.idFesta).subscribe((resp: any) => {
       this.festa = resp;
-      console.log("resgatarDadosFesta");
-      console.log(resp);
       this.festaNome = resp.nomeFesta;
       this.statusFesta = resp.statusFesta;
       this.resgatarAreaSeguranca();
