@@ -98,12 +98,6 @@ export class PainelSegurancaComponent implements OnInit {
 
   displayedColumns: string[] = ['nome', 'status'];
 
-  resgatarAreaSeguranca() {
-    this.getSeguranca.getAreaSeguranca(this.festa.codFesta).subscribe((resp: any) => {
-      this.areas = resp;
-      this.getSeguranca.setFarol(false);
-    });
-  }
 
   ngOnInit() {
     this.source = null;
@@ -111,7 +105,15 @@ export class PainelSegurancaComponent implements OnInit {
     this.dataSources = [];
     this.idFesta = url.substring(url.indexOf('&') + 1, url.indexOf('/', url.indexOf('&')));
     this.resgatarDadosFesta();
-    this.resgatarEstoquePanel();
+    this.resgatarSegPanel();
+  }
+
+  resgatarAreaSeguranca() {
+    this.getSeguranca.getAreaSeguranca(this.festa.codFesta).subscribe((resp: any) => {
+      console.log(resp);
+      this.areas = resp;
+      this.getSeguranca.setFarol(false);
+    });
   }
 
   resgatarDadosFesta() {
@@ -120,10 +122,11 @@ export class PainelSegurancaComponent implements OnInit {
       this.festaNome = resp.nomeFesta;
       this.statusFesta = resp.statusFesta;
       this.resgatarAreaSeguranca();
+      this.getFestaService.setFarol(false);
     });
   }
 
-  resgatarEstoquePanel() {
+  resgatarSegPanel() {
     this.getSeguranca.getAreaSeguranca(this.idFesta).subscribe((resp: any) => {
       this.areas = resp;
       console.log(resp);
@@ -136,6 +139,7 @@ export class PainelSegurancaComponent implements OnInit {
     this.segProbService.getAllProblemasArea(area.codArea, this.idFesta).subscribe(
       (resp: any) => {
         problemas = resp;
+        this.segProbService.setFarol(false);
       }
     );
 
