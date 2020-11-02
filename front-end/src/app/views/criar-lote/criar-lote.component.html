@@ -15,19 +15,18 @@
                               dataFim.value, 
                               horaFim.value)"
             >
+
+                <mat-form-field class="campo texto-input">
+                    <mat-label>{{'INGRESSO.NOME' | translate}}</mat-label>
+                    <input ng-class="{ f.nomeLote.errors }" #nomeLote formControlName="nomeLote" matInput required type="text" maxlength="45">
+                    <mat-error *ngIf="f.nomeLote.errors?.min">{{'FORMERRORS.MINQTDERROR' | translate}}</mat-error>
+                </mat-form-field>
             
                 <mat-form-field class=" campo texto-input">
                     <mat-label>{{'INGRESSO.NUMERO' | translate}}</mat-label>
                     <input ng-class="{ f.numeroLote.errors }" #numeroLote formControlName="numeroLote" matInput required type="number" min="1">
                     <mat-error *ngIf="f.numeroLote.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
                     <mat-error *ngIf="f.numeroLote.errors?.min">{{'FORMERRORS.MINQTDERROR' | translate}}</mat-error>
-                </mat-form-field>
-
-                <mat-form-field class="campo texto-input">
-                    <mat-label>{{'INGRESSO.NOME' | translate}}</mat-label>
-                    <input ng-class="{ f.nomeLote.errors }" #nomeLote formControlName="nomeLote" matInput required type="text">
-                    <mat-error *ngIf="f.nomeLote.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
-                    <mat-error *ngIf="f.nomeLote.errors?.min">{{'FORMERRORS.MINQTDERROR' | translate}}</mat-error>
                 </mat-form-field>
 
                 <mat-form-field class=" campo texto-input">
@@ -46,7 +45,7 @@
                 
                 <mat-form-field class="campo texto-input">
                     <mat-label>{{'INGRESSO.DESCRICAO' | translate}}</mat-label>
-                    <input ng-class="{ f.descLote.errors }" #descLote formControlName="descLote" matInput required type="text">
+                    <textarea ng-class="{ f.descLote.errors }" #descLote formControlName="descLote" matInput required rows="4" type="text" maxlength="100"></textarea>
                     <mat-error *ngIf="f.descLote.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
                 </mat-form-field>
                 
