@@ -14,7 +14,7 @@ export class SegurancaProblemasService {
 
   baseUrl = `${environment.URL_BACK}areaSegurancaProblema`;
   listaProblemas = `${environment.URL_BACK}problema/lista`;
-  farol = false;
+  public farol = false;
 
   constructor(
     private httpClient: HttpClient,
@@ -25,6 +25,7 @@ export class SegurancaProblemasService {
 
   listarProblemas() {
     if (!this.farol) {
+      this.setFarol(true);
       let headers = new HttpHeaders();
       headers = headers.append('Content-Type', 'application/json');
       headers = headers.append('Authorization', 'Bearer ' + JSON.parse(localStorage.getItem('token')).token);
@@ -40,6 +41,7 @@ export class SegurancaProblemasService {
 
   adicionarProblema(problemaTO) {
     if (!this.farol) {
+      this.setFarol(true);
       let headers = new HttpHeaders();
       headers = headers.append('Content-Type', 'application/json');
       headers = headers.append('Authorization', 'Bearer ' + JSON.parse(localStorage.getItem('token')).token);
@@ -66,6 +68,7 @@ export class SegurancaProblemasService {
 
   deletarProblema(codArea, codFesta, codProblema) {
     if (!this.farol) {
+      this.setFarol(true);
       const httpParams = new HttpParams()
         .append('codAreaSeguranca', codArea)
         .append('codProblema', codProblema)
@@ -97,6 +100,7 @@ export class SegurancaProblemasService {
   // /lista get
   getAllProblemasArea(codArea, codFesta) {
     if(!this.farol) {
+      this.setFarol(true);
       let headers = new HttpHeaders();
       headers = headers.append('Content-Type', 'application/json');
       headers = headers.append('Authorization', 'Bearer ' + JSON.parse(localStorage.getItem('token')).token);

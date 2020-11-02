@@ -52,6 +52,7 @@ export class RelatarProblemaDialogComponent implements OnInit {
         // console.log(resp);
         this.listaProblemas = resp;
         console.log(this.listaProblemas);
+        this.segurancaProblemaService.setFarol(false);
       }
     );
     // console.log(this.listaProblemas);

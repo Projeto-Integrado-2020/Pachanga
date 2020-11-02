@@ -16,7 +16,9 @@ describe('Service: SegurancaProblemas', () => {
         CustomMaterialModule,
         RouterModule.forRoot([])
       ],
-      providers: [SegurancaProblemasService]
+      providers: [
+        SegurancaProblemasService,
+      ]
     });
     const token = {
       timeToken: '2020-09-21T01:14:04.028+0000',

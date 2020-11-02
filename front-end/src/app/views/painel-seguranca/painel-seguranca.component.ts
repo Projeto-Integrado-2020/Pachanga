@@ -105,11 +105,11 @@ export class PainelSegurancaComponent implements OnInit {
     this.dataSources = [];
     this.idFesta = url.substring(url.indexOf('&') + 1, url.indexOf('/', url.indexOf('&')));
     this.resgatarDadosFesta();
-    this.resgatarSegPanel();
   }
 
   resgatarAreaSeguranca() {
     this.getSeguranca.getAreaSeguranca(this.festa.codFesta).subscribe((resp: any) => {
+      console.log("resgatarAreaSeg");
       console.log(resp);
       this.areas = resp;
       this.getSeguranca.setFarol(false);
@@ -119,18 +119,12 @@ export class PainelSegurancaComponent implements OnInit {
   resgatarDadosFesta() {
     this.getFestaService.acessarFesta(this.idFesta).subscribe((resp: any) => {
       this.festa = resp;
+      console.log("resgatarDadosFesta");
+      console.log(resp);
       this.festaNome = resp.nomeFesta;
       this.statusFesta = resp.statusFesta;
       this.resgatarAreaSeguranca();
       this.getFestaService.setFarol(false);
-    });
-  }
-
-  resgatarSegPanel() {
-    this.getSeguranca.getAreaSeguranca(this.idFesta).subscribe((resp: any) => {
-      this.areas = resp;
-      console.log(resp);
-      this.getSeguranca.setFarol(false);
     });
   }
 
