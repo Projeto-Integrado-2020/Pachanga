@@ -191,7 +191,7 @@ public class UsuarioService {
 		return usuarioFestaTOFactory.getUsuarioFestaTO(usuario, grupo);
 	}
 
-	private Usuario validarUsuario(int codUsuario) {
+	public Usuario validarUsuario(int codUsuario) {
 		Usuario usuario = userRepository.findById(codUsuario);
 		if(usuario == null) {
 			throw new ValidacaoException("USERNFOU");

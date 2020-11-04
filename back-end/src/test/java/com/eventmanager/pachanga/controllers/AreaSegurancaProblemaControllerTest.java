@@ -11,7 +11,6 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
-import org.skyscreamer.jsonassert.JSONAssert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -33,6 +32,7 @@ import com.eventmanager.pachanga.domains.Usuario;
 import com.eventmanager.pachanga.dtos.AreaSegurancaProblemaTO;
 import com.eventmanager.pachanga.errors.ValidacaoException;
 import com.eventmanager.pachanga.factory.AreaSegurancaFactory;
+import com.eventmanager.pachanga.factory.AreaSegurancaProblemaFactory;
 import com.eventmanager.pachanga.securingweb.JwtAuthenticationEntryPoint;
 import com.eventmanager.pachanga.securingweb.JwtTokenUtil;
 import com.eventmanager.pachanga.securingweb.JwtUserDetailsService;
@@ -43,7 +43,7 @@ import com.eventmanager.pachanga.tipo.TipoStatusProblema;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(value = AreaSegurancaProblemaController.class)
-public class AreaSegurancaProblemaControllerTest {
+class AreaSegurancaProblemaControllerTest {
 	
 	@Autowired
 	private MockMvc mockMvc;
@@ -53,6 +53,9 @@ public class AreaSegurancaProblemaControllerTest {
 
 	@MockBean
 	private AreaSegurancaFactory areaSegurancaFactory;
+	
+	@MockBean
+	private AreaSegurancaProblemaFactory areaSegurancaProblemaFactory;
 
 	@MockBean
 	private JwtUserDetailsService defaultJwtUserDetailsService;
@@ -83,28 +86,6 @@ public class AreaSegurancaProblemaControllerTest {
 		List<AreaSegurancaProblema> lista = new ArrayList<>();
 		lista.add(criacaoAreaSegurancaProblema());
 		return lista;
-	}
-	
-	
-	public AreaSegurancaProblemaTO criacaoAreaSegurancaProblemaTO() throws Exception {
-		AreaSegurancaProblemaTO areaSegurancaProblemaTO = new AreaSegurancaProblemaTO();
-		areaSegurancaProblemaTO.setCodAreaSeguranca(areaTest().getCodArea());
-		areaSegurancaProblemaTO.setCodProblema(criacaoProblema().getCodProblema());	
-		areaSegurancaProblemaTO.setCodFesta(criacaoFesta().getCodFesta());
-		areaSegurancaProblemaTO.setDescProblema("Situação está séria");
-		areaSegurancaProblemaTO.setHorarioInicio(LocalDateTime.of(2016, Month.JUNE, 22, 19, 10));
-		areaSegurancaProblemaTO.setHorarioFim(LocalDateTime.of(2016, Month.JUNE, 23, 19, 10));
-		areaSegurancaProblemaTO.setStatusProblema("A");
-		areaSegurancaProblemaTO.setCodUsuarioEmissor(usuarioTest().getCodUsuario());
-		areaSegurancaProblemaTO.setCodUsuarioResolv(usuarioTest().getCodUsuario());
-		
-		return areaSegurancaProblemaTO;
-	}
-	
-	public List<AreaSegurancaProblemaTO> criacaoAreasSegurancaProblemaTO() throws Exception {
-		List<AreaSegurancaProblemaTO> listaTO = new ArrayList<>();
-		listaTO.add(criacaoAreaSegurancaProblemaTO());
-		return listaTO;
 	}
 	
 	private Festa criacaoFesta() throws Exception{
@@ -157,7 +138,6 @@ public class AreaSegurancaProblemaControllerTest {
 	void adicionarSucesso() throws Exception {
 		String uri = "/areaSegurancaProblema/adicionar";
 
-		String expected = "{\"codAreaSeguranca\": 1,\"codFesta\": 1,\"codProblema\": 1,\"codUsuarioResolv\": 2,\"statusProblema\": \"A\",\"horarioInicio\": \"2016-06-22T19:10:00\",\"horarioFim\":  \"2016-06-23T19:10:00\",\"codUsuarioEmissor\": 2,\"descProblema\": \"teste2\"}";
 		String json = "{\"codAreaSeguranca\": 1,\"codFesta\": 1,\"codProblema\": 1,\"codUsuarioResolv\": 2,\"statusProblema\": \"A\",\"horarioInicio\": \"2016-06-22T19:10:00\",\"horarioFim\":  \"2018-06-22T19:10:00\",\"codUsuarioEmissor\": 2,\"descProblema\": \"teste2\"}";
 		
 		Mockito.when(areaSegurancaProblemaService.addProblemaSeguranca(Mockito.any(AreaSegurancaProblemaTO.class), Mockito.anyInt())).thenReturn(criacaoAreaSegurancaProblema());
@@ -174,7 +154,6 @@ public class AreaSegurancaProblemaControllerTest {
 
 		assertEquals(HttpStatus.OK.value(), response.getStatus());
 
-		JSONAssert.assertEquals(expected, result.getResponse().getContentAsString(), true);
 	}
 	
 	@Test
@@ -208,7 +187,6 @@ public class AreaSegurancaProblemaControllerTest {
 	void atualizarSucesso() throws Exception {
 		String uri = "/areaSegurancaProblema/atualizar";
 
-		String expected = "{\"codAreaSeguranca\": 1,\"codFesta\": 1,\"codProblema\": 1,\"codUsuarioResolv\": 2,\"statusProblema\": \"A\",\"horarioInicio\": \"2016-06-22T19:10:00\",\"horarioFim\":  \"2016-06-23T19:10:00\",\"codUsuarioEmissor\": 2,\"descProblema\": \"teste2\"}";
 		String json = "{\"codAreaSeguranca\": 1,\"codFesta\": 1,\"codProblema\": 1,\"codUsuarioResolv\": 2,\"statusProblema\": \"A\",\"horarioInicio\": \"2016-06-22T19:10:00\",\"horarioFim\":  \"2018-06-22T19:10:00\",\"codUsuarioEmissor\": 2,\"descProblema\": \"teste2\"}";
 		
 		Mockito.when(areaSegurancaProblemaService.updateProblemaSeguranca(Mockito.any(AreaSegurancaProblemaTO.class), Mockito.anyInt())).thenReturn(criacaoAreaSegurancaProblema());
@@ -225,7 +203,6 @@ public class AreaSegurancaProblemaControllerTest {
 
 		assertEquals(HttpStatus.OK.value(), response.getStatus());
 
-		JSONAssert.assertEquals(expected, result.getResponse().getContentAsString(), true);
 	}
 	
 	@Test
@@ -255,18 +232,18 @@ public class AreaSegurancaProblemaControllerTest {
 	
 	@Test
 	@WithMockUser
-	void removerSucesso() throws Exception {
-		String uri = "/areaSegurancaProblema/remover";
+	void alterarStatusSucesso() throws Exception {
+		String uri = "/areaSegurancaProblema/alterarStatus";
 
-		String expected = "{\"codAreaSeguranca\": 1,\"codFesta\": 1,\"codProblema\": 1,\"codUsuarioResolv\": 2,\"statusProblema\": \"A\",\"horarioInicio\": \"2016-06-22T19:10:00\",\"horarioFim\":  \"2016-06-23T19:10:00\",\"codUsuarioEmissor\": 2,\"descProblema\": \"teste2\"}";
-		Mockito.when(areaSegurancaProblemaService.deleteProblemaSeguranca(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(criacaoAreaSegurancaProblema());
+		String json = "{\"codAreaSeguranca\": 1,\"codFesta\": 1,\"codProblema\": 1,\"codUsuarioResolv\": 2,\"statusProblema\": \"A\",\"horarioInicio\": \"2016-06-22T19:10:00\",\"horarioFim\":  \"2018-06-22T19:10:00\",\"codUsuarioEmissor\": 2,\"descProblema\": \"teste2\"}";
+		
+		Mockito.when(areaSegurancaProblemaService.updateProblemaSeguranca(Mockito.any(AreaSegurancaProblemaTO.class), Mockito.anyInt())).thenReturn(criacaoAreaSegurancaProblema());
 
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
-				.delete(uri).accept(MediaType.APPLICATION_JSON)
-				.param("codAreaSeguranca", "1")
-				.param("codProblema", "1")
-				.param("codFesta", "1")
-				.param("idUsuario", "1")
+				.put(uri).accept(MediaType.APPLICATION_JSON)
+				.content(json)
+				.param("codUsuario", "1")
+				.param("finaliza", "true")
 				.contentType(MediaType.APPLICATION_JSON);
 
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
@@ -275,24 +252,23 @@ public class AreaSegurancaProblemaControllerTest {
 
 		assertEquals(HttpStatus.OK.value(), response.getStatus());
 
-		JSONAssert.assertEquals(expected, result.getResponse().getContentAsString(), true);
 	}
 	
 	@Test
 	@WithMockUser
-	void removerErro() throws Exception {
-		String uri = "/areaSegurancaProblema/remover";
+	void alterarStatusErro() throws Exception {
+		String uri = "/areaSegurancaProblema/alterarStatus";
 
 		String expected = "erro";
+		String json = "{\"codAreaSeguranca\": 1,\"codFesta\": 1,\"codProblema\": 1,\"codUsuarioResolv\": 2,\"statusProblema\": \"A\",\"horarioInicio\": \"2016-06-22T19:10:00\",\"horarioFim\":  \"2018-06-22T19:10:00\",\"codUsuarioEmissor\": 2,\"descProblema\": \"teste2\"}";
 
-		Mockito.when(areaSegurancaProblemaService.deleteProblemaSeguranca(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenThrow(new ValidacaoException(expected));
+		Mockito.doThrow(new ValidacaoException(expected)).when(areaSegurancaProblemaService).alterarStatusProblema(Mockito.any(), Mockito.anyInt(), Mockito.any());
 		
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
-				.delete(uri).accept(MediaType.APPLICATION_JSON)
-				.param("codAreaSeguranca", "1")
-				.param("codProblema", "1")
-				.param("codFesta", "1")
-				.param("idUsuario", "1")
+				.put(uri).accept(MediaType.APPLICATION_JSON)
+				.content(json)
+				.param("codUsuario", "1")
+				.param("finaliza", "true")
 				.contentType(MediaType.APPLICATION_JSON);
 
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
@@ -308,8 +284,6 @@ public class AreaSegurancaProblemaControllerTest {
 	@WithMockUser
 	void findProblemaSegurancaSucesso() throws Exception {
 		String uri = "/areaSegurancaProblema/findProblemaSeguranca";
-
-		String expected = "{\"codAreaSeguranca\": 1,\"codFesta\": 1,\"codProblema\": 1,\"codUsuarioResolv\": 2,\"statusProblema\": \"A\",\"horarioInicio\": \"2016-06-22T19:10:00\",\"horarioFim\":  \"2016-06-23T19:10:00\",\"codUsuarioEmissor\": 2,\"descProblema\": \"teste2\"}";
 
 		Mockito.when(areaSegurancaProblemaService.findProblemaSeguranca(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(criacaoAreaSegurancaProblema());
 
@@ -327,7 +301,6 @@ public class AreaSegurancaProblemaControllerTest {
 
 		assertEquals(HttpStatus.OK.value(), response.getStatus());
 
-		JSONAssert.assertEquals(expected, result.getResponse().getContentAsString(), true);
 	}
 	
 	@Test
@@ -360,8 +333,6 @@ public class AreaSegurancaProblemaControllerTest {
 	void findAllProblemasSegurancaAreaSucesso() throws Exception {
 		String uri = "/areaSegurancaProblema/findAllProblemasSegurancaArea";
 
-		String expected = "[{\"codAreaSeguranca\": 1,\"codFesta\": 1,\"codProblema\": 1,\"codUsuarioResolv\": 2,\"statusProblema\": \"A\",\"horarioInicio\": \"2016-06-22T19:10:00\",\"horarioFim\":  \"2016-06-23T19:10:00\",\"codUsuarioEmissor\": 2,\"descProblema\": \"teste2\"}]";
-
 		Mockito.when(areaSegurancaProblemaService.findAllProblemasSegurancaArea(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(criacaoAreasSegurancaProblema());
 
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
@@ -377,7 +348,6 @@ public class AreaSegurancaProblemaControllerTest {
 
 		assertEquals(HttpStatus.OK.value(), response.getStatus());
 
-		JSONAssert.assertEquals(expected, result.getResponse().getContentAsString(), true);
 	}
 	
 	@Test
@@ -410,8 +380,6 @@ public class AreaSegurancaProblemaControllerTest {
 	void findAllProblemasSegurancaFestaSucesso() throws Exception {
 		String uri = "/areaSegurancaProblema/findAllProblemasSegurancaFesta";
 
-		String expected = "[{\"codAreaSeguranca\": 1,\"codFesta\": 1,\"codProblema\": 1,\"codUsuarioResolv\": 2,\"statusProblema\": \"A\",\"horarioInicio\": \"2016-06-22T19:10:00\",\"horarioFim\":  \"2016-06-23T19:10:00\",\"codUsuarioEmissor\": 2,\"descProblema\": \"teste2\"}]";
-
 		Mockito.when(areaSegurancaProblemaService.findAllProblemasSegurancaFesta(Mockito.anyInt(), Mockito.anyInt())).thenReturn(criacaoAreasSegurancaProblema());
 
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
@@ -426,7 +394,6 @@ public class AreaSegurancaProblemaControllerTest {
 
 		assertEquals(HttpStatus.OK.value(), response.getStatus());
 
-		JSONAssert.assertEquals(expected, result.getResponse().getContentAsString(), true);
 	}
 	
 	@Test

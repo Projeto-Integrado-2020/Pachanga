@@ -31,10 +31,10 @@ import com.eventmanager.pachanga.tipo.TipoStatusProblema;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(value=AreaSegurancaProblemaFactory.class)
-public class AreaSegurancaProblemaFactoryTest {
+class AreaSegurancaProblemaFactoryTest {
 	
 	@Autowired
-	AreaSegurancaProblemaFactory areaSegurancaProblemaFactory;
+	private AreaSegurancaProblemaFactory areaSegurancaProblemaFactory;
 	
 	@MockBean
 	private AuthorizationServerTokenServices defaultAuthorizationServerTokenServices;
@@ -126,7 +126,7 @@ public class AreaSegurancaProblemaFactoryTest {
 	@Test
 	void getAreaSegurancaProblemaTOSucesso() throws Exception {
 		AreaSegurancaProblema areaSegurancaProblema = criacaoAreaSegurancaProblema();
-		AreaSegurancaProblemaTO areaSegurancaProblemaTO = AreaSegurancaProblemaFactory.getAreaSegurancaProblemaTO(areaSegurancaProblema);
+		AreaSegurancaProblemaTO areaSegurancaProblemaTO = areaSegurancaProblemaFactory.getAreaSegurancaProblemaTO(areaSegurancaProblema);
 		
 		assertEquals(areaSegurancaProblemaTO.getCodAreaSeguranca(), areaSegurancaProblema.getArea().getCodArea());
 		assertEquals(areaSegurancaProblemaTO.getCodFesta(), areaSegurancaProblema.getFesta().getCodFesta());
@@ -143,7 +143,7 @@ public class AreaSegurancaProblemaFactoryTest {
 	void getAreaSegurancaProblemaTOSucessoUsuarioResolvNull() throws Exception {
 		AreaSegurancaProblema areaSegurancaProblema = criacaoAreaSegurancaProblema();
 		areaSegurancaProblema.setCodUsuarioResolv(null);
-		AreaSegurancaProblemaTO areaSegurancaProblemaTO = AreaSegurancaProblemaFactory.getAreaSegurancaProblemaTO(areaSegurancaProblema);
+		AreaSegurancaProblemaTO areaSegurancaProblemaTO = areaSegurancaProblemaFactory.getAreaSegurancaProblemaTO(areaSegurancaProblema);
 		
 		assertEquals(areaSegurancaProblemaTO.getCodAreaSeguranca(), areaSegurancaProblema.getArea().getCodArea());
 		assertEquals(areaSegurancaProblemaTO.getCodFesta(), areaSegurancaProblema.getFesta().getCodFesta());
@@ -160,7 +160,7 @@ public class AreaSegurancaProblemaFactoryTest {
 	@Test
 	void getAreaSegurancaProblemaSucesso() throws Exception {
 		AreaSegurancaProblemaTO areaSegurancaProblemaTO = criacaoAreaSegurancaProblemaTO();
-		AreaSegurancaProblema areaSegurancaProblema = AreaSegurancaProblemaFactory.getProblemaSeguranca(areaSegurancaProblemaTO, criacaoFesta(), areaTest(), criacaoProblema(), usuarioTest(), usuarioTest());
+		AreaSegurancaProblema areaSegurancaProblema = areaSegurancaProblemaFactory.getProblemaSeguranca(areaSegurancaProblemaTO, criacaoFesta(), areaTest(), criacaoProblema(), usuarioTest(), usuarioTest());
 		
 		assertEquals(areaSegurancaProblemaTO.getCodAreaSeguranca(), areaSegurancaProblema.getArea().getCodArea());
 		assertEquals(areaSegurancaProblemaTO.getCodFesta(), areaSegurancaProblema.getFesta().getCodFesta());
@@ -180,7 +180,7 @@ public class AreaSegurancaProblemaFactoryTest {
 		List<AreaSegurancaProblema> areasSegurancaProblema = new ArrayList<>();
 		areasSegurancaProblema.add(areaSegurancaProblema);
 		
-		List<AreaSegurancaProblemaTO> areasSegurancaProblemaTO = AreaSegurancaProblemaFactory.getProblemasSegurancaTO(areasSegurancaProblema);
+		List<AreaSegurancaProblemaTO> areasSegurancaProblemaTO = areaSegurancaProblemaFactory.getProblemasSegurancaTO(areasSegurancaProblema);
 		AreaSegurancaProblemaTO areaSegurancaProblemaTO = areasSegurancaProblemaTO.get(0);
 		
 		

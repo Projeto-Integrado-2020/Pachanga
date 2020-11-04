@@ -22,7 +22,7 @@ public interface AreaSegurancaProblemaRepository extends JpaRepository<AreaSegur
 	@Query(value = "SELECT asp FROM AreaSegurancaProblema asp JOIN asp.problema p JOIN asp.area a JOIN asp.festa f WHERE f.codFesta = :codFesta")
 	public List<AreaSegurancaProblema> findAllAreaSegurancaProblemaFesta(@Param("codFesta") int codFesta);
 
-	@Query(value = "SELECT asp FROM AreaSegurancaProblema asp JOIN asp.problema p JOIN asp.area a JOIN asp.festa f WHERE a.codArea = :codAreaProblema AND f.codFesta = :codFesta")
+	@Query(value = "SELECT asp FROM AreaSegurancaProblema asp JOIN asp.problema p JOIN asp.area a JOIN asp.festa f WHERE a.codArea = :codArea AND f.codFesta = :codFesta")
 	public List<AreaSegurancaProblema> findAllAreaSegurancaProblemaArea(@Param("codArea") int codArea, @Param("codFesta") int codFesta);
 	
 }

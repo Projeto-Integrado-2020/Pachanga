@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -25,79 +24,89 @@ import com.eventmanager.pachanga.services.AreaSegurancaProblemaService;
 @RequestMapping("/areaSegurancaProblema")
 @CrossOrigin
 public class AreaSegurancaProblemaController {
-	
+
 	@Autowired
 	private AreaSegurancaProblemaService areaSegurancaProblemaService;
-	
+
+	@Autowired
+	AreaSegurancaProblemaFactory areaSegurancaProblemaFactory;
+
 	@ResponseBody
 	@PostMapping(path = "/adicionar")
-	public ResponseEntity<Object> addProblemaSeguranca(@RequestBody AreaSegurancaProblemaTO problemaSegurancaTO, @RequestParam(required = true) int idUsuario){
+	public ResponseEntity<Object> addProblemaSeguranca(@RequestBody AreaSegurancaProblemaTO problemaSegurancaTO,
+			@RequestParam(required = true) int idUsuario) {
 		try {
-			AreaSegurancaProblema problemaSeguranca = areaSegurancaProblemaService.addProblemaSeguranca(problemaSegurancaTO, idUsuario);
-			return ResponseEntity.ok(AreaSegurancaProblemaFactory.getAreaSegurancaProblemaTO(problemaSeguranca));
-		}catch(ValidacaoException e) {
+			AreaSegurancaProblema problemaSeguranca = areaSegurancaProblemaService
+					.addProblemaSeguranca(problemaSegurancaTO, idUsuario);
+			return ResponseEntity.ok(areaSegurancaProblemaFactory.getAreaSegurancaProblemaTO(problemaSeguranca));
+		} catch (ValidacaoException e) {
 			return ResponseEntity.status(400).body(e.getMessage());
 		}
 	}
-	
+
 	@ResponseBody
 	@PutMapping(path = "/atualizar")
-	public ResponseEntity<Object> updateProblemaSeguranca(@RequestBody AreaSegurancaProblemaTO problemaSegurancaTO, @RequestParam(required = true) int idUsuario){
+	public ResponseEntity<Object> updateProblemaSeguranca(@RequestBody AreaSegurancaProblemaTO problemaSegurancaTO,
+			@RequestParam(required = true) int idUsuario) {
 		try {
-			AreaSegurancaProblema problemaSeguranca = areaSegurancaProblemaService.updateProblemaSeguranca(problemaSegurancaTO, idUsuario);
-			return ResponseEntity.ok(AreaSegurancaProblemaFactory.getAreaSegurancaProblemaTO(problemaSeguranca));
-		}catch(ValidacaoException e) {
+			AreaSegurancaProblema problemaSeguranca = areaSegurancaProblemaService
+					.updateProblemaSeguranca(problemaSegurancaTO, idUsuario);
+			return ResponseEntity.ok(areaSegurancaProblemaFactory.getAreaSegurancaProblemaTO(problemaSeguranca));
+		} catch (ValidacaoException e) {
 			return ResponseEntity.status(400).body(e.getMessage());
 		}
 	}
-	
+
 	@ResponseBody
-	@DeleteMapping(path = "/remover")
-	public ResponseEntity<Object> deleteProblemaSeguranca(@RequestParam(required = true) int codAreaSeguranca, @RequestParam(required = true) int codProblema, @RequestParam(required = true) int codFesta, @RequestParam(required = true) int idUsuario){
+	@PutMapping(path = "/alterarStatus")
+	public ResponseEntity<Object> alterarStatusProblema(@RequestBody AreaSegurancaProblemaTO problemaSegurancaTO,
+			@RequestParam(required = true) int codUsuario, @RequestParam(required = true) Boolean finaliza) {
 		try {
-			AreaSegurancaProblema problemaSeguranca = areaSegurancaProblemaService.deleteProblemaSeguranca(codAreaSeguranca, codProblema, codFesta, idUsuario);
-			return ResponseEntity.ok(AreaSegurancaProblemaFactory.getAreaSegurancaProblemaTO(problemaSeguranca));
-		}catch(ValidacaoException e) {
+			areaSegurancaProblemaService.alterarStatusProblema(problemaSegurancaTO, codUsuario, finaliza);
+			return ResponseEntity.ok().build();
+		} catch (ValidacaoException e) {
 			return ResponseEntity.status(400).body(e.getMessage());
 		}
 	}
-	
+
 	@ResponseBody
 	@GetMapping(path = "/findProblemaSeguranca")
-	public ResponseEntity<Object> findProblemaSeguranca(@RequestParam(required = true) int codAreaSeguranca, @RequestParam(required = true) int codProblema, @RequestParam(required = true) int codFesta, @RequestParam(required = true) int idUsuario){
+	public ResponseEntity<Object> findProblemaSeguranca(@RequestParam(required = true) int codAreaSeguranca,
+			@RequestParam(required = true) int codProblema, @RequestParam(required = true) int codFesta,
+			@RequestParam(required = true) int idUsuario) {
 		try {
-			AreaSegurancaProblema problemaSeguranca = areaSegurancaProblemaService.findProblemaSeguranca(codAreaSeguranca, codProblema, codFesta, idUsuario);
-			return ResponseEntity.ok(AreaSegurancaProblemaFactory.getAreaSegurancaProblemaTO(problemaSeguranca));
-		}catch(ValidacaoException e) {
+			AreaSegurancaProblema problemaSeguranca = areaSegurancaProblemaService
+					.findProblemaSeguranca(codAreaSeguranca, codProblema, codFesta, idUsuario);
+			return ResponseEntity.ok(areaSegurancaProblemaFactory.getAreaSegurancaProblemaTO(problemaSeguranca));
+		} catch (ValidacaoException e) {
 			return ResponseEntity.status(400).body(e.getMessage());
 		}
 	}
-	
+
 	@ResponseBody
 	@GetMapping(path = "/findAllProblemasSegurancaArea")
-	public ResponseEntity<Object>  findAllProblemasSegurancaArea(@RequestParam(required = true) int codAreaSeguranca, @RequestParam(required = true) int codFesta, @RequestParam(required = true) int idUsuario){
+	public ResponseEntity<Object> findAllProblemasSegurancaArea(@RequestParam(required = true) int codAreaSeguranca,
+			@RequestParam(required = true) int codFesta, @RequestParam(required = true) int idUsuario) {
 		try {
-			List<AreaSegurancaProblema> problemasSeguranca = areaSegurancaProblemaService.findAllProblemasSegurancaArea(codAreaSeguranca, codFesta, idUsuario);
-			return ResponseEntity.ok(AreaSegurancaProblemaFactory.getProblemasSegurancaTO(problemasSeguranca));
-		}catch(ValidacaoException e) {
+			List<AreaSegurancaProblema> problemasSeguranca = areaSegurancaProblemaService
+					.findAllProblemasSegurancaArea(codAreaSeguranca, codFesta, idUsuario);
+			return ResponseEntity.ok(areaSegurancaProblemaFactory.getProblemasSegurancaTO(problemasSeguranca));
+		} catch (ValidacaoException e) {
 			return ResponseEntity.status(400).body(e.getMessage());
 		}
 	}
-	
+
 	@ResponseBody
 	@GetMapping(path = "/findAllProblemasSegurancaFesta")
-	public ResponseEntity<Object>  findAllProblemasSegurancaFesta(@RequestParam(required = true) int codFesta, @RequestParam(required = true) int idUsuario){
+	public ResponseEntity<Object> findAllProblemasSegurancaFesta(@RequestParam(required = true) int codFesta,
+			@RequestParam(required = true) int idUsuario) {
 		try {
-			List<AreaSegurancaProblema> problemasSeguranca = areaSegurancaProblemaService.findAllProblemasSegurancaFesta(codFesta, idUsuario);
-			return ResponseEntity.ok(AreaSegurancaProblemaFactory.getProblemasSegurancaTO(problemasSeguranca));
-		}catch(ValidacaoException e) {
+			List<AreaSegurancaProblema> problemasSeguranca = areaSegurancaProblemaService
+					.findAllProblemasSegurancaFesta(codFesta, idUsuario);
+			return ResponseEntity.ok(areaSegurancaProblemaFactory.getProblemasSegurancaTO(problemasSeguranca));
+		} catch (ValidacaoException e) {
 			return ResponseEntity.status(400).body(e.getMessage());
 		}
 	}
-	
-	
-	
-	
-	
-	
+
 }

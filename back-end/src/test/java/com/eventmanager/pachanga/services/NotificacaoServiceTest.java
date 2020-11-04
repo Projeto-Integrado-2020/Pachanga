@@ -185,7 +185,11 @@ class NotificacaoServiceTest {
 		notificacoesConvidado.add(notificacaoConvidadoTOtest());
 		notificacoesConvidado.add(notificacaoConvidado);
 		
+		NotificacaoGrupoTO notificacaoAreaProblemaGrupo = notificacaoGrupoTOtest();
+		notificacaoAreaProblemaGrupo.setMensagem(TipoNotificacao.AREAPROB.getValor() + "?12&" + "1");
+		
 		notificacoesGrupo.add(notificacaoGrupoTOtest());
+		notificacoesGrupo.add(notificacaoAreaProblemaGrupo);
 		
 		NotificacaoTO notificacaoTo = new NotificacaoTO();
 		notificacaoTo.setNotificacaoConvidado(notificacoesConvidado);

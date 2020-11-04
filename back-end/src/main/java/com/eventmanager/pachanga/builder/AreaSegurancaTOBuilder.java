@@ -1,5 +1,8 @@
 package com.eventmanager.pachanga.builder;
 
+import java.util.List;
+
+import com.eventmanager.pachanga.dtos.AreaSegurancaProblemaTO;
 import com.eventmanager.pachanga.dtos.AreaSegurancaTO;
 
 public class AreaSegurancaTOBuilder {
@@ -11,6 +14,8 @@ public class AreaSegurancaTOBuilder {
 	private String nomeArea;
 
 	private String statusSeguranca;
+	
+	private List<AreaSegurancaProblemaTO> problemasArea;
 	
 	public static AreaSegurancaTOBuilder getInstance() {
 		return new AreaSegurancaTOBuilder();
@@ -30,6 +35,11 @@ public class AreaSegurancaTOBuilder {
 		this.nomeArea = nomeArea;
 		return this;
 	}
+	
+	public AreaSegurancaTOBuilder problemasArea(List<AreaSegurancaProblemaTO> problemasArea) {
+		this.problemasArea = problemasArea;
+		return this;
+	}
 
 	public AreaSegurancaTOBuilder statusSeguranca(String statusSeguranca) {
 		this.statusSeguranca = statusSeguranca;
@@ -42,6 +52,7 @@ public class AreaSegurancaTOBuilder {
 		areaSegurancaTO.setCodFesta(codFesta);
 		areaSegurancaTO.setNomeArea(nomeArea);
 		areaSegurancaTO.setStatusSeguranca(statusSeguranca);
+		areaSegurancaTO.setProblemasArea(problemasArea);
 		return areaSegurancaTO;
 	}
 	

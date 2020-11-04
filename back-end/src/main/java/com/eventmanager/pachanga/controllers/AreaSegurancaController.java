@@ -1,6 +1,8 @@
 package com.eventmanager.pachanga.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.eventmanager.pachanga.domains.AreaSeguranca;
+import com.eventmanager.pachanga.domains.AreaSegurancaProblema;
 import com.eventmanager.pachanga.dtos.AreaSegurancaTO;
 import com.eventmanager.pachanga.errors.ValidacaoException;
 import com.eventmanager.pachanga.factory.AreaSegurancaFactory;
@@ -37,10 +40,12 @@ public class AreaSegurancaController {
 	public ResponseEntity<Object> listaAreaSegurancaFesta(@RequestParam(required = true) int codFesta,
 			@RequestParam(required = true) int codUsuario) {
 		try {
-			List<AreaSeguranca> areasSeguranca = areaSegurancaService.listaAreaSegurancaFesta(codFesta, codUsuario);
-
-			return ResponseEntity.ok(areasSeguranca.stream().map(as -> areaSegurancaFactory.getAreaTo(as)));
-
+			Map<AreaSeguranca, List<AreaSegurancaProblema>> areasSegurancaProblema = areaSegurancaService.listaAreaSegurancaFesta(codFesta, codUsuario);
+			List<AreaSegurancaTO> areasTo = new ArrayList<>();
+			for (Map.Entry<AreaSeguranca, List<AreaSegurancaProblema>> areaSegurancaProblema : areasSegurancaProblema.entrySet()) {
+				areasTo.add(areaSegurancaFactory.getAreaTo(areaSegurancaProblema.getKey(), areaSegurancaProblema.getValue()));
+			}
+			return ResponseEntity.ok(areasTo);
 		} catch (ValidacaoException e) {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}

@@ -127,7 +127,7 @@ public class FestaService {
 		}
 	}
 
-	public void validarUsuarioFesta(int idUsuario, int idFesta) {
+	public Usuario validarUsuarioFesta(int idUsuario, int idFesta) {
 		Usuario usuario = usuarioRepository.findById(idUsuario);
 		if (usuario == null) {
 			throw new ValidacaoException("USERNFOU");
@@ -138,6 +138,7 @@ public class FestaService {
 				throw new ValidacaoException("USERNFES");// usuário não relacionado a festa
 			}
 		}
+		return usuario;
 	}
 
 	public void deleteFesta(int idFesta, int idUser) {

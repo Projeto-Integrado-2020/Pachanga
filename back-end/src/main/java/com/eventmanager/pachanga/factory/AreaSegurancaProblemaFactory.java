@@ -19,7 +19,7 @@ public class AreaSegurancaProblemaFactory {
 	private AreaSegurancaProblemaFactory() {
 	}
 
-	public static AreaSegurancaProblemaTO getAreaSegurancaProblemaTO(AreaSegurancaProblema problemaSeguranca) {
+	public AreaSegurancaProblemaTO getAreaSegurancaProblemaTO(AreaSegurancaProblema problemaSeguranca) {
 		int codUsuarioResolv = 0;
 		if(problemaSeguranca.getCodUsuarioResolv() != null) codUsuarioResolv = problemaSeguranca.getCodUsuarioResolv().getCodUsuario();
 		return AreaSegurancaProblemaTOBuilder.getInstance()
@@ -35,7 +35,7 @@ public class AreaSegurancaProblemaFactory {
 									     .build();
 	}			
 
-	public static AreaSegurancaProblema getProblemaSeguranca(AreaSegurancaProblemaTO problemaSegurancaTO, Festa festa, AreaSeguranca areaSeguranca, Problema problema, Usuario usuarioEmissor,  Usuario usuarioResolv) {
+	public AreaSegurancaProblema getProblemaSeguranca(AreaSegurancaProblemaTO problemaSegurancaTO, Festa festa, AreaSeguranca areaSeguranca, Problema problema, Usuario usuarioEmissor,  Usuario usuarioResolv) {
 		return AreaSegurancaProblemaBuilder.getInstance()
 									     .areaSeguranca(areaSeguranca) 
 									     .festa(festa)
@@ -49,7 +49,7 @@ public class AreaSegurancaProblemaFactory {
 									     .build();
 	}
 	
-	public static List<AreaSegurancaProblemaTO> getProblemasSegurancaTO(List<AreaSegurancaProblema> problemasSeguranca) {
+	public List<AreaSegurancaProblemaTO> getProblemasSegurancaTO(List<AreaSegurancaProblema> problemasSeguranca) {
 		List<AreaSegurancaProblemaTO> retorno = new ArrayList<>();
 		for(AreaSegurancaProblema problemaSeguranca : problemasSeguranca) {
 			retorno.add(getAreaSegurancaProblemaTO(problemaSeguranca));

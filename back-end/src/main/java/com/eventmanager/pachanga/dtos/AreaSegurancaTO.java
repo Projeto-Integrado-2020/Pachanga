@@ -1,5 +1,7 @@
 package com.eventmanager.pachanga.dtos;
 
+import java.util.List;
+
 public class AreaSegurancaTO {
 
 	private int codArea;
@@ -9,6 +11,8 @@ public class AreaSegurancaTO {
 	private String nomeArea;
 
 	private String statusSeguranca;
+	
+	private List<AreaSegurancaProblemaTO> problemasArea;
 
 	public int getCodArea() {
 		return codArea;
@@ -40,6 +44,14 @@ public class AreaSegurancaTO {
 
 	public void setStatusSeguranca(String statusSeguranca) {
 		this.statusSeguranca = statusSeguranca;
+	}
+
+	public List<AreaSegurancaProblemaTO> getProblemasArea() {
+		return problemasArea;
+	}
+
+	public void setProblemasArea(List<AreaSegurancaProblemaTO> problemasArea) {
+		this.problemasArea = problemasArea;
 	}
 
 }

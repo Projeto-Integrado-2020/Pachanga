@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -77,6 +78,12 @@ class AreaSegurancaServiceTest {
 	@MockBean
 	private NotificacaoAreaSegurancaTOFactory notificacaoAreaFactory;
 	
+	@MockBean
+	private AreaSegurancaProblemaService areaSegurancaProblemaService;
+	
+	@MockBean
+	private GrupoService grupoService;
+
 	public Grupo criacaoGrupo() {
 		Grupo grupo = new Grupo();
 		grupo.setCodGrupo(1);
@@ -117,33 +124,14 @@ class AreaSegurancaServiceTest {
 	void listaAreaSegurancaFestaSucesso() {
 		
 		List<AreaSeguranca> areas = new ArrayList<>();
+		areas.add(areaTest());
 		
 		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(criacaoGrupos());
 		Mockito.when(areaSegurancaRepository.findAllAreasByCodFesta(Mockito.anyInt())).thenReturn(areas);
 		
-		List<AreaSeguranca> areasRetorno = areaService.listaAreaSegurancaFesta(1, 1);
+		Map<AreaSeguranca, List<AreaSegurancaProblema>> areasRetorno = areaService.listaAreaSegurancaFesta(1, 1);
 		
-		assertEquals(true, areasRetorno.isEmpty());
-		
-	}
-	
-	@Test
-	void listaAreaSegurancaFestaUsuarioSemPermissao() {
-		
-		List<AreaSeguranca> areas = new ArrayList<>();
-		
-		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(new ArrayList<Grupo>());
-		Mockito.when(areaSegurancaRepository.findAllAreasByCodFesta(Mockito.anyInt())).thenReturn(areas);
-		
-		String expect = "";
-		
-		try {			
-			areaService.listaAreaSegurancaFesta(1, 1);
-		} catch (ValidacaoException e) {
-			expect = e.getMessage();
-		}
-		
-		assertEquals("USESPERM", expect);
+		assertEquals(true, !areasRetorno.isEmpty());
 		
 	}
 	

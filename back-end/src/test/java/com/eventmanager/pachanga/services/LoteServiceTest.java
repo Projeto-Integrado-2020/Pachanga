@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
@@ -19,6 +20,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import com.eventmanager.pachanga.domains.Festa;
 import com.eventmanager.pachanga.domains.Ingresso;
 import com.eventmanager.pachanga.domains.Lote;
+import com.eventmanager.pachanga.domains.Usuario;
 import com.eventmanager.pachanga.dtos.LoteTO;
 import com.eventmanager.pachanga.errors.ValidacaoException;
 import com.eventmanager.pachanga.factory.LoteFactory;
@@ -93,6 +95,20 @@ class LoteServiceTest {
 		return festaTest;
 	}
 	
+	@SuppressWarnings("deprecation")
+	private Usuario usuarioTest(){
+		Usuario usuarioTest = new Usuario();
+
+		usuarioTest.setCodUsuario(100);
+		usuarioTest.setEmail("gustavinhoTPD@fodasse.com.br");
+		usuarioTest.setSenha("1234");
+		usuarioTest.setDtNasc(new Date(2000, 8, 27));
+		usuarioTest.setGenero("M");
+		usuarioTest.setNomeUser("Gustavo Barbosa");
+
+		return usuarioTest;
+	}
+	
 	private LoteTO loteToTest() {
 		LoteTO loteTo = new LoteTO();
 		loteTo.setCodLote(1);
@@ -113,7 +129,7 @@ class LoteServiceTest {
 		lotes.add(loteTest());
 		
 		Mockito.when(festaService.validarFestaExistente(Mockito.anyInt())).thenReturn(new Festa());
-		Mockito.doNothing().when(festaService).validarUsuarioFesta(Mockito.anyInt(), Mockito.anyInt());
+		Mockito.when(festaService.validarUsuarioFesta(Mockito.anyInt(), Mockito.anyInt())).thenReturn(usuarioTest());
 		Mockito.when(grupoService.validarPermissaoUsuarioGrupo(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(true);
 		Mockito.when(loteRepository.listaLoteFesta(Mockito.anyInt())).thenReturn(lotes);
 		
@@ -126,7 +142,7 @@ class LoteServiceTest {
 	@Test
 	void adicionarLoteTest() {
 		Mockito.when(festaService.validarFestaExistente(Mockito.anyInt())).thenReturn(festaTest());
-		Mockito.doNothing().when(festaService).validarUsuarioFesta(Mockito.anyInt(), Mockito.anyInt());
+		Mockito.when(festaService.validarUsuarioFesta(Mockito.anyInt(), Mockito.anyInt())).thenReturn(usuarioTest());
 		Mockito.when(grupoService.validarPermissaoUsuarioGrupo(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(true);
 		Mockito.when(loteRepository.findByNomeLote(Mockito.anyString(), Mockito.anyInt())).thenReturn(null);
 		Mockito.when(loteFactory.getLote(Mockito.any(), Mockito.any())).thenReturn(loteTest());
@@ -141,7 +157,7 @@ class LoteServiceTest {
 	@Test
 	void adicionarLoteErroLoteMesmoNome() {
 		Mockito.when(festaService.validarFestaExistente(Mockito.anyInt())).thenReturn(festaTest());
-		Mockito.doNothing().when(festaService).validarUsuarioFesta(Mockito.anyInt(), Mockito.anyInt());
+		Mockito.when(festaService.validarUsuarioFesta(Mockito.anyInt(), Mockito.anyInt())).thenReturn(usuarioTest());
 		Mockito.when(grupoService.validarPermissaoUsuarioGrupo(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(true);
 		Mockito.when(loteRepository.findByNomeLote(Mockito.anyString(), Mockito.anyInt())).thenReturn(new Lote());
 		Mockito.when(loteFactory.getLote(Mockito.any(), Mockito.any())).thenReturn(loteTest());
@@ -165,7 +181,7 @@ class LoteServiceTest {
 		loteTo.setPreco(-0.72f);
 		
 		Mockito.when(festaService.validarFestaExistente(Mockito.anyInt())).thenReturn(festaTest());
-		Mockito.doNothing().when(festaService).validarUsuarioFesta(Mockito.anyInt(), Mockito.anyInt());
+		Mockito.when(festaService.validarUsuarioFesta(Mockito.anyInt(), Mockito.anyInt())).thenReturn(usuarioTest());
 		Mockito.when(grupoService.validarPermissaoUsuarioGrupo(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(true);
 		Mockito.when(loteRepository.findByNomeLote(Mockito.anyString(), Mockito.anyInt())).thenReturn(null);
 		Mockito.when(loteFactory.getLote(Mockito.any(), Mockito.any())).thenReturn(loteTest());
@@ -189,7 +205,7 @@ class LoteServiceTest {
 		loteTo.setQuantidade(0);
 		
 		Mockito.when(festaService.validarFestaExistente(Mockito.anyInt())).thenReturn(festaTest());
-		Mockito.doNothing().when(festaService).validarUsuarioFesta(Mockito.anyInt(), Mockito.anyInt());
+		Mockito.when(festaService.validarUsuarioFesta(Mockito.anyInt(), Mockito.anyInt())).thenReturn(usuarioTest());
 		Mockito.when(grupoService.validarPermissaoUsuarioGrupo(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(true);
 		Mockito.when(loteRepository.findByNomeLote(Mockito.anyString(), Mockito.anyInt())).thenReturn(null);
 		Mockito.when(loteFactory.getLote(Mockito.any(), Mockito.any())).thenReturn(loteTest());
@@ -213,7 +229,7 @@ class LoteServiceTest {
 		loteTo.setHorarioFim(LocalDateTime.of(2020, Month.SEPTEMBER, 23, 19, 10));
 		
 		Mockito.when(festaService.validarFestaExistente(Mockito.anyInt())).thenReturn(festaTest());
-		Mockito.doNothing().when(festaService).validarUsuarioFesta(Mockito.anyInt(), Mockito.anyInt());
+		Mockito.when(festaService.validarUsuarioFesta(Mockito.anyInt(), Mockito.anyInt())).thenReturn(usuarioTest());
 		Mockito.when(grupoService.validarPermissaoUsuarioGrupo(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(true);
 		Mockito.when(loteRepository.findByNomeLote(Mockito.anyString(), Mockito.anyInt())).thenReturn(null);
 		Mockito.when(loteFactory.getLote(Mockito.any(), Mockito.any())).thenReturn(loteTest());
@@ -233,7 +249,7 @@ class LoteServiceTest {
 	@Test
 	void atualizarLoteTest() {
 		Mockito.when(festaService.validarFestaExistente(Mockito.anyInt())).thenReturn(festaTest());
-		Mockito.doNothing().when(festaService).validarUsuarioFesta(Mockito.anyInt(), Mockito.anyInt());
+		Mockito.when(festaService.validarUsuarioFesta(Mockito.anyInt(), Mockito.anyInt())).thenReturn(usuarioTest());
 		Mockito.when(loteRepository.findByCodLote(Mockito.anyInt())).thenReturn(loteTest());
 		Mockito.when(grupoService.validarPermissaoUsuarioGrupo(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(true);
 		Mockito.when(loteRepository.findByNomeLote(Mockito.anyString(), Mockito.anyInt())).thenReturn(null);
@@ -248,7 +264,7 @@ class LoteServiceTest {
 	@Test
 	void atualizarLoteErroLoteNaoEncontrado() {
 		Mockito.when(festaService.validarFestaExistente(Mockito.anyInt())).thenReturn(festaTest());
-		Mockito.doNothing().when(festaService).validarUsuarioFesta(Mockito.anyInt(), Mockito.anyInt());
+		Mockito.when(festaService.validarUsuarioFesta(Mockito.anyInt(), Mockito.anyInt())).thenReturn(usuarioTest());
 		Mockito.when(loteRepository.findByCodLote(Mockito.anyInt())).thenReturn(null);
 		Mockito.when(grupoService.validarPermissaoUsuarioGrupo(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(true);
 		Mockito.when(loteRepository.findByNomeLote(Mockito.anyString(), Mockito.anyInt())).thenReturn(null);
@@ -268,7 +284,7 @@ class LoteServiceTest {
 	@Test
 	void atualizarLoteErroNomeLoteJaUsado() {
 		Mockito.when(festaService.validarFestaExistente(Mockito.anyInt())).thenReturn(festaTest());
-		Mockito.doNothing().when(festaService).validarUsuarioFesta(Mockito.anyInt(), Mockito.anyInt());
+		Mockito.when(festaService.validarUsuarioFesta(Mockito.anyInt(), Mockito.anyInt())).thenReturn(usuarioTest());
 		Mockito.when(loteRepository.findByCodLote(Mockito.anyInt())).thenReturn(loteTest());
 		Mockito.when(grupoService.validarPermissaoUsuarioGrupo(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(true);
 		Mockito.when(loteRepository.findByNomeLote(Mockito.anyString(), Mockito.anyInt())).thenReturn(loteTest());
@@ -291,7 +307,7 @@ class LoteServiceTest {
 	@Test
 	void removerLoteTest() {
 		Mockito.when(festaService.validarFestaExistente(Mockito.anyInt())).thenReturn(festaTest());
-		Mockito.doNothing().when(festaService).validarUsuarioFesta(Mockito.anyInt(), Mockito.anyInt());
+		Mockito.when(festaService.validarUsuarioFesta(Mockito.anyInt(), Mockito.anyInt())).thenReturn(usuarioTest());
 		Mockito.when(loteRepository.findByCodLote(Mockito.anyInt())).thenReturn(loteTest());
 		Mockito.when(grupoService.validarPermissaoUsuarioGrupo(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(true);
 		Mockito.when(ingressoRepository.findIngressosLote(Mockito.anyInt())).thenReturn(new ArrayList<Ingresso>());
@@ -307,7 +323,7 @@ class LoteServiceTest {
 		ingressos.add(new Ingresso());
 		
 		Mockito.when(festaService.validarFestaExistente(Mockito.anyInt())).thenReturn(festaTest());
-		Mockito.doNothing().when(festaService).validarUsuarioFesta(Mockito.anyInt(), Mockito.anyInt());
+		Mockito.when(festaService.validarUsuarioFesta(Mockito.anyInt(), Mockito.anyInt())).thenReturn(usuarioTest());
 		Mockito.when(loteRepository.findByCodLote(Mockito.anyInt())).thenReturn(loteTest());
 		Mockito.when(grupoService.validarPermissaoUsuarioGrupo(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(true);
 		Mockito.when(ingressoRepository.findIngressosLote(Mockito.anyInt())).thenReturn(ingressos);
@@ -327,7 +343,7 @@ class LoteServiceTest {
 		Lote lote = loteTest();
 		
 		Mockito.when(festaService.validarFestaExistente(Mockito.anyInt())).thenReturn(festaTest());
-		Mockito.doNothing().when(festaService).validarUsuarioFesta(Mockito.anyInt(), Mockito.anyInt());
+		Mockito.when(festaService.validarUsuarioFesta(Mockito.anyInt(), Mockito.anyInt())).thenReturn(usuarioTest());
 		Mockito.when(grupoService.validarPermissaoUsuarioGrupo(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(true);
 		Mockito.when(loteRepository.findByCodLote(Mockito.anyInt())).thenReturn(loteTest());
 		
