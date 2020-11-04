@@ -93,6 +93,7 @@ class AreaSegurancaProblemaServiceTest {
 	
 	public AreaSegurancaProblema criacaoAreaSegurancaProblema() throws Exception {
 		AreaSegurancaProblema areaSegurancaProblema = new AreaSegurancaProblema();
+		areaSegurancaProblema.setCodAreaProblema(1);
 		areaSegurancaProblema.setArea(areaTest());
 		areaSegurancaProblema.setProblema(criacaoProblema());
 		areaSegurancaProblema.setFesta(criacaoFesta());
@@ -109,6 +110,7 @@ class AreaSegurancaProblemaServiceTest {
 	
 	public AreaSegurancaProblemaTO criacaoAreaSegurancaProblemaTO() throws Exception {
 		AreaSegurancaProblemaTO areaSegurancaProblemaTO = new AreaSegurancaProblemaTO();
+		areaSegurancaProblemaTO.setCodAreaProblema(1);
 		areaSegurancaProblemaTO.setCodAreaSeguranca(areaTest().getCodArea());
 		areaSegurancaProblemaTO.setCodProblema(criacaoProblema().getCodProblema());	
 		areaSegurancaProblemaTO.setCodFesta(criacaoFesta().getCodFesta());
@@ -193,7 +195,7 @@ class AreaSegurancaProblemaServiceTest {
 		usuarios.add(usuario);
 		
 		Mockito.when(areaSegurancaProblemaFactory.getProblemaSeguranca(Mockito.any(), Mockito.any(), Mockito.any(), Mockito.any(), Mockito.any(), Mockito.any())).thenReturn(areaSegurancaProblema);
-		Mockito.when(areaSegurancaProblemaRepository.findAreaSegurancaProblema(Mockito.anyInt(), Mockito.anyInt())).thenReturn(null);
+		Mockito.when(areaSegurancaProblemaRepository.findByCodProblema(Mockito.anyInt())).thenReturn(null);
 		Mockito.when(areaSegurancaRepository.findAreaByCodFestaAndCodArea(Mockito.anyInt(), Mockito.anyInt())).thenReturn(areaSeguranca);
 		Mockito.when(usuarioRepository.findBycodFestaAndUsuario(Mockito.anyInt(), Mockito.anyInt())).thenReturn(usuario);
 		Mockito.when(usuarioRepository.findById(Mockito.anyInt())).thenReturn(usuario);
@@ -224,7 +226,7 @@ class AreaSegurancaProblemaServiceTest {
 		List<Usuario> usuarios = new ArrayList<>();
 		usuarios.add(usuario);
 		
-		Mockito.when(areaSegurancaProblemaRepository.findAreaSegurancaProblema(Mockito.anyInt(), Mockito.anyInt())).thenReturn(null);
+		Mockito.when(areaSegurancaProblemaRepository.findByCodProblema(Mockito.anyInt())).thenReturn(null);
 		Mockito.when(areaSegurancaRepository.findAreaByCodFestaAndCodArea(Mockito.anyInt(), Mockito.anyInt())).thenReturn(areaSeguranca);
 		Mockito.when(usuarioRepository.findBycodFestaAndUsuario(Mockito.anyInt(), Mockito.anyInt())).thenReturn(usuario);
 		Mockito.when(usuarioRepository.findById(Mockito.anyInt())).thenReturn(usuario);
@@ -265,7 +267,7 @@ class AreaSegurancaProblemaServiceTest {
 		areaSegurancaProblemaRetorno.setHorarioFim(LocalDateTime.of(1888, Month.JUNE, 21, 19, 10));
 		
 		Mockito.when(areaSegurancaProblemaFactory.getProblemaSeguranca(Mockito.any(), Mockito.any(), Mockito.any(), Mockito.any(), Mockito.any(), Mockito.any())).thenReturn(areaSegurancaProblemaRetorno);
-		Mockito.when(areaSegurancaProblemaRepository.findAreaSegurancaProblema(Mockito.anyInt(), Mockito.anyInt())).thenReturn(null);
+		Mockito.when(areaSegurancaProblemaRepository.findByCodProblema(Mockito.anyInt())).thenReturn(null);
 		Mockito.when(areaSegurancaRepository.findAreaByCodFestaAndCodArea(Mockito.anyInt(), Mockito.anyInt())).thenReturn(areaSeguranca);
 		Mockito.when(usuarioRepository.findBycodFestaAndUsuario(Mockito.anyInt(), Mockito.anyInt())).thenReturn(usuario);
 		Mockito.when(usuarioRepository.findById(Mockito.anyInt())).thenReturn(usuario);
@@ -287,40 +289,6 @@ class AreaSegurancaProblemaServiceTest {
 		
 		assertEquals(false, sucesso);
 		
-	}
-	
-	@Test
-	void addProblemaSegurancaDuplicado() throws Exception {
-		AreaSegurancaProblemaTO areaSegurancaProblemaTO = criacaoAreaSegurancaProblemaTO();
-		AreaSegurancaProblema areaSegurancaProblema = criacaoAreaSegurancaProblema();
-		AreaSeguranca areaSeguranca = areaSegurancaProblema.getArea(); 
-		Usuario usuario = usuarioTest();
-		Problema problema = areaSegurancaProblema.getProblema();
-		List<Grupo> grupos = criacaoGrupos();
-		List<Usuario> usuarios = new ArrayList<>();
-		usuarios.add(usuario);
-		
-		Mockito.when(areaSegurancaProblemaRepository.findAreaSegurancaProblema(Mockito.anyInt(), Mockito.anyInt())).thenReturn(areaSegurancaProblema);
-		Mockito.when(areaSegurancaRepository.findAreaByCodFestaAndCodArea(Mockito.anyInt(), Mockito.anyInt())).thenReturn(areaSeguranca);
-		Mockito.when(usuarioRepository.findBycodFestaAndUsuario(Mockito.anyInt(), Mockito.anyInt())).thenReturn(usuario);
-		Mockito.when(usuarioRepository.findById(Mockito.anyInt())).thenReturn(usuario);
-		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(grupos);
-		Mockito.when(problemaRepository.findProblemaByCodProblema(Mockito.anyInt())).thenReturn(problema);
-		Mockito.when(grupoRepository.findGruposPermissaoAreaSegurancaProblema(Mockito.anyInt())).thenReturn(grupos);
-		Mockito.when(notificacaoService.criarMensagemAreaProblema(Mockito.anyInt(), Mockito.anyInt())).thenReturn("ABCD");
-		Mockito.when(notificacaoService.verificarNotificacaoGrupo(Mockito.anyInt(), Mockito.anyString())).thenReturn(true);
-		Mockito.when(usuarioRepository.findUsuariosPorGrupo(Mockito.anyInt())).thenReturn(usuarios);
-		Mockito.doNothing().when(notificacaoService).inserirNotificacaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyString());
-		
-		boolean sucesso;
-		try {
-			areaSegurancaProblemaService.addProblemaSeguranca(areaSegurancaProblemaTO, usuarioTest().getCodUsuario());
-			sucesso = true;
-		}catch(ValidacaoException e){
-			sucesso = false;
-		};
-		
-		assertEquals(false, sucesso);
 	}
 	
 	@Test
@@ -336,7 +304,7 @@ class AreaSegurancaProblemaServiceTest {
 		usuarios.add(usuario);
 		
 		Mockito.when(areaSegurancaProblemaFactory.getProblemaSeguranca(Mockito.any(), Mockito.any(), Mockito.any(), Mockito.any(), Mockito.any(), Mockito.any())).thenReturn(areaSegurancaProblema);
-		Mockito.when(areaSegurancaProblemaRepository.findAreaSegurancaProblema(Mockito.anyInt(), Mockito.anyInt())).thenReturn(null);
+		Mockito.when(areaSegurancaProblemaRepository.findByCodProblema(Mockito.anyInt())).thenReturn(null);
 		Mockito.when(areaSegurancaRepository.findAreaByCodFestaAndCodArea(Mockito.anyInt(), Mockito.anyInt())).thenReturn(areaSeguranca);
 		Mockito.when(usuarioRepository.findBycodFestaAndUsuario(Mockito.anyInt(), Mockito.anyInt())).thenReturn(usuario);
 		Mockito.when(usuarioRepository.findById(Mockito.anyInt())).thenReturn(usuario);
@@ -369,7 +337,7 @@ class AreaSegurancaProblemaServiceTest {
 		List<Usuario> usuarios = new ArrayList<>();
 		usuarios.add(usuario);
 		
-		Mockito.when(areaSegurancaProblemaRepository.findAreaSegurancaProblema(Mockito.anyInt(), Mockito.anyInt())).thenReturn(areaSegurancaProblema);
+		Mockito.when(areaSegurancaProblemaRepository.findByCodProblema(Mockito.anyInt())).thenReturn(areaSegurancaProblema);
 		Mockito.when(areaSegurancaRepository.findAreaByCodFestaAndCodArea(Mockito.anyInt(), Mockito.anyInt())).thenReturn(areaSeguranca);
 		Mockito.when(usuarioRepository.findBycodFestaAndUsuario(Mockito.anyInt(), Mockito.anyInt())).thenReturn(usuario);
 		Mockito.when(usuarioRepository.findById(Mockito.anyInt())).thenReturn(usuario);
@@ -401,7 +369,7 @@ class AreaSegurancaProblemaServiceTest {
 		List<Usuario> usuarios = new ArrayList<>();
 		usuarios.add(usuario);
 		
-		Mockito.when(areaSegurancaProblemaRepository.findAreaSegurancaProblema(Mockito.anyInt(), Mockito.anyInt())).thenReturn(null);
+		Mockito.when(areaSegurancaProblemaRepository.findByCodProblema(Mockito.anyInt())).thenReturn(null);
 		Mockito.when(areaSegurancaRepository.findAreaByCodFestaAndCodArea(Mockito.anyInt(), Mockito.anyInt())).thenReturn(areaSeguranca);
 		Mockito.when(usuarioRepository.findBycodFestaAndUsuario(Mockito.anyInt(), Mockito.anyInt())).thenReturn(usuario);
 		Mockito.when(usuarioRepository.findById(Mockito.anyInt())).thenReturn(usuario);
@@ -486,7 +454,7 @@ class AreaSegurancaProblemaServiceTest {
 		List<Usuario> usuarios = new ArrayList<>();
 		usuarios.add(usuario);
 		
-		Mockito.when(areaSegurancaProblemaRepository.findAreaSegurancaProblema(Mockito.anyInt(), Mockito.anyInt())).thenReturn(areaSegurancaProblema);
+		Mockito.when(areaSegurancaProblemaRepository.findByCodProblema(Mockito.anyInt())).thenReturn(areaSegurancaProblema);
 		Mockito.when(usuarioService.validarUsuario(Mockito.anyInt())).thenReturn(usuario);
 		Mockito.when(grupoRepository.findGruposFesta(Mockito.anyInt())).thenReturn(grupos);
 		Mockito.when(usuarioRepository.findUsuariosPorGrupo(Mockito.anyInt())).thenReturn(usuarios);
@@ -515,7 +483,7 @@ class AreaSegurancaProblemaServiceTest {
 		Mockito.when(usuarioRepository.findUsuariosPorGrupo(Mockito.anyInt())).thenReturn(usuarios);
 		Mockito.doNothing().when(notificacaoService).inserirNotificacaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyString());
 		
-		Mockito.when(areaSegurancaProblemaRepository.findAreaSegurancaProblema(Mockito.anyInt(), Mockito.anyInt())).thenReturn(areaSegurancaProblema);
+		Mockito.when(areaSegurancaProblemaRepository.findByCodProblema(Mockito.anyInt())).thenReturn(areaSegurancaProblema);
 		
 		areaSegurancaProblemaService.alterarStatusProblema(areaSegurancaProblemaTO, 1, false);
 		
@@ -527,7 +495,7 @@ class AreaSegurancaProblemaServiceTest {
 		areaSegurancaProblemaTO.setStatusProblema(TipoStatusProblema.FINALIZADO.getValor());
 		AreaSegurancaProblema areaSegurancaProblema = criacaoAreaSegurancaProblema();
 		
-		Mockito.when(areaSegurancaProblemaRepository.findAreaSegurancaProblema(Mockito.anyInt(), Mockito.anyInt())).thenReturn(areaSegurancaProblema);
+		Mockito.when(areaSegurancaProblemaRepository.findByCodProblema(Mockito.anyInt())).thenReturn(areaSegurancaProblema);
 		Mockito.when(usuarioService.validarUsuario(Mockito.anyInt())).thenReturn(null);
 		
 		boolean sucesso = true;

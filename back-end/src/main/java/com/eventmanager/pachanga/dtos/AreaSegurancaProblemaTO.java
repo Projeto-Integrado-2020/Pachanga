@@ -3,6 +3,7 @@ package com.eventmanager.pachanga.dtos;
 import java.time.LocalDateTime;
 
 public class AreaSegurancaProblemaTO {
+	private int codAreaProblema;
 	private int codAreaSeguranca;
 	private int codFesta;
 	private int codProblema;
@@ -68,6 +69,11 @@ public class AreaSegurancaProblemaTO {
 	public void setDescProblema(String descProblema) {
 		this.descProblema = descProblema;
 	}
-	
+	public int getCodAreaProblema() {
+		return codAreaProblema;
+	}
+	public void setCodAreaProblema(int codAreaProblema) {
+		this.codAreaProblema = codAreaProblema;
+	}
     
 }

@@ -20,6 +20,7 @@ import com.eventmanager.pachanga.repositories.AreaSegurancaRepository;
 import com.eventmanager.pachanga.repositories.GrupoRepository;
 import com.eventmanager.pachanga.repositories.ProblemaRepository;
 import com.eventmanager.pachanga.repositories.UsuarioRepository;
+import com.eventmanager.pachanga.tipo.TipoAreaSeguranca;
 import com.eventmanager.pachanga.tipo.TipoNotificacao;
 import com.eventmanager.pachanga.tipo.TipoPermissao;
 import com.eventmanager.pachanga.tipo.TipoStatusProblema;
@@ -61,10 +62,6 @@ public class AreaSegurancaProblemaService {
 	public AreaSegurancaProblema addProblemaSeguranca(AreaSegurancaProblemaTO problemaSegurancaTO, int idUsuario) {
 		grupoService.validarPermissaoUsuarioGrupo(problemaSegurancaTO.getCodFesta(), idUsuario,
 				TipoPermissao.ADDPSEGU.getCodigo());
-		if (areaSegurancaProblemaRepository.findAreaSegurancaProblema(problemaSegurancaTO.getCodAreaSeguranca(),
-				problemaSegurancaTO.getCodProblema()) != null) {
-			throw new ValidacaoException("PRSEEXST"); // ProblemaSeguranca já existe
-		}
 
 		problemaSegurancaTO.setStatusProblema(TipoStatusProblema.ANDAMENTO.getValor()); // só se cria em andamento
 		problemaSegurancaTO.setHorarioInicio(notificacaoService.getDataAtual());
@@ -78,8 +75,11 @@ public class AreaSegurancaProblemaService {
 
 		AreaSegurancaProblema problemaSeguranca = areaSegurancaProblemaFactory.getProblemaSeguranca(problemaSegurancaTO,
 				festa, areaSeguranca, problema, usuarioEmissor, null);
+		problemaSeguranca.setCodAreaProblema(areaSegurancaProblemaRepository.getNextValMySequence());
 		this.validarAreaSegurancaProblema(problemaSeguranca);
 		areaSegurancaProblemaRepository.save(problemaSeguranca);
+		areaSeguranca.setStatusSeguranca(TipoAreaSeguranca.INSEGURO.getDescricao());
+		areaSegurancaRepository.save(areaSeguranca);
 		this.disparaNotificacao(problemaSeguranca);
 		return problemaSeguranca;
 	}
@@ -87,8 +87,8 @@ public class AreaSegurancaProblemaService {
 	public AreaSegurancaProblema updateProblemaSeguranca(AreaSegurancaProblemaTO problemaSegurancaTO, int idUsuario) {
 		grupoService.validarPermissaoUsuarioGrupo(problemaSegurancaTO.getCodFesta(), idUsuario,
 				TipoPermissao.EDITPSEG.getCodigo());
-		AreaSegurancaProblema problemaSeguranca = this.validarProblemaSeguranca(
-				problemaSegurancaTO.getCodAreaSeguranca(), problemaSegurancaTO.getCodProblema());
+		AreaSegurancaProblema problemaSeguranca = this
+				.validarProblemaSeguranca(problemaSegurancaTO.getCodAreaProblema());
 		Problema problema = this.validarProblema(problemaSegurancaTO.getCodProblema());
 
 		problemaSeguranca.setDescProblema(problemaSegurancaTO.getDescProblema());
@@ -119,8 +119,8 @@ public class AreaSegurancaProblemaService {
 	public void alterarStatusProblema(AreaSegurancaProblemaTO problemaSegurancaTO, int idUsuario, Boolean finaliza) {
 		grupoService.validarPermissaoUsuarioGrupo(problemaSegurancaTO.getCodFesta(), idUsuario,
 				TipoPermissao.EDITPSEG.getCodigo());
-		AreaSegurancaProblema areaSegurancaProblema = this.validarProblemaSeguranca(
-				problemaSegurancaTO.getCodAreaSeguranca(), problemaSegurancaTO.getCodProblema());
+		AreaSegurancaProblema areaSegurancaProblema = this
+				.validarProblemaSeguranca(problemaSegurancaTO.getCodAreaProblema());
 		if (finaliza.booleanValue()) {
 			areaSegurancaProblema.setStatusProblema(problemaSegurancaTO.getStatusProblema());
 			Usuario usuarioResolv = usuarioService.validarUsuario(problemaSegurancaTO.getCodUsuarioResolv());
@@ -152,9 +152,8 @@ public class AreaSegurancaProblemaService {
 		}
 	}
 
-	private AreaSegurancaProblema validarProblemaSeguranca(int codAreaSeguranca, int codProblema) {
-		AreaSegurancaProblema problemaSeguranca = areaSegurancaProblemaRepository
-				.findAreaSegurancaProblema(codAreaSeguranca, codProblema);
+	private AreaSegurancaProblema validarProblemaSeguranca(int codProblemaSeguranca) {
+		AreaSegurancaProblema problemaSeguranca = areaSegurancaProblemaRepository.findByCodProblema(codProblemaSeguranca);
 		if (problemaSeguranca == null) {
 			throw new ValidacaoException("PRSENFOU"); // ProblemaSeguranca nao existe
 		}
