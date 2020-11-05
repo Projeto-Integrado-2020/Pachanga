@@ -17,21 +17,6 @@ export class RelatarProblemaDialogComponent implements OnInit {
   public date: any;
 
   listaProblemas: any;
-  mockProblemas: any = [
-    {cod_problema: 1, desc_problema: 'Tumulto'},
-    {cod_problema: 2, desc_problema: 'Briga'},
-    {cod_problema: 3, desc_problema: 'Emergência Médica'},
-    {cod_problema: 4, desc_problema: 'Furto'},
-    {cod_problema: 5, desc_problema: 'Assalto'},
-    {cod_problema: 6, desc_problema: 'Porte de Objeto ou Substância Proibida'},
-    {cod_problema: 7, desc_problema: 'Venda não Autorizada'},
-    {cod_problema: 8, desc_problema: 'Cliente tentando sair sem pagar'},
-    {cod_problema: 9, desc_problema: 'Vandalismo'},
-    {cod_problema: 10, desc_problema: 'Assédio Sexual'},
-    {cod_problema: 11, desc_problema: 'Atentado ao Pudor'},
-    {cod_problema: 12, desc_problema: 'Entrada Não Autorizada'},
-    {cod_problema: 13, desc_problema: 'Outros'},
-  ];
 
   constructor(
     @Inject(MAT_DIALOG_DATA) data,
@@ -83,6 +68,11 @@ export class RelatarProblemaDialogComponent implements OnInit {
 
     this.segurancaProblemaService.adicionarProblema(problemaTO).subscribe();
     console.log(problemaTO);
+    this.atualizarProblemas();
+  }
+
+  atualizarProblemas() {
+    this.segurancaProblemaService.updateProblemas();
   }
 
 }

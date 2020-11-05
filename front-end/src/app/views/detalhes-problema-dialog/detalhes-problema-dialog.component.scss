@@ -1,0 +1,18 @@
+@import "../material/paleta.scss";
+
+.detalhes {
+    display: flex;
+    flex-direction: column;
+}
+
+.botoes {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+}
+
+.btn {
+    background-color: $color-primary;
+    color: #fff;
+}

@@ -107,6 +107,7 @@ import { DatePipe } from '@angular/common';
 import { AdicionarIntegracoesDialogComponent } from './views/adicionar-integracoes-dialog/adicionar-integracoes-dialog.component';
 import { EditarIntegracoesDialogComponent } from './views/editar-integracoes-dialog/editar-integracoes-dialog.component';
 import { DeletarIntegracoesDialogComponent } from './views/deletar-integracoes-dialog/deletar-integracoes-dialog.component';
+import { DetalhesProblemaDialogComponent } from './views/detalhes-problema-dialog/detalhes-problema-dialog.component';
 
 const config = new AuthServiceConfig([
   {
@@ -191,7 +192,8 @@ export function provideConfig() {
     AlertaSegurancaComponent,
     AdicionarIntegracoesDialogComponent,
     EditarIntegracoesDialogComponent,
-    DeletarIntegracoesDialogComponent
+    DeletarIntegracoesDialogComponent,
+    DetalhesProblemaDialogComponent
   ],
   entryComponents: [
     LoginComponent,
@@ -233,7 +235,8 @@ export function provideConfig() {
     AlertaSegurancaComponent,
     AdicionarIntegracoesDialogComponent,
     EditarIntegracoesDialogComponent,
-    DeletarIntegracoesDialogComponent
+    DeletarIntegracoesDialogComponent,
+    DetalhesProblemaDialogComponent
   ],
   imports: [
     BrowserModule,
