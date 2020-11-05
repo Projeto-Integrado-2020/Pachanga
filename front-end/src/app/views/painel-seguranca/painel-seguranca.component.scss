@@ -376,4 +376,9 @@ tr.example-element-row:not(.example-expanded-row):active {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
+}
+
+.detalhes-btn {
+
 }

@@ -1,0 +1,13 @@
+<h1 mat-dialog-title>Detalhes problema</h1>
+<div mat-dialog-content>
+  <div class="detalhes">
+    <span>Descrição: {{this.detalhes.problema.descProblema}}</span>
+    <span>Data do Registro: {{this.dia}}</span>
+    <span>Horário do Registro: {{this.hora}}</span>
+    <span>Status do Problema: {{this.detalhes.problema.statusProblema}}</span>
+  </div>
+  <div class="botoes">
+      <button class="btn" mat-button>Marcar como Finalizado</button>
+      <button class="btn" mat-button>Marcar como Engano</button>
+  </div>
+</div>

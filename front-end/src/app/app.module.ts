@@ -104,6 +104,7 @@ import { EditarLoteComponent } from './views/editar-lote/editar-lote.component';
 import { DeletarLoteDialogComponent } from './views/deletar-lote-dialog/deletar-lote-dialog.component';
 import { AlertaSegurancaComponent } from './views/alerta-seguranca/alerta-seguranca.component';
 import { DatePipe } from '@angular/common';
+import { DetalhesProblemaDialogComponent } from './views/detalhes-problema-dialog/detalhes-problema-dialog.component';
 
 const config = new AuthServiceConfig([
   {
@@ -185,7 +186,8 @@ export function provideConfig() {
     CriarLoteComponent,
     EditarLoteComponent,
     DeletarLoteDialogComponent,
-    AlertaSegurancaComponent
+    AlertaSegurancaComponent,
+    DetalhesProblemaDialogComponent
   ],
   entryComponents: [
     LoginComponent,
@@ -224,7 +226,8 @@ export function provideConfig() {
     AdicionarFormDialogComponent,
     RelatarProblemaDialogComponent,
     DeletarLoteDialogComponent,
-    AlertaSegurancaComponent
+    AlertaSegurancaComponent,
+    DetalhesProblemaDialogComponent
   ],
   imports: [
     BrowserModule,

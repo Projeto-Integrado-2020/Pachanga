@@ -1,5 +1,5 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { throwError } from 'rxjs';
 import { catchError, take } from 'rxjs/operators';
@@ -15,6 +15,7 @@ export class SegurancaProblemasService {
   baseUrl = `${environment.URL_BACK}areaSegurancaProblema`;
   listaProblemas = `${environment.URL_BACK}problema/lista`;
   public farol = false;
+  updateProblemasEmitter = new EventEmitter();
 
   constructor(
     private httpClient: HttpClient,
@@ -134,6 +135,10 @@ export class SegurancaProblemasService {
           })
         );
       }
+    }
+
+    updateProblemas() {
+      this.updateProblemasEmitter.emit();
     }
 
     handleError = (error: HttpErrorResponse, logService: LogService) => {
