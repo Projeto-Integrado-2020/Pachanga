@@ -104,6 +104,9 @@ import { EditarLoteComponent } from './views/editar-lote/editar-lote.component';
 import { DeletarLoteDialogComponent } from './views/deletar-lote-dialog/deletar-lote-dialog.component';
 import { AlertaSegurancaComponent } from './views/alerta-seguranca/alerta-seguranca.component';
 import { DatePipe } from '@angular/common';
+import { AdicionarIntegracoesDialogComponent } from './views/adicionar-integracoes-dialog/adicionar-integracoes-dialog.component';
+import { EditarIntegracoesDialogComponent } from './views/editar-integracoes-dialog/editar-integracoes-dialog.component';
+import { DeletarIntegracoesDialogComponent } from './views/deletar-integracoes-dialog/deletar-integracoes-dialog.component';
 
 const config = new AuthServiceConfig([
   {
@@ -185,7 +188,10 @@ export function provideConfig() {
     CriarLoteComponent,
     EditarLoteComponent,
     DeletarLoteDialogComponent,
-    AlertaSegurancaComponent
+    AlertaSegurancaComponent,
+    AdicionarIntegracoesDialogComponent,
+    EditarIntegracoesDialogComponent,
+    DeletarIntegracoesDialogComponent
   ],
   entryComponents: [
     LoginComponent,
@@ -224,7 +230,10 @@ export function provideConfig() {
     AdicionarFormDialogComponent,
     RelatarProblemaDialogComponent,
     DeletarLoteDialogComponent,
-    AlertaSegurancaComponent
+    AlertaSegurancaComponent,
+    AdicionarIntegracoesDialogComponent,
+    EditarIntegracoesDialogComponent,
+    DeletarIntegracoesDialogComponent
   ],
   imports: [
     BrowserModule,

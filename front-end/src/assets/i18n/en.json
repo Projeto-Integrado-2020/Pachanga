@@ -149,7 +149,8 @@
         "ATRIBSUC": "Distribution successfully saved.",
         "PRODDELE": "Product successfully deleted.",
         "FORMDELE": "Form successfully deleted.",
-        "LOTEALT": "Batch successfully updated."
+        "LOTEALT": "Batch successfully updated.",
+        "INTDELE": "Third-Party integration successfully deleted."
     },
 
     "PERFIL":{
@@ -614,5 +615,23 @@
         "DESCRICAO": "Batch description",
         "CANCEL": "Cancel",
         "CONFIRM": "Confirm"
+    },
+
+    "INTEGRACAO": {
+        "TITLE": "Third-party integrations (Sympla and Eventbrite)",
+        "ADD": "Add integration",
+        "IDEVENTO": "Event Id",
+        "TOKEN": "Private Token",
+        "TERCEIRO": "Third-party (Sympla or Eventbrite)",
+        "EDIT": "Edit integration",
+        "DELETE": "Delete integration",
+        "CONFIRM": "Confirm",
+        "CANCEL": "Cancel"
+    },
+
+    "DELETEINTEGRACAO": {
+        "CANCEL": "Cancel",
+        "CONFIRM": "Confirm",
+        "MESSAGE": "Do you want to delete this integration?"
     }
 }

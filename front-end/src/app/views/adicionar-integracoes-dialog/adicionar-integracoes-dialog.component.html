@@ -1,0 +1,25 @@
+<h1 mat-dialog-title>{{'INTEGRACAO.ADD' | translate}}</h1>
+<div mat-dialog-content>
+    <form [formGroup]="form" (submit)="adicionarIntegracao(terceiro.value, codEvento.value, token.value)">
+        <mat-form-field>
+            <mat-label>{{'INTEGRACAO.TERCEIRO' | translate}}</mat-label>
+            <mat-select formControlName="terceiro" #terceiro>
+                <mat-option value="S">Sympla</mat-option>
+                <mat-option value="E">Eventbrite</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>{{'INTEGRACAO.IDEVENTO' | translate}}</mat-label>
+            <input ng-class="{ f.codEvento.errors }" #codEvento formControlName="codEvento" maxlength="14" matInput required>
+            <mat-error *ngIf="f.codEvento.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
+        </mat-form-field>
+        <mat-form-field class="token">
+            <mat-label>{{'INTEGRACAO.TOKEN' | translate}}</mat-label>
+            <input ng-class="{ f.token.errors }" #token matInput required type="password" formControlName="token">
+            <mat-error *ngIf="f.token.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
+        </mat-form-field>
+        <br>
+        <button class="button-form" mat-raised-button [disabled]="!form.valid">{{'INTEGRACAO.CONFIRM' | translate}}</button>
+    </form>
+    <button class="cancel-button" mat-button mat-dialog-close>{{'INTEGRACAO.CANCEL' | translate}}</button>
+</div>

@@ -151,7 +151,8 @@
         "ATRIBSUC": "Atribuição salva com sucesso.",
         "PRODDELE": "Produto deletado com sucesso.",
         "FORMDELE": "Questionário deletado com sucesso.",
-        "LOTEALT": "Lote alterado com sucesso."
+        "LOTEALT": "Lote alterado com sucesso.",
+        "INTDELE": "Integração com terceiro deletada com sucesso."
     },
     
     "PERFIL":{
@@ -616,5 +617,23 @@
         "DESCRICAO": "Descrição do lote",
         "CANCEL": "Cancelar",
         "CONFIRM": "Confirmar"
+    },
+
+    "INTEGRACAO": {
+        "TITLE": "Integações com terceiros (Sympla e Eventbrite)",
+        "IDEVENTO": "Id do Evento",
+        "TOKEN": "Token Privado",
+        "TERCEIRO": "Terceiro (Sympla ou Eventbrite)",
+        "EDIT": "Editar integração",
+        "DELETE": "Deletar integração",
+        "ADD": "Adicionar integração",
+        "CONFIRM": "Confirmar",
+        "CANCEL": "Cancelar"
+    },
+
+    "DELETEINTEGRACAO": {
+        "CANCEL": "Cancelar",
+        "CONFIRM": "Confirmar",
+        "MESSAGE": "Você deseja excluir esta integração?"
     }
 }
