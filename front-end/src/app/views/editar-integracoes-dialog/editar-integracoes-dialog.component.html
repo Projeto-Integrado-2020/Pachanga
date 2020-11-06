@@ -15,7 +15,7 @@
         </mat-form-field>
         <mat-form-field class="token">
             <mat-label>{{'INTEGRACAO.TOKEN' | translate}}</mat-label>
-            <input ng-class="{ f.token.errors }" #token matInput required type="password" formControlName="token">
+            <input ng-class="{ f.token.errors }" #token matInput required formControlName="token">
             <mat-error *ngIf="f.token.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
         </mat-form-field>
         <br>
