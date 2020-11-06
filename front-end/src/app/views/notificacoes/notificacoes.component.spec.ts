@@ -37,6 +37,7 @@ import { FormsPainelComponent } from '../forms-painel/forms-painel.component';
 import { PainelIngressoComponent } from '../painel-ingresso/painel-ingresso.component';
 import { CriarLoteComponent } from '../criar-lote/criar-lote.component';
 import { EditarLoteComponent } from '../editar-lote/editar-lote.component';
+import { ThirdPartyPainelComponent } from '../third-party-painel/third-party-painel.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -90,7 +91,8 @@ describe('NotificacoesComponent', () => {
         FormsPainelComponent,
         PainelIngressoComponent,
         CriarLoteComponent,
-        EditarLoteComponent
+        EditarLoteComponent,
+        ThirdPartyPainelComponent
       ],
       imports: [
         MomentModule,

@@ -135,7 +135,9 @@
         "LOTENFOU": "Lot not found.",
         "FORMNFOU": "Survey Google Forms not found.",
         "URLFORMS": "This URL has already been registered.",
-        "NOMEFORM": "This name has already been registered."
+        "NOMEFORM": "This name has already been registered.",
+        "SYMERROR": "Error to authenticate this Sympla Event.",
+        "EVBERROR": "Error to authenticate this Eventbrite Event."
     },
 
     "SUCCESS": {
@@ -150,7 +152,7 @@
         "PRODDELE": "Product successfully deleted.",
         "FORMDELE": "Form successfully deleted.",
         "LOTEALT": "Batch successfully updated.",
-        "INTDELE": "Third-Party integration successfully deleted."
+        "INTEDELE": "Third-Party integration successfully deleted."
     },
 
     "PERFIL":{
@@ -618,7 +620,9 @@
     },
 
     "INTEGRACAO": {
+        "CALLBUTTON": "Third-Party Integrations",
         "TITLE": "Third-party integrations (Sympla and Eventbrite)",
+        "SUBTITLE": "Informations about the integration:",
         "ADD": "Add integration",
         "IDEVENTO": "Event Id",
         "TOKEN": "Private Token",
@@ -626,7 +630,8 @@
         "EDIT": "Edit integration",
         "DELETE": "Delete integration",
         "CONFIRM": "Confirm",
-        "CANCEL": "Cancel"
+        "CANCEL": "Cancel",
+        "NONE": "This party don't have third-party integrations."
     },
 
     "DELETEINTEGRACAO": {

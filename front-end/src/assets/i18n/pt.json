@@ -137,7 +137,9 @@
         "LOTENFOU": "Lote não encontrado.",
         "FORMNFOU": "Questionário não encontrado.",
         "URLFORMS": "Esta URL já foi registrada.",
-        "NOMEFORM": "Este nome já foi registrado."
+        "NOMEFORM": "Este nome já foi registrado.",
+        "SYMERROR": "Erro ao autenticar este evento do Sympla.",
+        "EVBERROR": "Erro ao autenticar este evento do Eventbrite."
     },
 
     "SUCCESS": {
@@ -152,7 +154,7 @@
         "PRODDELE": "Produto deletado com sucesso.",
         "FORMDELE": "Questionário deletado com sucesso.",
         "LOTEALT": "Lote alterado com sucesso.",
-        "INTDELE": "Integração com terceiro deletada com sucesso."
+        "INTEDELE": "Integração com terceiro deletada com sucesso."
     },
     
     "PERFIL":{
@@ -620,7 +622,9 @@
     },
 
     "INTEGRACAO": {
-        "TITLE": "Integações com terceiros (Sympla e Eventbrite)",
+        "CALLBUTTON": "Integrações com Terceiros",
+        "TITLE": "Integrações com terceiros (Sympla e Eventbrite)",
+        "SUBTITLE": "Informações sobre a integração:",
         "IDEVENTO": "Id do Evento",
         "TOKEN": "Token Privado",
         "TERCEIRO": "Terceiro (Sympla ou Eventbrite)",
@@ -628,7 +632,8 @@
         "DELETE": "Deletar integração",
         "ADD": "Adicionar integração",
         "CONFIRM": "Confirmar",
-        "CANCEL": "Cancelar"
+        "CANCEL": "Cancelar",
+        "NONE": "Esta festa não possui integrações com terceiros."
     },
 
     "DELETEINTEGRACAO": {

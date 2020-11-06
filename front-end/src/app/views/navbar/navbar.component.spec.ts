@@ -43,6 +43,7 @@ import { RelatoriosPainelComponent } from '../relatorios-painel/relatorios-paine
 import { PainelIngressoComponent } from '../painel-ingresso/painel-ingresso.component';
 import { CriarLoteComponent } from '../criar-lote/criar-lote.component';
 import { EditarLoteComponent } from '../editar-lote/editar-lote.component';
+import { ThirdPartyPainelComponent } from '../third-party-painel/third-party-painel.component';
 
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 100000;
 
@@ -99,7 +100,8 @@ describe('NavbarComponent', () => {
         FormsPainelComponent,
         PainelIngressoComponent,
         CriarLoteComponent,
-        EditarLoteComponent
+        EditarLoteComponent,
+        ThirdPartyPainelComponent
        ],
       imports: [
         MomentModule,

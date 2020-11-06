@@ -25,7 +25,7 @@ export class DeletarIntegracoesDialogComponent implements OnInit {
       this.deleteService.setFarol(false);
       this.dialog.closeAll();
       this.component.ngOnInit();
-      this.openDialogSuccess('INTDELE');
+      this.openDialogSuccess('INTEDELE');
     });
   }
 

@@ -30,6 +30,7 @@ export class SymplaApiService {
     return this.http.get(url, {headers}).pipe(
       take(1),
       catchError(error => {
+        error.error = 'SYMERROR';
         return this.handleError(error, this.logService);
       })
     );

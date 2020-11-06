@@ -1,6 +1,6 @@
 <h1 mat-dialog-title>{{'INTEGRACAO.ADD' | translate}}</h1>
 <div mat-dialog-content>
-    <form [formGroup]="form" (submit)="adicionarIntegracao(terceiro.value, codEvento.value, token.value)">
+    <form [formGroup]="form" (submit)="submitForm(terceiro.value, codEvento.value, token.value)">
         <mat-form-field>
             <mat-label>{{'INTEGRACAO.TERCEIRO' | translate}}</mat-label>
             <mat-select formControlName="terceiro" #terceiro>

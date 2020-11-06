@@ -45,6 +45,7 @@ import { FormsPainelComponent } from './views/forms-painel/forms-painel.componen
 import { PainelIngressoComponent } from './views/painel-ingresso/painel-ingresso.component';
 import { CriarLoteComponent } from './views/criar-lote/criar-lote.component';
 import { EditarLoteComponent } from './views/editar-lote/editar-lote.component';
+import { ThirdPartyPainelComponent } from './views/third-party-painel/third-party-painel.component';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -98,7 +99,8 @@ describe('AppComponent', () => {
         FormsPainelComponent,
         PainelIngressoComponent,
         CriarLoteComponent,
-        EditarLoteComponent
+        EditarLoteComponent,
+        ThirdPartyPainelComponent
       ],
       imports: [
         MomentModule,
