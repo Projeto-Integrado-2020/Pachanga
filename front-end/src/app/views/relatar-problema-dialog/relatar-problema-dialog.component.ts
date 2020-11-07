@@ -46,6 +46,7 @@ export class RelatarProblemaDialogComponent implements OnInit {
     // console.log(this.listaProblemas);
   }
   //{{'CATEGORIA.' + categoria.nomeCategoria | translate}}
+  
   relatarProblema(problemaTO) {
  
 

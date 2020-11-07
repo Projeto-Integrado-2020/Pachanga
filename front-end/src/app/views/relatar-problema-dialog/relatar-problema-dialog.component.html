@@ -1,14 +1,15 @@
-<h1 mat-dialog-title>Relatar problema em {{this.area.nomeArea}}</h1>
+<h1 mat-dialog-title>{{'RELATARPROB.TITULO' | translate}} {{this.area.nomeArea}}</h1>
 <div mat-dialog-content>
   <form (submit)="relatarProblema(problemaTO)">
     <mat-form-field appearance="fill">
-      <mat-label>Problema</mat-label>
+      <mat-label>{{'RELATARPROB.PROBLEMA' | translate}}</mat-label>
       <mat-select [(value)]="problemaTO">
+        <!-- <mat-option value="{{categoria.codCategoria}}">{{'CATEGORIA.' + categoria.nomeCategoria | translate}}</mat-option> -->
         <mat-option *ngFor="let problema of this.listaProblemas" [value]="problema">
-          {{problema.descProblema}}
+          {{'RELATARPROB.' + problema.descProblema | translate}}
         </mat-option>
       </mat-select>
     </mat-form-field>
-    <button class="prp-btn" mat-raised-button>Relatar</button>
+    <button class="prp-btn" mat-raised-button>{{'RELATARPROB.RELATAR' | translate}}</button>
   </form>
 </div>
