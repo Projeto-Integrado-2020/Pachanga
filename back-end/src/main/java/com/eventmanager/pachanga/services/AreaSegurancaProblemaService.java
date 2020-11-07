@@ -121,19 +121,24 @@ public class AreaSegurancaProblemaService {
 				TipoPermissao.EDITPSEG.getCodigo());
 		AreaSegurancaProblema areaSegurancaProblema = this
 				.validarProblemaSeguranca(problemaSegurancaTO.getCodAreaProblema());
+		AreaSeguranca area = areaSegurancaRepository.findAreaByCodFestaAndCodArea(
+				areaSegurancaProblema.getFesta().getCodFesta(), areaSegurancaProblema.getArea().getCodArea());
 		if (finaliza.booleanValue()) {
 			areaSegurancaProblema.setStatusProblema(problemaSegurancaTO.getStatusProblema());
 			Usuario usuarioResolv = usuarioService.validarUsuario(problemaSegurancaTO.getCodUsuarioResolv());
 			areaSegurancaProblema.setCodUsuarioResolv(usuarioResolv);
 			areaSegurancaProblema.setHorarioFim(notificacaoService.getDataAtual());
 			this.validarAreaSegurancaProblema(areaSegurancaProblema);
-			this.deletarNotificacoes(areaSegurancaProblema.getArea());
+			this.deletarNotificacoes(areaSegurancaProblema.getArea(), areaSegurancaProblema.getProblema());
+			area.setStatusSeguranca(TipoAreaSeguranca.SEGURO.getDescricao());
 		} else {
 			areaSegurancaProblema.setStatusProblema(TipoStatusProblema.ANDAMENTO.getValor());
 			areaSegurancaProblema.setCodUsuarioResolv(null);
 			areaSegurancaProblema.setHorarioFim(null);
 			this.disparaNotificacao(areaSegurancaProblema);
+			area.setStatusSeguranca(TipoAreaSeguranca.INSEGURO.getDescricao());
 		}
+		areaSegurancaRepository.save(area);
 		areaSegurancaProblemaRepository.save(areaSegurancaProblema);
 	}
 
@@ -153,7 +158,8 @@ public class AreaSegurancaProblemaService {
 	}
 
 	private AreaSegurancaProblema validarProblemaSeguranca(int codProblemaSeguranca) {
-		AreaSegurancaProblema problemaSeguranca = areaSegurancaProblemaRepository.findByCodProblema(codProblemaSeguranca);
+		AreaSegurancaProblema problemaSeguranca = areaSegurancaProblemaRepository
+				.findByCodProblema(codProblemaSeguranca);
 		if (problemaSeguranca == null) {
 			throw new ValidacaoException("PRSENFOU"); // ProblemaSeguranca nao existe
 		}
@@ -186,16 +192,16 @@ public class AreaSegurancaProblemaService {
 		}
 	}
 
-	public void deletarNotificacoes(AreaSeguranca area) {
+	public void deletarNotificacoes(AreaSeguranca area, Problema problema) {
 		List<Grupo> grupos = grupoRepository.findGruposFesta(area.getCodFesta());
 		grupos.stream().forEach(g -> {
 			List<Usuario> usuarios = usuarioRepository.findUsuariosPorGrupo(g.getCodGrupo());
 			usuarios.stream().forEach(u -> notificacaoService.deleteNotificacao(u.getCodUsuario(),
-					TipoNotificacao.AREAPROB.getValor() + "?" + area.getCodArea() + "&")
+					TipoNotificacao.AREAPROB.getValor() + "?" + area.getCodArea() + "&" + (problema == null ? "" : problema.getCodProblema()))
 
 			);
-			notificacaoService
-					.deletarNotificacaoGrupo(TipoNotificacao.AREAPROB.getValor() + "?" + area.getCodArea() + "&");
+			notificacaoService.deletarNotificacaoGrupo(
+					TipoNotificacao.AREAPROB.getValor() + "?" + area.getCodArea() + "&" + (problema == null ? "" : problema.getCodProblema()));
 		});
 
 	}

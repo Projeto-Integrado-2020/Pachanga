@@ -34,7 +34,11 @@ public enum TipoPermissao {
 	VISUFORM(30,"VISUFORM"),//visualizar questionario
 	ADDFORMS(31,"ADDFORMS"),//inserir questionarios
 	DELEFORM(32,"DELEFORM"),//deletar questionario
-	EDITFORM(33,"EDITFORM");//editar questionario
+	EDITFORM(33,"EDITFORM"),//editar questionario
+	VISUINTE(34,"VISUINTE"),//visualizar integração
+	ADDINTEG(35,"ADDINTEG"),//inserir integração
+	DELEINTE(36,"DELEINTE"),//deletar integração
+	EDITINTE(37,"EDITINTE");//editar integração
 
 	private String valor;
 	private int codigo;

@@ -69,7 +69,7 @@ public class AreaSegurancaService {
 	public void deletarAreSegurancaFesta(int codUsuario, int codArea) {
 		AreaSeguranca areaSeguranca = this.validarAreaExistente(codArea);
 		grupoService.validarPermissaoUsuarioGrupo(areaSeguranca.getCodFesta(), codUsuario, TipoPermissao.DELEAREA.getCodigo());
-		areaSegurancaProblemaService.deletarNotificacoes(areaSeguranca);
+		areaSegurancaProblemaService.deletarNotificacoes(areaSeguranca, null);
 		List<AreaSegurancaProblema> areasSegurancasProblemas = areaSegurancaProblemaRepository
 				.findProblemasArea(codArea);
 		areaSegurancaProblemaRepository.deleteAll(areasSegurancasProblemas);

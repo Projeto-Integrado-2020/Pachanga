@@ -454,6 +454,7 @@ class AreaSegurancaProblemaServiceTest {
 		List<Usuario> usuarios = new ArrayList<>();
 		usuarios.add(usuario);
 		
+		Mockito.when(areaSegurancaRepository.findAreaByCodFestaAndCodArea(Mockito.anyInt(), Mockito.anyInt())).thenReturn(areaTest());
 		Mockito.when(areaSegurancaProblemaRepository.findByCodProblema(Mockito.anyInt())).thenReturn(areaSegurancaProblema);
 		Mockito.when(usuarioService.validarUsuario(Mockito.anyInt())).thenReturn(usuario);
 		Mockito.when(grupoRepository.findGruposFesta(Mockito.anyInt())).thenReturn(grupos);
@@ -477,6 +478,7 @@ class AreaSegurancaProblemaServiceTest {
 		List<Usuario> usuarios = new ArrayList<>();
 		usuarios.add(usuario);
 		
+		Mockito.when(areaSegurancaRepository.findAreaByCodFestaAndCodArea(Mockito.anyInt(), Mockito.anyInt())).thenReturn(areaTest());
 		Mockito.when(grupoRepository.findGruposPermissaoAreaSegurancaProblema(Mockito.anyInt())).thenReturn(grupos);
 		Mockito.when(notificacaoService.criarMensagemAreaProblema(Mockito.anyInt(), Mockito.anyInt())).thenReturn("ABCD");
 		Mockito.when(notificacaoService.verificarNotificacaoGrupo(Mockito.anyInt(), Mockito.anyString())).thenReturn(true);

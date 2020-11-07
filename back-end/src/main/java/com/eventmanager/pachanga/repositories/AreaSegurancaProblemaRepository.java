@@ -12,7 +12,7 @@ import com.eventmanager.pachanga.domains.AreaSegurancaProblema;
 @Repository
 public interface AreaSegurancaProblemaRepository extends JpaRepository<AreaSegurancaProblema, Integer> {
 
-	@Query(value = "SELECT a FROM AreaSegurancaProblema asp JOIN asp.area a JOIN asp.problema p WHERE a.codArea= :codArea")
+	@Query(value = "SELECT asp FROM AreaSegurancaProblema asp JOIN asp.area a JOIN asp.problema p WHERE a.codArea= :codArea")
 	List<AreaSegurancaProblema> findProblemasArea(int codArea);
 
 	@Query(value = "SELECT asp FROM AreaSegurancaProblema asp JOIN asp.problema p JOIN asp.area a WHERE a.codArea = :codArea AND p.codProblema = :codProblema")

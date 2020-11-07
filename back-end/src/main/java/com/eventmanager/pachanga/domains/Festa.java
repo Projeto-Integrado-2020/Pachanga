@@ -69,6 +69,10 @@ public class Festa {
 			mappedBy = "festa")
 	private Set<QuestionarioForms> questionariosForms;
 	
+	@OneToMany(fetch = FetchType.LAZY,
+			mappedBy = "festa")
+	private Set<InfoIntegracao> infosIntegracao;
+	
 	public int getCodFesta() {
 		return codFesta;
 	}
