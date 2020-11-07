@@ -300,6 +300,25 @@
         "CHANGESTATUS": "Change status"
     },
 
+    "RELATARPROB": {
+        "TITULO": "Relatar Problema em ",
+        "TUMULTTO": "Tumulto",
+        "BRIGAVIO": "Tumulto",
+        "EMEGMED": "Tumulto",
+        "FURTOOBJ": "Tumulto",
+        "ASSALTTO": "Tumulto",
+        "PORTOBJT": "Tumulto",
+        "PORTSUBS": "Tumulto",
+        "VENDAILG": "Tumulto",
+        "SAIRSPAG": "Tumulto",
+        "VANDALIS": "Tumulto",
+        "ASSEDSEX": "Tumulto",
+        "ATENDPUD": "Tumulto",
+        "ENTRPROB": "Tumulto",
+        "OUTRPROB": "Tumulto",
+        "RELATAR":"Relatar"
+    },
+
     "404": {
         "MESSAGE": "Outch, I think the party is over! This content is unavailable."
     },

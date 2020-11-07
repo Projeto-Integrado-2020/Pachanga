@@ -45,17 +45,9 @@ export class RelatarProblemaDialogComponent implements OnInit {
     );
     // console.log(this.listaProblemas);
   }
-
+  //{{'CATEGORIA.' + categoria.nomeCategoria | translate}}
   relatarProblema(problemaTO) {
-    /*
-      problemaTO:
-        codFesta,
-        descProblema,
-        codFesta,
-        codAreaSeguranca,
-        codUsuarioEmissor,
-
-     */
+ 
 
     this.date = new Date();
 
