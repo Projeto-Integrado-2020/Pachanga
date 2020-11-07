@@ -28,11 +28,12 @@
                     <mat-expansion-panel hideToggle class="painel">
                         <mat-expansion-panel-header>
                             <mat-panel-title>{{area.nomeArea}}</mat-panel-title>
-                            <mat-panel-description>{{'AREASEGURANCA.DESCRIPTION' | translate}}</mat-panel-description>
+                            <mat-panel-description>Status: {{area.statusSeguranca}}</mat-panel-description>
                         </mat-expansion-panel-header>
                         <div class="problemas">
                             <div class="problema" *ngFor="let problema of area.problemasArea">
-                                <span [style.textDecoration]="problema.resolvido ? 'line-through': 'none'">{{problema.descProblema}}</span>
+                                <span>{{problema.descProblema}}</span>
+                                <span>{{problema.statusProblema}}</span>
                                 <button class="botao" mat-button (click)="verDetalhesProblema(problema)">Detalhes</button>
                             </div>
                             <!-- <div class="problema" *ngFor="let problema of this.getProblemasArea(area)">

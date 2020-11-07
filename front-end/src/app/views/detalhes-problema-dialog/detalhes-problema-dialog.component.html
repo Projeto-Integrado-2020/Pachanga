@@ -7,7 +7,23 @@
     <span>Status do Problema: {{this.detalhes.problema.statusProblema}}</span>
   </div>
   <div class="botoes">
-      <button class="btn" mat-button>Marcar como Finalizado</button>
-      <button class="btn" mat-button>Marcar como Engano</button>
+      <button 
+        *ngIf="this.detalhes.problema.statusProblema == 'A'"
+        (click)="alterarStatus(true, 'F')"
+        class="btn"
+        mat-button
+        >Marcar como Finalizado</button>
+      <button
+        *ngIf="this.detalhes.problema.statusProblema == 'A'"
+        (click)="alterarStatus(true, 'E')"
+        class="btn"
+        mat-button
+        >Marcar como Engano</button>
+      <button 
+        *ngIf="this.detalhes.problema.statusProblema == 'E' || this.detalhes.problema.statusProblema == 'F'"
+        (click)="alterarStatus(false, 'A')"
+        class="btn"
+        mat-button
+        >Marcar como Em Andamento</button>
   </div>
 </div>

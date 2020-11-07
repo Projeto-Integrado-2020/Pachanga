@@ -1,8 +1,9 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MatDialog, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { LoginService } from 'src/app/services/loginService/login.service';
 import { SegurancaProblemasService } from 'src/app/services/seguranca-problemas/seguranca-problemas.service';
 import { DatePipe } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-relatar-problema-dialog',
@@ -19,6 +20,8 @@ export class RelatarProblemaDialogComponent implements OnInit {
   listaProblemas: any;
 
   constructor(
+    public router: Router,
+    public dialogRef: MatDialogRef<RelatarProblemaDialogComponent>,
     @Inject(MAT_DIALOG_DATA) data,
     public dialog: MatDialog,
     private segurancaProblemaService: SegurancaProblemasService,
@@ -67,12 +70,13 @@ export class RelatarProblemaDialogComponent implements OnInit {
     );
 
     this.segurancaProblemaService.adicionarProblema(problemaTO).subscribe();
-    console.log(problemaTO);
-    this.atualizarProblemas();
+    this.router.navigateByUrl(this.router.url);
+    //this.dialogRef.close();
+    //this.atualizarProblemas();
   }
 
-  atualizarProblemas() {
-    this.segurancaProblemaService.updateProblemas();
-  }
+  // atualizarProblemas() {
+  //   this.segurancaProblemaService.updateProblemas();
+  // }
 
 }

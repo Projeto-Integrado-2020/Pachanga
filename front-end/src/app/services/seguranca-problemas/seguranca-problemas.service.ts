@@ -67,16 +67,19 @@ export class SegurancaProblemasService {
   //   return this.httpClient.put(this.baseUrl + '/atualizar', problemaTO, {params: httpParams});
   // }
 
-  deletarProblema(codArea, codFesta, codProblema) {
+  alterarStatus(finaliza, problemaTO) {
     if (!this.farol) {
       this.setFarol(true);
-      const httpParams = new HttpParams()
-        .append('codAreaSeguranca', codArea)
-        .append('codProblema', codProblema)
-        .append('codFesta', codFesta)
-        .append('idUsuario', this.loginService.getusuarioInfo().codUsuario);
 
-      return this.httpClient.delete(this.baseUrl + '/delete', {params: httpParams}).pipe(
+      let headers = new HttpHeaders();
+      headers = headers.append('Content-Type', 'application/json');
+      headers = headers.append('Authorization', 'Bearer ' + JSON.parse(localStorage.getItem('token')).token);
+
+      const httpParams = new HttpParams()
+        .append('finaliza', finaliza)
+        .append('codUsuario', this.loginService.getusuarioInfo().codUsuario);
+
+      return this.httpClient.put(this.baseUrl + '/alterarStatus', problemaTO, {headers, params: httpParams}).pipe(
         take(1),
         catchError(error => {
           return this.handleError(error, this.logService);
@@ -122,12 +125,12 @@ export class SegurancaProblemasService {
 
     // /lista get
     getAllProblemasFesta(codFesta) {
-      if(!this.farol){
+      if(!this.farol) {
         this.setFarol(true);
         const httpParams = new HttpParams()
           .append('codFesta', codFesta)
           .append('idUsuario', this.loginService.getusuarioInfo().codUsuario);
-  
+
         return this.httpClient.get(this.baseUrl + '/lista', {params: httpParams}).pipe(
           take(1),
           catchError(error => {
@@ -137,9 +140,11 @@ export class SegurancaProblemasService {
       }
     }
 
-    updateProblemas() {
-      this.updateProblemasEmitter.emit();
-    }
+    // updateProblemas() {
+    //   if (!this.farol) {
+    //   this.updateProblemasEmitter.emit();
+    //   }
+    // }
 
     handleError = (error: HttpErrorResponse, logService: LogService) => {
       logService.initialize();

@@ -63,9 +63,9 @@ export class PainelSegurancaComponent implements OnInit {
     this.idFesta = url.substring(url.indexOf('&') + 1, url.indexOf('/', url.indexOf('&')));
     this.resgatarDadosFesta();
 
-    this.segProbService.updateProblemasEmitter.subscribe(() => {
+    /*this.segProbService.updateProblemasEmitter.subscribe(() => {
       this.resgatarDadosFesta();
-    });
+    });*/
   }
 
   resgatarAreaSeguranca() {

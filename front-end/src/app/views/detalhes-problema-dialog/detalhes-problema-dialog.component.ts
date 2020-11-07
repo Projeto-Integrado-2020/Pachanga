@@ -1,6 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material';
 import { TranslateService } from '@ngx-translate/core';
+import { LoginService } from 'src/app/services/loginService/login.service';
+import { SegurancaProblemasService } from 'src/app/services/seguranca-problemas/seguranca-problemas.service';
 
 @Component({
   selector: 'app-detalhes-problema-dialog',
@@ -16,7 +18,9 @@ export class DetalhesProblemaDialogComponent implements OnInit {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data,
     public modal: MatDialog,
-    public translate: TranslateService
+    public translate: TranslateService,
+    public segProblemaService: SegurancaProblemasService,
+    public loginService: LoginService
     ) {
       this.detalhes = data.problema;
      }
@@ -35,6 +39,25 @@ export class DetalhesProblemaDialogComponent implements OnInit {
     const hora = str[1].slice(0, 8);
     this.dia = dia;
     this.hora = hora;
+  }
+
+  /*
+    private int codAreaProblema;
+	  private int codAreaSeguranca;
+	  private int codFesta;
+	  private int codProblema;
+  	private int codUsuarioResolv;
+    private String statusProblema ;
+  */
+
+  alterarStatus(finaliza: boolean, status: string) {
+    this.detalhes.problema.statusProblema = status;
+    this.detalhes.problema.codUsuarioResolv = this.loginService.getusuarioInfo().codUsuario;
+    console.log(this.detalhes.problema);
+    this.segProblemaService.alterarStatus(finaliza, this.detalhes.problema).subscribe(
+      () =>{
+        this.segProblemaService.setFarol(false);
+      });
   }
 
 }
