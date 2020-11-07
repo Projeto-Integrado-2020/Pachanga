@@ -1,6 +1,6 @@
 <h1 mat-dialog-title>{{'INTEGRACAO.EDIT' | translate}}</h1>
 <div mat-dialog-content>
-    <form [formGroup]="form" (submit)="editarIntegracao(terceiro.value, codEvento.value, token.value)">
+    <form [formGroup]="form" (submit)="submitForm(codEvento.value, token.value)">
         <mat-form-field>
             <mat-label>{{'INTEGRACAO.TERCEIRO' | translate}}</mat-label>
             <mat-select formControlName="terceiro" #terceiro>
@@ -15,7 +15,7 @@
         </mat-form-field>
         <mat-form-field class="token">
             <mat-label>{{'INTEGRACAO.TOKEN' | translate}}</mat-label>
-            <input ng-class="{ f.token.errors }" #token matInput required type="password" formControlName="token">
+            <input ng-class="{ f.token.errors }" #token matInput required formControlName="token">
             <mat-error *ngIf="f.token.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
         </mat-form-field>
         <br>

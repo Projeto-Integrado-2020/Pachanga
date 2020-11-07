@@ -11,6 +11,8 @@ import { MatDialog, MAT_DIALOG_DATA } from '@angular/material';
 import { of } from 'rxjs';
 import { AdicionarIntegracoesDialogComponent } from './adicionar-integracoes-dialog.component';
 import { AdicionarIntegracaoService } from 'src/app/services/adicionar-integracao/adicionar-integracao.service';
+import { SymplaApiService } from 'src/app/services/sympla-api/sympla-api.service';
+import { EventbriteApiService } from 'src/app/services/eventbrite-api/eventbrite-api.service';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -46,6 +48,12 @@ describe('AdicionarIntegracoesDialogComponent', () => {
         {provide: AdicionarIntegracaoService, useValue: {
           adicionarIntegracao: () => of({}),
           setFarol: () => false,
+        }},
+        {provide: SymplaApiService, useValue: {
+          testSymplaConnection: () => of({})
+        }},
+        {provide: EventbriteApiService, useValue: {
+          testEventbriteConnection: () => of({})
         }}
       ]
     })
@@ -66,7 +74,7 @@ describe('AdicionarIntegracoesDialogComponent', () => {
     expect(component.f).toBe(component.form.controls);
   });
 
-  it('should adicionarIntegracao', () => {
+  it('should criarIntegracao', () => {
     spyOn(component.criarService, 'adicionarIntegracao')
     .and
     .callThrough();
@@ -91,11 +99,69 @@ describe('AdicionarIntegracoesDialogComponent', () => {
       codEvento: 'teste',
       privateToken: 'teste'
     };
-    component.adicionarIntegracao('teste', 'teste', 'teste');
+    component.criarIntegracao(integracao);
 
     expect(component.criarService.adicionarIntegracao).toHaveBeenCalledWith(integracao);
     expect(component.criarService.setFarol).toHaveBeenCalledWith(false);
     expect(component.component.ngOnInit).toHaveBeenCalled();
     expect(dialogSpy.closeAll).toHaveBeenCalled();
+  });
+
+  it('should checarIntegracao Sympla', () => {
+    spyOn(component.symplaService, 'testSymplaConnection')
+    .and
+    .callThrough();
+
+    spyOn(component, 'criarIntegracao')
+    .and
+    .callThrough();
+
+    const integracao = {
+      codFesta: 'teste',
+      terIntegrado: 'S',
+      codEvento: 'testeEvento',
+      privateToken: 'testeToken'
+    };
+    component.checarIntegracao(integracao);
+
+    expect(component.symplaService.testSymplaConnection).toHaveBeenCalledWith('testeEvento', 'testeToken');
+    expect(component.criarIntegracao).toHaveBeenCalled();
+  });
+
+  it('should checarIntegracao Eventbrite', () => {
+    spyOn(component.eventbriteService, 'testEventbriteConnection')
+    .and
+    .callThrough();
+
+    spyOn(component, 'criarIntegracao')
+    .and
+    .callThrough();
+
+    const integracao = {
+      codFesta: 'teste',
+      terIntegrado: 'E',
+      codEvento: 'testeEvento',
+      privateToken: 'testeToken'
+    };
+    component.checarIntegracao(integracao);
+
+    expect(component.eventbriteService.testEventbriteConnection).toHaveBeenCalledWith('testeEvento', 'testeToken');
+    expect(component.criarIntegracao).toHaveBeenCalled();
+  });
+
+  it('should submitForm', () => {
+    spyOn(component, 'checarIntegracao')
+    .and
+    .callThrough();
+
+    const integracao = {
+      codFesta: 'teste',
+      terIntegrado: 'E',
+      codEvento: 'testeEvento',
+      privateToken: 'testeToken'
+    };
+    component.submitForm('E', 'testeEvento', 'testeToken');
+
+    expect(component.checarIntegracao).toHaveBeenCalledWith(integracao);
   });
 });

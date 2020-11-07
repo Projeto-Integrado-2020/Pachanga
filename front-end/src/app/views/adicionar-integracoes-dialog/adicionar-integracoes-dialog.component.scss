@@ -1,18 +1,18 @@
 @import "../material/paleta.scss";
 
 .button-form {
-    margin-left: 2rem;
+    margin-left: 4rem;
     background-color: $color-primary;
     color: #ffffff;
     margin-top: 1rem;
 }
 
 mat-form-field {
-    width: 15rem!important;
+    width: 20rem!important;
 }
 
 .cancel-button {
-    transform: translate(9rem, -2.25rem)!important;
+    transform: translate(11rem, -2.25rem)!important;
 }
 
 .input-hidden{

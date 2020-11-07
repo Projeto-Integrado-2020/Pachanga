@@ -108,6 +108,7 @@ import { AdicionarIntegracoesDialogComponent } from './views/adicionar-integraco
 import { EditarIntegracoesDialogComponent } from './views/editar-integracoes-dialog/editar-integracoes-dialog.component';
 import { DeletarIntegracoesDialogComponent } from './views/deletar-integracoes-dialog/deletar-integracoes-dialog.component';
 import { DetalhesProblemaDialogComponent } from './views/detalhes-problema-dialog/detalhes-problema-dialog.component';
+import { ThirdPartyPainelComponent } from './views/third-party-painel/third-party-painel.component';
 
 const config = new AuthServiceConfig([
   {
@@ -193,7 +194,8 @@ export function provideConfig() {
     AdicionarIntegracoesDialogComponent,
     EditarIntegracoesDialogComponent,
     DeletarIntegracoesDialogComponent,
-    DetalhesProblemaDialogComponent
+    DetalhesProblemaDialogComponent,
+    ThirdPartyPainelComponent
   ],
   entryComponents: [
     LoginComponent,

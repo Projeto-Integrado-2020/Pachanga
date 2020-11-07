@@ -85,6 +85,6 @@ describe('DeletarIntegracoesDialogComponent', () => {
     expect(component.deleteService.deleteIntegracao).toHaveBeenCalledWith('teste');
     expect(dialogSpy.closeAll).toHaveBeenCalled();
     expect(component.component.ngOnInit).toHaveBeenCalled();
-    expect(component.openDialogSuccess).toHaveBeenCalledWith('INTDELE');
+    expect(component.openDialogSuccess).toHaveBeenCalledWith('INTEDELE');
   });
 });

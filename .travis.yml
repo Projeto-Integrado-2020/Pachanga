@@ -2,7 +2,7 @@ matrix:
   include:
     - language: node_js
       node_js:
-        - "stable"
+        - "10"
       addons:
         chrome: stable
       before_script: "cd front-end && npm install"

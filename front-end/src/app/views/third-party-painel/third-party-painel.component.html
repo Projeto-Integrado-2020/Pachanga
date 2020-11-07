@@ -1,0 +1,58 @@
+<div class="main-container">
+    <mat-sidenav-container class="example-container">
+        <mat-sidenav #sidenav mode="side" opened class="example-sidenav"
+            [fixedInViewport]="options.value.fixed" 
+            [fixedTopGap]="options.value.top"
+            [fixedBottomGap]="options.value.bottom">
+
+            <button routerLink="../../painel" mat-button class="botao-sidenav">{{'PAINELCONTROLE.GERAL' | translate}} <mat-icon>tab</mat-icon></button>
+            <button routerLink="../../estoque" mat-button class="botao-sidenav">{{'PAINELCONTROLE.ESTOQUE' | translate}} <mat-icon>store</mat-icon></button>
+            <button routerLink="../../painel-seguranca" mat-button class="botao-sidenav">{{'PAINELCONTROLE.SEGURANÇA' | translate}} <mat-icon>security</mat-icon></button>
+            <button routerLink="../../ingressos" mat-button class="botao-sidenav">{{'PAINELCONTROLE.INGRESSOS' | translate}} <mat-icon> local_offer</mat-icon></button>
+            <button routerLink="../../relatorios" mat-button class="botao-sidenav">{{'PAINELCONTROLE.RELATORIO' | translate}} <mat-icon> format_list_numbered</mat-icon></button>
+            <!-- BOTAO TOGGLE SIDENAV -->
+
+            <button mat-icon-button class="toggle sidenavFechar" (click)="sidenav.toggle()"><mat-icon>keyboard_arrow_left</mat-icon></button>
+        </mat-sidenav>
+        
+        <mat-sidenav-content class="center-x" [formGroup]="options">
+            <button mat-icon-button class="toggle sidenavAbrir" (click)="sidenav.toggle()"><mat-icon>keyboard_arrow_right</mat-icon></button>
+
+            <h2 class="titulo2">{{festaNome}}</h2>
+            <div class="botoes">
+                <button class="botao botoes__prp-btn-add" (click)="openDialogAdd()" mat-raised-button>
+                    {{'INTEGRACAO.ADD' | translate}}
+                </button>
+            </div>
+
+            <div class="sem-integracao" *ngIf="integracoes.length === 0">
+                {{'INTEGRACAO.NONE' | translate}}
+            </div>
+            
+            <div *ngFor="let integracao of integracoes" class="painel">
+                <mat-card class="integracao-tab">
+                    <mat-card-header>
+                        <mat-card-title *ngIf="integracao.terIntegrado == 'S'">Sympla</mat-card-title>
+                        <mat-card-title *ngIf="integracao.terIntegrado == 'E'">Eventbrite</mat-card-title>
+                        <mat-card-subtitle>{{'INTEGRACAO.SUBTITLE' | translate}}</mat-card-subtitle>
+                    </mat-card-header>
+                    
+                    <mat-card-content class="card-content">
+                        <div class="textos">
+                            <div class="texto">
+                                <p><b>{{'INTEGRACAO.IDEVENTO' | translate}}: </b> {{integracao.codEvento}}</p>
+                            </div>
+                            <div class="texto">                        
+                                <p><b>{{'INTEGRACAO.TOKEN' | translate}}: </b> {{integracao.token}}</p>
+                            </div>
+                        </div>
+                        <div class="botoes">
+                            <button class="botao prp-btn-edit" (click)="openDialogEdit(integracao)" mat-raised-button>{{'INTEGRACAO.EDIT' | translate}}</button>
+                            <button class="botao prp-btn-delete" mat-raised-button (click)="openDialogDelete(integracao)">{{'INTEGRACAO.DELETE' | translate}}</button>
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+        </mat-sidenav-content>
+    </mat-sidenav-container>
+</div>

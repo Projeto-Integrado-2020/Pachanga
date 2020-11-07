@@ -225,7 +225,7 @@
 }
 
 .card-content {
-    padding: 0 3.3rem 0 3.3rem;
+    padding: 0 3.3rem 0 1.5rem;
 }
 
 
@@ -366,7 +366,7 @@ tr.example-element-row:not(.example-expanded-row):active {
   display: inline;
 }
 
-.festa-tab {
+.integracao-tab {
   padding: 1rem;
 
   &:hover {
@@ -377,11 +377,11 @@ tr.example-element-row:not(.example-expanded-row):active {
 
 .textos {
   margin-top: 1rem;
+  word-break:break-all;
 }
 
 .texto {
   display: inline-block;
-  margin-right: 2rem;
 }
 
 .lista-lote {
@@ -390,10 +390,6 @@ tr.example-element-row:not(.example-expanded-row):active {
 
 .descricao {
   display: block;
-}
-
-.subtitle {
-  text-transform: capitalize;
 }
 
 .btn-1 {
@@ -406,4 +402,11 @@ tr.example-element-row:not(.example-expanded-row):active {
 .botao-integracao {
   background-color: $color-primary;
   color: #ffffff;
+}
+
+.sem-integracao {
+  text-align: center;
+  vertical-align: middle;
+  line-height: 90px;
+  word-break:break-all;
 }
