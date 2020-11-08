@@ -364,7 +364,65 @@ class FestaControllerTest {
 		assertEquals(400, response.getStatus());
 
 	}
+	
+//listaFestasDisponiveis_______________________________________________________________________________________________
+	@Test
+	@WithMockUser
+	void listarFestasDisponiveisSucessoTest() throws Exception {
+		List<Festa> festas = new ArrayList<>();
+		festas.add(festaTest());
+		List<Convidado> convidados = new ArrayList<Convidado>();
+		convidados.add(convidadoTest());
 
+		Mockito.when(festaService.procurarFestasComLotesCompraveis()).thenReturn(festas);
+		Mockito.when(categoriaService.procurarCategoriaFesta(Mockito.anyInt(), Mockito.anyString())).thenReturn(categoriaTest(), null);
+		Mockito.when(convidadoService.pegarConvidadosFesta(Mockito.anyInt())).thenReturn(convidados);
+		Mockito.when(festaFactory.getFestaTO(Mockito.any(), Mockito.any(), Mockito.anyBoolean(), Mockito.any(), Mockito.any(), Mockito.anyList())).thenReturn(festaToTest());
+		
+
+		String uri = "/festa/listaFestasDisponiveis";
+		RequestBuilder requestBuilder = MockMvcRequestBuilders
+				.get(uri)
+				.accept(MediaType.APPLICATION_JSON)
+				.contentType(MediaType.APPLICATION_JSON);
+
+		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+
+		MockHttpServletResponse response = result.getResponse();
+
+		String expected = "[{\"codFesta\":0,\"nomeFesta\":\"festao\",\"statusFesta\":\"I\",\"organizador\":\"Joao Neves\",\"horarioInicioFesta\":\"2016-06-22T19:10:00\",\"horarioFimFesta\":\"2016-06-23T19:10:00\",\"descricaoFesta\":\"Bugago\",\"codEnderecoFesta\":\"https//:minhacasa.org\",\"descOrganizador\":\"sou demente\",\"horarioFimFestaReal\":\"2016-06-23T19:10:00\",\"funcionalidade\":null,\"quantidadeParticipantes\":0,\"usuarios\":null,\"codPrimaria\":0,\"codSecundaria\":0,\"categoriaPrimaria\":null,\"categoriaSecundaria\":null,\"isOrganizador\":null,\"convidados\":null}]";
+
+		assertEquals(HttpStatus.OK.value(), response.getStatus());
+
+		JSONAssert.assertEquals(expected, result.getResponse().getContentAsString(), true);
+	}
+
+	@Test
+	@WithMockUser
+	void listarFestasDisponiveisExceptionTest() throws Exception {
+
+		Mockito.when(festaService.procurarFestasComLotesCompraveis()).thenThrow(new ValidacaoException("procurarFestasPorUsuario"));
+		Mockito.when(festaService.procurarFestas()).thenThrow(new ValidacaoException("procurarFestas"));
+		Mockito.when(categoriaService.procurarCategoriaFesta(Mockito.anyInt(), Mockito.anyString())).thenReturn(categoriaTest(), null);
+
+		String uri = "/festa/listaFestasDisponiveis";
+		
+		RequestBuilder requestBuilder = MockMvcRequestBuilders
+				.get(uri)
+				.accept(MediaType.APPLICATION_JSON)
+				.contentType(MediaType.APPLICATION_JSON);
+
+		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+
+		MockHttpServletResponse response = result.getResponse();
+
+		String expected = "procurarFestasPorUsuario";
+
+		assertEquals(400, response.getStatus());
+		assertEquals(expected, result.getResponse().getContentAsString());
+
+	}
+	
 	//deletar_____________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________	
 
 
@@ -575,6 +633,92 @@ class FestaControllerTest {
 		assertEquals(expected, result.getResponse().getContentAsString());
 	}
 
+//festaUnicaDadosPublicos_______________________________________________________________________________________________
+	@Test
+	@WithMockUser
+	void festaUnicaDadosPublicosSucessoTest() throws Exception {
+
+		Festa festaTest = festaTest();
+
+		String uri = "/festa/festaUnicaDadosPublicos";
+
+		Mockito.when(festaService.procurarDadosPublicosFesta(Mockito.any(Integer.class))).thenReturn(festaTest);
+		Mockito.when(categoriaService.procurarCategoriaFesta(Mockito.anyInt(), Mockito.anyString())).thenReturn(categoriaTest(), null);
+		Mockito.when(festaFactory.getFestaTO(Mockito.any(), Mockito.any(), Mockito.anyBoolean(), Mockito.any(), Mockito.any(), Mockito.anyList())).thenReturn(festaToTest());
+
+		RequestBuilder requestBuilder = MockMvcRequestBuilders
+				.get(uri)
+				.accept(MediaType.APPLICATION_JSON)
+				.param("idFesta", "2")
+				.contentType(MediaType.APPLICATION_JSON);
+
+		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+
+		MockHttpServletResponse response = result.getResponse();
+
+		String expected = "{\"codFesta\":0,\"nomeFesta\":\"festao\",\"statusFesta\":\"I\",\"organizador\":\"Joao Neves\",\"horarioInicioFesta\":\"2016-06-22T19:10:00\",\"horarioFimFesta\":\"2016-06-23T19:10:00\",\"descricaoFesta\":\"Bugago\",\"codEnderecoFesta\":\"https//:minhacasa.org\",\"descOrganizador\":\"sou demente\",\"horarioFimFestaReal\":\"2016-06-23T19:10:00\",\"funcionalidade\":null,\"quantidadeParticipantes\":0,\"usuarios\":null,\"codPrimaria\":0,\"codSecundaria\":0,\"categoriaPrimaria\":null,\"categoriaSecundaria\":null,\"isOrganizador\":null,\"convidados\":null}";
+
+		assertEquals(HttpStatus.OK.value(), response.getStatus());
+
+		JSONAssert.assertEquals(expected, result.getResponse().getContentAsString(), true);
+	}
+
+	@Test
+	@WithMockUser
+	void festaUnicaDadosPublicosNaoEncontradaTest() throws Exception {
+
+		String uri = "/festa/festaUnicaDadosPublicos";
+
+		String expected = "";
+
+		Mockito.when(festaService.procurarDadosPublicosFesta(Mockito.any(Integer.class))).thenReturn(null);
+		Mockito.when(userService.getUsuariosFesta(Mockito.any(Integer.class))).thenReturn(colecaoDeUsuario(2));
+		Mockito.when(categoriaService.procurarCategoriaFesta(Mockito.anyInt(), Mockito.anyString())).thenReturn(categoriaTest(), null);
+		
+
+		RequestBuilder requestBuilder = MockMvcRequestBuilders
+				.get(uri)
+				.param("idFesta", "2")
+				.accept(MediaType.APPLICATION_JSON)
+				.contentType(MediaType.APPLICATION_JSON);
+
+		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+
+		MockHttpServletResponse response = result.getResponse();
+
+		assertEquals(200, response.getStatus());
+		assertEquals(expected, result.getResponse().getContentAsString());
+	}
+
+	@Test
+	@WithMockUser
+	void festaUnicaDadosPublicosExceptionTest() throws Exception {
+
+		String expected = "";
+
+		String uri = "/festa/festaUnicaDadosPublicos";
+
+		Mockito.when(festaService.procurarDadosPublicosFesta(Mockito.any(Integer.class))).thenThrow(new ValidacaoException(expected));
+		Mockito.when(userService.getUsuariosFesta(Mockito.any(Integer.class))).thenThrow(new ValidacaoException(expected));
+		Mockito.when(categoriaService.procurarCategoriaFesta(Mockito.anyInt(), Mockito.anyString())).thenReturn(categoriaTest(), null);
+		
+
+		RequestBuilder requestBuilder = MockMvcRequestBuilders
+				.get(uri)
+				.accept(MediaType.APPLICATION_JSON)
+				.param("idFesta", "2")
+				.contentType(MediaType.APPLICATION_JSON);
+
+		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+
+		MockHttpServletResponse response = result.getResponse();
+
+
+
+		assertEquals(400, response.getStatus());
+		assertEquals(expected, result.getResponse().getContentAsString());
+	}
+	
 	//alterar status festa________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
 	@Test
 	@WithMockUser

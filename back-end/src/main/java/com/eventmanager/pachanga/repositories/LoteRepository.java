@@ -20,5 +20,8 @@ public interface LoteRepository extends JpaRepository<Lote, Integer>{
 
 	@Query(value = "SELECT l FROM Lote l JOIN l.festa f WHERE l.codLote = :codLote")
 	public Lote findByCodLote(int codLote);
+	
+	@Query(value = "SELECT l FROM Lote l JOIN l.festa f WHERE f.codFesta = :codFesta AND l.horarioFim > CURRENT_TIMESTAMP AND l.quantidade > ( SELECT count(i) FROM Ingresso i JOIN i.lote lt JOIN lt.festa fe WHERE fe.codFesta = f.codFesta AND lt.codLote = l.codLote ) ")
+	public List<Lote> findAllCompraveisFesta(int codFesta);
 
 }

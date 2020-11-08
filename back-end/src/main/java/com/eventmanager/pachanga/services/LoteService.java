@@ -50,6 +50,16 @@ public class LoteService {
 		grupoService.validarPermissaoUsuarioGrupo(lote.getFesta().getCodFesta(), codUsuario, TipoPermissao.VISULOTE.getCodigo());
 		return lote;
 	}
+	
+	public Lote encontrarLoteDadosPublicos(int codLote) {
+		Lote lote = this.validarLoteExistente(codLote);
+		return lote;
+	}
+	
+	public List<Lote> encontrarLotesCompraveisFesta(int codFesta) {
+		List<Lote> lotes = loteRepository.findAllCompraveisFesta(codFesta);
+		return lotes;
+	}
 
 	public Lote adicionarLote(LoteTO loteTo, int codUsuario) {
 		Festa festa = festaService.validarFestaExistente(loteTo.getCodFesta());

@@ -352,5 +352,30 @@ class LoteServiceTest {
 		assertEquals(true, lote.getCodLote() == loteReturn.getCodLote());
 		
 	}
+	
+	@Test
+	void encontrarLotesCompraveisFestaTest() {
+		List<Lote> lotes = new ArrayList<>();
+		lotes.add(loteTest());
+		
+		Mockito.when(loteRepository.findAllCompraveisFesta(Mockito.anyInt())).thenReturn(lotes);
+		
+		List<Lote> lotesReturn = loteService.encontrarLotesCompraveisFesta(festaTest().getCodFesta());
+		
+		assertEquals(lotesReturn.get(0), lotes.get(0));
+		
+	}
+	
+	@Test
+	void encontrarLoteDadosPublicosTest() {
+		Lote lote = loteTest();
+		
+		Mockito.when(loteRepository.findByCodLote(Mockito.anyInt())).thenReturn(lote);
+		
+		Lote loteReturn = loteService.encontrarLoteDadosPublicos(lote.getCodLote());
+		
+		assertEquals(lote, loteReturn);
+		
+	}
 
 }

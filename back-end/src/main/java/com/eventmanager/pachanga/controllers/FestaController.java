@@ -84,6 +84,25 @@ public class FestaController {
 			return ResponseEntity.status(400).body(e.getMessage());
 		}
 	}
+	
+	@ResponseBody
+	@GetMapping(path = "/listaFestasDisponiveis")
+	public ResponseEntity<Object> listarFestaDisponiveis(){
+		try {
+			List<Festa> festas =  festaService.procurarFestasComLotesCompraveis();
+			List<FestaTO> festasTO = new ArrayList<>();
+			for(Festa festa : festas) {
+				List<UsuarioTO> usuarios = listUsuarioTO(festa);
+				CategoriaTO categoriaPrimaria = categoriaFesta(festa.getCodFesta(), TipoCategoria.PRIMARIO.getDescricao());
+				CategoriaTO categoriaSecundaria = categoriaFesta(festa.getCodFesta(), TipoCategoria.SECUNDARIO.getDescricao());
+				List<ConvidadoTO> convidados = convidadoFactory.getConvidadosTO(convidadoService.pegarConvidadosFesta(festa.getCodFesta()));
+				festasTO.add(festaFactory.getFestaTO(festa, usuarios, true, categoriaPrimaria, categoriaSecundaria, convidados));		
+			}
+			return ResponseEntity.ok(festasTO);
+		}catch(ValidacaoException e) {
+			return ResponseEntity.status(400).body(e.getMessage());
+		}
+	}
 
 	@ResponseBody
 	@PostMapping(path = "/adicionar")
@@ -134,6 +153,24 @@ public class FestaController {
 				CategoriaTO categoriaSecundario = categoriaFesta(festa.getCodFesta(), TipoCategoria.SECUNDARIO.getDescricao());
 				List<ConvidadoTO> convidados = convidadoFactory.getConvidadosTO(convidadoService.pegarConvidadosFesta(festa.getCodFesta()));
 				return ResponseEntity.ok(festaFactory.getFestaTO(festa, usuarios, false, categoriaPrimaria, categoriaSecundario, convidados, idUsuario));
+			}
+			return ResponseEntity.status(200).body(festaTo);
+		}catch (ValidacaoException e) {
+			return ResponseEntity.status(400).body(e.getMessage());
+		}
+	}
+	
+	@ResponseBody
+	@GetMapping(path = "/festaUnicaDadosPublicos")
+	public ResponseEntity<Object> getFestaSemUserId(@RequestParam(required = true)int idFesta){
+		try {			
+			FestaTO festaTo = null;
+			Festa festa = festaService.procurarDadosPublicosFesta(idFesta);
+			if(festa != null) {
+				CategoriaTO categoriaPrimaria = categoriaFesta(festa.getCodFesta(), TipoCategoria.PRIMARIO.getDescricao());
+				CategoriaTO categoriaSecundaria = categoriaFesta(festa.getCodFesta(), TipoCategoria.SECUNDARIO.getDescricao());
+				List<ConvidadoTO> convidados = convidadoFactory.getConvidadosTO(convidadoService.pegarConvidadosFesta(festa.getCodFesta()));
+				return ResponseEntity.ok(festaFactory.getFestaTO(festa, null, false, categoriaPrimaria, categoriaSecundaria, convidados));
 			}
 			return ResponseEntity.status(200).body(festaTo);
 		}catch (ValidacaoException e) {
