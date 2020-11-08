@@ -309,6 +309,9 @@
 
     "RELATARPROB": {
         "TITULO": "Report Issue in ",
+        "F": "Finished",
+        "A": "In Progress",
+        "E": "False Report",
         "PROBLEMA": "Issue",
         "TUMULTTO": "Turmoil",
         "BRIGAVIO": "Fight",
@@ -610,8 +613,12 @@
         "PROBLEMA": "Problem",
         "NOMEAREA": "Security area name",
         "CONFIRM": "Confirm",
+        "DETALHES": "Details",
+        "RELATAR": "Report Issue",
         "MESSAGE": "Do you really want to delete this security area",
-        "CANCEL": "Cancel"
+        "CANCEL": "Cancel",
+        "I": "Unsecured",
+        "S": "Safe"
     },
     
     "FORMS": {

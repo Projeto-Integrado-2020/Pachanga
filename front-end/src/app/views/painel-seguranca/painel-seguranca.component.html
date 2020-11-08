@@ -28,20 +28,23 @@
                     <mat-expansion-panel hideToggle class="painel">
                         <mat-expansion-panel-header>
                             <mat-panel-title>{{area.nomeArea}}</mat-panel-title>
-                            <mat-panel-description>Status: {{area.statusSeguranca}}</mat-panel-description>
+                            <mat-panel-description>Status: {{'AREASEGURANCA.' + area.statusSeguranca | translate}}</mat-panel-description>
                         </mat-expansion-panel-header>
                         <div class="problemas">
                             <div class="problema" *ngFor="let problema of area.problemasArea">
                                 <span>{{'RELATARPROB.' + problema.descProblema | translate}}</span>
-                                <span>{{problema.statusProblema}}</span>
-                                <button class="botao" mat-button (click)="verDetalhesProblema(problema)">Detalhes</button>
+                                <div class="problema__detalhe">
+                                    <span>{{'RELATARPROB.' + problema.statusProblema | translate}}</span>
+                                    <button class="botao" mat-button (click)="verDetalhesProblema(problema)">{{'AREASEGURANCA.DETALHES' | translate}}</button>
+                                </div>
+                                
                             </div>
                             <!-- <div class="problema" *ngFor="let problema of this.getProblemasArea(area)">
                                 <span>{{problema.descProblema}}</span>
                             </div> -->
                         </div>
                         <div class="botoes">
-                            <button class="botao prp-btn-delete" mat-button (click)="openDialogRelatarProblema(area)">Relatar Problema</button>
+                            <button class="botao prp-btn-delete" mat-button (click)="openDialogRelatarProblema(area)">{{'AREASEGURANCA.RELATAR' | translate}}</button>
                             <button class="botao prp-btn-delete" mat-button (click)="openDialogDelete(area.codArea)">{{'AREASEGURANCA.DELETE' | translate}}</button>
                             <button class="botao prp-btn-edit" mat-button (click)="openDialogEdit(area)">{{'AREASEGURANCA.EDIT' | translate}}</button>
                         </div>

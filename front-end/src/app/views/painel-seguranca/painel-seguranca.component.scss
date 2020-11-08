@@ -377,6 +377,13 @@ tr.example-element-row:not(.example-expanded-row):active {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+
+  &__detalhe {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+  }
 }
 
 .detalhes-btn {

@@ -27,8 +27,12 @@
         "PROBLEMA": "Problema",
         "NOMEAREA": "Nome da área de segurança",
         "CONFIRM": "Confirmar",
+        "DETALHES": "Detalhes",
+        "RELATAR": "Relatar Problema",
         "MESSAGE": "Você realmente deseja deletar esta área de segurança",
-        "CANCEL": "Cancelar"
+        "CANCEL": "Cancelar",
+        "I": "Insegura",
+        "S": "Segura"
     },
 
     "ASSIGNDIALOG": {
@@ -626,6 +630,9 @@
 
     "RELATARPROB": {
         "TITULO": "Relatar Problema em ",
+        "F": "Finalizado",
+        "A": "Em Andamento",
+        "E": "Engano",
         "PROBLEMA": "Problema",
         "TUMULTTO": "Tumulto",
         "BRIGAVIO": "Briga",
