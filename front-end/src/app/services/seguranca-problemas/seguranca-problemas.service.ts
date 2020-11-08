@@ -103,7 +103,7 @@ export class SegurancaProblemasService {
 
   // /lista get
   getAllProblemasArea(codArea, codFesta) {
-    if(!this.farol) {
+    if (!this.farol) {
       this.setFarol(true);
       let headers = new HttpHeaders();
       headers = headers.append('Content-Type', 'application/json');
@@ -125,7 +125,7 @@ export class SegurancaProblemasService {
 
     // /lista get
     getAllProblemasFesta(codFesta) {
-      if(!this.farol) {
+      if (!this.farol) {
         this.setFarol(true);
         const httpParams = new HttpParams()
           .append('codFesta', codFesta)

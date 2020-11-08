@@ -45,10 +45,10 @@ export class RelatarProblemaDialogComponent implements OnInit {
     );
     // console.log(this.listaProblemas);
   }
-  //{{'CATEGORIA.' + categoria.nomeCategoria | translate}}
-  
+  // {{'CATEGORIA.' + categoria.nomeCategoria | translate}}
+
   relatarProblema(problemaTO) {
- 
+
 
     this.date = new Date();
 
@@ -64,8 +64,8 @@ export class RelatarProblemaDialogComponent implements OnInit {
 
     this.segurancaProblemaService.adicionarProblema(problemaTO).subscribe();
     this.router.navigateByUrl(this.router.url);
-    //this.dialogRef.close();
-    //this.atualizarProblemas();
+    // this.dialogRef.close();
+    // this.atualizarProblemas();
   }
 
   // atualizarProblemas() {
