@@ -29,7 +29,7 @@ public class AreaSegurancaProblemaController {
 	private AreaSegurancaProblemaService areaSegurancaProblemaService;
 
 	@Autowired
-	AreaSegurancaProblemaFactory areaSegurancaProblemaFactory;
+	private AreaSegurancaProblemaFactory areaSegurancaProblemaFactory;
 
 	@ResponseBody
 	@PostMapping(path = "/adicionar")

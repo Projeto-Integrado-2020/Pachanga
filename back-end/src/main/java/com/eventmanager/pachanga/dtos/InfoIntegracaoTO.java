@@ -10,7 +10,7 @@ public class InfoIntegracaoTO {
 
 	private int codFesta;
 	
-	private int codEvent;
+	private String codEvent;
 
 	public int getCodInfo() {
 		return codInfo;
@@ -44,11 +44,11 @@ public class InfoIntegracaoTO {
 		this.codFesta = codFesta;
 	}
 
-	public int getCodEvent() {
+	public String getCodEvent() {
 		return codEvent;
 	}
 
-	public void setCodEvent(int codEvent) {
+	public void setCodEvent(String codEvent) {
 		this.codEvent = codEvent;
 	}
 

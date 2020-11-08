@@ -153,7 +153,7 @@ public class AreaSegurancaProblemaService {
 				|| problemaSeguranca.getStatusProblema().equals(TipoStatusProblema.ENGANO.getValor()))
 				&& problemaSeguranca.getCodUsuarioResolv() == null) {
 
-			throw new ValidacaoException("STSINVL"); // STATUS INVALIDO
+			throw new ValidacaoException("STSPINVL"); // STATUS INVALIDO
 		}
 	}
 

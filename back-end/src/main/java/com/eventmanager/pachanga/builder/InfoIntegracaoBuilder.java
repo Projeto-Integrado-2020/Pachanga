@@ -13,7 +13,7 @@ public class InfoIntegracaoBuilder {
 
 	private Festa festa;
 	
-	private int codEvent;
+	private String codEvent;
 	
 	public static InfoIntegracaoBuilder getInstance() {
 		return new InfoIntegracaoBuilder();
@@ -34,7 +34,7 @@ public class InfoIntegracaoBuilder {
 		return this;
 	}
 	
-	public InfoIntegracaoBuilder codEvent(int codEvent) {
+	public InfoIntegracaoBuilder codEvent(String codEvent) {
 		this.codEvent = codEvent;
 		return this;
 	}

@@ -60,20 +60,14 @@ public class InfoIntegracaoService {
 		this.validarTerceiroInt(infoTo.getTerceiroInt());
 		this.validarInfo(infoTo);
 		InfoIntegracao info = infoIntegracaoFactory.getInfoIntegracao(infoTo, festa);
-		if(infoIntegracaoRepository.findInfoFesta(infoTo.getCodFesta(), infoTo.getTerceiroInt()) != null) {
-			throw new ValidacaoException("INFOTCAD");// info terceiro já cadastrada
-		}
 		info.setCodInfo(infoIntegracaoRepository.getNextValMySequence());
 		infoIntegracaoRepository.save(info);
 		return info;
 	}
 
 	private void validarInfo(InfoIntegracaoTO infoTo) {
-		if (infoIntegracaoRepository.findInfo(infoTo.getCodFesta(), infoTo.getTerceiroInt(), infoTo.getCodEvent(), infoTo.getToken()) != null) {
+		if(infoIntegracaoRepository.findInfoFesta(infoTo.getCodFesta(), infoTo.getTerceiroInt()) != null) {
 			throw new ValidacaoException("INFOTCAD");// info terceiro já cadastrada
-		}
-		if (infoIntegracaoRepository.findInfoByToken(infoTo.getCodFesta(), infoTo.getToken(), infoTo.getTerceiroInt()) != null) {
-			throw new ValidacaoException("INFOTOKU");// token já sendo utilizado
 		}
 	}
 
@@ -83,19 +77,17 @@ public class InfoIntegracaoService {
 		grupoService.validarPermissaoUsuarioGrupo(infoTo.getCodFesta(), codUsuario, TipoPermissao.EDITINTE.getCodigo());
 		this.validarTerceiroInt(infoTo.getTerceiroInt());
 		InfoIntegracao info = this.validaInfoExistente(infoTo);
-		this.validarInfo(infoTo);
-		info.setTerceiroInt(infoTo.getTerceiroInt());
 		info.setToken(infoTo.getToken());
 		info.setCodEvent(infoTo.getCodEvent());
 		infoIntegracaoRepository.save(info);
 		return info;
 	}
 
-	public void deleteinfoIntegracaoFesta(InfoIntegracaoTO infoTo, int codUsuario) {
-		festaService.validarFestaExistente(infoTo.getCodFesta());
-		festaService.validarUsuarioFesta(codUsuario, infoTo.getCodFesta());
-		grupoService.validarPermissaoUsuarioGrupo(infoTo.getCodFesta(), codUsuario, TipoPermissao.DELEINTE.getCodigo());
-		InfoIntegracao info = this.validaInfoExistente(infoTo);
+	public void deleteinfoIntegracaoFesta(int codInfo, int codUsuario) {
+		InfoIntegracao info = infoIntegracaoRepository.findByCodInfo(codInfo);
+		festaService.validarFestaExistente(info.getFesta().getCodFesta());
+		festaService.validarUsuarioFesta(codUsuario, info.getFesta().getCodFesta());
+		grupoService.validarPermissaoUsuarioGrupo(info.getFesta().getCodFesta(), codUsuario, TipoPermissao.DELEINTE.getCodigo());
 		infoIntegracaoRepository.delete(info);
 	}
 	

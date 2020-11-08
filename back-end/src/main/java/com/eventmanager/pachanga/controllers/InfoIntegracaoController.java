@@ -66,7 +66,7 @@ public class InfoIntegracaoController {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
 	}
-	
+
 	@ResponseBody
 	@PutMapping(path = "/atualizar")
 	public ResponseEntity<Object> atualizarinfoIntegracaoFesta(@RequestBody(required = true) InfoIntegracaoTO infoTo,
@@ -78,13 +78,13 @@ public class InfoIntegracaoController {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
 	}
-	
+
 	@ResponseBody
 	@DeleteMapping(path = "/delete")
-	public ResponseEntity<Object> deleteinfoIntegracaoFesta(@RequestBody(required = true) InfoIntegracaoTO infoTo,
+	public ResponseEntity<Object> deleteinfoIntegracaoFesta(@RequestParam(required = true) int codInfo,
 			@RequestParam(required = true) int codUsuario) {
 		try {
-			infoIntegracaoService.deleteinfoIntegracaoFesta(infoTo, codUsuario);
+			infoIntegracaoService.deleteinfoIntegracaoFesta(codInfo, codUsuario);
 			return ResponseEntity.ok().build();
 		} catch (ValidacaoException e) {
 			return ResponseEntity.badRequest().body(e.getMessage());

@@ -22,7 +22,7 @@ public class InfoIntegracao {
 	private String token;
 	
 	@Column(name="cod_event")
-	private Integer codEvent;
+	private String codEvent;
 	
 	@ManyToOne
 	@JoinColumn(name = "cod_festa")
@@ -60,11 +60,11 @@ public class InfoIntegracao {
 		this.festa = festa;
 	}
 
-	public int getCodEvent() {
+	public String getCodEvent() {
 		return codEvent;
 	}
 
-	public void setCodEvent(int codEvent) {
+	public void setCodEvent(String codEvent) {
 		this.codEvent = codEvent;
 	}
 
