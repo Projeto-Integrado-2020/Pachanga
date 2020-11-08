@@ -33,23 +33,24 @@ export class AdicionarIntegracoesDialogComponent implements OnInit {
 
   get f() { return this.form.controls; }
 
-  submitForm(terIntegrado, codEvento, privateToken) {
+  submitForm(terceiroInt, codEvent, token) {
     const integracao = {
       codFesta: this.codFesta,
-      terIntegrado,
-      codEvento,
-      privateToken
+      terceiroInt,
+      codEvent,
+      token
     };
     this.checarIntegracao(integracao);
   }
 
   checarIntegracao(integracao) {
-    if (integracao.terIntegrado === 'S') {
-      this.symplaService.testSymplaConnection(integracao.codEvento, integracao.privateToken).subscribe((resp: any) => {
+    if (integracao.terceiroInt === 'S') {
+      this.symplaService.testSymplaConnection(integracao.codEvent, integracao.token).subscribe((resp: any) => {
         this.criarIntegracao(integracao);
       });
-    } else if (integracao.terIntegrado === 'E') {
-      this.eventbriteService.testEventbriteConnection(integracao.codEvento, integracao.privateToken).subscribe((resp: any) => {
+    } else if (integracao.terceiroInt === 'E') {
+      this.eventbriteService.testEventbriteConnection(integracao.codEvent, integracao.token).subscribe((resp: any) => {
+        console.log(integracao);
         this.criarIntegracao(integracao);
       });
     }

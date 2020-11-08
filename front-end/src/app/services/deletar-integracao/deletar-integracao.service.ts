@@ -14,16 +14,16 @@ import { LoginService } from '../loginService/login.service';
 export class DeletarIntegracaoService {
 
   farol = false;
-  private readonly urlDeletarIntegracao = `${environment.URL_BACK}integracao/remover`;
+  private readonly urlDeletarIntegracao = `${environment.URL_BACK}integracao/delete`;
 
   constructor(private http: HttpClient, public logService: LogService, public dialog: MatDialog,
               public loginService: LoginService) { }
 
-  deleteIntegracao(codIntegracao) {
+  deleteIntegracao(codInfo) {
     if (!this.farol) {
       this.setFarol(true);
       const httpParams = new HttpParams()
-        .append('codIntegracao', codIntegracao)
+        .append('codInfo', codInfo)
         .append('codUsuario', this.loginService.usuarioInfo.codUsuario);
 
       let headers = new HttpHeaders();

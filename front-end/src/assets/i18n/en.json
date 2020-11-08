@@ -137,7 +137,14 @@
         "URLFORMS": "This URL has already been registered.",
         "NOMEFORM": "This name has already been registered.",
         "SYMERROR": "Error to authenticate this Sympla Event.",
-        "EVBERROR": "Error to authenticate this Eventbrite Event."
+        "EVBERROR": "Error to authenticate this Eventbrite Event.",
+        "STSPINVL": "Invalid security status.",
+        "PRSENFOU": "Security problem not found",
+        "PROBNFOU": "Problem not fount.",
+        "TERCINCO": "Incorrect Third-Party.",
+        "INFOTCAD": "Third-Party already registered.",
+        "INFOTOKU": "Token already registered.",
+        "INFONFOU": "Integration not found."
     },
 
     "SUCCESS": {

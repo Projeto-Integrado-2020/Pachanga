@@ -32,15 +32,15 @@
             <div *ngFor="let integracao of integracoes" class="painel">
                 <mat-card class="integracao-tab">
                     <mat-card-header>
-                        <mat-card-title *ngIf="integracao.terIntegrado == 'S'">Sympla</mat-card-title>
-                        <mat-card-title *ngIf="integracao.terIntegrado == 'E'">Eventbrite</mat-card-title>
+                        <mat-card-title *ngIf="integracao.terceiroInt == 'S'">Sympla</mat-card-title>
+                        <mat-card-title *ngIf="integracao.terceiroInt == 'E'">Eventbrite</mat-card-title>
                         <mat-card-subtitle>{{'INTEGRACAO.SUBTITLE' | translate}}</mat-card-subtitle>
                     </mat-card-header>
                     
                     <mat-card-content class="card-content">
                         <div class="textos">
                             <div class="texto">
-                                <p><b>{{'INTEGRACAO.IDEVENTO' | translate}}: </b> {{integracao.codEvento}}</p>
+                                <p><b>{{'INTEGRACAO.IDEVENTO' | translate}}: </b> {{integracao.codEvent}}</p>
                             </div>
                             <div class="texto">                        
                                 <p><b>{{'INTEGRACAO.TOKEN' | translate}}: </b> {{integracao.token}}</p>

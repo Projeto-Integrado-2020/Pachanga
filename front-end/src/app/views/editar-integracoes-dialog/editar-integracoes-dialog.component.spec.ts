@@ -101,9 +101,10 @@ describe('EditarIntegracoesDialogComponent', () => {
     component.codFesta = 'teste';
     const integracao = {
       codFesta: 'teste',
-      terIntegrado: 'teste',
-      codEvento: 'teste',
-      privateToken: 'teste'
+      codInfo: 'teste',
+      terceiroInt: 'teste',
+      codEvent: 'teste',
+      token: 'teste'
     };
     component.editarIntegracao(integracao);
 
@@ -124,9 +125,10 @@ describe('EditarIntegracoesDialogComponent', () => {
 
     const integracao = {
       codFesta: 'teste',
-      terIntegrado: 'S',
-      codEvento: 'testeEvento',
-      privateToken: 'testeToken'
+      codInfo: 'teste',
+      terceiroInt: 'S',
+      codEvent: 'testeEvento',
+      token: 'testeToken'
     };
     component.checarIntegracao(integracao);
 
@@ -145,9 +147,10 @@ describe('EditarIntegracoesDialogComponent', () => {
 
     const integracao = {
       codFesta: 'teste',
-      terIntegrado: 'E',
-      codEvento: 'testeEvento',
-      privateToken: 'testeToken'
+      codInfo: 'teste',
+      terceiroInt: 'E',
+      codEvent: 'testeEvento',
+      token: 'testeToken'
     };
     component.checarIntegracao(integracao);
 
@@ -162,9 +165,10 @@ describe('EditarIntegracoesDialogComponent', () => {
 
     const integracao = {
       codFesta: 'teste',
-      terIntegrado: 'E',
-      codEvento: 'testeEvento',
-      privateToken: 'testeToken'
+      codInfo: 'teste',
+      terceiroInt: 'E',
+      codEvent: 'testeEvento',
+      token: 'testeToken'
     };
     component.integracao = integracao;
     component.submitForm('testeEvento', 'testeToken');

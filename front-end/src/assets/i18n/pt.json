@@ -245,7 +245,14 @@
         "URLFORMS": "Esta URL já foi registrada.",
         "NOMEFORM": "Este nome já foi registrado.",
         "SYMERROR": "Erro ao autenticar este evento do Sympla.",
-        "EVBERROR": "Erro ao autenticar este evento do Eventbrite."
+        "EVBERROR": "Erro ao autenticar este evento do Eventbrite.",
+        "STSPINVL": "Status de segurança inválido.",
+        "PRSENFOU": "Problema de segurança inexistente.",
+        "PROBNFOU": "Problema não encontrado.",
+        "TERCINCO": "Terceiro incorreto.",
+        "INFOTCAD": "Terceiro já cadastrado.",
+        "INFOTOKU": "Token já sendo utilizado.",
+        "INFONFOU": "Integração não encontrada."
     },
 
     "ESTOQUE": {
