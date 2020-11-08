@@ -581,7 +581,15 @@
         "VISUFORM": "Visualizar questionários Google Forms.",
         "ADDFORMS": "Registrar questionários Google Forms.",
         "DELEFORM": "Remover questionários Google Forms.",
-        "EDITFORM": "Editar questionários Google Forms."
+        "EDITFORM": "Editar questionários Google Forms.",
+        "VISUPSEG": "Visualizar problema de segurança",
+        "ADDPSEGU": "Adicionar problema de segurança",
+        "DELEPSEG": "Remover problema de segurança",
+        "EDITPSEG": "Editar problema de segurança",
+        "VISUINTE": "Visualizar integração",
+        "ADDINTEG": "Adicionar integração",
+        "DELEINTE": "Remover integração",
+        "EDITINTE": "Editar integração"
     },
     
     "PRIVACIDADE": {

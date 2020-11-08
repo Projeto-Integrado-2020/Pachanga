@@ -425,7 +425,15 @@
         "VISUFORM": "View Google Forms surveys.",
         "ADDFORMS": "Add Google Forms surveys.",
         "DELEFORM": "Delete Google Forms surveys.",
-        "EDITFORM": "Edit Google Forms surveys."
+        "EDITFORM": "Edit Google Forms surveys.",
+        "VISUPSEG": "View security problem",
+        "ADDPSEGU": "Add security problem",
+        "DELEPSEG": "Delete security problem",
+        "EDITPSEG": "Edit security problem",
+        "VISUINTE": "View integration",
+        "ADDINTEG": "Add integration",
+        "DELEINTE": "Delete integration",
+        "EDITINTE": "Edit integration"
     },
 
     "ASSIGNDIALOG": {
