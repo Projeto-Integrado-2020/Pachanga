@@ -46,6 +46,7 @@ import { FormsPainelComponent } from '../forms-painel/forms-painel.component';
 import { CriarLoteComponent } from '../criar-lote/criar-lote.component';
 import { PainelIngressoComponent } from '../painel-ingresso/painel-ingresso.component';
 import { EditarLoteComponent } from '../editar-lote/editar-lote.component';
+import { VendaIngressosComponent } from '../venda-ingressos/venda-ingressos.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -99,7 +100,8 @@ describe('CadastroComponent', () => {
         FormsPainelComponent,
         PainelIngressoComponent,
         CriarLoteComponent,
-        EditarLoteComponent
+        EditarLoteComponent,
+        VendaIngressosComponent
       ],
       imports: [
         MomentModule,

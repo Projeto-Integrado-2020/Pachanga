@@ -37,6 +37,7 @@ import { FormsPainelComponent } from '../forms-painel/forms-painel.component';
 import { CriarLoteComponent } from '../criar-lote/criar-lote.component';
 import { PainelIngressoComponent } from '../painel-ingresso/painel-ingresso.component';
 import { EditarLoteComponent } from '../editar-lote/editar-lote.component';
+import { VendaIngressosComponent } from '../venda-ingressos/venda-ingressos.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -72,7 +73,8 @@ describe('IndexComponent', () => {
         FormsPainelComponent,
         PainelIngressoComponent,
         CriarLoteComponent,
-        EditarLoteComponent
+        EditarLoteComponent,
+        VendaIngressosComponent
       ],
       imports: [
         MomentModule,
@@ -99,6 +101,7 @@ describe('IndexComponent', () => {
     fixture = TestBed.createComponent(IndexComponent);
     const service: LoginService = TestBed.get(LoginService);
     service.usuarioInfo = {sexo: null, dtNasc: null};
+    component.festas = {codFesta: '1', nomeFesta: 'festa', horarioInicio: '2020-09-23T19:10:25', horarioFim: '2020-09-23T19:10:25'};
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
@@ -107,5 +110,20 @@ describe('IndexComponent', () => {
     const service: LoginService = TestBed.get(LoginService);
     service.usuarioInfo = {nomeUser: 'Teste', sexo: null, dtNasc: null};
     expect(component).toBeTruthy();
+  });
+
+  it('should format date from datetime', () => {
+    const result = component.getDateFromDTF('2020-09-23T19:10:25');
+    expect(result).toBe('23/09/2020');
+  });
+
+  it('should format time from datetime', () => {
+    const result = component.getTimeFromDTF('2020-09-23T19:10:25');
+    expect(result).toBe('19:10:25');
+  });
+
+  it('should create ticket sales url', () => {
+    const result = component.createUrl('festa', '123');
+    expect(result).toBe('../festa&123/venda-ingressos');
   });
 });

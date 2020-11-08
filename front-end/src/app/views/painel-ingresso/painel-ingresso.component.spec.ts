@@ -76,7 +76,7 @@ describe('PainelIngressoComponent', () => {
     expect(result).toBe('19:10:25');
   });
 
-  it('should create url with party name and id', () => {
+  it('should create url with batch id', () => {
     const result = component.createUrlEditLote('1');
     expect(result).toBe('../ingressos/editar-lote/1');
   });

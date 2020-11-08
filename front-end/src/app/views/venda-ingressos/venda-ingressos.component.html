@@ -1,0 +1,49 @@
+<div class="main-container">
+    <div class="lista-festas">
+        <mat-card class="festa-tab">
+            <mat-card-header>
+                <mat-card-title class="title">{{festa.nomeFesta}}</mat-card-title>
+            </mat-card-header>
+            <mat-card-content class="card-content">
+                <div class="img">
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+    <div class="lista-festa">
+        <mat-card class="festa-tab">
+            <mat-card-content class="card-content-inf">
+                <div class="textos">
+                    <div class="texto">
+                        <p><b>{{ 'FESTA.INICIODATA' | translate }}:</b> {{getDateFromDTF(festa.horarioInicioFesta)}}</p>
+                        <p><b>{{ 'FESTA.FIMDATA' | translate }}:</b> {{getDateFromDTF(festa.horarioFimFesta)}}</p>
+                    </div>
+                    <div class="texto">
+                        <p><b>{{ 'FESTA.INICIOHORA' | translate }}:</b> {{getTimeFromDTF(festa.horarioInicioFesta)}}</p>
+                        <p><b>{{ 'FESTA.FIMHORA' | translate }}:</b> {{getTimeFromDTF(festa.horarioFimFesta)}}</p> 
+                    </div>
+                </div>
+                <div class="texto">
+                    <p><b>{{ 'FESTA.ENDERECO' | translate }}:</b> {{festa.codEnderecoFesta}}</p>
+                    <p><b>{{ 'FESTA.DESCRIPTION' | translate }}:</b> {{festa.descricaoFesta}}</p>
+                </div>
+                <div class="lote">
+                    <mat-card class="festa-tab">
+                        <mat-card-content class="card-content-inf">
+                            <div class="textos">
+                                <div class="texto">
+                                    <p><b>Lote:</b> Salve</p>
+                                    <p><b>Ingressos disponíveis:</b> 7000</p>
+                                    <p><b>Encerramento da venda do lote:</b> 11/11/2020 - 12:00:00</p>
+                                </div>
+                            </div>
+                            <div class="botoes">
+                                <button class="botao prp-btn-comprar" mat-button>Comprar ingresso</button>
+                            </div>
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>
