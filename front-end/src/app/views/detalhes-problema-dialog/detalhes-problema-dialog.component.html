@@ -1,10 +1,10 @@
-<h1 mat-dialog-title>Detalhes problema</h1>
+<h1 mat-dialog-title>{{"PROBLEMADETALHES.TITULO" | translate}}</h1>
 <div mat-dialog-content>
   <div class="detalhes">
-    <span>Descrição: {{this.detalhes.problema.descProblema}}</span>
-    <span>Data do Registro: {{this.dia}}</span>
-    <span>Horário do Registro: {{this.hora}}</span>
-    <span>Status do Problema: {{this.detalhes.problema.statusProblema}}</span>
+    <span>{{"PROBLEMADETALHES.DESCRICAO" | translate}}: {{"RELATARPROB." + this.detalhes.problema.descProblema | translate}}</span>
+    <span>{{"PROBLEMADETALHES.DATA" | translate}}: {{this.dia}}</span>
+    <span>{{"PROBLEMADETALHES.HORARIO" | translate}}: {{this.hora}}</span>
+    <span>Status: {{"RELATARPROB." + this.detalhes.problema.statusProblema | translate}}</span>
   </div>
   <div class="botoes">
       <button 
@@ -12,18 +12,18 @@
         (click)="alterarStatus(true, 'F')"
         class="btn"
         mat-button
-        >Marcar como Finalizado</button>
+        >{{"PROBLEMADETALHES.MARCARCOMO" | translate}} {{"RELATARPROB.F" | translate}}</button>
       <button
         *ngIf="this.detalhes.problema.statusProblema == 'A'"
         (click)="alterarStatus(true, 'E')"
         class="btn"
         mat-button
-        >Marcar como Engano</button>
+        >{{"PROBLEMADETALHES.MARCARCOMO" | translate}} {{"RELATARPROB.E" | translate}}</button>
       <button 
         *ngIf="this.detalhes.problema.statusProblema == 'E' || this.detalhes.problema.statusProblema == 'F'"
         (click)="alterarStatus(false, 'A')"
         class="btn"
         mat-button
-        >Marcar como Em Andamento</button>
+        >{{"PROBLEMADETALHES.MARCARCOMO" | translate}} {{"RELATARPROB.A" | translate}}</button>
   </div>
 </div>
