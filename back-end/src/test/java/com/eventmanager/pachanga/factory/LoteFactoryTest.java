@@ -43,7 +43,6 @@ class LoteFactoryTest {
 	private LoteTO loteToTest() {
 		LoteTO loteTo = new LoteTO();
 		loteTo.setCodLote(1);
-		;
 		loteTo.setCodFesta(2);
 		loteTo.setDescLote("lote vip krl");
 		loteTo.setNomeLote("Teste");
