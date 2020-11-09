@@ -24,7 +24,6 @@ describe('GetFestaIndexService', () => {
   });
 
   it('should be created', () => {
-    const service: GetFestaIndexService = TestBed.get(GetFestaIndexService);
     expect(service).toBeTruthy();
   });
 
@@ -41,11 +40,11 @@ describe('GetFestaIndexService', () => {
     expect(service.getFarol()).toBeTruthy();
   });
 
-  it('should get Info at acessarFesta', () => {
-    expect(service.acessarFesta()).toBeTruthy();
+  it('should get Info at getFestasLista', () => {
+    expect(service.getFestasLista()).toBeTruthy();
 
     expect(service.getFarol()).toBeTruthy();
 
-    expect(service.acessarFesta()).toBeFalsy();
+    expect(service.getFestasLista()).toBeFalsy();
   });
 });

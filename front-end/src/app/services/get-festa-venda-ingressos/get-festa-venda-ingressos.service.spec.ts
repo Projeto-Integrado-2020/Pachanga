@@ -40,11 +40,11 @@ describe('GetFestaVendaIngressosService', () => {
     expect(service.getFarol()).toBeTruthy();
   });
 
-  it('should get Info at acessarFesta', () => {
-    expect(service.acessarFesta('teste')).toBeTruthy();
+  it('should get Info at getFestaVenda', () => {
+    expect(service.getFestaVenda()).toBeTruthy();
 
     expect(service.getFarol()).toBeTruthy();
 
-    expect(service.acessarFesta('teste')).toBeFalsy();
+    expect(service.getFestaVenda()).toBeFalsy();
   });
 });

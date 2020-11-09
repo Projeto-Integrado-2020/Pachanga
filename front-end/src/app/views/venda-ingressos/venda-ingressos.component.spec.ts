@@ -10,14 +10,17 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { HttpLoaderFactory } from '../edit-dialog/edit-dialog.component.spec';
 import { HttpClient } from '@angular/common/http';
 import { MatDialog } from '@angular/material';
+import { LoginService } from 'src/app/services/loginService/login.service';
 
-describe('PainelSegurancaComponent', () => {
+describe('VendaIngressosComponent', () => {
   let component: VendaIngressosComponent;
   let fixture: ComponentFixture<VendaIngressosComponent>;
 
   let dialogSpy: MatDialog;
 
   beforeEach(async(() => {
+    dialogSpy = jasmine.createSpyObj('MatDialog', ['open', 'closeAll']);
+
     TestBed.configureTestingModule({
       declarations: [ VendaIngressosComponent ],
       imports: [
@@ -44,6 +47,14 @@ describe('PainelSegurancaComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(VendaIngressosComponent);
     component = fixture.componentInstance;
+    const service: LoginService = TestBed.get(LoginService);
+    service.usuarioInfo = {codUsuario: '1'};
+    component.festa = {
+      nomeFesta: 'Teste',
+      codFesta: 'Teste',
+      horarioInicioFesta: '2020-09-23T19:10:25',
+      horarioFimFesta: '2020-09-23T19:10:25'
+    };
     fixture.detectChanges();
   });
 

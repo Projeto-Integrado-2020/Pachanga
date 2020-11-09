@@ -40,7 +40,7 @@ export class IndexComponent implements OnInit {
       if (this.festas.length === 0) {
         this.nenhumaFesta = true;
       }
-      
+
       this.length = this.festas.length;
       this.festasMostradas = this.festas.slice(0, 5);
     });
@@ -65,5 +65,5 @@ export class IndexComponent implements OnInit {
     const url = '../' + nomeFesta + '&' + codFesta + '/venda-ingressos';
     return url;
   }
-  
+
 }

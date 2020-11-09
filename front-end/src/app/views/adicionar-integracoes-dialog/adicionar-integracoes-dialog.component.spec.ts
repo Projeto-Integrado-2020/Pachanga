@@ -63,6 +63,11 @@ describe('AdicionarIntegracoesDialogComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(AdicionarIntegracoesDialogComponent);
     component = fixture.componentInstance;
+    component.component = {
+      ngOnInit: () => {
+        return true;
+      }
+    };
     fixture.detectChanges();
   });
 
@@ -83,11 +88,6 @@ describe('AdicionarIntegracoesDialogComponent', () => {
     .and
     .callThrough();
 
-    component.component = {
-      ngOnInit: () => {
-        return true;
-      }
-    };
     spyOn(component.component, 'ngOnInit')
     .and
     .callThrough();

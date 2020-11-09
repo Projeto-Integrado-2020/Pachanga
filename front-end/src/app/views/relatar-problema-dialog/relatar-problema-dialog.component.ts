@@ -4,6 +4,7 @@ import { LoginService } from 'src/app/services/loginService/login.service';
 import { SegurancaProblemasService } from 'src/app/services/seguranca-problemas/seguranca-problemas.service';
 import { DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
+import { PainelSegurancaComponent } from '../painel-seguranca/painel-seguranca.component';
 
 @Component({
   selector: 'app-relatar-problema-dialog',
@@ -11,7 +12,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./relatar-problema-dialog.component.scss']
 })
 export class RelatarProblemaDialogComponent implements OnInit {
-  public component: any;
+  public component: PainelSegurancaComponent;
   public codFesta: any;
   public area: any;
   public problemaTO: any;
@@ -62,10 +63,10 @@ export class RelatarProblemaDialogComponent implements OnInit {
       }
     );
 
-    this.segurancaProblemaService.adicionarProblema(problemaTO).subscribe();
-    this.router.navigateByUrl(this.router.url);
-    // this.dialogRef.close();
-    // this.atualizarProblemas();
+    this.segurancaProblemaService.adicionarProblema(problemaTO).subscribe((resp: any) => {
+      this.dialogRef.close();
+      this.component.ngOnInit();
+    });
   }
 
   // atualizarProblemas() {
