@@ -23,6 +23,7 @@ public class AreaSegurancaProblemaFactory {
 		int codUsuarioResolv = 0;
 		if(problemaSeguranca.getCodUsuarioResolv() != null) codUsuarioResolv = problemaSeguranca.getCodUsuarioResolv().getCodUsuario();
 		return AreaSegurancaProblemaTOBuilder.getInstance()
+										 .codAreaProblema(problemaSeguranca.getCodAreaProblema())
 									     .codAreaSeguranca(problemaSeguranca.getArea().getCodArea())
 									     .codFesta(problemaSeguranca.getFesta().getCodFesta())
 									     .codProblema(problemaSeguranca.getProblema().getCodProblema())

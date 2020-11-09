@@ -12,7 +12,7 @@ import com.eventmanager.pachanga.domains.AreaSegurancaProblema;
 @Repository
 public interface AreaSegurancaProblemaRepository extends JpaRepository<AreaSegurancaProblema, Integer> {
 
-	@Query(value = "SELECT a FROM AreaSegurancaProblema asp JOIN asp.area a JOIN asp.problema p WHERE a.codArea= :codArea")
+	@Query(value = "SELECT asp FROM AreaSegurancaProblema asp JOIN asp.area a JOIN asp.problema p WHERE a.codArea= :codArea")
 	List<AreaSegurancaProblema> findProblemasArea(int codArea);
 
 	@Query(value = "SELECT asp FROM AreaSegurancaProblema asp JOIN asp.problema p JOIN asp.area a WHERE a.codArea = :codArea AND p.codProblema = :codProblema")
@@ -24,5 +24,11 @@ public interface AreaSegurancaProblemaRepository extends JpaRepository<AreaSegur
 
 	@Query(value = "SELECT asp FROM AreaSegurancaProblema asp JOIN asp.problema p JOIN asp.area a JOIN asp.festa f WHERE a.codArea = :codArea AND f.codFesta = :codFesta")
 	public List<AreaSegurancaProblema> findAllAreaSegurancaProblemaArea(@Param("codArea") int codArea, @Param("codFesta") int codFesta);
+
+	@Query(value = "SELECT NEXTVAL('seq_area_x_problema');", nativeQuery = true)
+	public int getNextValMySequence();
+	
+	@Query(value = "SELECT asp FROM AreaSegurancaProblema asp JOIN asp.problema p JOIN asp.area a JOIN asp.festa f WHERE asp.codAreaProblema = :codProblemaSeguranca")
+	public AreaSegurancaProblema findByCodProblema(int codProblemaSeguranca);
 	
 }

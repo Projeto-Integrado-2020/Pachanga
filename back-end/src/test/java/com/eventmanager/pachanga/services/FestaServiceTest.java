@@ -1868,4 +1868,27 @@ class FestaServiceTest {
 		assertEquals(true, notificacaoMudancaoStatusTO.getNomeFesta().equals("teste"));
 	}
 	
+	@Test
+	void procurarDadosPublicosFestaTest() throws Exception {
+		Festa festaTest = festaTest();
+
+		Mockito.when(festaRepository.findByCodFesta(Mockito.anyInt())).thenReturn(festaTest);
+
+		Festa retorno = festaService.procurarDadosPublicosFesta(festaTest.getCodFesta());
+
+		assertEquals(festaTest , retorno);
+	}
+	
+	@Test
+	void procurarFestasComLotesCompraveisTest() throws Exception {
+		Festa festaTest = festaTest();
+		List<Festa> festas = new ArrayList<>();
+		festas.add(festaTest);
+		
+		Mockito.when(festaRepository.findAllComLotesCompraveis()).thenReturn(festas);
+
+		List<Festa> retorno = festaService.procurarFestasComLotesCompraveis();
+
+		assertEquals(festaTest , retorno.get(0));
+	}
 }

@@ -1,26 +1,46 @@
 {
-    "NAV": {
-        "ENTRAR": "Entrar",
-        "CONTA": "Cria conta",
-        "VOLTAR": "Voltar",
-        "SAIR": "Sair",
-        "CONTA_L": "Minha conta",
-        "INGRESSOS": "Meus ingressos",
-        "FESTAS": "Minhas festas",
-        "IDIOMA": "Change language (EN-US)"
+
+    "404": {
+        "MESSAGE": "Vish, acho que a festa acabou! Este conteúdo está indisponível."
     },
 
-    "INDEX": {
-        "OLA": "Bem Vindo à Pachanga"
+    "ALERTAESTOQUE": {
+        "REDIRECIONAR": "Ir para a tela de estoque",
+        "TITLE": "Alerta de Estoque",
+        "OR": "OU"
     },
 
-    "LOGIN": {
-        "EMAIL": "E-mail",
-        "SENHA": "Senha",
-        "ENTRAR": "Entrar",
-        "CONTA": "Cria conta",
-        "FACE": "Continuar com Facebook",
-        "GMAIL": "Continuar com Google"
+    "ALERTASEGURANCA": {
+        "REDIRECIONAR": "Ir para a tela de segurança da festa",
+        "TITLE": "Alerta de Segurança",
+        "PROBLEM": "Problema"
+    },
+
+    
+    "AREASEGURANCA": {
+        "DESCRIPTION": "Clique aqui para visualizar os detalhes da área de segurança",
+        "NOME": "Nome",
+        "CREATE": "Criar área de segurança",
+        "DELETE": "Deletar área de segurança",
+        "EDIT": "Editar área de segurança",
+        "AREA": "Área de segurança",
+        "PROBLEMA": "Problema",
+        "NOMEAREA": "Nome da área de segurança",
+        "CONFIRM": "Confirmar",
+        "MESSAGE": "Você realmente deseja deletar esta área de segurança",
+        "CANCEL": "Cancelar"
+    },
+
+    "ASSIGNDIALOG": {
+        "TITLE": "Atribuição de permissão",
+        "MESSAGE": "Você realmente deseja salvar esta configuração de atribuição para o grupo",
+        "CONFIRM": "Confirmar",
+        "CANCEL": "Cancelar"
+    },
+
+    "ASSIGN": {
+        "MEMBERS": "Número de membros colaboradores confirmados",
+        "NOROLES": "Esta festa ainda não possui grupos para atribuição."
     },
 
     "CADASTRO": {
@@ -40,38 +60,124 @@
         "CADASTRAR": "Cadastrar",
         "CAMPOABERTO": "(Campo Aberto)"
     },
-
-    "GENEROS": {
-        "HOMEMCIS": "Homem cisgênero", 
-        "HOMEMTRANS": "Homem transgênero", 
-        "NAOBINARIO": "Não-binário", 
-        "MULHERCIS": "Mulher cisgênero", 
-        "MULHERTRANS": "Mulher transgênero", 
-        "NAODIZER": "Prefiro não informar"
+    
+    "CATEGORIA": {
+        "NONE": "Nenhuma",
+        "SHOWMUSI": "Show Musical",
+        "RAVEAFIM": "Rave e afins",
+        "FESTAPOP": "Festa Pop",
+        "ELETRONC": "Festa Eletrônica",
+        "PAGOSAMB": "Pagode/Samba",
+        "SERTANEJ": "Sertanejo",
+        "FESTROCK": "Festa Rock",
+        "BAILFUNK": "Baile Funk",
+        "CERVEJAD": "Cervejada",
+        "FESTAUNI": "Festa Universitária",
+        "MULTIGNR": "Multi-Gênero",
+        "NIGHTCLB": "Night Club",
+        "CRMNFRML": "Encontro formal",
+        "TRAP/RAP": "Trap/Rap",
+        "BAILEBRG": "Baile Brega"
     },
 
-    "PRONOMES": {
-        "MASC": "Ele/dele",
-        "FEMI": "Ela/dela"
+    "CONVITE": {
+        "TITULO": "Convidar membros",
+        "ENVIARCONVITE": "Enviar convite",
+        "LISTAEMAIL": "Lista de e-mails"
+    },
+    
+    "CRIARFESTA": {
+        "CRIARFESTA": "Criar festa",
+        "NOMEFESTA": "Nome da festa",
+        "DESCFESTA": "Descrição da festa",
+        "INICIODATA": "Data de início da festa",
+        "FIMDATA": "Data do fim da festa",
+        "INICIOHORA": "Hora de início da Festa",
+        "FIMHORA": "Hora de fim da Festa",
+        "ENDERECO": "Endereço",
+        "ORGANIZADOR": "Organizador da festa",
+        "DESCORGANIZADOR": "Descrição do organizador"
     },
 
-    "SEXO": {
-        "MASC": "Masculino",
-        "FEM": "Feminino",
-        "TRANS": "Transgênero",
-        "OUTRO": "Outro(s)"
+    
+
+    "DELETECONVIDADO": {
+        "MESSAGE": "Você realmente deseja deletar este convidado?",
+        "CONFIRM": "Confirmar",
+        "CANCEL": "Cancelar"
+    },
+    
+    "DELETEDIALOG": {
+        "MESSAGEPARTY": "Você realmente deseja apagar a festa ",
+        "MESSAGEROLE": "Você realmente deseja apagar o grupo ",
+        "CONFIRM": "Confirmar",
+        "CANCEL": "Cancelar"
     },
 
-    "FORMERRORS":{
-        "REQUIRED": "Campo obrigatório.",
-        "PASSPATTERN": "A senha deve ter pelo menos 8 caracteres, contendo letras maiúsculas e minúsculas, números e caracteres especiais.",
-        "EMAIL": "E-mail inválido.",
-        "TERMOS": "Aceitar os Termos de Uso e Privacidade é obrigatório.",
-        "MATCH": "Senhas devem coincidir.",
-        "MINQTDERROR": "A quantidade mínima permitida é de 1.",
-        "MAXQTDERROR": "A porcentagem máxima permitida é de 100%.",
-        "MINCAMPOERROR": "Ao menos um campo deve ser preenchido.",
-        "URL": "Este campo deve conter a URL pública da planilha de resposta do seu Google Forms."
+    "DELETEESTOQUE": {
+        "MESSAGE": "Você realmente deseja deletar este estoque da festa?",
+        "CONFIRM": "Confirmar",
+        "CANCEL": "Cancelar"
+    },
+
+    "DELETEFORM": {
+        "CANCEL": "Cancelar",
+        "CONFIRM": "Confirmar",
+        "MESSAGE": "Você deseja excluir o formulário "
+    },
+
+    "DELETEINTEGRACAO": {
+        "CANCEL": "Cancelar",
+        "CONFIRM": "Confirmar",
+        "MESSAGE": "Você deseja excluir esta integração?"
+    },
+
+    
+    "DELETEMEMBRO": {
+        "MESSAGE": "Você realmente deseja deletar este membro do grupo?",
+        "CONFIRM": "Confirmar",
+        "CANCEL": "Cancelar"
+    },
+
+    "DELETEPRODUTO": {
+        "MESSAGE": "Você realmente deseja deletar o produto",
+        "CONFIRM": "Confirmar",
+        "CANCEL": "Cancelar"
+    },
+
+    "DELETEPRODUTOESTOQUE": {
+        "DELETE": "Deletar produto do estoque",
+        "MESSAGE": "Você realmente deseja deletar o produto do estoque",
+        "CONFIRM": "Confirmar",
+        "CANCEL": "Cancelar"
+    },
+
+    "EDIT": {
+        "OLDNAME": "Nome atual",
+        "NEWNAME": "Novo nome",
+        "OLDEMAIL": "E-mail atual",
+        "NEWEMAIL": "Novo e-mail",
+        "OLDGENERO": "Gênero atual",
+        "NEWGENERO": "Novo gênero",
+        "OLDDTNASC": "Data de nascimento atual",
+        "NEWDTNASC": "Nova data de nascimento",
+        "OLDSENHA": "Senha atual",
+        "NEWSENHA": "Nova senha",
+        "OLDPRONOME": "Pronome atual",
+        "NEWPRONOME": "Novo pronome",
+        "SAVE": "Salvar alterações",
+        "ALTNAME": "Alterar nome",
+        "ALTDTNASC": "Alterar data de nascimento",
+        "ALTGENERO": "Alterar gênero",
+        "ALTPRONOME": "Alterar pronome",
+        "ALTEMAIL": "Alterar e-mail",
+        "ALTSENHA": "Alterar senha",
+        "CONFPASS": "Confirmar nova senha"
+    },
+
+    "EDITARFESTA": {
+        "EDITARFESTA": "Editar festa",
+        "SALVAR": "Salvar alterações"
     },
 
     "ERRO": {
@@ -137,23 +243,274 @@
         "LOTENFOU": "Lote não encontrado.",
         "FORMNFOU": "Questionário não encontrado.",
         "URLFORMS": "Esta URL já foi registrada.",
-        "NOMEFORM": "Este nome já foi registrado."
+        "NOMEFORM": "Este nome já foi registrado.",
+        "SYMERROR": "Erro ao autenticar este evento do Sympla.",
+        "EVBERROR": "Erro ao autenticar este evento do Eventbrite.",
+        "STSPINVL": "Status de segurança inválido.",
+        "PRSENFOU": "Problema de segurança inexistente.",
+        "PROBNFOU": "Problema não encontrado.",
+        "TERCINCO": "Terceiro incorreto.",
+        "INFOTCAD": "Terceiro já cadastrado.",
+        "INFOTOKU": "Token já sendo utilizado.",
+        "INFONFOU": "Integração não encontrada."
     },
 
-    "SUCCESS": {
-        "TITULO": "Sucesso!",
-        "ALTERSUC": "Seus dados foram alterados com sucesso.",
-        "FESTDELE": "Festa deletada com sucesso",
-        "FESTAALT": "Os dados da festa foram alterados com sucesso.",
-        "MEMBROAD": "Membros convidados.",
-        "GRUPDELE": "Grupo deletado com sucesso.",
-        "GRUPOALT": "Grupo alterado com sucesso.",
-        "ATRIBSUC": "Atribuição salva com sucesso.",
-        "PRODDELE": "Produto deletado com sucesso.",
-        "FORMDELE": "Questionário deletado com sucesso.",
-        "LOTEALT": "Lote alterado com sucesso."
+    "ESTOQUE": {
+        "DESCRIPTION": "Clique aqui para visualizar os produtos do estoque.",
+        "PRODUTO": "Produto",
+        "PRINCIPAL": "Estoque principal",
+        "QUANTIDADE": "Quantidade",
+        "STATUS": "Status",
+        "REMOVE1": "Remoção",
+        "REMOVE2": "Remover",
+        "DELETE": "Deletar estoque",
+        "EDITESTOQUE": "Editar estoque",
+        "NOMEESTOQUE": "Nome do estoque",
+        "CONFIRM": "Confirmar",
+        "CANCEL": "Cancelar",
+        "ADDESTOQUE": "Adicionar estoque",
+        "GERENCIARPROD": "Gerenciamento de Produtos",
+        "ADDPRODUTO": "Adicionar produto"
+    },
+
+    "ESTOQUEPROD": {
+        "PERDAPRODUTOESTOQUE": "Perda de produto do estoque",
+        "RECARGAPRODUTOESTOQUE": "Recarregar um produto do estoque",
+        "ADDPRODESTOQUE": "Adicionar produto ao estoque",
+        "EDITPRODUTOESTOQUE": "Editar produto do estoque",
+        "DELETEPRODUTOESTOQUE": "Deletar produto do estoque",
+        "DELETEUNIDADEDOSE": "Deletar unidade de produto",
+        "MARCA": "Produto",
+        "QTDMAX": "Quantidade máxima",
+        "QTDATUAL": "Quantidade atual",
+        "PORCENTAGEMMIN": "Porcentagem mínima",
+        "CONFIRM": "Confirmar",
+        "CANCEL": "Cancelar"
+    },
+
+    "FESTA": {
+        "AMIADM": "Mostrar apenas festas nas quais sou administrador",
+        "PARTYNAME": "Nome da Festa",
+        "MYPARTIES": "Minhas Festas",
+        "NEWPARTY": "Nova Festa",
+        "DESCRIPTION": "Descrição",
+        "PAPEL": "Papel",
+        "PAPEIS": "Papéis",
+        "INICIODATA": "Data de Início",
+        "FIMDATA": "Data de Fim",
+        "INICIOHORA": "Horário de Início",
+        "FIMHORA": "Horário de Término",
+        "ENDERECO": "Endereço",
+        "MEMBERS": "Número de colaboradores",
+        "PROGRESS": "Em progresso",
+        "FINISHED": "Terminado",
+        "PREPARING": "Em preparação",
+        "MORE": "and more...",
+        "P": "Em preparação",
+        "I": "Festa iniciada",
+        "F": "Festa finalizada",
+        "NONEPARTY": "Você não tem nenhuma festa associada a esta conta.",
+        "CLICKHERE": "Clique aqui para criar uma festa",
+        "CATEGORIA1": "Categoria primária",
+        "CATEGORIA2": "Categoria secundária",
+        "DETALHES": "Detalhes da festa"
+    },
+
+    "FORMS": {
+        "TITLE": "Planilhas de Pesquisa do Google Forms",
+        "ADDFORM": "Adicionar formulário",
+        "NOME": "Nome",
+        "URL": "URL",
+        "EDIT": "Editar formulário",
+        "DELETE": "Deletar formulário",
+        "ADD": "Adicionar Google Forms",
+        "CONFIRM": "Confirmar",
+        "CANCEL": "Cancelar"
+    },
+
+    "FORMERRORS":{
+        "REQUIRED": "Campo obrigatório.",
+        "PASSPATTERN": "A senha deve ter pelo menos 8 caracteres, contendo letras maiúsculas e minúsculas, números e caracteres especiais.",
+        "EMAIL": "E-mail inválido.",
+        "TERMOS": "Aceitar os Termos de Uso e Privacidade é obrigatório.",
+        "MATCH": "Senhas devem coincidir.",
+        "MINQTDERROR": "A quantidade mínima permitida é de 1.",
+        "MAXQTDERROR": "A porcentagem máxima permitida é de 100%.",
+        "MINCAMPOERROR": "Ao menos um campo deve ser preenchido.",
+        "URL": "Este campo deve conter a URL pública da planilha de resposta do seu Google Forms."
+    },
+
+    "GENEROS": {
+        "HOMEMCIS": "Homem cisgênero", 
+        "HOMEMTRANS": "Homem transgênero", 
+        "NAOBINARIO": "Não-binário", 
+        "MULHERCIS": "Mulher cisgênero", 
+        "MULHERTRANS": "Mulher transgênero", 
+        "NAODIZER": "Prefiro não informar"
+    },
+
+    "GRUPO": {
+        "CREATEGROUP": "Criar Grupo de Permissão",
+        "NAME": "Nome do Grupo",
+        "PARTYGROUPS": "Grupos de permissão da festa",
+        "MEMBERS": "Membro(s)",
+        "INVITE": "Convidar membros",
+        "EDIT": "Editar grupo",
+        "DELETEMEMBRO": "Deletar membro",
+        "EDITMEMBRO": "Editar grupo(s) do membro",
+        "CURRENTGROUP": "Grupo atual: ",
+        "NEWGROUP": "Grupo(s) novo(s)",
+        "CONFIRM": "Confirmar",
+        "CANCEL": "Cancelar",
+        "DELETE": "Excluir grupo",
+        "ASSIGN": "Atribuir permissão",
+        "DELETECONVIDADO": "Deletar convidado"
     },
     
+
+    "INDEX": {
+        "OLA": "Bem Vindo à Pachanga"
+    },
+
+    
+    "INFOCOMPLETE": {
+        "MESSAGE": "Ainda faltam informações para preencher em seu cadastro. Por favor clique ",
+        "HERE": "aqui"
+    },
+
+    "INGRESSO": {
+        "CREATE": "Criar lote de ingressos",
+        "CONFIRMCREATE": "Criar lote",
+        "CONFIRMEDIT": "Editar lote",
+        "MESSAGE": "Você deseja deletar o lote ",
+        "NOME": "Nome do lote",
+        "NUMERO": "Número do lote",
+        "QUANTIDADE": "Quantidade de ingressos do lote",
+        "PRECO": "Preço dos ingressos do lote",
+        "DATAHRINI": "Data e horário de início da disponibilidade do lote",
+        "DATAHRFIM": "Data e horário de fim da disponibilidade do lote",
+        "DATAINI": "Data de início da venda do lote",
+        "DATAFIM": "Data de fim da venda do lote",
+        "HORAINI": "Horário inicial para venda",
+        "HORAFIM": "Horário final para venda",
+        "EDIT": "Editar lote",
+        "DELETE": "Deletar lote",
+        "DESCRICAO": "Descrição do lote",
+        "CANCEL": "Cancelar",
+        "CONFIRM": "Confirmar"
+    },
+
+    "INTEGRACAO": {
+        "CALLBUTTON": "Integrações com Terceiros",
+        "TITLE": "Integrações com terceiros (Sympla e Eventbrite)",
+        "SUBTITLE": "Informações sobre a integração:",
+        "IDEVENTO": "Id do Evento",
+        "TOKEN": "Token Privado",
+        "TERCEIRO": "Terceiro (Sympla ou Eventbrite)",
+        "EDIT": "Editar integração",
+        "DELETE": "Deletar integração",
+        "ADD": "Adicionar integração",
+        "CONFIRM": "Confirmar",
+        "CANCEL": "Cancelar",
+        "NONE": "Esta festa não possui integrações com terceiros."
+    },
+
+    "LOGIN": {
+        "EMAIL": "E-mail",
+        "SENHA": "Senha",
+        "ENTRAR": "Entrar",
+        "CONTA": "Cria conta",
+        "FACE": "Continuar com Facebook",
+        "GMAIL": "Continuar com Google"
+    },
+
+
+    "NAV": {
+        "ENTRAR": "Entrar",
+        "CONTA": "Cria conta",
+        "VOLTAR": "Voltar",
+        "SAIR": "Sair",
+        "CONTA_L": "Minha conta",
+        "INGRESSOS": "Meus ingressos",
+        "FESTAS": "Minhas festas",
+        "IDIOMA": "Change language (EN-US)"
+    },
+
+    "NOTIFICACAO": {
+        "TITLE": "Notificações",
+        "ACEITAR": "Aceitar",
+        "RECUSAR": "Recusar",
+        "SETLIDO": "Marcar como lido",
+        "SETNLIDO": "Marcar como não lido",
+        "APAGAR": "Apagar notificação",
+        "CONVITE": "Você foi convidado para ser membro da festa",
+        "VER": "Ver",
+        "CONVITEACEITO": "Convite Aceito",
+        "CONVITEACEITO1": "aceitou o convite de membro para a festa",
+        "CONVITEACEITO2": "com",
+        "ESTOQUEMIN1": "O produto",
+        "ESTOQUEMIN2": "está com a quantidade mais baixa que o percentual mínimo permitido no estoque",
+        "ESTOQUEMIN3": "Recarga necessária!",
+        "STATUSCHANGE1": "A festa ",
+        "STATUSCHANGE2": "teve o status alterado para ",
+        "STATUSCHANGE3": "Ir para a festa",
+        "STATUSCHANGETITLE": "Mudança de Status",
+        "SEGURANCA1": "A área de segurança",
+        "SEGURANCA2": "da festa",
+        "SEGURANCA3": "está com o seguinte problema",
+        "SEGURANCA4": "Controle necessário!"
+    },
+
+    "PAGINATOR": {
+        "ITEMSPPAGE": "Itens por página",
+        "NEXTPAGE": "Próxima página",
+        "PREVIOUSPAGE": "Página anterior",
+        "OF": "de"
+    },
+
+
+    "PAINELCONTROLE": {
+        "GERAL": "Visão geral",
+        "ESTOQUE": "Estoque",
+        "SEGURANÇA": "Segurança",
+        "INGRESSOS": "Ingressos",
+        "RELATORIO": "Relatórios",
+        "TITULO": "Painel de controle",
+        "MEMBROS": "Membros colaboradores",
+        "NIVACESSO": "Nível de acesso",
+        "CONVITESTATUS": "Status do convite",
+        "GERENCIARMEMBROS": "Gerenciar membros",
+        "CONSULTACESSO": "Consultar permissões",
+        "STATSINGRESSOS": "Estatísticas de ingressos",
+        "ACEITO": "Aceito",
+        "RECUSADO": "Recusado",
+        "PENDENTE": "Pendente",
+        "EDIT": "Editar permissões do colaborador",
+        "DELETE": "Deletar colaborador",
+        "EDITFESTA": "Editar festa",
+        "DELETEFESTA": "Apagar festa",
+        "CHANGESTATUS": "Alterar status da festa"
+    },
+
+    "PERDADOSEUNIDADE": {
+        "TITULO": "Remover produto por unidade",
+        "QUANTIDADE": "Quantidade de unidades:",
+        "CONFIRM": "Confirmar",
+        "CANCEL": "Cancelar"
+    },
+
+    
+    "PERDAPRODUTO": {
+        "TITULO": "Perda de produto do estoque",
+        "QUANTIDADE": "Quantidade perdida",
+        "CONFIRM": "Confirmar",
+        "PERD25": "Quantidade perdida (25%)",
+        "PERD50": "Quantidade perdida (50%)",
+        "PERD75": "Quantidade perdida (75%)",
+        "PERD100": "Quantidade perdida (100%)",
+        "CANCEL": "Cancelar"
+    },
+
     "PERFIL":{
         "MYACC": "Minha Conta",
         "ACCINFO": "Dados da Conta",
@@ -195,180 +552,6 @@
         "EMAIL": "E-mail"
     },
 
-    "INFOCOMPLETE": {
-        "MESSAGE": "Ainda faltam informações para preencher em seu cadastro. Por favor clique ",
-        "HERE": "aqui"
-    },
-
-    "EDIT": {
-        "OLDNAME": "Nome atual",
-        "NEWNAME": "Novo nome",
-        "OLDEMAIL": "E-mail atual",
-        "NEWEMAIL": "Novo e-mail",
-        "OLDGENERO": "Gênero atual",
-        "NEWGENERO": "Novo gênero",
-        "OLDDTNASC": "Data de nascimento atual",
-        "NEWDTNASC": "Nova data de nascimento",
-        "OLDSENHA": "Senha atual",
-        "NEWSENHA": "Nova senha",
-        "OLDPRONOME": "Pronome atual",
-        "NEWPRONOME": "Novo pronome",
-        "SAVE": "Salvar alterações",
-        "ALTNAME": "Alterar nome",
-        "ALTDTNASC": "Alterar data de nascimento",
-        "ALTGENERO": "Alterar gênero",
-        "ALTPRONOME": "Alterar pronome",
-        "ALTEMAIL": "Alterar e-mail",
-        "ALTSENHA": "Alterar senha",
-        "CONFPASS": "Confirmar nova senha"
-    },
-
-    "PAGINATOR": {
-        "ITEMSPPAGE": "Itens por página",
-        "NEXTPAGE": "Próxima página",
-        "PREVIOUSPAGE": "Página anterior",
-        "OF": "de"
-    },
-
-    "FESTA": {
-        "AMIADM": "Mostrar apenas festas nas quais sou administrador",
-        "PARTYNAME": "Nome da Festa",
-        "MYPARTIES": "Minhas Festas",
-        "NEWPARTY": "Nova Festa",
-        "DESCRIPTION": "Descrição",
-        "PAPEL": "Papel",
-        "PAPEIS": "Papéis",
-        "INICIODATA": "Data de Início",
-        "FIMDATA": "Data de Fim",
-        "INICIOHORA": "Horário de Início",
-        "FIMHORA": "Horário de Término",
-        "ENDERECO": "Endereço",
-        "MEMBERS": "Número de colaboradores",
-        "PROGRESS": "Em progresso",
-        "FINISHED": "Terminado",
-        "PREPARING": "Em preparação",
-        "MORE": "and more...",
-        "P": "Em preparação",
-        "I": "Festa iniciada",
-        "F": "Festa finalizada",
-        "NONEPARTY": "Você não tem nenhuma festa associada a esta conta.",
-        "CLICKHERE": "Clique aqui para criar uma festa",
-        "CATEGORIA1": "Categoria primária",
-        "CATEGORIA2": "Categoria secundária",
-        "DETALHES": "Detalhes da festa"
-    },
-
-    "CRIARFESTA": {
-        "CRIARFESTA": "Criar festa",
-        "NOMEFESTA": "Nome da festa",
-        "DESCFESTA": "Descrição da festa",
-        "INICIODATA": "Data de início da festa",
-        "FIMDATA": "Data do fim da festa",
-        "INICIOHORA": "Hora de início da Festa",
-        "FIMHORA": "Hora de fim da Festa",
-        "ENDERECO": "Endereço",
-        "ORGANIZADOR": "Organizador da festa",
-        "DESCORGANIZADOR": "Descrição do organizador"
-    },
-
-    "EDITARFESTA": {
-        "EDITARFESTA": "Editar festa",
-        "SALVAR": "Salvar alterações"
-    },
-
-    "PAINELCONTROLE": {
-        "GERAL": "Visão geral",
-        "ESTOQUE": "Estoque",
-        "SEGURANÇA": "Segurança",
-        "INGRESSOS": "Ingressos",
-        "RELATORIO": "Relatórios",
-        "TITULO": "Painel de controle",
-        "MEMBROS": "Membros colaboradores",
-        "NIVACESSO": "Nível de acesso",
-        "CONVITESTATUS": "Status do convite",
-        "GERENCIARMEMBROS": "Gerenciar membros",
-        "CONSULTACESSO": "Consultar permissões",
-        "STATSINGRESSOS": "Estatísticas de ingressos",
-        "ACEITO": "Aceito",
-        "RECUSADO": "Recusado",
-        "PENDENTE": "Pendente",
-        "EDIT": "Editar permissões do colaborador",
-        "DELETE": "Deletar colaborador",
-        "EDITFESTA": "Editar festa",
-        "DELETEFESTA": "Apagar festa",
-        "CHANGESTATUS": "Alterar status da festa"
-    },
-
-    "404": {
-        "MESSAGE": "Vish, acho que a festa acabou! Este conteúdo está indisponível."
-    },
-
-    "DELETEDIALOG": {
-        "MESSAGEPARTY": "Você realmente deseja apagar a festa ",
-        "MESSAGEROLE": "Você realmente deseja apagar o grupo ",
-        "CONFIRM": "Confirmar",
-        "CANCEL": "Cancelar"
-    },
-
-    "GRUPO": {
-        "CREATEGROUP": "Criar Grupo de Permissão",
-        "NAME": "Nome do Grupo",
-        "PARTYGROUPS": "Grupos de permissão da festa",
-        "MEMBERS": "Membro(s)",
-        "INVITE": "Convidar membros",
-        "EDIT": "Editar grupo",
-        "DELETEMEMBRO": "Deletar membro",
-        "EDITMEMBRO": "Editar grupo(s) do membro",
-        "CURRENTGROUP": "Grupo atual: ",
-        "NEWGROUP": "Grupo(s) novo(s)",
-        "CONFIRM": "Confirmar",
-        "CANCEL": "Cancelar",
-        "DELETE": "Excluir grupo",
-        "ASSIGN": "Atribuir permissão",
-        "DELETECONVIDADO": "Deletar convidado"
-    },
-
-    "CONVITE": {
-        "TITULO": "Convidar membros",
-        "ENVIARCONVITE": "Enviar convite",
-        "LISTAEMAIL": "Lista de e-mails"
-    },
-
-    "STATUSDIALOG": {
-        "MESSAGE": "Você realmente deseja alterar o status para ",
-        "CONFIRM": "Confirmar",
-        "CANCEL": "Cancelar"
-    },
-    
-    "UTILS": {
-        "RETURN": "Retornar"
-    },
-
-    "DELETEMEMBRO": {
-        "MESSAGE": "Você realmente deseja deletar este membro do grupo?",
-        "CONFIRM": "Confirmar",
-        "CANCEL": "Cancelar"
-    },
-    
-    "CATEGORIA": {
-        "NONE": "Nenhuma",
-        "SHOWMUSI": "Show Musical",
-        "RAVEAFIM": "Rave e afins",
-        "FESTAPOP": "Festa Pop",
-        "ELETRONC": "Festa Eletrônica",
-        "PAGOSAMB": "Pagode/Samba",
-        "SERTANEJ": "Sertanejo",
-        "FESTROCK": "Festa Rock",
-        "BAILFUNK": "Baile Funk",
-        "CERVEJAD": "Cervejada",
-        "FESTAUNI": "Festa Universitária",
-        "MULTIGNR": "Multi-Gênero",
-        "NIGHTCLB": "Night Club",
-        "CRMNFRML": "Encontro formal",
-        "TRAP/RAP": "Trap/Rap",
-        "BAILEBRG": "Baile Brega"
-    },
-
     "PERMISSAO": {
         "EDITDFES": "Editar festa",
         "CREGRPER": "Criar grupo de permissão",
@@ -398,49 +581,19 @@
         "VISUFORM": "Visualizar questionários Google Forms.",
         "ADDFORMS": "Registrar questionários Google Forms.",
         "DELEFORM": "Remover questionários Google Forms.",
-        "EDITFORM": "Editar questionários Google Forms."
+        "EDITFORM": "Editar questionários Google Forms.",
+        "VISUPSEG": "Visualizar problema de segurança",
+        "ADDPSEGU": "Adicionar problema de segurança",
+        "DELEPSEG": "Remover problema de segurança",
+        "EDITPSEG": "Editar problema de segurança",
+        "VISUINTE": "Visualizar integração",
+        "ADDINTEG": "Adicionar integração",
+        "DELEINTE": "Remover integração",
+        "EDITINTE": "Editar integração"
     },
-
-    "ASSIGNDIALOG": {
-        "TITLE": "Atribuição de permissão",
-        "MESSAGE": "Você realmente deseja salvar esta configuração de atribuição para o grupo",
-        "CONFIRM": "Confirmar",
-        "CANCEL": "Cancelar"
-    },
-
-    "ASSIGN": {
-        "MEMBERS": "Número de membros colaboradores confirmados",
-        "NOROLES": "Esta festa ainda não possui grupos para atribuição."
-    },
-
-    "DELETEESTOQUE": {
-        "MESSAGE": "Você realmente deseja deletar este estoque da festa?",
-        "CONFIRM": "Confirmar",
-        "CANCEL": "Cancelar"
-    },
-
-    "ESTOQUE": {
-        "DESCRIPTION": "Clique aqui para visualizar os produtos do estoque.",
-        "PRODUTO": "Produto",
-        "PRINCIPAL": "Estoque principal",
-        "QUANTIDADE": "Quantidade",
-        "STATUS": "Status",
-        "REMOVE1": "Remoção",
-        "REMOVE2": "Remover",
-        "DELETE": "Deletar estoque",
-        "EDITESTOQUE": "Editar estoque",
-        "NOMEESTOQUE": "Nome do estoque",
-        "CONFIRM": "Confirmar",
-        "CANCEL": "Cancelar",
-        "ADDESTOQUE": "Adicionar estoque",
-        "GERENCIARPROD": "Gerenciamento de Produtos",
-        "ADDPRODUTO": "Adicionar produto"
-    },
-
-    "DELETECONVIDADO": {
-        "MESSAGE": "Você realmente deseja deletar este convidado?",
-        "CONFIRM": "Confirmar",
-        "CANCEL": "Cancelar"
+    
+    "PRIVACIDADE": {
+        "CONTENT": "<h2>Política Privacidade</h2>                    <p>A sua privacidade é importante para nós. É política do Pachanga respeitar a sua privacidade em relação a qualquer informação sua que possamos coletar no site <a class='link' href='https://pachanga.herokuapp.com/'>Pachanga</a>, e outros sites que possuímos e operamos.</p>                    <p>Solicitamos informações pessoais apenas quando realmente precisamos delas para lhe fornecer um serviço. Fazemo-lo por meios justos e legais, com o seu conhecimento e consentimento. Também informamos por que estamos coletando e como será usado.                    </p>                    <p>Apenas retemos as informações coletadas pelo tempo necessário para fornecer o serviço solicitado. Quando armazenamos dados, protegemos dentro de meios comercialmente aceitáveis ​​para evitar perdas e roubos, bem como acesso, divulgação, cópia, uso ou                        modificação não autorizados.</p>                    <p>Não compartilhamos informações de identificação pessoal publicamente ou com terceiros, exceto quando exigido por lei.</p>                    <p>O nosso site pode ter links para sites externos que não são operados por nós. Esteja ciente de que não temos controle sobre o conteúdo e práticas desses sites e não podemos aceitar responsabilidade por suas respectivas políticas de privacidade.                    </p>                    <p>Você é livre para recusar a nossa solicitação de informações pessoais, entendendo que talvez não possamos fornecer alguns dos serviços desejados.</p>                    <p>O uso continuado de nosso site será considerado como aceitação de nossas práticas em torno de privacidade e informações pessoais. Se você tiver alguma dúvida sobre como lidamos com dados do usuário e informações pessoais, entre em contacto connosco.</p>                    <h2>Política de Cookies Pachanga</h2>                    <h3>O que são cookies?</h3>                    <p>Como é prática comum em quase todos os sites profissionais, este site usa cookies, que são pequenos arquivos baixados no seu computador, para melhorar sua experiência. Esta página descreve quais informações eles coletam, como as usamos e por que às vezes                        precisamos armazenar esses cookies. Também compartilharemos como você pode impedir que esses cookies sejam armazenados, no entanto, isso pode fazer o downgrade ou 'quebrar' certos elementos da funcionalidade do site.</p>                    <h3>Como usamos os cookies?</h3>                    <p>Utilizamos cookies por vários motivos. Infelizmente, na maioria dos casos, não existem opções padrão do setor para desativar os cookies sem desativar completamente a funcionalidade e os recursos que eles adicionam a este site. É recomendável                        que você deixe todos os cookies se não tiver certeza se precisa ou não deles, caso sejam usados ​​para fornecer um serviço que você usa.</p>                    <h3>Desativar cookies</h3>                    <p>Você pode impedir a configuração de cookies ajustando as configurações do seu navegador (consulte a Ajuda do navegador para saber como fazer isso). Esteja ciente de que a desativação de cookies afetará a funcionalidade deste e de muitos outros sites que                        você visita. A desativação de cookies geralmente resultará na desativação de determinadas funcionalidades e recursos deste site. Portanto, é recomendável que você não desative os cookies.</p>                    <h3>Cookies que definimos</h3>                    <ul>                        <li>                            Cookies relacionados à conta<br><br> Se você criar uma conta conosco, usaremos cookies para o gerenciamento do processo de inscrição e administração geral. Esses cookies geralmente serão excluídos quando você sair do sistema, porém, em alguns                            casos, eles poderão permanecer posteriormente para lembrar as preferências do seu site ao sair.<br><br>                        </li>                        <li>                            Cookies relacionados ao login<br><br> Utilizamos cookies quando você está logado, para que possamos lembrar dessa ação. Isso evita que você precise fazer login sempre que visitar uma nova página. Esses cookies são normalmente removidos ou limpos                            quando você efetua logout para garantir que você possa acessar apenas a recursos e áreas restritas ao efetuar login.<br><br>                        </li>                        <li>                            Cookies relacionados a boletins por e-mail<br><br> Este site oferece serviços de assinatura de boletim informativo ou e-mail e os cookies podem ser usados ​​para lembrar se você já está registrado e se deve mostrar determinadas notificações                            válidas apenas para usuários inscritos / não inscritos.<br><br>                        </li>                        <li>                            Pedidos processando cookies relacionados<br><br> Este site oferece facilidades de comércio eletrônico ou pagamento e alguns cookies são essenciais para garantir que seu pedido seja lembrado entre as páginas, para que possamos processá-lo adequadamente.<br><br>                        </li>                        <li>                            Cookies relacionados a pesquisas<br><br> Periodicamente, oferecemos pesquisas e questionários para fornecer informações interessantes, ferramentas úteis ou para entender nossa base de usuários com mais precisão. Essas pesquisas podem usar cookies                            para lembrar quem já participou numa pesquisa ou para fornecer resultados precisos após a alteração das páginas.<br><br>                        </li>                        <li>                            Cookies relacionados a formulários<br><br> Quando você envia dados por meio de um formulário como os encontrados nas páginas de contacto ou nos formulários de comentários, os cookies podem ser configurados para lembrar os detalhes do usuário                            para correspondência futura.<br><br>                        </li>                        <li>                            Cookies de preferências do site<br><br> Para proporcionar uma ótima experiência neste site, fornecemos a funcionalidade para definir suas preferências de como esse site é executado quando você o usa. Para lembrar suas preferências, precisamos                            definir cookies para que essas informações possam ser chamadas sempre que você interagir com uma página for afetada por suas preferências.<br>                        </li>                    </ul>                    <h3>Cookies de Terceiros</h3>                    <p>Em alguns casos especiais, também usamos cookies fornecidos por terceiros confiáveis. A seção a seguir detalha quais cookies de terceiros você pode encontrar através deste site.</p>                    <ul>                        <li>                            Este site usa o Google Analytics, que é uma das soluções de análise mais difundidas e confiáveis ​​da Web, para nos ajudar a entender como você usa o site e como podemos melhorar sua experiência. Esses cookies podem rastrear itens como quanto tempo                            você gasta no site e as páginas visitadas, para que possamos continuar produzindo conteúdo atraente.                        </li>                    </ul>                    <p>Para mais informações sobre cookies do Google Analytics, consulte a página oficial do Google Analytics.</p>                    <ul>                        <li>                            As análises de terceiros são usadas para rastrear e medir o uso deste site, para que possamos continuar produzindo conteúdo atrativo. Esses cookies podem rastrear itens como o tempo que você passa no site ou as páginas visitadas, o que nos ajuda a entender                            como podemos melhorar o site para você.</li>                        <li>                            Periodicamente, testamos novos recursos e fazemos alterações subtis na maneira como o site se apresenta. Quando ainda estamos testando novos recursos, esses cookies podem ser usados ​​para garantir que você receba uma experiência consistente enquanto                            estiver no site, enquanto entendemos quais otimizações os nossos usuários mais apreciam.</li>                        <li>                            À medida que vendemos produtos, é importante entendermos as estatísticas sobre quantos visitantes de nosso site realmente compram e, portanto, esse é o tipo de dados que esses cookies rastrearão. Isso é importante para você, pois significa que podemos                            fazer previsões de negócios com precisão que nos permitem analizar nossos custos de publicidade e produtos para garantir o melhor preço possível.</li>                                            </ul><h3>Mais informações</h3>                    <p>Esperemos que esteja esclarecido e, como mencionado anteriormente, se houver algo que você não tem certeza se precisa ou não, geralmente é mais seguro deixar os cookies ativados, caso interaja com um dos recursos que você usa em nosso site.</p>                    <p>Esta política é efetiva a partir de <strong>Setembro</strong>/<strong>2020</strong>.</p>"
     },
 
     "PRODUTO": {
@@ -457,69 +610,9 @@
         "EHDOSAGEM": "Produto por dosagem?"
     },
 
-    "DELETEPRODUTO": {
-        "MESSAGE": "Você realmente deseja deletar o produto",
-        "CONFIRM": "Confirmar",
-        "CANCEL": "Cancelar"
-    },
-
-    "ESTOQUEPROD": {
-        "PERDAPRODUTOESTOQUE": "Perda de produto do estoque",
-        "RECARGAPRODUTOESTOQUE": "Recarregar um produto do estoque",
-        "ADDPRODESTOQUE": "Adicionar produto ao estoque",
-        "EDITPRODUTOESTOQUE": "Editar produto do estoque",
-        "DELETEPRODUTOESTOQUE": "Deletar produto do estoque",
-        "DELETEUNIDADEDOSE": "Deletar unidade de produto",
-        "MARCA": "Produto",
-        "QTDMAX": "Quantidade máxima",
-        "QTDATUAL": "Quantidade atual",
-        "PORCENTAGEMMIN": "Porcentagem mínima",
-        "CONFIRM": "Confirmar",
-        "CANCEL": "Cancelar"
-    },
-
-    "DELETEPRODUTOESTOQUE": {
-        "DELETE": "Deletar produto do estoque",
-        "MESSAGE": "Você realmente deseja deletar o produto do estoque",
-        "CONFIRM": "Confirmar",
-        "CANCEL": "Cancelar"
-    },
-
-    "NOTIFICACAO": {
-        "TITLE": "Notificações",
-        "ACEITAR": "Aceitar",
-        "RECUSAR": "Recusar",
-        "SETLIDO": "Marcar como lido",
-        "SETNLIDO": "Marcar como não lido",
-        "APAGAR": "Apagar notificação",
-        "CONVITE": "Você foi convidado para ser membro da festa",
-        "VER": "Ver",
-        "CONVITEACEITO": "Convite Aceito",
-        "CONVITEACEITO1": "aceitou o convite de membro para a festa",
-        "CONVITEACEITO2": "com",
-        "ESTOQUEMIN1": "O produto",
-        "ESTOQUEMIN2": "está com a quantidade mais baixa que o percentual mínimo permitido no estoque",
-        "ESTOQUEMIN3": "Recarga necessária!",
-        "STATUSCHANGE1": "A festa ",
-        "STATUSCHANGE2": "teve o status alterado para ",
-        "STATUSCHANGE3": "Ir para a festa",
-        "STATUSCHANGETITLE": "Mudança de Status",
-        "SEGURANCA1": "A área de segurança",
-        "SEGURANCA2": "da festa",
-        "SEGURANCA3": "está com o seguinte problema",
-        "SEGURANCA4": "Controle necessário!"
-    },
-
-    "ALERTAESTOQUE": {
-        "REDIRECIONAR": "Ir para a tela de estoque",
-        "TITLE": "Alerta de Estoque",
-        "OR": "OU"
-    },
-
-    "ALERTASEGURANCA": {
-        "REDIRECIONAR": "Ir para a tela de segurança da festa",
-        "TITLE": "Alerta de Segurança",
-        "PROBLEM": "Problema"
+    "PRONOMES": {
+        "MASC": "Ele/dele",
+        "FEMI": "Ela/dela"
     },
 
     "RECARGA": {
@@ -531,22 +624,53 @@
         "CANCEL": "Cancelar"
     },
 
-    "PERDAPRODUTO": {
-        "TITULO": "Perda de produto do estoque",
-        "QUANTIDADE": "Quantidade perdida",
+    "RELATARPROB": {
+        "TITULO": "Relatar Problema em ",
+        "PROBLEMA": "Problema",
+        "TUMULTTO": "Tumulto",
+        "BRIGAVIO": "Briga",
+        "EMEGMEDI": "Emergência Médica",
+        "FURTOOBJ": "Furto",
+        "ASSALTTO": "Assalto",
+        "PORTOBJT": "Porte de Ilícitos",
+        "PORTSUBS": "Porte de Drogas",
+        "VENDAILG": "Venda Ilegal",
+        "SAIRSPAG": "Sair Sem Pagar",
+        "VANDALIS": "Vandalismo",
+        "ASSEDSEX": "Assédio Sexual",
+        "ATENTPUD": "Atentado Ao Pudor",
+        "ENTRPROB": "Entrada Proibida",
+        "OUTRPROB": "Outro Problema",
+        "RELATAR":"Relatar"
+    },
+
+    "SEXO": {
+        "MASC": "Masculino",
+        "FEM": "Feminino",
+        "TRANS": "Transgênero",
+        "OUTRO": "Outro(s)"
+    },
+
+
+    "STATUSDIALOG": {
+        "MESSAGE": "Você realmente deseja alterar o status para ",
         "CONFIRM": "Confirmar",
-        "PERD25": "Quantidade perdida (25%)",
-        "PERD50": "Quantidade perdida (50%)",
-        "PERD75": "Quantidade perdida (75%)",
-        "PERD100": "Quantidade perdida (100%)",
         "CANCEL": "Cancelar"
     },
 
-    "PERDADOSEUNIDADE": {
-        "TITULO": "Remover produto por unidade",
-        "QUANTIDADE": "Quantidade de unidades:",
-        "CONFIRM": "Confirmar",
-        "CANCEL": "Cancelar"
+    "SUCCESS": {
+        "TITULO": "Sucesso!",
+        "ALTERSUC": "Seus dados foram alterados com sucesso.",
+        "FESTDELE": "Festa deletada com sucesso",
+        "FESTAALT": "Os dados da festa foram alterados com sucesso.",
+        "MEMBROAD": "Membros convidados.",
+        "GRUPDELE": "Grupo deletado com sucesso.",
+        "GRUPOALT": "Grupo alterado com sucesso.",
+        "ATRIBSUC": "Atribuição salva com sucesso.",
+        "PRODDELE": "Produto deletado com sucesso.",
+        "FORMDELE": "Questionário deletado com sucesso.",
+        "LOTEALT": "Lote alterado com sucesso.",
+        "INTEDELE": "Integração com terceiro deletada com sucesso."
     },
 
     "TERMOS": {
@@ -560,61 +684,8 @@
         "CONTENT": "<h3>1. Termos</h3>            <p>Ao acessar ao site <a class='link' href='https://pachanga.herokuapp.com/'>Pachanga</a>, concorda em cumprir estes termos de serviço, todas as leis e regulamentos aplicáveis ​​e concorda que é responsável pelo cumprimento de todas as leis locais aplicáveis. Se você não concordar com algum                desses termos, está proibido de usar ou acessar este site. Os materiais contidos neste site são protegidos pelas leis de direitos autorais e marcas comerciais aplicáveis.</p>            <h3>2. Uso de Licença</h3>            <p>É concedida permissão para baixar temporariamente uma cópia dos materiais (informações ou software) no site Pachanga , apenas para visualização transitória pessoal e não comercial. Esta é a concessão de uma licença, não uma transferência de título e,                sob esta licença, você não pode: </p>            <ol>            <li>modificar ou copiar os materiais;  </li>            <li>usar os materiais para qualquer finalidade comercial ou para exibição pública (comercial ou não comercial);  </li>            <li>tentar descompilar ou fazer engenharia reversa de qualquer software contido no site Pachanga;  </li>            <li>remover quaisquer direitos autorais ou outras notações de propriedade dos materiais; ou  </li>            <li>transferir os materiais para outra pessoa ou 'espelhe' os materiais em qualquer outro servidor.</li>            </ol>            <p>Esta licença será automaticamente rescindida se você violar alguma dessas restrições e poderá ser rescindida por Pachanga a qualquer momento. Ao encerrar a visualização desses materiais ou após o término desta licença, você deve apagar todos os materiais                baixados em sua posse, seja em formato eletrónico ou impresso.</p>            <h3>3. Isenção de responsabilidade</h3>            <ol>            <li>Os materiais no site da Pachanga são fornecidos 'como estão'. Pachanga não oferece garantias, expressas ou implícitas, e, por este meio, isenta e nega todas as outras garantias, incluindo, sem limitação, garantias implícitas ou condições de comercialização,            adequação a um fim específico ou não violação de propriedade intelectual ou outra violação de direitos. </li>            <li>Além disso, o Pachanga não garante ou faz qualquer representação relativa à precisão, aos resultados prováveis ​​ou à confiabilidade do uso dos            materiais em seu site ou de outra forma relacionado a esses materiais ou em sites vinculados a este site.</li>            </ol>            <h3>4. Limitações</h3>            <p>Em nenhum caso o Pachanga ou seus fornecedores serão responsáveis ​​por quaisquer danos (incluindo, sem limitação, danos por perda de dados ou lucro ou devido a interrupção dos negócios) decorrentes do uso ou da incapacidade de usar os materiais em Pachanga,                mesmo que Pachanga ou um representante autorizado da Pachanga tenha sido notificado oralmente ou por escrito da possibilidade de tais danos. Como algumas jurisdições não permitem limitações em garantias implícitas, ou limitações de responsabilidade                por danos conseqüentes ou incidentais, essas limitações podem não se aplicar a você.</p>            <h3>5. Precisão dos materiais</h3>            <p>Os materiais exibidos no site da Pachanga podem incluir erros técnicos, tipográficos ou fotográficos. Pachanga não garante que qualquer material em seu site seja preciso, completo ou atual. Pachanga pode fazer alterações nos materiais contidos em seu                site a qualquer momento, sem aviso prévio. No entanto, Pachanga não se compromete a atualizar os materiais.</p>            <h3>6. Links</h3>            <p>O Pachanga não analisou todos os sites vinculados ao seu site e não é responsável pelo conteúdo de nenhum site vinculado. A inclusão de qualquer link não implica endosso por Pachanga do site. O uso de qualquer site vinculado é por conta e risco do usuário.</p>            </p>            <h3>7. Modificações</h3>            <p>O Pachanga pode revisar estes termos de serviço do site a qualquer momento, sem aviso prévio. Ao usar este site, você concorda em ficar vinculado à versão atual desses termos de serviço.</p>            <h3>8. Lei aplicável</h3>            <p>Estes termos e condições são regidos e interpretados de acordo com as leis do Pachanga e você se submete irrevogavelmente à jurisdição exclusiva dos tribunais naquele estado ou localidade.</p>"
     },
 
-    "PRIVACIDADE": {
-        "CONTENT": "<h2>Política Privacidade</h2>                    <p>A sua privacidade é importante para nós. É política do Pachanga respeitar a sua privacidade em relação a qualquer informação sua que possamos coletar no site <a class='link' href='https://pachanga.herokuapp.com/'>Pachanga</a>, e outros sites que possuímos e operamos.</p>                    <p>Solicitamos informações pessoais apenas quando realmente precisamos delas para lhe fornecer um serviço. Fazemo-lo por meios justos e legais, com o seu conhecimento e consentimento. Também informamos por que estamos coletando e como será usado.                    </p>                    <p>Apenas retemos as informações coletadas pelo tempo necessário para fornecer o serviço solicitado. Quando armazenamos dados, protegemos dentro de meios comercialmente aceitáveis ​​para evitar perdas e roubos, bem como acesso, divulgação, cópia, uso ou                        modificação não autorizados.</p>                    <p>Não compartilhamos informações de identificação pessoal publicamente ou com terceiros, exceto quando exigido por lei.</p>                    <p>O nosso site pode ter links para sites externos que não são operados por nós. Esteja ciente de que não temos controle sobre o conteúdo e práticas desses sites e não podemos aceitar responsabilidade por suas respectivas políticas de privacidade.                    </p>                    <p>Você é livre para recusar a nossa solicitação de informações pessoais, entendendo que talvez não possamos fornecer alguns dos serviços desejados.</p>                    <p>O uso continuado de nosso site será considerado como aceitação de nossas práticas em torno de privacidade e informações pessoais. Se você tiver alguma dúvida sobre como lidamos com dados do usuário e informações pessoais, entre em contacto connosco.</p>                    <h2>Política de Cookies Pachanga</h2>                    <h3>O que são cookies?</h3>                    <p>Como é prática comum em quase todos os sites profissionais, este site usa cookies, que são pequenos arquivos baixados no seu computador, para melhorar sua experiência. Esta página descreve quais informações eles coletam, como as usamos e por que às vezes                        precisamos armazenar esses cookies. Também compartilharemos como você pode impedir que esses cookies sejam armazenados, no entanto, isso pode fazer o downgrade ou 'quebrar' certos elementos da funcionalidade do site.</p>                    <h3>Como usamos os cookies?</h3>                    <p>Utilizamos cookies por vários motivos. Infelizmente, na maioria dos casos, não existem opções padrão do setor para desativar os cookies sem desativar completamente a funcionalidade e os recursos que eles adicionam a este site. É recomendável                        que você deixe todos os cookies se não tiver certeza se precisa ou não deles, caso sejam usados ​​para fornecer um serviço que você usa.</p>                    <h3>Desativar cookies</h3>                    <p>Você pode impedir a configuração de cookies ajustando as configurações do seu navegador (consulte a Ajuda do navegador para saber como fazer isso). Esteja ciente de que a desativação de cookies afetará a funcionalidade deste e de muitos outros sites que                        você visita. A desativação de cookies geralmente resultará na desativação de determinadas funcionalidades e recursos deste site. Portanto, é recomendável que você não desative os cookies.</p>                    <h3>Cookies que definimos</h3>                    <ul>                        <li>                            Cookies relacionados à conta<br><br> Se você criar uma conta conosco, usaremos cookies para o gerenciamento do processo de inscrição e administração geral. Esses cookies geralmente serão excluídos quando você sair do sistema, porém, em alguns                            casos, eles poderão permanecer posteriormente para lembrar as preferências do seu site ao sair.<br><br>                        </li>                        <li>                            Cookies relacionados ao login<br><br> Utilizamos cookies quando você está logado, para que possamos lembrar dessa ação. Isso evita que você precise fazer login sempre que visitar uma nova página. Esses cookies são normalmente removidos ou limpos                            quando você efetua logout para garantir que você possa acessar apenas a recursos e áreas restritas ao efetuar login.<br><br>                        </li>                        <li>                            Cookies relacionados a boletins por e-mail<br><br> Este site oferece serviços de assinatura de boletim informativo ou e-mail e os cookies podem ser usados ​​para lembrar se você já está registrado e se deve mostrar determinadas notificações                            válidas apenas para usuários inscritos / não inscritos.<br><br>                        </li>                        <li>                            Pedidos processando cookies relacionados<br><br> Este site oferece facilidades de comércio eletrônico ou pagamento e alguns cookies são essenciais para garantir que seu pedido seja lembrado entre as páginas, para que possamos processá-lo adequadamente.<br><br>                        </li>                        <li>                            Cookies relacionados a pesquisas<br><br> Periodicamente, oferecemos pesquisas e questionários para fornecer informações interessantes, ferramentas úteis ou para entender nossa base de usuários com mais precisão. Essas pesquisas podem usar cookies                            para lembrar quem já participou numa pesquisa ou para fornecer resultados precisos após a alteração das páginas.<br><br>                        </li>                        <li>                            Cookies relacionados a formulários<br><br> Quando você envia dados por meio de um formulário como os encontrados nas páginas de contacto ou nos formulários de comentários, os cookies podem ser configurados para lembrar os detalhes do usuário                            para correspondência futura.<br><br>                        </li>                        <li>                            Cookies de preferências do site<br><br> Para proporcionar uma ótima experiência neste site, fornecemos a funcionalidade para definir suas preferências de como esse site é executado quando você o usa. Para lembrar suas preferências, precisamos                            definir cookies para que essas informações possam ser chamadas sempre que você interagir com uma página for afetada por suas preferências.<br>                        </li>                    </ul>                    <h3>Cookies de Terceiros</h3>                    <p>Em alguns casos especiais, também usamos cookies fornecidos por terceiros confiáveis. A seção a seguir detalha quais cookies de terceiros você pode encontrar através deste site.</p>                    <ul>                        <li>                            Este site usa o Google Analytics, que é uma das soluções de análise mais difundidas e confiáveis ​​da Web, para nos ajudar a entender como você usa o site e como podemos melhorar sua experiência. Esses cookies podem rastrear itens como quanto tempo                            você gasta no site e as páginas visitadas, para que possamos continuar produzindo conteúdo atraente.                        </li>                    </ul>                    <p>Para mais informações sobre cookies do Google Analytics, consulte a página oficial do Google Analytics.</p>                    <ul>                        <li>                            As análises de terceiros são usadas para rastrear e medir o uso deste site, para que possamos continuar produzindo conteúdo atrativo. Esses cookies podem rastrear itens como o tempo que você passa no site ou as páginas visitadas, o que nos ajuda a entender                            como podemos melhorar o site para você.</li>                        <li>                            Periodicamente, testamos novos recursos e fazemos alterações subtis na maneira como o site se apresenta. Quando ainda estamos testando novos recursos, esses cookies podem ser usados ​​para garantir que você receba uma experiência consistente enquanto                            estiver no site, enquanto entendemos quais otimizações os nossos usuários mais apreciam.</li>                        <li>                            À medida que vendemos produtos, é importante entendermos as estatísticas sobre quantos visitantes de nosso site realmente compram e, portanto, esse é o tipo de dados que esses cookies rastrearão. Isso é importante para você, pois significa que podemos                            fazer previsões de negócios com precisão que nos permitem analizar nossos custos de publicidade e produtos para garantir o melhor preço possível.</li>                                            </ul><h3>Mais informações</h3>                    <p>Esperemos que esteja esclarecido e, como mencionado anteriormente, se houver algo que você não tem certeza se precisa ou não, geralmente é mais seguro deixar os cookies ativados, caso interaja com um dos recursos que você usa em nosso site.</p>                    <p>Esta política é efetiva a partir de <strong>Setembro</strong>/<strong>2020</strong>.</p>"
-    },
-
-    "AREASEGURANCA": {
-        "DESCRIPTION": "Clique aqui para visualizar os detalhes da área de segurança",
-        "NOME": "Nome",
-        "CREATE": "Criar área de segurança",
-        "DELETE": "Deletar área de segurança",
-        "EDIT": "Editar área de segurança",
-        "AREA": "Área de segurança",
-        "PROBLEMA": "Problema",
-        "NOMEAREA": "Nome da área de segurança",
-        "CONFIRM": "Confirmar",
-        "MESSAGE": "Você realmente deseja deletar esta área de segurança",
-        "CANCEL": "Cancelar"
-    },
-
-    "FORMS": {
-        "TITLE": "Planilhas de Pesquisa do Google Forms",
-        "ADDFORM": "Adicionar formulário",
-        "NOME": "Nome",
-        "URL": "URL",
-        "EDIT": "Editar formulário",
-        "DELETE": "Deletar formulário",
-        "ADD": "Adicionar Google Forms",
-        "CONFIRM": "Confirmar",
-        "CANCEL": "Cancelar"
-    },
-
-    "DELETEFORM": {
-        "CANCEL": "Cancelar",
-        "CONFIRM": "Confirmar",
-        "MESSAGE": "Você deseja excluir o formulário "
-    },
-
-    "INGRESSO": {
-        "CREATE": "Criar lote de ingressos",
-        "CONFIRMCREATE": "Criar lote",
-        "CONFIRMEDIT": "Editar lote",
-        "MESSAGE": "Você deseja deletar o lote ",
-        "NOME": "Nome do lote",
-        "NUMERO": "Número do lote",
-        "QUANTIDADE": "Quantidade de ingressos do lote",
-        "PRECO": "Preço dos ingressos do lote",
-        "DATAHRINI": "Data e horário de início da disponibilidade do lote",
-        "DATAHRFIM": "Data e horário de fim da disponibilidade do lote",
-        "DATAINI": "Data de início da venda do lote",
-        "DATAFIM": "Data de fim da venda do lote",
-        "HORAINI": "Horário inicial para venda",
-        "HORAFIM": "Horário final para venda",
-        "EDIT": "Editar lote",
-        "DELETE": "Deletar lote",
-        "DESCRICAO": "Descrição do lote",
-        "CANCEL": "Cancelar",
-        "CONFIRM": "Confirmar"
+    "UTILS": {
+        "RETURN": "Retornar"
     }
+
 }

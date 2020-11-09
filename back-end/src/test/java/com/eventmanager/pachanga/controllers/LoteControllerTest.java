@@ -336,5 +336,113 @@ class LoteControllerTest {
 		assertEquals(expected, result.getResponse().getContentAsString());
 
 	}
+	
+	@Test
+	@WithMockUser
+	void encontrarLoteUnicoDadosPublicosSucesso() throws Exception {
 
+		String uri = "/lote/loteUnicoDadosPublicos";
+
+		String expected = "{\"codLote\":1,\"codFesta\":2,\"numeroLote\":1,\"quantidade\":100,\"preco\":17.2,\"nomeLote\":\"Teste\",\"descLote\":\"lote vip krl\",\"horarioInicio\":\"2020-09-23T19:10:00\",\"horarioFim\":\"2020-09-24T19:10:00\"}";
+
+		Mockito.when(loteService.encontrarLoteDadosPublicos(Mockito.anyInt())).thenReturn(loteTest());
+		
+		Mockito.when(loteFactory.getLoteTO(Mockito.any())).thenReturn(loteToTest());
+
+		RequestBuilder requestBuilder = MockMvcRequestBuilders.get(uri).param("codLote","1")
+				.accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON);
+
+		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+
+		MockHttpServletResponse response = result.getResponse();
+
+		assertEquals(HttpStatus.OK.value(), response.getStatus());
+
+		JSONAssert.assertEquals(expected, result.getResponse().getContentAsString(), true);
+
+	}
+	
+	@Test
+	@WithMockUser
+	void encontrarLoteUnicoDadosPublicosErro() throws Exception {
+
+		String uri = "/lote/loteUnicoDadosPublicos";
+
+		String expected = "teste";
+
+		Mockito.when(loteService.encontrarLoteDadosPublicos(Mockito.anyInt())).thenThrow(new ValidacaoException("teste"));
+		
+		Mockito.when(loteFactory.getLoteTO(Mockito.any())).thenReturn(loteToTest());
+
+		RequestBuilder requestBuilder = MockMvcRequestBuilders.get(uri).param("codLote","1")
+				.accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON);
+
+		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+
+		MockHttpServletResponse response = result.getResponse();
+
+		assertEquals(HttpStatus.BAD_REQUEST.value(), response.getStatus());
+
+		assertEquals(expected, result.getResponse().getContentAsString());
+
+	}
+	
+	@Test
+	@WithMockUser
+	void listaLotedisponiveisSucesso() throws Exception {
+
+		String uri = "/lote/disponiveis";
+
+		String expected = "[{\"codLote\":1,\"codFesta\":2,\"numeroLote\":1,\"quantidade\":100,\"preco\":17.2,\"nomeLote\":\"Teste\",\"descLote\":\"lote vip krl\",\"horarioInicio\":\"2020-09-23T19:10:00\",\"horarioFim\":\"2020-09-24T19:10:00\"}]";
+
+		List<Lote> lotes = new ArrayList<>();
+		lotes.add(loteTest());
+
+		Mockito.when(loteService.encontrarLotesCompraveisFesta(Mockito.anyInt())).thenReturn(lotes);
+		
+		Mockito.when(loteFactory.getLoteTO(Mockito.any())).thenReturn(loteToTest());
+
+		RequestBuilder requestBuilder = MockMvcRequestBuilders.get(uri).param("codFesta", "2").param("codUsuario", "1")
+				.accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON);
+
+		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+
+		MockHttpServletResponse response = result.getResponse();
+
+		assertEquals(HttpStatus.OK.value(), response.getStatus());
+
+		JSONAssert.assertEquals(expected, result.getResponse().getContentAsString(), true);
+
+	}
+	
+	@Test
+	@WithMockUser
+	void listaLotedisponiveisErro() throws Exception {
+
+		String uri = "/lote/disponiveis";
+
+		String expected = "teste";
+
+		List<Lote> lotes = new ArrayList<>();
+		lotes.add(loteTest());
+
+		Mockito.when(loteService.encontrarLotesCompraveisFesta(Mockito.anyInt())).thenThrow(new ValidacaoException("teste"));
+		
+		Mockito.when(loteFactory.getLoteTO(Mockito.any())).thenReturn(loteToTest());
+
+		RequestBuilder requestBuilder = MockMvcRequestBuilders.get(uri).param("codFesta", "2").param("codUsuario", "1")
+				.accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON);
+
+		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+
+		MockHttpServletResponse response = result.getResponse();
+
+		assertEquals(HttpStatus.BAD_REQUEST.value(), response.getStatus());
+
+		assertEquals(expected, result.getResponse().getContentAsString());
+
+	}
+
+	
+	
 }

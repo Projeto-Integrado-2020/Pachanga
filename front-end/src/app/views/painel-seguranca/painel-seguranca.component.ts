@@ -8,6 +8,7 @@ import { GetSegurancaService } from 'src/app/services/get-seguranca/get-seguranc
 import { SegurancaProblemasService } from 'src/app/services/seguranca-problemas/seguranca-problemas.service';
 import { CriarAreaSegurancaDialogComponent } from '../criar-area-seguranca-dialog/criar-area-seguranca-dialog.component';
 import { DeleteAreaSegurancaDialogComponent } from '../delete-area-seguranca-dialog/delete-area-seguranca-dialog.component';
+import { DetalhesProblemaDialogComponent } from '../detalhes-problema-dialog/detalhes-problema-dialog.component';
 import { EditarAreaSegurancaDialogComponent } from '../editar-area-seguranca-dialog/editar-area-seguranca-dialog.component';
 import { RelatarProblemaDialogComponent } from '../relatar-problema-dialog/relatar-problema-dialog.component';
 
@@ -51,50 +52,6 @@ export class PainelSegurancaComponent implements OnInit {
   subscription: Subscription;
   source: any;
   public idFesta: string;
-  mockAreas: any = [
-    {
-      codArea: 1,
-      codFesta: 1,
-      nomeArea: 'Área 51',
-      statusSeguranca: 'S',
-      problemas: [
-        {
-          codProblema: 1,
-          descProblema: 'Invasão Alienígena',
-          resolvido: false
-        },
-        {
-          codProblema: 2,
-          descProblema: 'Nicolas Cage buscando tesouro',
-          resolvido: false
-        }
-      ]
-    },
-    {
-      codArea: 2,
-      codFesta: 1,
-      nomeArea: 'Area de Serviço',
-      statusSeguranca: 'S',
-      problemas: [
-        {
-          codProblema: 1,
-          descProblema: 'Elevador viajando na horizontal',
-          resolvido: false
-        },
-        {
-          codProblema: 1,
-          descProblema: 'Crise de Mísseis',
-          resolvido: false
-        },
-        {
-          codProblema: 1,
-          descProblema: 'Seu Barriga cobrando aluguel',
-          resolvido: false
-        }
-      ]
-    }
-  ];
-
 
   displayedColumns: string[] = ['nome', 'status'];
 
@@ -105,11 +62,16 @@ export class PainelSegurancaComponent implements OnInit {
     this.dataSources = [];
     this.idFesta = url.substring(url.indexOf('&') + 1, url.indexOf('/', url.indexOf('&')));
     this.resgatarDadosFesta();
+
+    /*this.segProbService.updateProblemasEmitter.subscribe(() => {
+      this.resgatarDadosFesta();
+    });*/
   }
 
   resgatarAreaSeguranca() {
     this.getSeguranca.getAreaSeguranca(this.festa.codFesta).subscribe((resp: any) => {
       this.areas = resp;
+      console.log(resp);
       this.getSeguranca.setFarol(false);
     });
   }
@@ -147,9 +109,13 @@ export class PainelSegurancaComponent implements OnInit {
     }
   }
 
-  resolverProblema(problema) {
-    problema.resolvido = true;
-    console.log('Problema resolvido, finja que funcionou');
+  verDetalhesProblema(problema) {
+    this.dialog.open(DetalhesProblemaDialogComponent, {
+      width: '30rem',
+      data: {
+        problema
+      }
+    });
   }
 
   openDialogRelatarProblema(area) {

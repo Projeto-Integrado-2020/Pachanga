@@ -38,6 +38,9 @@ import { CriarLoteComponent } from '../criar-lote/criar-lote.component';
 import { PainelIngressoComponent } from '../painel-ingresso/painel-ingresso.component';
 import { EditarLoteComponent } from '../editar-lote/editar-lote.component';
 import { VendaIngressosComponent } from '../venda-ingressos/venda-ingressos.component';
+import { ThirdPartyPainelComponent } from '../third-party-painel/third-party-painel.component';
+import { of } from 'rxjs';
+import { MenuFestasService } from 'src/app/services/menu-festa/menu-festas.service';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -74,7 +77,8 @@ describe('IndexComponent', () => {
         PainelIngressoComponent,
         CriarLoteComponent,
         EditarLoteComponent,
-        VendaIngressosComponent
+        VendaIngressosComponent,
+        ThirdPartyPainelComponent
       ],
       imports: [
         MomentModule,
@@ -92,6 +96,17 @@ describe('IndexComponent', () => {
           }
         }),
       ],
+      providers: [
+        { provide: MenuFestasService, useValue: {
+          getFestas: () => of({
+            nomeFesta: '1',
+            codFesta: '1',
+            horarioInicio: '2020-09-23T19:10:25',
+            horarioFim: '2020-09-23T19:10:25'
+          }),
+          setFarol: () => false,
+        }},
+      ],
     })
     .compileComponents();
   }));
@@ -99,10 +114,10 @@ describe('IndexComponent', () => {
   beforeEach(() => {
     jasmine.DEFAULT_TIMEOUT_INTERVAL = 100000;
     fixture = TestBed.createComponent(IndexComponent);
+    component = fixture.componentInstance;
     const service: LoginService = TestBed.get(LoginService);
     service.usuarioInfo = {sexo: null, dtNasc: null};
     component.festas = {codFesta: '1', nomeFesta: 'festa', horarioInicio: '2020-09-23T19:10:25', horarioFim: '2020-09-23T19:10:25'};
-    component = fixture.componentInstance;
     fixture.detectChanges();
   });
 

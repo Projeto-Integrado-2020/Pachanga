@@ -46,6 +46,7 @@ import { PainelIngressoComponent } from './views/painel-ingresso/painel-ingresso
 import { CriarLoteComponent } from './views/criar-lote/criar-lote.component';
 import { EditarLoteComponent } from './views/editar-lote/editar-lote.component';
 import { VendaIngressosComponent } from './views/venda-ingressos/venda-ingressos.component';
+import { ThirdPartyPainelComponent } from './views/third-party-painel/third-party-painel.component';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -100,7 +101,8 @@ describe('AppComponent', () => {
         PainelIngressoComponent,
         CriarLoteComponent,
         EditarLoteComponent,
-        VendaIngressosComponent
+        VendaIngressosComponent,
+        ThirdPartyPainelComponent
       ],
       imports: [
         MomentModule,

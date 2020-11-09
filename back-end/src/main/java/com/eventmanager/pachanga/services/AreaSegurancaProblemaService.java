@@ -20,6 +20,7 @@ import com.eventmanager.pachanga.repositories.AreaSegurancaRepository;
 import com.eventmanager.pachanga.repositories.GrupoRepository;
 import com.eventmanager.pachanga.repositories.ProblemaRepository;
 import com.eventmanager.pachanga.repositories.UsuarioRepository;
+import com.eventmanager.pachanga.tipo.TipoAreaSeguranca;
 import com.eventmanager.pachanga.tipo.TipoNotificacao;
 import com.eventmanager.pachanga.tipo.TipoPermissao;
 import com.eventmanager.pachanga.tipo.TipoStatusProblema;
@@ -61,10 +62,6 @@ public class AreaSegurancaProblemaService {
 	public AreaSegurancaProblema addProblemaSeguranca(AreaSegurancaProblemaTO problemaSegurancaTO, int idUsuario) {
 		grupoService.validarPermissaoUsuarioGrupo(problemaSegurancaTO.getCodFesta(), idUsuario,
 				TipoPermissao.ADDPSEGU.getCodigo());
-		if (areaSegurancaProblemaRepository.findAreaSegurancaProblema(problemaSegurancaTO.getCodAreaSeguranca(),
-				problemaSegurancaTO.getCodProblema()) != null) {
-			throw new ValidacaoException("PRSEEXST"); // ProblemaSeguranca já existe
-		}
 
 		problemaSegurancaTO.setStatusProblema(TipoStatusProblema.ANDAMENTO.getValor()); // só se cria em andamento
 		problemaSegurancaTO.setHorarioInicio(notificacaoService.getDataAtual());
@@ -78,8 +75,11 @@ public class AreaSegurancaProblemaService {
 
 		AreaSegurancaProblema problemaSeguranca = areaSegurancaProblemaFactory.getProblemaSeguranca(problemaSegurancaTO,
 				festa, areaSeguranca, problema, usuarioEmissor, null);
+		problemaSeguranca.setCodAreaProblema(areaSegurancaProblemaRepository.getNextValMySequence());
 		this.validarAreaSegurancaProblema(problemaSeguranca);
 		areaSegurancaProblemaRepository.save(problemaSeguranca);
+		areaSeguranca.setStatusSeguranca(TipoAreaSeguranca.INSEGURO.getDescricao());
+		areaSegurancaRepository.save(areaSeguranca);
 		this.disparaNotificacao(problemaSeguranca);
 		return problemaSeguranca;
 	}
@@ -87,8 +87,8 @@ public class AreaSegurancaProblemaService {
 	public AreaSegurancaProblema updateProblemaSeguranca(AreaSegurancaProblemaTO problemaSegurancaTO, int idUsuario) {
 		grupoService.validarPermissaoUsuarioGrupo(problemaSegurancaTO.getCodFesta(), idUsuario,
 				TipoPermissao.EDITPSEG.getCodigo());
-		AreaSegurancaProblema problemaSeguranca = this.validarProblemaSeguranca(
-				problemaSegurancaTO.getCodAreaSeguranca(), problemaSegurancaTO.getCodProblema());
+		AreaSegurancaProblema problemaSeguranca = this
+				.validarProblemaSeguranca(problemaSegurancaTO.getCodAreaProblema());
 		Problema problema = this.validarProblema(problemaSegurancaTO.getCodProblema());
 
 		problemaSeguranca.setDescProblema(problemaSegurancaTO.getDescProblema());
@@ -119,21 +119,26 @@ public class AreaSegurancaProblemaService {
 	public void alterarStatusProblema(AreaSegurancaProblemaTO problemaSegurancaTO, int idUsuario, Boolean finaliza) {
 		grupoService.validarPermissaoUsuarioGrupo(problemaSegurancaTO.getCodFesta(), idUsuario,
 				TipoPermissao.EDITPSEG.getCodigo());
-		AreaSegurancaProblema areaSegurancaProblema = this.validarProblemaSeguranca(
-				problemaSegurancaTO.getCodAreaSeguranca(), problemaSegurancaTO.getCodProblema());
+		AreaSegurancaProblema areaSegurancaProblema = this
+				.validarProblemaSeguranca(problemaSegurancaTO.getCodAreaProblema());
+		AreaSeguranca area = areaSegurancaRepository.findAreaByCodFestaAndCodArea(
+				areaSegurancaProblema.getFesta().getCodFesta(), areaSegurancaProblema.getArea().getCodArea());
 		if (finaliza.booleanValue()) {
 			areaSegurancaProblema.setStatusProblema(problemaSegurancaTO.getStatusProblema());
 			Usuario usuarioResolv = usuarioService.validarUsuario(problemaSegurancaTO.getCodUsuarioResolv());
 			areaSegurancaProblema.setCodUsuarioResolv(usuarioResolv);
 			areaSegurancaProblema.setHorarioFim(notificacaoService.getDataAtual());
 			this.validarAreaSegurancaProblema(areaSegurancaProblema);
-			this.deletarNotificacoes(areaSegurancaProblema.getArea());
+			this.deletarNotificacoes(areaSegurancaProblema.getArea(), areaSegurancaProblema.getProblema());
+			area.setStatusSeguranca(TipoAreaSeguranca.SEGURO.getDescricao());
 		} else {
 			areaSegurancaProblema.setStatusProblema(TipoStatusProblema.ANDAMENTO.getValor());
 			areaSegurancaProblema.setCodUsuarioResolv(null);
 			areaSegurancaProblema.setHorarioFim(null);
 			this.disparaNotificacao(areaSegurancaProblema);
+			area.setStatusSeguranca(TipoAreaSeguranca.INSEGURO.getDescricao());
 		}
+		areaSegurancaRepository.save(area);
 		areaSegurancaProblemaRepository.save(areaSegurancaProblema);
 	}
 
@@ -148,13 +153,13 @@ public class AreaSegurancaProblemaService {
 				|| problemaSeguranca.getStatusProblema().equals(TipoStatusProblema.ENGANO.getValor()))
 				&& problemaSeguranca.getCodUsuarioResolv() == null) {
 
-			throw new ValidacaoException("STSINVL"); // STATUS INVALIDO
+			throw new ValidacaoException("STSPINVL"); // STATUS INVALIDO
 		}
 	}
 
-	private AreaSegurancaProblema validarProblemaSeguranca(int codAreaSeguranca, int codProblema) {
+	private AreaSegurancaProblema validarProblemaSeguranca(int codProblemaSeguranca) {
 		AreaSegurancaProblema problemaSeguranca = areaSegurancaProblemaRepository
-				.findAreaSegurancaProblema(codAreaSeguranca, codProblema);
+				.findByCodProblema(codProblemaSeguranca);
 		if (problemaSeguranca == null) {
 			throw new ValidacaoException("PRSENFOU"); // ProblemaSeguranca nao existe
 		}
@@ -187,16 +192,16 @@ public class AreaSegurancaProblemaService {
 		}
 	}
 
-	public void deletarNotificacoes(AreaSeguranca area) {
+	public void deletarNotificacoes(AreaSeguranca area, Problema problema) {
 		List<Grupo> grupos = grupoRepository.findGruposFesta(area.getCodFesta());
 		grupos.stream().forEach(g -> {
 			List<Usuario> usuarios = usuarioRepository.findUsuariosPorGrupo(g.getCodGrupo());
 			usuarios.stream().forEach(u -> notificacaoService.deleteNotificacao(u.getCodUsuario(),
-					TipoNotificacao.AREAPROB.getValor() + "?" + area.getCodArea() + "&")
+					TipoNotificacao.AREAPROB.getValor() + "?" + area.getCodArea() + "&" + (problema == null ? "" : problema.getCodProblema()))
 
 			);
-			notificacaoService
-					.deletarNotificacaoGrupo(TipoNotificacao.AREAPROB.getValor() + "?" + area.getCodArea() + "&");
+			notificacaoService.deletarNotificacaoGrupo(
+					TipoNotificacao.AREAPROB.getValor() + "?" + area.getCodArea() + "&" + (problema == null ? "" : problema.getCodProblema()));
 		});
 
 	}

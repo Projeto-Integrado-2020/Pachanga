@@ -105,6 +105,11 @@ import { DeletarLoteDialogComponent } from './views/deletar-lote-dialog/deletar-
 import { AlertaSegurancaComponent } from './views/alerta-seguranca/alerta-seguranca.component';
 import { DatePipe } from '@angular/common';
 import { VendaIngressosComponent } from './views/venda-ingressos/venda-ingressos.component';
+import { AdicionarIntegracoesDialogComponent } from './views/adicionar-integracoes-dialog/adicionar-integracoes-dialog.component';
+import { EditarIntegracoesDialogComponent } from './views/editar-integracoes-dialog/editar-integracoes-dialog.component';
+import { DeletarIntegracoesDialogComponent } from './views/deletar-integracoes-dialog/deletar-integracoes-dialog.component';
+import { DetalhesProblemaDialogComponent } from './views/detalhes-problema-dialog/detalhes-problema-dialog.component';
+import { ThirdPartyPainelComponent } from './views/third-party-painel/third-party-painel.component';
 
 const config = new AuthServiceConfig([
   {
@@ -187,7 +192,12 @@ export function provideConfig() {
     EditarLoteComponent,
     DeletarLoteDialogComponent,
     AlertaSegurancaComponent,
-    VendaIngressosComponent
+    VendaIngressosComponent,
+    AdicionarIntegracoesDialogComponent,
+    EditarIntegracoesDialogComponent,
+    DeletarIntegracoesDialogComponent,
+    DetalhesProblemaDialogComponent,
+    ThirdPartyPainelComponent
   ],
   entryComponents: [
     LoginComponent,
@@ -226,7 +236,11 @@ export function provideConfig() {
     AdicionarFormDialogComponent,
     RelatarProblemaDialogComponent,
     DeletarLoteDialogComponent,
-    AlertaSegurancaComponent
+    AlertaSegurancaComponent,
+    AdicionarIntegracoesDialogComponent,
+    EditarIntegracoesDialogComponent,
+    DeletarIntegracoesDialogComponent,
+    DetalhesProblemaDialogComponent
   ],
   imports: [
     BrowserModule,

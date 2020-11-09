@@ -24,7 +24,7 @@ export class GetFestaService {
       this.setFarol(true);
       const httpParams = new HttpParams()
       .append('idFesta', idFesta)
-      .append('idUsuario', '0');
+      .append('idUsuario', this.loginService.usuarioInfo.codUsuario);
 
       let headers = new HttpHeaders();
       headers = headers.append('Content-Type', 'application/json');

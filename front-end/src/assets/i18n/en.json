@@ -135,7 +135,16 @@
         "LOTENFOU": "Lot not found.",
         "FORMNFOU": "Survey Google Forms not found.",
         "URLFORMS": "This URL has already been registered.",
-        "NOMEFORM": "This name has already been registered."
+        "NOMEFORM": "This name has already been registered.",
+        "SYMERROR": "Error to authenticate this Sympla Event.",
+        "EVBERROR": "Error to authenticate this Eventbrite Event.",
+        "STSPINVL": "Invalid security status.",
+        "PRSENFOU": "Security problem not found",
+        "PROBNFOU": "Problem not fount.",
+        "TERCINCO": "Incorrect Third-Party.",
+        "INFOTCAD": "Third-Party already registered.",
+        "INFOTOKU": "Token already registered.",
+        "INFONFOU": "Integration not found."
     },
 
     "SUCCESS": {
@@ -149,7 +158,8 @@
         "ATRIBSUC": "Distribution successfully saved.",
         "PRODDELE": "Product successfully deleted.",
         "FORMDELE": "Form successfully deleted.",
-        "LOTEALT": "Batch successfully updated."
+        "LOTEALT": "Batch successfully updated.",
+        "INTEDELE": "Third-Party integration successfully deleted."
     },
 
     "PERFIL":{
@@ -297,6 +307,26 @@
         "CHANGESTATUS": "Change status"
     },
 
+    "RELATARPROB": {
+        "TITULO": "Report Issue in ",
+        "PROBLEMA": "Issue",
+        "TUMULTTO": "Turmoil",
+        "BRIGAVIO": "Fight",
+        "EMEGMEDI": "Physical Altercation",
+        "FURTOOBJ": "Theft",
+        "ASSALTTO": "Mugging",
+        "PORTOBJT": "Illegal Object Possession",
+        "PORTSUBS": "Drug Possession",
+        "VENDAILG": "Illegal Sale",
+        "SAIRSPAG": "Walk Out on Bill",
+        "VANDALIS": "Vandalism",
+        "ASSEDSEX": "Sexual Harassment",
+        "ATENTPUD": "Indecent Exposure",
+        "ENTRPROB": "Disallowed Entry",
+        "OUTRPROB": "Something Else",
+        "RELATAR":"Report"
+    },
+
     "404": {
         "MESSAGE": "Outch, I think the party is over! This content is unavailable."
     },
@@ -395,7 +425,15 @@
         "VISUFORM": "View Google Forms surveys.",
         "ADDFORMS": "Add Google Forms surveys.",
         "DELEFORM": "Delete Google Forms surveys.",
-        "EDITFORM": "Edit Google Forms surveys."
+        "EDITFORM": "Edit Google Forms surveys.",
+        "VISUPSEG": "View security problem",
+        "ADDPSEGU": "Add security problem",
+        "DELEPSEG": "Delete security problem",
+        "EDITPSEG": "Edit security problem",
+        "VISUINTE": "View integration",
+        "ADDINTEG": "Add integration",
+        "DELEINTE": "Delete integration",
+        "EDITINTE": "Edit integration"
     },
 
     "ASSIGNDIALOG": {
@@ -614,5 +652,26 @@
         "DESCRICAO": "Batch description",
         "CANCEL": "Cancel",
         "CONFIRM": "Confirm"
+    },
+
+    "INTEGRACAO": {
+        "CALLBUTTON": "Third-Party Integrations",
+        "TITLE": "Third-party integrations (Sympla and Eventbrite)",
+        "SUBTITLE": "Informations about the integration:",
+        "ADD": "Add integration",
+        "IDEVENTO": "Event Id",
+        "TOKEN": "Private Token",
+        "TERCEIRO": "Third-party (Sympla or Eventbrite)",
+        "EDIT": "Edit integration",
+        "DELETE": "Delete integration",
+        "CONFIRM": "Confirm",
+        "CANCEL": "Cancel",
+        "NONE": "This party don't have third-party integrations."
+    },
+
+    "DELETEINTEGRACAO": {
+        "CANCEL": "Cancel",
+        "CONFIRM": "Confirm",
+        "MESSAGE": "Do you want to delete this integration?"
     }
 }

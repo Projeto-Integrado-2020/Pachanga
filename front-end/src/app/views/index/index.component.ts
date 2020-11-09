@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+import { GetFestaIndexService } from 'src/app/services/get-festa-index/get-festa-index.service';
 import { MenuFestasService } from 'src/app/services/menu-festa/menu-festas.service';
 
 export interface Tile {
@@ -23,7 +24,7 @@ export class IndexComponent implements OnInit {
   rows: 2;
   nenhumaFesta = false;
 
-  constructor(private translate: TranslateService, public getFestas: MenuFestasService) {
+  constructor(private translate: TranslateService, public getFestas: GetFestaIndexService) {
   }
 
   tiles: Tile[] = [
@@ -32,7 +33,7 @@ export class IndexComponent implements OnInit {
   ];
 
   ngOnInit() {
-    this.getFestas.getFestas('0').subscribe((resp: any) => {
+    this.getFestas.getFestasLista().subscribe((resp: any) => {
       this.getFestas.setFarol(false);
       this.festas = resp;
 

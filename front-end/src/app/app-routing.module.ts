@@ -21,6 +21,7 @@ import { PainelIngressoComponent } from './views/painel-ingresso/painel-ingresso
 import { CriarLoteComponent } from './views/criar-lote/criar-lote.component';
 import { EditarLoteComponent } from './views/editar-lote/editar-lote.component';
 import { VendaIngressosComponent } from './views/venda-ingressos/venda-ingressos.component';
+import { ThirdPartyPainelComponent } from './views/third-party-painel/third-party-painel.component';
 
 const routes: Routes = [
 
@@ -61,6 +62,12 @@ const routes: Routes = [
     {
       path: 'festas/:festa&:id/ingressos',
       component: PainelIngressoComponent,
+      canActivate: [AuthGuard]
+    },
+
+    {
+      path: 'festas/:festa&:id/ingressos/integracoes',
+      component: ThirdPartyPainelComponent,
       canActivate: [AuthGuard]
     },
 

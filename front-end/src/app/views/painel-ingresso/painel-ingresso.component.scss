@@ -142,7 +142,7 @@
 }
 
 .painel {
-  margin-top: 2rem;
+  margin-bottom: 2rem;
 }
 
   .titulo2 {
@@ -401,4 +401,9 @@ tr.example-element-row:not(.example-expanded-row):active {
   color: #ffffff;
   padding: .2rem;
   padding-right: .3rem;
+}
+
+.botao-integracao {
+  background-color: $color-primary;
+  color: #ffffff;
 }

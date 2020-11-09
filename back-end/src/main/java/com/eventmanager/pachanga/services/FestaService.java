@@ -99,6 +99,10 @@ public class FestaService {
 		Usuario usuario = usuarioRepository.findById(idUser);
 		return festaRepository.findByUsuarios(usuario.getCodUsuario());
 	}
+	
+	public List<Festa> procurarFestasComLotesCompraveis() {
+		return festaRepository.findAllComLotesCompraveis();
+	}
 
 	public Festa addFesta(FestaTO festaTo, int idUser) {
 		this.validarUsuarioFesta(idUser, 0);
@@ -184,7 +188,7 @@ public class FestaService {
 		festaRepository.save(festaMudanca);
 		return festaMudanca;
 	}
-
+	
 	private Festa validarMudancas(FestaTO festaTo, Festa festa) {
 		mudarCategoriaFesta(festa, festaTo);
 		if (!festa.getNomeFesta().equals(festaTo.getNomeFesta())) {
@@ -288,6 +292,10 @@ public class FestaService {
 
 	public Festa procurarFesta(int idFesta, int idUsuario) {
 		this.validarUsuarioFesta(idUsuario, idFesta);
+		return festaRepository.findByCodFesta(idFesta);
+	}
+	
+	public Festa procurarDadosPublicosFesta(int idFesta) {
 		return festaRepository.findByCodFesta(idFesta);
 	}
 

@@ -1,0 +1,29 @@
+<h1 mat-dialog-title>Detalhes problema</h1>
+<div mat-dialog-content>
+  <div class="detalhes">
+    <span>Descrição: {{this.detalhes.problema.descProblema}}</span>
+    <span>Data do Registro: {{this.dia}}</span>
+    <span>Horário do Registro: {{this.hora}}</span>
+    <span>Status do Problema: {{this.detalhes.problema.statusProblema}}</span>
+  </div>
+  <div class="botoes">
+      <button 
+        *ngIf="this.detalhes.problema.statusProblema == 'A'"
+        (click)="alterarStatus(true, 'F')"
+        class="btn"
+        mat-button
+        >Marcar como Finalizado</button>
+      <button
+        *ngIf="this.detalhes.problema.statusProblema == 'A'"
+        (click)="alterarStatus(true, 'E')"
+        class="btn"
+        mat-button
+        >Marcar como Engano</button>
+      <button 
+        *ngIf="this.detalhes.problema.statusProblema == 'E' || this.detalhes.problema.statusProblema == 'F'"
+        (click)="alterarStatus(false, 'A')"
+        class="btn"
+        mat-button
+        >Marcar como Em Andamento</button>
+  </div>
+</div>

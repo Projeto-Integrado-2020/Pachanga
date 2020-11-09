@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import com.eventmanager.pachanga.dtos.AreaSegurancaProblemaTO;
 
 public class AreaSegurancaProblemaTOBuilder {
+	private int codAreaProblema;
 	private int codAreaSeguranca;
 	private int codFesta;
 	private int codProblema;
@@ -21,6 +22,11 @@ public class AreaSegurancaProblemaTOBuilder {
 	
 	public AreaSegurancaProblemaTOBuilder codAreaSeguranca(int codAreaSeguranca) {
 		this.codAreaSeguranca = codAreaSeguranca;
+		return this;
+	}
+	
+	public AreaSegurancaProblemaTOBuilder codAreaProblema(int codAreaProblema) {
+		this.codAreaProblema = codAreaProblema;
 		return this;
 	}
 
@@ -75,6 +81,7 @@ public class AreaSegurancaProblemaTOBuilder {
 		problemaSegurancaTO.setHorarioFim(horarioFim);
 		problemaSegurancaTO.setHorarioInicio(horarioInicio);
 		problemaSegurancaTO.setStatusProblema(statusProblema);
+		problemaSegurancaTO.setCodAreaProblema(codAreaProblema);
 		return problemaSegurancaTO;
 	}
 	

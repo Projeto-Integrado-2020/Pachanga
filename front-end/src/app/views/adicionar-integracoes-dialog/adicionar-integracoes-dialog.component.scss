@@ -1,0 +1,29 @@
+@import "../material/paleta.scss";
+
+.button-form {
+    margin-left: 4rem;
+    background-color: $color-primary;
+    color: #ffffff;
+    margin-top: 1rem;
+}
+
+mat-form-field {
+    width: 20rem!important;
+}
+
+.cancel-button {
+    transform: translate(11rem, -2.25rem)!important;
+}
+
+.input-hidden{
+    height:0;
+    width:0;
+    visibility: hidden;
+    padding:0;
+    margin:0;
+    float:right;
+}
+
+.token {
+    margin-top: .5rem;
+}

@@ -1,5 +1,6 @@
 package com.eventmanager.pachanga.repositories;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -39,5 +40,14 @@ public interface FestaRepository extends JpaRepository<Festa, Integer>{
 	
 	@Query(value = "SELECT f FROM Festa f JOIN f.grupos g JOIN g.convidados c WHERE g.codGrupo = :codGrupo AND c.codConvidado = :codConvidado")
 	public Festa findFestaByCodConvidadoAndCodGrupo(Integer codConvidado, Integer codGrupo);
+	
+	//@Query(value = "SELECT f FROM Ingresso i RIGHT JOIN i.lote l JOIN l.festa f WHERE l.horarioFim > :horarioFim AND ")
+	//public List<Festa> findAllFestasComDataELotesCompraveis(LocalDateTime horarioFim);
+	
+	@Query(value = "SELECT f FROM Lote l JOIN l.festa f WHERE l.horarioFim > :horarioFim AND l.quantidade > ( SELECT count(i) FROM Ingresso i JOIN i.lote lt JOIN lt.festa fe WHERE fe.codFesta = f.codFesta AND lt.codLote = l.codLote ) ")
+	public List<Festa> findAllTeste(LocalDateTime horarioFim);
+	
+	@Query(value = "SELECT f FROM Lote l JOIN l.festa f WHERE l.horarioFim > CURRENT_TIMESTAMP AND l.quantidade > ( SELECT count(i) FROM Ingresso i JOIN i.lote lt JOIN lt.festa fe WHERE fe.codFesta = f.codFesta AND lt.codLote = l.codLote ) ")
+	public List<Festa> findAllComLotesCompraveis();
 	
 }

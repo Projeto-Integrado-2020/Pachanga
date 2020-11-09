@@ -4,7 +4,7 @@ import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
 import { RelatarProblemaDialogComponent } from './relatar-problema-dialog.component';
-import { MatDialog, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { CustomMaterialModule } from '../material/material.module';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -39,6 +39,10 @@ describe('RelatarProblemaDialogComponent', () => {
       providers: [
         { provide: MAT_DIALOG_DATA, useValue: { codFesta: '1', area: { codArea: '1', codFesta: '1', nomeArea: 'Nome'} } },
         { provide: MatDialog, useValue: dialogSpy },
+        {
+          provide: MatDialogRef,
+          useValue: {}
+        },
         {provide: RelatarProblemaDialogComponent, useValue: {
           atualizarAreaSeguranca: () => of({}),
           setFarol: () => false,

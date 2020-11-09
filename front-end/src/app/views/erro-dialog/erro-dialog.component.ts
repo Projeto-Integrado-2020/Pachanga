@@ -82,6 +82,15 @@ export class ErroDialogComponent implements OnInit {
       case 'FORMNFOU': this.erro = this.translate.instant('ERRO.FORMNFOU'); break;
       case 'URLFORMS': this.erro = this.translate.instant('ERRO.URLFORMS'); break;
       case 'NOMEFORM': this.erro = this.translate.instant('ERRO.NOMEFORM'); break;
+      case 'SYMERROR': this.erro = this.translate.instant('ERRO.SYMERROR'); break;
+      case 'EVBERROR': this.erro = this.translate.instant('ERRO.EVBERROR'); break;
+      case 'STSPINVL': this.erro = this.translate.instant('ERRO.STSPINVL'); break;
+      case 'PRSENFOU': this.erro = this.translate.instant('ERRO.PRSENFOU'); break;
+      case 'PROBNFOU': this.erro = this.translate.instant('ERRO.PROBNFOU'); break;
+      case 'TERCINCO': this.erro = this.translate.instant('ERRO.TERCINCO'); break;
+      case 'INFOTCAD': this.erro = this.translate.instant('ERRO.INFOTCAD'); break;
+      case 'INFOTOKU': this.erro = this.translate.instant('ERRO.INFOTOKU'); break;
+      case 'INFONFOU': this.erro = this.translate.instant('ERRO.INFONFOU'); break;
       default: this.erro = this.translate.instant('ERRO.SERVERRO');
     }
   }

@@ -43,13 +43,34 @@ public class LoteController {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
 	}
-
+	
 	@ResponseBody
 	@GetMapping(path = "/loteUnico")
 	public ResponseEntity<Object> loteUnico(@RequestParam(required = true) int codLote,
 			@RequestParam(required = true) int codUsuario) {
 		try {
 			return ResponseEntity.ok(loteFactory.getLoteTO(loteService.encontrarLote(codLote, codUsuario)));
+		} catch (ValidacaoException e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+	}
+	
+	@ResponseBody
+	@GetMapping(path = "/loteUnicoDadosPublicos")
+	public ResponseEntity<Object> loteUnicoDadosPublicos(@RequestParam(required = true) int codLote) {
+		try {
+			return ResponseEntity.ok(loteFactory.getLoteTO(loteService.encontrarLoteDadosPublicos(codLote)));
+		} catch (ValidacaoException e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+	}
+	
+	@ResponseBody
+	@GetMapping(path = "/disponiveis")
+	public ResponseEntity<Object> lotesDisponiveisFesta(@RequestParam(required = true) int codFesta) {
+		try {
+			return ResponseEntity.ok(loteService.encontrarLotesCompraveisFesta(codFesta).stream()
+					.map(l -> loteFactory.getLoteTO(l)).collect(Collectors.toList()));
 		} catch (ValidacaoException e) {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
