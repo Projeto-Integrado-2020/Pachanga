@@ -69,6 +69,11 @@ describe('EditarIntegracoesDialogComponent', () => {
     component.integracao = {codInfo: 'teste'};
     const service: LoginService = TestBed.get(LoginService);
     service.usuarioInfo = {codUsuario: '1'};
+    component.component = {
+      ngOnInit: () => {
+        return true;
+      }
+    };
     fixture.detectChanges();
   });
 
@@ -89,11 +94,6 @@ describe('EditarIntegracoesDialogComponent', () => {
     .and
     .callThrough();
 
-    component.component = {
-      ngOnInit: () => {
-        return true;
-      }
-    };
     spyOn(component.component, 'ngOnInit')
     .and
     .callThrough();

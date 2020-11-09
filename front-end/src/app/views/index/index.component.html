@@ -1,13 +1,32 @@
+<app-info-complete>
+</app-info-complete>
 <div class="main-container">
-    <app-info-complete>
-    </app-info-complete>
-
-    <mat-grid-list cols="3" rowHeight="100vh">
-        <mat-grid-tile *ngFor="let tile of tiles"
-        [colspan] = "tile.cols"
-        [rowspan] = "tile.rows"
-        >
-            <h1>{{tile.text | translate}}</h1>
-        </mat-grid-tile>
-    </mat-grid-list>
+    <h1>{{'INDEX.OLA' | translate}}</h1>
+    <h2>Todas as festas: </h2>
+    <div *ngFor="let festa of festasMostradas" class="lista-festas">
+        <a routerLink="{{createUrl(festa.nomeFesta, festa.codFesta)}}" matTooltip="Acessar painel de compra de ingresso" matTooltipPosition="right">
+            <mat-card class="festa-tab">
+                <mat-card-header>
+                    <mat-card-title>{{festa.nomeFesta}}</mat-card-title>
+                    <mat-card-subtitle class="subtitle">{{festa.descricaoFesta}}</mat-card-subtitle>
+                </mat-card-header>
+                
+                <mat-card-content class="card-content">
+                    <div class="textos">
+                        <div class="texto">
+                            <p><b>{{ 'FESTA.INICIODATA' | translate }}:</b> {{getDateFromDTF(festa.horarioInicioFesta)}}</p>
+                            <p><b>{{ 'FESTA.FIMDATA' | translate }}:</b> {{getDateFromDTF(festa.horarioFimFesta)}}</p>
+                        </div>
+                        <div class="texto">
+                            <p><b>{{ 'FESTA.INICIOHORA' | translate }}:</b> {{getTimeFromDTF(festa.horarioInicioFesta)}}</p>
+                            <p><b>{{ 'FESTA.FIMHORA' | translate }}:</b> {{getTimeFromDTF(festa.horarioFimFesta)}}</p> 
+                        </div>
+                    </div>
+                    <div class="texto">
+                        <p><b>{{ 'FESTA.ENDERECO' | translate }}:</b> {{festa.codEnderecoFesta}}</p>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+        </a>
+    </div>
 </div>

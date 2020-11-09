@@ -43,6 +43,7 @@ import { RelatoriosPainelComponent } from '../relatorios-painel/relatorios-paine
 import { PainelIngressoComponent } from '../painel-ingresso/painel-ingresso.component';
 import { CriarLoteComponent } from '../criar-lote/criar-lote.component';
 import { EditarLoteComponent } from '../editar-lote/editar-lote.component';
+import { VendaIngressosComponent } from '../venda-ingressos/venda-ingressos.component';
 import { ThirdPartyPainelComponent } from '../third-party-painel/third-party-painel.component';
 
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 100000;
@@ -101,6 +102,7 @@ describe('NavbarComponent', () => {
         PainelIngressoComponent,
         CriarLoteComponent,
         EditarLoteComponent,
+        VendaIngressosComponent,
         ThirdPartyPainelComponent
        ],
       imports: [

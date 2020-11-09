@@ -14,6 +14,7 @@ import { RouterModule } from '@angular/router';
 describe('DetalhesProblemaDialogComponent', () => {
   let component: DetalhesProblemaDialogComponent;
   let fixture: ComponentFixture<DetalhesProblemaDialogComponent>;
+  // tslint:disable-next-line: prefer-const
   let dialogSpy: MatDialog;
 
   beforeEach(async(() => {

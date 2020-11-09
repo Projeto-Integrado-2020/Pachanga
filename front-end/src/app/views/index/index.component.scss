@@ -9,7 +9,18 @@ h1{
     user-select: none;
 
     padding: 20px;
-    padding-left: 2rem;
+    padding-left: 10rem;
+}
+
+h2{
+  color: $color-primary;
+    font-size: 2rem;
+    left: 1rem;
+    z-index: 1;
+    user-select: none;
+
+    padding: 20px;
+    padding-left: 1rem;
 }
 
 @media screen and (min-width: 601px) {
@@ -35,6 +46,45 @@ html {
 }
 
 .main-container {
-  max-height: calc(100vh - 64px);
-  overflow: hidden;
+  top: 64px;
+  max-width: 1140px;
+  height: calc(100vh - 64px);
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 0 2rem 0 2rem;
+}
+
+.lista-festas {
+  margin: 2rem 0 2rem 0;
+  word-wrap: break-word;
+}
+
+.festa-tab {
+  padding: 1rem;
+  max-width: 70rem;
+
+  &:hover {
+      background-color: #f2f2f2;
+      transition: background-color 0.3s ease-in-out;
+  }
+}
+
+.card-content {
+  padding: 0 3.3rem 0 3.3rem;
+}
+
+.textos {
+  margin-top: 1rem;
+}
+
+.texto {
+  display: inline-block;
+  margin-right: 2rem;
+}
+
+.subtitle {
+  max-width: 69rem;
+  text-transform: capitalize;
+  word-wrap: break-word;
 }

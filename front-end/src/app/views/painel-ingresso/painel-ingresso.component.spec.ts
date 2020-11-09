@@ -11,6 +11,9 @@ import { CustomMaterialModule } from '../material/material.module';
 import { RouterModule } from '@angular/router';
 import { LoginService } from 'src/app/services/loginService/login.service';
 import { FormsModule } from '@angular/forms';
+import { GetFestaService } from 'src/app/services/get-festa/get-festa.service';
+import { of } from 'rxjs';
+import { GetLoteService } from 'src/app/services/get-lote/get-lote.service';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -39,7 +42,20 @@ describe('PainelIngressoComponent', () => {
         RouterModule.forRoot([]),
       ],
       providers: [
-        { provide: LoginService, useValue: {usuarioInfo: {codUsuario: '1'}} },
+        {provide: GetFestaService, useValue: {
+          acessarFesta: () => of({
+          }),
+          setFarol: () => false,
+        }},
+        {provide: GetLoteService, useValue: {
+          getLote: () => of([{
+            codLote: '1',
+            codFesta: '1',
+            horarioInicio: '2020-09-23T19:10:25',
+            horarioFim: '2020-09-23T19:10:25'
+          }]),
+          setFarol: () => false,
+        }}
       ]
     })
     .compileComponents();
@@ -76,7 +92,7 @@ describe('PainelIngressoComponent', () => {
     expect(result).toBe('19:10:25');
   });
 
-  it('should create url with party name and id', () => {
+  it('should create url with batch id', () => {
     const result = component.createUrlEditLote('1');
     expect(result).toBe('../ingressos/editar-lote/1');
   });

@@ -44,7 +44,9 @@ describe('PerdaProdutoEstoqueDialogComponent', () => {
         RouterModule.forRoot([])
       ],
       providers: [
-        { provide: MAT_DIALOG_DATA, useValue: { element: {dose: true } } },
+        { provide: MAT_DIALOG_DATA, useValue: { element: {dose: true }, component: {
+          quantidadesProdutos: [[{quantidadeAtual: 10}]], ngOnInit: () => true
+        } } },
         { provide: MatDialog, useValue: dialogSpy },
         {provide: PerdaProdutoEstoqueService, useValue: {
           perdaProdutoEstoque: () => of({}),
@@ -61,7 +63,8 @@ describe('PerdaProdutoEstoqueDialogComponent', () => {
     const loginService = TestBed.get(LoginService);
     loginService.usuarioInfo = {codUsuario: '1', nomeUser: 'Teste', nomesexo: null, dtNasc: null};
     component.component = {
-      quantidadesProdutos: [[{quantidadeAtual: 10}]]
+      quantidadesProdutos: [[{quantidadeAtual: 10}]],
+      ngOnInit: () => true
     };
     fixture.detectChanges();
   });
@@ -138,9 +141,6 @@ describe('PerdaProdutoEstoqueDialogComponent', () => {
     };
     component.estoque = {
       codEstoque: 'teste'
-    };
-    component.component = {
-      quantidadesProdutos: [[{quantidadeAtual: 10}]]
     };
     component.indexEstoque = 0;
     component.indexProduto = 0;

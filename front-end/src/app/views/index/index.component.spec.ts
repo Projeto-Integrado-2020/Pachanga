@@ -37,7 +37,10 @@ import { FormsPainelComponent } from '../forms-painel/forms-painel.component';
 import { CriarLoteComponent } from '../criar-lote/criar-lote.component';
 import { PainelIngressoComponent } from '../painel-ingresso/painel-ingresso.component';
 import { EditarLoteComponent } from '../editar-lote/editar-lote.component';
+import { VendaIngressosComponent } from '../venda-ingressos/venda-ingressos.component';
 import { ThirdPartyPainelComponent } from '../third-party-painel/third-party-painel.component';
+import { of } from 'rxjs';
+import { GetFestaIndexService } from 'src/app/services/get-festa-index/get-festa-index.service';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -74,6 +77,7 @@ describe('IndexComponent', () => {
         PainelIngressoComponent,
         CriarLoteComponent,
         EditarLoteComponent,
+        VendaIngressosComponent,
         ThirdPartyPainelComponent
       ],
       imports: [
@@ -92,6 +96,17 @@ describe('IndexComponent', () => {
           }
         }),
       ],
+      providers: [
+        { provide: GetFestaIndexService, useValue: {
+          getFestasLista: () => of([{
+            nomeFesta: '1',
+            codFesta: '1',
+            horarioInicioFesta: '2020-09-23T19:10:25',
+            horarioFimFesta: '2020-09-23T19:10:25'
+          }]),
+          setFarol: () => false,
+        }},
+      ],
     })
     .compileComponents();
   }));
@@ -99,15 +114,39 @@ describe('IndexComponent', () => {
   beforeEach(() => {
     jasmine.DEFAULT_TIMEOUT_INTERVAL = 100000;
     fixture = TestBed.createComponent(IndexComponent);
-    const service: LoginService = TestBed.get(LoginService);
-    service.usuarioInfo = {sexo: null, dtNasc: null};
     component = fixture.componentInstance;
+    const service: LoginService = TestBed.get(LoginService);
+    service.usuarioInfo = {codUsuario: 'teste', sexo: null, dtNasc: null};
+    component.festas = {
+      codFesta: '1',
+      nomeFesta: 'festa',
+      horarioInicioFesta: '2020-09-23T19:10:25',
+      horarioFimFesta: '2020-09-23T19:10:25'
+    };
+    const token = {
+      timeToken: '2020-09-21T01:14:04.028+0000',
+      token: 'teste'
+    };
+    localStorage.setItem('token', JSON.stringify(token));
     fixture.detectChanges();
   });
 
   it('should create', () => {
-    const service: LoginService = TestBed.get(LoginService);
-    service.usuarioInfo = {nomeUser: 'Teste', sexo: null, dtNasc: null};
     expect(component).toBeTruthy();
+  });
+
+  it('should format date from datetime', () => {
+    const result = component.getDateFromDTF('2020-09-23T19:10:25');
+    expect(result).toBe('23/09/2020');
+  });
+
+  it('should format time from datetime', () => {
+    const result = component.getTimeFromDTF('2020-09-23T19:10:25');
+    expect(result).toBe('19:10:25');
+  });
+
+  it('should create ticket sales url', () => {
+    const result = component.createUrl('festa', '123');
+    expect(result).toBe('../festa&123/venda-ingressos');
   });
 });

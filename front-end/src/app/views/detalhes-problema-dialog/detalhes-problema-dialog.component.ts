@@ -55,8 +55,9 @@ export class DetalhesProblemaDialogComponent implements OnInit {
     this.detalhes.problema.codUsuarioResolv = this.loginService.getusuarioInfo().codUsuario;
     console.log(this.detalhes.problema);
     this.segProblemaService.alterarStatus(finaliza, this.detalhes.problema).subscribe(
-      () =>{
+      () => {
         this.segProblemaService.setFarol(false);
+        this.modal.closeAll();
       });
   }
 
