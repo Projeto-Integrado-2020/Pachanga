@@ -40,7 +40,7 @@ import { EditarLoteComponent } from '../editar-lote/editar-lote.component';
 import { VendaIngressosComponent } from '../venda-ingressos/venda-ingressos.component';
 import { ThirdPartyPainelComponent } from '../third-party-painel/third-party-painel.component';
 import { of } from 'rxjs';
-import { MenuFestasService } from 'src/app/services/menu-festa/menu-festas.service';
+import { GetFestaIndexService } from 'src/app/services/get-festa-index/get-festa-index.service';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -97,13 +97,13 @@ describe('IndexComponent', () => {
         }),
       ],
       providers: [
-        { provide: MenuFestasService, useValue: {
-          getFestas: () => of({
+        { provide: GetFestaIndexService, useValue: {
+          getFestasLista: () => of([{
             nomeFesta: '1',
             codFesta: '1',
-            horarioInicio: '2020-09-23T19:10:25',
-            horarioFim: '2020-09-23T19:10:25'
-          }),
+            horarioInicioFesta: '2020-09-23T19:10:25',
+            horarioFimFesta: '2020-09-23T19:10:25'
+          }]),
           setFarol: () => false,
         }},
       ],
@@ -116,14 +116,22 @@ describe('IndexComponent', () => {
     fixture = TestBed.createComponent(IndexComponent);
     component = fixture.componentInstance;
     const service: LoginService = TestBed.get(LoginService);
-    service.usuarioInfo = {sexo: null, dtNasc: null};
-    component.festas = {codFesta: '1', nomeFesta: 'festa', horarioInicio: '2020-09-23T19:10:25', horarioFim: '2020-09-23T19:10:25'};
+    service.usuarioInfo = {codUsuario: 'teste', sexo: null, dtNasc: null};
+    component.festas = {
+      codFesta: '1',
+      nomeFesta: 'festa',
+      horarioInicioFesta: '2020-09-23T19:10:25',
+      horarioFimFesta: '2020-09-23T19:10:25'
+    };
+    const token = {
+      timeToken: '2020-09-21T01:14:04.028+0000',
+      token: 'teste'
+    };
+    localStorage.setItem('token', JSON.stringify(token));
     fixture.detectChanges();
   });
 
   it('should create', () => {
-    const service: LoginService = TestBed.get(LoginService);
-    service.usuarioInfo = {nomeUser: 'Teste', sexo: null, dtNasc: null};
     expect(component).toBeTruthy();
   });
 
