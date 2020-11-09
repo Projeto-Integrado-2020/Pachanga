@@ -140,6 +140,21 @@ class LoteServiceTest {
 	}
 	
 	@Test
+	void listarLotesFestaDadosPublicosTest() {
+		Lote lote = loteTest();
+		List<Lote> lotes = new ArrayList<>();
+		lotes.add(lote);
+		
+		Mockito.when(festaService.validarFestaExistente(Mockito.anyInt())).thenReturn(new Festa());
+		Mockito.when(loteRepository.findAllCompraveisFesta(Mockito.anyInt())).thenReturn(lotes);
+	
+		List<Lote> lotesReturn = loteService.listarLotesFestaDadosPublicos(lote.getFesta().getCodFesta());
+		
+		assertEquals(lotesReturn.get(0), lote);
+		
+	}
+	
+	@Test
 	void adicionarLoteTest() {
 		Mockito.when(festaService.validarFestaExistente(Mockito.anyInt())).thenReturn(festaTest());
 		Mockito.when(festaService.validarUsuarioFesta(Mockito.anyInt(), Mockito.anyInt())).thenReturn(usuarioTest());
@@ -153,6 +168,8 @@ class LoteServiceTest {
 		assertEquals(true, lote != null);
 		
 	}
+	
+	
 	
 	@Test
 	void adicionarLoteErroLoteMesmoNome() {
