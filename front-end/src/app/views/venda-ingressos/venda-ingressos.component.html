@@ -1,6 +1,6 @@
 <div class="main-container">
-    <div class="lista-festas">
-        <mat-card class="festa-tab">
+    <div class="conteudo-festa">
+        <mat-card class="festa">
             <mat-card-header>
                 <mat-card-title class="title">{{festa.nomeFesta}}</mat-card-title>
             </mat-card-header>
@@ -10,8 +10,8 @@
             </mat-card-content>
         </mat-card>
     </div>
-    <div class="lista-festa">
-        <mat-card class="festa-tab">
+    <div class="conteudo-lote">
+        <mat-card class="festa">
             <mat-card-content class="card-content-inf">
                 <div class="textos">
                     <div class="texto">
@@ -28,13 +28,20 @@
                     <p><b>{{ 'FESTA.DESCRIPTION' | translate }}:</b> {{festa.descricaoFesta}}</p>
                 </div>
                 <div class="lote">
-                    <mat-card class="festa-tab">
+                    <mat-card class="lote-lista">
+                        <mat-card-header>
+                            <mat-card-title class="ingressos-title">{{'VENDAINGRESSOS.INGRESSOS' | translate }}</mat-card-title>
+                        </mat-card-header>
                         <mat-card-content class="card-content-inf">
                             <div class="textos">
                                 <div class="texto">
-                                    <p><b>Lote:</b> Salve</p>
-                                    <p><b>Ingressos disponíveis:</b> 7000</p>
-                                    <p><b>Encerramento da venda do lote:</b> 11/11/2020 - 12:00:00</p>
+                                    <div *ngFor="let lote of lotes">
+                                        <p><b>{{'VENDAINGRESSOS.LOTE' | translate }}:</b> {{lote.nomeLote}}</p>
+                                        <mat-form-field class="remove">
+                                            <p><b>{{'VENDAINGRESSOS.QUANTIDADE' | translate }}:</b><input matInput type="number" min="1"></p>
+                                        </mat-form-field>
+                                        <mat-divider class="divider"></mat-divider>
+                                    </div>
                                 </div>
                             </div>
                             <div class="botoes">

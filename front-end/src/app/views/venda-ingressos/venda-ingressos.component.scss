@@ -32,17 +32,20 @@ html {
   padding: 0 2rem 0 2rem;
 }
 
-.lista-festas {
+.conteudo-festa {
   margin: 2rem 0 2rem 0;
 }
 
-.festa-tab {
-  padding: 1rem 0 0 0;
+.conteudo-lote {
+  margin: 2rem 0 2rem 0;
+}
 
-  &:hover {
-      background-color: #f2f2f2;
-      transition: background-color 0.3s ease-in-out;
-  }
+.festa {
+  padding: 1rem 0 0 0;
+}
+
+.lote-lista {
+  padding: 1rem 0 0 0;
 }
 
 .card-content {
@@ -104,4 +107,14 @@ html {
 .prp-btn-comprar {
   background-color: $color-primary;
   width: 200px;
+  margin-top: 1rem;
+}
+
+.divider {
+  border-top-color: black;
+  opacity: 0.3;
+}
+
+.ingressos-title{
+  padding-left: 7rem;
 }

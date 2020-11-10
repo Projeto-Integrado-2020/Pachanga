@@ -3,6 +3,7 @@ import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { GetFestaService } from 'src/app/services/get-festa/get-festa.service';
+import { GetLotePublicoService } from 'src/app/services/get-lote-publico/get-lote-publico.service';
 import { GetLoteUnicoService } from 'src/app/services/get-lote-unico/get-lote-unico.service';
 
 @Component({
@@ -24,10 +25,10 @@ export class VendaIngressosComponent implements OnInit {
   subscription: Subscription;
   source: any;
 
-  constructor(public getFestaService: GetFestaService, public getLote: GetLoteUnicoService, public router: Router) { }
+  constructor(public getFestaService: GetFestaService, public getLote: GetLotePublicoService, public router: Router) { }
 
-  resgatarLote() {
-    this.getLote.getLoteUnico(this.festa.codFesta).subscribe((resp: any) => {
+  resgatarLote(codFesta) {
+    this.getLote.getLotePublico(codFesta).subscribe((resp: any) => {
       this.lotes = resp;
       this.getLote.setFarol(false);
     });
@@ -45,7 +46,7 @@ export class VendaIngressosComponent implements OnInit {
       this.festa = resp;
       this.festaNome = resp.nomeFesta;
       this.statusFesta = resp.statusFesta;
-      this.resgatarLote();
+      this.resgatarLote(this.festa.codFesta);
     });
   }
 

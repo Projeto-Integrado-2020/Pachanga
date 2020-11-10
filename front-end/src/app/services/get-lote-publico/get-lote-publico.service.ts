@@ -10,27 +10,26 @@ import { LoginService } from '../loginService/login.service';
 @Injectable({
   providedIn: 'root'
 })
-export class GetLoteService {
+export class GetLotePublicoService {
 
-  private readonly urlLoteGet = `${environment.URL_BACK}lote/lista`;
+  private readonly urlGetLotePublico = `${environment.URL_BACK}lote/listaDadosPublicos`;
 
   public farol = false;
 
   constructor(private http: HttpClient, public logService: LogService, public router: Router,
               public loginService: LoginService) { }
 
-  getLote(idFesta) {
+  getLotePublico(codFesta) {
     if (!this.farol) {
       this.setFarol(true);
       const httpParams = new HttpParams()
-      .append('codFesta', idFesta)
-      .append('codUsuario', this.loginService.usuarioInfo.codUsuario);
+      .append('codFesta', codFesta);
 
       let headers = new HttpHeaders();
       headers = headers.append('Content-Type', 'application/json');
       headers = headers.append('Authorization', 'Bearer ' + JSON.parse(localStorage.getItem('token')).token);
 
-      return this.http.get(this.urlLoteGet, {params: httpParams, headers}).pipe(
+      return this.http.get(this.urlGetLotePublico, {params: httpParams, headers}).pipe(
         take(1),
         catchError(error => {
           return this.handleError(error, this.logService);
