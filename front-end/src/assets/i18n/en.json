@@ -694,6 +694,7 @@
     "VENDAINGRESSOS": {
         "LOTE": "Batch",
         "QUANTIDADE": "Quantity to be purchased",
-        "INGRESSOS": "Tickets"
+        "INGRESSOS": "Tickets",
+        "COMPRAR": "Buy"
     }
 }

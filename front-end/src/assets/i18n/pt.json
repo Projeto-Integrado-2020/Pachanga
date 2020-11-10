@@ -707,7 +707,8 @@
     "VENDAINGRESSOS": {
         "LOTE": "Lote",
         "QUANTIDADE": "Quantidade à ser comprada",
-        "INGRESSOS": "Ingressos"
+        "INGRESSOS": "Ingressos",
+        "COMPRAR": "Comprar"
     }
 
 }
