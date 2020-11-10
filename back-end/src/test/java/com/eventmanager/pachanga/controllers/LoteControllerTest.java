@@ -145,6 +145,62 @@ class LoteControllerTest {
 	
 	@Test
 	@WithMockUser
+	void listarLotesDadosPublicosSucesso() throws Exception {
+
+		String uri = "/lote/listaDadosPublicos";
+
+		String expected = "[{\"codLote\":1,\"codFesta\":2,\"numeroLote\":1,\"quantidade\":100,\"preco\":17.2,\"nomeLote\":\"Teste\",\"descLote\":\"lote vip krl\",\"horarioInicio\":\"2020-09-23T19:10:00\",\"horarioFim\":\"2020-09-24T19:10:00\"}]";
+
+		List<Lote> lotes = new ArrayList<>();
+		lotes.add(loteTest());
+
+		Mockito.when(loteService.listarLotesFestaDadosPublicos(Mockito.anyInt())).thenReturn(lotes);
+		
+		Mockito.when(loteFactory.getLoteTO(Mockito.any())).thenReturn(loteToTest());
+
+		RequestBuilder requestBuilder = MockMvcRequestBuilders.get(uri).param("codFesta", "2")
+				.accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON);
+
+		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+
+		MockHttpServletResponse response = result.getResponse();
+
+		assertEquals(HttpStatus.OK.value(), response.getStatus());
+
+		JSONAssert.assertEquals(expected, result.getResponse().getContentAsString(), true);
+
+	}
+	
+	@Test
+	@WithMockUser
+	void listarLotesDadosPublicosErro() throws Exception {
+
+		String uri = "/lote/listaDadosPublicos";
+
+		String expected = "teste";
+
+		List<Lote> lotes = new ArrayList<>();
+		lotes.add(loteTest());
+
+		Mockito.when(loteService.listarLotesFestaDadosPublicos(Mockito.anyInt())).thenThrow(new ValidacaoException("teste"));
+		
+		Mockito.when(loteFactory.getLoteTO(Mockito.any())).thenReturn(loteToTest());
+
+		RequestBuilder requestBuilder = MockMvcRequestBuilders.get(uri).param("codFesta", "2")
+				.accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON);
+
+		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+
+		MockHttpServletResponse response = result.getResponse();
+
+		assertEquals(HttpStatus.BAD_REQUEST.value(), response.getStatus());
+
+		assertEquals(expected, result.getResponse().getContentAsString());
+
+	}
+	
+	@Test
+	@WithMockUser
 	void adicionaraLoteSucesso() throws Exception {
 
 		String uri = "/lote/adicionar";

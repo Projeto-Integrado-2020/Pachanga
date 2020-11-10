@@ -45,6 +45,17 @@ public class LoteController {
 	}
 	
 	@ResponseBody
+	@GetMapping(path = "/listaDadosPublicos")
+	public ResponseEntity<Object> listarLotesDadosPublicos(@RequestParam(required = true) int codFesta) {
+		try {
+			return ResponseEntity.ok(loteService.listarLotesFestaDadosPublicos(codFesta).stream()
+					.map(l -> loteFactory.getLoteTO(l)).collect(Collectors.toList()));
+		} catch (ValidacaoException e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+	}
+	
+	@ResponseBody
 	@GetMapping(path = "/loteUnico")
 	public ResponseEntity<Object> loteUnico(@RequestParam(required = true) int codLote,
 			@RequestParam(required = true) int codUsuario) {

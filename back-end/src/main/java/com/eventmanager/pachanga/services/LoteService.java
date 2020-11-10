@@ -43,6 +43,11 @@ public class LoteService {
 		return loteRepository.listaLoteFesta(codFesta);
 	}
 	
+	public List<Lote> listarLotesFestaDadosPublicos(int codFesta) {
+		festaService.validarFestaExistente(codFesta);
+		return loteRepository.findAllCompraveisFesta(codFesta);
+	} 
+	
 	public Lote encontrarLote(int codLote, int codUsuario) {
 		Lote lote = this.validarLoteExistente(codLote);
 		festaService.validarFestaExistente(lote.getFesta().getCodFesta());
