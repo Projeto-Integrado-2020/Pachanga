@@ -4,3 +4,8 @@
     color: #fff;
     background-color: $color-primary;
 }
+
+form {
+    display: flex;
+    flex-direction: column;
+}
