@@ -11,7 +11,8 @@
     },
 
     "INDEX": {
-        "OLA": "Welcome to Pachanga"
+        "OLA": "Welcome to Pachanga",
+        "FESTAS": "All parties: "
     },
 
     "LOGIN": {
@@ -288,7 +289,7 @@
         "GERAL": "Overview",
         "ESTOQUE": "Stock",
         "SEGURANÇA": "Security",
-        "INGRESSOS": "Tickerts",
+        "INGRESSOS": "Tickets",
         "RELATORIO": "Reports",
         "TITULO": "Control panel",
         "MEMBROS": "Collaborating members",
@@ -697,5 +698,12 @@
         "CODIGO": "Ticket code",
         "CONFIRM": "Confirm ticket",
         "OU": "OR"
+    },
+
+    "VENDAINGRESSOS": {
+        "LOTE": "Batch",
+        "QUANTIDADE": "Quantity to be purchased",
+        "INGRESSOS": "Tickets",
+        "COMPRAR": "Buy"
     }
 }

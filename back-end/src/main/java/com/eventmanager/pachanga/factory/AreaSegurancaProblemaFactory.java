@@ -33,6 +33,7 @@ public class AreaSegurancaProblemaFactory {
 									     .horarioFim(problemaSeguranca.getHorarioFim())
 									     .horarioInicio(problemaSeguranca.getHorarioInicio())
 									     .statusProblema(problemaSeguranca.getStatusProblema())
+									     .observacaoSolucao(problemaSeguranca.getObservacaoSolucao())
 									     .build();
 	}			
 
@@ -47,6 +48,7 @@ public class AreaSegurancaProblemaFactory {
 									     .horarioFim(problemaSegurancaTO.getHorarioFim())
 									     .horarioInicio(problemaSegurancaTO.getHorarioInicio())
 									     .statusProblema(problemaSegurancaTO.getStatusProblema())
+									     .observacaoSolucao(problemaSegurancaTO.getObservacaoSolucao())
 									     .build();
 	}
 	

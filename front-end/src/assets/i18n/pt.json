@@ -382,7 +382,8 @@
     
 
     "INDEX": {
-        "OLA": "Bem Vindo à Pachanga"
+        "OLA": "Bem Vindo à Pachanga",
+        "FESTAS": "Todas as festas: "
     },
 
     
@@ -710,6 +711,13 @@
 
     "UTILS": {
         "RETURN": "Retornar"
+    },
+
+    "VENDAINGRESSOS": {
+        "LOTE": "Lote",
+        "QUANTIDADE": "Quantidade à ser comprada",
+        "INGRESSOS": "Ingressos",
+        "COMPRAR": "Comprar"
     }
 
 }

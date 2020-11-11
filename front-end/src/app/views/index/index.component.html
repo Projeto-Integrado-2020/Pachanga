@@ -2,7 +2,7 @@
 </app-info-complete>
 <div class="main-container">
     <h1>{{'INDEX.OLA' | translate}}</h1>
-    <h2>Todas as festas: </h2>
+    <h2>{{'INDEX.FESTAS' | translate }}</h2>
     <div *ngFor="let festa of festasMostradas" class="lista-festas">
         <a routerLink="{{createUrl(festa.nomeFesta, festa.codFesta)}}" matTooltip="Acessar painel de compra de ingresso" matTooltipPosition="right">
             <mat-card class="festa-tab">

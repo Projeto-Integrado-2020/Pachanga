@@ -1,14 +1,13 @@
 import { TestBed } from '@angular/core/testing';
-
-import { GetLoteService } from './get-lote.service';
 import { HttpClientModule } from '@angular/common/http';
 import { CustomMaterialModule } from '../../views/material/material.module';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { RouterModule } from '@angular/router';
+import { GetLotePublicoService } from './get-lote-publico.service';
 
-describe('GetLoteService', () => {
+describe('GetLotePublicoService', () => {
   let dialogSpy: MatDialog;
-  let service: GetLoteService;
+  let service: GetLotePublicoService;
 
   beforeEach(() => {
     dialogSpy = jasmine.createSpyObj('MatDialog', ['open', 'closeAll']);
@@ -28,15 +27,15 @@ describe('GetLoteService', () => {
       token: 'teste'
     };
     localStorage.setItem('token', JSON.stringify(token));
-    service = TestBed.get(GetLoteService);
+    service = TestBed.get(GetLotePublicoService);
   });
 
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should get Info at getLoteUnico', () => {
+  it('should get Info at getAreaSeguranca', () => {
     service.loginService.usuarioInfo = {codusuario: 'teste'};
-    expect(service.getLote('teste')).toBeTruthy();
+    expect(service.getLotePublico('teste')).toBeTruthy();
   });
 });
