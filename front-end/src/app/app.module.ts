@@ -110,6 +110,11 @@ import { EditarIntegracoesDialogComponent } from './views/editar-integracoes-dia
 import { DeletarIntegracoesDialogComponent } from './views/deletar-integracoes-dialog/deletar-integracoes-dialog.component';
 import { DetalhesProblemaDialogComponent } from './views/detalhes-problema-dialog/detalhes-problema-dialog.component';
 import { ThirdPartyPainelComponent } from './views/third-party-painel/third-party-painel.component';
+import { CheckInComponent } from './views/check-in/check-in.component';
+
+// Scanner QR Code
+import { LeitorQrComponent } from './views/leitor-qr/leitor-qr.component';
+import { ZXingScannerModule } from '@zxing/ngx-scanner';
 
 const config = new AuthServiceConfig([
   {
@@ -197,7 +202,9 @@ export function provideConfig() {
     EditarIntegracoesDialogComponent,
     DeletarIntegracoesDialogComponent,
     DetalhesProblemaDialogComponent,
-    ThirdPartyPainelComponent
+    ThirdPartyPainelComponent,
+    CheckInComponent,
+    LeitorQrComponent
   ],
   entryComponents: [
     LoginComponent,
@@ -266,7 +273,8 @@ export function provideConfig() {
     MatIconModule,
     MatListModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
-    MomentModule
+    MomentModule,
+    ZXingScannerModule
   ],
   providers: [
     {

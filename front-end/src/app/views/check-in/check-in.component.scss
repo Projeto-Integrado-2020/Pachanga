@@ -1,5 +1,4 @@
-@import '../material/paleta.scss';
-@import '~@angular/material/theming';
+@import "../material/paleta.scss";
 
 @media (max-width: 748px) and (orientation: landscape){
   .example-container {
@@ -79,10 +78,7 @@
   }
 
   .botoes {
-    flex-direction: column;
-    gap: 1rem;
-    justify-items: center;
-    align-items: center;
+    @include centralizar(true, false);
   }
 
   td.mat-cell:first-of-type {
@@ -142,8 +138,10 @@
 }
 
 .painel {
-  margin-bottom: 2rem;
+  margin-top: 2rem;
 }
+
+
 
   .titulo2 {
     @include centralizar(true, false);
@@ -215,26 +213,25 @@
     text-decoration: underline;
   }
 
-  .card-title {
-    font-size: 1.2rem;
-    font-weight: 500;
-    width: 88%;
-    color: $color-tertiary;
-    float: right;
-    padding-left: 3%;
-}
+  .card-header{
+    margin-bottom: 1rem;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+  }
 
-.card-content {
-    padding: 0 3.3rem 0 3.3rem;
-}
+  .card-content{
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+  }
 
 
-.botao-editar {
-  float: right;
+.botao-leitor {
   background-color: $color-tertiary;
   color: white;
-  padding: 0;
-  padding-left: .5rem;
+  padding-right: .4rem;
+  padding-left: .6rem;
 }
 
 mat-button-toggle-group {
@@ -291,119 +288,8 @@ tr.example-element-row:not(.example-expanded-row):active {
   opacity: 0.5;
 }
 
-.remove{
-  width: 4rem;
-  position: relative;
-  margin-top: 1rem;
-  margin: 1rem 1rem 0 0;
+.button-return {
+  margin-left: 10%;
+  margin-top: .5%;
 }
 
-.red-back{
-  margin-left: 4rem;
-  margin-top: 1.25rem;
-}
-
-.prp-btn-delete {
-  background-color: $color-primary;
-  width: 200px;
-  float: left;
-  margin-right: 1rem;
-}
-
-.prp-btn-edit {
-  background-color: $color-secondary;
-  width: 200px;
-  float: left;
-  margin-right: 1rem;
-}
-
-.prp-btn-add {
-  background-color: $color-secondary;
-  width: 200px;
-}
-
-.prp-btn-addprod {
-  background-color: $color-secondary;
-  width: 200px;
-}
-
-.prp-btn-prod {
-  background-color: $color-tertiary;
-  width: 200px;
-}
-
-.header-mat-list {
-  margin-bottom: 1rem;
-}
-
-.icons-actions{
-  display: flex;
-  flex-direction: column;
-}
-
-.icons-remove{
-  //transform: translate(4.5rem, -2.5rem);
-  background-color: $color-tertiary;
-  color: #ffffff;
-}
-
-.form_row {
-  display: flex !important;
-  flex-direction: column !important;
-  justify-items: center;
-  align-items: center;
-  padding: 0 0 2rem 0;
-}
-
-::ng-deep .mat-form-field-subscript-wrapper {
-  position: static !important;
-}
-::ng-deep .mat-form-field-underline {
-  position: static !important;
-}
-
-.info-lote {
-  display: inline;
-}
-
-.festa-tab {
-  padding: 1rem;
-
-  &:hover {
-      background-color: #f2f2f2;
-      transition: background-color 0.3s ease-in-out;
-  }
-}
-
-.textos {
-  margin-top: 1rem;
-}
-
-.texto {
-  display: inline-block;
-  margin-right: 2rem;
-}
-
-.lista-lote {
-  margin: 2rem 0 2rem 0;
-}
-
-.descricao {
-  display: block;
-}
-
-.subtitle {
-  text-transform: capitalize;
-}
-
-.btn-1 {
-  background-color: $color-primary;
-  color: #ffffff;
-  padding: .2rem;
-  padding-right: .3rem;
-}
-
-.botao-integracao, .botao-checkin {
-  background-color: $color-tertiary;
-  color: #ffffff;
-}

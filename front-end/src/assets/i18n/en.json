@@ -688,5 +688,14 @@
         "HORARIO": "Report Time",
         "DATA": "Report Date",
         "MARCARCOMO":"Set as "
+    },
+
+    "CHECKIN": {
+        "TITLE": "Check-In panel",
+        "LEITOR": "QR Code scanner",
+        "REPETIR": "Scan other code",
+        "CODIGO": "Ticket code",
+        "CONFIRM": "Confirm ticket",
+        "OU": "OR"
     }
 }

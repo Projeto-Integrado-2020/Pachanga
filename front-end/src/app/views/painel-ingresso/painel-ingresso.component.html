@@ -31,6 +31,12 @@
                         {{'INTEGRACAO.CALLBUTTON' | translate}}
                     </button>
                 </a>
+
+                <a class="botao-criar-festa" routerLink="../ingressos/check-in">
+                    <button class="botao-checkin" mat-raised-button>
+                        {{'CHECKIN.TITLE' | translate}}
+                    </button>
+                </a>
             </div>
             
             <div *ngFor="let lote of lotes; let i = index" class="painel">

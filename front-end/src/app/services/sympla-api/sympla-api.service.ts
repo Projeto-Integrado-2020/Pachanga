@@ -15,6 +15,7 @@ export class SymplaApiService {
   private readonly urlProxy = 'https://cors-anywhere.herokuapp.com/';
   private readonly urlBaseAPI = 'https://api.sympla.com.br/public/v3/events/';
   private readonly urlParticipants = '/participants';
+  private readonly urlTicketNumber = '/ticketNumber';
   private readonly urlCheckIn = '/checkIn';
 
   constructor(private http: HttpClient, public logService: LogService, public dialog: MatDialog,
@@ -51,12 +52,13 @@ export class SymplaApiService {
     );
   }
 
-  checkInIngresso(eventId, participantId, S_TOKEN) {
+  checkInIngresso(eventId, ticketNumber, S_TOKEN) {
     let headers = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('S_TOKEN', S_TOKEN);
 
-    const url = this.urlProxy + this.urlBaseAPI + eventId + this.urlParticipants + participantId + this.urlCheckIn;
+    const url = this.urlProxy + this.urlBaseAPI + eventId +
+                this.urlParticipants + this.urlTicketNumber + ticketNumber + this.urlCheckIn;
 
     return this.http.post(url, null, {headers}).pipe(
       take(1),

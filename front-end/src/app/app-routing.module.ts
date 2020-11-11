@@ -22,6 +22,8 @@ import { CriarLoteComponent } from './views/criar-lote/criar-lote.component';
 import { EditarLoteComponent } from './views/editar-lote/editar-lote.component';
 import { VendaIngressosComponent } from './views/venda-ingressos/venda-ingressos.component';
 import { ThirdPartyPainelComponent } from './views/third-party-painel/third-party-painel.component';
+import { CheckInComponent } from './views/check-in/check-in.component';
+import { LeitorQrComponent } from './views/leitor-qr/leitor-qr.component';
 
 const routes: Routes = [
 
@@ -68,6 +70,18 @@ const routes: Routes = [
     {
       path: 'festas/:festa&:id/ingressos/integracoes',
       component: ThirdPartyPainelComponent,
+      canActivate: [AuthGuard]
+    },
+
+    {
+      path: 'festas/:festa&:id/ingressos/check-in',
+      component: CheckInComponent,
+      canActivate: [AuthGuard]
+    },
+
+    {
+      path: 'festas/:festa&:id/ingressos/check-in/leitor-qr',
+      component: LeitorQrComponent,
       canActivate: [AuthGuard]
     },
 

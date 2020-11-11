@@ -1,0 +1,34 @@
+<div class="main-container">
+    <header>
+        <div class="header-flex">
+            <h1 class="title">{{festaNome}} - {{'CHECKIN.LEITOR' | translate}}</h1>
+        </div>
+    </header>
+    <div>
+        <img class="scanner" *ngIf="!scannerEnabled" src="https://cdn.pixabay.com/photo/2018/05/30/20/55/check-3442527_960_720.png" alt="Check">
+        <zxing-scanner class="scanner" *ngIf="scannerEnabled" #scanner (scanSuccess)="scanSuccessHandler($event)">
+        </zxing-scanner>
+        <button mat-raised-button (click)="enableScanner()" *ngIf="!scannerEnabled" type="button" class="botao-repeat">
+            <mat-icon>refresh</mat-icon> {{'CHECKIN.REPETIR' | translate}}
+        </button>
+        <div class="separator">
+            <p class="divider-text">
+                <b>{{'CHECKIN.OU' | translate}}</b>
+            </p>
+        </div>
+        <form [formGroup]="form" class="form-ticket" (submit)="scanSuccessHandler(codIngresso.value)">
+            <mat-form-field class="form-content">
+                <mat-label>{{'CHECKIN.CODIGO' | translate}}</mat-label>
+                <input ng-class="{ f.codIngresso.errors }" #codIngresso formControlName="codIngresso" matInput required>
+                <mat-error *ngIf="f.codIngresso.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
+            </mat-form-field>
+            <br>
+            <button [disabled]="!form.valid" class="button-form form-content" mat-raised-button>
+                {{'CHECKIN.CONFIRM' | translate}}
+            </button>
+        </form>
+    </div>
+    <button routerLink="../" mat-button cdkFocusInitial class="button-return">
+        <mat-icon>keyboard_return</mat-icon> {{'UTILS.RETURN' | translate}}
+    </button>
+</div>

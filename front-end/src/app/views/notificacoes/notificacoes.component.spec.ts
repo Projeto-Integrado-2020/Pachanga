@@ -39,6 +39,9 @@ import { CriarLoteComponent } from '../criar-lote/criar-lote.component';
 import { EditarLoteComponent } from '../editar-lote/editar-lote.component';
 import { VendaIngressosComponent } from '../venda-ingressos/venda-ingressos.component';
 import { ThirdPartyPainelComponent } from '../third-party-painel/third-party-painel.component';
+import { LeitorQrComponent } from '../leitor-qr/leitor-qr.component';
+import { CheckInComponent } from '../check-in/check-in.component';
+import { ZXingScannerModule } from '@zxing/ngx-scanner';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -94,7 +97,9 @@ describe('NotificacoesComponent', () => {
         CriarLoteComponent,
         EditarLoteComponent,
         VendaIngressosComponent,
-        ThirdPartyPainelComponent
+        ThirdPartyPainelComponent,
+        LeitorQrComponent,
+        CheckInComponent
       ],
       imports: [
         MomentModule,
@@ -112,7 +117,8 @@ describe('NotificacoesComponent', () => {
             deps: [HttpClient]
           }
         }),
-        SocialLoginModule
+        SocialLoginModule,
+        ZXingScannerModule
       ],
       providers: [
         {

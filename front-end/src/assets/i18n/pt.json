@@ -84,6 +84,15 @@
         "BAILEBRG": "Baile Brega"
     },
 
+    "CHECKIN": {
+        "TITLE": "Painel de Check-In",
+        "LEITOR": "Leitor QR Code",
+        "REPETIR": "Ler mais um código",
+        "CODIGO": "Código do ingresso",
+        "CONFIRM": "Confirmar ingresso",
+        "OU": "OU"
+    },
+
     "CONVITE": {
         "TITULO": "Convidar membros",
         "ENVIARCONVITE": "Enviar convite",
