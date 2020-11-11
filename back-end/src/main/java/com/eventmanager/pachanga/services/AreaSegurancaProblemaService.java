@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.eventmanager.pachanga.domains.AreaSeguranca;
 import com.eventmanager.pachanga.domains.AreaSegurancaProblema;
+import com.eventmanager.pachanga.domains.AreaSegurancaProblemaFluxo;
 import com.eventmanager.pachanga.domains.Festa;
 import com.eventmanager.pachanga.domains.Grupo;
 import com.eventmanager.pachanga.domains.Problema;
@@ -15,6 +16,7 @@ import com.eventmanager.pachanga.domains.Usuario;
 import com.eventmanager.pachanga.dtos.AreaSegurancaProblemaTO;
 import com.eventmanager.pachanga.errors.ValidacaoException;
 import com.eventmanager.pachanga.factory.AreaSegurancaProblemaFactory;
+import com.eventmanager.pachanga.repositories.AreaSegurancaProblemaFluxoRepository;
 import com.eventmanager.pachanga.repositories.AreaSegurancaProblemaRepository;
 import com.eventmanager.pachanga.repositories.AreaSegurancaRepository;
 import com.eventmanager.pachanga.repositories.GrupoRepository;
@@ -23,6 +25,7 @@ import com.eventmanager.pachanga.repositories.UsuarioRepository;
 import com.eventmanager.pachanga.tipo.TipoAreaSeguranca;
 import com.eventmanager.pachanga.tipo.TipoNotificacao;
 import com.eventmanager.pachanga.tipo.TipoPermissao;
+import com.eventmanager.pachanga.tipo.TipoProblema;
 import com.eventmanager.pachanga.tipo.TipoStatusProblema;
 
 @Service
@@ -58,6 +61,9 @@ public class AreaSegurancaProblemaService {
 
 	@Autowired
 	private UsuarioService usuarioService;
+	
+	@Autowired
+	private AreaSegurancaProblemaFluxoRepository areaSegurancaProblemaFluxoRepository;
 
 	public AreaSegurancaProblema addProblemaSeguranca(AreaSegurancaProblemaTO problemaSegurancaTO, int idUsuario) {
 		grupoService.validarPermissaoUsuarioGrupo(problemaSegurancaTO.getCodFesta(), idUsuario,
@@ -81,6 +87,7 @@ public class AreaSegurancaProblemaService {
 		areaSeguranca.setStatusSeguranca(TipoAreaSeguranca.INSEGURO.getDescricao());
 		areaSegurancaRepository.save(areaSeguranca);
 		this.disparaNotificacao(problemaSeguranca);
+		this.salvarAreaProblemaHistorico(problemaSeguranca);
 		return problemaSeguranca;
 	}
 
@@ -128,6 +135,7 @@ public class AreaSegurancaProblemaService {
 			Usuario usuarioResolv = usuarioService.validarUsuario(problemaSegurancaTO.getCodUsuarioResolv());
 			areaSegurancaProblema.setCodUsuarioResolv(usuarioResolv);
 			areaSegurancaProblema.setHorarioFim(notificacaoService.getDataAtual());
+			areaSegurancaProblema.setObservacaoSolucao(problemaSegurancaTO.getObservacaoSolucao());
 			this.validarAreaSegurancaProblema(areaSegurancaProblema);
 			this.deletarNotificacoes(areaSegurancaProblema.getArea(), areaSegurancaProblema.getProblema());
 			area.setStatusSeguranca(TipoAreaSeguranca.SEGURO.getDescricao());
@@ -135,11 +143,20 @@ public class AreaSegurancaProblemaService {
 			areaSegurancaProblema.setStatusProblema(TipoStatusProblema.ANDAMENTO.getValor());
 			areaSegurancaProblema.setCodUsuarioResolv(null);
 			areaSegurancaProblema.setHorarioFim(null);
+			areaSegurancaProblema.setObservacaoSolucao(null);
 			this.disparaNotificacao(areaSegurancaProblema);
 			area.setStatusSeguranca(TipoAreaSeguranca.INSEGURO.getDescricao());
 		}
+		this.salvarAreaProblemaHistorico(areaSegurancaProblema);
 		areaSegurancaRepository.save(area);
 		areaSegurancaProblemaRepository.save(areaSegurancaProblema);
+	}
+	
+	private void salvarAreaProblemaHistorico(AreaSegurancaProblema problemaSeguranca) {
+		AreaSegurancaProblemaFluxo areaFluxo = new AreaSegurancaProblemaFluxo(problemaSeguranca);
+		areaFluxo.setDataHorario(notificacaoService.getDataAtual());
+		areaFluxo.setCodHistorico(areaSegurancaProblemaFluxoRepository.getNextValMySequence());
+		areaSegurancaProblemaFluxoRepository.save(areaFluxo);
 	}
 
 //validadores______________________________________________________________________________________________________________
@@ -151,9 +168,14 @@ public class AreaSegurancaProblemaService {
 		}
 		if ((problemaSeguranca.getStatusProblema().equals(TipoStatusProblema.FINALIZADO.getValor())
 				|| problemaSeguranca.getStatusProblema().equals(TipoStatusProblema.ENGANO.getValor()))
-				&& problemaSeguranca.getCodUsuarioResolv() == null) {
+				&& (problemaSeguranca.getCodUsuarioResolv() == null
+						|| problemaSeguranca.getObservacaoSolucao() == null)) {
 
 			throw new ValidacaoException("STSPINVL"); // STATUS INVALIDO
+		}
+		if (TipoProblema.OUTRPROB.getCodigo() == problemaSeguranca.getProblema().getCodProblema()
+				&& problemaSeguranca.getDescProblema() == null) {
+			throw new ValidacaoException("PROBNDES");// problema sem descrição
 		}
 	}
 
@@ -196,12 +218,13 @@ public class AreaSegurancaProblemaService {
 		List<Grupo> grupos = grupoRepository.findGruposFesta(area.getCodFesta());
 		grupos.stream().forEach(g -> {
 			List<Usuario> usuarios = usuarioRepository.findUsuariosPorGrupo(g.getCodGrupo());
-			usuarios.stream().forEach(u -> notificacaoService.deleteNotificacao(u.getCodUsuario(),
-					TipoNotificacao.AREAPROB.getValor() + "?" + area.getCodArea() + "&" + (problema == null ? "" : problema.getCodProblema()))
+			usuarios.stream().forEach(
+					u -> notificacaoService.deleteNotificacao(u.getCodUsuario(), TipoNotificacao.AREAPROB.getValor()
+							+ "?" + area.getCodArea() + "&" + (problema == null ? "" : problema.getCodProblema()))
 
 			);
-			notificacaoService.deletarNotificacaoGrupo(
-					TipoNotificacao.AREAPROB.getValor() + "?" + area.getCodArea() + "&" + (problema == null ? "" : problema.getCodProblema()));
+			notificacaoService.deletarNotificacaoGrupo(TipoNotificacao.AREAPROB.getValor() + "?" + area.getCodArea()
+					+ "&" + (problema == null ? "" : problema.getCodProblema()));
 		});
 
 	}

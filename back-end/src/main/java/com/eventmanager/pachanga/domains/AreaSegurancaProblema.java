@@ -48,6 +48,9 @@ public class AreaSegurancaProblema {
 	
 	@Column(name = "descricao_prob")
 	private String descProblema;
+	
+	@Column(name = "obs_solucao")
+	private String observacaoSolucao;
 
 	public Problema getProblema() {
 		return problema;
@@ -127,6 +130,14 @@ public class AreaSegurancaProblema {
 
 	public void setCodAreaProblema(int codAreaProblema) {
 		this.codAreaProblema = codAreaProblema;
+	}
+
+	public String getObservacaoSolucao() {
+		return observacaoSolucao;
+	}
+
+	public void setObservacaoSolucao(String observacaoSolucao) {
+		this.observacaoSolucao = observacaoSolucao;
 	}
 
 }

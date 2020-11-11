@@ -55,7 +55,7 @@ public class EmailMensagem {
 	      DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 	      bodyEmail.append("<h1><strong>Pachanga tem uma festa para voc&ecirc;!</strong></h1>\r\n" + 
 		      		"\r\n" + 
-		      		"<p>Voc&ecirc; foi convidado para participar de uma festa, como membro coladorador. Segue detalhes da festa:</p>\r\n" + 
+		      		"<p>Voc&ecirc; foi convidado para participar de uma festa como membro coladorador. Segue detalhes da festa:</p>\r\n" + 
 		      		"\r\n" + 
 		      		"<ul>\r\n" + 
 		      		"    <li>Festa: "+ festa.getNomeFesta() +"; </li>\r\n" + 

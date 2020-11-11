@@ -13,6 +13,7 @@ public class AreaSegurancaProblemaTO {
 	private LocalDateTime horarioFim;
 	private int codUsuarioEmissor;
     private String descProblema;
+    private String observacaoSolucao;
     
     
 	public int getCodAreaSeguranca() {
@@ -74,6 +75,12 @@ public class AreaSegurancaProblemaTO {
 	}
 	public void setCodAreaProblema(int codAreaProblema) {
 		this.codAreaProblema = codAreaProblema;
+	}
+	public String getObservacaoSolucao() {
+		return observacaoSolucao;
+	}
+	public void setObservacaoSolucao(String observacaoSolucao) {
+		this.observacaoSolucao = observacaoSolucao;
 	}
     
 }
