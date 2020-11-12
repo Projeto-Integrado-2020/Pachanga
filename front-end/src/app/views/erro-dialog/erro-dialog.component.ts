@@ -91,6 +91,7 @@ export class ErroDialogComponent implements OnInit {
       case 'INFOTCAD': this.erro = this.translate.instant('ERRO.INFOTCAD'); break;
       case 'INFOTOKU': this.erro = this.translate.instant('ERRO.INFOTOKU'); break;
       case 'INFONFOU': this.erro = this.translate.instant('ERRO.INFONFOU'); break;
+      case 'SYMPNFOU': this.erro = this.translate.instant('ERRO.SYMPNFOU'); break;
       default: this.erro = this.translate.instant('ERRO.SERVERRO');
     }
   }

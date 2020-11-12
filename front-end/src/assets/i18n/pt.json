@@ -265,7 +265,8 @@
         "TERCINCO": "Terceiro incorreto.",
         "INFOTCAD": "Terceiro já cadastrado.",
         "INFOTOKU": "Token já sendo utilizado.",
-        "INFONFOU": "Integração não encontrada."
+        "INFONFOU": "Integração não encontrada.",
+        "SYMPNFOU": "Integração com Sympla não encontrada."
     },
 
     "ESTOQUE": {
@@ -695,7 +696,8 @@
         "PRODDELE": "Produto deletado com sucesso.",
         "FORMDELE": "Questionário deletado com sucesso.",
         "LOTEALT": "Lote alterado com sucesso.",
-        "INTEDELE": "Integração com terceiro deletada com sucesso."
+        "INTEDELE": "Integração com terceiro deletada com sucesso.",
+        "SYMCHECK": "Check-in via Sympla confirmado."
     },
 
     "TERMOS": {

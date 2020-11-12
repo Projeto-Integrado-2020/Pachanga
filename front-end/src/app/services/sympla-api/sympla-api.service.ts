@@ -60,12 +60,7 @@ export class SymplaApiService {
     const url = this.urlProxy + this.urlBaseAPI + eventId +
                 this.urlParticipants + this.urlTicketNumber + ticketNumber + this.urlCheckIn;
 
-    return this.http.post(url, null, {headers}).pipe(
-      take(1),
-      catchError(error => {
-        return this.handleError(error, this.logService);
-      })
-    );
+    return this.http.post(url, null, {headers});
   }
 
   handleError = (error: HttpErrorResponse, logService: LogService) => {

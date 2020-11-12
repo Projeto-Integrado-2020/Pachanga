@@ -145,7 +145,8 @@
         "TERCINCO": "Incorrect Third-Party.",
         "INFOTCAD": "Third-Party already registered.",
         "INFOTOKU": "Token already registered.",
-        "INFONFOU": "Integration not found."
+        "INFONFOU": "Integration not found.",
+        "SYMPNFOU": "Sympla integration not found."
     },
 
     "SUCCESS": {
@@ -160,7 +161,8 @@
         "PRODDELE": "Product successfully deleted.",
         "FORMDELE": "Form successfully deleted.",
         "LOTEALT": "Batch successfully updated.",
-        "INTEDELE": "Third-Party integration successfully deleted."
+        "INTEDELE": "Third-Party integration successfully deleted.",
+        "SYMCHECK": "Check-in via Sympla confirmed."
     },
 
     "PERFIL":{
