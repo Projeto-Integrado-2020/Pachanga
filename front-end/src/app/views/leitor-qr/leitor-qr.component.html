@@ -11,9 +11,11 @@
                 <mat-button-toggle value="S"><div (click)="alterarTipoIngresso(true)">Sympla</div></mat-button-toggle>
             </mat-button-toggle-group>
         </div>
-        <img class="scanner-image" *ngIf="scannerSucesso" src="https://cdn.pixabay.com/photo/2018/05/30/20/55/check-3442527_960_720.png" alt="Check">
-        <img class="scanner-image" *ngIf="scannerErro" src="https://thumbs.gfycat.com/PhonyRaggedAfricanparadiseflycatcher-poster.jpg" alt="Cross">
-        <img class="scanner-image" *ngIf="scannerLoading" src="https://miro.medium.com/max/882/1*9EBHIOzhE1XfMYoKz1JcsQ.gif" alt="Loading">
+        <div class="div-imagens">
+            <img class="scanner-image" *ngIf="scannerSucesso" src="https://cdn.pixabay.com/photo/2018/05/30/20/55/check-3442527_960_720.png" alt="Check">
+            <img class="scanner-image" *ngIf="scannerErro" src="https://thumbs.gfycat.com/PhonyRaggedAfricanparadiseflycatcher-poster.jpg" alt="Cross">
+            <img class="scanner-image" *ngIf="scannerLoading" src="https://media.flixfacts.com/inpage/intel/10thGenRefresh/i3/i3-used-images/loading.gif" alt="Loading">
+        </div>
         <zxing-scanner class="scanner" #scanner (scanSuccess)="executarCheckInScanner($event)">
         </zxing-scanner>
         <button mat-raised-button (click)="limparScanner()" *ngIf="scannerSucesso || scannerErro" type="button" class="botao-repeat">
