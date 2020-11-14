@@ -526,9 +526,9 @@ class NotificacaoServiceTest {
 	@Test
 	void criarMensagemAreaProblemaTest() {
 		
-		String mensagem = notificacaoService.criarMensagemAreaProblema(1, 1);
+		String mensagem = notificacaoService.criarMensagemAreaProblema(1);
 		
-		assertEquals(TipoNotificacao.AREAPROB.getValor() + "?1&1", mensagem);
+		assertEquals(TipoNotificacao.AREAPROB.getValor() + "?1", mensagem);
 
 	}
 

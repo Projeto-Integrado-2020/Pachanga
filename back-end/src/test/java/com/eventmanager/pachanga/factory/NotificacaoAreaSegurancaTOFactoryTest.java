@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import java.time.LocalDateTime;
 import java.time.Month;
+import java.util.Date;
 
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -14,14 +15,17 @@ import org.springframework.security.oauth2.provider.token.AuthorizationServerTok
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.eventmanager.pachanga.domains.AreaSeguranca;
+import com.eventmanager.pachanga.domains.AreaSegurancaProblema;
 import com.eventmanager.pachanga.domains.Festa;
 import com.eventmanager.pachanga.domains.Problema;
+import com.eventmanager.pachanga.domains.Usuario;
 import com.eventmanager.pachanga.dtos.NotificacaoAreaSegurancaTO;
 import com.eventmanager.pachanga.securingweb.JwtAuthenticationEntryPoint;
 import com.eventmanager.pachanga.securingweb.JwtTokenUtil;
 import com.eventmanager.pachanga.securingweb.JwtUserDetailsService;
 import com.eventmanager.pachanga.tipo.TipoAreaSeguranca;
 import com.eventmanager.pachanga.tipo.TipoStatusFesta;
+import com.eventmanager.pachanga.tipo.TipoStatusProblema;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(value=NotificacaoAreaSegurancaTOFactory.class)
@@ -41,6 +45,35 @@ class NotificacaoAreaSegurancaTOFactoryTest {
 	
 	@MockBean
 	private JwtAuthenticationEntryPoint defaultJwtAuthenticationEntryPoint;
+	
+	public AreaSegurancaProblema criacaoAreaSegurancaProblema(){
+		AreaSegurancaProblema areaSegurancaProblema = new AreaSegurancaProblema();
+		areaSegurancaProblema.setArea(areaTest());
+		areaSegurancaProblema.setProblema(problemaTest());
+		areaSegurancaProblema.setFesta(festaTest());
+		areaSegurancaProblema.setDescProblema("teste2");
+		areaSegurancaProblema.setHorarioInicio(LocalDateTime.of(2016, Month.JUNE, 22, 19, 10));
+		areaSegurancaProblema.setHorarioFim(LocalDateTime.of(2016, Month.JUNE, 23, 19, 10));
+		areaSegurancaProblema.setStatusProblema(TipoStatusProblema.ANDAMENTO.getValor());
+		areaSegurancaProblema.setCodUsuarioResolv(usuarioTest());
+		areaSegurancaProblema.setCodUsuarioEmissor(usuarioTest());
+		
+		return areaSegurancaProblema;
+	}
+	
+	@SuppressWarnings("deprecation")
+	private Usuario usuarioTest(){
+		Usuario usuarioTest = new Usuario();
+
+		usuarioTest.setCodUsuario(2);
+		usuarioTest.setEmail("gustavinhoTPD@fodasse.com.br");
+		usuarioTest.setSenha("1234");
+		usuarioTest.setDtNasc(new Date(2000, 8, 27));
+		usuarioTest.setGenero("M");
+		usuarioTest.setNomeUser("Gustavo Barbosa");
+
+		return usuarioTest;
+	}
 	
 	private Festa festaTest(){
 		Festa festaTest = new Festa();
@@ -81,7 +114,7 @@ class NotificacaoAreaSegurancaTOFactoryTest {
 		Problema problema = problemaTest();
 		AreaSeguranca area = areaTest();
 		
-		NotificacaoAreaSegurancaTO notificacaoArea = notificacaoAreaSegurancaTOFactory.getNotificacaoArea(festa, problema, area);
+		NotificacaoAreaSegurancaTO notificacaoArea = notificacaoAreaSegurancaTOFactory.getNotificacaoArea(festaTest(),criacaoAreaSegurancaProblema());
 		
 		assertEquals( notificacaoArea.getCodFesta(), festa.getCodFesta());
 		assertEquals( notificacaoArea.getCodProblema(), problema.getCodProblema());

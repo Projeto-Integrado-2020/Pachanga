@@ -61,7 +61,7 @@ public class AreaSegurancaProblemaService {
 
 	@Autowired
 	private UsuarioService usuarioService;
-	
+
 	@Autowired
 	private AreaSegurancaProblemaFluxoRepository areaSegurancaProblemaFluxoRepository;
 
@@ -137,7 +137,7 @@ public class AreaSegurancaProblemaService {
 			areaSegurancaProblema.setHorarioFim(notificacaoService.getDataAtual());
 			areaSegurancaProblema.setObservacaoSolucao(problemaSegurancaTO.getObservacaoSolucao());
 			this.validarAreaSegurancaProblema(areaSegurancaProblema);
-			this.deletarNotificacoes(areaSegurancaProblema.getArea(), areaSegurancaProblema.getProblema());
+			this.deletarNotificacoes(areaSegurancaProblema);
 			area.setStatusSeguranca(TipoAreaSeguranca.SEGURO.getDescricao());
 		} else {
 			areaSegurancaProblema.setStatusProblema(TipoStatusProblema.ANDAMENTO.getValor());
@@ -151,7 +151,7 @@ public class AreaSegurancaProblemaService {
 		areaSegurancaRepository.save(area);
 		areaSegurancaProblemaRepository.save(areaSegurancaProblema);
 	}
-	
+
 	private void salvarAreaProblemaHistorico(AreaSegurancaProblema problemaSeguranca) {
 		AreaSegurancaProblemaFluxo areaFluxo = new AreaSegurancaProblemaFluxo(problemaSeguranca);
 		areaFluxo.setDataHorario(notificacaoService.getDataAtual());
@@ -179,7 +179,7 @@ public class AreaSegurancaProblemaService {
 		}
 	}
 
-	private AreaSegurancaProblema validarProblemaSeguranca(int codProblemaSeguranca) {
+	public AreaSegurancaProblema validarProblemaSeguranca(int codProblemaSeguranca) {
 		AreaSegurancaProblema problemaSeguranca = areaSegurancaProblemaRepository
 				.findByCodProblema(codProblemaSeguranca);
 		if (problemaSeguranca == null) {
@@ -199,8 +199,7 @@ public class AreaSegurancaProblemaService {
 	private void disparaNotificacao(AreaSegurancaProblema problemaSeguranca) {
 		List<Grupo> grupos = grupoRepository
 				.findGruposPermissaoAreaSegurancaProblema(problemaSeguranca.getFesta().getCodFesta());
-		String mensagem = notificacaoService.criarMensagemAreaProblema(problemaSeguranca.getArea().getCodArea(),
-				problemaSeguranca.getProblema().getCodProblema());
+		String mensagem = notificacaoService.criarMensagemAreaProblema(problemaSeguranca.getCodAreaProblema());
 		for (Grupo grupo : grupos) {
 			if (notificacaoService.verificarNotificacaoGrupo(grupo.getCodGrupo(), mensagem)) {
 				notificacaoService.inserirNotificacaoGrupo(grupo.getCodGrupo(), TipoNotificacao.AREAPROB.getCodigo(),
@@ -214,17 +213,16 @@ public class AreaSegurancaProblemaService {
 		}
 	}
 
-	public void deletarNotificacoes(AreaSeguranca area, Problema problema) {
-		List<Grupo> grupos = grupoRepository.findGruposFesta(area.getCodFesta());
+	public void deletarNotificacoes(AreaSegurancaProblema areaSegurancaProblema) {
+		List<Grupo> grupos = grupoRepository.findGruposFesta(areaSegurancaProblema.getArea().getCodFesta());
 		grupos.stream().forEach(g -> {
 			List<Usuario> usuarios = usuarioRepository.findUsuariosPorGrupo(g.getCodGrupo());
-			usuarios.stream().forEach(
-					u -> notificacaoService.deleteNotificacao(u.getCodUsuario(), TipoNotificacao.AREAPROB.getValor()
-							+ "?" + area.getCodArea() + "&" + (problema == null ? "" : problema.getCodProblema()))
+			usuarios.stream().forEach(u -> notificacaoService.deleteNotificacao(u.getCodUsuario(),
+					TipoNotificacao.AREAPROB.getValor() + "?" + areaSegurancaProblema.getCodAreaProblema())
 
 			);
-			notificacaoService.deletarNotificacaoGrupo(TipoNotificacao.AREAPROB.getValor() + "?" + area.getCodArea()
-					+ "&" + (problema == null ? "" : problema.getCodProblema()));
+			notificacaoService.deletarNotificacaoGrupo(
+					TipoNotificacao.AREAPROB.getValor() + "?" + areaSegurancaProblema.getCodAreaProblema());
 		});
 
 	}

@@ -19,8 +19,10 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.security.oauth2.provider.token.AuthorizationServerTokenServices;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.eventmanager.pachanga.domains.Categoria;
 import com.eventmanager.pachanga.domains.CategoriasFesta;
@@ -360,7 +362,7 @@ class FestaServiceTest {
 
 		Festa retorno = null;
 		try {
-			retorno = festaService.addFesta(festaTO, idUser);
+			retorno = festaService.addFesta(festaTO, idUser, null);
 		}catch(ValidacaoException e){
 			retorno = null;
 		};
@@ -393,7 +395,7 @@ class FestaServiceTest {
 		Festa retorno = null;
 		boolean erro = false;
 		try {
-			retorno = festaService.addFesta(festaTO, idUser);
+			retorno = festaService.addFesta(festaTO, idUser, null);
 		}catch(ValidacaoException e){
 			erro = true;
 		};
@@ -426,7 +428,7 @@ class FestaServiceTest {
 		Festa retorno = null;
 		boolean erro = false;
 		try {
-			retorno = festaService.addFesta(festaTO, idUser);
+			retorno = festaService.addFesta(festaTO, idUser, null);
 		}catch(ValidacaoException e){
 			erro = true;
 		};
@@ -453,13 +455,13 @@ class FestaServiceTest {
 		doNothing().when(categoriasFestaRepository).addCategoriasFesta(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyString());
 		Mockito.when(categoriaRepository.findByCodCategoria(Mockito.anyInt())).thenReturn(null,categoriaTest());
 		Mockito.when(grupoService.addGrupo(Mockito.anyInt(), Mockito.anyString(), Mockito.anyBoolean(), Mockito.isNull())).thenReturn(criacaoGrupo());
-		Mockito.when(festaFactory.getFesta(Mockito.any())).thenReturn(festaTest());
+		Mockito.when(festaFactory.getFesta(Mockito.any(), Mockito.any())).thenReturn(festaTest());
 		Mockito.when(notificacaoService.getDataAtual()).thenReturn(LocalDateTime.of(2016, Month.JUNE, 22, 19, 9));
 
 		Festa retorno = null;
 		boolean erro = false;
 		try {
-			retorno = festaService.addFesta(festaTO, idUser);
+			retorno = festaService.addFesta(festaTO, idUser, null);
 		}catch(ValidacaoException e){
 			erro = true;
 		};
@@ -487,10 +489,10 @@ class FestaServiceTest {
 		doNothing().when(categoriasFestaRepository).addCategoriasFesta(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyString());
 		Mockito.when(categoriaRepository.findByCodCategoria(Mockito.anyInt())).thenReturn(categoriaTest(),categoriaTest());
 		Mockito.when(grupoService.addGrupo(Mockito.anyInt(), Mockito.anyString(), Mockito.anyBoolean(), Mockito.isNull())).thenReturn(criacaoGrupo());
-		Mockito.when(festaFactory.getFesta(Mockito.any())).thenReturn(festaTest());
+		Mockito.when(festaFactory.getFesta(Mockito.any(), Mockito.any())).thenReturn(festaTest());
 		Mockito.when(notificacaoService.getDataAtual()).thenReturn(LocalDateTime.of(2016, Month.JUNE, 22, 19, 9));
 
-		Festa retorno = festaService.addFesta(festaTO, idUser);
+		Festa retorno = festaService.addFesta(festaTO, idUser,null);
 		assertEquals(retorno.getCodFesta(), festaTO.getCodFesta());
 		assertEquals(retorno.getNomeFesta(), festaTO.getNomeFesta());
 		assertEquals(retorno.getHorarioFimFesta(), festaTO.getHorarioFimFesta());
@@ -517,10 +519,10 @@ class FestaServiceTest {
 		doNothing().when(categoriasFestaRepository).addCategoriasFesta(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyString());
 		Mockito.when(categoriaRepository.findByCodCategoria(Mockito.anyInt())).thenReturn(categoriaTest(),categoriaTest());
 		Mockito.when(grupoService.addGrupo(Mockito.anyInt(), Mockito.anyString(), Mockito.anyBoolean(), Mockito.isNull())).thenReturn(criacaoGrupo());
-		Mockito.when(festaFactory.getFesta(Mockito.any())).thenReturn(festaTest());
+		Mockito.when(festaFactory.getFesta(Mockito.any(), Mockito.any())).thenReturn(festaTest());
 		Mockito.when(notificacaoService.getDataAtual()).thenReturn(LocalDateTime.of(2016, Month.JUNE, 22, 19, 9));
 
-		Festa retorno = festaService.addFesta(festaTO, idUser);
+		Festa retorno = festaService.addFesta(festaTO, idUser,null);
 		assertEquals(retorno.getCodFesta(), festaTO.getCodFesta());
 		assertEquals(retorno.getNomeFesta(), festaTO.getNomeFesta());
 		assertEquals(retorno.getHorarioFimFesta(), festaTO.getHorarioFimFesta());
@@ -552,10 +554,10 @@ class FestaServiceTest {
 		doNothing().when(categoriasFestaRepository).addCategoriasFesta(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyString());
 		Mockito.when(categoriaRepository.findByCodCategoria(Mockito.anyInt())).thenReturn(categoriaTest(),categoriaTest());
 		Mockito.when(grupoService.addGrupo(Mockito.anyInt(), Mockito.anyString(), Mockito.anyBoolean(), Mockito.isNull())).thenReturn(criacaoGrupo());
-		Mockito.when(festaFactory.getFesta(Mockito.any())).thenReturn(festaCreateByFactory);
+		Mockito.when(festaFactory.getFesta(Mockito.any(), Mockito.any())).thenReturn(festaCreateByFactory);
 		Mockito.when(notificacaoService.getDataAtual()).thenReturn(LocalDateTime.of(2016, Month.JUNE, 22, 19, 9));
 
-		Festa retorno = festaService.addFesta(festaTO, idUser);
+		Festa retorno = festaService.addFesta(festaTO, idUser, null);
 		assertEquals(retorno.getCodFesta(), festaTO.getCodFesta());
 		assertEquals(retorno.getNomeFesta(), festaTO.getNomeFesta());
 		assertEquals(retorno.getHorarioFimFesta(), festaTO.getHorarioFimFesta());
@@ -581,10 +583,10 @@ class FestaServiceTest {
 		doNothing().when(categoriasFestaRepository).addCategoriasFesta(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyString());
 		Mockito.when(categoriaRepository.findByCodCategoria(Mockito.anyInt())).thenReturn(categoriaTest(),categoriaTest());
 		Mockito.when(grupoService.addGrupo(Mockito.anyInt(), Mockito.anyString(), Mockito.anyBoolean(), Mockito.isNull())).thenReturn(criacaoGrupo());
-		Mockito.when(festaFactory.getFesta(Mockito.any())).thenReturn(festaTest());
+		Mockito.when(festaFactory.getFesta(Mockito.any(), Mockito.any())).thenReturn(festaTest());
 		Mockito.when(notificacaoService.getDataAtual()).thenReturn(LocalDateTime.of(2016, Month.JUNE, 22, 19, 9));
 
-		Festa retorno = festaService.addFesta(festaTO, idUser);
+		Festa retorno = festaService.addFesta(festaTO, idUser, null);
 		assertEquals(retorno.getCodFesta(), festaTO.getCodFesta());
 		assertEquals(retorno.getNomeFesta(), festaTO.getNomeFesta());
 		assertEquals(retorno.getHorarioFimFesta(), festaTO.getHorarioFimFesta());
@@ -816,7 +818,12 @@ class FestaServiceTest {
 
 		Mockito.when(notificacaoService.getDataAtual()).thenReturn(LocalDateTime.of(2016, Month.JUNE, 22, 19, 9));
 		
-		Festa retorno = festaService.updateFesta(festaTO, idUser);
+		byte[] bytesTeste = "Any String you want".getBytes();
+		
+		MultipartFile file = new MockMultipartFile("file",
+	            "teste", "text/plain", bytesTeste);
+		
+		Festa retorno = festaService.updateFesta(festaTO, idUser, file);
 
 		assertEquals(retorno.getCodEnderecoFesta(), festaTest.getCodEnderecoFesta());
 		assertEquals(retorno.getOrganizador(), festaTest.getOrganizador());
@@ -857,7 +864,7 @@ class FestaServiceTest {
 		
 		boolean retornoB = true;
 		try {
-			festaService.updateFesta(festaTO, idUser);
+			festaService.updateFesta(festaTO, idUser, null);
 		}catch(ValidacaoException e){
 			retornoB = false;
 		};
@@ -900,7 +907,7 @@ class FestaServiceTest {
 
 		boolean retornoB = true;
 		try {
-			festaService.updateFesta(festaTO, idUser);
+			festaService.updateFesta(festaTO, idUser, null);
 		}catch(ValidacaoException e){
 			retornoB = false;
 		};
@@ -946,7 +953,7 @@ class FestaServiceTest {
 		
 		Mockito.when(notificacaoService.getDataAtual()).thenReturn(LocalDateTime.of(2016, Month.JUNE, 22, 19, 9));
 
-		Festa retorno = festaService.updateFesta(festaTO, idUser);
+		Festa retorno = festaService.updateFesta(festaTO, idUser, null);
 
 		assertEquals(retorno.getCodEnderecoFesta(), festaTest.getCodEnderecoFesta());
 		assertEquals(retorno.getOrganizador(), festaTest.getOrganizador());
@@ -987,7 +994,7 @@ class FestaServiceTest {
 		
 		Mockito.when(notificacaoService.getDataAtual()).thenReturn(LocalDateTime.of(2016, Month.JUNE, 22, 19, 9));
 
-		Festa retorno = festaService.updateFesta(festaTO, idUser);
+		Festa retorno = festaService.updateFesta(festaTO, idUser, null);
 
 		assertEquals(retorno.getCodEnderecoFesta(), festaTest.getCodEnderecoFesta());
 		assertEquals(retorno.getOrganizador(), festaTest.getOrganizador());
@@ -1026,7 +1033,7 @@ class FestaServiceTest {
 
 		Mockito.when(categoriasFestaRepository.findCategoriasFestaTipoCategoria(Mockito.anyInt(), Mockito.anyString())).thenReturn(categoriaFestaTest(), null);
 
-		Festa retorno = festaService.updateFesta(festaTO, idUser);
+		Festa retorno = festaService.updateFesta(festaTO, idUser, null);
 
 		assertEquals(retorno.getCodEnderecoFesta(), festaTest.getCodEnderecoFesta());
 		assertEquals(retorno.getOrganizador(), festaTest.getOrganizador());
@@ -1073,7 +1080,7 @@ class FestaServiceTest {
 
 		Mockito.when(categoriasFestaRepository.findCategoriasFestaTipoCategoria(Mockito.anyInt(), Mockito.anyString())).thenReturn(categoriaFestaTest(), null);
 
-		Festa retorno = festaService.updateFesta(festaTO, idUser);
+		Festa retorno = festaService.updateFesta(festaTO, idUser, null);
 
 		assertEquals(retorno.getCodEnderecoFesta(), festaTest.getCodEnderecoFesta());
 		assertEquals(retorno.getOrganizador(), festaTest.getOrganizador());
@@ -1114,7 +1121,7 @@ class FestaServiceTest {
 
 		Mockito.when(categoriasFestaRepository.findCategoriasFestaTipoCategoria(Mockito.anyInt(), Mockito.anyString())).thenReturn(categoriaFestaTest(), categoriaFestaTest());
 
-		Festa retorno = festaService.updateFesta(festaTO, idUser);
+		Festa retorno = festaService.updateFesta(festaTO, idUser, null);
 
 		assertEquals(retorno.getCodEnderecoFesta(), festaTest.getCodEnderecoFesta());
 		assertEquals(retorno.getOrganizador(), festaTest.getOrganizador());
@@ -1154,7 +1161,7 @@ class FestaServiceTest {
 
 		Festa retorno = null;
 		try {
-			retorno = festaService.updateFesta(festaTO, idUser);
+			retorno = festaService.updateFesta(festaTO, idUser, null);
 		}catch(ValidacaoException e){
 			retorno = null;
 		};
@@ -1194,7 +1201,7 @@ class FestaServiceTest {
 
 		Festa retorno = null;
 		try {
-			retorno = festaService.updateFesta(festaTO, idUser);
+			retorno = festaService.updateFesta(festaTO, idUser, null);
 		}catch(ValidacaoException e){
 			retorno = null;
 		};
@@ -1237,7 +1244,7 @@ class FestaServiceTest {
 
 		Festa retorno = null;
 		try {
-			retorno = festaService.updateFesta(festaTO, idUser);
+			retorno = festaService.updateFesta(festaTO, idUser, null);
 		}catch(ValidacaoException e){
 			retorno = null;
 		};
@@ -1282,7 +1289,7 @@ class FestaServiceTest {
 
 		Festa retorno = null;
 		try {
-			retorno = festaService.updateFesta(festaTO, idUser);
+			retorno = festaService.updateFesta(festaTO, idUser, null);
 		}catch(ValidacaoException e){
 			retorno = null;
 		};
@@ -1327,7 +1334,7 @@ class FestaServiceTest {
 
 		Festa retorno = null;
 		try {
-			retorno = festaService.updateFesta(festaTO, idUser);
+			retorno = festaService.updateFesta(festaTO, idUser, null);
 		}catch(ValidacaoException e){
 			retorno = null;
 		};
@@ -1372,7 +1379,7 @@ class FestaServiceTest {
 
 		Festa retorno = null;
 		try {
-			retorno = festaService.updateFesta(festaTO, idUser);
+			retorno = festaService.updateFesta(festaTO, idUser, null);
 		}catch(ValidacaoException e){
 			retorno = null;
 		};
@@ -1421,7 +1428,7 @@ class FestaServiceTest {
 
 		Festa retorno = null;
 		try {
-			retorno = festaService.updateFesta(festaTO, idUser);
+			retorno = festaService.updateFesta(festaTO, idUser, null);
 		}catch(ValidacaoException e){
 			retorno = null;
 		};

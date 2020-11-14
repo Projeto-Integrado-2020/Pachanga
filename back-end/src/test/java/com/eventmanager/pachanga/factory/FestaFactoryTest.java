@@ -140,7 +140,7 @@ class FestaFactoryTest {
 	void getFestaSucessoTest() throws Exception {
 		FestaTO festaTO = festaTOTest();
 
-		Festa festa = festaFactory.getFesta(festaTO);
+		Festa festa = festaFactory.getFesta(festaTO, null);
 
 		assertEquals(festa.getCodEnderecoFesta(), festaTO.getCodEnderecoFesta());
 		assertEquals(festa.getCodFesta(), festaTO.getCodFesta());
