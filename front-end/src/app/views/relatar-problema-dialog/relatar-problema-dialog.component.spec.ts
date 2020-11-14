@@ -14,6 +14,7 @@ import { HttpLoaderFactory } from 'src/app/app.module';
 import { of } from 'rxjs';
 import { DatePipe } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 describe('RelatarProblemaDialogComponent', () => {
   let component: RelatarProblemaDialogComponent;
@@ -26,6 +27,7 @@ describe('RelatarProblemaDialogComponent', () => {
       declarations: [ RelatarProblemaDialogComponent ],
       imports: [
         CustomMaterialModule,
+        FormsModule,
         HttpClientTestingModule,
         BrowserAnimationsModule,
         RouterModule.forRoot([]),
