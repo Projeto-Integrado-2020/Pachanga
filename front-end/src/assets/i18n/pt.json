@@ -13,7 +13,9 @@
     "ALERTASEGURANCA": {
         "REDIRECIONAR": "Ir para a tela de segurança da festa",
         "TITLE": "Alerta de Segurança",
-        "PROBLEM": "Problema"
+        "PROBLEM": "Problema",
+        "DESCRICAO": "Descrição",
+        "OU": "OU"
     },
 
     

@@ -4,6 +4,20 @@
     <p><strong>{{'FESTA.PARTYNAME' | translate}}:</strong> {{notificacao.notificacaoArea.nomeFesta}}</p>
     <p><strong>{{'AREASEGURANCA.AREA' | translate}}:</strong> {{notificacao.notificacaoArea.nomeArea}}</p>
     <p><strong>{{'AREASEGURANCA.PROBLEMA' | translate}}:</strong> {{ 'RELATARPROB.' + notificacao.notificacaoArea.descProblema | translate }}</p>
+    <p><strong>{{'ALERTASEGURANCA.DESCRICAO' | translate}}:</strong> {{notificacao.notificacaoArea.descProblemaRelatado}}</p>
+    <div class="botoes">
+        <button class="botoes__btn botao-finalizado" mat-raised-button color="primary">
+            {{"PROBLEMADETALHES.MARCARCOMO" | translate}} {{"RELATARPROB.F" | translate}}
+        </button>
+    </div>
+    <div class="botoes">
+        <button class="botoes__btn" mat-raised-button color="primary">
+            {{"PROBLEMADETALHES.MARCARCOMO" | translate}} {{"RELATARPROB.E" | translate}}
+        </button>
+    </div>
+    <div class="center">
+        <p><strong>{{ 'ALERTASEGURANCA.OU' | translate }}</strong></p>
+    </div>
     <div class="botoes">
         <button class="botoes__btn" mat-raised-button mat-dialog-close color="primary" ><a routerLink="{{ getUrlFesta() }}">{{'ALERTASEGURANCA.REDIRECIONAR' | translate}}</a></button>
     </div>

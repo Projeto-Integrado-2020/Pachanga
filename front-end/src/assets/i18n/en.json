@@ -561,7 +561,9 @@
     "ALERTASEGURANCA": {
         "REDIRECIONAR": "Go to security painel",
         "TITLE": "Security alert",
-        "PROBLEM": "Problem"
+        "PROBLEM": "Problem",
+        "DESCRICAO": "Description",
+        "OU": "OR"
     },
 
     "RECARGA": {
