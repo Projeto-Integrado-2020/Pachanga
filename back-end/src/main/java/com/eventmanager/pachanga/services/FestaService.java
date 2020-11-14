@@ -1,12 +1,15 @@
 package com.eventmanager.pachanga.services;
 
+import java.io.IOException;
 import java.time.Duration;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.eventmanager.pachanga.domains.Categoria;
 import com.eventmanager.pachanga.domains.CategoriasFesta;
@@ -104,14 +107,14 @@ public class FestaService {
 		return festaRepository.findAllComLotesCompraveis();
 	}
 
-	public Festa addFesta(FestaTO festaTo, int idUser) {
+	public Festa addFesta(FestaTO festaTo, int idUser, MultipartFile imagem) {
 		this.validarUsuarioFesta(idUser, 0);
 		Usuario usuario = usuarioRepository.findById(idUser);
 		festaTo.setCodFesta(festaRepository.getNextValMySequence());
 		festaTo.setStatusFesta(TipoStatusFesta.PREPARACAO.getValor());
 		this.validarFesta(festaTo);
 		this.validacaoCategorias(festaTo.getCodPrimaria(), festaTo.getCodSecundaria());
-		Festa festa = festaFactory.getFesta(festaTo);
+		Festa festa = festaFactory.getFesta(festaTo, imagem);
 		festaRepository.save(festa);
 		Grupo grupo = grupoService.addGrupo(festa.getCodFesta(), TipoGrupo.ORGANIZADOR.getValor(), true, null);
 		grupoRepository.saveUsuarioGrupo(usuario.getCodUsuario(), grupo.getCodGrupo());
@@ -180,16 +183,16 @@ public class FestaService {
 		festaRepository.deleteById(idFesta);
 	}
 
-	public Festa updateFesta(FestaTO festaTo, int idUser) {
+	public Festa updateFesta(FestaTO festaTo, int idUser, MultipartFile imagem) throws IOException {
 		Festa festa = validarFestaExistente(festaTo.getCodFesta());
 		this.validarPermissaoUsuario(idUser, festaTo.getCodFesta(), TipoPermissao.EDITDFES.getCodigo());
 		this.validarFesta(festaTo);
-		Festa festaMudanca = validarMudancas(festaTo, festa);
+		Festa festaMudanca = validarMudancas(festaTo, festa, imagem);
 		festaRepository.save(festaMudanca);
 		return festaMudanca;
 	}
 	
-	private Festa validarMudancas(FestaTO festaTo, Festa festa) {
+	private Festa validarMudancas(FestaTO festaTo, Festa festa, MultipartFile imagem) throws IOException {
 		mudarCategoriaFesta(festa, festaTo);
 		if (!festa.getNomeFesta().equals(festaTo.getNomeFesta())) {
 			festa.setNomeFesta(festaTo.getNomeFesta());
@@ -211,6 +214,11 @@ public class FestaService {
 		}
 		if (!festa.getDescOrganizador().equals(festaTo.getDescOrganizador())) {
 			festa.setDescOrganizador(festaTo.getDescOrganizador());
+		}
+		if(imagem == null) {
+			festa.setImagem(null);
+		}else if(!Arrays.equals(festa.getImagem(), imagem.getBytes())) {
+			festa.setImagem(imagem.getBytes());
 		}
 		return festa;
 	}

@@ -1,10 +1,12 @@
 package com.eventmanager.pachanga.controllers;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.eventmanager.pachanga.domains.Categoria;
 import com.eventmanager.pachanga.domains.Festa;
@@ -33,6 +36,11 @@ import com.eventmanager.pachanga.services.ConvidadoService;
 import com.eventmanager.pachanga.services.FestaService;
 import com.eventmanager.pachanga.services.UsuarioService;
 import com.eventmanager.pachanga.tipo.TipoCategoria;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 
 @Controller
 @RequestMapping("/festa")
@@ -105,10 +113,12 @@ public class FestaController {
 	}
 
 	@ResponseBody
-	@PostMapping(path = "/adicionar")
-	public ResponseEntity<Object> addFesta(@RequestBody FestaTO festaTo, @RequestParam(required = true) int idUser){
+	@PostMapping(path = "/adicionar", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+	@JsonDeserialize(using = LocalDateTimeDeserializer.class)
+	public ResponseEntity<Object> addFesta(@RequestParam String json, @RequestParam(required = false) MultipartFile imagem, @RequestParam(required = true) int idUser) throws IOException{
 		try {
-			Festa festa = festaService.addFesta(festaTo, idUser);
+			FestaTO festaTo = criarFestaTOByString(json);
+			Festa festa = festaService.addFesta(festaTo, idUser, imagem);
 			CategoriaTO categoriaPrimaria = categoriaFesta(festa.getCodFesta(), TipoCategoria.PRIMARIO.getDescricao());
 			CategoriaTO categoriaSecundario = categoriaFesta(festa.getCodFesta(), TipoCategoria.SECUNDARIO.getDescricao());
 			return ResponseEntity.ok(festaFactory.getFestaTO(festa, null, false, categoriaPrimaria, categoriaSecundario, null));
@@ -129,10 +139,12 @@ public class FestaController {
 	}
 
 	@ResponseBody
-	@PutMapping(path = "/atualizar")
-	public ResponseEntity<Object> atualizaFesta(@RequestBody FestaTO festaTo, @RequestParam(required = true) int idUser){
+	@PutMapping(path = "/atualizar", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+	@JsonDeserialize(using = LocalDateTimeDeserializer.class)
+	public ResponseEntity<Object> atualizaFesta(@RequestParam String json, @RequestParam(required = false) MultipartFile imagem, @RequestParam(required = true) int idUser)throws IOException{
 		try {
-			Festa festa = festaService.updateFesta(festaTo, idUser);
+			FestaTO festaTo = criarFestaTOByString(json);
+			Festa festa = festaService.updateFesta(festaTo, idUser, imagem);
 			CategoriaTO categoriaPrimaria = categoriaFesta(festa.getCodFesta(), TipoCategoria.PRIMARIO.getDescricao());
 			CategoriaTO categoriaSecundario = categoriaFesta(festa.getCodFesta(), TipoCategoria.SECUNDARIO.getDescricao());
 			return ResponseEntity.ok(festaFactory.getFestaTO(festa, null, false, categoriaPrimaria, categoriaSecundario, null));
@@ -205,5 +217,12 @@ public class FestaController {
 		}else {
 			return null;
 		}
+	}
+	
+	private FestaTO criarFestaTOByString(String json) throws IOException{
+		ObjectMapper objectMapper = new ObjectMapper();
+		objectMapper.registerModule(new JavaTimeModule());
+		objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+		return objectMapper.readValue(json, FestaTO.class);
 	}
 }

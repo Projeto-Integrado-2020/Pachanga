@@ -11,6 +11,8 @@ public class NotificacaoAreaSegurancaTOBuilder {
 	private int codProblema;
 
 	private String descProblema;
+	
+	private String descProblemaRelatado;
 
 	private int codArea;
 
@@ -50,6 +52,11 @@ public class NotificacaoAreaSegurancaTOBuilder {
 		return this;
 	}
 	
+	public NotificacaoAreaSegurancaTOBuilder descProblemaRelatado(String descProblemaRelatado) {
+		this.descProblemaRelatado = descProblemaRelatado;
+		return this;
+	}
+	
 	public NotificacaoAreaSegurancaTO build() {
 		NotificacaoAreaSegurancaTO notificacao = new NotificacaoAreaSegurancaTO();
 		notificacao.setCodArea(codArea);
@@ -58,6 +65,7 @@ public class NotificacaoAreaSegurancaTOBuilder {
 		notificacao.setDescProblema(descProblema);
 		notificacao.setNomeArea(nomeArea);
 		notificacao.setNomeFesta(nomeFesta);
+		notificacao.setDescProblemaRelatado(descProblemaRelatado);
 		return notificacao;
 	}
 	

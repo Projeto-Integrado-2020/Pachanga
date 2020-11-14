@@ -2,6 +2,8 @@ package com.eventmanager.pachanga.services;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.time.LocalDateTime;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -34,6 +36,8 @@ import com.eventmanager.pachanga.securingweb.JwtAuthenticationEntryPoint;
 import com.eventmanager.pachanga.securingweb.JwtTokenUtil;
 import com.eventmanager.pachanga.securingweb.JwtUserDetailsService;
 import com.eventmanager.pachanga.tipo.TipoAreaSeguranca;
+import com.eventmanager.pachanga.tipo.TipoStatusFesta;
+import com.eventmanager.pachanga.tipo.TipoStatusProblema;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(value=AreaSegurancaService.class)
@@ -118,6 +122,43 @@ class AreaSegurancaServiceTest {
 		usuarioTest.setNomeUser("Gustavo Barbosa");
 
 		return usuarioTest;
+	}
+	
+	public AreaSegurancaProblema criacaoAreaSegurancaProblema() {
+		AreaSegurancaProblema areaSegurancaProblema = new AreaSegurancaProblema();
+		areaSegurancaProblema.setArea(areaTest());
+		areaSegurancaProblema.setProblema(criacaoProblema());
+		areaSegurancaProblema.setFesta(criacaoFesta());
+		areaSegurancaProblema.setDescProblema("teste2");
+		areaSegurancaProblema.setHorarioInicio(LocalDateTime.of(2016, Month.JUNE, 22, 19, 10));
+		areaSegurancaProblema.setHorarioFim(LocalDateTime.of(2016, Month.JUNE, 23, 19, 10));
+		areaSegurancaProblema.setStatusProblema(TipoStatusProblema.ANDAMENTO.getValor());
+		areaSegurancaProblema.setCodUsuarioResolv(usuarioTest());
+		areaSegurancaProblema.setCodUsuarioEmissor(usuarioTest());
+		
+		return areaSegurancaProblema;
+	}
+	
+	private Festa criacaoFesta() {
+		Festa festaTest = new Festa();
+		festaTest.setCodFesta(1);
+		festaTest.setCodEnderecoFesta("https//:minhacasa.org");
+		festaTest.setDescOrganizador("sou demente");
+		festaTest.setHorarioInicioFesta(LocalDateTime.of(2016, Month.JUNE, 22, 19, 10));
+		festaTest.setHorarioFimFesta(LocalDateTime.of(2016, Month.JUNE, 23, 19, 10));
+		festaTest.setNomeFesta("festao");
+		festaTest.setOrganizador("Joao Neves");
+		festaTest.setStatusFesta(TipoStatusFesta.PREPARACAO.getValor());
+		festaTest.setDescricaoFesta("Bugago");
+		festaTest.setHorarioFimFestaReal(LocalDateTime.of(2016, Month.JUNE, 23, 19, 10));
+		return festaTest;
+	}
+	
+	public Problema criacaoProblema() {
+		Problema problema = new Problema();
+		problema.setCodProblema(1);
+		problema.setDescProblema("Teste");
+		return problema;
 	}
 	
 	@Test
@@ -210,6 +251,7 @@ class AreaSegurancaServiceTest {
 		usuarios.add(usuarioTest());
 		
 		List<AreaSegurancaProblema> areasSegurancasProblemas = new ArrayList<>();
+		areasSegurancasProblemas.add(criacaoAreaSegurancaProblema());
 		
 		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(criacaoGrupos());
 		Mockito.when(areaSegurancaRepository.findAreaCodArea(Mockito.anyInt())).thenReturn(area);
@@ -247,11 +289,12 @@ class AreaSegurancaServiceTest {
 		
 		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(criacaoGrupos());
 		Mockito.when(areaSegurancaRepository.findAreaCodArea(Mockito.anyInt())).thenReturn(area);
+		Mockito.when(areaSegurancaProblemaService.validarProblemaSeguranca(Mockito.anyInt())).thenReturn(criacaoAreaSegurancaProblema());
 		Mockito.when(problemaRepository.findProblemaByCodProblema(Mockito.anyInt())).thenReturn(new Problema());
 		Mockito.when(festaService.validarFestaExistente(Mockito.anyInt())).thenReturn(new Festa());
-		Mockito.when(notificacaoAreaFactory.getNotificacaoArea(Mockito.any(), Mockito.any(), Mockito.any())).thenReturn(new NotificacaoAreaSegurancaTO());
+		Mockito.when(notificacaoAreaFactory.getNotificacaoArea(Mockito.any(), Mockito.any())).thenReturn(new NotificacaoAreaSegurancaTO());
 		
-		NotificacaoAreaSegurancaTO notificacaoArea = areaService.getNotificacaoProblemaArea(1, 1);
+		NotificacaoAreaSegurancaTO notificacaoArea = areaService.getNotificacaoProblemaArea(1);
 		
 		assertEquals(true, notificacaoArea != null);
 		

@@ -107,7 +107,7 @@ public class NotificacaoService {
 			NotificacaoMudancaStatusTO notificacaoMudancaStatus = festaService.getNotificacaoMudancaStatus(Integer.parseInt(valores[0]));
 			((NotificacaoUsuarioTO) notificacaoTO).setNotificacaoMudancaStatus(notificacaoMudancaStatus);
 		} else if(TipoNotificacao.AREAPROB.getValor().equals(codigo)) {
-			NotificacaoAreaSegurancaTO notificacaoArea = areaService.getNotificacaoProblemaArea(Integer.parseInt(valores[0]), Integer.parseInt(valores[1]));
+			NotificacaoAreaSegurancaTO notificacaoArea = areaService.getNotificacaoProblemaArea(Integer.parseInt(valores[0]));
 			if(NotificacaoGrupoTO.class == notificacaoTO.getClass()) {
 				((NotificacaoGrupoTO) notificacaoTO).setNotificacaoArea(notificacaoArea);	
 			}else if(NotificacaoUsuarioTO.class == notificacaoTO.getClass()) {
@@ -240,8 +240,8 @@ public class NotificacaoService {
 		return TipoNotificacao.STAALTER.getValor() + "?" + codFesta + "&" + status;
 	}
 	
-	public String criarMensagemAreaProblema(int codArea, int codProblema) {
-		return TipoNotificacao.AREAPROB.getValor() + "?" + codArea + "&" + codProblema;
+	public String criarMensagemAreaProblema(int codAreaProblema) {
+		return TipoNotificacao.AREAPROB.getValor() + "?" + codAreaProblema;
 	}
 	
 	public LocalDateTime getDataAtual() {

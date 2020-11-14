@@ -24,7 +24,8 @@ public class FestaTOBuilder {
 	private List<UsuarioTO> usuarios;
 	private CategoriaTO categoriaPrimaria;
 	private CategoriaTO categoriaSecundaria;
-	private List<ConvidadoTO> convidados; 
+	private List<ConvidadoTO> convidados;
+	private byte[] imagem;
 
 	public static FestaTOBuilder getInstance() {
 		return new FestaTOBuilder();
@@ -103,6 +104,11 @@ public class FestaTOBuilder {
 		this.convidados = convidados;
 		return this;
 	}
+	
+	public FestaTOBuilder imagem(byte[] imagem) {
+		this.imagem = imagem;
+		return this;
+	}
 
 	public FestaTO build() {
 		FestaTO festaTo = new FestaTO();
@@ -121,6 +127,7 @@ public class FestaTOBuilder {
 		festaTo.setCategoriaPrimaria(categoriaPrimaria);
 		festaTo.setCategoriaSecundaria(categoriaSecundaria);
 		festaTo.setConvidados(convidados);
+		festaTo.setImagem(imagem);
 		return festaTo;
 	}
 

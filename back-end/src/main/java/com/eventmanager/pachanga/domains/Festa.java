@@ -7,6 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -37,6 +38,11 @@ public class Festa {
 	private String codEnderecoFesta; //Url do local, talvez mude
 	@Column(name = "desc_organizador")
 	private String descOrganizador;
+	
+	@Column(name = "imagem")
+	@Lob
+	private byte[] imagem;
+	
 	@Column(name = "horario_fim_real")
 	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm:ss")
 	private LocalDateTime horarioFimFestaReal;
@@ -183,7 +189,15 @@ public class Festa {
 	public void setQuestionariosForms(Set<QuestionarioForms> questionariosForms) {
 		this.questionariosForms = questionariosForms;
 	}
-
+	
+	public byte[] getImagem() {
+		return imagem;
+	}
+	
+	public void setImagem(byte[] imagem) {
+		this.imagem = imagem;
+	}
+	
 	public Boolean isOrganizador(int codUsuario) {
 		for(Grupo grupo: this.grupos) {
 			if(grupo.getOrganizador()) {

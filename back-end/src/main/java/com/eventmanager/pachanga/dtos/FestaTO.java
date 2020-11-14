@@ -3,17 +3,27 @@ package com.eventmanager.pachanga.dtos;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class FestaTO {
 	
 	private int codFesta;
 	private String nomeFesta;
 	private String statusFesta; // Inicializado(I), Finalizado(F)
 	private String organizador; // responsável da festa
+	@DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private LocalDateTime horarioInicioFesta;
+	@DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private LocalDateTime horarioFimFesta;
 	private String descricaoFesta;
 	private String codEnderecoFesta; //Url do local, talvez mude
 	private String descOrganizador;
+	@DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private LocalDateTime horarioFimFestaReal;
 	private String funcionalidade;
 	private int quantidadeParticipantes;
@@ -24,6 +34,7 @@ public class FestaTO {
 	private CategoriaTO categoriaSecundaria;
 	private Boolean isOrganizador;
 	private List<ConvidadoTO> convidados;
+	private byte[] imagem;
 	
 	public int getCodFesta() {
 		return codFesta;
@@ -138,6 +149,12 @@ public class FestaTO {
 	}
 	public void setConvidados(List<ConvidadoTO> convidados) {
 		this.convidados = convidados;
+	}
+	public byte[] getImagem() {
+		return imagem;
+	}
+	public void setImagem(byte[] imagem) {
+		this.imagem = imagem;
 	}
 
 }
