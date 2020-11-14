@@ -1,7 +1,8 @@
 <h1 mat-dialog-title>{{"PROBLEMADETALHES.TITULO" | translate}}</h1>
 <div mat-dialog-content>
   <div class="detalhes">
-    <span>{{"PROBLEMADETALHES.DESCRICAO" | translate}}: {{"RELATARPROB." + this.detalhes.problema.descProblema | translate}}</span>
+    <span>{{"PROBLEMADETALHES.TIPO" | translate}}: {{"RELATARPROB." + this.detalhes.problema.codProblema | translate}}</span>
+    <span>{{"PROBLEMADETALHES.DESCRICAO" | translate}}: {{this.detalhes.problema.descProblema}}</span>
     <span>{{"PROBLEMADETALHES.DATA" | translate}}: {{this.dia}}</span>
     <span>{{"PROBLEMADETALHES.HORARIO" | translate}}: {{this.hora}}</span>
     <span>Status: {{"RELATARPROB." + this.detalhes.problema.statusProblema | translate}}</span>
