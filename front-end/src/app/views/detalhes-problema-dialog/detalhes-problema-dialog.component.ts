@@ -57,7 +57,7 @@ export class DetalhesProblemaDialogComponent implements OnInit {
     this.segProblemaService.alterarStatus(finaliza, this.detalhes.problema).subscribe(
       () => {
         this.segProblemaService.setFarol(false);
-        if(status !== 'A'){
+        if (status !== 'A') {
           this.modal.closeAll();
         }
       });
