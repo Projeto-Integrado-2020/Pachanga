@@ -5,16 +5,24 @@
     <p><strong>{{'AREASEGURANCA.AREA' | translate}}:</strong> {{notificacao.notificacaoArea.nomeArea}}</p>
     <p><strong>{{'AREASEGURANCA.PROBLEMA' | translate}}:</strong> {{ 'RELATARPROB.' + notificacao.notificacaoArea.descProblema | translate }}</p>
     <p><strong>{{'ALERTASEGURANCA.DESCRICAO' | translate}}:</strong> {{notificacao.notificacaoArea.descProblemaRelatado}}</p>
-    <div class="botoes">
-        <button class="botoes__btn botao-finalizado" mat-raised-button color="primary">
-            {{"PROBLEMADETALHES.MARCARCOMO" | translate}} {{"RELATARPROB.F" | translate}}
-        </button>
-    </div>
-    <div class="botoes">
-        <button class="botoes__btn" mat-raised-button color="primary">
-            {{"PROBLEMADETALHES.MARCARCOMO" | translate}} {{"RELATARPROB.E" | translate}}
-        </button>
-    </div>
+    <form [formGroup]="form">
+        <mat-form-field class="texto-input">
+            <mat-label>{{'PROBLEMADETALHES.OBSERVACOES' | translate}}</mat-label>
+            <textarea #observacaoSolucao formControlName="observacaoSolucao" required matInput></textarea>
+            <mat-error *ngIf="f.observacaoSolucao.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
+        </mat-form-field>
+        <br>
+        <div class="botoes">
+            <button class="botoes__btn botao-finalizado" [disabled]="!form.valid" mat-raised-button color="primary" (click)="alterarStatus('F')">
+                {{"PROBLEMADETALHES.MARCARCOMO" | translate}} {{"RELATARPROB.F" | translate}}
+            </button>
+        </div>
+        <div class="botoes">
+            <button class="botoes__btn" [disabled]="!form.valid" mat-raised-button color="primary" (click)="alterarStatus('E')">
+                {{"PROBLEMADETALHES.MARCARCOMO" | translate}} {{"RELATARPROB.E" | translate}}
+            </button>
+        </div>
+    </form>
     <div class="center">
         <p><strong>{{ 'ALERTASEGURANCA.OU' | translate }}</strong></p>
     </div>
