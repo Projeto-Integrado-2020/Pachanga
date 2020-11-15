@@ -617,7 +617,9 @@
         "TIPO": "Tipo de Problema",
         "HORARIO": "Horário",
         "DATA": "Data",
-        "MARCARCOMO": "Marcar Como "
+        "MARCARCOMO": "Marcar Como ",
+        "OBSERVACOES": "Observações sobre solução",
+        "DETALHES": "Detalhes da solução"
     },
 
     "PRODUTO": {
