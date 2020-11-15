@@ -693,7 +693,9 @@
         "TIPO": "Problem Type",
         "HORARIO": "Report Time",
         "DATA": "Report Date",
-        "MARCARCOMO":"Set as "
+        "MARCARCOMO":"Set as ",
+        "OBSERVACOES": "Note about solution",
+        "DETALHES": "Details about solution"
     },
 
     "CHECKIN": {

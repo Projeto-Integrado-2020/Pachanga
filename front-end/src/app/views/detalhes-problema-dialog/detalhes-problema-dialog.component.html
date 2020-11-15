@@ -6,18 +6,35 @@
     <span>{{"PROBLEMADETALHES.DATA" | translate}}: {{this.dia}}</span>
     <span>{{"PROBLEMADETALHES.HORARIO" | translate}}: {{this.hora}}</span>
     <span>Status: {{"RELATARPROB." + this.detalhes.problema.statusProblema | translate}}</span>
+    <span 
+      *ngIf="this.detalhes.problema.statusProblema == 'E' || this.detalhes.problema.statusProblema == 'F'"
+      required
+      >
+      {{"PROBLEMADETALHES.OBSERVACOES" | translate}}: {{this.detalhes.problema.observacaoSolucao}}
+    </span>
   </div>
+  <mat-form-field
+    class="example-full-width"
+    *ngIf="this.detalhes.problema.statusProblema == 'A'"
+    >
+    <mat-label>{{"PROBLEMADETALHES.OBSERVACOES" | translate}}</mat-label>
+    <input [(ngModel)]="this.detalhes.problema.observacaoSolucao"  matInput #message maxlength="200">
+    <!-- <mat-hint align="start"><strong>Don't disclose personal info</strong> </mat-hint> -->
+    <mat-hint align="end">{{message.value.length}} / 200</mat-hint>
+  </mat-form-field>
   <div class="botoes">
       <button 
         *ngIf="this.detalhes.problema.statusProblema == 'A'"
         (click)="alterarStatus(true, 'F')"
         class="btn"
+        [disabled]="!this.detalhes.problema.observacaoSolucao"
         mat-button
         >{{"PROBLEMADETALHES.MARCARCOMO" | translate}} {{"RELATARPROB.F" | translate}}</button>
       <button
         *ngIf="this.detalhes.problema.statusProblema == 'A'"
         (click)="alterarStatus(true, 'E')"
         class="btn"
+        [disabled]="!this.detalhes.problema.observacaoSolucao"
         mat-button
         >{{"PROBLEMADETALHES.MARCARCOMO" | translate}} {{"RELATARPROB.E" | translate}}</button>
       <button 
