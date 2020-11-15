@@ -32,7 +32,7 @@
                         </mat-expansion-panel-header>
                         <div class="problemas">
                             <div class="problema" *ngFor="let problema of area.problemasArea">
-                                <span>{{'RELATARPROB.' + problema.codProblema | translate}}</span>
+                                <span>{{'RELATARPROB.' + problema.descProblema | translate}}</span>
                                 <div class="problema__detalhe">
                                     <span>{{'RELATARPROB.' + problema.statusProblema | translate}}</span>
                                     <button class="botao" mat-button (click)="verDetalhesProblema(problema)">{{'AREASEGURANCA.DETALHES' | translate}}</button>
