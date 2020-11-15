@@ -1,0 +1,22 @@
+<div class="main-container">
+    <mat-sidenav-container class="example-container">
+        <mat-sidenav-content class="center-x">
+            <mat-list>
+                <mat-list-item>
+                    <div class="titulo2">
+                        <h2>{{festaNome}} - {{'CHECKIN.TITLE' | translate}}</h2>
+                    </div>
+                </mat-list-item>
+
+                <mat-list-item class="center-x botoes">
+                        <button routerLink="./leitor-qr" mat-button class="botao-leitor">
+                            {{'CHECKIN.LEITOR' | translate}}
+                        </button>
+                </mat-list-item>
+            </mat-list>
+            <button routerLink="../" mat-button cdkFocusInitial class="button-return">
+                <mat-icon>keyboard_return</mat-icon> {{'UTILS.RETURN' | translate}}
+            </button>
+        </mat-sidenav-content>
+    </mat-sidenav-container>
+</div>

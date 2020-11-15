@@ -84,6 +84,15 @@
         "BAILEBRG": "Baile Brega"
     },
 
+    "CHECKIN": {
+        "TITLE": "Painel de Check-In",
+        "LEITOR": "Leitor QR Code",
+        "REPETIR": "Ler mais um código",
+        "CODIGO": "Código do ingresso",
+        "CONFIRM": "Confirmar ingresso",
+        "OU": "OU"
+    },
+
     "CONVITE": {
         "TITULO": "Convidar membros",
         "ENVIARCONVITE": "Enviar convite",
@@ -256,7 +265,8 @@
         "TERCINCO": "Terceiro incorreto.",
         "INFOTCAD": "Terceiro já cadastrado.",
         "INFOTOKU": "Token já sendo utilizado.",
-        "INFONFOU": "Integração não encontrada."
+        "INFONFOU": "Integração não encontrada.",
+        "SYMPNFOU": "Integração com Sympla não encontrada."
     },
 
     "ESTOQUE": {
@@ -604,9 +614,12 @@
     "PROBLEMADETALHES": {
         "TITULO": "Detalhes do Problema",
         "DESCRICAO": "Descrição",
+        "TIPO": "Tipo de Problema",
         "HORARIO": "Horário",
         "DATA": "Data",
-        "MARCARCOMO": "Marcar Como "
+        "MARCARCOMO": "Marcar Como ",
+        "OBSERVACOES": "Observações sobre solução",
+        "DETALHES": "Detalhes da solução"
     },
 
     "PRODUTO": {
@@ -686,7 +699,8 @@
         "PRODDELE": "Produto deletado com sucesso.",
         "FORMDELE": "Questionário deletado com sucesso.",
         "LOTEALT": "Lote alterado com sucesso.",
-        "INTEDELE": "Integração com terceiro deletada com sucesso."
+        "INTEDELE": "Integração com terceiro deletada com sucesso.",
+        "SYMCHECK": "Check-in via Sympla confirmado."
     },
 
     "TERMOS": {

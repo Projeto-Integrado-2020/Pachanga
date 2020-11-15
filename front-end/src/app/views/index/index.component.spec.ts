@@ -42,6 +42,9 @@ import { ThirdPartyPainelComponent } from '../third-party-painel/third-party-pai
 import { of } from 'rxjs';
 import { GetFestaIndexService } from 'src/app/services/get-festa-index/get-festa-index.service';
 import { CheckoutComponent } from '../checkout/checkout.component';
+import { LeitorQrComponent } from '../leitor-qr/leitor-qr.component';
+import { CheckInComponent } from '../check-in/check-in.component';
+import { ZXingScannerModule } from '@zxing/ngx-scanner';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -80,7 +83,9 @@ describe('IndexComponent', () => {
         EditarLoteComponent,
         VendaIngressosComponent,
         ThirdPartyPainelComponent,
-        CheckoutComponent
+        CheckoutComponent,
+        LeitorQrComponent,
+        CheckInComponent
       ],
       imports: [
         MomentModule,
@@ -97,6 +102,7 @@ describe('IndexComponent', () => {
             deps: [HttpClient]
           }
         }),
+        ZXingScannerModule
       ],
       providers: [
         { provide: GetFestaIndexService, useValue: {

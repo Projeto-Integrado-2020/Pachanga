@@ -46,6 +46,9 @@ import { EditarLoteComponent } from '../editar-lote/editar-lote.component';
 import { VendaIngressosComponent } from '../venda-ingressos/venda-ingressos.component';
 import { ThirdPartyPainelComponent } from '../third-party-painel/third-party-painel.component';
 import { CheckoutComponent } from '../checkout/checkout.component';
+import { CheckInComponent } from '../check-in/check-in.component';
+import { LeitorQrComponent } from '../leitor-qr/leitor-qr.component';
+import { ZXingScannerModule } from '@zxing/ngx-scanner';
 
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 100000;
 
@@ -105,7 +108,9 @@ describe('NavbarComponent', () => {
         EditarLoteComponent,
         VendaIngressosComponent,
         ThirdPartyPainelComponent,
-        CheckoutComponent
+        CheckoutComponent,
+        LeitorQrComponent,
+        CheckInComponent
        ],
       imports: [
         MomentModule,
@@ -123,7 +128,8 @@ describe('NavbarComponent', () => {
             deps: [HttpClient]
           }
         }),
-        SocialLoginModule
+        SocialLoginModule,
+        ZXingScannerModule
       ],
       providers: [
         {

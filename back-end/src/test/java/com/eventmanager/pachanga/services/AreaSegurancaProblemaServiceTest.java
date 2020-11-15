@@ -27,6 +27,7 @@ import com.eventmanager.pachanga.dtos.AreaSegurancaProblemaTO;
 import com.eventmanager.pachanga.errors.ValidacaoException;
 import com.eventmanager.pachanga.factory.AreaSegurancaProblemaFactory;
 import com.eventmanager.pachanga.factory.NotificacaoAreaSegurancaTOFactory;
+import com.eventmanager.pachanga.repositories.AreaSegurancaProblemaFluxoRepository;
 import com.eventmanager.pachanga.repositories.AreaSegurancaProblemaRepository;
 import com.eventmanager.pachanga.repositories.AreaSegurancaRepository;
 import com.eventmanager.pachanga.repositories.GrupoRepository;
@@ -36,6 +37,7 @@ import com.eventmanager.pachanga.securingweb.JwtAuthenticationEntryPoint;
 import com.eventmanager.pachanga.securingweb.JwtTokenUtil;
 import com.eventmanager.pachanga.securingweb.JwtUserDetailsService;
 import com.eventmanager.pachanga.tipo.TipoAreaSeguranca;
+import com.eventmanager.pachanga.tipo.TipoProblema;
 import com.eventmanager.pachanga.tipo.TipoStatusFesta;
 import com.eventmanager.pachanga.tipo.TipoStatusProblema;
 
@@ -90,6 +92,9 @@ class AreaSegurancaProblemaServiceTest {
 
 	@MockBean
 	private NotificacaoAreaSegurancaTOFactory notificacaoAreaFactory;
+	
+	@MockBean
+	private AreaSegurancaProblemaFluxoRepository areaSegurancaProblemaFluxoRepository;
 	
 	public AreaSegurancaProblema criacaoAreaSegurancaProblema() throws Exception {
 		AreaSegurancaProblema areaSegurancaProblema = new AreaSegurancaProblema();
@@ -202,7 +207,7 @@ class AreaSegurancaProblemaServiceTest {
 		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(grupos);
 		Mockito.when(problemaRepository.findProblemaByCodProblema(Mockito.anyInt())).thenReturn(problema);
 		Mockito.when(grupoRepository.findGruposPermissaoAreaSegurancaProblema(Mockito.anyInt())).thenReturn(grupos);
-		Mockito.when(notificacaoService.criarMensagemAreaProblema(Mockito.anyInt(), Mockito.anyInt())).thenReturn("ABCD");
+		Mockito.when(notificacaoService.criarMensagemAreaProblema(Mockito.anyInt())).thenReturn("ABCD");
 		Mockito.when(notificacaoService.verificarNotificacaoGrupo(Mockito.anyInt(), Mockito.anyString())).thenReturn(true);
 		Mockito.when(usuarioRepository.findUsuariosPorGrupo(Mockito.anyInt())).thenReturn(usuarios);
 		Mockito.doNothing().when(notificacaoService).inserirNotificacaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyString());
@@ -213,6 +218,44 @@ class AreaSegurancaProblemaServiceTest {
 		assertEquals(retorno.getProblema(), problema);
 		assertEquals(retorno.getFesta(), festa);
 		assertEquals(retorno.getDescProblema(), areaSegurancaProblema.getDescProblema());
+		
+	}
+	
+	@Test
+	void addProblemaSegurancaErroProblemaSemDescricao() throws Exception {
+		AreaSegurancaProblemaTO areaSegurancaProblemaTO = criacaoAreaSegurancaProblemaTO();
+		AreaSegurancaProblema areaSegurancaProblema = criacaoAreaSegurancaProblema();
+		AreaSeguranca areaSeguranca = areaSegurancaProblema.getArea(); 
+		Usuario usuario = usuarioTest();
+		Problema problema = areaSegurancaProblema.getProblema();
+		List<Grupo> grupos = criacaoGrupos();
+		List<Usuario> usuarios = new ArrayList<>();
+		usuarios.add(usuario);
+		areaSegurancaProblema.getProblema().setCodProblema(TipoProblema.OUTRPROB.getCodigo());
+		areaSegurancaProblema.setDescProblema(null);
+		
+		Mockito.when(areaSegurancaProblemaFactory.getProblemaSeguranca(Mockito.any(), Mockito.any(), Mockito.any(), Mockito.any(), Mockito.any(), Mockito.any())).thenReturn(areaSegurancaProblema);
+		Mockito.when(areaSegurancaProblemaRepository.findByCodProblema(Mockito.anyInt())).thenReturn(null);
+		Mockito.when(areaSegurancaRepository.findAreaByCodFestaAndCodArea(Mockito.anyInt(), Mockito.anyInt())).thenReturn(areaSeguranca);
+		Mockito.when(usuarioRepository.findBycodFestaAndUsuario(Mockito.anyInt(), Mockito.anyInt())).thenReturn(usuario);
+		Mockito.when(usuarioRepository.findById(Mockito.anyInt())).thenReturn(usuario);
+		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(grupos);
+		Mockito.when(problemaRepository.findProblemaByCodProblema(Mockito.anyInt())).thenReturn(problema);
+		Mockito.when(grupoRepository.findGruposPermissaoAreaSegurancaProblema(Mockito.anyInt())).thenReturn(grupos);
+		Mockito.when(notificacaoService.criarMensagemAreaProblema(Mockito.anyInt())).thenReturn("ABCD");
+		Mockito.when(notificacaoService.verificarNotificacaoGrupo(Mockito.anyInt(), Mockito.anyString())).thenReturn(true);
+		Mockito.when(usuarioRepository.findUsuariosPorGrupo(Mockito.anyInt())).thenReturn(usuarios);
+		Mockito.doNothing().when(notificacaoService).inserirNotificacaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyString());
+		
+		boolean sucesso;
+		try {
+		areaSegurancaProblemaService.addProblemaSeguranca(areaSegurancaProblemaTO, usuarioTest().getCodUsuario());
+		sucesso = true;
+		}catch(ValidacaoException e){
+			sucesso = false;
+		};
+		
+		assertEquals(false, sucesso);
 		
 	}
 	
@@ -233,7 +276,7 @@ class AreaSegurancaProblemaServiceTest {
 		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(grupos);
 		Mockito.when(problemaRepository.findProblemaByCodProblema(Mockito.anyInt())).thenReturn(null);
 		Mockito.when(grupoRepository.findGruposPermissaoAreaSegurancaProblema(Mockito.anyInt())).thenReturn(grupos);
-		Mockito.when(notificacaoService.criarMensagemAreaProblema(Mockito.anyInt(), Mockito.anyInt())).thenReturn("ABCD");
+		Mockito.when(notificacaoService.criarMensagemAreaProblema(Mockito.anyInt())).thenReturn("ABCD");
 		Mockito.when(notificacaoService.verificarNotificacaoGrupo(Mockito.anyInt(), Mockito.anyString())).thenReturn(true);
 		Mockito.when(usuarioRepository.findUsuariosPorGrupo(Mockito.anyInt())).thenReturn(usuarios);
 		Mockito.doNothing().when(notificacaoService).inserirNotificacaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyString());
@@ -274,7 +317,7 @@ class AreaSegurancaProblemaServiceTest {
 		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(grupos);
 		Mockito.when(problemaRepository.findProblemaByCodProblema(Mockito.anyInt())).thenReturn(problema);
 		Mockito.when(grupoRepository.findGruposPermissaoAreaSegurancaProblema(Mockito.anyInt())).thenReturn(grupos);
-		Mockito.when(notificacaoService.criarMensagemAreaProblema(Mockito.anyInt(), Mockito.anyInt())).thenReturn("ABCD");
+		Mockito.when(notificacaoService.criarMensagemAreaProblema(Mockito.anyInt())).thenReturn("ABCD");
 		Mockito.when(notificacaoService.verificarNotificacaoGrupo(Mockito.anyInt(), Mockito.anyString())).thenReturn(true);
 		Mockito.when(usuarioRepository.findUsuariosPorGrupo(Mockito.anyInt())).thenReturn(usuarios);
 		Mockito.doNothing().when(notificacaoService).inserirNotificacaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyString());
@@ -311,7 +354,7 @@ class AreaSegurancaProblemaServiceTest {
 		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(grupos);
 		Mockito.when(problemaRepository.findProblemaByCodProblema(Mockito.anyInt())).thenReturn(problema);
 		Mockito.when(grupoRepository.findGruposPermissaoAreaSegurancaProblema(Mockito.anyInt())).thenReturn(grupos);
-		Mockito.when(notificacaoService.criarMensagemAreaProblema(Mockito.anyInt(), Mockito.anyInt())).thenReturn("ABCD");
+		Mockito.when(notificacaoService.criarMensagemAreaProblema(Mockito.anyInt())).thenReturn("ABCD");
 		Mockito.when(notificacaoService.verificarNotificacaoGrupo(Mockito.anyInt(), Mockito.anyString())).thenReturn(false);
 		Mockito.when(usuarioRepository.findUsuariosPorGrupo(Mockito.anyInt())).thenReturn(usuarios);
 		Mockito.doNothing().when(notificacaoService).inserirNotificacaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyString());
@@ -344,7 +387,7 @@ class AreaSegurancaProblemaServiceTest {
 		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(grupos);
 		Mockito.when(problemaRepository.findProblemaByCodProblema(Mockito.anyInt())).thenReturn(problema);
 		Mockito.when(grupoRepository.findGruposPermissaoAreaSegurancaProblema(Mockito.anyInt())).thenReturn(grupos);
-		Mockito.when(notificacaoService.criarMensagemAreaProblema(Mockito.anyInt(), Mockito.anyInt())).thenReturn("ABCD");
+		Mockito.when(notificacaoService.criarMensagemAreaProblema(Mockito.anyInt())).thenReturn("ABCD");
 		Mockito.when(notificacaoService.verificarNotificacaoGrupo(Mockito.anyInt(), Mockito.anyString())).thenReturn(true);
 		Mockito.when(usuarioRepository.findUsuariosPorGrupo(Mockito.anyInt())).thenReturn(usuarios);
 		Mockito.doNothing().when(notificacaoService).inserirNotificacaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyString());
@@ -376,7 +419,7 @@ class AreaSegurancaProblemaServiceTest {
 		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(grupos);
 		Mockito.when(problemaRepository.findProblemaByCodProblema(Mockito.anyInt())).thenReturn(problema);
 		Mockito.when(grupoRepository.findGruposPermissaoAreaSegurancaProblema(Mockito.anyInt())).thenReturn(grupos);
-		Mockito.when(notificacaoService.criarMensagemAreaProblema(Mockito.anyInt(), Mockito.anyInt())).thenReturn("ABCD");
+		Mockito.when(notificacaoService.criarMensagemAreaProblema(Mockito.anyInt())).thenReturn("ABCD");
 		Mockito.when(notificacaoService.verificarNotificacaoGrupo(Mockito.anyInt(), Mockito.anyString())).thenReturn(true);
 		Mockito.when(usuarioRepository.findUsuariosPorGrupo(Mockito.anyInt())).thenReturn(usuarios);
 		Mockito.doNothing().when(notificacaoService).inserirNotificacaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyString());
@@ -447,6 +490,7 @@ class AreaSegurancaProblemaServiceTest {
 	void alterarStatusProblemaFinalizada() throws Exception {
 		AreaSegurancaProblemaTO areaSegurancaProblemaTO = criacaoAreaSegurancaProblemaTO();
 		areaSegurancaProblemaTO.setStatusProblema(TipoStatusProblema.FINALIZADO.getValor());
+		areaSegurancaProblemaTO.setObservacaoSolucao("teste");
 		AreaSegurancaProblema areaSegurancaProblema = criacaoAreaSegurancaProblema();
 		Usuario usuario = usuarioTest();
 		List<Grupo> grupos = new ArrayList<>();
@@ -480,7 +524,7 @@ class AreaSegurancaProblemaServiceTest {
 		
 		Mockito.when(areaSegurancaRepository.findAreaByCodFestaAndCodArea(Mockito.anyInt(), Mockito.anyInt())).thenReturn(areaTest());
 		Mockito.when(grupoRepository.findGruposPermissaoAreaSegurancaProblema(Mockito.anyInt())).thenReturn(grupos);
-		Mockito.when(notificacaoService.criarMensagemAreaProblema(Mockito.anyInt(), Mockito.anyInt())).thenReturn("ABCD");
+		Mockito.when(notificacaoService.criarMensagemAreaProblema(Mockito.anyInt())).thenReturn("ABCD");
 		Mockito.when(notificacaoService.verificarNotificacaoGrupo(Mockito.anyInt(), Mockito.anyString())).thenReturn(true);
 		Mockito.when(usuarioRepository.findUsuariosPorGrupo(Mockito.anyInt())).thenReturn(usuarios);
 		Mockito.doNothing().when(notificacaoService).inserirNotificacaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyString());

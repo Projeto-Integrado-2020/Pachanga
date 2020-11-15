@@ -1,7 +1,7 @@
 /* tslint:disable:no-unused-variable */
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { DebugElement } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, DebugElement } from '@angular/core';
 
 import { DetalhesProblemaDialogComponent } from './detalhes-problema-dialog.component';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material';
@@ -10,6 +10,7 @@ import { HttpLoaderFactory } from 'src/app/app.module';
 import { HttpClient } from '@angular/common/http';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterModule } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 describe('DetalhesProblemaDialogComponent', () => {
   let component: DetalhesProblemaDialogComponent;
@@ -21,6 +22,7 @@ describe('DetalhesProblemaDialogComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ DetalhesProblemaDialogComponent ],
       imports: [
+        FormsModule,
         HttpClientTestingModule,
         RouterModule.forRoot([]),
         TranslateModule.forRoot({
@@ -53,7 +55,8 @@ describe('DetalhesProblemaDialogComponent', () => {
         //   atualizarAreaSeguranca: () => of({}),
         //   setFarol: () => false,
         // }}
-    ]
+      ],
+      schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
     })
     .compileComponents();
   }));

@@ -1,22 +1,41 @@
 <h1 mat-dialog-title>{{"PROBLEMADETALHES.TITULO" | translate}}</h1>
 <div mat-dialog-content>
   <div class="detalhes">
-    <span>{{"PROBLEMADETALHES.DESCRICAO" | translate}}: {{"RELATARPROB." + this.detalhes.problema.descProblema | translate}}</span>
+    <span>{{"PROBLEMADETALHES.TIPO" | translate}}: {{"RELATARPROB." + this.detalhes.problema.codProblema | translate}}</span>
+    <span>{{"PROBLEMADETALHES.DESCRICAO" | translate}}: {{this.detalhes.problema.descProblema}}</span>
     <span>{{"PROBLEMADETALHES.DATA" | translate}}: {{this.dia}}</span>
     <span>{{"PROBLEMADETALHES.HORARIO" | translate}}: {{this.hora}}</span>
     <span>Status: {{"RELATARPROB." + this.detalhes.problema.statusProblema | translate}}</span>
+    <span 
+      *ngIf="this.detalhes.problema.statusProblema == 'E' || this.detalhes.problema.statusProblema == 'F'"
+      required
+      >
+      {{"PROBLEMADETALHES.OBSERVACOES" | translate}}: {{this.detalhes.problema.observacaoSolucao}}
+    </span>
   </div>
+  <mat-form-field
+    class="example-full-width"
+    *ngIf="this.detalhes.problema.statusProblema == 'A'"
+    >
+    <mat-label>{{"PROBLEMADETALHES.OBSERVACOES" | translate}}</mat-label>
+    <textarea [(ngModel)]="this.detalhes.problema.observacaoSolucao"  matInput #message maxlength="200">
+    </textarea>
+    <!-- <mat-hint align="start"><strong>Don't disclose personal info</strong> </mat-hint> -->
+    <mat-hint align="end">{{message.value.length}} / 200</mat-hint>
+  </mat-form-field>
   <div class="botoes">
       <button 
         *ngIf="this.detalhes.problema.statusProblema == 'A'"
         (click)="alterarStatus(true, 'F')"
         class="btn"
+        [disabled]="!this.detalhes.problema.observacaoSolucao"
         mat-button
         >{{"PROBLEMADETALHES.MARCARCOMO" | translate}} {{"RELATARPROB.F" | translate}}</button>
       <button
         *ngIf="this.detalhes.problema.statusProblema == 'A'"
         (click)="alterarStatus(true, 'E')"
         class="btn"
+        [disabled]="!this.detalhes.problema.observacaoSolucao"
         mat-button
         >{{"PROBLEMADETALHES.MARCARCOMO" | translate}} {{"RELATARPROB.E" | translate}}</button>
       <button 

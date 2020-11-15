@@ -145,7 +145,8 @@
         "TERCINCO": "Incorrect Third-Party.",
         "INFOTCAD": "Third-Party already registered.",
         "INFOTOKU": "Token already registered.",
-        "INFONFOU": "Integration not found."
+        "INFONFOU": "Integration not found.",
+        "SYMPNFOU": "Sympla integration not found."
     },
 
     "SUCCESS": {
@@ -160,7 +161,8 @@
         "PRODDELE": "Product successfully deleted.",
         "FORMDELE": "Form successfully deleted.",
         "LOTEALT": "Batch successfully updated.",
-        "INTEDELE": "Third-Party integration successfully deleted."
+        "INTEDELE": "Third-Party integration successfully deleted.",
+        "SYMCHECK": "Check-in via Sympla confirmed."
     },
 
     "PERFIL":{
@@ -686,9 +688,21 @@
     "PROBLEMADETALHES": {
         "TITULO": "Issue Details",
         "DESCRICAO": "Description",
+        "TIPO": "Problem Type",
         "HORARIO": "Report Time",
         "DATA": "Report Date",
-        "MARCARCOMO":"Set as "
+        "MARCARCOMO":"Set as ",
+        "OBSERVACOES": "Note about solution",
+        "DETALHES": "Details about solution"
+    },
+
+    "CHECKIN": {
+        "TITLE": "Check-In panel",
+        "LEITOR": "QR Code scanner",
+        "REPETIR": "Scan other code",
+        "CODIGO": "Ticket code",
+        "CONFIRM": "Confirm ticket",
+        "OU": "OR"
     },
 
     "VENDAINGRESSOS": {

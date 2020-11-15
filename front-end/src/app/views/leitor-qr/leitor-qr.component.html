@@ -1,0 +1,50 @@
+<div class="main-container">
+    <header>
+        <div class="header-flex">
+            <h1 class="title">{{festaNome}} - {{'CHECKIN.LEITOR' | translate}}</h1>
+        </div>
+    </header>
+    <div>
+        <div class="div-tipo">
+            <mat-button-toggle-group name="tipo" value="P" aria-label="Tipo de Ingresso">
+                <mat-button-toggle value="P"><div (click)="alterarTipoIngresso(true)">Pachanga</div></mat-button-toggle>
+                <mat-button-toggle value="S"><div (click)="alterarTipoIngresso(true)">Sympla</div></mat-button-toggle>
+            </mat-button-toggle-group>
+        </div>
+        <div class="div-imagens">
+            <img class="scanner-image" *ngIf="scannerSucesso" src="https://cdn.pixabay.com/photo/2018/05/30/20/55/check-3442527_960_720.png" alt="Check">
+            <img class="scanner-image" *ngIf="scannerErro" src="https://thumbs.gfycat.com/PhonyRaggedAfricanparadiseflycatcher-poster.jpg" alt="Cross">
+            <img class="scanner-image" *ngIf="scannerLoading" src="https://media.flixfacts.com/inpage/intel/10thGenRefresh/i3/i3-used-images/loading.gif" alt="Loading">
+        </div>
+        <zxing-scanner class="scanner" #scanner (scanSuccess)="executarCheckInScanner($event)">
+        </zxing-scanner>
+        <button mat-raised-button (click)="limparScanner()" *ngIf="scannerSucesso || scannerErro" type="button" class="botao-repeat">
+            <mat-icon>refresh</mat-icon> {{'CHECKIN.REPETIR' | translate}}
+        </button>
+        <div class="separator">
+            <p class="divider-text">
+                <b>{{'CHECKIN.OU' | translate}}</b>
+            </p>
+        </div>
+        <div class="div-tipo">
+            <mat-button-toggle-group name="tipo" value="P" aria-label="Tipo de Ingresso">
+                <mat-button-toggle value="P"><div (click)="alterarTipoIngresso(false)">Pachanga</div></mat-button-toggle>
+                <mat-button-toggle value="S"><div (click)="alterarTipoIngresso(false)">Sympla</div></mat-button-toggle>
+            </mat-button-toggle-group>
+        </div>
+        <form [formGroup]="form" class="form-ticket" (submit)="executarCheckInForm(codIngresso.value)">
+            <mat-form-field class="form-content">
+                <mat-label>{{'CHECKIN.CODIGO' | translate}}</mat-label>
+                <input ng-class="{ f.codIngresso.errors }" #codIngresso formControlName="codIngresso" matInput required>
+                <mat-error *ngIf="f.codIngresso.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
+            </mat-form-field>
+            <br>
+            <button [disabled]="!form.valid" class="button-form form-content" mat-raised-button>
+                {{'CHECKIN.CONFIRM' | translate}}
+            </button>
+        </form>
+    </div>
+    <button routerLink="../" mat-button cdkFocusInitial class="button-return">
+        <mat-icon>keyboard_return</mat-icon> {{'UTILS.RETURN' | translate}}
+    </button>
+</div>

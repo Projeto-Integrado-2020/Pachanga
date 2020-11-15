@@ -28,6 +28,7 @@ export class SuccessDialogComponent implements OnInit {
       case 'FORMDELE': this.message = this.translate.instant('SUCCESS.FORMDELE'); break;
       case 'LOTEALT': this.message = this.translate.instant('SUCCESS.LOTEALT'); break;
       case 'INTEDELE': this.message = this.translate.instant('SUCCESS.INTEDELE'); break;
+      case 'SYMCHECK': this.message = this.translate.instant('SUCCESS.SYMCHECK'); break;
     }
   }
 

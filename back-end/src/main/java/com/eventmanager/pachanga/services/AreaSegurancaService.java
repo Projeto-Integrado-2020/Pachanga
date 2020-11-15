@@ -11,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.eventmanager.pachanga.domains.AreaSeguranca;
 import com.eventmanager.pachanga.domains.AreaSegurancaProblema;
 import com.eventmanager.pachanga.domains.Festa;
-import com.eventmanager.pachanga.domains.Problema;
 import com.eventmanager.pachanga.dtos.NotificacaoAreaSegurancaTO;
 import com.eventmanager.pachanga.errors.ValidacaoException;
 import com.eventmanager.pachanga.factory.NotificacaoAreaSegurancaTOFactory;
@@ -69,7 +68,10 @@ public class AreaSegurancaService {
 	public void deletarAreSegurancaFesta(int codUsuario, int codArea) {
 		AreaSeguranca areaSeguranca = this.validarAreaExistente(codArea);
 		grupoService.validarPermissaoUsuarioGrupo(areaSeguranca.getCodFesta(), codUsuario, TipoPermissao.DELEAREA.getCodigo());
-		areaSegurancaProblemaService.deletarNotificacoes(areaSeguranca, null);
+		List<AreaSegurancaProblema> problemasArea = areaSegurancaProblemaRepository.findProblemasArea(codArea);
+		problemasArea.forEach(pa->{
+			areaSegurancaProblemaService.deletarNotificacoes(pa);
+		});
 		List<AreaSegurancaProblema> areasSegurancasProblemas = areaSegurancaProblemaRepository
 				.findProblemasArea(codArea);
 		areaSegurancaProblemaRepository.deleteAll(areasSegurancasProblemas);
@@ -85,11 +87,12 @@ public class AreaSegurancaService {
 		return areaBanco;
 	}
 
-	public NotificacaoAreaSegurancaTO getNotificacaoProblemaArea(int codArea, int codProblema) {
-		AreaSeguranca area = this.validarAreaExistente(codArea);
-		Problema problema = problemaRepository.findProblemaByCodProblema(codProblema);
+	public NotificacaoAreaSegurancaTO getNotificacaoProblemaArea(int codAreaProblema) {
+		AreaSegurancaProblema areaProblema = areaSegurancaProblemaService.validarProblemaSeguranca(codAreaProblema);
+		AreaSeguranca area = this.validarAreaExistente(areaProblema.getArea().getCodArea());
+		problemaRepository.findProblemaByCodProblema(areaProblema.getProblema().getCodProblema());
 		Festa festa = festaService.validarFestaExistente(area.getCodFesta());
-		return notificacaoAreaFactory.getNotificacaoArea(festa, problema, area);
+		return notificacaoAreaFactory.getNotificacaoArea(festa, areaProblema);
 	}
 
 	private void validarArea(AreaSeguranca area) {

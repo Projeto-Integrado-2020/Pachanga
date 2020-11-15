@@ -1,15 +1,25 @@
 <h1 mat-dialog-title>{{'RELATARPROB.TITULO' | translate}} {{this.area.nomeArea}}</h1>
 <div mat-dialog-content>
-  <form (submit)="relatarProblema(problemaTO)">
+  <form #model = "ngForm" (ngSubmit)="relatarProblema(model)">
     <mat-form-field appearance="fill">
       <mat-label>{{'RELATARPROB.PROBLEMA' | translate}}</mat-label>
-      <mat-select [(value)]="problemaTO">
+      <mat-select ngModel #listaproblema name="codProblema">
         <!-- <mat-option value="{{categoria.codCategoria}}">{{'CATEGORIA.' + categoria.nomeCategoria | translate}}</mat-option> -->
-        <mat-option *ngFor="let problema of this.listaProblemas" [value]="problema">
+        <mat-option *ngFor="let problema of this.listaProblemas" [value]="problema.codProblema">
           {{'RELATARPROB.' + problema.descProblema | translate}}
         </mat-option>
       </mat-select>
     </mat-form-field>
-    <button class="prp-btn" mat-raised-button>{{'RELATARPROB.RELATAR' | translate}}</button>
+    <mat-form-field class="example-full-width">
+      <mat-label>Detalhes</mat-label>
+      <textarea ngModel name="descProblema" matInput #message maxlength="200"  placeholder="Detalhe do problema">
+      </textarea>
+      <!-- <mat-hint align="start"><strong>Don't disclose personal info</strong> </mat-hint> -->
+      <mat-hint align="end">{{message.value.length}} / 200</mat-hint>
+    </mat-form-field>
+    <button 
+      class="prp-btn"
+      [disabled]="!model.value.descProblema || !model.value.codProblema"
+      mat-raised-button>{{'RELATARPROB.RELATAR' | translate}}</button>
   </form>
 </div>

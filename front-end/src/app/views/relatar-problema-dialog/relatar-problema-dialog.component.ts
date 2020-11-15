@@ -5,6 +5,7 @@ import { SegurancaProblemasService } from 'src/app/services/seguranca-problemas/
 import { DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
 import { PainelSegurancaComponent } from '../painel-seguranca/painel-seguranca.component';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-relatar-problema-dialog',
@@ -15,7 +16,7 @@ export class RelatarProblemaDialogComponent implements OnInit {
   public component: PainelSegurancaComponent;
   public codFesta: any;
   public area: any;
-  public problemaTO: any;
+  public problemaTO: any = {};
   public date: any;
 
   listaProblemas: any;
@@ -48,29 +49,31 @@ export class RelatarProblemaDialogComponent implements OnInit {
   }
   // {{'CATEGORIA.' + categoria.nomeCategoria | translate}}
 
-  relatarProblema(problemaTO) {
+  relatarProblema(model: NgForm) {
 
 
     this.date = new Date();
 
     Object.assign(
-      problemaTO, // codFesta, descProblema
+      this.problemaTO, // codFesta, descProblema
       {
+        codProblema: model.value.codProblema,
+        descProblema: model.value.descProblema,
         codFesta: this.codFesta,
         codAreaSeguranca: this.area.codArea,
         codUsuarioEmissor: this.loginService.getusuarioInfo().codUsuario,
-        horarioInicio: this.datePipe.transform(this.date, 'yyyy-MM-ddThh:mm:ss')
+        horarioInicio: this.datePipe.transform(this.date, 'yyyy-MM-ddThh:mm:ss'),
+        observacaoSolucao: ''
       }
     );
 
-    this.segurancaProblemaService.adicionarProblema(problemaTO).subscribe((resp: any) => {
+    console.log(this.problemaTO);
+
+    this.segurancaProblemaService.adicionarProblema(this.problemaTO).subscribe((resp: any) => {
       this.dialogRef.close();
       this.component.ngOnInit();
+      this.segurancaProblemaService.setFarol(false);
     });
   }
-
-  // atualizarProblemas() {
-  //   this.segurancaProblemaService.updateProblemas();
-  // }
 
 }
