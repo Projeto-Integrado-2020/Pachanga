@@ -3,7 +3,7 @@
   <form #model = "ngForm" (ngSubmit)="relatarProblema(model)">
     <mat-form-field appearance="fill">
       <mat-label>{{'RELATARPROB.PROBLEMA' | translate}}</mat-label>
-      <mat-select ngModel name="codProblema">
+      <mat-select ngModel #listaproblema name="codProblema">
         <!-- <mat-option value="{{categoria.codCategoria}}">{{'CATEGORIA.' + categoria.nomeCategoria | translate}}</mat-option> -->
         <mat-option *ngFor="let problema of this.listaProblemas" [value]="problema.codProblema">
           {{'RELATARPROB.' + problema.descProblema | translate}}
@@ -17,6 +17,9 @@
       <!-- <mat-hint align="start"><strong>Don't disclose personal info</strong> </mat-hint> -->
       <mat-hint align="end">{{message.value.length}} / 200</mat-hint>
     </mat-form-field>
-    <button class="prp-btn" mat-raised-button>{{'RELATARPROB.RELATAR' | translate}}</button>
+    <button 
+      class="prp-btn"
+      [disabled]="!model.value.descProblema || !model.value.codProblema"
+      mat-raised-button>{{'RELATARPROB.RELATAR' | translate}}</button>
   </form>
 </div>
