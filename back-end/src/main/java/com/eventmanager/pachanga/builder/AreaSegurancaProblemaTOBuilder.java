@@ -16,6 +16,7 @@ public class AreaSegurancaProblemaTOBuilder {
 	private int codUsuarioEmissor;
     private String descProblema;
     private String observacaoSolucao;
+    private String descProblemaEmissor;
 	
 	public static AreaSegurancaProblemaTOBuilder getInstance() {
 		return new AreaSegurancaProblemaTOBuilder();
@@ -75,6 +76,11 @@ public class AreaSegurancaProblemaTOBuilder {
 		this.observacaoSolucao = observacaoSolucao;
 		return this;
 	}
+	
+	public AreaSegurancaProblemaTOBuilder descProblemaEmissor(String descProblemaEmissor) {
+		this.descProblemaEmissor = descProblemaEmissor;
+		return this;
+	}
 
 	public  AreaSegurancaProblemaTO build() {
 		AreaSegurancaProblemaTO problemaSegurancaTO = new  AreaSegurancaProblemaTO();
@@ -89,6 +95,7 @@ public class AreaSegurancaProblemaTOBuilder {
 		problemaSegurancaTO.setStatusProblema(statusProblema);
 		problemaSegurancaTO.setCodAreaProblema(codAreaProblema);
 		problemaSegurancaTO.setObservacaoSolucao(observacaoSolucao);
+		problemaSegurancaTO.setDescProblemaEmissor(descProblemaEmissor);
 		return problemaSegurancaTO;
 	}
 	
