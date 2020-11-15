@@ -133,7 +133,7 @@ class AreaSegurancaProblemaFactoryTest {
 		assertEquals(areaSegurancaProblemaTO.getCodProblema(), areaSegurancaProblema.getProblema().getCodProblema());
 		assertEquals(areaSegurancaProblemaTO.getCodUsuarioEmissor(), areaSegurancaProblema.getCodUsuarioEmissor().getCodUsuario());
 		assertEquals(areaSegurancaProblemaTO.getCodUsuarioResolv(), areaSegurancaProblema.getCodUsuarioResolv().getCodUsuario());
-		assertEquals(areaSegurancaProblemaTO.getDescProblema(), areaSegurancaProblema.getDescProblema());
+		assertEquals(areaSegurancaProblemaTO.getDescProblemaEmissor(), areaSegurancaProblema.getDescProblema());
 		assertEquals(areaSegurancaProblemaTO.getHorarioFim(), areaSegurancaProblema.getHorarioFim());
 		assertEquals(areaSegurancaProblemaTO.getHorarioInicio(), areaSegurancaProblema.getHorarioInicio());
 		assertEquals(areaSegurancaProblemaTO.getStatusProblema(), areaSegurancaProblema.getStatusProblema());
@@ -150,7 +150,7 @@ class AreaSegurancaProblemaFactoryTest {
 		assertEquals(areaSegurancaProblemaTO.getCodProblema(), areaSegurancaProblema.getProblema().getCodProblema());
 		assertEquals(areaSegurancaProblemaTO.getCodUsuarioEmissor(), areaSegurancaProblema.getCodUsuarioEmissor().getCodUsuario());
 		assertEquals(areaSegurancaProblemaTO.getCodUsuarioResolv(), 0);
-		assertEquals(areaSegurancaProblemaTO.getDescProblema(), areaSegurancaProblema.getDescProblema());
+		assertEquals(areaSegurancaProblemaTO.getDescProblemaEmissor(), areaSegurancaProblema.getDescProblema());
 		assertEquals(areaSegurancaProblemaTO.getHorarioFim(), areaSegurancaProblema.getHorarioFim());
 		assertEquals(areaSegurancaProblemaTO.getHorarioInicio(), areaSegurancaProblema.getHorarioInicio());
 		assertEquals(areaSegurancaProblemaTO.getStatusProblema(), areaSegurancaProblema.getStatusProblema());
@@ -189,7 +189,7 @@ class AreaSegurancaProblemaFactoryTest {
 		assertEquals(areaSegurancaProblemaTO.getCodProblema(), areaSegurancaProblema.getProblema().getCodProblema());
 		assertEquals(areaSegurancaProblemaTO.getCodUsuarioEmissor(), areaSegurancaProblema.getCodUsuarioEmissor().getCodUsuario());
 		assertEquals(areaSegurancaProblemaTO.getCodUsuarioResolv(), areaSegurancaProblema.getCodUsuarioResolv().getCodUsuario());
-		assertEquals(areaSegurancaProblemaTO.getDescProblema(), areaSegurancaProblema.getDescProblema());
+		assertEquals(areaSegurancaProblemaTO.getDescProblemaEmissor(), areaSegurancaProblema.getDescProblema());
 		assertEquals(areaSegurancaProblemaTO.getHorarioFim(), areaSegurancaProblema.getHorarioFim());
 		assertEquals(areaSegurancaProblemaTO.getHorarioInicio(), areaSegurancaProblema.getHorarioInicio());
 		assertEquals(areaSegurancaProblemaTO.getStatusProblema(), areaSegurancaProblema.getStatusProblema());
