@@ -18,6 +18,8 @@ public class NotificacaoAreaSegurancaTOBuilder {
 
 	private String nomeArea;
 	
+	private int codAreaProblema;
+	
 	public static NotificacaoAreaSegurancaTOBuilder getInstance() {
 		return new NotificacaoAreaSegurancaTOBuilder();
 	}
@@ -57,6 +59,11 @@ public class NotificacaoAreaSegurancaTOBuilder {
 		return this;
 	}
 	
+	public NotificacaoAreaSegurancaTOBuilder codAreaProblema(int codAreaProblema) {
+		this.codAreaProblema = codAreaProblema;
+		return this;
+	}
+	
 	public NotificacaoAreaSegurancaTO build() {
 		NotificacaoAreaSegurancaTO notificacao = new NotificacaoAreaSegurancaTO();
 		notificacao.setCodArea(codArea);
@@ -66,6 +73,7 @@ public class NotificacaoAreaSegurancaTOBuilder {
 		notificacao.setNomeArea(nomeArea);
 		notificacao.setNomeFesta(nomeFesta);
 		notificacao.setDescProblemaRelatado(descProblemaRelatado);
+		notificacao.setCodAreaProblema(codAreaProblema);
 		return notificacao;
 	}
 	

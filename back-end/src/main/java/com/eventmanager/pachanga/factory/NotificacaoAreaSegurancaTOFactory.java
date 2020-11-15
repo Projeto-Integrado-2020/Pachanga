@@ -13,7 +13,7 @@ public class NotificacaoAreaSegurancaTOFactory {
 	public NotificacaoAreaSegurancaTO getNotificacaoArea(Festa festa, AreaSegurancaProblema areaProblema) {
 		return NotificacaoAreaSegurancaTOBuilder.getInstance().codArea(areaProblema.getArea().getCodArea()).codFesta(festa.getCodFesta()).
 				codProblema(areaProblema.getProblema().getCodProblema()).descProblema(areaProblema.getProblema().getDescProblema()).nomeArea(areaProblema.getArea().getNomeArea()).
-				nomeFesta(festa.getNomeFesta()).descProblemaRelatado(areaProblema.getDescProblema()).build();
+				nomeFesta(festa.getNomeFesta()).descProblemaRelatado(areaProblema.getDescProblema()).codAreaProblema(areaProblema.getCodAreaProblema()).build();
 	}
 
 }

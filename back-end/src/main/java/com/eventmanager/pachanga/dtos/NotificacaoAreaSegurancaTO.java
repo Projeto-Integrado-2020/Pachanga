@@ -15,6 +15,8 @@ public class NotificacaoAreaSegurancaTO {
 	private int codArea;
 	
 	private String nomeArea;
+	
+	private int codAreaProblema;
 
 	public int getCodFesta() {
 		return codFesta;
@@ -70,6 +72,14 @@ public class NotificacaoAreaSegurancaTO {
 
 	public void setDescProblemaRelatado(String descProblemaRelatado) {
 		this.descProblemaRelatado = descProblemaRelatado;
+	}
+
+	public int getCodAreaProblema() {
+		return codAreaProblema;
+	}
+
+	public void setCodAreaProblema(int codAreaProblema) {
+		this.codAreaProblema = codAreaProblema;
 	}
 
 }
