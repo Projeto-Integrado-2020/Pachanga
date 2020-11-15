@@ -27,22 +27,22 @@
       <button 
         *ngIf="this.detalhes.problema.statusProblema == 'A'"
         (click)="alterarStatus(true, 'F')"
-        class="btn"
+        class="prp-btn"
         [disabled]="!this.detalhes.problema.observacaoSolucao"
-        mat-button
+        mat-raised-button
         >{{"PROBLEMADETALHES.MARCARCOMO" | translate}} {{"RELATARPROB.F" | translate}}</button>
       <button
         *ngIf="this.detalhes.problema.statusProblema == 'A'"
         (click)="alterarStatus(true, 'E')"
-        class="btn"
+        class="prp-btn"
         [disabled]="!this.detalhes.problema.observacaoSolucao"
-        mat-button
+        mat-raised-button
         >{{"PROBLEMADETALHES.MARCARCOMO" | translate}} {{"RELATARPROB.E" | translate}}</button>
       <button 
         *ngIf="this.detalhes.problema.statusProblema == 'E' || this.detalhes.problema.statusProblema == 'F'"
         (click)="alterarStatus(false, 'A')"
-        class="btn"
-        mat-button
+        class="prp-btn"
+        mat-raised-button
         >{{"PROBLEMADETALHES.MARCARCOMO" | translate}} {{"RELATARPROB.A" | translate}}</button>
   </div>
 </div>
