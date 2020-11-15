@@ -18,7 +18,8 @@
     *ngIf="this.detalhes.problema.statusProblema == 'A'"
     >
     <mat-label>{{"PROBLEMADETALHES.OBSERVACOES" | translate}}</mat-label>
-    <input [(ngModel)]="this.detalhes.problema.observacaoSolucao"  matInput #message maxlength="200">
+    <textarea [(ngModel)]="this.detalhes.problema.observacaoSolucao"  matInput #message maxlength="200">
+    </textarea>
     <!-- <mat-hint align="start"><strong>Don't disclose personal info</strong> </mat-hint> -->
     <mat-hint align="end">{{message.value.length}} / 200</mat-hint>
   </mat-form-field>
