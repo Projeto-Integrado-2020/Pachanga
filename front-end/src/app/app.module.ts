@@ -110,6 +110,7 @@ import { EditarIntegracoesDialogComponent } from './views/editar-integracoes-dia
 import { DeletarIntegracoesDialogComponent } from './views/deletar-integracoes-dialog/deletar-integracoes-dialog.component';
 import { DetalhesProblemaDialogComponent } from './views/detalhes-problema-dialog/detalhes-problema-dialog.component';
 import { ThirdPartyPainelComponent } from './views/third-party-painel/third-party-painel.component';
+import { CheckoutComponent } from './views/checkout/checkout.component';
 import { CheckInComponent } from './views/check-in/check-in.component';
 
 // Scanner QR Code
@@ -203,6 +204,7 @@ export function provideConfig() {
     DeletarIntegracoesDialogComponent,
     DetalhesProblemaDialogComponent,
     ThirdPartyPainelComponent,
+    CheckoutComponent,
     CheckInComponent,
     LeitorQrComponent
   ],

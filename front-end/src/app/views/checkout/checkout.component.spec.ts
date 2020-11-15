@@ -1,6 +1,4 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { VendaIngressosComponent } from './venda-ingressos.component';
 import { CustomMaterialModule } from '../material/material.module';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -11,10 +9,11 @@ import { HttpLoaderFactory } from '../edit-dialog/edit-dialog.component.spec';
 import { HttpClient } from '@angular/common/http';
 import { MatDialog } from '@angular/material';
 import { LoginService } from 'src/app/services/loginService/login.service';
+import { CheckoutComponent } from './checkout.component';
 
-describe('VendaIngressosComponent', () => {
-  let component: VendaIngressosComponent;
-  let fixture: ComponentFixture<VendaIngressosComponent>;
+describe('CheckoutComponent', () => {
+  let component: CheckoutComponent;
+  let fixture: ComponentFixture<CheckoutComponent>;
 
   let dialogSpy: MatDialog;
 
@@ -22,7 +21,7 @@ describe('VendaIngressosComponent', () => {
     dialogSpy = jasmine.createSpyObj('MatDialog', ['open', 'closeAll']);
 
     TestBed.configureTestingModule({
-      declarations: [ VendaIngressosComponent ],
+      declarations: [ CheckoutComponent ],
       imports: [
         CustomMaterialModule,
         HttpClientTestingModule,
@@ -45,7 +44,7 @@ describe('VendaIngressosComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(VendaIngressosComponent);
+    fixture = TestBed.createComponent(CheckoutComponent);
     component = fixture.componentInstance;
     const service: LoginService = TestBed.get(LoginService);
     service.usuarioInfo = {codUsuario: '1'};

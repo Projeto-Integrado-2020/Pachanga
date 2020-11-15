@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { GetFestaIndexService } from 'src/app/services/get-festa-index/get-festa-index.service';
-import { MenuFestasService } from 'src/app/services/menu-festa/menu-festas.service';
 
 export interface Tile {
   cols: number;
