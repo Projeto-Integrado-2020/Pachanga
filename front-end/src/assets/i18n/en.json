@@ -696,5 +696,14 @@
         "QUANTIDADE": "Quantity to be purchased",
         "INGRESSOS": "Tickets",
         "COMPRAR": "Buy"
+    },
+
+    "CHECKOUT": {
+        "INFO": "Ticket receipt information",
+        "NOME": "First name",
+        "SOBRENOME": "Second name",
+        "CONFIRMEMAIL": "E-mail confirmation",
+        "FINALIZAR": "Checkout"
     }
+
 }

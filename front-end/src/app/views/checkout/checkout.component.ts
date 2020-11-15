@@ -1,33 +1,34 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { GetFestaService } from 'src/app/services/get-festa/get-festa.service';
 import { GetLotePublicoService } from 'src/app/services/get-lote-publico/get-lote-publico.service';
+import { GetLoteUnicoPublicoService } from 'src/app/services/get-lote-unico-publico/get-lote-unico-publico.service';
 
 @Component({
-  selector: 'app-venda-ingressos',
-  templateUrl: './venda-ingressos.component.html',
-  styleUrls: ['./venda-ingressos.component.scss']
+  selector: 'app-checkout',
+  templateUrl: './checkout.component.html',
+  styleUrls: ['./checkout.component.scss']
 })
-export class VendaIngressosComponent implements OnInit {
+export class CheckoutComponent implements OnInit {
 
-  public festa = {
-    nomeFesta: null,
-    codFesta: null,
-    horarioInicioFesta: '2020-01-01 00:00:00',
-    horarioFimFesta: '2020-01-01 00:00:00',
-    codEnderecoFesta: null,
-    descricaoFesta: null
-  };
-  public split: any;
-  public lotes: any;
+  public festaNome: string;
+  public lotes: [];
+  options: FormGroup;
+  public festa: any;
+  public statusFesta: any;
+  panelOpenState = false;
+  public forms = {};
+  estoques: any;
+  dataSources = [];
   subscription: Subscription;
   source: any;
 
-  constructor(public getFestaService: GetFestaService, public getLote: GetLotePublicoService, public router: Router) { }
+  constructor(public getFestaService: GetFestaService, public getLote: GetLoteUnicoPublicoService, public router: Router) { }
 
   resgatarLote(codFesta) {
-    this.getLote.getLotePublico(codFesta).subscribe((resp: any) => {
+    this.getLote.getLoteUnicoPublico(codFesta).subscribe((resp: any) => {
       this.lotes = resp;
       this.getLote.setFarol(false);
     });
@@ -37,11 +38,14 @@ export class VendaIngressosComponent implements OnInit {
     this.source = null;
     this.lotes = [];
     let idFesta = this.router.url;
+    this.dataSources = [];
     idFesta = idFesta.substring(idFesta.indexOf('&') + 1, idFesta.indexOf('/', idFesta.indexOf('&')));
 
     this.getFestaService.acessarFesta(idFesta).subscribe((resp: any) => {
       this.getFestaService.setFarol(false);
       this.festa = resp;
+      this.festaNome = resp.nomeFesta;
+      this.statusFesta = resp.statusFesta;
       this.resgatarLote(this.festa.codFesta);
     });
   }

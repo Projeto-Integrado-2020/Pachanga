@@ -709,6 +709,14 @@
         "QUANTIDADE": "Quantidade à ser comprada",
         "INGRESSOS": "Ingressos",
         "COMPRAR": "Comprar"
+    },
+
+    "CHECKOUT": {
+        "INFO": "Informações para recebimento do ingresso",
+        "NOME": "Primeiro nome",
+        "SOBRENOME": "Sobrenome",
+        "CONFIRMEMAIL": "Confirmação do e-mail",
+        "FINALIZAR": "Finalizar compra"
     }
 
 }

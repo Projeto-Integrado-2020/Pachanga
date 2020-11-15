@@ -41,6 +41,7 @@ import { VendaIngressosComponent } from '../venda-ingressos/venda-ingressos.comp
 import { ThirdPartyPainelComponent } from '../third-party-painel/third-party-painel.component';
 import { of } from 'rxjs';
 import { GetFestaIndexService } from 'src/app/services/get-festa-index/get-festa-index.service';
+import { CheckoutComponent } from '../checkout/checkout.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -78,7 +79,8 @@ describe('IndexComponent', () => {
         CriarLoteComponent,
         EditarLoteComponent,
         VendaIngressosComponent,
-        ThirdPartyPainelComponent
+        ThirdPartyPainelComponent,
+        CheckoutComponent
       ],
       imports: [
         MomentModule,

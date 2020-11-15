@@ -59,6 +59,9 @@
                             <a routerLink={{createUrlEditLote(lote.codLote)}}>
                                 <button class="botao prp-btn-edit" mat-raised-button>{{'INGRESSO.EDIT' | translate}}</button>
                             </a>
+                            <!-- <a>
+                                <button routerLink="./cupons" class="botao prp-btn-prod">Gerenciamento de cupons</button>
+                            </a>-->
                             <button class="botao prp-btn-delete" mat-button (click)="openDialogDelete(lote, lote.codLote)">{{'INGRESSO.DELETE' | translate}}</button>
                         </div>
                     </mat-card-content>
