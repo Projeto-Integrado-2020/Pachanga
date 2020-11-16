@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material';
 import { Router } from '@angular/router';
@@ -23,7 +23,7 @@ export interface TabelaSeguranca {
   styleUrls: ['./painel-seguranca.component.scss']
 })
 
-export class PainelSegurancaComponent implements OnInit {
+export class PainelSegurancaComponent implements OnInit, OnDestroy {
 
   constructor(
     public fb: FormBuilder,
@@ -61,27 +61,38 @@ export class PainelSegurancaComponent implements OnInit {
     const url = this.router.url;
     this.dataSources = [];
     this.idFesta = url.substring(url.indexOf('&') + 1, url.indexOf('/', url.indexOf('&')));
+    this.resgatarDadosFesta();
+    this.resgatarAreaSeguranca();
     this.updateSeguranca();
-
-    /*this.segProbService.updateProblemasEmitter.subscribe(() => {
-      this.resgatarDadosFesta();
-    });*/
   }
 
   resgatarAreaSeguranca() {
-    this.getSeguranca.getAreaSeguranca(this.festa.codFesta).subscribe((resp: any) => {
-      this.areas = resp;
+    this.getSeguranca.getAreaSeguranca(this.idFesta).subscribe((resp: any) => {
       this.getSeguranca.setFarol(false);
+      for (const areaResp of resp) {
+        let flag = 0;
+        for (const area of this.areas) {
+          if (areaResp.codArea === area.codArea) {
+            flag = 1;
+            area.nomeArea = areaResp.nomeArea;
+            area.problemasArea = areaResp.problemasArea;
+            area.statusSeguranca = areaResp.statusSeguranca;
+            break;
+          }
+        }
+        if (flag === 0) {
+          this.areas.push(areaResp);
+        }
+      }
     });
   }
 
   resgatarDadosFesta() {
     this.getFestaService.acessarFesta(this.idFesta).subscribe((resp: any) => {
       this.festa = resp;
+      this.getFestaService.setFarol(false);
       this.festaNome = resp.nomeFesta;
       this.statusFesta = resp.statusFesta;
-      this.resgatarAreaSeguranca();
-      this.getFestaService.setFarol(false);
     });
   }
 
@@ -112,7 +123,7 @@ export class PainelSegurancaComponent implements OnInit {
     this.source = interval(1000);
     this.subscription = this.source.subscribe(
       () => {
-        this.resgatarDadosFesta();
+        this.resgatarAreaSeguranca();
       }
     );
   }
@@ -166,6 +177,13 @@ export class PainelSegurancaComponent implements OnInit {
         component: this
       }
     });
+  }
+
+  ngOnDestroy() {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
+    this.source = null;
   }
 
 }
