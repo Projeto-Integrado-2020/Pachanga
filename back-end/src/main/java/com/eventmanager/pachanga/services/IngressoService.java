@@ -43,5 +43,13 @@ public class IngressoService {
 		ingressoRepository.save(ingresso);
 		return ingresso;
 	}
+	
+	public void updateCheckin(IngressoTO ingressoTO) {
+		ingressoRepository.updateCheckin(ingressoTO.getCodIngresso(), ingressoTO.getStatusIngresso(), ingressoTO.getDataCheckin());
+	}
+	
+	public void updateStatusCompra(IngressoTO ingressoTO) {
+		ingressoRepository.updateStatusCompra(ingressoTO.getCodIngresso(), ingressoTO.getStatusCompra());
+	}
 
 }
