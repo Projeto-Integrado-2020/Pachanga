@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { interval, Subscription } from 'rxjs';
 import { GetFestaService } from 'src/app/services/get-festa/get-festa.service';
 import { GetSegurancaService } from 'src/app/services/get-seguranca/get-seguranca.service';
 import { SegurancaProblemasService } from 'src/app/services/seguranca-problemas/seguranca-problemas.service';
@@ -61,7 +61,7 @@ export class PainelSegurancaComponent implements OnInit {
     const url = this.router.url;
     this.dataSources = [];
     this.idFesta = url.substring(url.indexOf('&') + 1, url.indexOf('/', url.indexOf('&')));
-    this.resgatarDadosFesta();
+    this.updateSeguranca();
 
     /*this.segProbService.updateProblemasEmitter.subscribe(() => {
       this.resgatarDadosFesta();
@@ -71,7 +71,6 @@ export class PainelSegurancaComponent implements OnInit {
   resgatarAreaSeguranca() {
     this.getSeguranca.getAreaSeguranca(this.festa.codFesta).subscribe((resp: any) => {
       this.areas = resp;
-      console.log(resp);
       this.getSeguranca.setFarol(false);
     });
   }
@@ -107,6 +106,15 @@ export class PainelSegurancaComponent implements OnInit {
 
       console.log(this.getProblemasArea(area));
     }
+  }
+
+  updateSeguranca() {
+    this.source = interval(1000);
+    this.subscription = this.source.subscribe(
+      () => {
+        this.resgatarDadosFesta();
+      }
+    );
   }
 
   verDetalhesProblema(problema) {
