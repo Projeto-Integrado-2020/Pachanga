@@ -10,7 +10,7 @@
       *ngIf="this.detalhes.problema.statusProblema == 'E' || this.detalhes.problema.statusProblema == 'F'"
       required
       >
-      {{"PROBLEMADETALHES.OBSERVACOES" | translate}}: {{this.detalhes.problema.observacaoSolucao}}
+      <strong>{{"PROBLEMADETALHES.OBSERVACOES" | translate}}:</strong> {{this.detalhes.problema.observacaoSolucao}}
     </span>
   </div>
   <mat-form-field
