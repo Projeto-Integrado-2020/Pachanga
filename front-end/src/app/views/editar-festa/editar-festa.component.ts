@@ -101,7 +101,7 @@ export class EditarFestaComponent implements OnInit {
   }
 
   getTimeFromDTF(date) {
-    return date.split('T')[1].slice(0, 5);
+    return date.split(' ')[1].slice(0, 5);
   }
 
   setFormValues() {

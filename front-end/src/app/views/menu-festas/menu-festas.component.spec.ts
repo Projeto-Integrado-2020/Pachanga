@@ -65,12 +65,12 @@ describe('MenuFestasComponent', () => {
   });
 
   it('should format date from datetime', () => {
-    const result = component.getDateFromDTF('2020-02-01T12:00:00');
+    const result = component.getDateFromDTF('2020-02-01 12:00:00');
     expect(result).toBe('01/02/2020');
   });
 
   it('should formar time from datetime', () => {
-    const result = component.getTimeFromDTF('2020-02-01T12:00:00');
+    const result = component.getTimeFromDTF('2020-02-01 12:00:00');
     expect(result).toBe('12:00:00');
   });
 

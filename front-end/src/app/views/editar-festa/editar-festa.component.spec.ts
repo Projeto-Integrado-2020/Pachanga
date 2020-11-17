@@ -63,8 +63,8 @@ describe('EditarFestaComponent', () => {
             codEnderecoFesta: 'Teste',
             organizador: 'Teste',
             descOrganizador: 'Teste',
-            horarioInicioFesta: '2020-02-01T12:00:00',
-            horarioFimFesta: '2020-02-06T18:00:00',
+            horarioInicioFesta: '2020-02-01 12:00:00',
+            horarioFimFesta: '2020-02-06 18:00:00',
             categoriaPrimaria: {
               codCategoria: 2,
               nomeCategoria: 'RAVEAFIM'
@@ -93,8 +93,8 @@ describe('EditarFestaComponent', () => {
       codEnderecoFesta: 'Teste',
       organizador: 'Teste',
       descOrganizador: 'Teste',
-      horarioInicioFesta: '2020-02-01T12:00:00',
-      horarioFimFesta: '2020-02-06T18:00:00',
+      horarioInicioFesta: '2020-02-01 12:00:00',
+      horarioFimFesta: '2020-02-06 18:00:00',
       categoriaPrimaria: {
         codCategoria: 2,
         nomeCategoria: 'RAVEAFIM'
@@ -132,7 +132,7 @@ describe('EditarFestaComponent', () => {
   });
 
   it('should getTimeFromDTF to format time from datetime', () => {
-    expect(component.getTimeFromDTF('2020-07-19T12:00:00')).toBe('12:00');
+    expect(component.getTimeFromDTF('2020-07-19 12:00:00')).toBe('12:00');
   });
 
   it('should buildForm', () => {
@@ -156,8 +156,8 @@ describe('EditarFestaComponent', () => {
       codEnderecoFesta: 'Teste',
       organizador: 'Teste',
       descOrganizador: 'Teste',
-      horarioInicioFesta: '2020-02-01T12:00:00',
-      horarioFimFesta: '2020-02-06T18:00:00',
+      horarioInicioFesta: '2020-02-01 12:00:00',
+      horarioFimFesta: '2020-02-06 18:00:00',
       categoriaPrimaria: {
         codCategoria: 2,
         nomeCategoria: 'RAVEAFIM'
@@ -216,8 +216,8 @@ describe('EditarFestaComponent', () => {
       codEnderecoFesta: 'Teste',
       organizador: 'Teste',
       descOrganizador: 'Teste',
-      horarioInicioFesta: '2020-02-01T12:00:00',
-      horarioFimFesta: '2020-02-06T18:00:00',
+      horarioInicioFesta: '2020-02-01 12:00:00',
+      horarioFimFesta: '2020-02-06 18:00:00',
       categoriaPrimaria: {
         codCategoria: 2,
         nomeCategoria: 'RAVEAFIM'

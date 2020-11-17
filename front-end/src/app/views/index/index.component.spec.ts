@@ -128,8 +128,8 @@ describe('IndexComponent', () => {
     component.festas = {
       codFesta: '1',
       nomeFesta: 'festa',
-      horarioInicioFesta: '2020-09-23T19:10:25',
-      horarioFimFesta: '2020-09-23T19:10:25'
+      horarioInicioFesta: '2020-09-23 19:10:25',
+      horarioFimFesta: '2020-09-23 19:10:25'
     };
     const token = {
       timeToken: '2020-09-21T01:14:04.028+0000',
@@ -144,12 +144,12 @@ describe('IndexComponent', () => {
   });
 
   it('should format date from datetime', () => {
-    const result = component.getDateFromDTF('2020-09-23T19:10:25');
+    const result = component.getDateFromDTF('2020-09-23 19:10:25');
     expect(result).toBe('23/09/2020');
   });
 
   it('should format time from datetime', () => {
-    const result = component.getTimeFromDTF('2020-09-23T19:10:25');
+    const result = component.getTimeFromDTF('2020-09-23 19:10:25');
     expect(result).toBe('19:10:25');
   });
 
