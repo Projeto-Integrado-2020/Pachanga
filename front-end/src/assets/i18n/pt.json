@@ -111,7 +111,11 @@
         "FIMHORA": "Hora de fim da Festa",
         "ENDERECO": "Endereço",
         "ORGANIZADOR": "Organizador da festa",
-        "DESCORGANIZADOR": "Descrição do organizador"
+        "DESCORGANIZADOR": "Descrição do organizador",
+        "IMAGEM": "Imagem (Usada como banner nas telas de venda de ingressos)",
+        "SEMIMAGEM": "Nenhum arquivo selecionado",
+        "IMAGEMHINT": "2MB máx - 1100 x 320 recomendado.",
+        "DELETEIMAGEM": "Excluir imagem"
     },
 
     
@@ -353,7 +357,8 @@
         "MINQTDERROR": "A quantidade mínima permitida é de 1.",
         "MAXQTDERROR": "A porcentagem máxima permitida é de 100%.",
         "MINCAMPOERROR": "Ao menos um campo deve ser preenchido.",
-        "URL": "Este campo deve conter a URL pública da planilha de resposta do seu Google Forms."
+        "URL": "Este campo deve conter a URL pública da planilha de resposta do seu Google Forms.",
+        "FILESIZE": "O tamanho total não deve exceder"
     },
 
     "GENEROS": {

@@ -20,17 +20,22 @@ export class EditarFestaService {
   constructor(private http: HttpClient, public logService: LogService, public dialog: MatDialog,
               public loginService: LoginService) { }
 
-  atualizarFesta(dadosFesta) {
+  atualizarFesta(dadosFesta, imagem) {
     if (!this.farol) {
       this.setFarol(true);
       const httpParams = new HttpParams()
       .append('idUser', this.loginService.usuarioInfo.codUsuario);
 
       let headers = new HttpHeaders();
-      headers = headers.append('Content-Type', 'application/json');
       headers = headers.append('Authorization', 'Bearer ' + JSON.parse(localStorage.getItem('token')).token);
 
-      return this.http.put(this.urlAtualizarFesta, dadosFesta, {params: httpParams, headers}).pipe(
+      const formData = new FormData();
+      formData.append('json', JSON.stringify(dadosFesta));
+      if (imagem) {
+        formData.append('imagem', imagem._files[0]);
+      }
+
+      return this.http.put(this.urlAtualizarFesta, formData, {params: httpParams, headers}).pipe(
         take(1),
         catchError(error => {
           return this.handleError(error, this.logService);

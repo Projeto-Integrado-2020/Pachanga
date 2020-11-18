@@ -52,6 +52,7 @@ import { CheckInComponent } from './views/check-in/check-in.component';
 import { LeitorQrComponent } from './views/leitor-qr/leitor-qr.component';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import { MeusIngressosComponent } from './views/meus-ingressos/meus-ingressos.component';
+import { MaterialFileInputModule } from 'ngx-material-file-input';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -131,7 +132,8 @@ describe('AppComponent', () => {
           }
         }),
         SocialLoginModule,
-        ZXingScannerModule
+        ZXingScannerModule,
+        MaterialFileInputModule
       ],
       providers: [
         {

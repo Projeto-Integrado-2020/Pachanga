@@ -52,7 +52,11 @@ import { CheckoutComponent } from '../checkout/checkout.component';
 import { LeitorQrComponent } from '../leitor-qr/leitor-qr.component';
 import { CheckInComponent } from '../check-in/check-in.component';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
+<<<<<<< HEAD
 import { MeusIngressosComponent } from '../meus-ingressos/meus-ingressos.component';
+=======
+import { MaterialFileInputModule } from 'ngx-material-file-input';
+>>>>>>> a978a9ea291dabb66569b153b7aa709eea43d72b
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -132,7 +136,8 @@ describe('CadastroComponent', () => {
             deps: [HttpClient]
           }
         }),
-        ZXingScannerModule
+        ZXingScannerModule,
+        MaterialFileInputModule
       ],
       providers: [
         {

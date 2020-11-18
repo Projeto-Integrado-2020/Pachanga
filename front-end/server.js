@@ -22,7 +22,7 @@ const cspPolicy = {
                   'http://connect.facebook.net/',
                 ],
   'connect-src': csp.SRC_ANY,
-  'img-src': csp.SRC_ANY,
+  'img-src': [csp.SRC_DATA, csp.SRC_ANY],
   'font-src': csp.SRC_ANY,
   'child-src': csp.SRC_ANY,
   'form-action': csp.SRC_ANY,

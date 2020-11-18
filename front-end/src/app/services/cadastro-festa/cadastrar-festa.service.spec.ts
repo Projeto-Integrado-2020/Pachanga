@@ -53,6 +53,6 @@ describe('CadastrarFestaService', () => {
 
   it('should post Info at cadastrarFesta', () => {
     service.loginService.usuarioInfo = {codusuario: 'teste'};
-    expect(service.cadastrarFesta('teste')).toBeTruthy();
+    expect(service.cadastrarFesta('teste', null)).toBeTruthy();
   });
 });
