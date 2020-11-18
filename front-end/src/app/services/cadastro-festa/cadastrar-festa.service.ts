@@ -28,7 +28,6 @@ export class CadastrarFestaService {
       .append('idUser', this.loginService.usuarioInfo.codUsuario);
 
       let headers = new HttpHeaders();
-      headers = headers.append('Content-Type', 'application/json');
       headers = headers.append('Authorization', 'Bearer ' + JSON.parse(localStorage.getItem('token')).token);
 
       const formData = new FormData();
