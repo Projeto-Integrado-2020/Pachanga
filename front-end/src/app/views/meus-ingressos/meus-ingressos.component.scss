@@ -1,0 +1,28 @@
+@import '../material/paleta.scss';
+@import '~@angular/material/theming';
+
+.titulo {
+    font-size: 1.8rem;
+    font-weight: lighter;
+    width: 100%;
+    color: $color-primary;
+}
+
+.main-container {
+    top: 64px;
+    max-width: 1140px;
+    height: calc(100vh - 64px);
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 0 2rem 0 2rem;
+}
+
+.ingresso {
+    height: 20rem;
+    width: 15rem;
+}
+
+.card-example {
+    
+}

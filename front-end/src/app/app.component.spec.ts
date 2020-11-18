@@ -51,6 +51,7 @@ import { CheckoutComponent } from './views/checkout/checkout.component';
 import { CheckInComponent } from './views/check-in/check-in.component';
 import { LeitorQrComponent } from './views/leitor-qr/leitor-qr.component';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
+import { MeusIngressosComponent } from './views/meus-ingressos/meus-ingressos.component';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -109,7 +110,8 @@ describe('AppComponent', () => {
         ThirdPartyPainelComponent,
         CheckoutComponent,
         LeitorQrComponent,
-        CheckInComponent
+        CheckInComponent,
+        MeusIngressosComponent
       ],
       imports: [
         MomentModule,

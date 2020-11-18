@@ -116,6 +116,7 @@ import { CheckInComponent } from './views/check-in/check-in.component';
 // Scanner QR Code
 import { LeitorQrComponent } from './views/leitor-qr/leitor-qr.component';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
+import { MeusIngressosComponent } from './views/meus-ingressos/meus-ingressos.component';
 
 const config = new AuthServiceConfig([
   {
@@ -206,7 +207,8 @@ export function provideConfig() {
     ThirdPartyPainelComponent,
     CheckoutComponent,
     CheckInComponent,
-    LeitorQrComponent
+    LeitorQrComponent,
+    MeusIngressosComponent
   ],
   entryComponents: [
     LoginComponent,

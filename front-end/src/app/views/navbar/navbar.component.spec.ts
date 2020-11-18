@@ -49,6 +49,7 @@ import { CheckoutComponent } from '../checkout/checkout.component';
 import { CheckInComponent } from '../check-in/check-in.component';
 import { LeitorQrComponent } from '../leitor-qr/leitor-qr.component';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
+import { MeusIngressosComponent } from '../meus-ingressos/meus-ingressos.component';
 
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 100000;
 
@@ -110,7 +111,8 @@ describe('NavbarComponent', () => {
         ThirdPartyPainelComponent,
         CheckoutComponent,
         LeitorQrComponent,
-        CheckInComponent
+        CheckInComponent,
+        MeusIngressosComponent
        ],
       imports: [
         MomentModule,
