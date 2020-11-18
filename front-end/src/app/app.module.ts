@@ -117,6 +117,8 @@ import { CheckInComponent } from './views/check-in/check-in.component';
 import { LeitorQrComponent } from './views/leitor-qr/leitor-qr.component';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
 
+import { MaterialFileInputModule } from 'ngx-material-file-input';
+
 const config = new AuthServiceConfig([
   {
     id: GoogleLoginProvider.PROVIDER_ID,
@@ -276,7 +278,8 @@ export function provideConfig() {
     MatListModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     MomentModule,
-    ZXingScannerModule
+    ZXingScannerModule,
+    MaterialFileInputModule
   ],
   providers: [
     {

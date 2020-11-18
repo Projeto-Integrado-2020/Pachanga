@@ -20,6 +20,7 @@ import { GetCategoriasService } from 'src/app/services/get-categorias/get-catego
 import { of } from 'rxjs';
 import { GetFestaService } from 'src/app/services/get-festa/get-festa.service';
 import { EditarFestaService } from 'src/app/services/editar-festa/editar-festa.service';
+import { FileInput, MaterialFileInputModule } from 'ngx-material-file-input';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -48,7 +49,8 @@ describe('EditarFestaComponent', () => {
             deps: [HttpClient]
           }
         }),
-        RouterModule.forRoot([])
+        RouterModule.forRoot([]),
+        MaterialFileInputModule
       ],
       providers: [
         { provide: MatDialog, useValue: dialogSpy },
@@ -245,11 +247,27 @@ describe('EditarFestaComponent', () => {
     .and
     .callThrough();
 
-    component.callServiceAtualizacao({nomeFesta: 'teste'});
+    component.callServiceAtualizacao({nomeFesta: 'teste'}, {});
 
-    expect(component.festaService.atualizarFesta).toHaveBeenCalledWith({nomeFesta: 'teste'});
+    expect(component.festaService.atualizarFesta).toHaveBeenCalledWith({nomeFesta: 'teste'}, {});
     expect(component.festaService.setFarol).toHaveBeenCalledWith(false);
     expect(component.openDialogSuccess).toHaveBeenCalledWith('FESTAALT');
+  });
+
+  it('should alterarPreview', () => {
+    component.alterarPreview();
+
+    expect(component.urlNoImage).toBe('https://xtremebike.com.br/website/images/product/1.jpg');
+  });
+
+  it('should excluirInputImagem', () => {
+    component.form.get('imagem').setValue(new FileInput([]));
+    component.imagem = 'teste';
+    expect(component.form.get('imagem').value).toBeTruthy();
+    expect(component.imagem).toEqual('teste');
+
+    component.excluirInputImagem();
+    expect(component.form.get('imagem').value).toBeFalsy();
   });
 
 });
