@@ -32,17 +32,17 @@
                     <mat-label>{{'CHECKOUT.CONFIRMEMAIL' | translate }}</mat-label>
                     <input ng-class="{ f.nomeLote.errors }" matInput required type="text" maxlength="45">
                 </mat-form-field>
+                <div class="paypal-buttons">
+                    <ngx-paypal [config]="payPalConfig"></ngx-paypal>
+                </div>
             </mat-card-content>
-            <div class="botoes">
-                <button class="botao prp-btn-finalizar" mat-button>{{'CHECKOUT.FINALIZAR' | translate }}</button>
-                <a routerLink="../">
-                    <button mat-button cdkFocusInitial class="button-return">
-                        <mat-icon>keyboard_return</mat-icon> {{'UTILS.RETURN' | translate}}
-                    </button>
-                </a>
-            </div>
         </mat-card>
     </div>
+    <a routerLink="../">
+        <button mat-button cdkFocusInitial class="button-return">
+            <mat-icon>keyboard_return</mat-icon> {{'UTILS.RETURN' | translate}}
+        </button>
+    </a>
     <mat-card-content class="lote">
         <mat-card class="lote-lista">
             <mat-card-header>

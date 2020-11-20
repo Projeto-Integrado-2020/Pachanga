@@ -53,6 +53,7 @@ import { LeitorQrComponent } from './views/leitor-qr/leitor-qr.component';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import { MeusIngressosComponent } from './views/meus-ingressos/meus-ingressos.component';
 import { MaterialFileInputModule } from 'ngx-material-file-input';
+import { NgxPayPalModule } from 'ngx-paypal';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -133,7 +134,8 @@ describe('AppComponent', () => {
         }),
         SocialLoginModule,
         ZXingScannerModule,
-        MaterialFileInputModule
+        MaterialFileInputModule,
+        NgxPayPalModule
       ],
       providers: [
         {

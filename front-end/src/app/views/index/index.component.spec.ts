@@ -47,6 +47,7 @@ import { CheckInComponent } from '../check-in/check-in.component';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import { MeusIngressosComponent } from '../meus-ingressos/meus-ingressos.component';
 import { MaterialFileInputModule } from 'ngx-material-file-input';
+import { NgxPayPalModule } from 'ngx-paypal';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -106,7 +107,8 @@ describe('IndexComponent', () => {
           }
         }),
         ZXingScannerModule,
-        MaterialFileInputModule
+        MaterialFileInputModule,
+        NgxPayPalModule
       ],
       providers: [
         { provide: GetFestaIndexService, useValue: {

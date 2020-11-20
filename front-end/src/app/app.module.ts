@@ -120,6 +120,9 @@ import { MeusIngressosComponent } from './views/meus-ingressos/meus-ingressos.co
 
 import { MaterialFileInputModule } from 'ngx-material-file-input';
 
+// Paypal
+import { NgxPayPalModule } from 'ngx-paypal';
+
 const config = new AuthServiceConfig([
   {
     id: GoogleLoginProvider.PROVIDER_ID,
@@ -281,7 +284,8 @@ export function provideConfig() {
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     MomentModule,
     ZXingScannerModule,
-    MaterialFileInputModule
+    MaterialFileInputModule,
+    NgxPayPalModule
   ],
   providers: [
     {

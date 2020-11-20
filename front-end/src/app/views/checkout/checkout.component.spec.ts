@@ -10,6 +10,7 @@ import { HttpClient } from '@angular/common/http';
 import { MatDialog } from '@angular/material';
 import { LoginService } from 'src/app/services/loginService/login.service';
 import { CheckoutComponent } from './checkout.component';
+import { NgxPayPalModule } from 'ngx-paypal';
 
 describe('CheckoutComponent', () => {
   let component: CheckoutComponent;
@@ -35,6 +36,7 @@ describe('CheckoutComponent', () => {
             deps: [HttpClient]
           }
         }),
+        NgxPayPalModule
       ],
       providers: [
         { provide: MatDialog, useValue: dialogSpy },
@@ -56,6 +58,9 @@ describe('CheckoutComponent', () => {
       codEnderecoFesta: null,
       descricaoFesta: null
     };
+    /* tslint:disable */
+    component.initConfig = () => {null};
+    /* tslint:enable */
     fixture.detectChanges();
   });
 
@@ -71,5 +76,27 @@ describe('CheckoutComponent', () => {
   it('should formar time from datetime', () => {
     const result = component.getTimeFromDTF('2020-09-23T19:10:25');
     expect(result).toBe('19:10:25');
+  });
+
+  it('should gerarItems', () => {
+    const items = [{
+      name: 'TesteLote',
+      quantity: '1',
+      unit_amount: {
+          currency_code: 'BRL',
+          value: '15.00'
+      }
+    }];
+    component.lotesSelecionados = [{
+      quantidade: '1',
+      precoUnico: '15.00',
+      lote: {
+          codLote: '1',
+          codFesta: '1',
+          nomeLote: 'TesteLote',
+          preco: '1000.00'
+      },
+    }];
+    expect(component.gerarItems()).toEqual(items);
   });
 });
