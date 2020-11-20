@@ -20,6 +20,7 @@ const cspPolicy = {
                   'https://fonts.googleapis.com/',
                   'http://apis.google.com/',
                   'http://connect.facebook.net/',
+                  'https://www.paypal.com/'
                 ],
   'connect-src': csp.SRC_ANY,
   'img-src': [csp.SRC_DATA, csp.SRC_ANY],
