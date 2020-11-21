@@ -47,7 +47,7 @@ public interface FestaRepository extends JpaRepository<Festa, Integer>{
 	@Query(value = "SELECT f FROM Lote l JOIN l.festa f WHERE l.horarioFim > :horarioFim AND l.quantidade > ( SELECT count(i) FROM Ingresso i JOIN i.lote lt JOIN lt.festa fe WHERE fe.codFesta = f.codFesta AND lt.codLote = l.codLote ) ")
 	public List<Festa> findAllTeste(LocalDateTime horarioFim);
 	
-	@Query(value = "SELECT f FROM Lote l JOIN l.festa f WHERE l.horarioFim > CURRENT_TIMESTAMP AND l.quantidade > ( SELECT count(i) FROM Ingresso i JOIN i.lote lt JOIN lt.festa fe WHERE fe.codFesta = f.codFesta AND lt.codLote = l.codLote ) ")
+	@Query(value = "SELECT DISTINCT f FROM Lote l JOIN l.festa f WHERE l.horarioFim > CURRENT_TIMESTAMP AND l.quantidade > ( SELECT count(i) FROM Ingresso i JOIN i.lote lt JOIN lt.festa fe WHERE fe.codFesta = f.codFesta AND lt.codLote = l.codLote ) ")
 	public List<Festa> findAllComLotesCompraveis();
 	
 }

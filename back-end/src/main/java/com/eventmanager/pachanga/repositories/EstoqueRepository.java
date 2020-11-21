@@ -18,6 +18,9 @@ public interface EstoqueRepository extends CrudRepository<Estoque, Integer>{
 	@Query(value = "SELECT e FROM Estoque e JOIN e.festa f WHERE f.codFesta = :codFesta")
 	public List<Estoque> findEstoqueByCodFesta(int codFesta);
 	
+	@Query(value = "SELECT e FROM Estoque e JOIN e.festa f JOIN e.itemEstoque ie JOIN ie.produto p WHERE f.codFesta = :codFesta")
+	public List<Estoque> findEstoqueByCodFestaJoinProduto(int codFesta);
+	
 	@Query(value = "SELECT e FROM Estoque e WHERE e.codEstoque = :codEstoque")
 	public Estoque findByEstoqueCodEstoque(int codEstoque);
 

@@ -104,6 +104,8 @@ public class ProdutoService {
 				produtoEstoqueExistentes.getProduto(), produtoEstoqueExistentes.getEstoque());
 
 		itemEstoqueRepository.save(itemEstoque);
+		
+		this.inserirItemEstoqueFluxo(itemEstoque);
 
 		return itemEstoque;
 	}
@@ -224,7 +226,7 @@ public class ProdutoService {
 		int quantidadeAtual = itemEstoque.getQuantidadeAtual() - quantidade;
 
 		if (quebra) {
-			itemEstoque.setQuantPerda(quantidadeAtual);
+			itemEstoque.setQuantPerda(quantidade);
 		}
 
 		itemEstoque.setQuantidadeAtual(quantidadeAtual);
