@@ -54,6 +54,7 @@
     "ngx-paypal": "^5.0.0",
     "node-sass": "^4.14.1",
     "path": "^0.12.7",
+    "qrcode": "^1.4.4",
     "referrer-policy": "^1.2.0",
     "rxjs": "~6.4.0",
     "strict-transport-security": "^0.2.2",
