@@ -7,9 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.eventmanager.pachanga.domains.Festa;
 import com.eventmanager.pachanga.domains.Ingresso;
 import com.eventmanager.pachanga.dtos.IngressoTO;
 import com.eventmanager.pachanga.factory.IngressoFactory;
+import com.eventmanager.pachanga.repositories.FestaRepository;
 import com.eventmanager.pachanga.repositories.IngressoRepository;
 
 @Service
@@ -28,9 +30,16 @@ public class IngressoService {
 	@Autowired
 	private IngressoFactory ingressoFactory;
 	
+	@Autowired
+	private FestaRepository festaRepository;
+	
 	public List<Ingresso> getIngressosUser(int codUsuario){
 		usuarioService.validarUsuario(codUsuario);
 		return ingressoRepository.findIngressosUser(codUsuario);
+	}
+	
+	public Festa getFestaIngressoUser(int codFesta){
+		return festaRepository.findById(codFesta);
 	}
 	
 	public List<Ingresso> getIngressosFesta(int codFesta){
