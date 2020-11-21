@@ -49,6 +49,23 @@
         "NOROLES": "Esta festa ainda não possui grupos para atribuição."
     },
 
+    "BOLETO": {
+        "BOTAO": "Boleto Bancário",
+        "TITLE": "Informações de pagamento - Boleto",
+        "PAGADOR": "Nome Completo do Pagador",
+        "IDENTIFICACAO": "Identificacao (CPF/CNPJ)",
+        "EMAIL": "E-mail de cobrança",
+        "PAIS": "País",
+        "ESTADO": "Estado",
+        "CIDADE": "Cidade",
+        "CEP": "CEP",
+        "BAIRRO": "Bairro",
+        "RUA": "Rua",
+        "NUMERO": "Número",
+        "CONFIRM": "Gerar boleto",
+        "CANCEL": "Cancelar"
+    },
+
     "CADASTRO": {
         "CADASTRO": "Cadastro",
         "PREENCHER": "Preencha as informações a seguir:",
@@ -93,6 +110,14 @@
         "CODIGO": "Código do ingresso",
         "CONFIRM": "Confirmar ingresso",
         "OU": "OU"
+    },
+
+    "CHECKOUT": {
+        "INFO": "Informações para recebimento do ingresso",
+        "NOME": "Primeiro nome",
+        "SOBRENOME": "Sobrenome",
+        "CONFIRMEMAIL": "Confirmação do e-mail",
+        "FINALIZAR": "Finalizar compra"
     },
 
     "CONVITE": {
@@ -730,14 +755,6 @@
         "QUANTIDADE": "Quantidade à ser comprada",
         "INGRESSOS": "Ingressos",
         "COMPRAR": "Comprar"
-    },
-
-    "CHECKOUT": {
-        "INFO": "Informações para recebimento do ingresso",
-        "NOME": "Primeiro nome",
-        "SOBRENOME": "Sobrenome",
-        "CONFIRMEMAIL": "Confirmação do e-mail",
-        "FINALIZAR": "Finalizar compra"
     }
 
 }

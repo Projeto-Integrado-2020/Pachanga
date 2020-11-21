@@ -99,4 +99,9 @@ describe('CheckoutComponent', () => {
     }];
     expect(component.gerarItems()).toEqual(items);
   });
+
+  it('should open a dialog through a method', () => {
+    component.openDialogBoleto();
+    expect(dialogSpy.open).toHaveBeenCalled();
+  });
 });

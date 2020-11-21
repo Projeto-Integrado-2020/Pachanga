@@ -122,6 +122,7 @@ import { MaterialFileInputModule } from 'ngx-material-file-input';
 
 // Paypal
 import { NgxPayPalModule } from 'ngx-paypal';
+import { GerarBoletoDialogComponent } from './views/gerar-boleto-dialog/gerar-boleto-dialog.component';
 
 const config = new AuthServiceConfig([
   {
@@ -213,7 +214,8 @@ export function provideConfig() {
     CheckoutComponent,
     CheckInComponent,
     LeitorQrComponent,
-    MeusIngressosComponent
+    MeusIngressosComponent,
+    GerarBoletoDialogComponent
   ],
   entryComponents: [
     LoginComponent,
@@ -256,7 +258,8 @@ export function provideConfig() {
     AdicionarIntegracoesDialogComponent,
     EditarIntegracoesDialogComponent,
     DeletarIntegracoesDialogComponent,
-    DetalhesProblemaDialogComponent
+    DetalhesProblemaDialogComponent,
+    GerarBoletoDialogComponent
   ],
   imports: [
     BrowserModule,

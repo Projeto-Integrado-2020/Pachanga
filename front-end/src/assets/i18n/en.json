@@ -725,6 +725,22 @@
         "SOBRENOME": "Second name",
         "CONFIRMEMAIL": "E-mail confirmation",
         "FINALIZAR": "Checkout"
-    }
+    },
 
+    "BOLETO": {
+        "BOTAO": "Payment slip",
+        "TITLE": "Billing informations - Bill",
+        "PAGADOR": "Payer full name",
+        "IDENTIFICACAO": "Identification (CPF/CNPJ)",
+        "EMAIL": "Billing e-mail",
+        "PAIS": "Country",
+        "ESTADO": "state",
+        "CIDADE": "City",
+        "CEP": "CEP",
+        "BAIRRO": "Bairro",
+        "RUA": "Street",
+        "NUMERO": "Number",
+        "CONFIRM": "Generate bill",
+        "CANCEL": "Cancel"
+    }
 }

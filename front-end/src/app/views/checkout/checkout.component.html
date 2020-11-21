@@ -32,8 +32,11 @@
                     <mat-label>{{'CHECKOUT.CONFIRMEMAIL' | translate }}</mat-label>
                     <input ng-class="{ f.nomeLote.errors }" matInput required type="text" maxlength="45">
                 </mat-form-field>
-                <div class="paypal-buttons">
+                <div class="pay-buttons">
                     <ngx-paypal [config]="payPalConfig"></ngx-paypal>
+                    <button class="botao prp-btn-prod" (click)="openDialogBoleto()" mat-button>
+                        {{'BOLETO.BOTAO' | translate}}
+                    </button>
                 </div>
             </mat-card-content>
         </mat-card>

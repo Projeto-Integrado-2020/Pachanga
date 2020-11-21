@@ -1,0 +1,18 @@
+@import "../material/paleta.scss";
+
+.button-form {
+    margin-left: 35%;
+    background-color: $color-tertiary;
+    color: #ffffff;
+    margin-top: 1rem;
+    display:inline-block;
+}
+
+mat-form-field {
+    width: 15rem!important;
+    margin-left: 10%;
+}
+
+.cancel-button {
+    display:inline-block;
+}
