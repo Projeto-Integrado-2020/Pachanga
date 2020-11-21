@@ -9,7 +9,6 @@ import { HttpClient } from '@angular/common/http';
 import { LoginService } from 'src/app/services/loginService/login.service';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { CriarEstoqueService } from 'src/app/services/criar-estoque/criar-estoque.service';
 import { of } from 'rxjs';
 
 import { PagSeguroService } from 'src/app/services/pag-seguro/pag-seguro.service';
@@ -44,7 +43,7 @@ describe('GerarBoletoDialogComponent', () => {
       ],
       providers: [
         {provide: PagSeguroService, useValue: {
-          gerarBoleto: () => of({})
+          gerarBoleto: () => of({links: [{href: 'teste'}]})
         }},
         { provide: MAT_DIALOG_DATA, useValue: {festa: {nomeFesta: 'Teste'}, preco: 1000 }}
       ]
@@ -55,6 +54,13 @@ describe('GerarBoletoDialogComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(GerarBoletoDialogComponent);
     component = fixture.componentInstance;
+    const service: LoginService = TestBed.get(LoginService);
+    service.usuarioInfo = {codUsuario: '1'};
+    const token = {
+      timeToken: '2020-09-21T01:14:04.028+0000',
+      token: 'teste'
+    };
+    localStorage.setItem('token', JSON.stringify(token));
     fixture.detectChanges();
   });
 
