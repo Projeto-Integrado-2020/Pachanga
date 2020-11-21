@@ -142,13 +142,15 @@ class ProdutoServiceTest {
 		return estoque;
 	}
 
-	private ItemEstoque itemEstoqueTest() {
+	private ItemEstoque itemEstoqueTest() throws Exception {
 		ItemEstoque itemEstoque = new ItemEstoque();
 		itemEstoque.setCodFesta(2); // o mesmo do festaTest()
 		itemEstoque.setQuantidadeMax(100);
 		itemEstoque.setPorcentagemMin(15);
 		itemEstoque.setQuantidadeAtual(30);
 		itemEstoque.setQuantPerda(0);
+		itemEstoque.setProduto(produtoTest());
+		itemEstoque.setEstoque(estoqueTest());
 		return itemEstoque;
 	}
 
@@ -339,6 +341,7 @@ class ProdutoServiceTest {
 				.thenReturn(itemEstoqueTest());
 		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt()))
 				.thenReturn(criacaoGrupos());
+		Mockito.when(itemEstoqueFluxoRepository.getNextValMySequence()).thenReturn(1);
 
 		ItemEstoque retorno = produtoService.addProdutoEstoque(itemEstoqueTO, codProduto, codEstoque);
 
