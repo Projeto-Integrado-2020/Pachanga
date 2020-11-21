@@ -10,14 +10,13 @@ public class IngressoTO {
 
 	private int codIngresso;
 	private Lote lote;
-	private int codFesta;
+	private Festa festa;
 	private Usuario usuario;
 	private String statusIngresso;
 	private float preco;
 	private String statusCompra;
 	private LocalDateTime dataCompra;
 	private LocalDateTime dataCheckin;
-	private Festa festa;
 	
 	public Festa getFesta() {
 		return festa;
@@ -37,12 +36,7 @@ public class IngressoTO {
 	public void setLote(Lote lote) {
 		this.lote = lote;
 	}
-	public int getCodFesta() {
-		return codFesta;
-	}
-	public void setCodFesta(int codFesta) {
-		this.codFesta = codFesta;
-	}
+
 	public Usuario getUsuario() {
 		return usuario;
 	}

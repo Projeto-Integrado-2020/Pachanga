@@ -23,7 +23,7 @@ public class Ingresso {
 	
 	@ManyToOne
 	@JoinColumn(name = "cod_festa")
-	private int codFesta;
+	private Festa festa;
 	
 	@ManyToOne
 	@JoinColumn(name = "cod_usuario")
@@ -60,12 +60,12 @@ public class Ingresso {
 		this.lote = lote;
 	}
 
-	public int getCodFesta() {
-		return codFesta;
+	public Festa getFesta() {
+		return festa;
 	}
 
-	public void setCodFesta(int codFesta) {
-		this.codFesta = codFesta;
+	public void setFesta(Festa festa) {
+		this.festa = festa;
 	}
 
 	public Usuario getUsuario() {

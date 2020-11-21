@@ -42,7 +42,7 @@ public class IngressoController {
 			List<IngressoTO> ingressosTO = new ArrayList<>();
 			for(Ingresso ingresso : ingressos) {
 			IngressoTO ingressoTO = ingressoFactory.getIngressoTO(ingresso);
-			ingressoTO.setFesta(ingressoService.getFestaIngressoUser(ingressoTO.getCodFesta()));
+			ingressoTO.setFesta(ingressoService.getFestaIngressoUser(ingressoTO.getFesta().getCodFesta()));
 			ingressosTO.add(ingressoTO);			
 			}
 		return ResponseEntity.ok(ingressosTO);

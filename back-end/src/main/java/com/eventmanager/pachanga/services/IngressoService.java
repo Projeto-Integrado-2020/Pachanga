@@ -31,15 +31,15 @@ public class IngressoService {
 	private IngressoFactory ingressoFactory;
 	
 	@Autowired
-	private FestaRepository festaRepository;
+	private FestaRepository festaRespository;
 	
 	public List<Ingresso> getIngressosUser(int codUsuario){
 		usuarioService.validarUsuario(codUsuario);
 		return ingressoRepository.findIngressosUser(codUsuario);
 	}
 	
-	public Festa getFestaIngressoUser(int codFesta){
-		return festaRepository.findById(codFesta);
+	public Festa getFestaIngressoUser(int codFesta) {
+		return festaRespository.findByCodFesta(codFesta);
 	}
 	
 	public List<Ingresso> getIngressosFesta(int codFesta){

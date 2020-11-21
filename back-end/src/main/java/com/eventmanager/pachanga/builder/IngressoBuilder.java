@@ -2,6 +2,7 @@ package com.eventmanager.pachanga.builder;
 
 import java.time.LocalDateTime;
 
+import com.eventmanager.pachanga.domains.Festa;
 import com.eventmanager.pachanga.domains.Ingresso;
 import com.eventmanager.pachanga.domains.Lote;
 import com.eventmanager.pachanga.domains.Usuario;
@@ -10,7 +11,7 @@ public class IngressoBuilder {
 	
 	private int codIngresso;
 	private Lote lote;
-	private int codFesta;
+	private Festa festa;
 	private Usuario usuario;
 	private String statusIngresso;
 	private float preco;
@@ -32,8 +33,8 @@ public class IngressoBuilder {
 		return this;
 	}
 	
-	public IngressoBuilder codFesta(int codFesta) {
-		this.codFesta = codFesta;
+	public IngressoBuilder festa(Festa festa) {
+		this.festa = festa;
 		return this;
 	}
 	
@@ -72,7 +73,7 @@ public class IngressoBuilder {
 		ingresso.setCodIngresso(codIngresso);
 		ingresso.setDataCheckin(dataCheckin);
 		ingresso.setDataCompra(dataCompra);
-		ingresso.setCodFesta(codFesta);
+		ingresso.setFesta(festa);
 		ingresso.setLote(lote);
 		ingresso.setPreco(preco);
 		ingresso.setStatusCompra(statusCompra);
