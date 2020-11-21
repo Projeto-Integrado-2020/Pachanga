@@ -6,6 +6,7 @@ import { SuccessDialogComponent } from '../../views/success-dialog/success-dialo
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { GetCategoriasService } from 'src/app/services/get-categorias/get-categorias.service';
+import { FileInput, FileValidator } from 'ngx-material-file-input';
 
 @Component({
   selector: 'app-editar-festa',
@@ -22,6 +23,8 @@ export class EditarFestaComponent implements OnInit {
   minDate: Date;
   festa: any;
   categorias = [];
+  urlNoImage = 'https://xtremebike.com.br/website/images/product/1.jpg';
+  imagem = this.urlNoImage;
 
   ngOnInit() {
     this.resgatarFesta();
@@ -42,6 +45,7 @@ export class EditarFestaComponent implements OnInit {
       categoriaSecundaria: new FormControl(''),
       organizador: new FormControl('', Validators.required),
       descOrganizador: new FormControl('', Validators.required),
+      imagem: new FormControl(null, FileValidator.maxContentSize(2097152))
     });
   }
 
@@ -67,19 +71,19 @@ export class EditarFestaComponent implements OnInit {
       nomeFesta,
       statusFesta: null,
       organizador,
-      horarioInicioFesta: dataInicio.slice(6, 10) + '-' + dataInicio.slice(3, 5) + '-' + dataInicio.slice(0, 2) + 'T' + horaInicio,
-      horarioFimFesta: dataFim.slice(6, 10) + '-' + dataFim.slice(3, 5) + '-' + dataFim.slice(0, 2) + 'T' + horaFim,
+      horarioInicioFesta: dataInicio.slice(6, 10) + '-' + dataInicio.slice(3, 5) + '-' + dataInicio.slice(0, 2) + ' ' + horaInicio + ':00',
+      horarioFimFesta: dataFim.slice(6, 10) + '-' + dataFim.slice(3, 5) + '-' + dataFim.slice(0, 2) + ' ' + horaFim + ':00',
       descricaoFesta,
       codEnderecoFesta,
       codPrimaria: this.f.categoriaPrincipal.value,
       codSecundaria: this.f.categoriaSecundaria.value == null ? 0 : this.f.categoriaSecundaria.value,
       descOrganizador
     };
-    this.callServiceAtualizacao(dadosFesta);
+    this.callServiceAtualizacao(dadosFesta, this.form.get('imagem').value);
   }
 
-  callServiceAtualizacao(dadosFesta) {
-    this.festaService.atualizarFesta(dadosFesta).subscribe((resp: any) => {
+  callServiceAtualizacao(dadosFesta, imagem) {
+    this.festaService.atualizarFesta(dadosFesta, imagem).subscribe((resp: any) => {
       this.festaService.setFarol(false);
       this.openDialogSuccess('FESTAALT');
     });
@@ -101,7 +105,7 @@ export class EditarFestaComponent implements OnInit {
   }
 
   getTimeFromDTF(date) {
-    return date.split('T')[1].slice(0, 5);
+    return date.split(' ')[1].slice(0, 5);
   }
 
   setFormValues() {
@@ -120,6 +124,45 @@ export class EditarFestaComponent implements OnInit {
     if (new Date() > new Date(this.festa.horarioInicioFesta)) {
       this.minDate = new Date(this.festa.horarioInicioFesta);
     }
+    if (this.festa.imagem) {
+      const base64Data = this.festa.imagem;
+      const imagem = this.dataURItoBlob(base64Data);
+      const fileInput = new FileInput([new File([imagem], 'upload.jpg', { type: 'image/jpeg' })]);
+      this.f.imagem.patchValue(fileInput);
+      this.alterarPreview();
+    }
+  }
+
+  dataURItoBlob(dataURI) {
+    const byteString = window.atob(dataURI);
+    const arrayBuffer = new ArrayBuffer(byteString.length);
+    const int8Array = new Uint8Array(arrayBuffer);
+    for (let i = 0; i < byteString.length; i++) {
+      int8Array[i] = byteString.charCodeAt(i);
+    }
+    const blob = new Blob([int8Array], { type: 'image/jpeg' });
+    return blob;
+  }
+
+  alterarPreview() {
+    if (this.form.get('imagem').value) {
+      const arquivo = this.form.get('imagem').value._files[0];
+      const reader = new FileReader();
+      reader.readAsDataURL(arquivo);
+
+      reader.onload = (event: any) => { // called once readAsDataURL is completed
+        this.imagem = event.target.result;
+      };
+    } else {
+      this.imagem = this.urlNoImage;
+    }
+  }
+
+  excluirInputImagem() {
+    this.form.get('imagem').setValue(null);
+    this.imagem = this.urlNoImage;
+    const fileInput = document.querySelector('ngx-mat-file-input[formcontrolname="imagem"] input[type="file"]') as HTMLInputElement;
+    fileInput.value = null;
   }
 
 }

@@ -65,10 +65,10 @@ describe('EditarFestaService', () => {
   it('should put Info at atualizarFesta', () => {
     service.loginService.usuarioInfo = {codusuario: 'teste'};
 
-    expect(service.atualizarFesta('teste')).toBeTruthy();
+    expect(service.atualizarFesta('teste', null)).toBeTruthy();
 
     expect(service.getFarol()).toBeTruthy();
 
-    expect(service.atualizarFesta('teste')).toBeFalsy();
+    expect(service.atualizarFesta('teste', null)).toBeFalsy();
   });
 });

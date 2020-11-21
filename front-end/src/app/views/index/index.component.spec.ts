@@ -45,6 +45,9 @@ import { CheckoutComponent } from '../checkout/checkout.component';
 import { LeitorQrComponent } from '../leitor-qr/leitor-qr.component';
 import { CheckInComponent } from '../check-in/check-in.component';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
+import { MeusIngressosComponent } from '../meus-ingressos/meus-ingressos.component';
+import { MaterialFileInputModule } from 'ngx-material-file-input';
+import { NgxPayPalModule } from 'ngx-paypal';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -85,7 +88,8 @@ describe('IndexComponent', () => {
         ThirdPartyPainelComponent,
         CheckoutComponent,
         LeitorQrComponent,
-        CheckInComponent
+        CheckInComponent,
+        MeusIngressosComponent
       ],
       imports: [
         MomentModule,
@@ -102,7 +106,9 @@ describe('IndexComponent', () => {
             deps: [HttpClient]
           }
         }),
-        ZXingScannerModule
+        ZXingScannerModule,
+        MaterialFileInputModule,
+        NgxPayPalModule
       ],
       providers: [
         { provide: GetFestaIndexService, useValue: {
@@ -128,8 +134,8 @@ describe('IndexComponent', () => {
     component.festas = {
       codFesta: '1',
       nomeFesta: 'festa',
-      horarioInicioFesta: '2020-09-23T19:10:25',
-      horarioFimFesta: '2020-09-23T19:10:25'
+      horarioInicioFesta: '2020-09-23 19:10:25',
+      horarioFimFesta: '2020-09-23 19:10:25'
     };
     const token = {
       timeToken: '2020-09-21T01:14:04.028+0000',
@@ -144,12 +150,12 @@ describe('IndexComponent', () => {
   });
 
   it('should format date from datetime', () => {
-    const result = component.getDateFromDTF('2020-09-23T19:10:25');
+    const result = component.getDateFromDTF('2020-09-23 19:10:25');
     expect(result).toBe('23/09/2020');
   });
 
   it('should format time from datetime', () => {
-    const result = component.getTimeFromDTF('2020-09-23T19:10:25');
+    const result = component.getTimeFromDTF('2020-09-23 19:10:25');
     expect(result).toBe('19:10:25');
   });
 

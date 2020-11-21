@@ -1,17 +1,16 @@
 import { TestBed } from '@angular/core/testing';
-
-import { CadastrarFestaService } from './cadastrar-festa.service';
 import { HttpClientModule } from '@angular/common/http';
-
 import { CustomMaterialModule } from '../../views/material/material.module';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatDialogRef } from '@angular/material';
 
-describe('CadastrarFestaService', () => {
+import { GerarIngressoService } from './gerar-ingresso.service';
+
+describe('GerarIngressoService', () => {
   let dialogSpy: MatDialog;
-  let service: CadastrarFestaService;
+  let service: GerarIngressoService;
 
   beforeEach(() => {
-    dialogSpy = jasmine.createSpyObj('MatDialog', ['open']);
+    dialogSpy = jasmine.createSpyObj('MatDialog', ['open', 'closeAll']);
     TestBed.configureTestingModule({
       imports: [
         HttpClientModule,
@@ -19,6 +18,7 @@ describe('CadastrarFestaService', () => {
       ],
       providers: [
         { provide: MatDialog, useValue: dialogSpy },
+        { provide: MatDialogRef, useValue: {} }
       ]
     });
     const token = {
@@ -26,24 +26,12 @@ describe('CadastrarFestaService', () => {
       token: 'teste'
     };
     localStorage.setItem('token', JSON.stringify(token));
-    service = TestBed.get(CadastrarFestaService);
+    service = TestBed.get(GerarIngressoService);
   });
 
   it('should be created', () => {
+    service = TestBed.get(GerarIngressoService);
     expect(service).toBeTruthy();
-  });
-
-  it('should set farol', () => {
-    service.setFarol(true);
-    expect(service.getFarol()).toBeTruthy();
-    service.setFarol(false);
-    expect(service.getFarol()).toBeFalsy();
-  });
-
-  it('should get farol', () => {
-    expect(service.getFarol()).toBeFalsy();
-    service.setFarol(true);
-    expect(service.getFarol()).toBeTruthy();
   });
 
   it('should open a dialog through a method', () => {
@@ -51,8 +39,9 @@ describe('CadastrarFestaService', () => {
     expect(dialogSpy.open).toHaveBeenCalled();
   });
 
-  it('should post Info at cadastrarFesta', () => {
+  it('should post Info at adicionarIngressos', () => {
     service.loginService.usuarioInfo = {codusuario: 'teste'};
-    expect(service.cadastrarFesta('teste', null)).toBeTruthy();
+
+    expect(service.adicionarIngressos([])).toBeTruthy();
   });
 });
