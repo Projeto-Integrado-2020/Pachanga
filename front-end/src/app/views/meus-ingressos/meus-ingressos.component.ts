@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material';
 import { IngressosService } from 'src/app/services/ingressos/ingressos.service';
+import { QrcodeDialogComponent } from '../qrcode-dialog/qrcode-dialog.component';
 
 @Component({
   selector: 'app-meus-ingressos',
@@ -18,7 +20,10 @@ export class MeusIngressosComponent implements OnInit {
       data: '8:00, 16 de Janeiro de 2019'
     }
   ];
-  constructor(private ingressosService: IngressosService) { }
+  constructor(
+    private ingressosService: IngressosService,
+    private dialog: MatDialog
+    ) { }
 
   ngOnInit() {
     this.printarMetodo1();
@@ -30,6 +35,13 @@ export class MeusIngressosComponent implements OnInit {
         console.log(res);
       }
     );
+  }
+
+  abrirQRDialog() {
+    this.dialog.open(QrcodeDialogComponent, {
+      data: {
+      }
+    });
   }
 
 }
