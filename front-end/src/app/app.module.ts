@@ -217,7 +217,7 @@ export function provideConfig() {
     CheckInComponent,
     LeitorQrComponent,
     MeusIngressosComponent,
-    QrcodeDialogComponent
+    QrcodeDialogComponent,
     GerarBoletoDialogComponent
   ],
   entryComponents: [
@@ -262,7 +262,7 @@ export function provideConfig() {
     EditarIntegracoesDialogComponent,
     DeletarIntegracoesDialogComponent,
     DetalhesProblemaDialogComponent,
-    QrcodeDialogComponent
+    QrcodeDialogComponent,
     GerarBoletoDialogComponent
   ],
   imports: [
