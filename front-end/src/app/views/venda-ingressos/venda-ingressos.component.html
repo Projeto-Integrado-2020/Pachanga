@@ -32,22 +32,25 @@
                         <mat-card-header>
                             <mat-card-title class="ingressos-title">{{'VENDAINGRESSOS.INGRESSOS' | translate }}</mat-card-title>
                         </mat-card-header>
-                        <mat-card-content class="card-content-inf">
-                            <div class="textos">
-                                <div class="texto">
-                                    <div *ngFor="let lote of lotes">
-                                        <p><b>{{'VENDAINGRESSOS.LOTE' | translate }}:</b> {{lote.nomeLote}}</p>
-                                        <mat-form-field class="remove">
-                                            <p><b>{{'VENDAINGRESSOS.QUANTIDADE' | translate }}:</b><input matInput type="number" min="1"></p>
-                                        </mat-form-field>
-                                        <mat-divider class="divider"></mat-divider>
+                        <form [formGroup]="form" (submit)="checkout()">
+                            <mat-card-content class="card-content-inf">
+                                <div class="textos">
+                                    <div class="texto">
+                                        <div *ngFor="let lote of lotes">
+                                            <p><b>{{'VENDAINGRESSOS.LOTE' | translate }}:</b> {{lote.nomeLote}}</p>
+                                            <p><b>Preço:</b> R${{lote.preco}}</p>
+                                            <mat-form-field class="remove">
+                                                <p><b>{{'VENDAINGRESSOS.QUANTIDADE' | translate }}:</b><input matInput formControlName="quantidade-{{lote.codLote}}" type="number"></p>
+                                            </mat-form-field>
+                                            <mat-divider class="divider"></mat-divider>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="botoes">
-                                <button class="botao prp-btn-comprar" mat-button>{{'VENDAINGRESSOS.COMPRAR' | translate }}</button>
-                            </div>
-                        </mat-card-content>
+                                <div class="botoes">
+                                    <button class="botao prp-btn-comprar" [disabled]="validationFormButton()" mat-button>{{'VENDAINGRESSOS.COMPRAR' | translate }}</button>
+                                </div>
+                            </mat-card-content>
+                        </form>
                     </mat-card>
                 </div>
             </mat-card-content>

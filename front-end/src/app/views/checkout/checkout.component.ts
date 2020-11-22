@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { DadosCompraIngressoService } from 'src/app/services/dados-compra-ingresso/dados-compra-ingresso.service';
 import { GetFestaService } from 'src/app/services/get-festa/get-festa.service';
 import { GetLotePublicoService } from 'src/app/services/get-lote-publico/get-lote-publico.service';
 import { GetLoteUnicoPublicoService } from 'src/app/services/get-lote-unico-publico/get-lote-unico-publico.service';
@@ -24,8 +25,10 @@ export class CheckoutComponent implements OnInit {
   dataSources = [];
   subscription: Subscription;
   source: any;
+  public ingressos = [];
 
-  constructor(public getFestaService: GetFestaService, public getLote: GetLoteUnicoPublicoService, public router: Router) { }
+  constructor(public getFestaService: GetFestaService, public getLote: GetLoteUnicoPublicoService, public router: Router,
+              public getIngressoCheckout: DadosCompraIngressoService) { }
 
   resgatarLote(codFesta) {
     this.getLote.getLoteUnicoPublico(codFesta).subscribe((resp: any) => {
@@ -35,6 +38,8 @@ export class CheckoutComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getIngressos();
+    console.log(this.ingressos)
     this.source = null;
     this.lotes = [];
     let idFesta = this.router.url;
@@ -58,6 +63,10 @@ export class CheckoutComponent implements OnInit {
 
   getTimeFromDTF(date) {
     return date.split('T')[1];
+  }
+
+  getIngressos() {
+    this.ingressos = this.getIngressoCheckout.getIngressos();
   }
 
 }

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { DadosCompraIngressoService } from 'src/app/services/dados-compra-ingresso/dados-compra-ingresso.service';
 import { GetFestaService } from 'src/app/services/get-festa/get-festa.service';
 import { GetLotePublicoService } from 'src/app/services/get-lote-publico/get-lote-publico.service';
 
@@ -19,31 +21,43 @@ export class VendaIngressosComponent implements OnInit {
     codEnderecoFesta: null,
     descricaoFesta: null
   };
+  public form: FormGroup;
   public split: any;
-  public lotes: any;
+  public lotes = [];
   subscription: Subscription;
   source: any;
+  public ingressos = [];
 
-  constructor(public getFestaService: GetFestaService, public getLote: GetLotePublicoService, public router: Router) { }
+  constructor(public formBuilder: FormBuilder, public getFestaService: GetFestaService, public getLote: GetLotePublicoService,
+              public router: Router, public buyIngresso: DadosCompraIngressoService) {
+                this.form = this.formBuilder.group({
+                });
+              }
 
-  resgatarLote(codFesta) {
-    this.getLote.getLotePublico(codFesta).subscribe((resp: any) => {
+  resgatarLote() {
+    let idFesta = this.router.url;
+    idFesta = idFesta.substring(idFesta.indexOf('&') + 1, idFesta.indexOf('/', idFesta.indexOf('&')));
+
+    this.getLote.getLotePublico(idFesta).subscribe((resp: any) => {
       this.lotes = resp;
       this.getLote.setFarol(false);
+      this.buildForm();
     });
   }
 
-  ngOnInit() {
-    this.source = null;
-    this.lotes = [];
+  resgatarFesta() {
     let idFesta = this.router.url;
     idFesta = idFesta.substring(idFesta.indexOf('&') + 1, idFesta.indexOf('/', idFesta.indexOf('&')));
 
     this.getFestaService.acessarFesta(idFesta).subscribe((resp: any) => {
       this.getFestaService.setFarol(false);
       this.festa = resp;
-      this.resgatarLote(this.festa.codFesta);
     });
+  }
+
+  ngOnInit() {
+    this.resgatarLote();
+    this.resgatarFesta();
   }
 
   getDateFromDTF(date) {
@@ -54,6 +68,63 @@ export class VendaIngressosComponent implements OnInit {
 
   getTimeFromDTF(date) {
     return date.split('T')[1];
+  }
+
+  checkout() {
+    const lotesSelected = [];
+    let precoTotal= 0;
+    for (const lote of this.lotes) {
+      const quantidade = this.form.get('quantidade-' + lote.codLote).value;
+      if (quantidade) {
+        lotesSelected.push({
+          quantidade: quantidade,
+          precoUnico: lote.preco,
+          lote
+        });
+        precoTotal += lote.preco;
+      }
+    }
+    this.buyIngresso.addIngresso(lotesSelected);
+    this.buyIngresso.addPrecoTotal(precoTotal);
+  }
+
+  validationFormButton() {
+    let flag = 0;
+    let loteCount = 0;
+
+    for (const lote of this.lotes) {
+      const quantidade = this.form.get('quantidade-' + lote.codLote).value;
+      loteCount ++;
+      if (!quantidade) {
+        flag++;
+      }
+    }
+
+    if (flag === loteCount) {
+      return true;
+    }
+    return false;
+  }
+
+  redirectUrl() {
+    const nomeFesta = this.festa.nomeFesta.toLowerCase().replace('-', '').replace('–', '')
+                        .replace(/\s+/g, '-').replace('ç', 'c')
+                        .replace('º', '').replace('ª', '')
+                        .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+                        .replace(/[`~!@#$%^&*()_|+\=?;:'",.<>\{\}\[\]\\\/]/gi, '');
+    const url = '../' + nomeFesta + '&' + this.festa.codFesta + '/venda-ingressos/venda-checkout';
+    console.log(url);
+    this.router.navigate([url]);
+  }
+
+  get f() { return this.form.controls; }
+
+  buildForm() {
+    const group = {};
+    for (const lote of this.lotes) {
+      group['quantidade-' + lote.codLote] = new FormControl('');
+    }
+    this.form = this.formBuilder.group(group);
   }
 
 }
