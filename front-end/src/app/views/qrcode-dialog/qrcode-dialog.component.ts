@@ -10,7 +10,7 @@ export class QrcodeDialogComponent implements OnInit {
 
   elementType = NgxQrcodeElementTypes.URL;
   correctionLevel = NgxQrcodeErrorCorrectionLevels.HIGH;
-  value = 'cu de curioso';
+  value = 'dasdafwefwefdasdge';
   constructor() {
 
    }
