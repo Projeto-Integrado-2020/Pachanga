@@ -209,8 +209,19 @@ html {
   transform: translateX(-50%);
 }
 
-.paypal-buttons {
+.pay-buttons {
   display: block;
-  margin-left: 10%;
-  max-width: 35%;
+  margin-left: 8%;
+  max-width: 20%;
+  margin-top: 2rem;
+}
+
+.botao {
+  color: #ffffff;
+}
+
+.prp-btn-prod {
+  background-color: $color-tertiary;
+  width: 200px;
+  transform: translate(14rem, -6rem);
 }

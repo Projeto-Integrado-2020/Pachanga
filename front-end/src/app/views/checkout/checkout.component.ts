@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { MatDialog } from '@angular/material';
 import { Router } from '@angular/router';
 import { IPayPalConfig, ICreateOrderRequest } from 'ngx-paypal';
 import { Subscription } from 'rxjs';
 import { GerarIngressoService } from 'src/app/services/gerar-ingresso/gerar-ingresso.service';
 import { GetFestaService } from 'src/app/services/get-festa/get-festa.service';
+import { GerarBoletoDialogComponent } from '../gerar-boleto-dialog/gerar-boleto-dialog.component';
 
 @Component({
   selector: 'app-checkout',
@@ -30,7 +32,7 @@ export class CheckoutComponent implements OnInit {
     precoTotal: string;
 
     constructor(public getFestaService: GetFestaService, public router: Router,
-                public ingressosService: GerarIngressoService) { }
+                public ingressosService: GerarIngressoService, public dialog: MatDialog) { }
 
     ngOnInit() {
         this.initConfig();
@@ -144,6 +146,16 @@ export class CheckoutComponent implements OnInit {
         }
 
         return items;
+    }
+
+    openDialogBoleto() {
+        this.dialog.open(GerarBoletoDialogComponent, {
+            width: '50rem',
+            data: {
+                festa: this.festa,
+                preco: this.precoTotal
+            }
+        });
     }
 
 }
