@@ -32,7 +32,7 @@
 
     &__imagem {
         height: 10rem;
-        background-color: yellowgreen;
+        background-color:$color-primary-light;
         margin: -16px -16px 1rem -16px;
     }
 
@@ -50,10 +50,15 @@
     mat-card-actions {
         display: flex;
         flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
         margin-bottom: .5rem;
         
-        span {
-            text-align: center;
+        button {
+            background-color: $color-primary;
+            color: #fff;
+            width: 80%;
         }
     }
 }

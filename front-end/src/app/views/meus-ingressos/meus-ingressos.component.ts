@@ -26,12 +26,14 @@ export class MeusIngressosComponent implements OnInit {
     ) { }
 
   ngOnInit() {
-    this.printarMetodo1();
+    this.listarIngressos();
   }
 
-  printarMetodo1() {
-    this.ingressosService.metodo1().subscribe(
+  listarIngressos() {
+    console.log('sasdas')
+    this.ingressosService.listaIngressos().subscribe(
       (res) => {
+        console.log('adajda');
         console.log(res);
       }
     );
