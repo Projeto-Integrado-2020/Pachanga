@@ -59,7 +59,7 @@ describe('CheckoutComponent', () => {
       descricaoFesta: null
     };
     component.ingressos = [{
-      quantidade: ['1'],
+      quantidade: [0],
       precoUnico: '35.00',
       lote: {
           codLote: '1',
