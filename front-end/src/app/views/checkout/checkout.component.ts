@@ -36,7 +36,7 @@ export class CheckoutComponent implements OnInit {
     public lotes = [];
 
     constructor(public getFestaService: GetFestaService, public router: Router, public getIngressoCheckout: DadosCompraIngressoService,
-                public ingressosService: GerarIngressoService, public dialog: MatDialog, public getLote: GetLotePublicoService) { }
+                public ingressosService: GerarIngressoService, public dialog: MatDialog) { }
 
     ngOnInit() {
         this.initConfig();
@@ -44,31 +44,6 @@ export class CheckoutComponent implements OnInit {
         let idFesta = this.router.url;
         this.dataSources = [];
         this.getIngressos();
-        /*
-        this.precoTotal = '50.00';
-        this.lotesSelecionados = [
-            {
-                quantidade: '1',
-                precoUnico: '15.00',
-                lote: {
-                    codLote: '1',
-                    codFesta: '1',
-                    nomeLote: 'Ingresso Único',
-                    preco: '30.00'
-                },
-            },
-            {
-                quantidade: '1',
-                precoUnico: '35.00',
-                lote: {
-                    codLote: '1',
-                    codFesta: '1',
-                    nomeLote: 'Ingresso VIP',
-                    preco: '40.00'
-                }
-            }
-        ];
-        */
 
         idFesta = idFesta.substring(idFesta.indexOf('&') + 1, idFesta.indexOf('/', idFesta.indexOf('&')));
         this.getFestaService.acessarFesta(idFesta).subscribe((resp: any) => {
@@ -76,7 +51,6 @@ export class CheckoutComponent implements OnInit {
             this.festa = resp;
             this.festaNome = resp.nomeFesta;
             this.statusFesta = resp.statusFesta;
-            this.resgatarLote();
         });
     }
 
@@ -165,16 +139,7 @@ export class CheckoutComponent implements OnInit {
 
   getIngressos() {
     this.ingressos = this.getIngressoCheckout.getIngressos();
-  }
-
-  resgatarLote() {
-    let idFesta = this.router.url;
-    idFesta = idFesta.substring(idFesta.indexOf('&') + 1, idFesta.indexOf('/', idFesta.indexOf('&')));
-
-    this.getLote.getLotePublico(idFesta).subscribe((resp: any) => {
-      this.lotes = resp;
-      this.getLote.setFarol(false);
-    });
+    console.log(this.ingressos);
   }
 
 }

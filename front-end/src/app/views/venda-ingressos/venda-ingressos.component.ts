@@ -78,8 +78,12 @@ export class VendaIngressosComponent implements OnInit {
     for (const lote of this.lotes) {
       const quantidade = this.form.get('quantidade-' + lote.codLote).value;
       if (quantidade) {
+        const quantidadeArray = [];
+        for (let i = 0; i < quantidade; i++) {
+          quantidadeArray.push(i);
+        }
         lotesSelected.push({
-          quantidade: {quantidade},
+          quantidade: quantidadeArray,
           precoUnico: lote.preco,
           lote
         });

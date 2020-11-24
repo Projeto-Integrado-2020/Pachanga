@@ -15,7 +15,7 @@
             <mat-card-content class="card-content-inf">
                 <div class="ingressos">
                     <div *ngFor="let ingresso of this.ingressos">
-                        <div *ngFor="let quantidade of this.ingressos; let i = index">
+                        <div *ngFor="let quantidade of ingresso.quantidade; let i = index">
                             <mat-card-title class="title-ingresso">{{'CHECKOUT.INFO' | translate }}: {{i+1}} - {{ingresso.lote.nomeLote}}</mat-card-title>
                             <mat-form-field class="campo texto-input">
                                 <mat-label>{{'CHECKOUT.NOME' | translate }}</mat-label>
@@ -45,7 +45,7 @@
                             <div class="textos" *ngFor="let ingresso of this.ingressos; let i = last">
                                 <div class="texto">
                                     <p><b>{{'VENDAINGRESSOS.LOTE' | translate }}: {{ingresso.lote.nomeLote}}</b></p>
-                                    <p><b>{{'VENDAINGRESSOS.QUANTIDADE' | translate }}: {{ingresso.quantidade}}</b></p>
+                                    <p><b>{{'VENDAINGRESSOS.QUANTIDADE' | translate }}: {{ingresso.quantidade?.length}}</b></p>
                                 </div>
                                 <mat-divider *ngIf="!i" class="divider"></mat-divider>
                             </div>
