@@ -17,9 +17,8 @@
           </mat-card-content>
           <mat-divider></mat-divider>
           <mat-card-actions>
-            <span><a href="#">Imprimir Ingresso</a></span>
-            <span><a href="#">Fale com o Organizador</a></span>
-            <span><a href="#">Ver Pedido</a></span>
+            <button mat-button>Imprimir Ingresso</button>
+            <button mat-button (click)="abrirQRDialog()">Abrir QR Code</button>
           </mat-card-actions>
         </mat-card>
       </div>

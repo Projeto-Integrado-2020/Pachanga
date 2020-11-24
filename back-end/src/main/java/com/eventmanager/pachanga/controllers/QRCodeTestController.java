@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.eventmanager.pachanga.domains.Festa;
 import com.eventmanager.pachanga.utils.EmailMensagem;
 import com.eventmanager.pachanga.utils.QRCodeManager;
 
@@ -28,8 +29,12 @@ public class QRCodeTestController {
 		@GetMapping(path ="/test")
 		public ResponseEntity<BufferedImage> cadastro(@RequestParam(required = true) String barcode) throws Exception {
 			  BufferedImage image = QRCodeManager.generateQRCodeImage(barcode);	
+			  Festa festa = new Festa();
+			  festa.setNomeFesta("Tal");
 			  EmailMensagem email = new EmailMensagem();
-			  email.enviarEmailQRCodeTest();
+			  //email.enviarEmailQRCode("andrey-lacerda@hotmail.com", "1234567891234", festa);
+			  //email.enviarEmailQRCode("guga.72@hotmail.com", "1234567891234", festa);
+			  //email.enviarEmailQRCode("opedrofreitas@gmail.com", "1234567891234", festa);
 			  return ResponseEntity.ok(image);
 		}
 		

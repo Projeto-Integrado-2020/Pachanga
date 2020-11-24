@@ -22,7 +22,7 @@ export class IngressosService {
     private router: Router
     ) { }
 
-  metodo1() {
+  listaIngressos() {
     if (!this.farol) {
     const httpParams = new HttpParams()
       .append('idUser', this.loginService.getusuarioInfo().codUsuario);

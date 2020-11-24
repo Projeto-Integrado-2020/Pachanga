@@ -122,6 +122,8 @@ import { MaterialFileInputModule } from 'ngx-material-file-input';
 
 // Paypal
 import { NgxPayPalModule } from 'ngx-paypal';
+import { QrcodeDialogComponent } from './views/qrcode-dialog/qrcode-dialog.component';
+import { NgxQRCodeModule } from '@techiediaries/ngx-qrcode';
 import { GerarBoletoDialogComponent } from './views/gerar-boleto-dialog/gerar-boleto-dialog.component';
 
 const config = new AuthServiceConfig([
@@ -215,6 +217,7 @@ export function provideConfig() {
     CheckInComponent,
     LeitorQrComponent,
     MeusIngressosComponent,
+    QrcodeDialogComponent,
     GerarBoletoDialogComponent
   ],
   entryComponents: [
@@ -259,6 +262,7 @@ export function provideConfig() {
     EditarIntegracoesDialogComponent,
     DeletarIntegracoesDialogComponent,
     DetalhesProblemaDialogComponent,
+    QrcodeDialogComponent,
     GerarBoletoDialogComponent
   ],
   imports: [
@@ -288,7 +292,8 @@ export function provideConfig() {
     MomentModule,
     ZXingScannerModule,
     MaterialFileInputModule,
-    NgxPayPalModule
+    NgxPayPalModule,
+    NgxQRCodeModule
   ],
   providers: [
     {

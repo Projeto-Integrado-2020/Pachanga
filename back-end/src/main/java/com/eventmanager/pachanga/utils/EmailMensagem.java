@@ -3,10 +3,15 @@ package com.eventmanager.pachanga.utils;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferByte;
 import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.time.format.DateTimeFormatter;
+import java.util.Base64;
 import java.util.Properties;
 
 import javax.activation.DataHandler;
+import javax.activation.DataSource;
+import javax.activation.FileDataSource;
 import javax.imageio.ImageIO;
 import javax.mail.Address;
 import javax.mail.Message;
@@ -20,6 +25,9 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 import javax.mail.util.ByteArrayDataSource;
+
+import javax.mail.Authenticator;
+
 
 import org.springframework.stereotype.Component;
 
@@ -88,13 +96,13 @@ public class EmailMensagem {
 	    }
 	}
 	
-	public void enviarEmailQRCodeTest() {
-		String email = "opedrofreitas@gmail.com";
+	public void enviarEmailQRCode(String email, String barcode, Festa festa) {
 		Properties props = new Properties();
 	    props.put("mail.smtp.host", "smtp.gmail.com");
 	    props.put("mail.smtp.auth", "true");
 	    props.put("mail.smtp.port", "587");
 	    props.put("mail.smtp.starttls.enable", "true");
+	    
 	 
 	    Session session = Session.getInstance(props,
 	      new javax.mail.Authenticator() {
@@ -105,7 +113,6 @@ public class EmailMensagem {
 	           }
 	      });
 	 
-	    /** Ativa Debug para sessão */
 	    session.setDebug(true);
 	 
 	    try {
@@ -120,52 +127,45 @@ public class EmailMensagem {
 	      message.setRecipients(Message.RecipientType.TO, toUser);
 	      message.setSubject("Novo convite para festa");//Assunto
 	      
+	      //carrega html
+	      MimeBodyPart messageBodyPart = new MimeBodyPart();
+	      MimeMultipart multipart = new MimeMultipart("related");
 	      
-	      //File file  = new File("qr.png");
-	     // ImageIO.write(QRCodeManager.generateQRCodeImage("11111"), "jpg", file );
-	      
-	      Multipart mp = new MimeMultipart("related");
-	      MimeBodyPart pixPart = new MimeBodyPart();
-	      //pixPart.attachFile("qr.png");
-	      //pixPart.setContentID("<qr>");
-	      //pixPart.setDisposition(MimeBodyPart.INLINE);
-	      
-	      BufferedImage img;
-		try {
-			img = QRCodeManager.generateQRCodeImage("11111");
-   	        byte[] imageBytes = ((DataBufferByte) img.getData().getDataBuffer()).getData();
-		    ByteArrayDataSource bds = new ByteArrayDataSource(imageBytes, "image/png"); 
-		    pixPart.setDataHandler(new DataHandler(bds)); 
-		    pixPart.setFileName("./phill.png");
-		    pixPart.setHeader("Content-ID", "<image>");
-		    mp.addBodyPart(pixPart);
-		} catch (Exception e) {
+	      BufferedImage image;
+	      String encoding = "";
+ 		  try {
+			image = QRCodeManager.generateQRCodeImage(barcode);
+			File file = new File("image.png");
+			ImageIO.write(image, "png", file);
+			byte[] imageBytes = Files.readAllBytes(Paths.get("image.png"));
+			Base64.Encoder encoder = Base64.getEncoder();
+			encoding = "data:image/png;base64, " + encoder.encodeToString(imageBytes);
+			file.delete();
+		  } catch (Exception e) {
 			e.printStackTrace();
-		}
-		
-
+		  }	
 	      
-	      StringBuilder bodyEmail = new StringBuilder();
-	      //DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-	      bodyEmail.append("<h1><strong>Pachanga tem uma festa para voc&ecirc;!</strong></h1>\r\n" + 
-		      		"\r\n" + 
-		      		"<p>Voc&ecirc; foi convidado para participar de uma festa como membro coladorador. Segue detalhes da festa:</p>\r\n" + 
-		      		"\r\n" + 
-		      		"\r\n" + 
-		      		"<p>Para aceitar ou recusar, basta se logar/cadastrar na aplica&ccedil;&atilde;o (clicando <a href=\"https://pachanga.herokuapp.com/\" target=\"_blank\">aqui</a>),&nbsp;acessar as notifica&ccedil;&otilde;es, e fazer a sua escolha.</p>\r\n" + 
-		      		"\r\n" + 
-		      		"<p>Esperamos&nbsp;que aproveite a festa!</p>\r\n" + 
-		      		"\r\n" + 
-		      		"<p><strong>Equipe Pachanga</strong></p>");
+ 		 String htmlMessage = "<h1><strong>Sua participa&ccedil;&atilde;o na festa " + festa.getNomeFesta() + " foi aprovada!</strong></h1>\r\n" + 
+ 				 			  "\r\n" + 
+ 				 			  "<p>Segue o QR Code do ingresso da festa: </p>\r\n" + 
+ 				 			  "\r\n" + 
+ 				 			  "<img src=\"" + encoding + "\" height=\"230\" width=\"230\">\r\n" + 
+ 				 			  "\r\n" + 
+ 				 			  "<p>Esperamos&nbsp;que aproveite a festa! </p> \r\n" + 
+ 				 			  "<p><strong>Equipe Pachanga.</strong></p>";
 	      
-	      message.setContent(bodyEmail.toString(), "text/html");
-	      // message.setContent(mp);
+	      messageBodyPart.setContent(htmlMessage, "text/html");
+	      multipart.addBodyPart(messageBodyPart);
+    
+	      message.setContent(multipart);
+	      
 	      Transport transport = session.getTransport("smtp");
 	      transport.send(message);
 	 	 
 	     } catch (MessagingException e) {
 	        throw new ValidacaoException(e.getMessage());
 	    }
+	    
 	}
 
 }
