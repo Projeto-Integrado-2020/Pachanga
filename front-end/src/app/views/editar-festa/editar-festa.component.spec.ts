@@ -20,6 +20,7 @@ import { GetCategoriasService } from 'src/app/services/get-categorias/get-catego
 import { of } from 'rxjs';
 import { GetFestaService } from 'src/app/services/get-festa/get-festa.service';
 import { EditarFestaService } from 'src/app/services/editar-festa/editar-festa.service';
+import { FileInput, MaterialFileInputModule } from 'ngx-material-file-input';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -48,7 +49,8 @@ describe('EditarFestaComponent', () => {
             deps: [HttpClient]
           }
         }),
-        RouterModule.forRoot([])
+        RouterModule.forRoot([]),
+        MaterialFileInputModule
       ],
       providers: [
         { provide: MatDialog, useValue: dialogSpy },
@@ -63,8 +65,8 @@ describe('EditarFestaComponent', () => {
             codEnderecoFesta: 'Teste',
             organizador: 'Teste',
             descOrganizador: 'Teste',
-            horarioInicioFesta: '2020-02-01T12:00:00',
-            horarioFimFesta: '2020-02-06T18:00:00',
+            horarioInicioFesta: '2020-02-01 12:00:00',
+            horarioFimFesta: '2020-02-06 18:00:00',
             categoriaPrimaria: {
               codCategoria: 2,
               nomeCategoria: 'RAVEAFIM'
@@ -93,8 +95,8 @@ describe('EditarFestaComponent', () => {
       codEnderecoFesta: 'Teste',
       organizador: 'Teste',
       descOrganizador: 'Teste',
-      horarioInicioFesta: '2020-02-01T12:00:00',
-      horarioFimFesta: '2020-02-06T18:00:00',
+      horarioInicioFesta: '2020-02-01 12:00:00',
+      horarioFimFesta: '2020-02-06 18:00:00',
       categoriaPrimaria: {
         codCategoria: 2,
         nomeCategoria: 'RAVEAFIM'
@@ -132,7 +134,7 @@ describe('EditarFestaComponent', () => {
   });
 
   it('should getTimeFromDTF to format time from datetime', () => {
-    expect(component.getTimeFromDTF('2020-07-19T12:00:00')).toBe('12:00');
+    expect(component.getTimeFromDTF('2020-07-19 12:00:00')).toBe('12:00');
   });
 
   it('should buildForm', () => {
@@ -156,8 +158,8 @@ describe('EditarFestaComponent', () => {
       codEnderecoFesta: 'Teste',
       organizador: 'Teste',
       descOrganizador: 'Teste',
-      horarioInicioFesta: '2020-02-01T12:00:00',
-      horarioFimFesta: '2020-02-06T18:00:00',
+      horarioInicioFesta: '2020-02-01 12:00:00',
+      horarioFimFesta: '2020-02-06 18:00:00',
       categoriaPrimaria: {
         codCategoria: 2,
         nomeCategoria: 'RAVEAFIM'
@@ -216,8 +218,8 @@ describe('EditarFestaComponent', () => {
       codEnderecoFesta: 'Teste',
       organizador: 'Teste',
       descOrganizador: 'Teste',
-      horarioInicioFesta: '2020-02-01T12:00:00',
-      horarioFimFesta: '2020-02-06T18:00:00',
+      horarioInicioFesta: '2020-02-01 12:00:00',
+      horarioFimFesta: '2020-02-06 18:00:00',
       categoriaPrimaria: {
         codCategoria: 2,
         nomeCategoria: 'RAVEAFIM'
@@ -245,11 +247,27 @@ describe('EditarFestaComponent', () => {
     .and
     .callThrough();
 
-    component.callServiceAtualizacao({nomeFesta: 'teste'});
+    component.callServiceAtualizacao({nomeFesta: 'teste'}, {});
 
-    expect(component.festaService.atualizarFesta).toHaveBeenCalledWith({nomeFesta: 'teste'});
+    expect(component.festaService.atualizarFesta).toHaveBeenCalledWith({nomeFesta: 'teste'}, {});
     expect(component.festaService.setFarol).toHaveBeenCalledWith(false);
     expect(component.openDialogSuccess).toHaveBeenCalledWith('FESTAALT');
+  });
+
+  it('should alterarPreview', () => {
+    component.alterarPreview();
+
+    expect(component.urlNoImage).toBe('https://xtremebike.com.br/website/images/product/1.jpg');
+  });
+
+  it('should excluirInputImagem', () => {
+    component.form.get('imagem').setValue(new FileInput([]));
+    component.imagem = 'teste';
+    expect(component.form.get('imagem').value).toBeTruthy();
+    expect(component.imagem).toEqual('teste');
+
+    component.excluirInputImagem();
+    expect(component.form.get('imagem').value).toBeFalsy();
   });
 
 });

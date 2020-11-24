@@ -90,6 +90,26 @@
                         </mat-select>
                     </mat-form-field>
                 </div>
+
+                <img [src]="imagem" height="200" width="500"> <br/>
+                <div class="div-imagem-input">
+                    <mat-form-field class="campo imagem-input">
+                        <ngx-mat-file-input formControlName="imagem" [accept]="'.jpg,.jpeg,.png'" placeholder="{{'CRIARFESTA.IMAGEM' | translate}}" valuePlaceholder="{{'CRIARFESTA.SEMIMAGEM' | translate}}" (change)="alterarPreview()">
+                        </ngx-mat-file-input>
+                        <mat-icon matSuffix>image</mat-icon>
+                        <mat-error *ngIf="form.get('imagem').hasError('maxContentSize')">
+                            {{'FORMERRORS.FILESIZE' | translate}} {{form.get('imagem')?.getError('maxContentSize').maxSize | byteFormat}} ({{form.get('imagem')?.getError('maxContentSize').actualSize
+                            | byteFormat}}).
+                        </mat-error>
+                        <mat-hint *ngIf="!form.get('imagem').hasError('maxContentSize')">
+                            {{'CRIARFESTA.IMAGEMHINT' | translate}}
+                        </mat-hint>
+                    </mat-form-field>
+                    <button type="button" mat-icon-button (click)="excluirInputImagem()">
+                        <mat-icon matTooltip="{{'CRIARFESTA.DELETEIMAGEM' | translate}}">delete_forever</mat-icon>
+                    </button>
+                </div>
+
                 <mat-form-field class="campo texto-input">
                     <mat-label>{{'CRIARFESTA.ORGANIZADOR' | translate}}</mat-label>
                     <input

@@ -49,6 +49,23 @@
         "NOROLES": "Esta festa ainda não possui grupos para atribuição."
     },
 
+    "BOLETO": {
+        "BOTAO": "Boleto Bancário",
+        "TITLE": "Informações de pagamento - Boleto",
+        "PAGADOR": "Nome Completo do Pagador",
+        "IDENTIFICACAO": "Identificacao (CPF/CNPJ)",
+        "EMAIL": "E-mail de cobrança",
+        "PAIS": "País",
+        "ESTADO": "Estado",
+        "CIDADE": "Cidade",
+        "CEP": "CEP",
+        "BAIRRO": "Bairro",
+        "RUA": "Rua",
+        "NUMERO": "Número",
+        "CONFIRM": "Gerar boleto",
+        "CANCEL": "Cancelar"
+    },
+
     "CADASTRO": {
         "CADASTRO": "Cadastro",
         "PREENCHER": "Preencha as informações a seguir:",
@@ -95,6 +112,14 @@
         "OU": "OU"
     },
 
+    "CHECKOUT": {
+        "INFO": "Informações para recebimento do ingresso",
+        "NOME": "Primeiro nome",
+        "SOBRENOME": "Sobrenome",
+        "CONFIRMEMAIL": "Confirmação do e-mail",
+        "FINALIZAR": "Finalizar compra"
+    },
+
     "CONVITE": {
         "TITULO": "Convidar membros",
         "ENVIARCONVITE": "Enviar convite",
@@ -111,7 +136,11 @@
         "FIMHORA": "Hora de fim da Festa",
         "ENDERECO": "Endereço",
         "ORGANIZADOR": "Organizador da festa",
-        "DESCORGANIZADOR": "Descrição do organizador"
+        "DESCORGANIZADOR": "Descrição do organizador",
+        "IMAGEM": "Imagem (Usada como banner nas telas de venda de ingressos)",
+        "SEMIMAGEM": "Nenhum arquivo selecionado",
+        "IMAGEMHINT": "2MB máx - 1100 x 320 recomendado.",
+        "DELETEIMAGEM": "Excluir imagem"
     },
 
     
@@ -353,7 +382,8 @@
         "MINQTDERROR": "A quantidade mínima permitida é de 1.",
         "MAXQTDERROR": "A porcentagem máxima permitida é de 100%.",
         "MINCAMPOERROR": "Ao menos um campo deve ser preenchido.",
-        "URL": "Este campo deve conter a URL pública da planilha de resposta do seu Google Forms."
+        "URL": "Este campo deve conter a URL pública da planilha de resposta do seu Google Forms.",
+        "FILESIZE": "O tamanho total não deve exceder"
     },
 
     "GENEROS": {
@@ -724,15 +754,8 @@
         "LOTE": "Lote",
         "QUANTIDADE": "Quantidade à ser comprada",
         "INGRESSOS": "Ingressos",
-        "COMPRAR": "Comprar"
-    },
-
-    "CHECKOUT": {
-        "INFO": "Informações para recebimento do ingresso",
-        "NOME": "Primeiro nome",
-        "SOBRENOME": "Sobrenome",
-        "CONFIRMEMAIL": "Confirmação do e-mail",
-        "FINALIZAR": "Finalizar compra"
+        "COMPRAR": "Comprar",
+        "PRECO": "Preço"
     }
 
 }

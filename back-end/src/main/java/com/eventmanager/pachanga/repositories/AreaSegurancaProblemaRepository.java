@@ -31,4 +31,16 @@ public interface AreaSegurancaProblemaRepository extends JpaRepository<AreaSegur
 	@Query(value = "SELECT asp FROM AreaSegurancaProblema asp JOIN asp.problema p JOIN asp.area a JOIN asp.festa f WHERE asp.codAreaProblema = :codProblemaSeguranca")
 	public AreaSegurancaProblema findByCodProblema(int codProblemaSeguranca);
 	
+	@Query(value = "SELECT COUNT(*) from AreaSegurancaProblema asp JOIN asp.area a WHERE a.codArea = :codArea")
+	public int findQuantidadeProblemasByCodArea(int codArea);
+	
+	@Query(value = "SELECT COUNT(*) from AreaSegurancaProblema asp JOIN asp.codUsuarioEmissor u JOIN asp.festa f WHERE u.codUsuario = :codUsuario AND asp.statusProblema = :statusProblema AND f.codFesta = :codFesta")
+	public int findQuantidadeProblemasEmitidosByUsuario(int codUsuario, String statusProblema, int codFesta);
+
+	@Query(value = "SELECT COUNT(*) from AreaSegurancaProblema asp JOIN asp.festa f WHERE f.codFesta = :codFesta")
+	public int countProblemasFesta(int codFesta);
+
+	@Query(value = "SELECT COUNT(*) from AreaSegurancaProblema asp JOIN asp.codUsuarioResolv u WHERE u.codUsuario = :codUsuario")
+	int findQuantidadeChamadasResolvidasByUsuario(int codUsuario);
+	
 }

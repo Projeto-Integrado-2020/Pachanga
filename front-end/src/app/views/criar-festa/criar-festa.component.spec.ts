@@ -17,6 +17,7 @@ import { RouterModule } from '@angular/router';
 import { of } from 'rxjs';
 import { GetCategoriasService } from 'src/app/services/get-categorias/get-categorias.service';
 import { CadastrarFestaService } from 'src/app/services/cadastro-festa/cadastrar-festa.service';
+import { FileInput, MaterialFileInputModule } from 'ngx-material-file-input';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -46,7 +47,8 @@ describe('CriarFestaComponent', () => {
             deps: [HttpClient]
           }
         }),
-        RouterModule.forRoot([])
+        RouterModule.forRoot([]),
+        MaterialFileInputModule
       ],
       providers: [
         {provide: GetCategoriasService, useValue: {
@@ -126,12 +128,28 @@ describe('CriarFestaComponent', () => {
     .and
     .callThrough();
 
-    component.callService({});
+    component.callService({}, {});
 
     expect(component.festaService.cadastrarFesta).toHaveBeenCalled();
     expect(component.festaService.setFarol).toHaveBeenCalledWith(false);
     expect(component.categorias).toEqual([{categoria: 'Teste1'}, {categoria: 'Teste2'}]);
     expect(component.router.navigate).toHaveBeenCalledWith(['festas/testemix&87/painel/']);
+  });
+
+  it('should alterarPreview', () => {
+    component.alterarPreview();
+
+    expect(component.urlNoImage).toBe('https://xtremebike.com.br/website/images/product/1.jpg');
+  });
+
+  it('should excluirInputImagem', () => {
+    component.form.get('imagem').setValue(new FileInput([]));
+    component.imagem = 'teste';
+    expect(component.form.get('imagem').value).toBeTruthy();
+    expect(component.imagem).toEqual('teste');
+
+    component.excluirInputImagem();
+    expect(component.form.get('imagem').value).toBeFalsy();
   });
 
 });

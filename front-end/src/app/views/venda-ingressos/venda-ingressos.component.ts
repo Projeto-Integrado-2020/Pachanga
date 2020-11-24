@@ -27,6 +27,7 @@ export class VendaIngressosComponent implements OnInit {
   subscription: Subscription;
   source: any;
   public ingressos = [];
+  public checkoutMassege;
 
   constructor(public formBuilder: FormBuilder, public getFestaService: GetFestaService, public getLote: GetLotePublicoService,
               public router: Router, public buyIngresso: DadosCompraIngressoService) {
@@ -58,26 +59,27 @@ export class VendaIngressosComponent implements OnInit {
   ngOnInit() {
     this.resgatarLote();
     this.resgatarFesta();
+    // this.buyIngresso.sharedMessage.subscribe(message => this.checkoutMassege = message);
   }
 
   getDateFromDTF(date) {
-    let conversion = date.split('T', 1);
+    let conversion = date.split(' ', 1);
     conversion = conversion[0].split('-');
     return conversion[2] + '/' + conversion[1] + '/' + conversion[0];
   }
 
   getTimeFromDTF(date) {
-    return date.split('T')[1];
+    return date.split(' ')[1];
   }
 
   checkout() {
     const lotesSelected = [];
-    let precoTotal= 0;
+    let precoTotal = 0;
     for (const lote of this.lotes) {
       const quantidade = this.form.get('quantidade-' + lote.codLote).value;
       if (quantidade) {
         lotesSelected.push({
-          quantidade: quantidade,
+          quantidade: {quantidade},
           precoUnico: lote.preco,
           lote
         });
@@ -86,6 +88,7 @@ export class VendaIngressosComponent implements OnInit {
     }
     this.buyIngresso.addIngresso(lotesSelected);
     this.buyIngresso.addPrecoTotal(precoTotal);
+    return this.redirectUrl();
   }
 
   validationFormButton() {

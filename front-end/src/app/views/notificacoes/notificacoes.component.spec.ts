@@ -43,6 +43,9 @@ import { CheckoutComponent } from '../checkout/checkout.component';
 import { LeitorQrComponent } from '../leitor-qr/leitor-qr.component';
 import { CheckInComponent } from '../check-in/check-in.component';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
+import { MeusIngressosComponent } from '../meus-ingressos/meus-ingressos.component';
+import { MaterialFileInputModule } from 'ngx-material-file-input';
+import { NgxPayPalModule } from 'ngx-paypal';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -101,7 +104,8 @@ describe('NotificacoesComponent', () => {
         ThirdPartyPainelComponent,
         CheckoutComponent,
         LeitorQrComponent,
-        CheckInComponent
+        CheckInComponent,
+        MeusIngressosComponent
       ],
       imports: [
         MomentModule,
@@ -120,7 +124,9 @@ describe('NotificacoesComponent', () => {
           }
         }),
         SocialLoginModule,
-        ZXingScannerModule
+        ZXingScannerModule,
+        MaterialFileInputModule,
+        NgxPayPalModule
       ],
       providers: [
         {

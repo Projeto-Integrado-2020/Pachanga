@@ -25,6 +25,7 @@ import { ThirdPartyPainelComponent } from './views/third-party-painel/third-part
 import { CheckoutComponent } from './views/checkout/checkout.component';
 import { CheckInComponent } from './views/check-in/check-in.component';
 import { LeitorQrComponent } from './views/leitor-qr/leitor-qr.component';
+import { MeusIngressosComponent } from './views/meus-ingressos/meus-ingressos.component';
 
 const routes: Routes = [
 
@@ -42,6 +43,12 @@ const routes: Routes = [
     {
       path: 'minhas-festas',
       component: MenuFestasComponent,
+      canActivate: [AuthGuard]
+    },
+
+    {
+      path: 'meus-ingressos',
+      component: MeusIngressosComponent,
       canActivate: [AuthGuard]
     },
 

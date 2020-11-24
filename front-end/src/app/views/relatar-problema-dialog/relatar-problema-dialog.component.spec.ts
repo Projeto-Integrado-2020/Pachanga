@@ -15,6 +15,7 @@ import { of } from 'rxjs';
 import { DatePipe } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { LoginService } from 'src/app/services/loginService/login.service';
 
 describe('RelatarProblemaDialogComponent', () => {
   let component: RelatarProblemaDialogComponent;
@@ -58,6 +59,13 @@ describe('RelatarProblemaDialogComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(RelatarProblemaDialogComponent);
     component = fixture.componentInstance;
+    const service: LoginService = TestBed.get(LoginService);
+    service.usuarioInfo = {codUsuario: '1'};
+    const token = {
+      timeToken: '2020-09-21T01:14:04.028+0000',
+      token: 'teste'
+    };
+    localStorage.setItem('token', JSON.stringify(token));
     fixture.detectChanges();
   });
 

@@ -77,10 +77,15 @@ html {
 
 .card-content-inf {
   padding: 0 3.3rem 0 3.3rem;
+  display: flex;
+}
+
+.card-ingressos {
+  float: right;
 }
 
 .lote {
-  padding: 0 3.3rem 3.3rem 46rem;
+  padding: 10rem 3.3rem 3.3rem 46rem;
   margin-top: -23.5rem;
   position: absolute;
 }
@@ -91,6 +96,10 @@ html {
 
 .subtitle {
   text-transform: capitalize;
+  word-wrap: break-word;
+}
+
+.title-ingresso {
   word-wrap: break-word;
 }
 
@@ -124,7 +133,7 @@ html {
 }
 
 .ingressos-title{
-  padding-left: 8rem;
+  padding-left: 2.5rem;
 }
 
 //MOBILE
@@ -207,4 +216,21 @@ html {
   position: relative;
   left: 50%;
   transform: translateX(-50%);
+}
+
+.pay-buttons {
+  display: block;
+  margin-left: 8%;
+  max-width: 20%;
+  margin-top: 2rem;
+}
+
+.botao {
+  color: #ffffff;
+}
+
+.prp-btn-prod {
+  background-color: $color-tertiary;
+  width: 200px;
+  transform: translate(14rem, -6rem);
 }

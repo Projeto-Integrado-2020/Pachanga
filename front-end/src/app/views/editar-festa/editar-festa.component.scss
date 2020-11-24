@@ -21,6 +21,8 @@
 
 form {
     margin-right: 0 !important;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
 }
 
 .editar-festa {
@@ -120,4 +122,17 @@ textarea {
     }
 
 
+}
+
+.imagem-input {
+    width: 60%;
+    margin-top: .5rem;
+    margin-bottom: .7rem;
+}
+
+.div-imagem-input {
+    width: 100%;
+
+    position: relative;
+    left: 18%;
 }

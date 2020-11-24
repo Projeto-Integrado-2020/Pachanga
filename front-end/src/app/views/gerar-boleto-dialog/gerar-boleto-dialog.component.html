@@ -1,0 +1,62 @@
+<h1 mat-dialog-title>{{'BOLETO.TITLE' | translate}}</h1>
+<div mat-dialog-content>
+    <form [formGroup]="form" (submit)="gerarBoleto()">
+        <mat-form-field class="texto-input">
+            <mat-label>{{'BOLETO.PAGADOR' | translate}}</mat-label>
+            <input #nomePagador formControlName="nomePagador" required matInput>
+            <mat-error *ngIf="f.nomePagador.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
+        </mat-form-field>
+        <mat-form-field class="texto-input">
+            <mat-label>{{'BOLETO.IDENTIFICACAO' | translate}}</mat-label>
+            <input #identificacao formControlName="identificacao" required matInput>
+            <mat-error *ngIf="f.identificacao.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
+        </mat-form-field>
+        <mat-form-field class="texto-input">
+            <mat-label>{{'BOLETO.EMAIL' | translate}}</mat-label>
+            <input #email formControlName="email" required matInput>
+            <mat-error *ngIf="f.email.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
+            <mat-error *ngIf="f.email.errors?.email">{{'FORMERRORS.EMAIL' | translate}}</mat-error>
+        </mat-form-field>
+        <br>
+        <mat-form-field class="texto-input">
+            <mat-label>{{'BOLETO.PAIS' | translate}}</mat-label>
+            <input #pais formControlName="pais" required matInput>
+            <mat-error *ngIf="f.pais.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
+        </mat-form-field>
+        <mat-form-field class="texto-input">
+            <mat-label>{{'BOLETO.ESTADO' | translate}}</mat-label>
+            <input #estado formControlName="estado" required matInput>
+            <mat-error *ngIf="f.estado.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
+        </mat-form-field>
+        <mat-form-field class="texto-input">
+            <mat-label>{{'BOLETO.CIDADE' | translate}}</mat-label>
+            <input #cidade formControlName="cidade" required matInput>
+            <mat-error *ngIf="f.cidade.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
+        </mat-form-field>
+        <mat-form-field class="texto-input">
+            <mat-label>{{'BOLETO.CEP' | translate}}</mat-label>
+            <input #cep formControlName="cep" required matInput>
+            <mat-error *ngIf="f.cep.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
+        </mat-form-field>
+        <mat-form-field class="texto-input">
+            <mat-label>{{'BOLETO.BAIRRO' | translate}}</mat-label>
+            <input #bairro formControlName="bairro" required matInput>
+            <mat-error *ngIf="f.bairro.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
+        </mat-form-field>
+        <mat-form-field class="texto-input">
+            <mat-label>{{'BOLETO.RUA' | translate}}</mat-label>
+            <input #rua formControlName="rua" required matInput>
+            <mat-error *ngIf="f.rua.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
+        </mat-form-field>
+        <mat-form-field class="texto-input">
+            <mat-label>{{'BOLETO.NUMERO' | translate}}</mat-label>
+            <input #numero formControlName="numero" required matInput>
+            <mat-error *ngIf="f.numero.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
+        </mat-form-field>
+        <br>
+        <div>
+            <button class="button-form" mat-raised-button [disabled]="!form.valid">{{'BOLETO.CONFIRM' | translate}}</button>
+            <button class="cancel-button" type="button" mat-button mat-dialog-close>{{'BOLETO.CANCEL' | translate}}</button>
+        </div>
+    </form>
+</div>

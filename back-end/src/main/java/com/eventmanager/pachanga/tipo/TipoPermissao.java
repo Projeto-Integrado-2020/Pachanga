@@ -24,7 +24,7 @@ public enum TipoPermissao {
 	DELEAREA(20,"DELEAREA"),//deletar areas
 	EDITAREA(21,"EDITAREA"),//editar areas
 	VISUPSEG(22,"VISUPSEG"),//visualizar area seguranca problema / problema seguranca
-	ADDPSEGU(23,"ADDPSEGu"),//inserir area seguranca problema / problema seguranca
+	ADDPSEGU(23,"ADDPSEGU"),//inserir area seguranca problema / problema seguranca
 	DELEPSEG(24,"DELEPSEG"),//deletar area seguranca problema / problema seguranca
 	EDITPSEG(25,"EDITPSEG"),//editar area seguranca problema / problema seguranca
 	VISULOTE(26,"VISULOTE"),//visualizar lote
@@ -38,7 +38,8 @@ public enum TipoPermissao {
 	VISUINTE(34,"VISUINTE"),//visualizar integração
 	ADDINTEG(35,"ADDINTEG"),//inserir integração
 	DELEINTE(36,"DELEINTE"),//deletar integração
-	EDITINTE(37,"EDITINTE");//editar integração
+	EDITINTE(37,"EDITINTE"),//editar integração
+	VISURELA(38,"VISURELA");//visualizar relatório
 
 	private String valor;
 	private int codigo;

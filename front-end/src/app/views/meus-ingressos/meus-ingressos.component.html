@@ -1,0 +1,33 @@
+<div class="main-container">
+  <h1 class="titulo">Meus Ingressos</h1>
+
+  <mat-tab-group mat-align-tabs="center" dynamicHeight>
+    <mat-tab label="Ativos">
+      <div class="ingressos">
+        <mat-card class="ingresso" *ngFor="let ingresso of infoIngresso">
+          <div class="ingresso__imagem">
+          </div>
+          <mat-card-header>
+            <mat-card-title>Nome do Evento</mat-card-title>
+          </mat-card-header>
+          <mat-divider></mat-divider>
+          <mat-card-content>
+            <span>{{ingresso.endereco}}</span>
+            <span>{{ingresso.data}}</span>
+          </mat-card-content>
+          <mat-divider></mat-divider>
+          <mat-card-actions>
+            <span><a href="#">Imprimir Ingresso</a></span>
+            <span><a href="#">Fale com o Organizador</a></span>
+            <span><a href="#">Ver Pedido</a></span>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+    </mat-tab>
+    <mat-tab label="Encerrados">
+      <div class="ingressos">
+        
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+</div>

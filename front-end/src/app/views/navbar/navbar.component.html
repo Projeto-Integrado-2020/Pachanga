@@ -48,7 +48,8 @@
           </button>
 
           <mat-menu #myMenu="matMenu" class="my-menu">
-            <a routerLink="../perfil"><button mat-menu-item class="botao-menu">{{'NAV.CONTA_L' | translate}}</button></a>
+            <button [routerLink]="'../perfil'" mat-menu-item class="botao-menu">{{'NAV.CONTA_L' | translate}}</button>
+            <button [routerLink]="'../meus-ingressos'" mat-menu-item class="botao-menu">Ingressos</button>
             <button mat-menu-item (click)="loginComponent.signOut()" class="botao-menu">{{'NAV.SAIR' | translate}}</button>
           </mat-menu>
           

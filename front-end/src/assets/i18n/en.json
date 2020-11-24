@@ -72,7 +72,8 @@
         "MINQTDERROR": "The minimum quantity allowed is 1.",
         "MAXQTDERROR": "The maximum percentage allowed is 100%.",
         "MINCAMPOERROR": "At least one field must be filled.",
-        "URL": "This field must contain a public Google Sheets response URL for your Google Forms."
+        "URL": "This field must contain a public Google Sheets response URL for your Google Forms.",
+        "FILESIZE": "The total size must not exceed"
     },
 
     "ERRO": {
@@ -279,7 +280,11 @@
         "FIMHORA": "Ending time",
         "ENDERECO": "Address",
         "ORGANIZADOR": "Party manager",
-        "DESCORGANIZADOR": "Manager description"
+        "DESCORGANIZADOR": "Manager description",
+        "IMAGEM": "Image (Used as banner on tickets selling screens)",
+        "SEMIMAGEM": "No file selected",
+        "IMAGEMHINT": "2MB max - 1100 x 320 recomended.",
+        "DELETEIMAGEM": "Delete image"
     },
 
     "EDITARFESTA": {
@@ -711,7 +716,8 @@
         "LOTE": "Batch",
         "QUANTIDADE": "Quantity to be purchased",
         "INGRESSOS": "Tickets",
-        "COMPRAR": "Buy"
+        "COMPRAR": "Buy",
+        "PRECO": "Price"
     },
 
     "CHECKOUT": {
@@ -720,6 +726,22 @@
         "SOBRENOME": "Second name",
         "CONFIRMEMAIL": "E-mail confirmation",
         "FINALIZAR": "Checkout"
-    }
+    },
 
+    "BOLETO": {
+        "BOTAO": "Payment slip",
+        "TITLE": "Billing informations - Bill",
+        "PAGADOR": "Payer full name",
+        "IDENTIFICACAO": "Identification (CPF/CNPJ)",
+        "EMAIL": "Billing e-mail",
+        "PAIS": "Country",
+        "ESTADO": "state",
+        "CIDADE": "City",
+        "CEP": "CEP",
+        "BAIRRO": "Bairro",
+        "RUA": "Street",
+        "NUMERO": "Number",
+        "CONFIRM": "Generate bill",
+        "CANCEL": "Cancel"
+    }
 }

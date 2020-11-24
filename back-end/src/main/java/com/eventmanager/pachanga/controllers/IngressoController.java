@@ -1,7 +1,7 @@
 package com.eventmanager.pachanga.controllers;
 
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -31,6 +31,8 @@ public class IngressoController {
 	
 	@Autowired
 	private IngressoFactory ingressoFactory;
+
+
 	
 	@ResponseBody
 	@GetMapping(path = "/listaUser")
@@ -40,6 +42,7 @@ public class IngressoController {
 			List<IngressoTO> ingressosTO = new ArrayList<>();
 			for(Ingresso ingresso : ingressos) {
 			IngressoTO ingressoTO = ingressoFactory.getIngressoTO(ingresso);
+			ingressoTO.setFesta(ingressoService.getFestaIngressoUser(ingressoTO.getFesta().getCodFesta()));
 			ingressosTO.add(ingressoTO);			
 			}
 		return ResponseEntity.ok(ingressosTO);

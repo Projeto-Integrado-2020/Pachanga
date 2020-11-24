@@ -9,21 +9,30 @@ export class DadosCompraIngressoService {
 
   constructor(public getLote: GetLotePublicoService) { }
 
-  public ingresso = [];
-  public precoTotal= [];
+  public ingresso = JSON.parse(sessionStorage.getItem('ingressos'));
+  public precoTotal = JSON.parse(sessionStorage.getItem('precoTotal'));
 
   addIngresso(item) {
-    this.ingresso.push(item);
-    console.log(this.ingresso);
+    sessionStorage.setItem('ingressos', JSON.stringify(item));
+    this.ingresso = item;
   }
 
   addPrecoTotal(precoTotal) {
-    this.precoTotal.push(precoTotal);
-    console.log(this.precoTotal);
+    sessionStorage.setItem('precoTotal', JSON.stringify(precoTotal));
+    this.precoTotal = precoTotal;
   }
 
   getIngressos() {
     return this.ingresso;
+  }
+
+  getPrecoTotal() {
+    return this.precoTotal;
+  }
+
+  cleanStorage() {
+    sessionStorage.removeItem('ingressos');
+    sessionStorage.removeItem('precoTotal');
   }
 
 }

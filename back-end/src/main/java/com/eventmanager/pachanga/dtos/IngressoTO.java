@@ -18,6 +18,12 @@ public class IngressoTO {
 	private LocalDateTime dataCompra;
 	private LocalDateTime dataCheckin;
 	
+	public Festa getFesta() {
+		return festa;
+	}
+	public void setFesta(Festa festa) {
+		this.festa = festa;
+	}
 	public int getCodIngresso() {
 		return codIngresso;
 	}
@@ -30,12 +36,7 @@ public class IngressoTO {
 	public void setLote(Lote lote) {
 		this.lote = lote;
 	}
-	public Festa getFesta() {
-		return festa;
-	}
-	public void setFesta(Festa festa) {
-		this.festa = festa;
-	}
+
 	public Usuario getUsuario() {
 		return usuario;
 	}

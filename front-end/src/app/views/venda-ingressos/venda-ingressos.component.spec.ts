@@ -52,11 +52,16 @@ describe('VendaIngressosComponent', () => {
     component.festa = {
       nomeFesta: 'Teste',
       codFesta: 'Teste',
-      horarioInicioFesta: '2020-09-23T19:10:25',
-      horarioFimFesta: '2020-09-23T19:10:25',
+      horarioInicioFesta: '2020-09-23 19:10:25',
+      horarioFimFesta: '2020-09-23 19:10:25',
       codEnderecoFesta: null,
       descricaoFesta: null
     };
+    const token = {
+      timeToken: '2020-09-21T01:14:04.028+0000',
+      token: 'teste'
+    };
+    localStorage.setItem('token', JSON.stringify(token));
     fixture.detectChanges();
   });
 
@@ -65,12 +70,83 @@ describe('VendaIngressosComponent', () => {
   });
 
   it('should format date from datetime', () => {
-    const result = component.getDateFromDTF('2020-09-23T19:10:25');
+    const result = component.getDateFromDTF('2020-09-23 19:10:25');
     expect(result).toBe('23/09/2020');
   });
 
   it('should formar time from datetime', () => {
-    const result = component.getTimeFromDTF('2020-09-23T19:10:25');
+    const result = component.getTimeFromDTF('2020-09-23 19:10:25');
     expect(result).toBe('19:10:25');
   });
+
+  it('should validate purchase buttom', () => {
+    const result = component.validationFormButton();
+    expect(result).toBe(true);
+  });
+
+  it('should buildForm', () => {
+    component.lotes = [{
+      codLote: '1',
+      nomeLote: 'Teste1'
+      },
+      {
+      codLote: '2',
+      nomeLote: 'Teste2'
+    }];
+    component.buildForm();
+    expect(component.form.get('quantidade-1')).toBeTruthy();
+    expect(component.form.get('quantidade-2')).toBeTruthy();
+  });
+
+  it('should validate purchase buttom', () => {
+    component.lotes = [{
+      codLote: '1',
+      nomeLote: 'Teste'
+    }];
+
+    component.buildForm();
+    expect(component.validationFormButton()).toBeTruthy();
+    component.form.get('quantidade-1').setValue('3');
+    expect(component.validationFormButton()).toBeFalsy();
+  });
+
+  it('should get f to get form controls', () => {
+    expect(component.f).toBe(component.form.controls);
+  });
+
+  it('should redirectUrl', () => {
+    spyOn(component.router, 'navigate')
+    .and
+    .callThrough();
+
+    component.redirectUrl();
+    expect(component.router.navigate).toHaveBeenCalledWith(['../teste&Teste/venda-ingressos/venda-checkout']);
+  });
+
+  it('should checkout', () => {
+    spyOn(component.buyIngresso, 'addIngresso')
+    .and
+    .callThrough();
+
+    spyOn(component.buyIngresso, 'addPrecoTotal')
+    .and
+    .callThrough();
+
+    spyOn(component, 'redirectUrl')
+    .and
+    .callThrough();
+
+    component.lotes = [{
+      codLote: '1',
+      nomeLote: 'Teste'
+    }];
+
+    component.buildForm();
+    component.form.get('quantidade-1').setValue('3');
+    component.checkout();
+    expect(component.buyIngresso.addIngresso).toHaveBeenCalled();
+    expect(component.buyIngresso.addPrecoTotal).toHaveBeenCalled();
+    expect(component.redirectUrl).toHaveBeenCalled();
+  });
+
 });

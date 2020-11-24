@@ -46,13 +46,13 @@ export class IndexComponent implements OnInit {
   }
 
   getDateFromDTF(date) {
-    let conversion = date.split('T', 1);
+    let conversion = date.split(' ', 1);
     conversion = conversion[0].split('-');
     return conversion[2] + '/' + conversion[1] + '/' + conversion[0];
   }
 
   getTimeFromDTF(date) {
-    return date.split('T')[1];
+    return date.split(' ')[1];
   }
 
   createUrl(nomeFesta, codFesta) {

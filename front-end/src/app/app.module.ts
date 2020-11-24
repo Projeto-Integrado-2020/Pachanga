@@ -116,6 +116,13 @@ import { CheckInComponent } from './views/check-in/check-in.component';
 // Scanner QR Code
 import { LeitorQrComponent } from './views/leitor-qr/leitor-qr.component';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
+import { MeusIngressosComponent } from './views/meus-ingressos/meus-ingressos.component';
+
+import { MaterialFileInputModule } from 'ngx-material-file-input';
+
+// Paypal
+import { NgxPayPalModule } from 'ngx-paypal';
+import { GerarBoletoDialogComponent } from './views/gerar-boleto-dialog/gerar-boleto-dialog.component';
 
 const config = new AuthServiceConfig([
   {
@@ -206,7 +213,9 @@ export function provideConfig() {
     ThirdPartyPainelComponent,
     CheckoutComponent,
     CheckInComponent,
-    LeitorQrComponent
+    LeitorQrComponent,
+    MeusIngressosComponent,
+    GerarBoletoDialogComponent
   ],
   entryComponents: [
     LoginComponent,
@@ -249,7 +258,8 @@ export function provideConfig() {
     AdicionarIntegracoesDialogComponent,
     EditarIntegracoesDialogComponent,
     DeletarIntegracoesDialogComponent,
-    DetalhesProblemaDialogComponent
+    DetalhesProblemaDialogComponent,
+    GerarBoletoDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -276,7 +286,9 @@ export function provideConfig() {
     MatListModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     MomentModule,
-    ZXingScannerModule
+    ZXingScannerModule,
+    MaterialFileInputModule,
+    NgxPayPalModule
   ],
   providers: [
     {
