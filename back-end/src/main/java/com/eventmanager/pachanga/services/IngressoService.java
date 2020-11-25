@@ -1,7 +1,7 @@
 package com.eventmanager.pachanga.services;
 
-
 import java.util.List;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,84 +9,118 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.eventmanager.pachanga.domains.Festa;
 import com.eventmanager.pachanga.domains.Ingresso;
+import com.eventmanager.pachanga.domains.Lote;
+import com.eventmanager.pachanga.domains.Usuario;
 import com.eventmanager.pachanga.dtos.IngressoTO;
+import com.eventmanager.pachanga.errors.ValidacaoException;
 import com.eventmanager.pachanga.factory.IngressoFactory;
-import com.eventmanager.pachanga.repositories.FestaRepository;
 import com.eventmanager.pachanga.repositories.IngressoRepository;
+import com.eventmanager.pachanga.tipo.TipoStatusCompra;
+import com.eventmanager.pachanga.tipo.TipoStatusIngresso;
 import com.eventmanager.pachanga.utils.EmailMensagem;
 
 @Service
 @Transactional
 public class IngressoService {
-	
+
 	@Autowired
 	private IngressoRepository ingressoRepository;
-	
+
 	@Autowired
 	private UsuarioService usuarioService;
-	
+
 	@Autowired
 	private FestaService festaService;
-	
+
 	@Autowired
 	private IngressoFactory ingressoFactory;
-	
-	@Autowired
-	private FestaRepository festaRespository;
 
-	//@Autowired
-	//private UsuarioRepository usuarioRepository;
-	
-	public List<Ingresso> getIngressosUser(int codUsuario){
+	@Autowired
+	private LoteService loteService;
+
+	public List<Ingresso> getIngressosUser(int codUsuario) {
 		usuarioService.validarUsuario(codUsuario);
 		return ingressoRepository.findIngressosUser(codUsuario);
 	}
-	
-	public Festa getFestaIngressoUser(int codFesta) {
-		return festaRespository.findByCodFesta(codFesta);
-	}
-	
-	public List<Ingresso> getIngressosFesta(int codFesta){
+
+	public List<Ingresso> getIngressosFesta(int codFesta) {
 		festaService.validarFestaExistente(codFesta);
 		return ingressoRepository.findIngressosFesta(codFesta);
 	}
-	
+
 	public Ingresso addIngresso(IngressoTO ingressoTO) {
-		Ingresso ingresso = ingressoFactory.getIngresso(ingressoTO);
+
+		Festa festa = festaService.validarFestaExistente(ingressoTO.getFesta().getCodFesta());
+		Usuario usuario = usuarioService.validarUsuario(ingressoTO.getCodUsuario());
+		Lote lote = loteService.validarLoteExistente(ingressoTO.getCodLote());
+
+		Ingresso ingresso = ingressoFactory.getIngresso(ingressoTO, usuario, festa, lote);
+
+		while (true) {
+			ingresso.setCodIngresso(new Random().ints(48, 122 + 1)
+					.filter(i -> (i <= 57 || i >= 65) && (i <= 90 || i >= 97)).limit(10)
+					.collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append).toString());
+
+			if (ingressoRepository.findIngressoByCodIngresso(ingresso.getCodIngresso()) == null) {
+				break;
+			}
+		}
+
 		ingressoRepository.save(ingresso);
-		if(ingresso.getStatusCompra().equals("P")) {
+		if (TipoStatusCompra.PAGO.getDescricao().equals(ingressoTO.getStatusCompra())) {
 			EmailMensagem emailMessage = new EmailMensagem();
-			emailMessage.enviarEmailQRCode(ingresso.getUsuario().getEmail(), 
-										   Integer.toString(ingresso.getFesta().getCodFesta()), 
-										   ingresso.getFesta());
+			emailMessage.enviarEmailQRCode(ingresso.getUsuario().getEmail(), ingresso.getCodIngresso(),
+					ingresso.getFesta());
 		}
 		return ingresso;
 	}
-	
-	public void updateCheckin(IngressoTO ingressoTO) {
-		ingressoRepository.updateCheckin(ingressoTO.getCodIngresso(), ingressoTO.getStatusIngresso(), ingressoTO.getDataCheckin());
+
+	public Ingresso updateCheckin(IngressoTO ingressoTO) {
+		Ingresso ingresso = this.validarIngressoExistente(ingressoTO.getCodIngresso());
+		this.validarStatusIngresso(ingressoTO.getStatusIngresso());
+		ingresso.setStatusCompra(ingressoTO.getStatusCompra());
+		if (ingressoTO.getDataCheckin() == null) {
+			throw new ValidacaoException("CHECDATN");// data do check-in não informada
+		}
+		ingresso.setDataCheckin(ingressoTO.getDataCheckin());
+		ingressoRepository.save(ingresso);
+		return ingresso;
 	}
-	
-	public void updateStatusCompra(IngressoTO ingressoTO) {
-		ingressoRepository.updateStatusCompra(ingressoTO.getCodIngresso(), ingressoTO.getStatusCompra());
-		if(ingressoTO.getStatusCompra().equals("P")) {
+
+	public Ingresso updateStatusCompra(IngressoTO ingressoTO) {
+		this.validarStatusCompra(ingressoTO.getStatusCompra());
+		Ingresso ingresso = this.validarIngressoExistente(ingressoTO.getCodIngresso());
+		Festa festa = festaService.validarFestaExistente(ingressoTO.getFesta().getCodFesta());
+
+		ingresso.setStatusCompra(ingressoTO.getStatusCompra());
+
+		if (TipoStatusCompra.PAGO.getDescricao().equals(ingressoTO.getStatusCompra())) {
 			EmailMensagem emailMessage = new EmailMensagem();
-			emailMessage.enviarEmailQRCode(ingressoTO.getUsuario().getEmail(), 
-										   Integer.toString(ingressoTO.getFesta().getCodFesta()), 
-										   ingressoTO.getFesta());
+			emailMessage.enviarEmailQRCode(ingresso.getUsuario().getEmail(), ingresso.getCodIngresso(), festa);
+		}
+		return ingresso;
+	}
+
+	private void validarStatusCompra(String statusCompra) {
+		if (TipoStatusCompra.COMPRADO.getDescricao().equals(statusCompra)
+				&& TipoStatusCompra.PAGO.getDescricao().equals(statusCompra)) {
+			throw new ValidacaoException("STACIINC");// status de compra do ingresso incorreto
 		}
 	}
-	/*
-	private Festa getFesta(int codFesta) {
-		Festa festa = festaRespository.findByCodFesta(codFesta);
-		return festa;
+
+	private void validarStatusIngresso(String statusCompra) {
+		if (TipoStatusIngresso.CHECKED.getDescricao().equals(statusCompra)
+				&& TipoStatusIngresso.UNCHECKED.getDescricao().equals(statusCompra)) {
+			throw new ValidacaoException("STAIIINC");// status do ingresso do ingresso incorreto
+		}
 	}
-	
-	private Usuario getUsuario(int codUsuario) {
-		Usuario usuario = usuarioRepository.findById(codUsuario);
-		return usuario;
+
+	public Ingresso validarIngressoExistente(String codIngresso) {
+		Ingresso ingresso = ingressoRepository.findIngressoByCodIngresso(codIngresso);
+		if (ingresso == null) {
+			throw new ValidacaoException("INGRNFOU");
+		}
+		return ingresso;
 	}
-	*/
-	
 
 }

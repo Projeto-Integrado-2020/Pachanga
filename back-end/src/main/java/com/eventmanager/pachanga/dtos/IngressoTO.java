@@ -2,47 +2,31 @@ package com.eventmanager.pachanga.dtos;
 
 import java.time.LocalDateTime;
 
-import com.eventmanager.pachanga.domains.Festa;
-import com.eventmanager.pachanga.domains.Lote;
-import com.eventmanager.pachanga.domains.Usuario;
-
 public class IngressoTO {
 
-	private int codIngresso;
-	private Lote lote;
-	private Festa festa;
-	private Usuario usuario;
+	private String codIngresso;
+	private int codLote;
+	private FestaTO festa;
+	private int codUsuario;
 	private String statusIngresso;
 	private float preco;
 	private String statusCompra;
 	private LocalDateTime dataCompra;
 	private LocalDateTime dataCheckin;
 	
-	public Festa getFesta() {
+	public FestaTO getFesta() {
 		return festa;
 	}
-	public void setFesta(Festa festa) {
+	public void setFesta(FestaTO festa) {
 		this.festa = festa;
 	}
-	public int getCodIngresso() {
+	public String getCodIngresso() {
 		return codIngresso;
 	}
-	public void setCodIngresso(int codIngresso) {
+	public void setCodIngresso(String codIngresso) {
 		this.codIngresso = codIngresso;
 	}
-	public Lote getLote() {
-		return lote;
-	}
-	public void setLote(Lote lote) {
-		this.lote = lote;
-	}
 
-	public Usuario getUsuario() {
-		return usuario;
-	}
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
-	}
 	public String getStatusIngresso() {
 		return statusIngresso;
 	}
@@ -73,5 +57,16 @@ public class IngressoTO {
 	public void setDataCheckin(LocalDateTime dataCheckin) {
 		this.dataCheckin = dataCheckin;
 	}
-
+	public int getCodUsuario() {
+		return codUsuario;
+	}
+	public void setCodUsuario(int codUsuario) {
+		this.codUsuario = codUsuario;
+	}
+	public int getCodLote() {
+		return codLote;
+	}
+	public void setCodLote(int codLote) {
+		this.codLote = codLote;
+	}
 }

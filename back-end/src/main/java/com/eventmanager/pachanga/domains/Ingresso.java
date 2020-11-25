@@ -15,7 +15,7 @@ public class Ingresso {
 	
 	@Id
 	@Column(name = "cod_ingresso")
-	private int codIngresso;
+	private String codIngresso;
 	
 	@ManyToOne
 	@JoinColumn(name = "cod_lote")
@@ -44,11 +44,11 @@ public class Ingresso {
 	@Column(name = "dthr_checkin")
 	private LocalDateTime dataCheckin;
 
-	public int getCodIngresso() {
+	public String getCodIngresso() {
 		return codIngresso;
 	}
 
-	public void setCodIngresso(int codIngresso) {
+	public void setCodIngresso(String codIngresso) {
 		this.codIngresso = codIngresso;
 	}
 

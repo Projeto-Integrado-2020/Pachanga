@@ -9,7 +9,7 @@ import com.eventmanager.pachanga.domains.Usuario;
 
 public class IngressoBuilder {
 	
-	private int codIngresso;
+	private String codIngresso;
 	private Lote lote;
 	private Festa festa;
 	private Usuario usuario;
@@ -23,7 +23,7 @@ public class IngressoBuilder {
 		return new IngressoBuilder();
 	}
 	
-	public IngressoBuilder codIngresso(int codIngresso) {
+	public IngressoBuilder codIngresso(String codIngresso) {
 		this.codIngresso = codIngresso;
 		return this;
 	}

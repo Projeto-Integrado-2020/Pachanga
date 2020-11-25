@@ -12,21 +12,23 @@ import com.eventmanager.pachanga.domains.Ingresso;
 public interface IngressoRepository extends JpaRepository<Ingresso, Integer>{
 
 	@Query(value = "SELECT i FROM Ingresso i JOIN i.lote l WHERE l.codLote = :codLote")
-	List<Ingresso> findIngressosLote(int codLote);
+	public List<Ingresso> findIngressosLote(int codLote);
 	
-	@Query(value = "SELECT i FROM Ingresso i JOIN i.usuario u WHERE u.codUsuario = :codUsuario")
-	List<Ingresso> findIngressosUser(int codUsuario);
+	@Query(value = "SELECT i FROM Ingresso i JOIN i.usuario u JOIN i.festa f WHERE u.codUsuario = :codUsuario")
+	public List<Ingresso> findIngressosUser(int codUsuario);
 	
 	@Query(value = "SELECT i FROM Ingresso i JOIN i.festa f WHERE f.codFesta = :codFesta")
-	List<Ingresso> findIngressosFesta(int codFesta);
+	public List<Ingresso> findIngressosFesta(int codFesta);
 	
 	@Modifying(clearAutomatically = true)
 	@Query(value = "UPDATE Ingresso i SET i.statusIngresso = :statusIngresso, i.dataCheckin = :dataCheckin WHERE i.codIngresso = :codIngresso")
-	Ingresso updateCheckin(int codIngresso, String statusIngresso, LocalDateTime dataCheckin);
+	public Ingresso updateCheckin(int codIngresso, String statusIngresso, LocalDateTime dataCheckin);
 	
 	@Modifying(clearAutomatically = true)
 	@Query(value = "UPDATE Ingresso i SET i.statusCompra = :statusCompra WHERE i.codIngresso = :codIngresso")
-	Ingresso updateStatusCompra(int codIngresso, String statusCompra);
+	public Ingresso updateStatusCompra(int codIngresso, String statusCompra);
 	
+	@Query(value = "SELECT i FROM Ingresso i WHERE i.codIngresso = :codIngresso")
+	public Ingresso findIngressoByCodIngresso(String codIngresso);
 
 }
