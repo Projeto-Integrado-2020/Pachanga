@@ -122,9 +122,14 @@ import { MaterialFileInputModule } from 'ngx-material-file-input';
 
 // Paypal
 import { NgxPayPalModule } from 'ngx-paypal';
+
 import { QrcodeDialogComponent } from './views/qrcode-dialog/qrcode-dialog.component';
 import { NgxQRCodeModule } from '@techiediaries/ngx-qrcode';
 import { GerarBoletoDialogComponent } from './views/gerar-boleto-dialog/gerar-boleto-dialog.component';
+
+import { NgxMaskModule, IConfig } from 'ngx-mask';
+
+export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
 
 const config = new AuthServiceConfig([
   {
@@ -293,7 +298,8 @@ export function provideConfig() {
     ZXingScannerModule,
     MaterialFileInputModule,
     NgxPayPalModule,
-    NgxQRCodeModule
+    NgxQRCodeModule,
+    NgxMaskModule.forRoot()
   ],
   providers: [
     {

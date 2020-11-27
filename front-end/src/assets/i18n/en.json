@@ -147,7 +147,9 @@
         "INFOTCAD": "Third-Party already registered.",
         "INFOTOKU": "Token already registered.",
         "INFONFOU": "Integration not found.",
-        "SYMPNFOU": "Sympla integration not found."
+        "SYMPNFOU": "Sympla integration not found.",
+        "CPFNOFOU": "CPF not found.",
+        "ENDENFOU": "Address not found. Please insert manually."
     },
 
     "SUCCESS": {
@@ -163,7 +165,8 @@
         "FORMDELE": "Form successfully deleted.",
         "LOTEALT": "Batch successfully updated.",
         "INTEDELE": "Third-Party integration successfully deleted.",
-        "SYMCHECK": "Check-in via Sympla confirmed."
+        "SYMCHECK": "Check-in via Sympla confirmed.",
+        "BOLEGERA": "Billet generated successfully. Waiting for payment to process ticket."
     },
 
     "PERFIL":{
@@ -732,16 +735,17 @@
         "BOTAO": "Payment slip",
         "TITLE": "Billing informations - Bill",
         "PAGADOR": "Payer full name",
-        "IDENTIFICACAO": "Identification (CPF/CNPJ)",
+        "IDENTIFICACAO": "Identification (CPF)",
         "EMAIL": "Billing e-mail",
         "PAIS": "Country",
-        "ESTADO": "state",
+        "ESTADO": "State",
         "CIDADE": "City",
         "CEP": "CEP",
         "BAIRRO": "Bairro",
         "RUA": "Street",
         "NUMERO": "Number",
         "CONFIRM": "Generate bill",
-        "CANCEL": "Cancel"
+        "CANCEL": "Cancel",
+        "BUSCAR": "Search address"
     }
 }

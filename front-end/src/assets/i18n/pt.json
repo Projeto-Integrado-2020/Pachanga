@@ -53,17 +53,18 @@
         "BOTAO": "Boleto Bancário",
         "TITLE": "Informações de pagamento - Boleto",
         "PAGADOR": "Nome Completo do Pagador",
-        "IDENTIFICACAO": "Identificacao (CPF/CNPJ)",
+        "IDENTIFICACAO": "Identificacao (CPF)",
         "EMAIL": "E-mail de cobrança",
         "PAIS": "País",
-        "ESTADO": "Estado",
+        "ESTADO": "Estado (UF)",
         "CIDADE": "Cidade",
         "CEP": "CEP",
         "BAIRRO": "Bairro",
         "RUA": "Rua",
         "NUMERO": "Número",
         "CONFIRM": "Gerar boleto",
-        "CANCEL": "Cancelar"
+        "CANCEL": "Cancelar",
+        "BUSCAR": "Buscar endereço"
     },
 
     "CADASTRO": {
@@ -297,7 +298,9 @@
         "INFOTCAD": "Terceiro já cadastrado.",
         "INFOTOKU": "Token já sendo utilizado.",
         "INFONFOU": "Integração não encontrada.",
-        "SYMPNFOU": "Integração com Sympla não encontrada."
+        "SYMPNFOU": "Integração com Sympla não encontrada.",
+        "CPFNOFOU": "CPF não encontrado.",
+        "ENDENFOU": "Endereço não encontrado. Favor inserir manualmente."
     },
 
     "ESTOQUE": {
@@ -732,7 +735,8 @@
         "FORMDELE": "Questionário deletado com sucesso.",
         "LOTEALT": "Lote alterado com sucesso.",
         "INTEDELE": "Integração com terceiro deletada com sucesso.",
-        "SYMCHECK": "Check-in via Sympla confirmado."
+        "SYMCHECK": "Check-in via Sympla confirmado.",
+        "BOLEGERA": "Boleto gerado com sucesso. Aguardando pagamento para processar ingresso."
     },
 
     "TERMOS": {

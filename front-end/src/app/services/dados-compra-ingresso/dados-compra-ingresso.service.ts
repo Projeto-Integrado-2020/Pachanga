@@ -31,6 +31,8 @@ export class DadosCompraIngressoService {
   }
 
   cleanStorage() {
+    this.ingresso = null;
+    this.precoTotal = null;
     sessionStorage.removeItem('ingressos');
     sessionStorage.removeItem('precoTotal');
   }

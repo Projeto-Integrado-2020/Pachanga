@@ -30,7 +30,7 @@ export class MeusIngressosComponent implements OnInit {
   }
 
   listarIngressos() {
-    console.log('sasdas')
+    console.log('sasdas');
     this.ingressosService.listaIngressos().subscribe(
       (res) => {
         console.log('adajda');

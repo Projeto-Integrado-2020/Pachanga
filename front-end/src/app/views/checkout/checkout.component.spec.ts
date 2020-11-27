@@ -59,7 +59,7 @@ describe('CheckoutComponent', () => {
       descricaoFesta: null
     };
     component.ingressos = [{
-      quantidade: [0],
+      quantidade: ['1', '1'],
       precoUnico: '35.00',
       lote: {
           codLote: '1',
@@ -95,22 +95,22 @@ describe('CheckoutComponent', () => {
 
   it('should gerarItems', () => {
     const items = [{
-      name: 'TesteLote',
-      quantity: '1',
+      name: 'Ingresso VIP',
+      quantity: 2,
       unit_amount: {
           currency_code: 'BRL',
-          value: '15.00'
+          value: '35.00'
       }
     }];
-    component.lotesSelecionados = [{
-      quantidade: '1',
-      precoUnico: '15.00',
+    component.ingressos = [{
+      quantidade: ['1', '1'],
+      precoUnico: '35.00',
       lote: {
           codLote: '1',
           codFesta: '1',
-          nomeLote: 'TesteLote',
-          preco: '1000.00'
-      },
+          nomeLote: 'Ingresso VIP',
+          preco: '40.00'
+      }
     }];
     expect(component.gerarItems()).toEqual(items);
   });

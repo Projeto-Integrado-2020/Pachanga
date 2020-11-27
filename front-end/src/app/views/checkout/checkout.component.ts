@@ -7,7 +7,6 @@ import { Subscription } from 'rxjs';
 import { DadosCompraIngressoService } from 'src/app/services/dados-compra-ingresso/dados-compra-ingresso.service';
 import { GerarIngressoService } from 'src/app/services/gerar-ingresso/gerar-ingresso.service';
 import { GetFestaService } from 'src/app/services/get-festa/get-festa.service';
-import { GetLotePublicoService } from 'src/app/services/get-lote-publico/get-lote-publico.service';
 import { GerarBoletoDialogComponent } from '../gerar-boleto-dialog/gerar-boleto-dialog.component';
 
 @Component({
@@ -30,7 +29,6 @@ export class CheckoutComponent implements OnInit {
     /* tslint:disable */
     public payPalConfig ? : IPayPalConfig;
     /* tslint:enable */
-    lotesSelecionados: any;
     precoTotal: string;
     public ingressos = [];
     public lotes = [];
@@ -113,10 +111,10 @@ export class CheckoutComponent implements OnInit {
     gerarItems() {
         const items = [];
 
-        for (const lote of this.lotesSelecionados) {
+        for (const lote of this.ingressos) {
             items.push({
                 name: lote.lote.nomeLote,
-                quantity: lote.quantidade,
+                quantity: lote.quantidade.length,
                 unit_amount: {
                     currency_code: 'BRL',
                     value: lote.precoUnico
@@ -139,7 +137,7 @@ export class CheckoutComponent implements OnInit {
 
   getIngressos() {
     this.ingressos = this.getIngressoCheckout.getIngressos();
-    console.log(this.ingressos);
+    this.precoTotal = this.getIngressoCheckout.getPrecoTotal();
   }
 
 }

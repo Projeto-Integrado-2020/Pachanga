@@ -1,7 +1,11 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material';
+import { Router } from '@angular/router';
+import { CepApiService } from 'src/app/services/cep-api/cep-api.service';
+import { DadosCompraIngressoService } from 'src/app/services/dados-compra-ingresso/dados-compra-ingresso.service';
 import { PagSeguroService } from 'src/app/services/pag-seguro/pag-seguro.service';
+import { SuccessDialogComponent } from '../success-dialog/success-dialog.component';
 
 @Component({
   selector: 'app-gerar-boleto-dialog',
@@ -15,7 +19,9 @@ export class GerarBoletoDialogComponent implements OnInit {
   preco: any;
 
   constructor(@Inject(MAT_DIALOG_DATA) data, public formBuilder: FormBuilder,
-              public pagSeguroService: PagSeguroService, public dialog: MatDialog) {
+              public pagSeguroService: PagSeguroService, public dialog: MatDialog,
+              public cepService: CepApiService, public router: Router,
+              public dadosService: DadosCompraIngressoService) {
     this.festa = data.festa;
     this.preco = data.preco;
   }
@@ -46,7 +52,7 @@ export class GerarBoletoDialogComponent implements OnInit {
       reference_id: 'ex-00001',
       description: 'Ingresso para a festa ' + this.festa.nomefesta,
       amount: {
-        value: 1000,
+        value: Number(this.preco + '00'),
         currency: 'BRL'
       },
       payment_method: {
@@ -64,7 +70,7 @@ export class GerarBoletoDialogComponent implements OnInit {
             address: {
               country: this.form.get('pais').value,
               region: this.form.get('estado').value,
-              region_code: 'SP',
+              region_code: this.form.get('estado').value,
               city: this.form.get('cidade').value,
               postal_code: this.form.get('cep').value,
               street: this.form.get('rua').value,
@@ -80,9 +86,28 @@ export class GerarBoletoDialogComponent implements OnInit {
     };
 
     this.pagSeguroService.gerarBoleto(boleto).subscribe((resp: any) => {
-      console.log(resp);
       window.open(resp.links[0].href, '_blank');
+      this.router.navigate(['/meus-ingressos']);
+      this.dadosService.cleanStorage();
       this.dialog.closeAll();
+      this.openDialogSuccess('BOLEGERA');
+    });
+  }
+
+  buscarEndereco() {
+    this.cepService.resgatarEndereco(this.form.get('cep').value).subscribe((resp: any) => {
+      this.form.get('pais').setValue('Brasil');
+      this.form.get('estado').setValue(resp.uf);
+      this.form.get('cidade').setValue(resp.localidade);
+      this.form.get('bairro').setValue(resp.bairro);
+      this.form.get('rua').setValue(resp.logradouro);
+    });
+  }
+
+  openDialogSuccess(message: string) {
+    this.dialog.open(SuccessDialogComponent, {
+      width: '20rem',
+      data: {message}
     });
   }
 
