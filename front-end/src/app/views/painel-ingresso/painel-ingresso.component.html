@@ -67,14 +67,14 @@
                     </mat-card-content>
                 </mat-card>
 
-            <h2 class="titulo2">Dados Bancários</h2>
+            <h2 class="titulo2">{{'INGRESSO.DADOSBANC' | translate}}</h2>
             <div class="info">
-                <p class="info-box">Insira os dados da conta de recebimento pelas vendas de ingressos</p>
+                <p class="info-box">{{'INGRESSO.DADOSBANCINFO' | translate}}</p>
             </div>
             <mat-card class="painel">
                 <form class="form">
                     <mat-form-field appearance="fill">
-                        <mat-label>Banco</mat-label>
+                        <mat-label>{{'INGRESSO.BANCO' | translate}}</mat-label>
                         <mat-select>
                         <mat-option *ngFor="let banco of this.listaBancos" [value]="banco.value">
                             {{banco.value}} - {{banco.label}}
@@ -83,7 +83,7 @@
                     </mat-form-field>
                     <div class="agenciaconta">
                         <mat-form-field class="form__agencia">
-                            <mat-label>Agência</mat-label>
+                            <mat-label>{{'INGRESSO.AGENCIA' | translate}}</mat-label>
                             <input matInput class="form__agencia" mask="0000">
                             <!-- <mat-hint>Errors appear instantly!</mat-hint>
                             <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
@@ -94,7 +94,7 @@
                             </mat-error> -->
                         </mat-form-field>
                         <mat-form-field class="form__conta">
-                            <mat-label>Conta</mat-label>
+                            <mat-label>{{'INGRESSO.CONTA' | translate}}</mat-label>
                             <input matInput class="form__conta" mask="00000-0">
                             <!-- <mat-hint>Errors appear instantly!</mat-hint> -->
                             <!-- <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
@@ -105,7 +105,7 @@
                             </mat-error> -->
                         </mat-form-field>
                     </div>
-                    <button mat-button class="botao">Submit</button>
+                    <button mat-button class="botao">{{'INGRESSO.SALVAR' | translate}}</button>
                 </form>
             </mat-card>
         </mat-sidenav-content>
