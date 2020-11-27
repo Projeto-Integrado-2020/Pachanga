@@ -17,13 +17,15 @@ public class IngressoFactory {
 		return IngressoBuilder.getInstance().codIngresso(ingressoTO.getCodIngresso()).lote(lote).festa(festa)
 				.usuario(usuario).statusIngresso(ingressoTO.getStatusIngresso()).preco(ingressoTO.getPreco())
 				.statusCompra(ingressoTO.getStatusCompra()).dataCompra(ingressoTO.getDataCompra())
-				.dataCheckin(ingressoTO.getDataCheckin()).build();
+				.dataCheckin(ingressoTO.getDataCheckin()).emailTitular(ingressoTO.getEmailTitular())
+				.nomeTitular(ingressoTO.getNomeTitular()).build();
 	}
 
 	public IngressoTO getIngressoTO(Ingresso ingresso) {
 		return IngressoTOBuilder.getInstance().codIngresso(ingresso.getCodIngresso())
 				.lote(ingresso.getLote().getCodLote()).statusIngresso(ingresso.getStatusIngresso())
 				.preco(ingresso.getPreco()).statusCompra(ingresso.getStatusCompra())
+				.emailTitular(ingresso.getEmailTitular()).nomeTitular(ingresso.getNomeTitular())
 				.dataCompra(ingresso.getDataCompra()).dataCheckin(ingresso.getDataCheckin()).build();
 	}
 

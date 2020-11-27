@@ -16,6 +16,8 @@ public class IngressoTOBuilder {
 	private String statusCompra;
 	private LocalDateTime dataCompra;
 	private LocalDateTime dataCheckin;
+	private String nomeTitular;
+	private String emailTitular;
 	
 	public static IngressoTOBuilder getInstance() {
 		return new IngressoTOBuilder();
@@ -66,6 +68,16 @@ public class IngressoTOBuilder {
 		return this;
 	}
 	
+	public IngressoTOBuilder nomeTitular(String nomeTitular) {
+		this.nomeTitular = nomeTitular;
+		return this;
+	}
+	
+	public IngressoTOBuilder emailTitular(String emailTitular) {
+		this.emailTitular = emailTitular;
+		return this;
+	}
+	
 	public IngressoTO build() {
 		IngressoTO ingressoTO = new IngressoTO();
 		ingressoTO.setCodIngresso(codIngresso);
@@ -77,6 +89,8 @@ public class IngressoTOBuilder {
 		ingressoTO.setStatusCompra(statusCompra);
 		ingressoTO.setStatusIngresso(statusIngresso);
 		ingressoTO.setCodUsuario(codUsuario);
+		ingressoTO.setNomeTitular(nomeTitular);
+		ingressoTO.setEmailTitular(emailTitular);
 		return ingressoTO;
 		
 	}

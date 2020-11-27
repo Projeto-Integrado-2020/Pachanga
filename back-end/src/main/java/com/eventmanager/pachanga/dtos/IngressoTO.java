@@ -13,6 +13,8 @@ public class IngressoTO {
 	private String statusCompra;
 	private LocalDateTime dataCompra;
 	private LocalDateTime dataCheckin;
+	private String nomeTitular;
+	private String emailTitular;
 	
 	public FestaTO getFesta() {
 		return festa;
@@ -69,4 +71,17 @@ public class IngressoTO {
 	public void setCodLote(int codLote) {
 		this.codLote = codLote;
 	}
+	public String getNomeTitular() {
+		return nomeTitular;
+	}
+	public void setNomeTitular(String nomeTitular) {
+		this.nomeTitular = nomeTitular;
+	}
+	public String getEmailTitular() {
+		return emailTitular;
+	}
+	public void setEmailTitular(String emailTitular) {
+		this.emailTitular = emailTitular;
+	}
+
 }
