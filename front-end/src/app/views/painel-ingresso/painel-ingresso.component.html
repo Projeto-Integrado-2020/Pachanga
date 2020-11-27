@@ -75,7 +75,7 @@
                 <form class="form">
                     <mat-form-field appearance="fill">
                         <mat-label>{{'INGRESSO.BANCO' | translate}}</mat-label>
-                        <mat-select>
+                        <mat-select [disabled]="!this.dadosBancEditavel">
                         <mat-option *ngFor="let banco of this.listaBancos" [value]="banco.value">
                             {{banco.value}} - {{banco.label}}
                         </mat-option>
@@ -84,7 +84,7 @@
                     <div class="agenciaconta">
                         <mat-form-field class="form__agencia">
                             <mat-label>{{'INGRESSO.AGENCIA' | translate}}</mat-label>
-                            <input matInput class="form__agencia" mask="0000">
+                            <input matInput [disabled]="!this.dadosBancEditavel" class="form__agencia" mask="0000">
                             <!-- <mat-hint>Errors appear instantly!</mat-hint>
                             <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
                               Please enter a valid email address
@@ -95,7 +95,7 @@
                         </mat-form-field>
                         <mat-form-field class="form__conta">
                             <mat-label>{{'INGRESSO.CONTA' | translate}}</mat-label>
-                            <input matInput class="form__conta" mask="00000-0">
+                            <input matInput [disabled]="!this.dadosBancEditavel" class="form__conta" mask="00000-0">
                             <!-- <mat-hint>Errors appear instantly!</mat-hint> -->
                             <!-- <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
                               Please enter a valid email address
@@ -105,7 +105,16 @@
                             </mat-error> -->
                         </mat-form-field>
                     </div>
-                    <button mat-button class="botao">{{'INGRESSO.SALVAR' | translate}}</button>
+                    <button 
+                        mat-button
+                        class="botao"
+                        (click)="this.editarDadosBancarios()"
+                        *ngIf="!this.dadosBancEditavel">{{'INGRESSO.EDITAR' | translate}}</button>
+                    <button
+                        mat-button 
+                        class="botao" 
+                        (click)="this.salvarDadosBancarios()"
+                        *ngIf="this.dadosBancEditavel">{{'INGRESSO.SALVAR' | translate}}</button>
                 </form>
             </mat-card>
         </mat-sidenav-content>

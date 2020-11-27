@@ -46,6 +46,7 @@ export class PainelIngressoComponent implements OnInit {
   source: any;
   listaBancos: any;
   contaMask: any;
+  dadosBancEditavel: boolean;
 
   displayedColumns: string[] = ['nome', 'preco', 'numeroLote', 'quantidade', 'dthrInicio', 'dthrFim'];
 
@@ -63,6 +64,7 @@ export class PainelIngressoComponent implements OnInit {
       this.statusFesta = resp.statusFesta;
       this.resgatarLote();
       this.listaBancos = bancos;
+      this.dadosBancEditavel = false;
       //this.resgatarListaBancos();
     });
   }
@@ -102,6 +104,14 @@ export class PainelIngressoComponent implements OnInit {
         component: this
       }
     });
+  }
+
+  editarDadosBancarios(){
+    this.dadosBancEditavel = true;
+  }
+
+  salvarDadosBancarios(){
+    this.dadosBancEditavel = false;
   }
 
 
