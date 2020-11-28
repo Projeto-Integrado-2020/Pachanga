@@ -8,6 +8,9 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { MatDialog } from '@angular/material';
 import { RouterModule } from '@angular/router';
 import { LoginService } from 'src/app/services/loginService/login.service';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { HttpLoaderFactory } from 'src/app/app.module';
+import { HttpClient } from '@angular/common/http';
 
 describe('MeusIngressosComponent', () => {
   let component: MeusIngressosComponent;
@@ -21,7 +24,14 @@ describe('MeusIngressosComponent', () => {
       declarations: [ MeusIngressosComponent ],
       imports: [
       HttpClientTestingModule,
-      RouterModule.forRoot([])
+      RouterModule.forRoot([]),
+      TranslateModule.forRoot({
+        loader: {
+          provide: TranslateLoader,
+          useFactory: HttpLoaderFactory,
+          deps: [HttpClient]
+        }
+      }),
       ],
       providers: [
         { provide: MatDialog, useValue: dialogSpy }

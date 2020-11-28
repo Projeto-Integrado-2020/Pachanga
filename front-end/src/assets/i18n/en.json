@@ -754,5 +754,12 @@
         "CONFIRM": "Generate bill",
         "CANCEL": "Cancel",
         "BUSCAR": "Search address"
+    },
+
+    "MEUSINGRESSOS": {
+        "MEUSINGR": "My Tickets",
+        "IMPRIMIR": "Print Ticket",
+        "ABQRCODE": "Open QR Code"
+
     }
 }

@@ -12,6 +12,7 @@ import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -29,6 +30,7 @@ import com.eventmanager.pachanga.securingweb.JwtAuthenticationEntryPoint;
 import com.eventmanager.pachanga.securingweb.JwtTokenUtil;
 import com.eventmanager.pachanga.securingweb.JwtUserDetailsService;
 import com.eventmanager.pachanga.tipo.TipoStatusFesta;
+import com.eventmanager.pachanga.utils.CompressorBytes;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(value=FestaFactory.class)
@@ -47,6 +49,9 @@ class FestaFactoryTest {
 	
 	@MockBean
 	private JwtAuthenticationEntryPoint defaultJwtAuthenticationEntryPoint;
+	
+	@MockBean
+	private CompressorBytes compressorBytes;
 
 	public Festa festaTest() throws Exception {
 		Festa festaTest = new Festa();
@@ -138,6 +143,8 @@ class FestaFactoryTest {
 
 	@Test
 	void getFestaSucessoTest() throws Exception {
+		Mockito.when(compressorBytes.compressByteArray(Mockito.any())).thenReturn(new byte[1/2]);
+		
 		FestaTO festaTO = festaTOTest();
 
 		Festa festa = festaFactory.getFesta(festaTO, null);
@@ -155,6 +162,7 @@ class FestaFactoryTest {
 
 	@Test
 	void getFestaTOSucessoTest() throws Exception {
+		Mockito.when(compressorBytes.decompressByteArray(Mockito.any())).thenReturn(new byte[1/2]);
 		Festa festa = festaTest();
 		List<UsuarioTO> usuariosTO = new ArrayList<>();
 		usuariosTO.add(usuarioTOTest());
@@ -180,6 +188,7 @@ class FestaFactoryTest {
 
 	@Test
 	void getFestaTOSucesso2Test() throws Exception {
+		Mockito.when(compressorBytes.decompressByteArray(Mockito.any())).thenReturn(new byte[1/2]);
 		Festa festa = festaTest();
 		List<UsuarioTO> usuariosTO = new ArrayList<>();
 		usuariosTO.add(usuarioTOTest());
@@ -205,6 +214,7 @@ class FestaFactoryTest {
 
 	@Test
 	void getFestaTOSucessoUsuarioNullTest() throws Exception {
+		Mockito.when(compressorBytes.decompressByteArray(Mockito.any())).thenReturn(new byte[1/2]);
 		Festa festa = festaTest();
 		List<UsuarioTO> usuariosTO = new ArrayList<>();
 		usuariosTO.add(usuarioTOTest());
@@ -232,6 +242,7 @@ class FestaFactoryTest {
 
 	@Test
 	void getFestaTOSucessoAlterTest() throws Exception {
+		Mockito.when(compressorBytes.decompressByteArray(Mockito.any())).thenReturn(new byte[1/2]);
 		Set<Grupo> grupos = new HashSet<>();
 		grupos.add(grupoTest());
 		Festa festa = festaTest();
