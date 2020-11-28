@@ -83,6 +83,10 @@ public class Festa {
 			mappedBy = "festa")
 	private Set<DadoBancario> dadosBancario;
 	
+	@OneToMany(fetch = FetchType.LAZY,
+			mappedBy = "festa")
+	private Set<Cupom> cupons;
+	
 	public int getCodFesta() {
 		return codFesta;
 	}
@@ -212,6 +216,13 @@ public class Festa {
 			}
 		}
 		return false;
+	}
+	
+	public Set<Cupom> getCupons() {
+		return cupons;
+	}
+	public void setCupons(Set<Cupom> cupons) {
+		this.cupons = cupons;
 	}
 	
 }
