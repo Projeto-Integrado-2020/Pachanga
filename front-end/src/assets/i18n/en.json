@@ -166,7 +166,8 @@
         "LOTEALT": "Batch successfully updated.",
         "INTEDELE": "Third-Party integration successfully deleted.",
         "SYMCHECK": "Check-in via Sympla confirmed.",
-        "BOLEGERA": "Billet generated successfully. Waiting for payment to process ticket."
+        "BOLEGERA": "Billet generated successfully. Waiting for payment to process ticket.",
+        "COMPAPRO": "Purchase approved. Ticket(s) generated. Have fun!"
     },
 
     "PERFIL":{
@@ -724,10 +725,9 @@
     },
 
     "CHECKOUT": {
-        "INFO": "Ticket receipt information",
-        "NOME": "First name",
-        "SOBRENOME": "Second name",
-        "CONFIRMEMAIL": "E-mail confirmation",
+        "INFO": "Ticket informations",
+        "NOME": "Ticketholder name",
+        "EMAIL": "E-mail",
         "FINALIZAR": "Checkout"
     },
 

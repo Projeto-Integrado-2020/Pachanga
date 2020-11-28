@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { CustomMaterialModule } from '../material/material.module';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { HttpLoaderFactory } from '../edit-dialog/edit-dialog.component.spec';
@@ -11,6 +11,7 @@ import { MatDialog } from '@angular/material';
 import { LoginService } from 'src/app/services/loginService/login.service';
 import { CheckoutComponent } from './checkout.component';
 import { NgxPayPalModule } from 'ngx-paypal';
+import { DadosCompraIngressoService } from 'src/app/services/dados-compra-ingresso/dados-compra-ingresso.service';
 
 describe('CheckoutComponent', () => {
   let component: CheckoutComponent;
@@ -36,7 +37,9 @@ describe('CheckoutComponent', () => {
             deps: [HttpClient]
           }
         }),
-        NgxPayPalModule
+        NgxPayPalModule,
+        FormsModule,
+        ReactiveFormsModule
       ],
       providers: [
         { provide: MatDialog, useValue: dialogSpy },
@@ -49,6 +52,7 @@ describe('CheckoutComponent', () => {
     fixture = TestBed.createComponent(CheckoutComponent);
     component = fixture.componentInstance;
     const service: LoginService = TestBed.get(LoginService);
+    const serviceDados: DadosCompraIngressoService = TestBed.get(DadosCompraIngressoService);
     service.usuarioInfo = {codUsuario: '1'};
     component.festa = {
       nomeFesta: 'Teste',
@@ -72,6 +76,7 @@ describe('CheckoutComponent', () => {
       timeToken: '2020-09-21T01:14:04.028+0000',
       token: 'teste'
     };
+    serviceDados.addIngresso(component.ingressos);
     localStorage.setItem('token', JSON.stringify(token));
     /* tslint:disable */
     component.initConfig = () => {null};
@@ -118,6 +123,30 @@ describe('CheckoutComponent', () => {
   it('should open a dialog through a method', () => {
     component.openDialogBoleto();
     expect(dialogSpy.open).toHaveBeenCalled();
+  });
+
+  it('should open a SuccessDialog through a method', () => {
+    component.openDialogSuccess('teste');
+    expect(dialogSpy.open).toHaveBeenCalled();
+  });
+
+  it('should gerarForm', () => {
+    component.ingressos = [{
+      quantidade: ['1', '1'],
+      precoUnico: '35.00',
+      lote: {
+          codLote: '1',
+          codFesta: '1',
+          nomeLote: 'Ingresso VIP',
+          preco: '40.00'
+      }
+    }];
+
+    component.gerarForm();
+    expect(component.form.get('nome1-0')).toBeTruthy();
+    expect(component.form.get('email1-0')).toBeTruthy();
+    expect(component.form.get('nome1-1')).toBeTruthy();
+    expect(component.form.get('email1-1')).toBeTruthy();
   });
 
   it('should open a dialog through a method', () => {

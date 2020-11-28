@@ -14,27 +14,29 @@
         <mat-card class="festa">
             <mat-card-content class="card-content-inf">
                 <div class="ingressos">
-                    <div *ngFor="let ingresso of this.ingressos">
-                        <div *ngFor="let quantidade of ingresso.quantidade; let i = index">
-                            <mat-card-title class="title-ingresso">{{'CHECKOUT.INFO' | translate }}: {{i+1}} - {{ingresso.lote.nomeLote}}</mat-card-title>
-                            <mat-form-field class="campo texto-input">
-                                <mat-label>{{'CHECKOUT.NOME' | translate }}</mat-label>
-                                <input ng-class="{ f.nomeLote.errors }"  matInput required type="text" maxlength="45">
-                            </mat-form-field>
-                            <mat-form-field class="campo texto-input">
-                                <mat-label>{{'CHECKOUT.SOBRENOME' | translate }}</mat-label>
-                                <input ng-class="{ f.nomeLote.errors }" matInput required type="text" maxlength="45">
-                            </mat-form-field>
-                            <mat-form-field class="campo texto-input">
-                                <mat-label>E-mail</mat-label>
-                                <input ng-class="{ f.nomeLote.errors }" matInput required type="text" maxlength="45">
-                            </mat-form-field>
-                            <mat-form-field class="campo texto-input">
-                                <mat-label>{{'CHECKOUT.CONFIRMEMAIL' | translate }}</mat-label>
-                                <input ng-class="{ f.nomeLote.errors }" matInput required type="text" maxlength="45">
-                            </mat-form-field>
+                    <form [formGroup]="form">
+                        <div *ngFor="let ingresso of this.ingressos">
+                            <div *ngFor="let quantidade of ingresso.quantidade; let i = index">
+                                <mat-card-title class="title-ingresso">{{'CHECKOUT.INFO' | translate }}: {{i+1}} - {{ingresso.lote.nomeLote}}</mat-card-title>
+                                <mat-form-field class="campo texto-input">
+                                    <mat-label>{{'CHECKOUT.NOME' | translate }}</mat-label>
+                                    <input formControlName="nome{{ingresso.lote.codLote}}-{{i}}" matInput required type="text" maxlength="45">
+                                </mat-form-field>
+                                <mat-form-field class="campo texto-input">
+                                    <mat-label>{{'CHECKOUT.EMAIL' | translate }}</mat-label>
+                                    <input formControlName="email{{ingresso.lote.codLote}}-{{i}}" matInput required type="text" maxlength="45">
+                                </mat-form-field>
+                            </div>
                         </div>
-                    </div>
+                        <div class="pay-buttons">
+                            <div [ngClass]="{'paypal-wrapper': !form.valid}" class="">
+                                <ngx-paypal [config]="payPalConfig"></ngx-paypal>
+                            </div>
+                            <button class="botao prp-btn-prod" (click)="openDialogBoleto()" [disabled]="!form.valid" mat-raised-button>
+                                {{'BOLETO.BOTAO' | translate}}
+                            </button>
+                        </div>
+                    </form>
                 </div>
                 <div class="card-ingressos">
                     <mat-card>
@@ -53,12 +55,6 @@
                     </mat-card>
                 </div>
             </mat-card-content>
-            <div class="pay-buttons">
-                <ngx-paypal [config]="payPalConfig"></ngx-paypal>
-                <button class="botao prp-btn-prod" (click)="openDialogBoleto()" mat-button>
-                    {{'BOLETO.BOTAO' | translate}}
-                </button>
-            </div>
         </mat-card>
     </div>
     <a routerLink="../">

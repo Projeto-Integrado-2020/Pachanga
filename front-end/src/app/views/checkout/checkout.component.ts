@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material';
 import { Router } from '@angular/router';
 import { IPayPalConfig, ICreateOrderRequest } from 'ngx-paypal';
-import { Subscription } from 'rxjs';
 import { DadosCompraIngressoService } from 'src/app/services/dados-compra-ingresso/dados-compra-ingresso.service';
 import { GerarIngressoService } from 'src/app/services/gerar-ingresso/gerar-ingresso.service';
 import { GetFestaService } from 'src/app/services/get-festa/get-festa.service';
 import { GerarBoletoDialogComponent } from '../gerar-boleto-dialog/gerar-boleto-dialog.component';
+import { SuccessDialogComponent } from '../success-dialog/success-dialog.component';
 
 @Component({
   selector: 'app-checkout',
@@ -21,27 +21,22 @@ export class CheckoutComponent implements OnInit {
     public festa: any;
     public statusFesta: any;
     panelOpenState = false;
-    public forms = {};
-    estoques: any;
-    dataSources = [];
-    subscription: Subscription;
-    source: any;
     /* tslint:disable */
     public payPalConfig ? : IPayPalConfig;
     /* tslint:enable */
     precoTotal: string;
     public ingressos = [];
-    public lotes = [];
+    form: FormGroup;
 
     constructor(public getFestaService: GetFestaService, public router: Router, public getIngressoCheckout: DadosCompraIngressoService,
-                public ingressosService: GerarIngressoService, public dialog: MatDialog) { }
+                public ingressosService: GerarIngressoService, public dialog: MatDialog,
+                public formBuilder: FormBuilder) { }
 
     ngOnInit() {
         this.initConfig();
-        this.source = null;
         let idFesta = this.router.url;
-        this.dataSources = [];
         this.getIngressos();
+        this.gerarForm();
 
         idFesta = idFesta.substring(idFesta.indexOf('&') + 1, idFesta.indexOf('/', idFesta.indexOf('&')));
         this.getFestaService.acessarFesta(idFesta).subscribe((resp: any) => {
@@ -50,6 +45,19 @@ export class CheckoutComponent implements OnInit {
             this.festaNome = resp.nomeFesta;
             this.statusFesta = resp.statusFesta;
         });
+    }
+
+    get f() { return this.form.controls; }
+
+    gerarForm() {
+        const group = {};
+        for (const lote of this.ingressos) {
+            for (let i = 0; i < lote.quantidade.length; i++) {
+                group['nome' + lote.lote.codLote + '-' + i] = new FormControl('', Validators.required);
+                group['email' + lote.lote.codLote + '-' + i] = new FormControl('', [Validators.required, Validators.email]);
+            }
+        }
+        this.form = this.formBuilder.group(group);
     }
 
     getDateFromDTF(date) {
@@ -96,7 +104,9 @@ export class CheckoutComponent implements OnInit {
             onApprove: (data, actions) => {
             },
             onClientAuthorization: (data) => {
-                console.log('FOI! PAGUEI');
+                this.router.navigate(['/meus-ingressos']);
+                this.getIngressoCheckout.cleanStorage();
+                this.openDialogSuccess('COMPAPRO');
             },
             onCancel: (data, actions) => {
             },
@@ -135,9 +145,15 @@ export class CheckoutComponent implements OnInit {
         });
     }
 
-  getIngressos() {
-    this.ingressos = this.getIngressoCheckout.getIngressos();
-    this.precoTotal = this.getIngressoCheckout.getPrecoTotal();
-  }
+    openDialogSuccess(message: string) {
+        this.dialog.open(SuccessDialogComponent, {
+          width: '20rem',
+          data: {message}
+        });
+      }
 
+    getIngressos() {
+        this.ingressos = this.getIngressoCheckout.getIngressos();
+        this.precoTotal = this.getIngressoCheckout.getPrecoTotal();
+    }
 }

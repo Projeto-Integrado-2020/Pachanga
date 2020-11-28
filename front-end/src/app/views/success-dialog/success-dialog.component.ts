@@ -30,6 +30,7 @@ export class SuccessDialogComponent implements OnInit {
       case 'INTEDELE': this.message = this.translate.instant('SUCCESS.INTEDELE'); break;
       case 'SYMCHECK': this.message = this.translate.instant('SUCCESS.SYMCHECK'); break;
       case 'BOLEGERA': this.message = this.translate.instant('SUCCESS.BOLEGERA'); break;
+      case 'COMPAPRO': this.message = this.translate.instant('SUCCESS.COMPAPRO'); break;
     }
   }
 
