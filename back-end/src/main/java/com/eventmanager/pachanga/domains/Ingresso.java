@@ -43,6 +43,12 @@ public class Ingresso {
 	
 	@Column(name = "dthr_checkin")
 	private LocalDateTime dataCheckin;
+	
+	@Column(name = "nome_titular")
+	private String nomeTitular;
+	
+	@Column(name = "email_titular")
+	private String emailTitular;
 
 	public String getCodIngresso() {
 		return codIngresso;
@@ -114,6 +120,22 @@ public class Ingresso {
 
 	public void setDataCheckin(LocalDateTime dataCheckin) {
 		this.dataCheckin = dataCheckin;
+	}
+
+	public String getNomeTitular() {
+		return nomeTitular;
+	}
+
+	public void setNomeTitular(String nomeTitular) {
+		this.nomeTitular = nomeTitular;
+	}
+
+	public String getEmailTitular() {
+		return emailTitular;
+	}
+
+	public void setEmailTitular(String emailTitular) {
+		this.emailTitular = emailTitular;
 	}
 
 }

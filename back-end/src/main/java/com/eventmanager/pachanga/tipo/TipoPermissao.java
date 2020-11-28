@@ -39,7 +39,11 @@ public enum TipoPermissao {
 	ADDINTEG(35,"ADDINTEG"),//inserir integração
 	DELEINTE(36,"DELEINTE"),//deletar integração
 	EDITINTE(37,"EDITINTE"),//editar integração
-	VISURELA(38,"VISURELA");//visualizar relatório
+	VISURELA(38,"VISURELA"),//visualizar relatório
+	VISUDADO(39,"VISUDADO"),//visualizar dados bancários
+	ADDDADOB(40,"ADDDADOB"),//adicionar dados bancários
+	DELEDADO(41,"DELEDADO"),//deletar dados bancários
+	EDITDADO(42,"EDITDADO");//editar dados bancários
 
 	private String valor;
 	private int codigo;

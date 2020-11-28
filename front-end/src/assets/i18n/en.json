@@ -672,7 +672,14 @@
         "DELETE": "Delete batch",
         "DESCRICAO": "Batch description",
         "CANCEL": "Cancel",
-        "CONFIRM": "Confirm"
+        "CONFIRM": "Confirm",
+        "DADOSBANC": "Banking Info",
+        "DADOSBANCINFO": "Insert banking info for ticket sale reveue",
+        "BANCO": "Bank",
+        "AGENCIA": "Agency",
+        "CONTA": "Account",
+        "EDITAR": "Edit",
+        "SALVAR": "Submit"
     },
 
     "INTEGRACAO": {

@@ -446,7 +446,14 @@
         "DELETE": "Deletar lote",
         "DESCRICAO": "Descrição do lote",
         "CANCEL": "Cancelar",
-        "CONFIRM": "Confirmar"
+        "CONFIRM": "Confirmar",
+        "DADOSBANC": "Dados Bancários",
+        "DADOSBANCINFO": "Insira os dados da conta de recebimento pelas vendas de ingressos",
+        "BANCO": "Banco",
+        "AGENCIA": "Agência",
+        "CONTA": "Conta",
+        "EDITAR": "Editar",
+        "SALVAR": "Salvar"
     },
 
     "INTEGRACAO": {
