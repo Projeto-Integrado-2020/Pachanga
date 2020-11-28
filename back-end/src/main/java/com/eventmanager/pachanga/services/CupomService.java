@@ -9,7 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.eventmanager.pachanga.domains.Cupom;
 import com.eventmanager.pachanga.domains.Festa;
 import com.eventmanager.pachanga.domains.Grupo;
-import com.eventmanager.pachanga.domains.Usuario;
 import com.eventmanager.pachanga.dtos.CupomTO;
 import com.eventmanager.pachanga.errors.ValidacaoException;
 import com.eventmanager.pachanga.factory.CupomFactory;
@@ -26,11 +25,11 @@ public class CupomService {
 	
 	@Autowired
 	private GrupoRepository grupoRepository;
-	
+	 
 	@Autowired
 	private FestaService festaService;
 	
-	public Cupom getCupom(String codCupom, int idUser) {
+	public Cupom getCupom(int codCupom, int idUser) {
 		Cupom cupom = CupomRepository.findCupomByCod(codCupom); 
 		this.validarPermissaoUsuario(cupom.getFesta().getCodFesta(), idUser, TipoPermissao.VISUCUPM.getCodigo());
 		return cupom;
@@ -46,12 +45,13 @@ public class CupomService {
 		Festa festa = festaService.procurarFesta(cupomTO.getCodFesta(), idUser);
 		this.validarPermissaoUsuario(festa.getCodFesta(), idUser, TipoPermissao.ADDCUPOM.getCodigo());
 		Cupom cupom = CupomFactory.getCupom(cupomTO, festa);
+		this.validarCupom(cupom);
 		cupom.setCodCupom(CupomRepository.getNextValMySequence());
 		CupomRepository.save(cupom);
 		return cupom;
 	}
 	
-	public Cupom removeCupom(String codCupom, int idUser) {
+	public Cupom removeCupom(int codCupom, int idUser) {
 		Cupom cupom = CupomRepository.findCupomByCod(codCupom);
 		this.validarPermissaoUsuario(cupom.getFesta().getCodFesta(), idUser, TipoPermissao.DELECUPM.getCodigo());
 		CupomRepository.delete(cupom);
@@ -63,6 +63,7 @@ public class CupomService {
 		Festa festa = cupom.getFesta();
 		this.validarPermissaoUsuario(festa.getCodFesta(), idUser, TipoPermissao.EDITCUPM.getCodigo());
 		cupom = CupomFactory.getCupom(cupomTO, festa);
+		this.validarCupom(cupom);
 		CupomRepository.save(cupom);
 		return cupom;
 	}
@@ -74,6 +75,14 @@ public class CupomService {
 		} else {
 			return true;
 		}
+	}
+	
+	private boolean validarCupom(Cupom cupom) {
+		String nomeCupom = cupom.getNomeCupom();
+		int codFesta = cupom.getFesta().getCodFesta();
+		List<Cupom> cupons = CupomRepository.findCuponsByNomeAndFesta(nomeCupom, codFesta);
+		if(cupons != null && cupons.size() > 0) throw new ValidacaoException("CUPMDUPL");// cupom duplicada
+		return true;
 	}
 	
 

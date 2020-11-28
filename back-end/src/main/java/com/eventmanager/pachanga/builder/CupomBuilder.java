@@ -5,7 +5,8 @@ import com.eventmanager.pachanga.domains.Festa;
 
 public class CupomBuilder {
 	
-    private String codCupom;
+    private int codCupom;
+    private String nomeCupom;
 	private Festa festa;
 	private float precoDesconto;
 	
@@ -13,8 +14,13 @@ public class CupomBuilder {
 		return new CupomBuilder();
 	}
 	
-	public CupomBuilder codCupom(String codCupom) {
+	public CupomBuilder codCupom(int codCupom) { 
 		this.codCupom = codCupom;
+		return this;
+	}
+	
+	public CupomBuilder nomeCupom(String nomeCupom) {
+		this.nomeCupom = nomeCupom;
 		return this;
 	}
 	
@@ -31,6 +37,7 @@ public class CupomBuilder {
 	public Cupom build() {
 		Cupom cupom = new Cupom();
 		cupom.setCodCupom(codCupom);
+		cupom.setNomeCupom(nomeCupom);
 		cupom.setFesta(festa);
 		cupom.setPrecoDesconto(precoDesconto);
 		return cupom;

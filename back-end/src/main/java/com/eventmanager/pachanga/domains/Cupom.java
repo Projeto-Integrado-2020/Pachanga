@@ -13,7 +13,10 @@ public class Cupom {
 	
 	@Id
 	@Column(name = "cod_cupom")
-    private String codCupom;
+    private int codCupom;
+	
+	@Column(name = "nome_cupom")
+	private String nomeCupom;
 	
 	@ManyToOne
 	@JoinColumn(name = "cod_festa")
@@ -22,11 +25,11 @@ public class Cupom {
 	@Column(name = "preco_desconto")
 	private float precoDesconto;
 
-	public String getCodCupom() {
+	public int getCodCupom() {
 		return codCupom;
 	}
 
-	public void setCodCupom(String codCupom) {
+	public void setCodCupom(int codCupom) {
 		this.codCupom = codCupom;
 	}
 
@@ -45,5 +48,14 @@ public class Cupom {
 	public void setPrecoDesconto(float precoDesconto) {
 		this.precoDesconto = precoDesconto;
 	}
+
+	public String getNomeCupom() {
+		return nomeCupom;
+	}
+
+	public void setNomeCupom(String nomeCupom) {
+		this.nomeCupom = nomeCupom;
+	}
+	
 	
 }

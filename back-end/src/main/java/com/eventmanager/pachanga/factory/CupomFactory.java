@@ -18,6 +18,7 @@ public class CupomFactory {
 	public static CupomTO getCupomTO(Cupom cupom) {
 		return CupomTOBuilder.getInstance()
 				             .codCupom(cupom.getCodCupom())
+				             .nomeCupom(cupom.getNomeCupom())
 				             .codfesta(cupom.getFesta().getCodFesta())
 				             .precoDesconto(cupom.getPrecoDesconto())
 				             .build();
@@ -27,9 +28,10 @@ public class CupomFactory {
 		return cupons.stream().map(e -> CupomFactory.getCupomTO(e)).collect(Collectors.toList());
 	}
 	
-	public static Cupom getCupom(CupomTO cupomTO, Festa festa) {
+	public static Cupom getCupom(CupomTO cupomTO, Festa festa) {	
 		return CupomBuilder.getInstance()
 				             .codCupom(cupomTO.getCodCupom())
+				             .nomeCupom(cupomTO.getNomeCupom())
 				             .festa(festa)
 				             .precoDesconto(cupomTO.getPrecoDesconto())
 				             .build();

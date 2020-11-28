@@ -31,7 +31,7 @@ public class CupomController {
 	
 	@ResponseBody
 	@GetMapping(path = "/cupomUnico")
-	public ResponseEntity<Object> getCupom(@RequestParam(required = true) int idUser, @RequestParam(required = true) String codCupom){
+	public ResponseEntity<Object> getCupom(@RequestParam(required = true) int idUser, @RequestParam(required = true) int codCupom){
 		try {
 			Cupom cupom = cupomService.getCupom(codCupom, idUser);
 			return ResponseEntity.ok(CupomFactory.getCupomTO(cupom));
@@ -65,7 +65,7 @@ public class CupomController {
 	
 	@ResponseBody
 	@DeleteMapping(path = "/excluir")
-	public ResponseEntity<Object> removeCupom(@RequestParam(required = true) int idUser, @RequestParam(required = true) String codCupom){
+	public ResponseEntity<Object> removeCupom(@RequestParam(required = true) int idUser, @RequestParam(required = true) int codCupom){
 		try {
 			Cupom cupom = cupomService.removeCupom(codCupom, idUser);
 			return ResponseEntity.ok(CupomFactory.getCupomTO(cupom));

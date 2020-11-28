@@ -4,7 +4,8 @@ import com.eventmanager.pachanga.dtos.CupomTO;
 
 public class CupomTOBuilder {
 	
-    private String codCupom;
+    private int codCupom;
+    private String nomeCupom;
 	private int codFesta;
 	private float precoDesconto;
 	
@@ -12,8 +13,13 @@ public class CupomTOBuilder {
 		return new CupomTOBuilder();
 	}
 	
-	public CupomTOBuilder codCupom(String codCupom) {
+	public CupomTOBuilder codCupom(int codCupom) {
 		this.codCupom = codCupom;
+		return this;
+	}
+	
+	public CupomTOBuilder nomeCupom(String nomeCupom) {
+		this.nomeCupom = nomeCupom;
 		return this;
 	}
 	
@@ -25,11 +31,12 @@ public class CupomTOBuilder {
 	public CupomTOBuilder precoDesconto(float precoDesconto) {
 		this.precoDesconto = precoDesconto;
 		return this;
-	}
+	} 
 	
 	public CupomTO build() {
 		CupomTO cupomTO = new CupomTO();
 		cupomTO.setCodCupom(codCupom);
+		cupomTO.setNomeCupom(nomeCupom);
 		cupomTO.setCodFesta(codFesta);
 		cupomTO.setPrecoDesconto(precoDesconto);
 		return cupomTO;

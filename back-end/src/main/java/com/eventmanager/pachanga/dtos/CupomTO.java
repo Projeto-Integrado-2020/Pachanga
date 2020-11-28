@@ -2,14 +2,15 @@ package com.eventmanager.pachanga.dtos;
 
 public class CupomTO {
 
-    private String codCupom;
+    private int codCupom;
+    private String nomeCupom;
 	private int codFesta;
 	private float precoDesconto;
 	
-	public String getCodCupom() {
+	public int getCodCupom() {
 		return codCupom;
 	}
-	public void setCodCupom(String codCupom) {
+	public void setCodCupom(int codCupom) {
 		this.codCupom = codCupom;
 	}
 	public int getCodFesta() {
@@ -21,8 +22,14 @@ public class CupomTO {
 	public float getPrecoDesconto() {
 		return precoDesconto;
 	}
-	public void setPrecoDesconto(float precoDesconto) {
+	public void setPrecoDesconto(float precoDesconto) { 
 		this.precoDesconto = precoDesconto;
+	}
+	public String getNomeCupom() {
+		return nomeCupom;
+	}
+	public void setNomeCupom(String nomeCupom) {
+		this.nomeCupom = nomeCupom;
 	}
 	
 	
