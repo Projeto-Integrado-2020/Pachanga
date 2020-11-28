@@ -3,7 +3,7 @@ package com.eventmanager.pachanga.tipo;
 public enum TipoStatusIngresso {
 	
 	CHECKED("C"),
-	UNCHECKED("P");
+	UNCHECKED("U");
 	
 	private String descricao;
 
