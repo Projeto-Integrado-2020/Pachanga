@@ -481,6 +481,11 @@
         "GMAIL": "Continuar com Google"
     },
 
+    "MEUSINGRESSOS": {
+        "MEUSINGR": "Meus Ingressos",
+        "IMPRIMIR": "Imprimir Ingresso",
+        "ABQRCODE": "Abrir QR Code"
+    },
 
     "NAV": {
         "ENTRAR": "Entrar",
