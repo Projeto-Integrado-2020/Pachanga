@@ -39,8 +39,6 @@ export class EditarCupomDialogComponent implements OnInit {
       codFesta: this.codFesta
     };
 
-    console.log(cupom);
-
     this.editCupom.editarCupom(cupom).subscribe((resp: any) => {
       this.editCupom.setFarol(false);
       this.component.ngOnInit();

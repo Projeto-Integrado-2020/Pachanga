@@ -15,7 +15,7 @@ public class Ingresso {
 	
 	@Id
 	@Column(name = "cod_ingresso")
-	private int codIngresso;
+	private String codIngresso;
 	
 	@ManyToOne
 	@JoinColumn(name = "cod_lote")
@@ -43,12 +43,18 @@ public class Ingresso {
 	
 	@Column(name = "dthr_checkin")
 	private LocalDateTime dataCheckin;
+	
+	@Column(name = "nome_titular")
+	private String nomeTitular;
+	
+	@Column(name = "email_titular")
+	private String emailTitular;
 
-	public int getCodIngresso() {
+	public String getCodIngresso() {
 		return codIngresso;
 	}
 
-	public void setCodIngresso(int codIngresso) {
+	public void setCodIngresso(String codIngresso) {
 		this.codIngresso = codIngresso;
 	}
 
@@ -114,6 +120,22 @@ public class Ingresso {
 
 	public void setDataCheckin(LocalDateTime dataCheckin) {
 		this.dataCheckin = dataCheckin;
+	}
+
+	public String getNomeTitular() {
+		return nomeTitular;
+	}
+
+	public void setNomeTitular(String nomeTitular) {
+		this.nomeTitular = nomeTitular;
+	}
+
+	public String getEmailTitular() {
+		return emailTitular;
+	}
+
+	public void setEmailTitular(String emailTitular) {
+		this.emailTitular = emailTitular;
 	}
 
 }

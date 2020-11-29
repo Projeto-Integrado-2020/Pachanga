@@ -147,7 +147,9 @@
         "INFOTCAD": "Third-Party already registered.",
         "INFOTOKU": "Token already registered.",
         "INFONFOU": "Integration not found.",
-        "SYMPNFOU": "Sympla integration not found."
+        "SYMPNFOU": "Sympla integration not found.",
+        "CPFNOFOU": "CPF not found.",
+        "ENDENFOU": "Address not found. Please insert manually."
     },
 
     "SUCCESS": {
@@ -164,7 +166,9 @@
         "LOTEALT": "Batch successfully updated.",
         "INTEDELE": "Third-Party integration successfully deleted.",
         "SYMCHECK": "Check-in via Sympla confirmed.",
-        "CUPOMDEL": "Coupon deleted successfully."
+        "CUPOMDEL": "Coupon deleted successfully.",
+        "BOLEGERA": "Billet generated successfully. Waiting for payment to process ticket.",
+        "COMPAPRO": "Purchase approved. Ticket(s) generated. Have fun!"
     },
 
     "PERFIL":{
@@ -669,7 +673,14 @@
         "DELETE": "Delete batch",
         "DESCRICAO": "Batch description",
         "CANCEL": "Cancel",
-        "CONFIRM": "Confirm"
+        "CONFIRM": "Confirm",
+        "DADOSBANC": "Banking Info",
+        "DADOSBANCINFO": "Insert banking info for ticket sale reveue",
+        "BANCO": "Bank",
+        "AGENCIA": "Agency",
+        "CONTA": "Account",
+        "EDITAR": "Edit",
+        "SALVAR": "Submit"
     },
 
     "INTEGRACAO": {
@@ -722,30 +733,38 @@
     },
 
     "CHECKOUT": {
-        "INFO": "Ticket receipt information",
-        "NOME": "First name",
-        "SOBRENOME": "Second name",
-        "CONFIRMEMAIL": "E-mail confirmation",
-        "FINALIZAR": "Checkout"
+        "INFO": "Ticket informations",
+        "NOME": "Ticketholder name",
+        "EMAIL": "E-mail",
+        "FINALIZAR": "Checkout",
+        "PROCESSANDO": "Processing tickets. Please wait."
     },
 
     "BOLETO": {
         "BOTAO": "Payment slip",
         "TITLE": "Billing informations - Bill",
         "PAGADOR": "Payer full name",
-        "IDENTIFICACAO": "Identification (CPF/CNPJ)",
+        "IDENTIFICACAO": "Identification (CPF)",
         "EMAIL": "Billing e-mail",
         "PAIS": "Country",
-        "ESTADO": "state",
+        "ESTADO": "State",
         "CIDADE": "City",
         "CEP": "CEP",
         "BAIRRO": "Bairro",
         "RUA": "Street",
         "NUMERO": "Number",
         "CONFIRM": "Generate bill",
-        "CANCEL": "Cancel"
+        "CANCEL": "Cancel",
+        "BUSCAR": "Search address"
     },
 
+    "MEUSINGRESSOS": {
+        "MEUSINGR": "My Tickets",
+        "IMPRIMIR": "Print Ticket",
+        "ABQRCODE": "Open QR Code"
+
+    },
+    
     "CUPOM": {
         "TITLE": "Coupon manager",
         "ADDCUPOM": "Add coupon",

@@ -14,6 +14,8 @@ import { of } from 'rxjs';
 import { PagSeguroService } from 'src/app/services/pag-seguro/pag-seguro.service';
 
 import { GerarBoletoDialogComponent } from './gerar-boleto-dialog.component';
+import { CepApiService } from 'src/app/services/cep-api/cep-api.service';
+import { RouterModule } from '@angular/router';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -22,8 +24,11 @@ export function HttpLoaderFactory(http: HttpClient) {
 describe('GerarBoletoDialogComponent', () => {
   let component: GerarBoletoDialogComponent;
   let fixture: ComponentFixture<GerarBoletoDialogComponent>;
+  let dialogSpy: MatDialog;
 
   beforeEach(async(() => {
+    dialogSpy = jasmine.createSpyObj('MatDialog', ['open']);
+
     TestBed.configureTestingModule({
       declarations: [ GerarBoletoDialogComponent ],
       imports: [
@@ -39,12 +44,17 @@ describe('GerarBoletoDialogComponent', () => {
             useFactory: HttpLoaderFactory,
             deps: [HttpClient]
           }
-        })
+        }),
+        RouterModule.forRoot([])
       ],
       providers: [
         {provide: PagSeguroService, useValue: {
           gerarBoleto: () => of({links: [{href: 'teste'}]})
         }},
+        {provide: CepApiService, useValue: {
+          resgatarEndereco: () => of({uf: 'TE', localidade: 'Teste', bairro: 'Teste', logradouro: 'Teste'})
+        }},
+        { provide: MatDialog, useValue: dialogSpy },
         { provide: MAT_DIALOG_DATA, useValue: {festa: {nomeFesta: 'Teste'}, preco: 1000 }}
       ]
     })
@@ -93,5 +103,21 @@ describe('GerarBoletoDialogComponent', () => {
     component.gerarBoleto();
 
     expect(component.pagSeguroService.gerarBoleto).toHaveBeenCalled();
+  });
+
+  it('should open a dialog through a method', () => {
+    component.openDialogSuccess('teste');
+    expect(dialogSpy.open).toHaveBeenCalled();
+  });
+
+  it('should buscarEndereco', () => {
+    spyOn(component.cepService, 'resgatarEndereco')
+    .and
+    .callThrough();
+
+    component.form.get('cep').setValue('123');
+    component.buscarEndereco();
+
+    expect(component.cepService.resgatarEndereco).toHaveBeenCalledWith('123');
   });
 });

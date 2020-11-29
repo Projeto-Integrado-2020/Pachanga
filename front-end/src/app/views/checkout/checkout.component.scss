@@ -81,6 +81,7 @@ html {
 }
 
 .card-ingressos {
+  margin-left: 25%;
   float: right;
 }
 
@@ -227,10 +228,21 @@ html {
 
 .botao {
   color: #ffffff;
+  margin-left: 2rem;
 }
 
 .prp-btn-prod {
   background-color: $color-tertiary;
   width: 200px;
   transform: translate(14rem, -6rem);
+}
+
+.mat-form-field {
+  width: 100%;
+}
+
+.paypal-wrapper {
+  opacity: .2;
+  pointer-events: none;
+  touch-action: none;
 }

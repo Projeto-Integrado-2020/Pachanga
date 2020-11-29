@@ -16,3 +16,13 @@ mat-form-field {
 .cancel-button {
     display:inline-block;
 }
+
+.buscar-endereco-button {
+    background-color: $color-primary;
+    color: #ffffff;
+    margin-left: 10%
+}
+
+.action-buttons {
+    margin-bottom: 1rem;
+}

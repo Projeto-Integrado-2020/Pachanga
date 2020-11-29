@@ -1,14 +1,15 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { Component, NgZone, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material';
 import { Router } from '@angular/router';
 import { IPayPalConfig, ICreateOrderRequest } from 'ngx-paypal';
-import { Subscription } from 'rxjs';
 import { DadosCompraIngressoService } from 'src/app/services/dados-compra-ingresso/dados-compra-ingresso.service';
 import { GerarIngressoService } from 'src/app/services/gerar-ingresso/gerar-ingresso.service';
 import { GetFestaService } from 'src/app/services/get-festa/get-festa.service';
-import { GetLotePublicoService } from 'src/app/services/get-lote-publico/get-lote-publico.service';
+import { LoginService } from 'src/app/services/loginService/login.service';
 import { GerarBoletoDialogComponent } from '../gerar-boleto-dialog/gerar-boleto-dialog.component';
+import { ProcessingDialogComponent } from '../processing-dialog/processing-dialog.component';
+import { SuccessDialogComponent } from '../success-dialog/success-dialog.component';
 
 @Component({
   selector: 'app-checkout',
@@ -22,28 +23,23 @@ export class CheckoutComponent implements OnInit {
     public festa: any;
     public statusFesta: any;
     panelOpenState = false;
-    public forms = {};
-    estoques: any;
-    dataSources = [];
-    subscription: Subscription;
-    source: any;
     /* tslint:disable */
     public payPalConfig ? : IPayPalConfig;
     /* tslint:enable */
-    lotesSelecionados: any;
     precoTotal: string;
     public ingressos = [];
-    public lotes = [];
+    form: FormGroup;
 
     constructor(public getFestaService: GetFestaService, public router: Router, public getIngressoCheckout: DadosCompraIngressoService,
-                public ingressosService: GerarIngressoService, public dialog: MatDialog) { }
+                public ingressosService: GerarIngressoService, public dialog: MatDialog,
+                public formBuilder: FormBuilder, public loginService: LoginService,
+                public ngZone: NgZone) { }
 
     ngOnInit() {
         this.initConfig();
-        this.source = null;
         let idFesta = this.router.url;
-        this.dataSources = [];
         this.getIngressos();
+        this.gerarForm();
 
         idFesta = idFesta.substring(idFesta.indexOf('&') + 1, idFesta.indexOf('/', idFesta.indexOf('&')));
         this.getFestaService.acessarFesta(idFesta).subscribe((resp: any) => {
@@ -52,6 +48,19 @@ export class CheckoutComponent implements OnInit {
             this.festaNome = resp.nomeFesta;
             this.statusFesta = resp.statusFesta;
         });
+    }
+
+    get f() { return this.form.controls; }
+
+    gerarForm() {
+        const group = {};
+        for (const lote of this.ingressos) {
+            for (let i = 0; i < lote.quantidade.length; i++) {
+                group['nome' + lote.lote.codLote + '-' + i] = new FormControl('', Validators.required);
+                group['email' + lote.lote.codLote + '-' + i] = new FormControl('', [Validators.required, Validators.email]);
+            }
+        }
+        this.form = this.formBuilder.group(group);
     }
 
     getDateFromDTF(date) {
@@ -96,9 +105,10 @@ export class CheckoutComponent implements OnInit {
                 shape: 'rect'
             },
             onApprove: (data, actions) => {
+                this.openDialogProcessing();
             },
             onClientAuthorization: (data) => {
-                console.log('FOI! PAGUEI');
+                this.ngZone.run(() => this.gerarIngressosPayPal());
             },
             onCancel: (data, actions) => {
             },
@@ -113,10 +123,10 @@ export class CheckoutComponent implements OnInit {
     gerarItems() {
         const items = [];
 
-        for (const lote of this.lotesSelecionados) {
+        for (const lote of this.ingressos) {
             items.push({
                 name: lote.lote.nomeLote,
-                quantity: lote.quantidade,
+                quantity: lote.quantidade.length,
                 unit_amount: {
                     currency_code: 'BRL',
                     value: lote.precoUnico
@@ -137,9 +147,47 @@ export class CheckoutComponent implements OnInit {
         });
     }
 
-  getIngressos() {
-    this.ingressos = this.getIngressoCheckout.getIngressos();
-    console.log(this.ingressos);
-  }
+    openDialogSuccess(message: string) {
+        this.dialog.open(SuccessDialogComponent, {
+            width: '20rem',
+            data: {message}
+        });
+    }
 
+    openDialogProcessing() {
+        this.dialog.open(ProcessingDialogComponent, {
+            width: '20rem',
+            disableClose: true
+        });
+    }
+
+    getIngressos() {
+        this.ingressos = this.getIngressoCheckout.getIngressos();
+        this.precoTotal = this.getIngressoCheckout.getPrecoTotal();
+    }
+
+    gerarIngressosPayPal() {
+        const ingressosCheckout = [];
+        for (const lote of this.ingressos) {
+            for (let i = 0; i < lote.quantidade.length; i++) {
+                ingressosCheckout.push({
+                    codLote: lote.lote.codLote,
+                    festa: {codFesta: lote.lote.codFesta},
+                    codUsuario: this.loginService.getusuarioInfo().codUsuario,
+                    statusIngresso: 'U',
+                    statusCompra: 'P',
+                    dataCompra: new Date(),
+                    preco: lote.precoUnico,
+                    nomeTitular: this.form.get('nome' + lote.lote.codLote + '-' + i).value,
+                    emailTitular: this.form.get('email' + lote.lote.codLote + '-' + i).value
+                });
+            }
+        }
+        this.ingressosService.adicionarIngressos(ingressosCheckout).subscribe((resp: any) => {
+            this.router.navigate(['/meus-ingressos']);
+            this.getIngressoCheckout.cleanStorage();
+            this.dialog.closeAll();
+            this.openDialogSuccess('COMPAPRO');
+        });
+    }
 }

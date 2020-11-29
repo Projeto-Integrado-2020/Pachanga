@@ -42,10 +42,10 @@ public class AreaSegurancaProblemaService {
 	private UsuarioRepository usuarioRepository;
 
 	@Autowired
-	NotificacaoService notificacaoService;
+	private NotificacaoService notificacaoService;
 
 	@Autowired
-	AreaSegurancaProblemaFactory areaSegurancaProblemaFactory;
+	private AreaSegurancaProblemaFactory areaSegurancaProblemaFactory;
 
 	@Autowired
 	private GrupoService grupoService;

@@ -5,7 +5,10 @@ import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { GetFestaService } from 'src/app/services/get-festa/get-festa.service';
 import { GetLoteService } from 'src/app/services/get-lote/get-lote.service';
+import { textChangeRangeIsUnchanged } from 'typescript';
 import { DeletarLoteDialogComponent } from '../deletar-lote-dialog/deletar-lote-dialog.component';
+import bancos from './lista-bancos.json';
+
 
 export interface TabelaLote {
   nome: string;
@@ -41,15 +44,11 @@ export class PainelIngressoComponent implements OnInit {
   dataSources = [];
   subscription: Subscription;
   source: any;
+  listaBancos: any;
+  contaMask: any;
+  dadosBancEditavel: boolean;
 
   displayedColumns: string[] = ['nome', 'preco', 'numeroLote', 'quantidade', 'dthrInicio', 'dthrFim'];
-
-  resgatarLote() {
-    this.getLote.getLote(this.festa.codFesta).subscribe((resp: any) => {
-      this.lotes = resp;
-      this.getLote.setFarol(false);
-    });
-  }
 
   ngOnInit() {
     this.source = null;
@@ -64,8 +63,19 @@ export class PainelIngressoComponent implements OnInit {
       this.festaNome = resp.nomeFesta;
       this.statusFesta = resp.statusFesta;
       this.resgatarLote();
+      this.listaBancos = bancos;
+      this.dadosBancEditavel = false;
+      // this.resgatarListaBancos();
     });
   }
+
+  resgatarLote() {
+    this.getLote.getLote(this.festa.codFesta).subscribe((resp: any) => {
+      this.lotes = resp;
+      this.getLote.setFarol(false);
+    });
+  }
+
 
   setFesta(festa) {
     this.festa = festa;
@@ -95,5 +105,15 @@ export class PainelIngressoComponent implements OnInit {
       }
     });
   }
+
+  editarDadosBancarios() {
+    this.dadosBancEditavel = true;
+  }
+
+  salvarDadosBancarios() {
+    this.dadosBancEditavel = false;
+  }
+
+
 
 }

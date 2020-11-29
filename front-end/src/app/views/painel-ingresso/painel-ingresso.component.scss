@@ -133,6 +133,7 @@
 
 .botao {
   color: #ffffff;
+  width: 15rem;
 }
 
 .botoes {
@@ -151,7 +152,7 @@
   }
   
   .botao {
-    background-color: $color-tertiary;
+    background-color: $color-primary;
     color: #ffffff;
   }
 
@@ -231,8 +232,6 @@
 
 .botao-editar {
   float: right;
-  background-color: $color-tertiary;
-  color: white;
   padding: 0;
   padding-left: .5rem;
 }
@@ -311,26 +310,12 @@ tr.example-element-row:not(.example-expanded-row):active {
 }
 
 .prp-btn-edit {
-  background-color: $color-secondary;
   width: 200px;
   float: left;
   margin-right: 1rem;
 }
 
-.prp-btn-add {
-  background-color: $color-secondary;
-  width: 200px;
-}
 
-.prp-btn-addprod {
-  background-color: $color-secondary;
-  width: 200px;
-}
-
-.prp-btn-prod {
-  background-color: $color-tertiary;
-  width: 200px;
-}
 
 .header-mat-list {
   margin-bottom: 1rem;
@@ -406,4 +391,34 @@ tr.example-element-row:not(.example-expanded-row):active {
 .botao-integracao, .botao-checkin {
   background-color: $color-tertiary;
   color: #ffffff;
+}
+
+.info-box {
+  background-color: $color-primary-light;
+  padding: 1rem;
+  display: inline-block;
+  border-radius: 5px;
+  @include centralizar(true, false);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  &__agencia {
+    width:8ch;
+  }
+
+  &__conta {
+    width: 7ch;
+  }
+}
+
+.agenciaconta {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  justify-content: center;
 }

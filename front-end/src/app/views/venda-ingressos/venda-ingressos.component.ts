@@ -87,7 +87,7 @@ export class VendaIngressosComponent implements OnInit {
           precoUnico: lote.preco,
           lote
         });
-        precoTotal += lote.preco;
+        precoTotal += lote.preco * quantidade;
       }
     }
     this.buyIngresso.addIngresso(lotesSelected);

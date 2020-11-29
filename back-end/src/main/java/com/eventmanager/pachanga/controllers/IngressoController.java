@@ -16,99 +16,120 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.eventmanager.pachanga.domains.Ingresso;
+import com.eventmanager.pachanga.dtos.CategoriaTO;
 import com.eventmanager.pachanga.dtos.IngressoTO;
 import com.eventmanager.pachanga.errors.ValidacaoException;
+import com.eventmanager.pachanga.factory.FestaFactory;
 import com.eventmanager.pachanga.factory.IngressoFactory;
 import com.eventmanager.pachanga.services.IngressoService;
+import com.eventmanager.pachanga.tipo.TipoCategoria;
 
 @Controller
 @RequestMapping("/ingresso")
 @CrossOrigin
 public class IngressoController {
-	
+
 	@Autowired
 	private IngressoService ingressoService;
-	
+
 	@Autowired
 	private IngressoFactory ingressoFactory;
 
+	@Autowired
+	private FestaController festaController;
 
-	
+	@Autowired
+	private FestaFactory festaFactory;
+
 	@ResponseBody
 	@GetMapping(path = "/listaUser")
-	public ResponseEntity<Object> getIngressosUser(@RequestParam(required = true) int idUser){
+	public ResponseEntity<Object> getIngressosUser(@RequestParam(required = true) int idUser) {
 		try {
-			List<Ingresso> ingressos = ingressoService.getIngressosUser(idUser);
 			List<IngressoTO> ingressosTO = new ArrayList<>();
-			for(Ingresso ingresso : ingressos) {
-			IngressoTO ingressoTO = ingressoFactory.getIngressoTO(ingresso);
-			ingressoTO.setFesta(ingressoService.getFestaIngressoUser(ingressoTO.getFesta().getCodFesta()));
-			ingressosTO.add(ingressoTO);			
+			for (Ingresso ingresso : ingressoService.getIngressosUser(idUser)) {
+				IngressoTO ingressoTO = ingressoFactory.getIngressoTO(ingresso);
+
+				CategoriaTO categoriaPrimaria = festaController.categoriaFesta(ingresso.getFesta().getCodFesta(),
+						TipoCategoria.PRIMARIO.getDescricao());
+				CategoriaTO categoriaSecundario = festaController.categoriaFesta(ingresso.getFesta().getCodFesta(),
+						TipoCategoria.SECUNDARIO.getDescricao());
+
+				ingressoTO.setFesta(festaFactory.getFestaTO(ingresso.getFesta(), null, false, categoriaPrimaria,
+						categoriaSecundario, null));
+
+				ingressosTO.add(ingressoTO);
 			}
-		return ResponseEntity.ok(ingressosTO);
-		}catch(ValidacaoException e) {
+			return ResponseEntity.ok(ingressosTO);
+		} catch (ValidacaoException e) {
 			return ResponseEntity.status(400).body(e.getMessage());
 		}
 	}
-	
+
 	@ResponseBody
 	@GetMapping(path = "/listaFesta")
-	public ResponseEntity<Object> getIngressosFesta(@RequestParam(required = true) int idFesta){
+	public ResponseEntity<Object> getIngressosFesta(@RequestParam(required = true) int idFesta) {
 		try {
 			List<Ingresso> ingressos = ingressoService.getIngressosFesta(idFesta);
 			List<IngressoTO> ingressosTO = new ArrayList<>();
-			for(Ingresso ingresso : ingressos) {
-			IngressoTO ingressoTO = ingressoFactory.getIngressoTO(ingresso);
-			ingressosTO.add(ingressoTO);			
+			for (Ingresso ingresso : ingressos) {
+				IngressoTO ingressoTO = ingressoFactory.getIngressoTO(ingresso);
+				ingressosTO.add(ingressoTO);
 			}
-		return ResponseEntity.ok(ingressosTO);
-		}catch(ValidacaoException e) {
+			return ResponseEntity.ok(ingressosTO);
+		} catch (ValidacaoException e) {
 			return ResponseEntity.status(400).body(e.getMessage());
 		}
 	}
-	
+
 	@ResponseBody
 	@PostMapping(path = "/addIngresso")
-	public ResponseEntity<Object> addIngresso(@RequestBody IngressoTO ingressoTO){
-	try {
-		ingressoService.addIngresso(ingressoTO);
-		return ResponseEntity.ok(ingressoTO);
-	}catch(ValidacaoException e) {
-		return ResponseEntity.status(400).body(e.getMessage());
-	}
+	public ResponseEntity<Object> addIngresso(@RequestBody IngressoTO ingressoTO) {
+		try {
+			return ResponseEntity.ok(
+					ingressoFactory.getIngressoTO(ingressoService.addIngresso(ingressoTO))
+					);
+		} catch (ValidacaoException e) {
+			return ResponseEntity.status(400).body(e.getMessage());
+		}
 	}
 
 	@ResponseBody
 	@PostMapping(path = "/addIngressoLista")
-	public ResponseEntity<Object> addIngressoLista(@RequestBody List<IngressoTO> listaIngressoTO){
-	try {
-		for(IngressoTO ingresso : listaIngressoTO){
-		ingressoService.addIngresso(ingresso);
-		}
-		return ResponseEntity.ok(listaIngressoTO);
-	}catch(ValidacaoException e) {
-		return ResponseEntity.status(400).body(e.getMessage());
-	}
-	}
-	
-	@ResponseBody
-	@PutMapping(path = "/updateCheckin")
-	public ResponseEntity<Object> updateChekin(@RequestBody IngressoTO ingressoTO){
+	public ResponseEntity<Object> addIngressoLista(@RequestBody List<IngressoTO> listaIngressoTO) {
 		try {
-			ingressoService.updateCheckin(ingressoTO);
-			return ResponseEntity.ok(ingressoTO);
-		}catch(ValidacaoException e) {
+			List<IngressoTO> ingressosTO = new ArrayList<>();
+			for (IngressoTO ingressoTo : listaIngressoTO) {
+				IngressoTO ingressoTO = ingressoFactory.getIngressoTO(
+						ingressoService.addIngresso(ingressoTo)
+						);
+				ingressosTO.add(ingressoTO);
+			}
+			return ResponseEntity.ok(ingressosTO);
+		} catch (ValidacaoException e) {
 			return ResponseEntity.status(400).body(e.getMessage());
 		}
 	}
-	
+
+	@ResponseBody
+	@PutMapping(path = "/updateCheckin")
+	public ResponseEntity<Object> updateChekin(@RequestBody IngressoTO ingressoTO) {
+		try {
+			return ResponseEntity.ok(
+					ingressoFactory.getIngressoTO(ingressoService.updateCheckin(ingressoTO))
+					);
+		} catch (ValidacaoException e) {
+			return ResponseEntity.status(400).body(e.getMessage());
+		}
+	}
+
 	@ResponseBody
 	@PutMapping(path = "/updateStatusCompra")
-	public ResponseEntity<Object> updateStatusCompra(@RequestBody IngressoTO ingressoTO){
+	public ResponseEntity<Object> updateStatusCompra(@RequestBody IngressoTO ingressoTO) {
 		try {
-			ingressoService.updateStatusCompra(ingressoTO);
-			return ResponseEntity.ok(ingressoTO);
-		}catch(ValidacaoException e) {
+			return ResponseEntity.ok(
+					ingressoFactory.getIngressoTO(ingressoService.updateStatusCompra(ingressoTO))
+					);
+		} catch (ValidacaoException e) {
 			return ResponseEntity.status(400).body(e.getMessage());
 		}
 	}

@@ -26,6 +26,7 @@ export class DeletarCupomDialogComponent implements OnInit {
 
   deleteCupom() {
     this.deletarCupom.deleteCupom(this.cupom.codCupom).subscribe((resp: string) => {
+      this.deletarCupom.setFarol(false);
       this.dialog.closeAll();
       this.component.ngOnInit();
       this.openDialogSuccess('CUPOMDEL');

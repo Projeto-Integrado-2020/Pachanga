@@ -92,7 +92,7 @@ public class FestaService {
 
 	@Autowired
 	private ItemEstoqueFluxoRepository itemEstoqueFluxoRepository;
-
+	
 	public List<Festa> procurarFestas() {
 		return (List<Festa>) festaRepository.findAll();
 	}
@@ -107,7 +107,7 @@ public class FestaService {
 		return festaRepository.findAllComLotesCompraveis();
 	}
 
-	public Festa addFesta(FestaTO festaTo, int idUser, MultipartFile imagem) {
+	public Festa addFesta(FestaTO festaTo, int idUser, MultipartFile imagem) throws IOException {
 		this.validarUsuarioFesta(idUser, 0);
 		Usuario usuario = usuarioRepository.findById(idUser);
 		festaTo.setCodFesta(festaRepository.getNextValMySequence());

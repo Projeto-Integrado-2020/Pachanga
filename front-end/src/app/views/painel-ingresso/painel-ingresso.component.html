@@ -20,23 +20,18 @@
 
             <h2 class="titulo2">{{festaNome}}</h2>
             <div class="botoes">
-                <a class="botao-criar-festa" routerLink="../ingressos/criar-lote">
-                    <button class="botao botoes__prp-btn-add" mat-raised-button>
-                        {{'INGRESSO.CREATE' | translate}}
-                    </button>
-                </a>
+                <button [routerLink]="'../ingressos/criar-lote'" class="botao" mat-raised-button>
+                    {{'INGRESSO.CREATE' | translate}}
+                </button>
 
-                <a class="botao-criar-festa" routerLink="../ingressos/integracoes">
-                    <button class="botao-integracao" mat-raised-button>
-                        {{'INTEGRACAO.CALLBUTTON' | translate}}
-                    </button>
-                </a>
 
-                <a class="botao-criar-festa" routerLink="../ingressos/check-in">
-                    <button class="botao-checkin" mat-raised-button>
+                <button [routerLink]="'../ingressos/integracoes'" class="botao" mat-raised-button>
+                    {{'INTEGRACAO.CALLBUTTON' | translate}}
+                </button>
+
+                    <button [routerLink]="'../ingressos/integracoes'" class="botao" mat-raised-button>
                         {{'CHECKIN.TITLE' | translate}}
                     </button>
-                </a>
 
                 <a class="botao-criar-festa" routerLink="../ingressos/cupons">
                     <button class="botao-checkin" mat-raised-button>
@@ -45,8 +40,7 @@
                 </a>
             </div>
             
-            <div *ngFor="let lote of lotes; let i = index" class="painel">
-                <mat-card class="festa-tab">
+                <mat-card *ngFor="let lote of lotes; let i = index" class="painel festa-tab">
                     <mat-card-header>
                         <mat-card-title>{{lote.nomeLote}}</mat-card-title>
                         <mat-card-subtitle><span class="subtitle">{{lote.descLote}}</span></mat-card-subtitle>
@@ -78,7 +72,59 @@
                         </div>
                     </mat-card-content>
                 </mat-card>
+
+            <h2 class="titulo2">{{'INGRESSO.DADOSBANC' | translate}}</h2>
+            <div class="info">
+                <p 
+                    
+                    class="info-box">{{'INGRESSO.DADOSBANCINFO' | translate}}</p>
             </div>
+            <mat-card class="painel">
+                <form class="form">
+                    <mat-form-field appearance="fill">
+                        <mat-label>{{'INGRESSO.BANCO' | translate}}</mat-label>
+                        <mat-select [disabled]="!this.dadosBancEditavel">
+                        <mat-option *ngFor="let banco of this.listaBancos" [value]="banco.value">
+                            {{banco.value}} - {{banco.label}}
+                        </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <div class="agenciaconta">
+                        <mat-form-field class="form__agencia">
+                            <mat-label>{{'INGRESSO.AGENCIA' | translate}}</mat-label>
+                            <input matInput [disabled]="!this.dadosBancEditavel" class="form__agencia" mask="0000">
+                            <!-- <mat-hint>Errors appear instantly!</mat-hint>
+                            <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+                              Please enter a valid email address
+                            </mat-error>
+                            <mat-error *ngIf="emailFormControl.hasError('required')">
+                              Email is <strong>required</strong>
+                            </mat-error> -->
+                        </mat-form-field>
+                        <mat-form-field class="form__conta">
+                            <mat-label>{{'INGRESSO.CONTA' | translate}}</mat-label>
+                            <input matInput [disabled]="!this.dadosBancEditavel" class="form__conta" mask="00000-0">
+                            <!-- <mat-hint>Errors appear instantly!</mat-hint> -->
+                            <!-- <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+                              Please enter a valid email address
+                            </mat-error>
+                            <mat-error *ngIf="emailFormControl.hasError('required')">
+                              Email is <strong>required</strong>
+                            </mat-error> -->
+                        </mat-form-field>
+                    </div>
+                    <button 
+                        mat-button
+                        class="botao"
+                        (click)="this.editarDadosBancarios()"
+                        *ngIf="!this.dadosBancEditavel">{{'INGRESSO.EDITAR' | translate}}</button>
+                    <button
+                        mat-button 
+                        class="botao" 
+                        (click)="this.salvarDadosBancarios()"
+                        *ngIf="this.dadosBancEditavel">{{'INGRESSO.SALVAR' | translate}}</button>
+                </form>
+            </mat-card>
         </mat-sidenav-content>
     </mat-sidenav-container>
 </div>

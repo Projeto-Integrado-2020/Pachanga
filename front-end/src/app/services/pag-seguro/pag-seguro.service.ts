@@ -28,6 +28,7 @@ export class PagSeguroService {
     return this.http.post(url, infoPagador, {headers}).pipe(
       take(1),
       catchError(error => {
+        error.error = 'CPFNOFOU';
         return this.handleError(error, this.logService);
       })
     );

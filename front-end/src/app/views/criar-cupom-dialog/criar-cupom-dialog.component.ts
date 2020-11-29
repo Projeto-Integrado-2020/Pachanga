@@ -36,8 +36,6 @@ export class CriarCupomDialogComponent implements OnInit {
       codFesta: this.codFesta
     };
 
-    console.log(cupom);
-
     this.addCupom.criarCupom(cupom).subscribe((resp: any) => {
       this.addCupom.setFarol(false);
       this.component.ngOnInit();
