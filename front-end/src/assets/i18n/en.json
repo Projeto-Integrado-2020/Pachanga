@@ -735,7 +735,8 @@
         "INFO": "Ticket informations",
         "NOME": "Ticketholder name",
         "EMAIL": "E-mail",
-        "FINALIZAR": "Checkout"
+        "FINALIZAR": "Checkout",
+        "PROCESSANDO": "Processing tickets. Please wait."
     },
 
     "BOLETO": {

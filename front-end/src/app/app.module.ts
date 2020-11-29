@@ -128,6 +128,7 @@ import { NgxQRCodeModule } from '@techiediaries/ngx-qrcode';
 import { GerarBoletoDialogComponent } from './views/gerar-boleto-dialog/gerar-boleto-dialog.component';
 
 import { NgxMaskModule, IConfig } from 'ngx-mask';
+import { ProcessingDialogComponent } from './views/processing-dialog/processing-dialog.component';
 
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
 
@@ -223,7 +224,8 @@ export function provideConfig() {
     LeitorQrComponent,
     MeusIngressosComponent,
     QrcodeDialogComponent,
-    GerarBoletoDialogComponent
+    GerarBoletoDialogComponent,
+    ProcessingDialogComponent
   ],
   entryComponents: [
     LoginComponent,
@@ -268,7 +270,8 @@ export function provideConfig() {
     DeletarIntegracoesDialogComponent,
     DetalhesProblemaDialogComponent,
     QrcodeDialogComponent,
-    GerarBoletoDialogComponent
+    GerarBoletoDialogComponent,
+    ProcessingDialogComponent
   ],
   imports: [
     BrowserModule,

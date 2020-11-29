@@ -117,7 +117,8 @@
         "INFO": "Informações do ingresso",
         "NOME": "Nome do titular",
         "EMAIL": "E-mail",
-        "FINALIZAR": "Finalizar compra"
+        "FINALIZAR": "Finalizar compra",
+        "PROCESSANDO": "Processando ingressos. Por favor aguarde."
     },
 
     "CONVITE": {
@@ -748,7 +749,7 @@
         "INTEDELE": "Integração com terceiro deletada com sucesso.",
         "SYMCHECK": "Check-in via Sympla confirmado.",
         "BOLEGERA": "Boleto gerado com sucesso. Aguardando pagamento para processar ingresso.",
-        "COMPAPRO": "Compra aprovada. Ingresso(s) gerado(s). Diverta-se!"
+        "COMPAPRO": "Compra aprovada. Ingresso(s) gerado(s). Divirta-se!"
     },
 
     "TERMOS": {

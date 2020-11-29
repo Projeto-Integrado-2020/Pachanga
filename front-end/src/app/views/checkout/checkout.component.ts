@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, NgZone, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material';
 import { Router } from '@angular/router';
@@ -6,7 +6,9 @@ import { IPayPalConfig, ICreateOrderRequest } from 'ngx-paypal';
 import { DadosCompraIngressoService } from 'src/app/services/dados-compra-ingresso/dados-compra-ingresso.service';
 import { GerarIngressoService } from 'src/app/services/gerar-ingresso/gerar-ingresso.service';
 import { GetFestaService } from 'src/app/services/get-festa/get-festa.service';
+import { LoginService } from 'src/app/services/loginService/login.service';
 import { GerarBoletoDialogComponent } from '../gerar-boleto-dialog/gerar-boleto-dialog.component';
+import { ProcessingDialogComponent } from '../processing-dialog/processing-dialog.component';
 import { SuccessDialogComponent } from '../success-dialog/success-dialog.component';
 
 @Component({
@@ -30,7 +32,8 @@ export class CheckoutComponent implements OnInit {
 
     constructor(public getFestaService: GetFestaService, public router: Router, public getIngressoCheckout: DadosCompraIngressoService,
                 public ingressosService: GerarIngressoService, public dialog: MatDialog,
-                public formBuilder: FormBuilder) { }
+                public formBuilder: FormBuilder, public loginService: LoginService,
+                public ngZone: NgZone) { }
 
     ngOnInit() {
         this.initConfig();
@@ -102,11 +105,10 @@ export class CheckoutComponent implements OnInit {
                 shape: 'rect'
             },
             onApprove: (data, actions) => {
+                this.openDialogProcessing();
             },
             onClientAuthorization: (data) => {
-                this.router.navigate(['/meus-ingressos']);
-                this.getIngressoCheckout.cleanStorage();
-                this.openDialogSuccess('COMPAPRO');
+                this.ngZone.run(() => this.gerarIngressosPayPal());
             },
             onCancel: (data, actions) => {
             },
@@ -147,13 +149,45 @@ export class CheckoutComponent implements OnInit {
 
     openDialogSuccess(message: string) {
         this.dialog.open(SuccessDialogComponent, {
-          width: '20rem',
-          data: {message}
+            width: '20rem',
+            data: {message}
         });
-      }
+    }
+
+    openDialogProcessing() {
+        this.dialog.open(ProcessingDialogComponent, {
+            width: '20rem',
+            disableClose: true
+        });
+    }
 
     getIngressos() {
         this.ingressos = this.getIngressoCheckout.getIngressos();
         this.precoTotal = this.getIngressoCheckout.getPrecoTotal();
+    }
+
+    gerarIngressosPayPal() {
+        const ingressosCheckout = [];
+        for (const lote of this.ingressos) {
+            for (let i = 0; i < lote.quantidade.length; i++) {
+                ingressosCheckout.push({
+                    codLote: lote.lote.codLote,
+                    festa: {codFesta: lote.lote.codFesta},
+                    codUsuario: this.loginService.getusuarioInfo().codUsuario,
+                    statusIngresso: 'U',
+                    statusCompra: 'P',
+                    dataCompra: new Date(),
+                    preco: lote.precoUnico,
+                    nomeTitular: this.form.get('nome' + lote.lote.codLote + '-' + i).value,
+                    emailTitular: this.form.get('email' + lote.lote.codLote + '-' + i).value
+                });
+            }
+        }
+        this.ingressosService.adicionarIngressos(ingressosCheckout).subscribe((resp: any) => {
+            this.router.navigate(['/meus-ingressos']);
+            this.getIngressoCheckout.cleanStorage();
+            this.dialog.closeAll();
+            this.openDialogSuccess('COMPAPRO');
+        });
     }
 }
