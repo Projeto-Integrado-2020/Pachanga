@@ -26,6 +26,7 @@ import { CheckoutComponent } from './views/checkout/checkout.component';
 import { CheckInComponent } from './views/check-in/check-in.component';
 import { LeitorQrComponent } from './views/leitor-qr/leitor-qr.component';
 import { MeusIngressosComponent } from './views/meus-ingressos/meus-ingressos.component';
+import { GerenciadorCuponsComponent } from './views/gerenciador-cupons/gerenciador-cupons.component';
 
 const routes: Routes = [
 
@@ -82,6 +83,12 @@ const routes: Routes = [
     },
 
     {
+      path: 'festas/:festa&:id/ingressos/cupons',
+      component: GerenciadorCuponsComponent,
+      canActivate: [AuthGuard]
+    },
+
+    {
       path: 'festas/:festa&:id/ingressos/integracoes',
       component: ThirdPartyPainelComponent,
       canActivate: [AuthGuard]
@@ -108,6 +115,12 @@ const routes: Routes = [
     {
       path: 'festas/:festa&:id/estoque/produtos',
       component: GerenciadorProdutosComponent,
+      canActivate: [AuthGuard]
+    },
+
+    {
+      path: 'festas/:festa&:id/estoque/produtos',
+      component: GerenciadorCuponsComponent,
       canActivate: [AuthGuard]
     },
 

@@ -163,7 +163,8 @@
         "FORMDELE": "Form successfully deleted.",
         "LOTEALT": "Batch successfully updated.",
         "INTEDELE": "Third-Party integration successfully deleted.",
-        "SYMCHECK": "Check-in via Sympla confirmed."
+        "SYMCHECK": "Check-in via Sympla confirmed.",
+        "CUPOMDEL": "Coupon deleted successfully."
     },
 
     "PERFIL":{
@@ -743,5 +744,17 @@
         "NUMERO": "Number",
         "CONFIRM": "Generate bill",
         "CANCEL": "Cancel"
+    },
+
+    "CUPOM": {
+        "TITLE": "Coupon manager",
+        "ADDCUPOM": "Add coupon",
+        "CODCUPOM": "Coupon code",
+        "DESCONTO": "Discount price",
+        "EDIT": "Edit coupon",
+        "DELETE": "Delete coupon",
+        "CONFIRM": "Confirm",
+        "CANCEL": "Cancel",
+        "INFO": "Do you really want to delete the coupon "
     }
 }

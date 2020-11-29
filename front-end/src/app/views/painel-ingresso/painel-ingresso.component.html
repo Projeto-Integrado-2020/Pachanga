@@ -37,6 +37,12 @@
                         {{'CHECKIN.TITLE' | translate}}
                     </button>
                 </a>
+
+                <a class="botao-criar-festa" routerLink="../ingressos/cupons">
+                    <button class="botao-checkin" mat-raised-button>
+                        {{'CUPOM.TITLE' | translate}}
+                    </button>
+                </a>
             </div>
             
             <div *ngFor="let lote of lotes; let i = index" class="painel">

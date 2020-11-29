@@ -732,7 +732,8 @@
         "FORMDELE": "Questionário deletado com sucesso.",
         "LOTEALT": "Lote alterado com sucesso.",
         "INTEDELE": "Integração com terceiro deletada com sucesso.",
-        "SYMCHECK": "Check-in via Sympla confirmado."
+        "SYMCHECK": "Check-in via Sympla confirmado.",
+        "CUPOMDEL": "Cupom deletado com sucesso."
     },
 
     "TERMOS": {
@@ -756,6 +757,18 @@
         "INGRESSOS": "Ingressos",
         "COMPRAR": "Comprar",
         "PRECO": "Preço"
+    },
+
+    "CUPOM": {
+        "TITLE": "Gerenciador de cupons",
+        "ADDCUPOM": "Adicionar cupom",
+        "CODCUPOM": "Código do cupom",
+        "DESCONTO": "Preço de desconto",
+        "EDIT": "Editar cupom",
+        "DELETE": "Deletar cupom",
+        "CONFIRM": "Confirmar",
+        "CANCEL": "Cancelar",
+        "INFO": "Você realmente deseja deletar o cupom "
     }
 
 }
