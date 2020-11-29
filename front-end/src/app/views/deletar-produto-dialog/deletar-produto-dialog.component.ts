@@ -26,6 +26,7 @@ export class DeletarProdutoDialogComponent implements OnInit {
 
   deletarProduto() {
     this.deleteService.deleteProduto(this.produto.codProduto, this.codFesta).subscribe((resp: string) => {
+      this.deleteService.setFarol(false);
       this.dialog.closeAll();
       this.component.ngOnInit();
       this.openDialogSuccess('PRODDELE');

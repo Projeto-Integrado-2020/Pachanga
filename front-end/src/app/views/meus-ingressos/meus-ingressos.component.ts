@@ -64,8 +64,8 @@ export class MeusIngressosComponent implements OnInit {
     return data + ', ' + datetimeSplit[1];
   }
 
-  navegarURL(string) {
-    this.router.navigateByUrl(string);
+  navegarURL(rota) {
+    this.router.navigateByUrl(rota);
   }
 
 

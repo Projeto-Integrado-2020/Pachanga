@@ -81,6 +81,7 @@ html {
 }
 
 .card-ingressos {
+  margin-left: 25%;
   float: right;
 }
 
@@ -234,4 +235,14 @@ html {
   background-color: $color-tertiary;
   width: 200px;
   transform: translate(14rem, -6rem);
+}
+
+.mat-form-field {
+  width: 100%;
+}
+
+.paypal-wrapper {
+  opacity: .2;
+  pointer-events: none;
+  touch-action: none;
 }

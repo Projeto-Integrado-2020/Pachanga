@@ -52,6 +52,7 @@ import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import { MeusIngressosComponent } from '../meus-ingressos/meus-ingressos.component';
 import { MaterialFileInputModule } from 'ngx-material-file-input';
 import { NgxPayPalModule } from 'ngx-paypal';
+import { GerenciadorCuponsComponent } from '../gerenciador-cupons/gerenciador-cupons.component';
 
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 100000;
 
@@ -114,7 +115,8 @@ describe('NavbarComponent', () => {
         CheckoutComponent,
         LeitorQrComponent,
         CheckInComponent,
-        MeusIngressosComponent
+        MeusIngressosComponent,
+        GerenciadorCuponsComponent
        ],
       imports: [
         MomentModule,

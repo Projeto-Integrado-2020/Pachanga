@@ -54,6 +54,7 @@ import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import { MeusIngressosComponent } from './views/meus-ingressos/meus-ingressos.component';
 import { MaterialFileInputModule } from 'ngx-material-file-input';
 import { NgxPayPalModule } from 'ngx-paypal';
+import { GerenciadorCuponsComponent } from './views/gerenciador-cupons/gerenciador-cupons.component';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -113,7 +114,8 @@ describe('AppComponent', () => {
         CheckoutComponent,
         LeitorQrComponent,
         CheckInComponent,
-        MeusIngressosComponent
+        MeusIngressosComponent,
+        GerenciadorCuponsComponent
       ],
       imports: [
         MomentModule,

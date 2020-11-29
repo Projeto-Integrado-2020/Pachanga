@@ -18,7 +18,6 @@ export class QrcodeDialogComponent implements OnInit {
    }
 
   ngOnInit() {
-
   }
 
 }

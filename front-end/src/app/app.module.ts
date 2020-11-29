@@ -126,8 +126,13 @@ import { NgxPayPalModule } from 'ngx-paypal';
 import { QrcodeDialogComponent } from './views/qrcode-dialog/qrcode-dialog.component';
 import { NgxQRCodeModule } from '@techiediaries/ngx-qrcode';
 import { GerarBoletoDialogComponent } from './views/gerar-boleto-dialog/gerar-boleto-dialog.component';
+import { GerenciadorCuponsComponent } from './views/gerenciador-cupons/gerenciador-cupons.component';
+import { CriarCupomDialogComponent } from './views/criar-cupom-dialog/criar-cupom-dialog.component';
+import { EditarCupomDialogComponent } from './views/editar-cupom-dialog/editar-cupom-dialog.component';
+import { DeletarCupomDialogComponent } from './views/deletar-cupom-dialog/deletar-cupom-dialog.component';
 
 import { NgxMaskModule, IConfig } from 'ngx-mask';
+import { ProcessingDialogComponent } from './views/processing-dialog/processing-dialog.component';
 
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
 
@@ -223,7 +228,12 @@ export function provideConfig() {
     LeitorQrComponent,
     MeusIngressosComponent,
     QrcodeDialogComponent,
-    GerarBoletoDialogComponent
+    GerarBoletoDialogComponent,
+    GerenciadorCuponsComponent,
+    CriarCupomDialogComponent,
+    EditarCupomDialogComponent,
+    DeletarCupomDialogComponent,
+    ProcessingDialogComponent
   ],
   entryComponents: [
     LoginComponent,
@@ -268,7 +278,11 @@ export function provideConfig() {
     DeletarIntegracoesDialogComponent,
     DetalhesProblemaDialogComponent,
     QrcodeDialogComponent,
-    GerarBoletoDialogComponent
+    GerarBoletoDialogComponent,
+    CriarCupomDialogComponent,
+    DeletarCupomDialogComponent,
+    EditarCupomDialogComponent,
+    ProcessingDialogComponent
   ],
   imports: [
     BrowserModule,

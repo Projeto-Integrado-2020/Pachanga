@@ -114,11 +114,11 @@
     },
 
     "CHECKOUT": {
-        "INFO": "Informações para recebimento do ingresso",
-        "NOME": "Primeiro nome",
-        "SOBRENOME": "Sobrenome",
-        "CONFIRMEMAIL": "Confirmação do e-mail",
-        "FINALIZAR": "Finalizar compra"
+        "INFO": "Informações do ingresso",
+        "NOME": "Nome do titular",
+        "EMAIL": "E-mail",
+        "FINALIZAR": "Finalizar compra",
+        "PROCESSANDO": "Processando ingressos. Por favor aguarde."
     },
 
     "CONVITE": {
@@ -748,7 +748,9 @@
         "LOTEALT": "Lote alterado com sucesso.",
         "INTEDELE": "Integração com terceiro deletada com sucesso.",
         "SYMCHECK": "Check-in via Sympla confirmado.",
-        "BOLEGERA": "Boleto gerado com sucesso. Aguardando pagamento para processar ingresso."
+        "CUPOMDEL": "Cupom deletado com sucesso.",
+        "BOLEGERA": "Boleto gerado com sucesso. Aguardando pagamento para processar ingresso.",
+        "COMPAPRO": "Compra aprovada. Ingresso(s) gerado(s). Divirta-se!"
     },
 
     "TERMOS": {
@@ -772,6 +774,18 @@
         "INGRESSOS": "Ingressos",
         "COMPRAR": "Comprar",
         "PRECO": "Preço"
+    },
+
+    "CUPOM": {
+        "TITLE": "Gerenciador de cupons",
+        "ADDCUPOM": "Adicionar cupom",
+        "CODCUPOM": "Código do cupom",
+        "DESCONTO": "Preço de desconto",
+        "EDIT": "Editar cupom",
+        "DELETE": "Deletar cupom",
+        "CONFIRM": "Confirmar",
+        "CANCEL": "Cancelar",
+        "INFO": "Você realmente deseja deletar o cupom "
     }
 
 }

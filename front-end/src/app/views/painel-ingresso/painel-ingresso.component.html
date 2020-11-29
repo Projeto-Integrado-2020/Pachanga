@@ -32,6 +32,12 @@
                     <button [routerLink]="'../ingressos/integracoes'" class="botao" mat-raised-button>
                         {{'CHECKIN.TITLE' | translate}}
                     </button>
+
+                <a class="botao-criar-festa" routerLink="../ingressos/cupons">
+                    <button class="botao-checkin" mat-raised-button>
+                        {{'CUPOM.TITLE' | translate}}
+                    </button>
+                </a>
             </div>
             
                 <mat-card *ngFor="let lote of lotes; let i = index" class="painel festa-tab">

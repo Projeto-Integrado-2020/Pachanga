@@ -65,7 +65,7 @@ export class PainelIngressoComponent implements OnInit {
       this.resgatarLote();
       this.listaBancos = bancos;
       this.dadosBancEditavel = false;
-      //this.resgatarListaBancos();
+      // this.resgatarListaBancos();
     });
   }
 
@@ -106,11 +106,11 @@ export class PainelIngressoComponent implements OnInit {
     });
   }
 
-  editarDadosBancarios(){
+  editarDadosBancarios() {
     this.dadosBancEditavel = true;
   }
 
-  salvarDadosBancarios(){
+  salvarDadosBancarios() {
     this.dadosBancEditavel = false;
   }
 
