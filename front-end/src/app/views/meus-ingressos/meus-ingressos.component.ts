@@ -52,7 +52,7 @@ export class MeusIngressosComponent implements OnInit {
   abrirQRDialog(ingresso) {
     this.dialog.open(QrcodeDialogComponent, {
       data: {
-        link: 'https://pachanga-back-end.herokuapp.com/festa&' + ingresso.festa.codFesta + '/venda-ingressos'
+        link: ingresso.codIngresso
       }
     });
   }
