@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MAT_DIALOG_DATA } from '@angular/material';
 import { NgxQrcodeElementTypes, NgxQrcodeErrorCorrectionLevels } from '@techiediaries/ngx-qrcode';
 
 @Component({
@@ -10,9 +11,10 @@ export class QrcodeDialogComponent implements OnInit {
 
   elementType = NgxQrcodeElementTypes.URL;
   correctionLevel = NgxQrcodeErrorCorrectionLevels.HIGH;
-  value = 'dasdafwefwefdasdge';
-  constructor() {
+  value: any;
 
+  constructor(@Inject(MAT_DIALOG_DATA) data) {
+      this.value = data.link;
    }
 
   ngOnInit() {
