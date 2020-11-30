@@ -34,7 +34,7 @@ public class FestaTO {
 	private CategoriaTO categoriaSecundaria;
 	private Boolean isOrganizador;
 	private List<ConvidadoTO> convidados;
-	private byte[] imagem;
+	private String imagem;
 	
 	public int getCodFesta() {
 		return codFesta;
@@ -150,10 +150,10 @@ public class FestaTO {
 	public void setConvidados(List<ConvidadoTO> convidados) {
 		this.convidados = convidados;
 	}
-	public byte[] getImagem() {
+	public String getImagem() {
 		return imagem;
 	}
-	public void setImagem(byte[] imagem) {
+	public void setImagem(String imagem) {
 		this.imagem = imagem;
 	}
 

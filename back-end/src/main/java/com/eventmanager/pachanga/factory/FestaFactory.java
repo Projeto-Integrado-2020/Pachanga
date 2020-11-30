@@ -1,9 +1,7 @@
 package com.eventmanager.pachanga.factory;
 
-import java.io.IOException;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -14,14 +12,9 @@ import com.eventmanager.pachanga.dtos.CategoriaTO;
 import com.eventmanager.pachanga.dtos.ConvidadoTO;
 import com.eventmanager.pachanga.dtos.FestaTO;
 import com.eventmanager.pachanga.dtos.UsuarioTO;
-import com.eventmanager.pachanga.errors.ValidacaoException;
-import com.eventmanager.pachanga.utils.CompressorBytes;
 
 @Component(value = "festaFactory")
 public class FestaFactory {
-
-	@Autowired
-	private CompressorBytes compressorBytes;
 
 	private FestaFactory() {
 	}
@@ -34,7 +27,7 @@ public class FestaFactory {
 				.horarioFimFestaReal(festa.getHorarioFimFestaReal()).horarioInicioFesta(festa.getHorarioInicioFesta())
 				.nomeFesta(festa.getNomeFesta()).organizador(festa.getOrganizador()).statusFesta(festa.getStatusFesta())
 				.categoriaPrimaria(categoriaPrimaria).categoriaSecundaria(categoriaSecundaria)
-				.imagem(festa.getImagem() == null ? null : compressorBytes.decompressByteArray(festa.getImagem()));
+				.imagem(festa.getImagem() == null ? null : festa.getImagem());
 		if (usuarios != null) {
 			if (enviarQuantidade) {
 				festaToBuilder.quantidadeParticipantes(usuarios.size() + convidados.size());
@@ -46,16 +39,12 @@ public class FestaFactory {
 	}
 
 	public Festa getFesta(FestaTO festaTo, MultipartFile imagem) {
-		try {
-			return FestaBuilder.getInstance().codEnderecoFesta(festaTo.getCodEnderecoFesta())
-					.codFesta(festaTo.getCodFesta()).descOrganizador(festaTo.getDescOrganizador())
-					.descricaoFesta(festaTo.getDescricaoFesta()).horarioFimFesta(festaTo.getHorarioFimFesta())
-					.horarioInicioFesta(festaTo.getHorarioInicioFesta()).nomeFesta(festaTo.getNomeFesta())
-					.organizador(festaTo.getOrganizador()).statusFesta(festaTo.getStatusFesta())
-					.imagem(imagem == null ? null : compressorBytes.compressByteArray(imagem.getBytes())).build();
-		} catch (IOException e) {
-			throw new ValidacaoException(e.getMessage());
-		}
+		return FestaBuilder.getInstance().codEnderecoFesta(festaTo.getCodEnderecoFesta())
+				.codFesta(festaTo.getCodFesta()).descOrganizador(festaTo.getDescOrganizador())
+				.descricaoFesta(festaTo.getDescricaoFesta()).horarioFimFesta(festaTo.getHorarioFimFesta())
+				.horarioInicioFesta(festaTo.getHorarioInicioFesta()).nomeFesta(festaTo.getNomeFesta())
+				.organizador(festaTo.getOrganizador()).statusFesta(festaTo.getStatusFesta())
+				.imagem(imagem == null ? null : festaTo.getNomeFesta()).build();
 	}
 
 	public FestaTO getFestaTO(Festa festa, List<UsuarioTO> usuarios, boolean enviarQuantidade,

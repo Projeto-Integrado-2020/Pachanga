@@ -1,8 +1,9 @@
 package com.eventmanager.pachanga.services;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.time.Duration;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.cloudinary.utils.ObjectUtils;
 import com.eventmanager.pachanga.domains.Categoria;
 import com.eventmanager.pachanga.domains.CategoriasFesta;
 import com.eventmanager.pachanga.domains.Estoque;
@@ -40,6 +42,7 @@ import com.eventmanager.pachanga.tipo.TipoGrupo;
 import com.eventmanager.pachanga.tipo.TipoNotificacao;
 import com.eventmanager.pachanga.tipo.TipoPermissao;
 import com.eventmanager.pachanga.tipo.TipoStatusFesta;
+import com.eventmanager.pachanga.utils.CloudinaryUtils;
 
 @Service
 @Transactional
@@ -92,7 +95,7 @@ public class FestaService {
 
 	@Autowired
 	private ItemEstoqueFluxoRepository itemEstoqueFluxoRepository;
-	
+
 	public List<Festa> procurarFestas() {
 		return (List<Festa>) festaRepository.findAll();
 	}
@@ -102,7 +105,7 @@ public class FestaService {
 		Usuario usuario = usuarioRepository.findById(idUser);
 		return festaRepository.findByUsuarios(usuario.getCodUsuario());
 	}
-	
+
 	public List<Festa> procurarFestasComLotesCompraveis() {
 		return festaRepository.findAllComLotesCompraveis();
 	}
@@ -114,7 +117,9 @@ public class FestaService {
 		festaTo.setStatusFesta(TipoStatusFesta.PREPARACAO.getValor());
 		this.validarFesta(festaTo);
 		this.validacaoCategorias(festaTo.getCodPrimaria(), festaTo.getCodSecundaria());
+
 		Festa festa = festaFactory.getFesta(festaTo, imagem);
+		this.adicionarImagemCloudnary(imagem, festa);
 		festaRepository.save(festa);
 		Grupo grupo = grupoService.addGrupo(festa.getCodFesta(), TipoGrupo.ORGANIZADOR.getValor(), true, null);
 		grupoRepository.saveUsuarioGrupo(usuario.getCodUsuario(), grupo.getCodGrupo());
@@ -148,8 +153,9 @@ public class FestaService {
 		return usuario;
 	}
 
-	public void deleteFesta(int idFesta, int idUser) {
+	public void deleteFesta(int idFesta, int idUser) throws IOException {
 		validarPermissaoUsuario(idUser, idFesta, TipoPermissao.DELEFEST.getCodigo());
+		Festa festa = this.validarFestaExistente(idFesta);
 		List<Integer> codGrupos = grupoRepository.findCodGruposFesta(idFesta);
 		codGrupos.stream().forEach(g -> {
 			List<Integer> codConvidados = convidadoRepository.findCodConvidadosNoGrupo(g);
@@ -181,18 +187,22 @@ public class FestaService {
 		produtoRepository.deleteProdFesta(idFesta);
 		estoqueRepository.deleteEstoque(idFesta);
 		festaRepository.deleteById(idFesta);
+		CloudinaryUtils.getCloudinaryCredentials().uploader().destroy(festa.getNomeFesta(), ObjectUtils.emptyMap());
 	}
 
 	public Festa updateFesta(FestaTO festaTo, int idUser, MultipartFile imagem) throws IOException {
 		Festa festa = validarFestaExistente(festaTo.getCodFesta());
+
+		this.adicionarImagemCloudnary(imagem, festa);
+
 		this.validarPermissaoUsuario(idUser, festaTo.getCodFesta(), TipoPermissao.EDITDFES.getCodigo());
 		this.validarFesta(festaTo);
-		Festa festaMudanca = validarMudancas(festaTo, festa, imagem);
+		Festa festaMudanca = validarMudancas(festaTo, festa);
 		festaRepository.save(festaMudanca);
 		return festaMudanca;
 	}
-	
-	private Festa validarMudancas(FestaTO festaTo, Festa festa, MultipartFile imagem) throws IOException {
+
+	private Festa validarMudancas(FestaTO festaTo, Festa festa) {
 		mudarCategoriaFesta(festa, festaTo);
 		if (!festa.getNomeFesta().equals(festaTo.getNomeFesta())) {
 			festa.setNomeFesta(festaTo.getNomeFesta());
@@ -214,11 +224,6 @@ public class FestaService {
 		}
 		if (!festa.getDescOrganizador().equals(festaTo.getDescOrganizador())) {
 			festa.setDescOrganizador(festaTo.getDescOrganizador());
-		}
-		if(imagem == null) {
-			festa.setImagem(null);
-		}else if(!Arrays.equals(festa.getImagem(), imagem.getBytes())) {
-			festa.setImagem(imagem.getBytes());
 		}
 		return festa;
 	}
@@ -302,7 +307,7 @@ public class FestaService {
 		this.validarUsuarioFesta(idUsuario, idFesta);
 		return festaRepository.findByCodFesta(idFesta);
 	}
-	
+
 	public Festa procurarDadosPublicosFesta(int idFesta) {
 		return festaRepository.findByCodFesta(idFesta);
 	}
@@ -339,8 +344,9 @@ public class FestaService {
 		for (Usuario usuario : usuarios) {
 			notificacaoService.inserirNotificacaoUsuario(usuario.getCodUsuario(), TipoNotificacao.STAALTER.getCodigo(),
 					notificacaoService.criarMensagemAlteracaoStatusFesta(idFesta, statusFestaMaiusculo));
-			if(TipoStatusFesta.FINALIZADO.getValor().equals(festa.getStatusFesta())) {
-				notificacaoService.deleteNotificacao(usuario.getCodUsuario(), TipoNotificacao.ESTBAIXO.getValor() + "?" + idFesta);
+			if (TipoStatusFesta.FINALIZADO.getValor().equals(festa.getStatusFesta())) {
+				notificacaoService.deleteNotificacao(usuario.getCodUsuario(),
+						TipoNotificacao.ESTBAIXO.getValor() + "?" + idFesta);
 				notificacaoService.deletarNotificacaoGrupo(TipoNotificacao.ESTBAIXO.getValor() + "?" + idFesta);
 			}
 		}
@@ -409,4 +415,23 @@ public class FestaService {
 		Festa festa = validarFestaExistente(codFesta);
 		return notificacaoMudancaStatusFactory.getNotificacaoMudancaStatus(festa);
 	}
+
+	private void adicionarImagemCloudnary(MultipartFile imagem, Festa festa) throws IOException {
+		if (imagem == null) {
+			CloudinaryUtils.getCloudinaryCredentials().uploader().destroy(festa.getNomeFesta(), ObjectUtils.emptyMap());
+			festa.setImagem(null);
+		} else {
+			File imagemUpload = new File(festa.getNomeFesta());
+			imagemUpload.createNewFile();
+			FileOutputStream fos = new FileOutputStream(imagemUpload);
+			fos.write(imagem.getBytes());
+			fos.close();
+
+			CloudinaryUtils.getCloudinaryCredentials().uploader().upload(imagemUpload,
+					ObjectUtils.asMap("public_id", festa.getNomeFesta()));
+			
+			festa.setImagem(festa.getNomeFesta());
+		}
+	}
+
 }

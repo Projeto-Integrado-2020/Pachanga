@@ -25,7 +25,7 @@ public class FestaTOBuilder {
 	private CategoriaTO categoriaPrimaria;
 	private CategoriaTO categoriaSecundaria;
 	private List<ConvidadoTO> convidados;
-	private byte[] imagem;
+	private String imagem;
 
 	public static FestaTOBuilder getInstance() {
 		return new FestaTOBuilder();
@@ -105,7 +105,7 @@ public class FestaTOBuilder {
 		return this;
 	}
 	
-	public FestaTOBuilder imagem(byte[] imagem) {
+	public FestaTOBuilder imagem(String imagem) {
 		this.imagem = imagem;
 		return this;
 	}

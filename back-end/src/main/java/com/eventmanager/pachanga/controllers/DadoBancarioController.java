@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.eventmanager.pachanga.domains.DadoBancario;
 import com.eventmanager.pachanga.dtos.DadoBancarioTO;
 import com.eventmanager.pachanga.errors.ValidacaoException;
 import com.eventmanager.pachanga.factory.DadoBancarioFactory;
@@ -34,8 +35,8 @@ public class DadoBancarioController {
 	public ResponseEntity<Object> getDadoBancarioTO(@RequestParam(required = true) int codFesta,
 			@RequestParam(required = true) int codUsuario) {
 		try {
-			return ResponseEntity.ok(
-					dadoBancarioFactory.getDadoBancarioTO(dadoBancarioService.dadoBancarioUnico(codFesta, codUsuario)));
+			DadoBancario dadoBancario = dadoBancarioService.dadoBancarioUnico(codFesta, codUsuario);
+			return ResponseEntity.ok(dadoBancario == null ? null : dadoBancarioFactory.getDadoBancarioTO(dadoBancario));
 		} catch (ValidacaoException e) {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
@@ -52,7 +53,7 @@ public class DadoBancarioController {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
 	}
-	
+
 	@ResponseBody
 	@PutMapping(path = "/atualizar")
 	public ResponseEntity<Object> atualizarDadoBancario(@RequestBody DadoBancarioTO dadoBancarioTo,

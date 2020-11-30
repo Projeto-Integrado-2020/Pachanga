@@ -134,6 +134,8 @@ public class FestaController {
 			return ResponseEntity.ok("FESTDELE");//ver se precisa colocar alguma coisa aqui ou pode mandar somente um ok
 		}catch(ValidacaoException e) {
 			return ResponseEntity.status(400).body(e.getMessage());
+		} catch (IOException e) {
+			return ResponseEntity.status(400).body(e.getMessage());
 		}
 	}
 

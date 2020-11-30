@@ -91,6 +91,25 @@ class DadoBancarioControllerTest {
 	
 	@Test
 	@WithMockUser
+	void getDadoBancarioTOReturnNullSucesso() throws Exception {
+		String uri = "/dadoBancario/dadoUnico";
+
+		Mockito.when(dadoBancarioService.dadoBancarioUnico(Mockito.anyInt(), Mockito.anyInt()))
+				.thenReturn(null);
+		Mockito.when(dadoBancarioFactory.getDadoBancarioTO(Mockito.any())).thenReturn(dadoBancarioTOTest());
+
+		RequestBuilder requestBuilder = MockMvcRequestBuilders.get(uri).accept(MediaType.APPLICATION_JSON)
+				.param("codFesta", "1").param("codUsuario", "1").contentType(MediaType.APPLICATION_JSON);
+		
+		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+
+		MockHttpServletResponse response = result.getResponse();
+
+		assertEquals(HttpStatus.OK.value(), response.getStatus());
+	}
+	
+	@Test
+	@WithMockUser
 	void getDadoBancarioTOErro() throws Exception {
 		String uri = "/dadoBancario/dadoUnico";
 

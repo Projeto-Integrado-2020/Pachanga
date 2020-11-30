@@ -7,7 +7,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -40,8 +39,7 @@ public class Festa {
 	private String descOrganizador;
 	
 	@Column(name = "imagem")
-	@Lob
-	private byte[] imagem;
+	private String imagem;
 	
 	@Column(name = "horario_fim_real")
 	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm:ss")
@@ -198,12 +196,12 @@ public class Festa {
 		this.questionariosForms = questionariosForms;
 	}
 	
-	public byte[] getImagem() {
+	public String getImagem() {
 		return imagem;
 	}
 	
-	public void setImagem(byte[] imagem) {
-		this.imagem = imagem;
+	public void setImagem(String imagem) {
+		this.imagem = imagem == null ? null : "https://res.cloudinary.com/htctb0zmi/image/upload/v1606685633/" + imagem;
 	}
 	
 	public Boolean isOrganizador(int codUsuario) {
