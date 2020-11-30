@@ -62,7 +62,6 @@ public class CupomService {
 		Cupom cupom = this.cupomExistente(cupomTO.getCodCupom());
 		Festa festa = cupom.getFesta();
 		this.validarPermissaoUsuario(festa.getCodFesta(), idUser, TipoPermissao.EDITCUPM.getCodigo());
-		this.validarCupom(cupom);
 		cupomRepository.save(cupom);
 		return cupom;
 	}
