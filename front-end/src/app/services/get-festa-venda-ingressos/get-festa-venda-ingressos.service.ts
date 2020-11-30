@@ -5,6 +5,7 @@ import { LogService } from '../logging/log.service';
 import { take, catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 import { Router } from '@angular/router';
+import { HttpParams } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -17,15 +18,17 @@ export class GetFestaVendaIngressosService {
 
   constructor(private http: HttpClient, public logService: LogService, public router: Router) { }
 
-  getFestaVenda() {
+  getFestaVenda(codFesta) {
     if (!this.farol) {
       this.setFarol(true);
+      const httpParams = new HttpParams()
+      .append('idFesta', codFesta);
 
       let headers = new HttpHeaders();
       headers = headers.append('Content-Type', 'application/json');
       headers = headers.append('Authorization', 'Bearer ' + JSON.parse(localStorage.getItem('token')).token);
 
-      return this.http.get(this.urlFestaVendaIngressos, {headers}).pipe(
+      return this.http.get(this.urlFestaVendaIngressos, {params: httpParams, headers}).pipe(
         take(1),
         catchError(error => {
           return this.handleError(error, this.logService);
