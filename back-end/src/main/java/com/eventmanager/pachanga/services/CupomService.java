@@ -21,7 +21,7 @@ import com.eventmanager.pachanga.tipo.TipoPermissao;
 public class CupomService {
 	
 	@Autowired
-	private CupomRepository CupomRepository;
+	private CupomRepository cupomRepository;
 	
 	@Autowired
 	private GrupoRepository grupoRepository;
@@ -30,13 +30,13 @@ public class CupomService {
 	private FestaService festaService;
 	
 	public Cupom getCupom(int codCupom, int idUser) {
-		Cupom cupom = CupomRepository.findCupomByCod(codCupom); 
+		Cupom cupom = cupomRepository.findCupomByCod(codCupom); 
 		this.validarPermissaoUsuario(cupom.getFesta().getCodFesta(), idUser, TipoPermissao.VISUCUPM.getCodigo());
 		return cupom;
 	}
 	
 	public List<Cupom> getCuponsFesta(int codFesta, int idUser) {
-		List<Cupom> cupons = CupomRepository.findCuponsFesta(codFesta);
+		List<Cupom> cupons = cupomRepository.findCuponsFesta(codFesta);
 		this.validarPermissaoUsuario(codFesta, idUser, TipoPermissao.VISUCUPM.getCodigo());
 		return cupons;
 	}
@@ -46,25 +46,25 @@ public class CupomService {
 		this.validarPermissaoUsuario(festa.getCodFesta(), idUser, TipoPermissao.ADDCUPOM.getCodigo());
 		Cupom cupom = CupomFactory.getCupom(cupomTO, festa);
 		this.validarCupom(cupom);
-		cupom.setCodCupom(CupomRepository.getNextValMySequence());
-		CupomRepository.save(cupom);
+		cupom.setCodCupom(cupomRepository.getNextValMySequence());
+		cupomRepository.save(cupom);
 		return cupom;
 	}
 	
 	public Cupom removeCupom(int codCupom, int idUser) {
-		Cupom cupom = CupomRepository.findCupomByCod(codCupom);
+		Cupom cupom = cupomRepository.findCupomByCod(codCupom);
 		this.validarPermissaoUsuario(cupom.getFesta().getCodFesta(), idUser, TipoPermissao.DELECUPM.getCodigo());
-		CupomRepository.delete(cupom);
+		cupomRepository.delete(cupom);
 		return cupom;
 	}
 	
 	public Cupom atualizarCupom(CupomTO cupomTO, int idUser) {
-		Cupom cupom = CupomRepository.findCupomByCod(cupomTO.getCodCupom());
+		Cupom cupom = cupomRepository.findCupomByCod(cupomTO.getCodCupom());
 		Festa festa = cupom.getFesta();
 		this.validarPermissaoUsuario(festa.getCodFesta(), idUser, TipoPermissao.EDITCUPM.getCodigo());
 		cupom = CupomFactory.getCupom(cupomTO, festa);
 		this.validarCupom(cupom);
-		CupomRepository.save(cupom);
+		cupomRepository.save(cupom);
 		return cupom;
 	}
 	
@@ -80,8 +80,8 @@ public class CupomService {
 	private boolean validarCupom(Cupom cupom) {
 		String nomeCupom = cupom.getNomeCupom();
 		int codFesta = cupom.getFesta().getCodFesta();
-		List<Cupom> cupons = CupomRepository.findCuponsByNomeAndFesta(nomeCupom, codFesta);
-		if(cupons != null && cupons.size() > 0) throw new ValidacaoException("CUPMDUPL");// cupom duplicada
+		List<Cupom> cupons = cupomRepository.findCuponsByNomeAndFesta(nomeCupom, codFesta);
+		if(cupons != null && cupons.size() > 0) throw new ValidacaoException("CUPMDUPL");// cupom duplicado
 		return true;
 	}
 	
