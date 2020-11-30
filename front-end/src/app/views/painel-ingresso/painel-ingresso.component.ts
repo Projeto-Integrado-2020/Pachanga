@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, NgForm } from '@angular/forms';
 import { MatDialog } from '@angular/material';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { DadosBancariosService } from 'src/app/services/dados-bancarios/dados-bancarios.service';
 import { GetFestaService } from 'src/app/services/get-festa/get-festa.service';
 import { GetLoteService } from 'src/app/services/get-lote/get-lote.service';
 import { textChangeRangeIsUnchanged } from 'typescript';
@@ -25,8 +26,14 @@ export interface TabelaLote {
 })
 export class PainelIngressoComponent implements OnInit {
 
-  constructor(public fb: FormBuilder, public dialog: MatDialog, public getFestaService: GetFestaService,
-              public router: Router, public getLote: GetLoteService) {
+  constructor(
+    public fb: FormBuilder,
+    public dialog: MatDialog,
+    public getFestaService: GetFestaService,
+    public router: Router,
+    public getLote: GetLoteService,
+    private dadosBancariosService: DadosBancariosService
+    ) {
     this.options = fb.group({
     bottom: 55,
     top: 0
@@ -47,6 +54,7 @@ export class PainelIngressoComponent implements OnInit {
   listaBancos: any;
   contaMask: any;
   dadosBancEditavel: boolean;
+  dadosBancariosTO: any;
 
   displayedColumns: string[] = ['nome', 'preco', 'numeroLote', 'quantidade', 'dthrInicio', 'dthrFim'];
 
@@ -63,6 +71,7 @@ export class PainelIngressoComponent implements OnInit {
       this.festaNome = resp.nomeFesta;
       this.statusFesta = resp.statusFesta;
       this.resgatarLote();
+      this.getDadosBancarios();
       this.listaBancos = bancos;
       this.dadosBancEditavel = false;
       // this.resgatarListaBancos();
@@ -110,8 +119,39 @@ export class PainelIngressoComponent implements OnInit {
     this.dadosBancEditavel = true;
   }
 
-  salvarDadosBancarios() {
-    this.dadosBancEditavel = false;
+  salvarDadosBancarios(model: NgForm) {
+
+    this.dadosBancariosTO.codBanco = model.value.codBanco;
+    this.dadosBancariosTO.codAgencia = model.value.codAgencia;
+    this.dadosBancariosTO.codConta = model.value.codConta;
+
+    console.log(this.dadosBancariosTO);
+
+
+    this.dadosBancariosService.inserirDados(this.dadosBancariosTO).subscribe(
+      (resp: any) => {
+        this.dadosBancariosService.setFarol(false);
+        this.dadosBancEditavel = false;
+      });
+  }
+
+  getDadosBancarios() {
+    this.dadosBancariosService
+      .receberDado(this.festa.codFesta)
+      .subscribe (
+      (resp) => {
+        this.dadosBancariosTO = resp;
+        if (!this.dadosBancariosTO) {
+          this.dadosBancariosTO = {
+            codFesta: this.festa.codFesta,
+            codBanco: null,
+            codAgencia: null,
+            codConta: null
+          };
+        }
+        this.dadosBancariosService.setFarol(false);
+        console.log(this.dadosBancariosTO);
+      });
   }
 
 

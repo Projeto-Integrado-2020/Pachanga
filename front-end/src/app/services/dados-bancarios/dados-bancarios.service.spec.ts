@@ -1,12 +1,20 @@
 /* tslint:disable:no-unused-variable */
 
 import { TestBed, async, inject } from '@angular/core/testing';
+import { MatDialog } from '@angular/material';
 import { DadosBancariosService } from './dados-bancarios.service';
 
 describe('Service: DadosBancarios', () => {
+  let dialogSpy: MatDialog;
+
   beforeEach(() => {
+    dialogSpy = jasmine.createSpyObj('MatDialog', ['open', 'closeAll']);
     TestBed.configureTestingModule({
-      providers: [DadosBancariosService]
+
+      providers: [
+        DadosBancariosService,
+        { provide: MatDialog, useValue: dialogSpy },
+      ]
     });
   });
 

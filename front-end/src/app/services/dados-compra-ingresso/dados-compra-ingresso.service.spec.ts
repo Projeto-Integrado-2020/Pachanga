@@ -4,6 +4,7 @@ import { CustomMaterialModule } from '../../views/material/material.module';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { DadosCompraIngressoService } from './dados-compra-ingresso.service';
 import { RouterTestingModule } from '@angular/router/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('DadosCompraIngressoService', () => {
   let dialogSpy: MatDialog;
@@ -14,10 +15,12 @@ describe('DadosCompraIngressoService', () => {
     TestBed.configureTestingModule({
       imports: [
         HttpClientModule,
+        HttpClientTestingModule,
         CustomMaterialModule,
         RouterTestingModule.withRoutes([]),
       ],
       providers: [
+        HttpClientModule,
         { provide: MatDialog, useValue: dialogSpy },
         { provide: MatDialogRef, useValue: {} }
       ]
