@@ -3,7 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { DadosCompraIngressoService } from 'src/app/services/dados-compra-ingresso/dados-compra-ingresso.service';
-import { GetFestaService } from 'src/app/services/get-festa/get-festa.service';
+import { GetFestaVendaIngressosService } from 'src/app/services/get-festa-venda-ingressos/get-festa-venda-ingressos.service';
 import { GetLotePublicoService } from 'src/app/services/get-lote-publico/get-lote-publico.service';
 
 @Component({
@@ -29,7 +29,7 @@ export class VendaIngressosComponent implements OnInit {
   public ingressos = [];
   public checkoutMassege;
 
-  constructor(public formBuilder: FormBuilder, public getFestaService: GetFestaService, public getLote: GetLotePublicoService,
+  constructor(public formBuilder: FormBuilder, public getFestaService: GetFestaVendaIngressosService, public getLote: GetLotePublicoService,
               public router: Router, public buyIngresso: DadosCompraIngressoService) {
                 this.form = this.formBuilder.group({
                 });
@@ -50,7 +50,7 @@ export class VendaIngressosComponent implements OnInit {
     let idFesta = this.router.url;
     idFesta = idFesta.substring(idFesta.indexOf('&') + 1, idFesta.indexOf('/', idFesta.indexOf('&')));
 
-    this.getFestaService.acessarFesta(idFesta).subscribe((resp: any) => {
+    this.getFestaService.getFestaVenda(idFesta).subscribe((resp: any) => {
       this.getFestaService.setFarol(false);
       this.festa = resp;
     });
@@ -59,7 +59,6 @@ export class VendaIngressosComponent implements OnInit {
   ngOnInit() {
     this.resgatarLote();
     this.resgatarFesta();
-    // this.buyIngresso.sharedMessage.subscribe(message => this.checkoutMassege = message);
   }
 
   getDateFromDTF(date) {

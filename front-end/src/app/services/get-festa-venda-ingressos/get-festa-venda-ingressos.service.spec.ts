@@ -41,10 +41,10 @@ describe('GetFestaVendaIngressosService', () => {
   });
 
   it('should get Info at getFestaVenda', () => {
-    expect(service.getFestaVenda()).toBeTruthy();
+    expect(service.getFestaVenda('teste')).toBeTruthy();
 
     expect(service.getFarol()).toBeTruthy();
 
-    expect(service.getFestaVenda()).toBeFalsy();
+    expect(service.getFestaVenda('teste')).toBeFalsy();
   });
 });
