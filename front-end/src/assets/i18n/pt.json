@@ -651,7 +651,11 @@
         "VISUINTE": "Visualizar integração",
         "ADDINTEG": "Adicionar integração",
         "DELEINTE": "Remover integração",
-        "EDITINTE": "Editar integração"
+        "EDITINTE": "Editar integração",
+        "VISUCUPM": "Visualizar cupons",
+        "ADDCUPOM": "Adicionar cupons",
+        "DELECUPM": "Deletar cupons",
+        "EDITCUPM": "Editar cupons"
     },
     
     "PRIVACIDADE": {

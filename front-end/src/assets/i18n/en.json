@@ -449,7 +449,11 @@
         "VISUINTE": "View integration",
         "ADDINTEG": "Add integration",
         "DELEINTE": "Delete integration",
-        "EDITINTE": "Edit integration"
+        "EDITINTE": "Edit integration",
+        "VISUCUPM": "View coupons",
+        "ADDCUPOM": "Add coupons",
+        "DELECUPM": "Delete coupons",
+        "EDITCUPM": "Edit coupons"
     },
 
     "ASSIGNDIALOG": {
