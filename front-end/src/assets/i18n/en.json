@@ -149,7 +149,11 @@
         "INFONFOU": "Integration not found.",
         "SYMPNFOU": "Sympla integration not found.",
         "CPFNOFOU": "CPF not found.",
-        "ENDENFOU": "Address not found. Please insert manually."
+        "ENDENFOU": "Address not found. Please insert manually.",
+        "DADBEXIS": "Bank data already registered at the party.",
+        "DADBNFOU": "Bank data not found.",
+        "CUPMDUPL": "Duplicate coupon.",
+        "CUPMNFOU": "Coupon not found."
     },
 
     "SUCCESS": {
@@ -453,7 +457,12 @@
         "VISUCUPM": "View coupons",
         "ADDCUPOM": "Add coupons",
         "DELECUPM": "Delete coupons",
-        "EDITCUPM": "Edit coupons"
+        "EDITCUPM": "Edit coupons",
+        "VISURELA": "View reports",
+        "VISUDADO": "View bank data",
+        "ADDDADOB": "Add bank data",
+        "DELEDADO": "delete bank data",
+        "EDITDADO": "Edit bank data"
     },
 
     "ASSIGNDIALOG": {

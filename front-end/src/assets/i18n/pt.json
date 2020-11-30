@@ -300,7 +300,11 @@
         "INFONFOU": "Integração não encontrada.",
         "SYMPNFOU": "Integração com Sympla não encontrada.",
         "CPFNOFOU": "CPF não encontrado.",
-        "ENDENFOU": "Endereço não encontrado. Favor inserir manualmente."
+        "ENDENFOU": "Endereço não encontrado. Favor inserir manualmente.",
+        "DADBEXIS": "Dado bancário já registrado na festa.",
+        "DADBNFOU": "Dado bancário não encontrado.",
+        "CUPMDUPL": "Cupom duplicado.",
+        "CUPMNFOU": "Cupom não encontrado."
     },
 
     "ESTOQUE": {
@@ -655,7 +659,12 @@
         "VISUCUPM": "Visualizar cupons",
         "ADDCUPOM": "Adicionar cupons",
         "DELECUPM": "Deletar cupons",
-        "EDITCUPM": "Editar cupons"
+        "EDITCUPM": "Editar cupons",
+        "VISURELA": "Visualizar relatórios",
+        "VISUDADO": "Visualizar dados bancários",
+        "ADDDADOB": "Adicionar dados bancários",
+        "DELEDADO": "Deletar dados bancários",
+        "EDITDADO": "Editar dados bancários"
     },
     
     "PRIVACIDADE": {
