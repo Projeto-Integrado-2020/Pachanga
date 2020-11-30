@@ -129,12 +129,12 @@ class DadoBancarioControllerTest {
 	
 	@Test
 	@WithMockUser
-	void adicionarDadoBancarioSucesso() throws Exception {
-		String uri = "/dadoBancario/adicionar";
+	void modificarDadoBancarioSucesso() throws Exception {
+		String uri = "/dadoBancario/modificarDadoBancario";
 		
 		String json = "{\"codDadosBancario\":1,\"codFesta\":8,\"codBanco\":\"teste\",\"codAgencia\":123,\"codConta\":12}";
 
-		Mockito.when(dadoBancarioService.adicionarDadoBancario(Mockito.any(), Mockito.anyInt()))
+		Mockito.when(dadoBancarioService.modificarDadoBancario(Mockito.any(), Mockito.anyInt()))
 				.thenReturn(dadoBancarioTest());
 		Mockito.when(dadoBancarioFactory.getDadoBancarioTO(Mockito.any())).thenReturn(dadoBancarioTOTest());
 
@@ -150,58 +150,16 @@ class DadoBancarioControllerTest {
 	
 	@Test
 	@WithMockUser
-	void adicionarDadoBancarioErro() throws Exception {
-		String uri = "/dadoBancario/adicionar";
+	void modificarDadoBancarioErro() throws Exception {
+		String uri = "/dadoBancario/modificarDadoBancario";
 		
 		String json = "{\"codDadosBancario\":1,\"codFesta\":8,\"codBanco\":\"teste\",\"codAgencia\":123,\"codConta\":12}";
 
-		Mockito.when(dadoBancarioService.adicionarDadoBancario(Mockito.any(), Mockito.anyInt()))
+		Mockito.when(dadoBancarioService.modificarDadoBancario(Mockito.any(), Mockito.anyInt()))
 				.thenThrow(new ValidacaoException("teste"));
 		Mockito.when(dadoBancarioFactory.getDadoBancarioTO(Mockito.any())).thenReturn(dadoBancarioTOTest());
 
 		RequestBuilder requestBuilder = MockMvcRequestBuilders.post(uri).accept(MediaType.APPLICATION_JSON)
-				.content(json).param("codUsuario", "1").contentType(MediaType.APPLICATION_JSON);
-		
-		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
-
-		MockHttpServletResponse response = result.getResponse();
-
-		assertEquals(HttpStatus.BAD_REQUEST.value(), response.getStatus());
-	}
-	
-	@Test
-	@WithMockUser
-	void atualizarDadoBancarioSucesso() throws Exception {
-		String uri = "/dadoBancario/atualizar";
-		
-		String json = "{\"codDadosBancario\":1,\"codFesta\":8,\"codBanco\":\"teste\",\"codAgencia\":123,\"codConta\":12}";
-
-		Mockito.when(dadoBancarioService.atualizarDadoBancario(Mockito.any(), Mockito.anyInt()))
-				.thenReturn(dadoBancarioTest());
-		Mockito.when(dadoBancarioFactory.getDadoBancarioTO(Mockito.any())).thenReturn(dadoBancarioTOTest());
-
-		RequestBuilder requestBuilder = MockMvcRequestBuilders.put(uri).accept(MediaType.APPLICATION_JSON)
-				.content(json).param("codUsuario", "1").contentType(MediaType.APPLICATION_JSON);
-		
-		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
-
-		MockHttpServletResponse response = result.getResponse();
-
-		assertEquals(HttpStatus.OK.value(), response.getStatus());
-	}
-	
-	@Test
-	@WithMockUser
-	void atualizarDadoBancarioErro() throws Exception {
-		String uri = "/dadoBancario/atualizar";
-		
-		String json = "{\"codDadosBancario\":1,\"codFesta\":8,\"codBanco\":\"teste\",\"codAgencia\":123,\"codConta\":12}";
-
-		Mockito.when(dadoBancarioService.atualizarDadoBancario(Mockito.any(), Mockito.anyInt()))
-				.thenThrow(new ValidacaoException("teste"));
-		Mockito.when(dadoBancarioFactory.getDadoBancarioTO(Mockito.any())).thenReturn(dadoBancarioTOTest());
-
-		RequestBuilder requestBuilder = MockMvcRequestBuilders.put(uri).accept(MediaType.APPLICATION_JSON)
 				.content(json).param("codUsuario", "1").contentType(MediaType.APPLICATION_JSON);
 		
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();

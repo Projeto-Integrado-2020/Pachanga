@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -43,24 +42,12 @@ public class DadoBancarioController {
 	}
 
 	@ResponseBody
-	@PostMapping(path = "/adicionar")
+	@PostMapping(path = "/modificarDadoBancario")
 	public ResponseEntity<Object> adicionarDadoBancario(@RequestBody DadoBancarioTO dadoBancarioTo,
 			@RequestParam(required = true) int codUsuario) {
 		try {
 			return ResponseEntity.ok(dadoBancarioFactory
-					.getDadoBancarioTO(dadoBancarioService.adicionarDadoBancario(dadoBancarioTo, codUsuario)));
-		} catch (ValidacaoException e) {
-			return ResponseEntity.badRequest().body(e.getMessage());
-		}
-	}
-
-	@ResponseBody
-	@PutMapping(path = "/atualizar")
-	public ResponseEntity<Object> atualizarDadoBancario(@RequestBody DadoBancarioTO dadoBancarioTo,
-			@RequestParam(required = true) int codUsuario) {
-		try {
-			return ResponseEntity.ok(dadoBancarioFactory
-					.getDadoBancarioTO(dadoBancarioService.atualizarDadoBancario(dadoBancarioTo, codUsuario)));
+					.getDadoBancarioTO(dadoBancarioService.modificarDadoBancario(dadoBancarioTo, codUsuario)));
 		} catch (ValidacaoException e) {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}

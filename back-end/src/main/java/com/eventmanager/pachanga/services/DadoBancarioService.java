@@ -36,19 +36,19 @@ public class DadoBancarioService {
 		return dadoBancarioRepository.findDadosBancariosFesta(codFesta);
 	}
 
-	public DadoBancario adicionarDadoBancario(DadoBancarioTO dadoBancarioTo, int codUsuario) {
+	public DadoBancario modificarDadoBancario(DadoBancarioTO dadoBancarioTo, int codUsuario) {
 		Festa festa = festaService.validarFestaExistente(dadoBancarioTo.getCodFesta());
 		festaService.validarUsuarioFesta(codUsuario, dadoBancarioTo.getCodFesta());
 		grupoService.validarPermissaoUsuarioGrupo(dadoBancarioTo.getCodFesta(), codUsuario,
-				TipoPermissao.ADDDADOB.getCodigo());
-		
-		if(dadoBancarioRepository.findDadosBancariosFesta(dadoBancarioTo.getCodFesta()) != null) {
-			throw new ValidacaoException("DADBEXIS");// dado bancario já existente para essa festa
-		}
-
-		DadoBancario dadoBancario = dadoBancarioFactory.getDadoBancario(dadoBancarioTo, festa);
+				TipoPermissao.MODDADOB.getCodigo());
+		DadoBancario dadoBancario = dadoBancarioRepository.findDadosBancariosFesta(dadoBancarioTo.getCodFesta());
+		if(dadoBancario != null) {
+			this.atualizarDadoBancario(dadoBancarioTo, dadoBancario);
+		}else {
+		dadoBancario = dadoBancarioFactory.getDadoBancario(dadoBancarioTo, festa);
 		dadoBancario.setCodDadosBancario(dadoBancarioRepository.getNextValMySequence());
 
+		}
 		dadoBancarioRepository.save(dadoBancario);
 		return dadoBancario;
 	}
@@ -70,15 +70,10 @@ public class DadoBancarioService {
 		return dadoBancario;
 	}
 
-	public DadoBancario atualizarDadoBancario(DadoBancarioTO dadoBancarioTo, int codUsuario) {
-		festaService.validarUsuarioFesta(codUsuario, dadoBancarioTo.getCodFesta());
-		grupoService.validarPermissaoUsuarioGrupo(dadoBancarioTo.getCodFesta(), codUsuario,
-				TipoPermissao.EDITDADO.getCodigo());
-		DadoBancario dadoBancario = this.validarDadoBancarioExistente(dadoBancarioTo.getCodDadosBancario());
+	private void atualizarDadoBancario(DadoBancarioTO dadoBancarioTo, DadoBancario dadoBancario) {
 		dadoBancario.setCodAgencia(dadoBancarioTo.getCodAgencia());
 		dadoBancario.setCodBanco(dadoBancarioTo.getCodBanco());
 		dadoBancario.setCodConta(dadoBancarioTo.getCodConta());
-		return dadoBancario;
 	}
 	
 }
