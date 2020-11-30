@@ -176,7 +176,6 @@ export class CheckoutComponent implements OnInit {
                     codUsuario: this.loginService.getusuarioInfo().codUsuario,
                     statusIngresso: 'U',
                     statusCompra: 'P',
-                    dataCompra: new Date(),
                     preco: lote.precoUnico,
                     nomeTitular: this.form.get('nome' + lote.lote.codLote + '-' + i).value,
                     emailTitular: this.form.get('email' + lote.lote.codLote + '-' + i).value

@@ -57,7 +57,7 @@ private readonly baseURL = `${environment.URL_BACK}dadoBancario`;
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('Authorization', 'Bearer ' + JSON.parse(localStorage.getItem('token')).token);
 
-    return this.http.post(this.baseURL + '/adicionar', dadosTO, { params: httpParams, headers}).pipe(
+    return this.http.post(this.baseURL + '/modificarDadoBancario', dadosTO, { params: httpParams, headers}).pipe(
       take(1),
       catchError(error => {
         return this.handleError(error, this.logService);
