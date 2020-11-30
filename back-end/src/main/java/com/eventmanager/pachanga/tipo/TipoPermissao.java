@@ -41,13 +41,12 @@ public enum TipoPermissao {
 	EDITINTE(37,"EDITINTE"),//editar integração
 	VISURELA(38,"VISURELA"),//visualizar relatório
 	VISUDADO(39,"VISUDADO"),//visualizar dados bancários
-	ADDDADOB(40,"ADDDADOB"),//adicionar dados bancários
+	MODDADOB(40,"MODDADOB"),//modificar(inserir ou atualizar) dados bancários
 	DELEDADO(41,"DELEDADO"),//deletar dados bancários
-	EDITDADO(42,"EDITDADO"),//editar dados bancários
-	VISUCUPM(43,"VISUCUPM"),//visualizar cupom
-	ADDCUPOM(44,"ADDCUPOM"),//inserir cupom
-	DELECUPM(45,"DELECUPM"),//deletar cupom
-	EDITCUPM(46,"EDITCUPM");//editar cupom
+	VISUCUPM(42,"VISUCUPM"),//visualizar cupom
+	ADDCUPOM(43,"ADDCUPOM"),//inserir cupom
+	DELECUPM(44,"DELECUPM"),//deletar cupom
+	EDITCUPM(45,"EDITCUPM");//editar cupom
 
 	private String valor;
 	private int codigo;

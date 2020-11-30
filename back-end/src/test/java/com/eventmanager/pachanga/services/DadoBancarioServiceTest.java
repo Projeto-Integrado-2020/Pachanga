@@ -27,21 +27,21 @@ import com.eventmanager.pachanga.securingweb.JwtUserDetailsService;
 import com.eventmanager.pachanga.tipo.TipoStatusFesta;
 
 @RunWith(SpringRunner.class)
-@WebMvcTest(value=DadoBancarioService.class)
+@WebMvcTest(value = DadoBancarioService.class)
 class DadoBancarioServiceTest {
-	
+
 	@MockBean
 	private AuthorizationServerTokenServices defaultAuthorizationServerTokenServices;
-	
+
 	@MockBean
 	private JwtUserDetailsService defaultJwtUserDetailsService;
-	
+
 	@MockBean
 	private JwtTokenUtil defaultJwtTokenUtil;
-	
+
 	@MockBean
 	private JwtAuthenticationEntryPoint defaultJwtAuthenticationEntryPoint;
-	
+
 	@MockBean
 	private DadoBancarioRepository dadoBancarioRepository;
 
@@ -53,10 +53,10 @@ class DadoBancarioServiceTest {
 
 	@MockBean
 	private GrupoService grupoService;
-	
+
 	@Autowired
 	private DadoBancarioService dadoBancarioService;
-	
+
 	private DadoBancario dadoBancarioTest() {
 		DadoBancario dado = new DadoBancario();
 		dado.setCodAgencia(1);
@@ -66,8 +66,8 @@ class DadoBancarioServiceTest {
 		dado.setFesta(new Festa());
 		return dado;
 	}
-	
-	private Festa festaTest(){
+
+	private Festa festaTest() {
 		Festa festaTest = new Festa();
 		festaTest.setCodFesta(2);
 		festaTest.setCodEnderecoFesta("https//:minhacasa.org");
@@ -82,7 +82,7 @@ class DadoBancarioServiceTest {
 
 		return festaTest;
 	}
-	
+
 	private DadoBancarioTO dadoBancarioTOTest() {
 		DadoBancarioTO dado = new DadoBancarioTO();
 		dado.setCodAgencia(1);
@@ -92,94 +92,82 @@ class DadoBancarioServiceTest {
 		dado.setCodFesta(1);
 		return dado;
 	}
-	
+
 	@Test
 	void dadoBancarioUnicoSucess() {
-		
+
 		Mockito.when(festaService.validarFestaExistente(Mockito.anyInt())).thenReturn(new Festa());
 		Mockito.when(festaService.validarUsuarioFesta(Mockito.anyInt(), Mockito.anyInt())).thenReturn(new Usuario());
-		Mockito.when(grupoService.validarPermissaoUsuarioGrupo(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(true);
+		Mockito.when(grupoService.validarPermissaoUsuarioGrupo(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt()))
+				.thenReturn(true);
 		Mockito.when(dadoBancarioRepository.findDadosBancariosFesta(Mockito.anyInt())).thenReturn(dadoBancarioTest());
-		
+
 		DadoBancario dadoBancario = dadoBancarioService.dadoBancarioUnico(1, 2);
-		
+
 		assertEquals(true, dadoBancario != null);
 	}
-	
+
 	@Test
 	void adicionarDadoBancarioSucess() {
 		Mockito.when(festaService.validarFestaExistente(Mockito.anyInt())).thenReturn(festaTest());
 		Mockito.when(festaService.validarUsuarioFesta(Mockito.anyInt(), Mockito.anyInt())).thenReturn(new Usuario());
-		Mockito.when(grupoService.validarPermissaoUsuarioGrupo(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(true);
+		Mockito.when(grupoService.validarPermissaoUsuarioGrupo(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt()))
+				.thenReturn(true);
 		Mockito.when(dadoBancarioRepository.findDadosBancariosFesta(Mockito.anyInt())).thenReturn(null);
 		Mockito.when(dadoBancarioFactory.getDadoBancario(Mockito.any(), Mockito.any())).thenReturn(dadoBancarioTest());
 		Mockito.when(dadoBancarioRepository.getNextValMySequence()).thenReturn(1);
-		
-		DadoBancario dadoBancario = dadoBancarioService.adicionarDadoBancario(dadoBancarioTOTest(), 2);
-		
+
+		DadoBancario dadoBancario = dadoBancarioService.modificarDadoBancario(dadoBancarioTOTest(), 2);
+
 		assertEquals(true, dadoBancario != null);
 		assertEquals(true, dadoBancario.getCodDadosBancario() == 1);
-		
+
 	}
-	
+
 	@Test
-	void adicionarDadoBancarioErroDadoBancarioExistente() {
+	void adicionarDadoBancarioAtualizaDados() {
 		Mockito.when(festaService.validarFestaExistente(Mockito.anyInt())).thenReturn(festaTest());
 		Mockito.when(festaService.validarUsuarioFesta(Mockito.anyInt(), Mockito.anyInt())).thenReturn(new Usuario());
-		Mockito.when(grupoService.validarPermissaoUsuarioGrupo(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(true);
+		Mockito.when(grupoService.validarPermissaoUsuarioGrupo(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt()))
+				.thenReturn(true);
 		Mockito.when(dadoBancarioRepository.findDadosBancariosFesta(Mockito.anyInt())).thenReturn(dadoBancarioTest());
 		Mockito.when(dadoBancarioFactory.getDadoBancario(Mockito.any(), Mockito.any())).thenReturn(dadoBancarioTest());
 		Mockito.when(dadoBancarioRepository.getNextValMySequence()).thenReturn(1);
-		
-		String mensagem = "";
-		try {
-			dadoBancarioService.adicionarDadoBancario(dadoBancarioTOTest(), 2);			
-		} catch (ValidacaoException e) {
-			mensagem = e.getMessage();
-		}
-		
-		assertEquals(true, "DADBEXIS".equals(mensagem));
-		
+
+		DadoBancario dadoBancario = dadoBancarioService.modificarDadoBancario(dadoBancarioTOTest(), 2);
+
+		assertEquals(true, dadoBancario != null);
+
 	}
-	
+
 	@Test
 	void deleteDadoBancarioSucesso() {
 		Mockito.when(festaService.validarFestaExistente(Mockito.anyInt())).thenReturn(festaTest());
-		Mockito.when(grupoService.validarPermissaoUsuarioGrupo(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(true);
+		Mockito.when(grupoService.validarPermissaoUsuarioGrupo(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt()))
+				.thenReturn(true);
 		Mockito.when(dadoBancarioRepository.findDadoByCodBancario(Mockito.anyInt())).thenReturn(dadoBancarioTest());
 		Mockito.doNothing().when(dadoBancarioRepository).delete(Mockito.any());
-		
+
 		dadoBancarioService.deleteDadoBancario(dadoBancarioTOTest(), 1);
-		
+
 	}
-	
+
 	@Test
 	void deleteDadoBancarioErroDadoBancarioNaoEncontrado() {
 		Mockito.when(festaService.validarFestaExistente(Mockito.anyInt())).thenReturn(festaTest());
-		Mockito.when(grupoService.validarPermissaoUsuarioGrupo(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(true);
+		Mockito.when(grupoService.validarPermissaoUsuarioGrupo(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt()))
+				.thenReturn(true);
 		Mockito.when(dadoBancarioRepository.findDadoByCodBancario(Mockito.anyInt())).thenReturn(null);
 		Mockito.doNothing().when(dadoBancarioRepository).delete(Mockito.any());
-		
+
 		String mensagem = "";
 		try {
 			dadoBancarioService.deleteDadoBancario(dadoBancarioTOTest(), 1);
 		} catch (ValidacaoException e) {
 			mensagem = e.getMessage();
 		}
-		
+
 		assertEquals(true, "DADBNFOU".equals(mensagem));
-	}
-	
-	@Test
-	void atualizarDadoBancarioSucesso() {
-		Mockito.when(festaService.validarFestaExistente(Mockito.anyInt())).thenReturn(festaTest());
-		Mockito.when(grupoService.validarPermissaoUsuarioGrupo(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(true);
-		Mockito.when(dadoBancarioRepository.findDadoByCodBancario(Mockito.anyInt())).thenReturn(dadoBancarioTest());
-		
-		
-		DadoBancario dadoBancario = dadoBancarioService.atualizarDadoBancario(dadoBancarioTOTest(), 1);
-		
-		assertEquals(true, dadoBancario != null);
 	}
 
 }

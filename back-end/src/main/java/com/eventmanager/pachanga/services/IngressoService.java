@@ -66,12 +66,11 @@ public class IngressoService {
 			}
 		}
 
-		ingressoRepository.save(ingresso);
 		if (TipoStatusCompra.PAGO.getDescricao().equals(ingressoTO.getStatusCompra())) {
-			EmailMensagem emailMessage = new EmailMensagem();
-			emailMessage.enviarEmailQRCode(ingresso.getUsuario().getEmail(), ingresso.getCodIngresso(),
-					ingresso.getFesta());
+			ingresso.setDataCompra(ingressoTO.getDataCompra());
+			this.criacaoEmailIngresso(ingresso, festa);
 		}
+		ingressoRepository.save(ingresso);
 		return ingresso;
 	}
 
@@ -95,8 +94,8 @@ public class IngressoService {
 		ingresso.setStatusCompra(ingressoTO.getStatusCompra());
 
 		if (TipoStatusCompra.PAGO.getDescricao().equals(ingressoTO.getStatusCompra())) {
-			EmailMensagem emailMessage = new EmailMensagem();
-			emailMessage.enviarEmailQRCode(ingresso.getUsuario().getEmail(), ingresso.getCodIngresso(), festa);
+			ingresso.setDataCompra(ingressoTO.getDataCompra());
+			this.criacaoEmailIngresso(ingresso, festa);
 		}
 		return ingresso;
 	}
@@ -121,6 +120,11 @@ public class IngressoService {
 			throw new ValidacaoException("INGRNFOU");
 		}
 		return ingresso;
+	}
+
+	private void criacaoEmailIngresso(Ingresso ingresso, Festa festa) {
+		EmailMensagem emailMessage = new EmailMensagem();
+		emailMessage.enviarEmailQRCode(ingresso.getUsuario().getEmail(), ingresso.getCodIngresso(), festa);
 	}
 
 }
