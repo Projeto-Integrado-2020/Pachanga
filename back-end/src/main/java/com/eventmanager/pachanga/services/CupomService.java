@@ -52,19 +52,26 @@ public class CupomService {
 	}
 	
 	public Cupom removeCupom(int codCupom, int idUser) {
-		Cupom cupom = cupomRepository.findCupomByCod(codCupom);
+		Cupom cupom = this.cupomExistente(codCupom);
 		this.validarPermissaoUsuario(cupom.getFesta().getCodFesta(), idUser, TipoPermissao.DELECUPM.getCodigo());
 		cupomRepository.delete(cupom);
 		return cupom;
 	}
 	
 	public Cupom atualizarCupom(CupomTO cupomTO, int idUser) {
-		Cupom cupom = cupomRepository.findCupomByCod(cupomTO.getCodCupom());
+		Cupom cupom = this.cupomExistente(cupomTO.getCodCupom());
 		Festa festa = cupom.getFesta();
 		this.validarPermissaoUsuario(festa.getCodFesta(), idUser, TipoPermissao.EDITCUPM.getCodigo());
-		cupom = CupomFactory.getCupom(cupomTO, festa);
 		this.validarCupom(cupom);
 		cupomRepository.save(cupom);
+		return cupom;
+	}
+	
+	private Cupom cupomExistente(int codCupom) {
+		Cupom cupom = cupomRepository.findCupomByCod(codCupom);
+		if(cupom == null) {
+			throw new ValidacaoException("CUPMNFOU");// cupom não encontrada
+		}
 		return cupom;
 	}
 	

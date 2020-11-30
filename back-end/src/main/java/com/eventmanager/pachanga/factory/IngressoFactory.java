@@ -17,7 +17,8 @@ public class IngressoFactory {
 		return IngressoBuilder.getInstance().codIngresso(ingressoTO.getCodIngresso()).lote(lote).festa(festa)
 				.usuario(usuario).statusIngresso(ingressoTO.getStatusIngresso()).preco(ingressoTO.getPreco())
 				.statusCompra(ingressoTO.getStatusCompra()).dataCheckin(ingressoTO.getDataCheckin())
-				.emailTitular(ingressoTO.getEmailTitular()).nomeTitular(ingressoTO.getNomeTitular()).build();
+				.dataCompra(ingressoTO.getDataCompra()).emailTitular(ingressoTO.getEmailTitular())
+				.nomeTitular(ingressoTO.getNomeTitular()).build();
 	}
 
 	public IngressoTO getIngressoTO(Ingresso ingresso) {

@@ -30,7 +30,7 @@ import com.eventmanager.pachanga.tipo.TipoStatusFesta;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(value=CupomService.class)
-public class CupomServiceTest {
+class CupomServiceTest {
 	
 	@Autowired
 	private CupomService cupomService;
@@ -234,7 +234,6 @@ public class CupomServiceTest {
 		assertEquals(true, erro);
 	}
 	
-	
 	@Test
 	void atualizarCupomSucesso() throws Exception {
 		CupomTO cupomTO = gerarCupomTO();
@@ -252,6 +251,30 @@ public class CupomServiceTest {
 		assertEquals(retorno.getNomeCupom(), cupom.getNomeCupom());
 		assertEquals(retorno.getFesta().getCodFesta(), cupom.getFesta().getCodFesta());
 		assertEquals(retorno.getPrecoDesconto(), cupom.getPrecoDesconto());
+	}
+	
+	@Test
+	void atualizarCupomErroCupomNaoEncontrado() throws Exception {
+		CupomTO cupomTO = gerarCupomTO();
+		Cupom cupom = gerarCupom();
+		
+		
+		Mockito.when(cupomRepository.findCupomByCod(Mockito.anyInt())).thenReturn(null);
+		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(criarListaDeGrupo());
+		Mockito.when(cupomRepository.findCuponsByNomeAndFesta(Mockito.anyString(), Mockito.anyInt())).thenReturn(null);
+		Mockito.when(cupomRepository.getNextValMySequence()).thenReturn(cupom.getCodCupom());
+		
+		boolean erro = false;
+		Cupom retorno;
+		try {
+			retorno = cupomService.atualizarCupom(cupomTO, 1);			
+		} catch (Exception e) {
+			erro = true;
+			retorno = null;
+		}
+		
+		assertEquals(null, retorno);
+		assertEquals(true, erro);
 	}
 	
 	@Test

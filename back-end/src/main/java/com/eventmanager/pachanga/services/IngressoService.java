@@ -38,6 +38,9 @@ public class IngressoService {
 	@Autowired
 	private LoteService loteService;
 
+	@Autowired
+	private NotificacaoService notificacaoService;
+
 	public List<Ingresso> getIngressosUser(int codUsuario) {
 		usuarioService.validarUsuario(codUsuario);
 		return ingressoRepository.findIngressosUser(codUsuario);
@@ -55,6 +58,7 @@ public class IngressoService {
 		Lote lote = loteService.validarLoteExistente(ingressoTO.getCodLote());
 
 		Ingresso ingresso = ingressoFactory.getIngresso(ingressoTO, usuario, festa, lote);
+		ingresso.setDataCompra(notificacaoService.getDataAtual());
 
 		while (true) {
 			ingresso.setCodIngresso(new Random().ints(48, 122 + 1)
@@ -67,7 +71,6 @@ public class IngressoService {
 		}
 
 		if (TipoStatusCompra.PAGO.getDescricao().equals(ingressoTO.getStatusCompra())) {
-			ingresso.setDataCompra(ingressoTO.getDataCompra());
 			this.criacaoEmailIngresso(ingresso, festa);
 		}
 		ingressoRepository.save(ingresso);
@@ -94,7 +97,6 @@ public class IngressoService {
 		ingresso.setStatusCompra(ingressoTO.getStatusCompra());
 
 		if (TipoStatusCompra.PAGO.getDescricao().equals(ingressoTO.getStatusCompra())) {
-			ingresso.setDataCompra(ingressoTO.getDataCompra());
 			this.criacaoEmailIngresso(ingresso, festa);
 		}
 		return ingresso;
