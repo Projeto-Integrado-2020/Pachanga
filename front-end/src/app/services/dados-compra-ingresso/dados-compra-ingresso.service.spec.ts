@@ -15,12 +15,11 @@ describe('DadosCompraIngressoService', () => {
     TestBed.configureTestingModule({
       imports: [
         HttpClientModule,
-        HttpClientTestingModule,
         CustomMaterialModule,
         RouterTestingModule.withRoutes([]),
       ],
       providers: [
-        HttpClientModule,
+
         { provide: MatDialog, useValue: dialogSpy },
         { provide: MatDialogRef, useValue: {} }
       ]

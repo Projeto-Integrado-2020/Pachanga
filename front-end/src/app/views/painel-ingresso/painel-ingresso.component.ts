@@ -119,6 +119,7 @@ export class PainelIngressoComponent implements OnInit {
     this.dadosBancEditavel = true;
   }
 
+
   salvarDadosBancarios(model: NgForm) {
 
     this.dadosBancariosTO.codBanco = model.value.codBanco;
