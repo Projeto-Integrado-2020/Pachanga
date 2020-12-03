@@ -13,6 +13,7 @@ import { of } from 'rxjs';
 import { ThirdPartyPainelComponent } from './third-party-painel.component';
 import { GetFestaService } from 'src/app/services/get-festa/get-festa.service';
 import { GetIntegracaoService } from 'src/app/services/get-integracao/get-integracao.service';
+import { ControleSidenavComponent } from '../controle-sidenav/controle-sidenav.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -27,7 +28,10 @@ describe('ThirdPartyPainelComponent', () => {
     dialogSpy = jasmine.createSpyObj('MatDialog', ['open']);
 
     TestBed.configureTestingModule({
-      declarations: [ ThirdPartyPainelComponent ],
+      declarations: [ 
+        ThirdPartyPainelComponent,
+        ControleSidenavComponent
+       ],
       imports: [
         CustomMaterialModule,
         HttpClientTestingModule,
