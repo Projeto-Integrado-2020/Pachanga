@@ -389,3 +389,8 @@ tr.example-element-row:not(.example-expanded-row):active {
 .detalhes-btn {
 
 }
+
+.flex-container {
+  display: flex;
+  flex-direction: row;
+}

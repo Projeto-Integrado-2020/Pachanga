@@ -11,6 +11,7 @@ import { HttpLoaderFactory } from '../edit-dialog/edit-dialog.component.spec';
 import { HttpClient } from '@angular/common/http';
 import { MatDialog } from '@angular/material';
 import { LoginService } from 'src/app/services/loginService/login.service';
+import { ControleSidenavComponent } from '../controle-sidenav/controle-sidenav.component';
 
 describe('EstoquePainelComponent', () => {
   let component: EstoquePainelComponent;
@@ -20,7 +21,10 @@ describe('EstoquePainelComponent', () => {
   beforeEach(async(() => {
     dialogSpy = jasmine.createSpyObj('MatDialog', ['open']);
     TestBed.configureTestingModule({
-      declarations: [ EstoquePainelComponent ],
+      declarations: [ 
+        EstoquePainelComponent,
+        ControleSidenavComponent
+      ],
       imports: [
         CustomMaterialModule,
         HttpClientTestingModule,

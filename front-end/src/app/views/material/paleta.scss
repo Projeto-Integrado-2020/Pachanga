@@ -3,6 +3,9 @@ $color-primary-light: #d084ff;
 $color-secondary: #000000;
 $color-tertiary: #9c2152;
 
+html {
+  font-size: 62.5%;
+}
 //
 .purple-back {
     background-color: $color-primary !important;
@@ -27,4 +30,10 @@ $color-tertiary: #9c2152;
       top: 50%;
       transform: translate(0, -50%);
     }
+  }
+
+  .main-container {
+    @include centralizar(true, false);
+    height: 100%;
+    max-width: 1140px;
   }

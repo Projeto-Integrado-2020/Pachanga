@@ -138,8 +138,12 @@
 
 .botoes {
   display: flex;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
+  flex-direction: column;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+  margin: 2rem 0 2rem 0;
+
 }
 
 .painel {

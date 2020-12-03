@@ -1,56 +1,38 @@
+
+<app-controle-sidenav></app-controle-sidenav>
 <div class="main-container">
-    <mat-sidenav-container class="example-container">
-        <mat-sidenav #sidenav mode="side" opened class="example-sidenav"
-            [fixedInViewport]="options.value.fixed" 
-            [fixedTopGap]="options.value.top"
-            [fixedBottomGap]="options.value.bottom">
+    <h2 class="titulo2">{{festaNome}}</h2>
+    <div class="botoes">
+        <button class="botao prp-btn-prod" (click)="openDialogCriarArea()" mat-button>{{'AREASEGURANCA.CREATE' | translate}}</button>
+    </div>
 
-            <button routerLink="../painel" mat-button class="botao-sidenav">{{'PAINELCONTROLE.GERAL' | translate}} <mat-icon>tab</mat-icon></button>
-            <button routerLink="../estoque" mat-button class="botao-sidenav">{{'PAINELCONTROLE.ESTOQUE' | translate}} <mat-icon>store</mat-icon></button>
-            <button routerLink="../painel-seguranca" mat-button class="botao-sidenav">{{'PAINELCONTROLE.SEGURANÇA' | translate}} <mat-icon>security</mat-icon></button>
-            <button routerLink="../ingressos" mat-button class="botao-sidenav">{{'PAINELCONTROLE.INGRESSOS' | translate}} <mat-icon> local_offer</mat-icon></button>
-            <button routerLink="../relatorios" mat-button class="botao-sidenav">{{'PAINELCONTROLE.RELATORIO' | translate}} <mat-icon> format_list_numbered</mat-icon></button>
-            <!-- BOTAO TOGGLE SIDENAV -->
-
-            <button mat-icon-button class="toggle sidenavFechar" (click)="sidenav.toggle()"><mat-icon>keyboard_arrow_left</mat-icon></button>
-        </mat-sidenav>
-        
-        <mat-sidenav-content class="center-x" [formGroup]="options">
-            <button mat-icon-button class="toggle sidenavAbrir" (click)="sidenav.toggle()"><mat-icon>keyboard_arrow_right</mat-icon></button>
-
-            <h2 class="titulo2">{{festaNome}}</h2>
-            <div class="botoes">
-                <button class="botao prp-btn-prod" (click)="openDialogCriarArea()" mat-button>{{'AREASEGURANCA.CREATE' | translate}}</button>
-            </div>
-
-            <div *ngFor="let area of this.areas; let i = index">
-                <mat-accordion class="tabela">
-                    <mat-expansion-panel hideToggle class="painel">
-                        <mat-expansion-panel-header>
-                            <mat-panel-title>{{area.nomeArea}}</mat-panel-title>
-                            <mat-panel-description>Status: {{'AREASEGURANCA.' + area.statusSeguranca | translate}}</mat-panel-description>
-                        </mat-expansion-panel-header>
-                        <div class="problemas">
-                            <div class="problema" *ngFor="let problema of area.problemasArea">
-                                <span>{{'RELATARPROB.' + problema.descProblema | translate}}</span>
-                                <div class="problema__detalhe">
-                                    <span>{{'RELATARPROB.' + problema.statusProblema | translate}}</span>
-                                    <button class="botao" mat-button (click)="verDetalhesProblema(problema)">{{'AREASEGURANCA.DETALHES' | translate}}</button>
-                                </div>
-                                
-                            </div>
-                            <!-- <div class="problema" *ngFor="let problema of this.getProblemasArea(area)">
-                                <span>{{problema.descProblema}}</span>
-                            </div> -->
+    <div *ngFor="let area of this.areas; let i = index">
+        <mat-accordion class="tabela">
+            <mat-expansion-panel hideToggle class="painel">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>{{area.nomeArea}}</mat-panel-title>
+                    <mat-panel-description>Status: {{'AREASEGURANCA.' + area.statusSeguranca | translate}}</mat-panel-description>
+                </mat-expansion-panel-header>
+                <div class="problemas">
+                    <div class="problema" *ngFor="let problema of area.problemasArea">
+                        <span>{{'RELATARPROB.' + problema.descProblema | translate}}</span>
+                        <div class="problema__detalhe">
+                            <span>{{'RELATARPROB.' + problema.statusProblema | translate}}</span>
+                            <button class="botao" mat-button (click)="verDetalhesProblema(problema)">{{'AREASEGURANCA.DETALHES' | translate}}</button>
                         </div>
-                        <div class="botoes">
-                            <button class="botao prp-btn-delete" mat-button (click)="openDialogRelatarProblema(area)">{{'AREASEGURANCA.RELATAR' | translate}}</button>
-                            <button class="botao prp-btn-delete" mat-button (click)="openDialogDelete(area.codArea)">{{'AREASEGURANCA.DELETE' | translate}}</button>
-                            <button class="botao prp-btn-edit" mat-button (click)="openDialogEdit(area)">{{'AREASEGURANCA.EDIT' | translate}}</button>
-                        </div>
-                    </mat-expansion-panel>
-                </mat-accordion>
-            </div>
-        </mat-sidenav-content>
-    </mat-sidenav-container>
+                        
+                    </div>
+                    <!-- <div class="problema" *ngFor="let problema of this.getProblemasArea(area)">
+                        <span>{{problema.descProblema}}</span>
+                    </div> -->
+                </div>
+                <div class="botoes">
+                    <button class="botao prp-btn-delete" mat-button (click)="openDialogRelatarProblema(area)">{{'AREASEGURANCA.RELATAR' | translate}}</button>
+                    <button class="botao prp-btn-delete" mat-button (click)="openDialogDelete(area.codArea)">{{'AREASEGURANCA.DELETE' | translate}}</button>
+                    <button class="botao prp-btn-edit" mat-button (click)="openDialogEdit(area)">{{'AREASEGURANCA.EDIT' | translate}}</button>
+                </div>
+            </mat-expansion-panel>
+        </mat-accordion>
+    </div>
+
 </div>

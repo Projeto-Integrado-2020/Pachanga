@@ -1,0 +1,32 @@
+<div class="sidenav-container">
+  <div [@openClose]="isOpen ? 'aberto' : 'fechado'" class="sidenav">
+    <button (click)="this.toggle()" routerLink="../painel" mat-button class="sidenav__botao">
+      <span>{{'PAINELCONTROLE.GERAL' | translate}} </span>
+      <mat-icon>tab</mat-icon>
+    </button>
+    <button (click)="this.toggle()" routerLink="../estoque" mat-button class="sidenav__botao">
+      <span>{{'PAINELCONTROLE.ESTOQUE' | translate}}</span>
+      <mat-icon>store</mat-icon>
+    </button>
+    <button (click)="this.toggle()" routerLink="../painel-seguranca" mat-button class="sidenav__botao">
+      <span>{{'PAINELCONTROLE.SEGURANÇA' | translate}}</span>
+      <mat-icon>security</mat-icon>
+    </button>
+    <button (click)="this.toggle()" routerLink="../ingressos" mat-button class="sidenav__botao">
+      <span>{{'PAINELCONTROLE.INGRESSOS' | translate}}</span>
+      <mat-icon> local_offer</mat-icon>
+    </button>
+    <button (click)="this.toggle()" routerLink="../relatorios" mat-button class="sidenav__botao">
+      <span>{{'PAINELCONTROLE.RELATORIO' | translate}}</span>
+      <mat-icon> format_list_numbered</mat-icon>
+    </button>
+  </div>
+  <div [@btn-desktop]="isOpen ? 'aberto' : 'fechado'" (click)="this.toggle()" class="abrir-btn abrir-btn--desktop">
+    <mat-icon class="btn-icon">keyboard_arrow_right</mat-icon>
+  </div>
+
+  <div [@btn-mobile]="isOpen ? 'aberto' : 'fechado'" (click)="this.toggle()" class="abrir-btn abrir-btn--mobile">
+    <mat-icon class="btn-icon">keyboard_arrow_right</mat-icon>
+  </div>
+</div>
+
