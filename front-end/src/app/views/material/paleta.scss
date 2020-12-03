@@ -34,6 +34,17 @@ html {
 
   .main-container {
     @include centralizar(true, false);
-    height: 100%;
     max-width: 1140px;
+  }
+
+  @media(max-width: 748px){
+    .main-container {
+      margin-top: 56px;
+    }
+  }
+
+  @media(min-width: 749px){
+    .main-container {
+      margin-top: 64px;
+    }
   }
