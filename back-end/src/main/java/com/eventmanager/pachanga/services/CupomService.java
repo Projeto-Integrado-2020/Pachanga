@@ -8,12 +8,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.eventmanager.pachanga.domains.Cupom;
 import com.eventmanager.pachanga.domains.Festa;
-import com.eventmanager.pachanga.domains.Grupo;
 import com.eventmanager.pachanga.dtos.CupomTO;
 import com.eventmanager.pachanga.errors.ValidacaoException;
 import com.eventmanager.pachanga.factory.CupomFactory;
 import com.eventmanager.pachanga.repositories.CupomRepository;
-import com.eventmanager.pachanga.repositories.GrupoRepository;
 import com.eventmanager.pachanga.tipo.TipoPermissao;
 
 @Service
@@ -24,26 +22,26 @@ public class CupomService {
 	private CupomRepository cupomRepository;
 	
 	@Autowired
-	private GrupoRepository grupoRepository;
+	private GrupoService grupoService;
 	 
 	@Autowired
 	private FestaService festaService;
 	
 	public Cupom getCupom(int codCupom, int idUser) {
 		Cupom cupom = cupomRepository.findCupomByCod(codCupom); 
-		this.validarPermissaoUsuario(cupom.getFesta().getCodFesta(), idUser, TipoPermissao.VISUCUPM.getCodigo());
+		grupoService.validarPermissaoUsuarioGrupo(cupom.getFesta().getCodFesta(), idUser, TipoPermissao.VISUCUPM.getCodigo());
 		return cupom;
 	}
 	
 	public List<Cupom> getCuponsFesta(int codFesta, int idUser) {
 		List<Cupom> cupons = cupomRepository.findCuponsFesta(codFesta);
-		this.validarPermissaoUsuario(codFesta, idUser, TipoPermissao.VISUCUPM.getCodigo());
+		grupoService.validarPermissaoUsuarioGrupo(codFesta, idUser, TipoPermissao.VISUCUPM.getCodigo());
 		return cupons;
 	}
 	
 	public Cupom gerarCupom(CupomTO cupomTO, int idUser) {
 		Festa festa = festaService.procurarFesta(cupomTO.getCodFesta(), idUser);
-		this.validarPermissaoUsuario(festa.getCodFesta(), idUser, TipoPermissao.ADDCUPOM.getCodigo());
+		grupoService.validarPermissaoUsuarioGrupo(festa.getCodFesta(), idUser, TipoPermissao.ADDCUPOM.getCodigo());
 		Cupom cupom = CupomFactory.getCupom(cupomTO, festa);
 		this.validarCupom(cupom);
 		cupom.setCodCupom(cupomRepository.getNextValMySequence());
@@ -53,7 +51,7 @@ public class CupomService {
 	
 	public Cupom removeCupom(int codCupom, int idUser) {
 		Cupom cupom = this.cupomExistente(codCupom);
-		this.validarPermissaoUsuario(cupom.getFesta().getCodFesta(), idUser, TipoPermissao.DELECUPM.getCodigo());
+		grupoService.validarPermissaoUsuarioGrupo(cupom.getFesta().getCodFesta(), idUser, TipoPermissao.DELECUPM.getCodigo());
 		cupomRepository.delete(cupom);
 		return cupom;
 	}
@@ -61,7 +59,7 @@ public class CupomService {
 	public Cupom atualizarCupom(CupomTO cupomTO, int idUser) {
 		Cupom cupom = this.cupomExistente(cupomTO.getCodCupom());
 		Festa festa = cupom.getFesta();
-		this.validarPermissaoUsuario(festa.getCodFesta(), idUser, TipoPermissao.EDITCUPM.getCodigo());
+		grupoService.validarPermissaoUsuarioGrupo(festa.getCodFesta(), idUser, TipoPermissao.EDITCUPM.getCodigo());
 		cupom.setNomeCupom(cupomTO.getNomeCupom());
 		cupom.setPrecoDesconto(cupomTO.getPrecoDesconto());
 		cupomRepository.save(cupom);
@@ -74,15 +72,6 @@ public class CupomService {
 			throw new ValidacaoException("CUPMNFOU");// cupom não encontrada
 		}
 		return cupom;
-	}
-	
-	private boolean validarPermissaoUsuario(int codFesta, int idUsuario, int codPermissao) {
-		List<Grupo> grupos = grupoRepository.findGrupoPermissaoUsuario(codFesta, idUsuario, codPermissao);
-		if (grupos.isEmpty()) {
-			throw new ValidacaoException("USESPERM");// usuário sem permissão
-		} else {
-			return true;
-		}
 	}
 	
 	private boolean validarCupom(Cupom cupom) {

@@ -18,6 +18,7 @@ public class IngressoTOBuilder {
 	private LocalDateTime dataCheckin;
 	private String nomeTitular;
 	private String emailTitular;
+	private String codBoleto;
 	
 	public static IngressoTOBuilder getInstance() {
 		return new IngressoTOBuilder();
@@ -25,6 +26,11 @@ public class IngressoTOBuilder {
 	
 	public IngressoTOBuilder codIngresso(String codIngresso) {
 		this.codIngresso = codIngresso;
+		return this;
+	}
+	
+	public IngressoTOBuilder codBoleto(String codBoleto) {
+		this.codBoleto = codBoleto;
 		return this;
 	}
 	
@@ -91,6 +97,7 @@ public class IngressoTOBuilder {
 		ingressoTO.setCodUsuario(codUsuario);
 		ingressoTO.setNomeTitular(nomeTitular);
 		ingressoTO.setEmailTitular(emailTitular);
+		ingressoTO.setCodBoleto(codBoleto);
 		return ingressoTO;
 		
 	}

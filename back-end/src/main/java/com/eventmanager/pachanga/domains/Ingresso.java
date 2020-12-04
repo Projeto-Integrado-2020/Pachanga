@@ -49,6 +49,9 @@ public class Ingresso {
 	
 	@Column(name = "email_titular")
 	private String emailTitular;
+	
+	@Column(name = "cod_boleto")
+	private String codBoleto;
 
 	public String getCodIngresso() {
 		return codIngresso;
@@ -136,6 +139,14 @@ public class Ingresso {
 
 	public void setEmailTitular(String emailTitular) {
 		this.emailTitular = emailTitular;
+	}
+
+	public String getCodBoleto() {
+		return codBoleto;
+	}
+
+	public void setCodBoleto(String codBoleto) {
+		this.codBoleto = codBoleto;
 	}
 
 }

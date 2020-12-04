@@ -34,22 +34,22 @@ class HashBuilderTest {
 
 	@Test
 	void criacaoSenhaTest() {
-		String senhaHash = HashBuilder.gerarSenha(senha);
+		String senhaHash = HashBuilder.gerarCodigoHasheado(senha);
 		assertEquals(160, senhaHash.length());
 		assertNotEquals(senhaHash, senha);
 	}
 
 	@Test
 	void compararCertoSenha() {
-		String senhaLogin = HashBuilder.gerarSenha(senha);
-		boolean senhaCorreta = HashBuilder.compararSenha(senha, senhaLogin);
+		String senhaLogin = HashBuilder.gerarCodigoHasheado(senha);
+		boolean senhaCorreta = HashBuilder.compararCodigos(senha, senhaLogin);
 		assertEquals(true, senhaCorreta);
 	}
 
 	@Test
 	void compararErradaSenha() {
-		String senhaLogin = HashBuilder.gerarSenha("123");
-		boolean senhaCorreta = HashBuilder.compararSenha(senha, senhaLogin);
+		String senhaLogin = HashBuilder.gerarCodigoHasheado("123");
+		boolean senhaCorreta = HashBuilder.compararCodigos(senha, senhaLogin);
 		assertEquals(false, senhaCorreta);
 	}
 

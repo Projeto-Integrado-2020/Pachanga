@@ -210,31 +210,6 @@ class CupomServiceTest {
 	}
 	
 	@Test
-	void gerarCupomPermissaoUsuarioException() throws Exception {
-		Festa festa = festaTest();
-		CupomTO cupomTO = gerarCupomTO();
-		Cupom cupom = gerarCupom();
-		List<Grupo> vazio = new ArrayList<>();
-		
-		Mockito.when(festaService.procurarFesta(Mockito.anyInt(), Mockito.anyInt())).thenReturn(festa);
-		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(vazio);
-		Mockito.when(cupomRepository.findCuponsByNomeAndFesta(Mockito.anyString(), Mockito.anyInt())).thenReturn(null);
-		Mockito.when(cupomRepository.getNextValMySequence()).thenReturn(cupom.getCodCupom());
-		
-		boolean erro = false;
-		Cupom retorno;
-		try {
-			retorno = cupomService.gerarCupom(cupomTO, 1);
-		}catch(ValidacaoException e){
-			erro = true;
-			retorno = null;
-		};
-
-		assertEquals(null, retorno);
-		assertEquals(true, erro);
-	}
-	
-	@Test
 	void atualizarCupomSucesso() throws Exception {
 		CupomTO cupomTO = gerarCupomTO();
 		Cupom cupom = gerarCupom();
