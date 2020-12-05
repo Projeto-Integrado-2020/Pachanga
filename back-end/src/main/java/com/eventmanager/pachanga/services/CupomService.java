@@ -65,6 +65,8 @@ public class CupomService {
 				TipoPermissao.EDITCUPM.getCodigo());
 		cupom.setNomeCupom(cupomTO.getNomeCupom());
 		cupom.setPrecoDesconto(cupomTO.getPrecoDesconto());
+		cupom.setPorcentagemDesc(cupomTO.getPorcentagemDesc());
+		cupom.setTipoDesconto(cupomTO.getTipoDesconto());
 		this.validarCupom(cupom);
 		cupomRepository.save(cupom);
 		return cupom;
