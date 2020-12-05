@@ -4,7 +4,8 @@ import { MatDialog, MAT_DIALOG_DATA } from '@angular/material';
 import { Router } from '@angular/router';
 import { CepApiService } from 'src/app/services/cep-api/cep-api.service';
 import { DadosCompraIngressoService } from 'src/app/services/dados-compra-ingresso/dados-compra-ingresso.service';
-import { PagSeguroService } from 'src/app/services/pag-seguro/pag-seguro.service';
+import { GerarIngressoService } from 'src/app/services/gerar-ingresso/gerar-ingresso.service';
+import { LoginService } from 'src/app/services/loginService/login.service';
 import { SuccessDialogComponent } from '../success-dialog/success-dialog.component';
 
 @Component({
@@ -17,13 +18,17 @@ export class GerarBoletoDialogComponent implements OnInit {
   form: FormGroup;
   festa: any;
   preco: any;
+  ingressos: any;
+  formCheckOut: FormGroup;
 
   constructor(@Inject(MAT_DIALOG_DATA) data, public formBuilder: FormBuilder,
-              public pagSeguroService: PagSeguroService, public dialog: MatDialog,
-              public cepService: CepApiService, public router: Router,
-              public dadosService: DadosCompraIngressoService) {
+              public dialog: MatDialog, public cepService: CepApiService, public router: Router,
+              public dadosService: DadosCompraIngressoService, public ingressosService: GerarIngressoService,
+              public loginService: LoginService) {
     this.festa = data.festa;
     this.preco = data.preco;
+    this.ingressos = data.ingressos;
+    this.formCheckOut = data.form;
   }
 
   ngOnInit() {
@@ -47,6 +52,48 @@ export class GerarBoletoDialogComponent implements OnInit {
 
   get f() { return this.form.controls; }
 
+  gerarIngressos() {
+    const ingressosCheckout = [];
+    for (const lote of this.ingressos) {
+        for (let i = 0; i < lote.quantidade.length; i++) {
+            ingressosCheckout.push({
+                codLote: lote.lote.codLote,
+                festa: {codFesta: lote.lote.codFesta},
+                codUsuario: this.loginService.getusuarioInfo().codUsuario,
+                statusIngresso: 'U',
+                statusCompra: 'C',
+                boleto: true,
+                preco: lote.precoUnico,
+                nomeTitular: this.formCheckOut.get('nome' + lote.lote.codLote + '-' + i).value,
+                emailTitular: this.formCheckOut.get('email' + lote.lote.codLote + '-' + i).value
+            });
+        }
+    }
+    const body = {
+      listaIngresso: ingressosCheckout,
+      infoPagamento: {
+        nomePagador: this.form.get('nomePagador').value,
+        identificacao: this.form.get('identificacao').value,
+        email: this.form.get('email').value,
+        pais: this.form.get('pais').value,
+        estado: this.form.get('estado').value,
+        cidade: this.form.get('cidade').value,
+        cep: this.form.get('cep').value,
+        rua: this.form.get('rua').value,
+        numero: this.form.get('numero').value,
+        bairro: this.form.get('bairro').value,
+        preco: this.preco
+      }
+    };
+    this.ingressosService.adicionarIngressos(body).subscribe((resp: any) => {
+      window.open(resp.links[0].href, '_blank');
+      this.router.navigate(['/meus-ingressos']);
+      this.dadosService.cleanStorage();
+      this.dialog.closeAll();
+      this.openDialogSuccess('BOLEGERA');
+    });
+  }
+/*
   gerarBoleto() {
     const boleto = {
       reference_id: 'ex-00001',
@@ -80,19 +127,14 @@ export class GerarBoletoDialogComponent implements OnInit {
           }
         }
       },
-      notification_urls: [
-        'https://yourserver.com/nas_ecommerce/277be731-3b7c-4dac-8c4e-4c3f4a1fdc46/'
-      ]
+      notification_urls: `${environment.URL_BACK}ingresso/updateStatusCompra?codBoleto=${'codBoleto'}`
     };
 
     this.pagSeguroService.gerarBoleto(boleto).subscribe((resp: any) => {
-      window.open(resp.links[0].href, '_blank');
-      this.router.navigate(['/meus-ingressos']);
-      this.dadosService.cleanStorage();
-      this.dialog.closeAll();
-      this.openDialogSuccess('BOLEGERA');
+      this.gerarIngressos(resp);
     });
   }
+*/
 
   buscarEndereco() {
     this.cepService.resgatarEndereco(this.form.get('cep').value).subscribe((resp: any) => {

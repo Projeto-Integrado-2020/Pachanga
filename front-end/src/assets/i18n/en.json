@@ -462,7 +462,8 @@
         "VISUDADO": "View bank data",
         "ADDDADOB": "Add bank data",
         "DELEDADO": "delete bank data",
-        "EDITDADO": "Edit bank data"
+        "EDITDADO": "Edit bank data",
+        "MODDABOB": "Modify bank info"
     },
 
     "ASSIGNDIALOG": {

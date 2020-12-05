@@ -28,7 +28,7 @@ describe('FestaPainelControleComponent', () => {
   beforeEach(async(() => {
     dialogSpy = jasmine.createSpyObj('MatDialog', ['open']);
     TestBed.configureTestingModule({
-      declarations: [ 
+      declarations: [
         FestaPainelControleComponent,
         ControleSidenavComponent
       ],

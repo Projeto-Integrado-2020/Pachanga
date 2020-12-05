@@ -28,7 +28,7 @@ describe('ThirdPartyPainelComponent', () => {
     dialogSpy = jasmine.createSpyObj('MatDialog', ['open']);
 
     TestBed.configureTestingModule({
-      declarations: [ 
+      declarations: [
         ThirdPartyPainelComponent,
         ControleSidenavComponent
        ],

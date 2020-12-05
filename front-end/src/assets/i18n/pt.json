@@ -664,7 +664,8 @@
         "VISUDADO": "Visualizar dados bancários",
         "ADDDADOB": "Adicionar dados bancários",
         "DELEDADO": "Deletar dados bancários",
-        "EDITDADO": "Editar dados bancários"
+        "EDITDADO": "Editar dados bancários",
+        "MODDABOB": "Modificar dados bancários"
     },
     
     "PRIVACIDADE": {

@@ -36,7 +36,7 @@ describe('RelatoriosPainelComponent', () => {
         }),
         RouterModule.forRoot([])
       ],
-      declarations: [ 
+      declarations: [
         RelatoriosPainelComponent,
         ControleSidenavComponent
        ]

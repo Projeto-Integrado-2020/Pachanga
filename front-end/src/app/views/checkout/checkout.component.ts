@@ -142,7 +142,9 @@ export class CheckoutComponent implements OnInit {
             width: '50rem',
             data: {
                 festa: this.festa,
-                preco: this.precoTotal
+                preco: this.precoTotal,
+                ingressos: this.ingressos,
+                form: this.form
             }
         });
     }

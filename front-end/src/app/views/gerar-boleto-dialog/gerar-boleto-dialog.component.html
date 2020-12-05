@@ -1,6 +1,6 @@
 <h1 mat-dialog-title>{{'BOLETO.TITLE' | translate}}</h1>
 <div mat-dialog-content>
-    <form [formGroup]="form" (submit)="gerarBoleto()">
+    <form [formGroup]="form" (submit)="gerarIngressos()">
         <mat-form-field class="texto-input">
             <mat-label>{{'BOLETO.PAGADOR' | translate}}</mat-label>
             <input #nomePagador formControlName="nomePagador" required matInput>

@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './controle-sidenav.component.html',
   styleUrls: ['./controle-sidenav.component.scss'],
   animations: [
-    //sidenav
+    // sidenav
     trigger('openClose', [
       state('aberto', style({
         left: '0'
@@ -24,7 +24,7 @@ import { Component, OnInit } from '@angular/core';
         animate('.3s')
       ] )
     ]),
-    //botao desktop
+    // botao desktop
     trigger('btn-desktop', [
       state('aberto', style({
         left: '16rem',
@@ -45,7 +45,7 @@ import { Component, OnInit } from '@angular/core';
 
     ]),
 
-    //botao mobile
+    // botao mobile
     trigger('btn-mobile', [
       state('aberto', style({
         left: 'calc(100% - 3rem)',

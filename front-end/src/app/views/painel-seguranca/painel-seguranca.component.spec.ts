@@ -22,7 +22,7 @@ describe('PainelSegurancaComponent', () => {
   beforeEach(async(() => {
     dialogSpy = jasmine.createSpyObj('MatDialog', ['open']);
     TestBed.configureTestingModule({
-      declarations: [ 
+      declarations: [
         PainelSegurancaComponent,
         ControleSidenavComponent
       ],

@@ -21,7 +21,7 @@ describe('EstoquePainelComponent', () => {
   beforeEach(async(() => {
     dialogSpy = jasmine.createSpyObj('MatDialog', ['open']);
     TestBed.configureTestingModule({
-      declarations: [ 
+      declarations: [
         EstoquePainelComponent,
         ControleSidenavComponent
       ],
