@@ -17,7 +17,7 @@ public class CupomFactory {
 	public CupomTO getCupomTO(Cupom cupom) {
 		return CupomTOBuilder.getInstance()
 				             .codCupom(cupom.getCodCupom())
-				             .nomeCupom(cupom.getNomeCupom().toUpperCase())
+				             .nomeCupom(cupom.getNomeCupom())
 				             .codfesta(cupom.getFesta().getCodFesta())
 				             .precoDesconto(cupom.getPrecoDesconto())
 				             .porcentagemDesc(cupom.getPorcentagemDesc())

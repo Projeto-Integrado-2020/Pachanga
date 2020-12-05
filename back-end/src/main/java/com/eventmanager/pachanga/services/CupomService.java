@@ -45,8 +45,8 @@ public class CupomService {
 	public Cupom gerarCupom(CupomTO cupomTO, int idUser) {
 		Festa festa = festaService.procurarFesta(cupomTO.getCodFesta(), idUser);
 		grupoService.validarPermissaoUsuarioGrupo(festa.getCodFesta(), idUser, TipoPermissao.ADDCUPOM.getCodigo());
+		this.validarCupom(cupomTO, false);
 		Cupom cupom = cupomFactory.getCupom(cupomTO, festa);
-		this.validarCupom(cupom);
 		cupom.setCodCupom(cupomRepository.getNextValMySequence());
 		cupomRepository.save(cupom);
 		return cupom;
@@ -61,13 +61,14 @@ public class CupomService {
 
 	public Cupom atualizarCupom(CupomTO cupomTO, int idUser) {
 		Cupom cupom = this.cupomExistente(cupomTO.getCodCupom());
+		String nomeCupomAntigo = cupom.getNomeCupom();
 		grupoService.validarPermissaoUsuarioGrupo(cupom.getFesta().getCodFesta(), idUser,
 				TipoPermissao.EDITCUPM.getCodigo());
+		this.validarCupom(cupomTO, nomeCupomAntigo.equals(cupomTO.getNomeCupom()));
 		cupom.setNomeCupom(cupomTO.getNomeCupom());
 		cupom.setPrecoDesconto(cupomTO.getPrecoDesconto());
 		cupom.setPorcentagemDesc(cupomTO.getPorcentagemDesc());
 		cupom.setTipoDesconto(cupomTO.getTipoDesconto());
-		this.validarCupom(cupom);
 		cupomRepository.save(cupom);
 		return cupom;
 	}
@@ -80,11 +81,10 @@ public class CupomService {
 		return cupom;
 	}
 
-	private void validarCupom(Cupom cupom) {
+	private void validarCupom(CupomTO cupom, boolean trocaNome) {
 		String nomeCupom = cupom.getNomeCupom();
-		int codFesta = cupom.getFesta().getCodFesta();
-		Cupom cupomExistente = cupomRepository.findCuponsByNomeAndFesta(nomeCupom, codFesta);
-		if (cupomExistente != null)
+		Cupom cupomExistente = cupomRepository.findCuponsByNomeAndFesta(nomeCupom, cupom.getCodFesta());
+		if (cupomExistente != null && !trocaNome)
 			throw new ValidacaoException("CUPMDUPL");// cupom duplicado
 		
 		if (!cupom.getTipoDesconto().equals(TipoDesconto.PORCENTAGEM.getDescricao())

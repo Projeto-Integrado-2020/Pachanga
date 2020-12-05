@@ -107,7 +107,8 @@ class CupomServiceTest {
 		cupomTO.setCodCupom(1);
 		cupomTO.setNomeCupom("Cupom");
 		cupomTO.setCodFesta(festaTest().getCodFesta());
-		cupomTO.setPrecoDesconto((float) 1.75);
+		cupomTO.setPrecoDesconto(1.75f);
+		cupomTO.setTipoDesconto(TipoDesconto.VALOR.getDescricao());
 		return cupomTO;
 	}
 	
@@ -203,7 +204,7 @@ class CupomServiceTest {
 		Festa festa = festaTest();
 		CupomTO cupomTO = gerarCupomTO();
 		Cupom cupom = gerarCupom();
-		cupom.setTipoDesconto("A");
+		cupomTO.setTipoDesconto("A");
 		
 		Mockito.when(festaService.procurarFesta(Mockito.anyInt(), Mockito.anyInt())).thenReturn(festa);
 		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(criarListaDeGrupo());
@@ -229,7 +230,7 @@ class CupomServiceTest {
 		Festa festa = festaTest();
 		CupomTO cupomTO = gerarCupomTO();
 		Cupom cupom = gerarCupom();
-		cupom.setPrecoDesconto(0);
+		cupomTO.setPrecoDesconto(0);
 		
 		Mockito.when(festaService.procurarFesta(Mockito.anyInt(), Mockito.anyInt())).thenReturn(festa);
 		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(criarListaDeGrupo());
@@ -255,8 +256,8 @@ class CupomServiceTest {
 		Festa festa = festaTest();
 		CupomTO cupomTO = gerarCupomTO();
 		Cupom cupom = gerarCupom();
-		cupom.setTipoDesconto(TipoDesconto.PORCENTAGEM.getDescricao());
-		cupom.setPorcentagemDesc(0);
+		cupomTO.setTipoDesconto(TipoDesconto.PORCENTAGEM.getDescricao());
+		cupomTO.setPorcentagemDesc(0);
 		
 		Mockito.when(festaService.procurarFesta(Mockito.anyInt(), Mockito.anyInt())).thenReturn(festa);
 		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(criarListaDeGrupo());

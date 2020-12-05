@@ -7,6 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -39,7 +40,11 @@ public class Festa {
 	private String descOrganizador;
 	
 	@Column(name = "imagem")
-	private String imagem;
+	@Lob
+	private byte[] imagem;
+	
+	@Column(name = "url_imagem")
+	private String urlImagem;
 	
 	@Column(name = "horario_fim_real")
 	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm:ss")
@@ -188,20 +193,24 @@ public class Festa {
 		this.ingressos = ingressos;
 	}
 	
-	public Set<Lote> getQuestionariosForms() {
-		return lotes;
-	}
-	
 	public void setQuestionariosForms(Set<QuestionarioForms> questionariosForms) {
 		this.questionariosForms = questionariosForms;
 	}
 	
-	public String getImagem() {
+	public byte[] getImagem() {
 		return imagem;
 	}
 	
-	public void setImagem(String imagem) {
-		this.imagem = imagem == null ? null : "https://res.cloudinary.com/htctb0zmi/image/upload/v1606685633/" + imagem;
+	public void setImagem(byte[] imagem) {
+		this.imagem = imagem;
+	}
+	
+	public String getUrlImagem() {
+		return urlImagem;
+	}
+	
+	public void setUrlImagem(String urlImagem) {
+		this.urlImagem = urlImagem == null ? null : "https://res.cloudinary.com/htctb0zmi/image/upload/v1606685633/" + imagem;
 	}
 	
 	public Boolean isOrganizador(int codUsuario) {
@@ -222,5 +231,21 @@ public class Festa {
 	public void setCupons(Set<Cupom> cupons) {
 		this.cupons = cupons;
 	}
+	public Set<InfoIntegracao> getInfosIntegracao() {
+		return infosIntegracao;
+	}
+	public void setInfosIntegracao(Set<InfoIntegracao> infosIntegracao) {
+		this.infosIntegracao = infosIntegracao;
+	}
+	public Set<DadoBancario> getDadosBancario() {
+		return dadosBancario;
+	}
+	public void setDadosBancario(Set<DadoBancario> dadosBancario) {
+		this.dadosBancario = dadosBancario;
+	}
+	public Set<QuestionarioForms> getQuestionariosForms() {
+		return questionariosForms;
+	}
+	
 	
 }
