@@ -24,6 +24,12 @@ public class Cupom {
 	
 	@Column(name = "preco_desconto")
 	private float precoDesconto;
+	
+	@Column(name = "porcentagem_desconto")
+	private int porcentagemDesc;
+	
+	@Column(name = "tip_desconto")
+	private String tipoDesconto;
 
 	public int getCodCupom() {
 		return codCupom;
@@ -56,6 +62,20 @@ public class Cupom {
 	public void setNomeCupom(String nomeCupom) {
 		this.nomeCupom = nomeCupom;
 	}
-	
-	
+
+	public int getPorcentagemDesc() {
+		return porcentagemDesc;
+	}
+
+	public void setPorcentagemDesc(int porcentagemDesc) {
+		this.porcentagemDesc = porcentagemDesc;
+	}
+
+	public String getTipoDesconto() {
+		return tipoDesconto;
+	}
+
+	public void setTipoDesconto(String tipoDesconto) {
+		this.tipoDesconto = tipoDesconto;
+	}
 }

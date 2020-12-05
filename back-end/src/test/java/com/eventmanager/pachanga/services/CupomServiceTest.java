@@ -21,11 +21,13 @@ import com.eventmanager.pachanga.domains.Festa;
 import com.eventmanager.pachanga.domains.Grupo;
 import com.eventmanager.pachanga.dtos.CupomTO;
 import com.eventmanager.pachanga.errors.ValidacaoException;
+import com.eventmanager.pachanga.factory.CupomFactory;
 import com.eventmanager.pachanga.repositories.CupomRepository;
 import com.eventmanager.pachanga.repositories.GrupoRepository;
 import com.eventmanager.pachanga.securingweb.JwtAuthenticationEntryPoint;
 import com.eventmanager.pachanga.securingweb.JwtTokenUtil;
 import com.eventmanager.pachanga.securingweb.JwtUserDetailsService;
+import com.eventmanager.pachanga.tipo.TipoDesconto;
 import com.eventmanager.pachanga.tipo.TipoStatusFesta;
 
 @RunWith(SpringRunner.class)
@@ -58,13 +60,17 @@ class CupomServiceTest {
 
 	@MockBean
 	private GrupoService grupoService;
+	
+	@MockBean
+	private CupomFactory cupomFactory;
 
 	private Cupom gerarCupom() throws Exception {
 		Cupom cupom = new Cupom();
 		cupom.setCodCupom(1);
 		cupom.setNomeCupom("Cupom");
 		cupom.setFesta(festaTest());
-		cupom.setPrecoDesconto((float) 1.75);
+		cupom.setPrecoDesconto(1.75f);
+		cupom.setTipoDesconto(TipoDesconto.VALOR.getDescricao());
 		return cupom;
 	}
 	
@@ -73,7 +79,8 @@ class CupomServiceTest {
 		cupom.setCodCupom(1);
 		cupom.setNomeCupom("Cupom");
 		cupom.setFesta(festaTest());
-		cupom.setPrecoDesconto((float) 1.75);
+		cupom.setPrecoDesconto(1.75f);
+		cupom.setTipoDesconto(TipoDesconto.VALOR.getDescricao());
 		List<Cupom> cupons = new ArrayList<>();
 		cupons.add(cupom);
 		return cupons;
@@ -118,10 +125,10 @@ class CupomServiceTest {
 	void getCupomSucesso() throws Exception {
 		Cupom cupom = gerarCupom();
 		
-		Mockito.when(cupomRepository.findCupomByCod(Mockito.anyInt())).thenReturn(cupom);
+		Mockito.when(cupomRepository.findCuponsByNomeAndFesta(Mockito.anyString(), Mockito.anyInt())).thenReturn(cupom);
 		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(criarListaDeGrupo());
 
-		Cupom retorno = cupomService.getCupom(cupom.getCodCupom(), 1);
+		Cupom retorno = cupomService.getCupom("teste", 1);
 		
 		assertEquals(retorno.getCodCupom(), cupom.getCodCupom());
 		assertEquals(retorno.getNomeCupom(), cupom.getNomeCupom());
@@ -156,6 +163,7 @@ class CupomServiceTest {
 		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(criarListaDeGrupo());
 		Mockito.when(cupomRepository.findCuponsByNomeAndFesta(Mockito.anyString(), Mockito.anyInt())).thenReturn(null);
 		Mockito.when(cupomRepository.getNextValMySequence()).thenReturn(cupom.getCodCupom());
+		Mockito.when(cupomFactory.getCupom(Mockito.any(), Mockito.any())).thenReturn(cupom);
 		
 		Cupom retorno = cupomService.gerarCupom(cupomTO, 1);
 		
@@ -173,8 +181,88 @@ class CupomServiceTest {
 		
 		Mockito.when(festaService.procurarFesta(Mockito.anyInt(), Mockito.anyInt())).thenReturn(festa);
 		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(criarListaDeGrupo());
-		Mockito.when(cupomRepository.findCuponsByNomeAndFesta(Mockito.anyString(), Mockito.anyInt())).thenReturn(gerarListDeCupons());
+		Mockito.when(cupomRepository.findCuponsByNomeAndFesta(Mockito.anyString(), Mockito.anyInt())).thenReturn(gerarCupom());
 		Mockito.when(cupomRepository.getNextValMySequence()).thenReturn(cupom.getCodCupom());
+		Mockito.when(cupomFactory.getCupom(Mockito.any(), Mockito.any())).thenReturn(cupom);
+		
+		boolean erro = false;
+		Cupom retorno;
+		try {
+			retorno = cupomService.gerarCupom(cupomTO, 1);
+		}catch(ValidacaoException e){
+			erro = true;
+			retorno = null;
+		};
+
+		assertEquals(null, retorno);
+		assertEquals(true, erro);
+	}
+	
+	@Test
+	void gerarCupomTipoCupomIncorreto() throws Exception {
+		Festa festa = festaTest();
+		CupomTO cupomTO = gerarCupomTO();
+		Cupom cupom = gerarCupom();
+		cupom.setTipoDesconto("A");
+		
+		Mockito.when(festaService.procurarFesta(Mockito.anyInt(), Mockito.anyInt())).thenReturn(festa);
+		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(criarListaDeGrupo());
+		Mockito.when(cupomRepository.findCuponsByNomeAndFesta(Mockito.anyString(), Mockito.anyInt())).thenReturn(null);
+		Mockito.when(cupomRepository.getNextValMySequence()).thenReturn(cupom.getCodCupom());
+		Mockito.when(cupomFactory.getCupom(Mockito.any(), Mockito.any())).thenReturn(cupom);
+		
+		boolean erro = false;
+		Cupom retorno;
+		try {
+			retorno = cupomService.gerarCupom(cupomTO, 1);
+		}catch(ValidacaoException e){
+			erro = true;
+			retorno = null;
+		};
+
+		assertEquals(null, retorno);
+		assertEquals(true, erro);
+	}
+	
+	@Test
+	void gerarCupomValorIncorreto() throws Exception {
+		Festa festa = festaTest();
+		CupomTO cupomTO = gerarCupomTO();
+		Cupom cupom = gerarCupom();
+		cupom.setPrecoDesconto(0);
+		
+		Mockito.when(festaService.procurarFesta(Mockito.anyInt(), Mockito.anyInt())).thenReturn(festa);
+		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(criarListaDeGrupo());
+		Mockito.when(cupomRepository.findCuponsByNomeAndFesta(Mockito.anyString(), Mockito.anyInt())).thenReturn(null);
+		Mockito.when(cupomRepository.getNextValMySequence()).thenReturn(cupom.getCodCupom());
+		Mockito.when(cupomFactory.getCupom(Mockito.any(), Mockito.any())).thenReturn(cupom);
+		
+		boolean erro = false;
+		Cupom retorno;
+		try {
+			retorno = cupomService.gerarCupom(cupomTO, 1);
+		}catch(ValidacaoException e){
+			erro = true;
+			retorno = null;
+		};
+
+		assertEquals(null, retorno);
+		assertEquals(true, erro);
+	}
+	
+	@Test
+	void gerarCupomPorcentagemIncorreto() throws Exception {
+		Festa festa = festaTest();
+		CupomTO cupomTO = gerarCupomTO();
+		Cupom cupom = gerarCupom();
+		cupom.setTipoDesconto(TipoDesconto.PORCENTAGEM.getDescricao());
+		cupom.setPorcentagemDesc(0);
+		
+		Mockito.when(festaService.procurarFesta(Mockito.anyInt(), Mockito.anyInt())).thenReturn(festa);
+		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(criarListaDeGrupo());
+		Mockito.when(cupomRepository.findCuponsByNomeAndFesta(Mockito.anyString(), Mockito.anyInt())).thenReturn(null);
+		Mockito.when(cupomRepository.getNextValMySequence()).thenReturn(cupom.getCodCupom());
+		Mockito.when(cupomFactory.getCupom(Mockito.any(), Mockito.any())).thenReturn(cupom);
 		
 		boolean erro = false;
 		Cupom retorno;
@@ -194,12 +282,12 @@ class CupomServiceTest {
 		Festa festa = festaTest();
 		CupomTO cupomTO = gerarCupomTO();
 		Cupom cupom = gerarCupom();
-		List<Cupom> vazio = new ArrayList<>();
 		
 		Mockito.when(festaService.procurarFesta(Mockito.anyInt(), Mockito.anyInt())).thenReturn(festa);
 		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(criarListaDeGrupo());
-		Mockito.when(cupomRepository.findCuponsByNomeAndFesta(Mockito.anyString(), Mockito.anyInt())).thenReturn(vazio);
+		Mockito.when(cupomRepository.findCuponsByNomeAndFesta(Mockito.anyString(), Mockito.anyInt())).thenReturn(null);
 		Mockito.when(cupomRepository.getNextValMySequence()).thenReturn(cupom.getCodCupom());
+		Mockito.when(cupomFactory.getCupom(Mockito.any(), Mockito.any())).thenReturn(cupom);
 		
 		Cupom retorno = cupomService.gerarCupom(cupomTO, 1);
 
@@ -219,6 +307,7 @@ class CupomServiceTest {
 		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(criarListaDeGrupo());
 		Mockito.when(cupomRepository.findCuponsByNomeAndFesta(Mockito.anyString(), Mockito.anyInt())).thenReturn(null);
 		Mockito.when(cupomRepository.getNextValMySequence()).thenReturn(cupom.getCodCupom());
+		Mockito.when(cupomFactory.getCupom(Mockito.any(), Mockito.any())).thenReturn(cupom);
 		
 		Cupom retorno = cupomService.atualizarCupom(cupomTO, 1);
 		
@@ -259,12 +348,8 @@ class CupomServiceTest {
 		Mockito.when(cupomRepository.findCupomByCod(Mockito.anyInt())).thenReturn(cupom);
 		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(criarListaDeGrupo());
 
-		Cupom retorno = cupomService.removeCupom(cupom.getCodCupom(), 1);
+		cupomService.removeCupom(cupom.getCodCupom(), 1);
 		
-		assertEquals(retorno.getCodCupom(), cupom.getCodCupom());
-		assertEquals(retorno.getNomeCupom(), cupom.getNomeCupom());
-		assertEquals(retorno.getFesta().getCodFesta(), cupom.getFesta().getCodFesta());
-		assertEquals(retorno.getPrecoDesconto(), cupom.getPrecoDesconto());
 	}
 
 }

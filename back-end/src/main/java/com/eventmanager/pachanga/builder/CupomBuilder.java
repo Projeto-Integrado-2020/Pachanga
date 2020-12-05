@@ -9,6 +9,8 @@ public class CupomBuilder {
     private String nomeCupom;
 	private Festa festa;
 	private float precoDesconto;
+	private int porcentagemDesc;
+	private String tipoDesconto;
 	
 	public static CupomBuilder getInstance() {
 		return new CupomBuilder();
@@ -34,12 +36,24 @@ public class CupomBuilder {
 		return this;
 	}
 	
+	public CupomBuilder porcentagemDesc(int porcentagemDesc) {
+		this.porcentagemDesc = porcentagemDesc;
+		return this;
+	}
+	
+	public CupomBuilder tipoDesconto(String tipoDesconto) {
+		this.tipoDesconto = tipoDesconto;
+		return this;
+	}
+	
 	public Cupom build() {
 		Cupom cupom = new Cupom();
 		cupom.setCodCupom(codCupom);
 		cupom.setNomeCupom(nomeCupom);
 		cupom.setFesta(festa);
 		cupom.setPrecoDesconto(precoDesconto);
+		cupom.setPorcentagemDesc(porcentagemDesc);
+		cupom.setTipoDesconto(tipoDesconto);
 		return cupom;
 	}
 }

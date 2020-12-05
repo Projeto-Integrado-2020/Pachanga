@@ -15,7 +15,7 @@ public interface CupomRepository extends JpaRepository<Cupom, Integer>{
 	public Cupom findCupomByCod(int codCupom);
 	
 	@Query(value = "SELECT c FROM Cupom c JOIN c.festa f WHERE c.nomeCupom = :nomeCupom AND f.codFesta = :codFesta")
-	public List<Cupom> findCuponsByNomeAndFesta(String nomeCupom, int codFesta);
+	public Cupom findCuponsByNomeAndFesta(String nomeCupom, int codFesta);
 	
 	@Query(value = "SELECT c FROM Cupom c JOIN c.festa f WHERE f.codFesta = :codFesta")
 	public List<Cupom> findCuponsFesta(int codFesta);

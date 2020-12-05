@@ -31,7 +31,6 @@ public class GrupoFactory {
 				.codGrupo(codGrupo)
 				.codFesta(festa)
 				.nomeGrupo(nomeGrupo)
-//				.quantMaxPessoas(grupoTo.getQuantMaxPessoas())
 				.organizador(organizador)
 				.build();
 	}
