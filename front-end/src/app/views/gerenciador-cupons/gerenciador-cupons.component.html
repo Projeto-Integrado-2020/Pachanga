@@ -15,8 +15,15 @@
         </ng-container>
 
         <ng-container matColumnDef="precoDesconto">
-            <th mat-header-cell *matHeaderCellDef>{{'CUPOM.DESCONTO' | translate}}</th>
-            <td mat-cell *matCellDef="let element">BR${{element.precoDesconto}}</td>
+            <th mat-header-cell *matHeaderCellDef>{{'CUPOM.DESCONTOVAL' | translate}}</th>
+            <td mat-cell *matCellDef="let element" >
+                <span *ngIf="element.tipoDesconto === 'V'">
+                    R${{element.precoDesconto.toFixed(2)}}
+                </span>
+                <span *ngIf="element.tipoDesconto === 'P'">
+                    {{element.porcentagemDesc}}%
+                </span>
+            </td>
         </ng-container>
 
         <ng-container matColumnDef="actions">

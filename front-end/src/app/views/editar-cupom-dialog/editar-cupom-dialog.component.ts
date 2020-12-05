@@ -25,17 +25,27 @@ export class EditarCupomDialogComponent implements OnInit {
   ngOnInit() {
     this.form = this.formBuilder.group({
       nomeCupom: new FormControl(this.cupom.nomeCupom, Validators.required),
-      precoDesconto: new FormControl(this.cupom.precoDesconto, Validators.required),
+      tipoDesconto: new FormControl(this.cupom.tipoDesconto, Validators.required),
+      precoDesconto: new FormControl(this.cupom.precoDesconto, [Validators.max(100), Validators.min(1)]),
+      porcentagemDesc: new FormControl(this.cupom.porcentagemDesc, [Validators.min(1)])
+    }, {
+      validator: this.tipoDescontoValidation('tipoDesconto', 'porcentagemDesc', 'precoDesconto')
     });
   }
 
   get f() { return this.form.controls; }
 
-  editarCupom(nomeCupom, precoDesconto) {
+  editarCupom() {
+    const tipoDesconto = this.form.get('tipoDesconto').value;
+    const precoDesconto = this.form.get('precoDesconto').value;
+    const porcentagemDesc = this.form.get('porcentagemDesc').value;
+
     const cupom = {
       codCupom: this.cupom.codCupom,
-      nomeCupom,
-      precoDesconto,
+      nomeCupom: this.form.get('nomeCupom').value,
+      tipoDesconto,
+      precoDesconto: tipoDesconto === 'V' ? precoDesconto : null,
+      porcentagemDesc: tipoDesconto === 'P' ? porcentagemDesc : null,
       codFesta: this.codFesta
     };
 
@@ -44,6 +54,26 @@ export class EditarCupomDialogComponent implements OnInit {
       this.component.ngOnInit();
       this.dialog.closeAll();
     });
+  }
+
+  tipoDescontoValidation(tipoDesconto, porcentagemDesc, precoDesconto) {
+    return (formGroup: FormGroup) => {
+      const tipoDescontoInput = formGroup.get(tipoDesconto);
+      const porcentagemDescInput = formGroup.get(porcentagemDesc);
+      const precoDescontoInput = formGroup.get(precoDesconto);
+
+      // set error on matchingControl if validation fails
+      if (tipoDescontoInput.value === 'P' && !porcentagemDescInput.value) {
+        porcentagemDescInput.setErrors({ required: true });
+      } else {
+        if (tipoDescontoInput.value === 'V' && !precoDescontoInput.value) {
+          precoDescontoInput.setErrors({ required: true });
+        } else {
+          porcentagemDescInput.setErrors(null);
+          precoDescontoInput.setErrors(null);
+        }
+      }
+    };
   }
 
 }

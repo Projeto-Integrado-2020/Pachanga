@@ -1,15 +1,28 @@
 <h1 mat-dialog-title>{{'CUPOM.ADDCUPOM' | translate}}</h1>
 <div mat-dialog-content>
-    <form [formGroup]="form" (submit)="criarCupom(nomeCupom.value, precoDesconto.value)">
+    <form [formGroup]="form" (submit)="criarCupom()">
         <mat-form-field>
             <mat-label>{{'CUPOM.CODCUPOM' | translate}}</mat-label>
             <input ng-class="{ f.nomeCupom.errors }" #nomeCupom formControlName="nomeCupom" matInput required>
             <mat-error *ngIf="f.nomeCupom.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
         </mat-form-field>
         <mat-form-field>
-            <mat-label>{{'CUPOM.DESCONTO' | translate}}</mat-label>
-            <input ng-class="{ f.precoDesconto.errors }" #precoDesconto formControlName="precoDesconto" type="number" min="1" matInput required>
+            <mat-label>{{'CUPOM.TIPO' | translate}}</mat-label>
+            <mat-select #tipoDesconto formControlName="tipoDesconto">
+                <mat-option value="P">{{'CUPOM.TIPOPORCENTAGEM' | translate}}</mat-option>
+                <mat-option value="V">{{'CUPOM.TIPOVALOR' | translate}}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="f.tipoDesconto.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
+        </mat-form-field>
+        <mat-form-field *ngIf="f.tipoDesconto.value === 'V'">
+            <mat-label>{{'CUPOM.DESCONTOVAL' | translate}}</mat-label>
+            <input ng-class="{ f.precoDesconto.errors }" #precoDesconto formControlName="precoDesconto" type="number" matInput required>
             <mat-error *ngIf="f.precoDesconto.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
+        </mat-form-field>
+        <mat-form-field *ngIf="f.tipoDesconto.value === 'P'">
+            <mat-label>{{'CUPOM.DESCONTOPOR' | translate}}</mat-label>
+            <input ng-class="{ f.porcentagemDesc.errors }" #porcentagemDesc formControlName="porcentagemDesc" type="number" matInput required>
+            <mat-error *ngIf="f.porcentagemDesc.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
         </mat-form-field>
         <br>
         <button class="button-form" mat-raised-button [disabled]="!form.valid">{{'CUPOM.CONFIRM' | translate}}</button>

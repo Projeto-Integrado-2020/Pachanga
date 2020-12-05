@@ -9,7 +9,9 @@ import { EditarCupomDialogComponent } from '../editar-cupom-dialog/editar-cupom-
 export interface TabelaCupons {
   codCupom: any;
   nomeCupom: string;
+  tipoDesconto: any;
   precoDesconto: any;
+  porcentagemDesc: any;
 }
 
 @Component({
@@ -41,11 +43,12 @@ export class GerenciadorCuponsComponent implements OnInit {
       for (const cupom of resp) {
         this.cupons.push({nomeCupom: cupom.nomeCupom,
                           precoDesconto: cupom.precoDesconto,
-                          codCupom: cupom.codCupom
+                          codCupom: cupom.codCupom,
+                          porcentagemDesc: cupom.porcentagemDesc,
+                          tipoDesconto: cupom.tipoDesconto
                         });
       }
       this.dataSource.data = this.cupons;
-      console.log(this.cupons);
     });
   }
 
