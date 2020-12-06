@@ -36,20 +36,44 @@
                             <mat-card-content class="card-content-inf">
                                 <div class="textos">
                                     <div class="texto">
-                                        <div *ngFor="let lote of lotes">
+                                        <div *ngFor="let lote of lotes; let preco of precoLote">
                                             <p><b>{{'VENDAINGRESSOS.LOTE' | translate }}:</b> {{lote.nomeLote}}</p>
-                                            <p><b>Preço:</b> R${{lote.preco}}</p>
+                                            <div *ngIf="this.cupomDesc;">
+                                                <div *ngIf="cupomDesc.tipoDesconto == 'P'">
+                                                    <p style="color: green;"><b>{{'VENDAINGRESSOS.PRECO' | translate }}:</b> R${{parserFloat(calcDesconto(lote.preco, cupomDesc.precoDesconto, cupomDesc.porcentagemDesc, cupomDesc.tipoDesconto))}}</p>
+                                                </div>
+                                                <div *ngIf="cupomDesc.tipoDesconto == 'V'">
+                                                    <p style="color: green;"><b>{{'VENDAINGRESSOS.PRECO' | translate }}:</b> R${{parserFloat(calcDesconto(lote.preco, cupomDesc.precoDesconto, cupomDesc.porcentagemDesc, cupomDesc.tipoDesconto))}}</p>
+                                                </div>
+                                            </div>
+                                            <div *ngIf="!this.cupomDesc;">
+                                                <p><b>{{'VENDAINGRESSOS.PRECO' | translate }}:</b> R${{parserFloat(lote.preco)}}</p>
+                                            </div>
                                             <mat-form-field class="remove">
                                                 <p><b>{{'VENDAINGRESSOS.QUANTIDADE' | translate }}:</b><input matInput formControlName="quantidade-{{lote.codLote}}" type="number"></p>
                                             </mat-form-field>
-                                            <mat-divider class="divider"></mat-divider>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="botoes">
-                                    <button class="botao prp-btn-comprar" [disabled]="validationFormButton()" mat-button>{{'VENDAINGRESSOS.COMPRAR' | translate }}</button>
+                                    <button class="botao prp-btn-comprar" [disabled]="validationFormButton()" mat-raised-button>{{'VENDAINGRESSOS.COMPRAR' | translate }}</button>
                                 </div>
                             </mat-card-content>
+                        </form>
+                        <mat-divider class="divider"></mat-divider>
+                        <form [formGroup]="form2" (submit)="aplicarCupom(cupom.value)">
+                            <div class="card-content-inf">
+                                <div class="textos">
+                                    <div class="texto" [ngClass]="{'success': colorCheck === 'verde', 'failed': colorCheck === 'vermelho'}">
+                                        <mat-form-field class="remove">
+                                            <p><b>{{'VENDAINGRESSOS.CUPOM' | translate }}: </b><input matInput type="text" #cupom formControlName="cupom"></p>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="botoes">
+                                    <button class="botao prp-btn-comprar" mat-raised-button [disabled]="!form2.valid">{{'VENDAINGRESSOS.APLICAR' | translate }}</button>
+                                </div>
+                            </div>
                         </form>
                     </mat-card>
                 </div>

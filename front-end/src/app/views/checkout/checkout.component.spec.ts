@@ -69,7 +69,7 @@ describe('CheckoutComponent', () => {
     };
     component.ingressos = [{
       quantidade: ['1', '1'],
-      precoUnico: '35.00',
+      precoUnico: 35,
       lote: {
           codLote: '1',
           codFesta: '1',
@@ -81,7 +81,9 @@ describe('CheckoutComponent', () => {
       timeToken: '2020-09-21T01:14:04.028+0000',
       token: 'teste'
     };
+    component.precoTotal = 1;
     serviceDados.addIngresso(component.ingressos);
+    serviceDados.addPrecoTotal(1);
     localStorage.setItem('token', JSON.stringify(token));
     /* tslint:disable */
     component.initConfig = () => {null};
@@ -109,12 +111,12 @@ describe('CheckoutComponent', () => {
       quantity: 2,
       unit_amount: {
           currency_code: 'BRL',
-          value: '35.00'
+          value: 35
       }
     }];
     component.ingressos = [{
       quantidade: ['1', '1'],
-      precoUnico: '35.00',
+      precoUnico: 35,
       lote: {
           codLote: '1',
           codFesta: '1',
@@ -138,7 +140,7 @@ describe('CheckoutComponent', () => {
   it('should gerarForm', () => {
     component.ingressos = [{
       quantidade: ['1', '1'],
-      precoUnico: '35.00',
+      precoUnico: 35,
       lote: {
           codLote: '1',
           codFesta: '1',
@@ -178,7 +180,7 @@ describe('CheckoutComponent', () => {
 
     component.ingressos = [{
       quantidade: ['1'],
-      precoUnico: '35.00',
+      precoUnico: 35,
       lote: {
           codLote: '1',
           codFesta: '1',
@@ -203,6 +205,11 @@ describe('CheckoutComponent', () => {
   it('should openDialogProcessing', () => {
     component.openDialogProcessing();
     expect(dialogSpy.open).toHaveBeenCalled();
+  });
+
+  it('should parserFloat', () => {
+    const result = component.parserFloat(1);
+    expect(result).toBe('1.00');
   });
 
 });

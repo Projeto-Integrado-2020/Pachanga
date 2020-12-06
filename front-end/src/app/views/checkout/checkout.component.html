@@ -48,8 +48,13 @@
                                 <div class="texto">
                                     <p><b>{{'VENDAINGRESSOS.LOTE' | translate }}: {{ingresso.lote.nomeLote}}</b></p>
                                     <p><b>{{'VENDAINGRESSOS.QUANTIDADE' | translate }}: {{ingresso.quantidade?.length}}</b></p>
+                                    <p><b>{{'VENDAINGRESSOS.UNICO' | translate }}: R${{parserFloat(ingresso.precoUnico)}}</b></p>
                                 </div>
                                 <mat-divider *ngIf="!i" class="divider"></mat-divider>
+                            </div>
+                            <mat-divider class="divider"></mat-divider>
+                            <div class="texto">
+                                <p><b>{{'VENDAINGRESSOS.TOTAL' | translate }}: R${{parserFloat(precoTotal)}}</b></p>
                             </div>
                         </mat-card-content>
                     </mat-card>

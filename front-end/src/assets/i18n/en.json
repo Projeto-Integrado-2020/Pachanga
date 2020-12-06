@@ -742,7 +742,11 @@
         "QUANTIDADE": "Quantity to be purchased",
         "INGRESSOS": "Tickets",
         "COMPRAR": "Buy",
-        "PRECO": "Price"
+        "PRECO": "Price",
+        "APLICAR": "Apply",
+        "CUPOM": "Discount coupon",
+        "TOTAL": "Total price",
+        "UNICO": "Single price"
     },
 
     "CHECKOUT": {

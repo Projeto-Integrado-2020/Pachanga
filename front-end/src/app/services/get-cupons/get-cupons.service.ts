@@ -43,13 +43,18 @@ export class GetCuponsService {
     }
   }
 
-  getCupomUnico(codCupom) {
+  getCupomUnico(codFesta, nomeCupom) {
     if (!this.farol) {
       this.setFarol(true);
       const httpParams = new HttpParams()
-      .append('idUsuario', this.loginService.usuarioInfo.codUsuario)
-      .append('codCupom', codCupom);
-      return this.http.get(this.urlGetCupomUnico, {params: httpParams}).pipe(
+      .append('codFesta', codFesta)
+      .append('nomeCupom', nomeCupom);
+
+      let headers = new HttpHeaders();
+      headers = headers.append('Content-Type', 'application/json');
+      headers = headers.append('Authorization', 'Bearer ' + JSON.parse(localStorage.getItem('token')).token);
+
+      return this.http.get(this.urlGetCupomUnico, {params: httpParams, headers}).pipe(
         take(1),
         catchError(error => {
           return this.handleError(error, this.logService);

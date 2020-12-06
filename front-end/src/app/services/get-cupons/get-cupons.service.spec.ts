@@ -63,10 +63,10 @@ describe('GetCuponsService', () => {
 
   it('should get Info at getCupomUnico', () => {
     service.loginService.usuarioInfo = {codusuario: 'teste'};
-    expect(service.getCupomUnico('teste')).toBeTruthy();
+    expect(service.getCupomUnico('teste', 'teste')).toBeTruthy();
 
     expect(service.getFarol()).toBeTruthy();
 
-    expect(service.getCupomUnico('teste')).toBeFalsy();
+    expect(service.getCupomUnico('teste', 'teste')).toBeFalsy();
   });
 });

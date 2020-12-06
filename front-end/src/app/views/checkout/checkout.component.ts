@@ -26,8 +26,8 @@ export class CheckoutComponent implements OnInit {
     /* tslint:disable */
     public payPalConfig ? : IPayPalConfig;
     /* tslint:enable */
-    precoTotal: string;
-    public ingressos = [];
+    precoTotal: any;
+    public ingressos: any;
     form: FormGroup;
 
     constructor(public getFestaService: GetFestaService, public router: Router, public getIngressoCheckout: DadosCompraIngressoService,
@@ -48,6 +48,10 @@ export class CheckoutComponent implements OnInit {
             this.festaNome = resp.nomeFesta;
             this.statusFesta = resp.statusFesta;
         });
+    }
+
+    parserFloat(valor) {
+        return valor.toFixed(2);
     }
 
     get f() { return this.form.controls; }

@@ -57,6 +57,11 @@ describe('VendaIngressosComponent', () => {
       codEnderecoFesta: null,
       descricaoFesta: null
     };
+    component.cupomDesc = [{
+      codCupom: '1',
+      nomeCupom: 'teste',
+      codFesta: '1'
+    }];
     const token = {
       timeToken: '2020-09-21T01:14:04.028+0000',
       token: 'teste'
@@ -123,6 +128,27 @@ describe('VendaIngressosComponent', () => {
     expect(component.router.navigate).toHaveBeenCalledWith(['../teste&Teste/venda-ingressos/venda-checkout']);
   });
 
+  it('should aplicarCupom', () => {
+    spyOn(component.getCupons, 'getCupomUnico')
+    .and
+    .callThrough();
+
+    spyOn(component.getCupons, 'setFarol')
+    .and
+    .callThrough();
+
+    component.cupomDesc = [{
+      codCupom: '1',
+      nomeCupom: 'teste',
+      codFesta: '1'
+    }];
+
+    component.aplicarCupom('teste');
+
+    component.redirectUrl();
+    expect(component.getCupons.getCupomUnico).toHaveBeenCalled();
+  });
+
   it('should checkout', () => {
     spyOn(component.buyIngresso, 'addIngresso')
     .and
@@ -147,6 +173,11 @@ describe('VendaIngressosComponent', () => {
     expect(component.buyIngresso.addIngresso).toHaveBeenCalled();
     expect(component.buyIngresso.addPrecoTotal).toHaveBeenCalled();
     expect(component.redirectUrl).toHaveBeenCalled();
+  });
+
+  it('should parserFloat', () => {
+    const result = component.parserFloat(1);
+    expect(result).toBe('1.00');
   });
 
 });

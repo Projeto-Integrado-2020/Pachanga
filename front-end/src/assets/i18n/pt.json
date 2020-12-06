@@ -786,7 +786,11 @@
         "QUANTIDADE": "Quantidade à ser comprada",
         "INGRESSOS": "Ingressos",
         "COMPRAR": "Comprar",
-        "PRECO": "Preço"
+        "PRECO": "Preço",
+        "APLICAR": "Aplicar",
+        "CUPOM": "Cupom de desconto",
+        "TOTAL": "Preço total",
+        "UNICO": "Preço único"
     },
 
     "CUPOM": {
