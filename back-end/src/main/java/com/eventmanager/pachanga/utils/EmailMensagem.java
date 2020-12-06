@@ -2,10 +2,7 @@ package com.eventmanager.pachanga.utils;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.time.format.DateTimeFormatter;
-import java.util.Base64;
 import java.util.Properties;
 
 import javax.imageio.ImageIO;
@@ -77,7 +74,7 @@ public class EmailMensagem {
 			throw new ValidacaoException(e.getMessage());
 		}
 	}
-
+	
 	public void enviarEmailQRCode(String email, String barcode, Festa festa) {
 		Properties props = new Properties();
 		props.put("mail.smtp.host", "smtp.gmail.com");
@@ -108,38 +105,36 @@ public class EmailMensagem {
 
 			// carrega html
 			MimeBodyPart messageBodyPart = new MimeBodyPart();
+			MimeBodyPart attachmentPart = new MimeBodyPart();
 			MimeMultipart multipart = new MimeMultipart("related");
-
-			BufferedImage image;
-			String encoding = "";
+			File file = new File("image.png");
 			try {
-				image = QRCodeManager.generateQRCodeImage(barcode);
-				File file = new File("image.png");
+				BufferedImage image = QRCodeManager.generateQRCodeImage(barcode);
 				ImageIO.write(image, "png", file);
-				byte[] imageBytes = Files.readAllBytes(Paths.get("image.png"));
-				Base64.Encoder encoder = Base64.getEncoder();
-				encoding = "data:image/png;base64, " + encoder.encodeToString(imageBytes);
-				file.delete();
+				attachmentPart = new MimeBodyPart();
+				attachmentPart.attachFile(file);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 
 			String htmlMessage = "<h1><strong>Sua participa&ccedil;&atilde;o na festa " + festa.getNomeFesta()
 					+ " foi aprovada!</strong></h1>\r\n" + "\r\n" + "<p>Segue o QR Code do ingresso da festa: </p>\r\n"
-					+ "\r\n" + "<img src=\"" + encoding + "\" height=\"230\" width=\"230\">\r\n" + "\r\n"
 					+ "<p>Esperamos&nbsp;que aproveite a festa! </p> \r\n" + "<p><strong>Equipe Pachanga.</strong></p>";
 
 			messageBodyPart.setContent(htmlMessage, "text/html");
 			multipart.addBodyPart(messageBodyPart);
+			multipart.addBodyPart(attachmentPart);
 
 			message.setContent(multipart);
 
 			Transport transport = session.getTransport("smtp");
 			transport.send(message);
+			file.delete();
 
 		} catch (MessagingException e) {
 			throw new ValidacaoException(e.getMessage());
 		}
+
 
 	}
 
