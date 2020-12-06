@@ -132,12 +132,14 @@
 
 .botao {
   color: #ffffff;
+  padding:0 .5rem 0 .5rem;
 }
 
 .botoes {
   display: flex;
   margin-top: 1rem;
   margin-bottom: 1rem;
+  gap: 1rem;
 }
 
 .painel {
