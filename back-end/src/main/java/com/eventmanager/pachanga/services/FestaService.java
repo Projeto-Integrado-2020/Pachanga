@@ -430,7 +430,7 @@ public class FestaService {
 			CloudinaryUtils.getCloudinaryCredentials().uploader().upload(imagemUpload,
 					ObjectUtils.asMap("public_id", festa.getNomeFesta()));
 			
-			festa.setImagem(festa.getNomeFesta());
+			festa.setUrlImagem(festa.getNomeFesta());
 		}
 	}
 

@@ -86,16 +86,35 @@ describe('CriarCupomDialogComponent', () => {
     .callThrough();
 
     component.codFesta = 'teste';
+    component.form.get('tipoDesconto').setValue('V');
+    component.form.get('precoDesconto').setValue(1);
+    component.form.get('nomeCupom').setValue('teste');
     const cupom = {
       nomeCupom: 'teste',
-      precoDesconto: 'teste',
+      tipoDesconto: 'V',
+      precoDesconto: 1,
+      porcentagemDesc: null,
       codFesta: 'teste'
     };
-    component.criarCupom('teste', 'teste');
+    component.criarCupom();
 
     expect(component.addCupom.criarCupom).toHaveBeenCalledWith(cupom);
     expect(component.addCupom.setFarol).toHaveBeenCalledWith(false);
     expect(component.component.ngOnInit).toHaveBeenCalled();
     expect(dialogSpy.closeAll).toHaveBeenCalled();
+  });
+
+  it('should tipoDescontoValidation', () => {
+    component.form.get('nomeCupom').setValue('Teste');
+
+    component.form.get('tipoDesconto').setValue('V');
+    expect(component.form.valid).toBeFalsy();
+    component.form.get('precoDesconto').setValue(1);
+    expect(component.form.valid).toBeTruthy();
+
+    component.form.get('tipoDesconto').setValue('P');
+    expect(component.form.valid).toBeFalsy();
+    component.form.get('porcentagemDesc').setValue(1);
+    expect(component.form.valid).toBeTruthy();
   });
 });

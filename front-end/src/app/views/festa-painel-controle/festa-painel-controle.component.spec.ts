@@ -14,6 +14,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { MatDialog } from '@angular/material';
 import { LoginService } from 'src/app/services/loginService/login.service';
+import { ControleSidenavComponent } from '../controle-sidenav/controle-sidenav.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -27,7 +28,10 @@ describe('FestaPainelControleComponent', () => {
   beforeEach(async(() => {
     dialogSpy = jasmine.createSpyObj('MatDialog', ['open']);
     TestBed.configureTestingModule({
-      declarations: [ FestaPainelControleComponent ],
+      declarations: [
+        FestaPainelControleComponent,
+        ControleSidenavComponent
+      ],
       imports: [
         CustomMaterialModule,
         HttpClientTestingModule,

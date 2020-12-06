@@ -13,17 +13,17 @@ import { LoginService } from '../loginService/login.service';
 })
 export class GerarIngressoService {
 
-  private readonly urlEstoqueAdd = `${environment.URL_BACK}ingresso/addIngressoLista`;
+  private readonly urlIngressosAdd = `${environment.URL_BACK}ingresso/addIngressoLista`;
 
   constructor(private http: HttpClient, public logService: LogService, public dialog: MatDialog,
               public loginService: LoginService) { }
 
-  adicionarIngressos(ingressos) {
+  adicionarIngressos(body) {
     let headers = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('Authorization', 'Bearer ' + JSON.parse(localStorage.getItem('token')).token);
 
-    return this.http.post(this.urlEstoqueAdd, ingressos, {headers}).pipe(
+    return this.http.post(this.urlIngressosAdd, body, {headers}).pipe(
       take(1),
       catchError(error => {
         return this.handleError(error, this.logService);

@@ -25,7 +25,8 @@ public class FestaTOBuilder {
 	private CategoriaTO categoriaPrimaria;
 	private CategoriaTO categoriaSecundaria;
 	private List<ConvidadoTO> convidados;
-	private String imagem;
+	private String urlImagem;
+	private byte[] imagem;
 
 	public static FestaTOBuilder getInstance() {
 		return new FestaTOBuilder();
@@ -105,7 +106,12 @@ public class FestaTOBuilder {
 		return this;
 	}
 	
-	public FestaTOBuilder imagem(String imagem) {
+	public FestaTOBuilder urlImagem(String urlImagem) {
+		this.urlImagem = urlImagem;
+		return this;
+	}
+	
+	public FestaTOBuilder imagem(byte[] imagem) {
 		this.imagem = imagem;
 		return this;
 	}
@@ -128,6 +134,7 @@ public class FestaTOBuilder {
 		festaTo.setCategoriaSecundaria(categoriaSecundaria);
 		festaTo.setConvidados(convidados);
 		festaTo.setImagem(imagem);
+		festaTo.setUrlImagem(urlImagem);
 		return festaTo;
 	}
 

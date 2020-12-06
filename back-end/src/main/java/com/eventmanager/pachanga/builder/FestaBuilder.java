@@ -15,7 +15,8 @@ public class FestaBuilder {
 	private String descricaoFesta;
 	private String codEnderecoFesta;
 	private String descOrganizador;
-	private String imagem;
+	private byte[] imagem;
+	private String urlImagem;
 	
 	public static FestaBuilder getInstance() {
 		return new FestaBuilder();
@@ -66,8 +67,13 @@ public class FestaBuilder {
 		return this;
 	}
 	
-	public FestaBuilder imagem(String imagem) {
+	public FestaBuilder imagem(byte[] imagem) {
 		this.imagem = imagem;
+		return this;
+	}
+	
+	public FestaBuilder urlImagem(String urlImagem) {
+		this.urlImagem = urlImagem;
 		return this;
 	}
 	
@@ -83,6 +89,7 @@ public class FestaBuilder {
 		festa.setOrganizador(organizador);
 		festa.setStatusFesta(statusFesta);
 		festa.setImagem(imagem);
+		festa.setUrlImagem(urlImagem);
 		return festa;
 	}
 }

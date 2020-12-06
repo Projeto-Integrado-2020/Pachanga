@@ -10,7 +10,7 @@ public class HashBuilder {
 		
 	}
 
-	public static String gerarSenha(String senha) {
+	public static String gerarCodigoHasheado(String senha) {
 		String hash = ""; 
 		try {
 			hash = gerarHash(senha, getSalt());
@@ -20,7 +20,7 @@ public class HashBuilder {
 		return hash;
 	}
 	
-	public static boolean compararSenha(String senhaLogin, String senhaBanco){
+	public static boolean compararCodigos(String senhaLogin, String senhaBanco){
 		String salt = senhaBanco.substring(0,32);
 		senhaLogin = gerarHash(senhaLogin, hexStringToByteArray(salt));
 		return senhaBanco.equals(senhaLogin);

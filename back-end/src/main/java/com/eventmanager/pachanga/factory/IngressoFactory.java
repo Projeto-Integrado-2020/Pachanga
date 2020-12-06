@@ -21,12 +21,13 @@ public class IngressoFactory {
 				.nomeTitular(ingressoTO.getNomeTitular()).build();
 	}
 
-	public IngressoTO getIngressoTO(Ingresso ingresso) {
+	public IngressoTO getIngressoTO(Ingresso ingresso, String codBoleto) {
 		return IngressoTOBuilder.getInstance().codIngresso(ingresso.getCodIngresso())
 				.lote(ingresso.getLote().getCodLote()).statusIngresso(ingresso.getStatusIngresso())
 				.preco(ingresso.getPreco()).statusCompra(ingresso.getStatusCompra())
 				.emailTitular(ingresso.getEmailTitular()).nomeTitular(ingresso.getNomeTitular())
-				.dataCompra(ingresso.getDataCompra()).dataCheckin(ingresso.getDataCheckin()).build();
+				.dataCompra(ingresso.getDataCompra()).dataCheckin(ingresso.getDataCheckin())
+				.codBoleto(codBoleto).build();
 	}
 
 }

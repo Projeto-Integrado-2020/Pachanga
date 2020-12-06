@@ -15,6 +15,8 @@ public class IngressoTO {
 	private LocalDateTime dataCheckin;
 	private String nomeTitular;
 	private String emailTitular;
+	private String codBoleto;
+	private Boolean boleto;
 	
 	public FestaTO getFesta() {
 		return festa;
@@ -82,6 +84,18 @@ public class IngressoTO {
 	}
 	public void setEmailTitular(String emailTitular) {
 		this.emailTitular = emailTitular;
+	}
+	public String getCodBoleto() {
+		return codBoleto;
+	}
+	public void setCodBoleto(String codBoleto) {
+		this.codBoleto = codBoleto;
+	}
+	public Boolean getBoleto() {
+		return boleto;
+	}
+	public void setBoleto(Boolean boleto) {
+		this.boleto = boleto;
 	}
 
 }

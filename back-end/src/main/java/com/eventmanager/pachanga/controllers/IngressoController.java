@@ -18,11 +18,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.eventmanager.pachanga.domains.Ingresso;
 import com.eventmanager.pachanga.dtos.CategoriaTO;
 import com.eventmanager.pachanga.dtos.IngressoTO;
+import com.eventmanager.pachanga.dtos.InsercaoIngresso;
 import com.eventmanager.pachanga.errors.ValidacaoException;
 import com.eventmanager.pachanga.factory.FestaFactory;
 import com.eventmanager.pachanga.factory.IngressoFactory;
 import com.eventmanager.pachanga.services.IngressoService;
 import com.eventmanager.pachanga.tipo.TipoCategoria;
+import com.fasterxml.jackson.databind.JsonNode;
 
 @Controller
 @RequestMapping("/ingresso")
@@ -47,7 +49,7 @@ public class IngressoController {
 		try {
 			List<IngressoTO> ingressosTO = new ArrayList<>();
 			for (Ingresso ingresso : ingressoService.getIngressosUser(idUser)) {
-				IngressoTO ingressoTO = ingressoFactory.getIngressoTO(ingresso);
+				IngressoTO ingressoTO = ingressoFactory.getIngressoTO(ingresso, null);
 
 				CategoriaTO categoriaPrimaria = festaController.categoriaFesta(ingresso.getFesta().getCodFesta(),
 						TipoCategoria.PRIMARIO.getDescricao());
@@ -72,7 +74,7 @@ public class IngressoController {
 			List<Ingresso> ingressos = ingressoService.getIngressosFesta(idFesta);
 			List<IngressoTO> ingressosTO = new ArrayList<>();
 			for (Ingresso ingresso : ingressos) {
-				IngressoTO ingressoTO = ingressoFactory.getIngressoTO(ingresso);
+				IngressoTO ingressoTO = ingressoFactory.getIngressoTO(ingresso, null);
 				ingressosTO.add(ingressoTO);
 			}
 			return ResponseEntity.ok(ingressosTO);
@@ -85,9 +87,7 @@ public class IngressoController {
 	@PostMapping(path = "/addIngresso")
 	public ResponseEntity<Object> addIngresso(@RequestBody IngressoTO ingressoTO) {
 		try {
-			return ResponseEntity.ok(
-					ingressoFactory.getIngressoTO(ingressoService.addIngresso(ingressoTO))
-					);
+			return ResponseEntity.ok(ingressoService.addIngresso(ingressoTO, null));
 		} catch (ValidacaoException e) {
 			return ResponseEntity.status(400).body(e.getMessage());
 		}
@@ -95,16 +95,9 @@ public class IngressoController {
 
 	@ResponseBody
 	@PostMapping(path = "/addIngressoLista")
-	public ResponseEntity<Object> addIngressoLista(@RequestBody List<IngressoTO> listaIngressoTO) {
+	public ResponseEntity<Object> addIngressoLista(@RequestBody InsercaoIngresso insercaoIngresso) {
 		try {
-			List<IngressoTO> ingressosTO = new ArrayList<>();
-			for (IngressoTO ingressoTo : listaIngressoTO) {
-				IngressoTO ingressoTO = ingressoFactory.getIngressoTO(
-						ingressoService.addIngresso(ingressoTo)
-						);
-				ingressosTO.add(ingressoTO);
-			}
-			return ResponseEntity.ok(ingressosTO);
+			return ResponseEntity.ok(ingressoService.addListaIngresso(insercaoIngresso.getListaIngresso()));
 		} catch (ValidacaoException e) {
 			return ResponseEntity.status(400).body(e.getMessage());
 		}
@@ -114,21 +107,19 @@ public class IngressoController {
 	@PutMapping(path = "/updateCheckin")
 	public ResponseEntity<Object> updateChekin(@RequestBody IngressoTO ingressoTO) {
 		try {
-			return ResponseEntity.ok(
-					ingressoFactory.getIngressoTO(ingressoService.updateCheckin(ingressoTO))
-					);
+			return ResponseEntity.ok(ingressoFactory.getIngressoTO(ingressoService.updateCheckin(ingressoTO), null));
 		} catch (ValidacaoException e) {
 			return ResponseEntity.status(400).body(e.getMessage());
 		}
 	}
 
 	@ResponseBody
-	@PutMapping(path = "/updateStatusCompra")
-	public ResponseEntity<Object> updateStatusCompra(@RequestBody IngressoTO ingressoTO) {
+	@PostMapping(path = "/updateStatusCompra")
+	public ResponseEntity<Object> updateStatusCompra(@RequestBody JsonNode infoPagamento,
+			@RequestParam(required = true) String codBoleto) {
 		try {
-			return ResponseEntity.ok(
-					ingressoFactory.getIngressoTO(ingressoService.updateStatusCompra(ingressoTO))
-					);
+			ingressoService.updateStatusCompra(codBoleto, infoPagamento.get("status").asText());
+			return ResponseEntity.ok().build();
 		} catch (ValidacaoException e) {
 			return ResponseEntity.status(400).body(e.getMessage());
 		}

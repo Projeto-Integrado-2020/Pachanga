@@ -1,131 +1,109 @@
+<app-controle-sidenav></app-controle-sidenav>
 <div class="main-container">
-    <mat-sidenav-container class="example-container">
-        <mat-sidenav #sidenav mode="side" opened class="example-sidenav"
-            [fixedInViewport]="options.value.fixed" 
-            [fixedTopGap]="options.value.top"
-            [fixedBottomGap]="options.value.bottom">
-
-            <button routerLink="../painel" mat-button class="botao-sidenav">{{'PAINELCONTROLE.GERAL' | translate}} <mat-icon>tab</mat-icon></button>
-            <button routerLink="../estoque" mat-button class="botao-sidenav">{{'PAINELCONTROLE.ESTOQUE' | translate}} <mat-icon>store</mat-icon></button>
-            <button routerLink="../painel-seguranca" mat-button class="botao-sidenav">{{'PAINELCONTROLE.SEGURANÇA' | translate}} <mat-icon>security</mat-icon></button>
-            <button routerLink="../ingressos" mat-button class="botao-sidenav">{{'PAINELCONTROLE.INGRESSOS' | translate}} <mat-icon> local_offer</mat-icon></button>
-            <button routerLink="../relatorios" mat-button class="botao-sidenav">{{'PAINELCONTROLE.RELATORIO' | translate}} <mat-icon> format_list_numbered</mat-icon></button>
-            <!-- BOTAO TOGGLE SIDENAV -->
-
-            <button mat-icon-button class="toggle sidenavFechar" (click)="sidenav.toggle()"><mat-icon>keyboard_arrow_left</mat-icon></button>
-        </mat-sidenav>
-        
-        <mat-sidenav-content class="center-x" [formGroup]="options">
-            <button mat-icon-button class="toggle sidenavAbrir" (click)="sidenav.toggle()"><mat-icon>keyboard_arrow_right</mat-icon></button>
-
-            <h2 class="titulo2">{{festaNome}}</h2>
-            <div class="botoes">
-                <button [routerLink]="'../ingressos/criar-lote'" class="botao" mat-raised-button>
-                    {{'INGRESSO.CREATE' | translate}}
-                </button>
+    <h2 class="titulo2">{{festaNome}}</h2>
+    <div class="botoes">
+        <button [routerLink]="'../ingressos/criar-lote'" class="botao" mat-raised-button>
+            {{'INGRESSO.CREATE' | translate}}
+        </button>
 
 
-                <button [routerLink]="'../ingressos/integracoes'" class="botao" mat-raised-button>
-                    {{'INTEGRACAO.CALLBUTTON' | translate}}
-                </button>
+        <button [routerLink]="'../ingressos/integracoes'" class="botao" mat-raised-button>
+            {{'INTEGRACAO.CALLBUTTON' | translate}}
+        </button>
 
-                    <button [routerLink]="'../ingressos/integracoes'" class="botao" mat-raised-button>
-                        {{'CHECKIN.TITLE' | translate}}
-                    </button>
+            <button [routerLink]="'../ingressos/check-in'" class="botao" mat-raised-button>
+                {{'CHECKIN.TITLE' | translate}}
+            </button>
 
-                <a class="botao-criar-festa" routerLink="../ingressos/cupons">
-                    <button class="botao-checkin" mat-raised-button>
-                        {{'CUPOM.TITLE' | translate}}
-                    </button>
-                </a>
-            </div>
+            <button [routerLink]="'../ingressos/cupons'" class="botao" mat-raised-button >
+                {{'CUPOM.TITLE' | translate}}
+            </button>
+    </div>
+
+        <mat-card *ngFor="let lote of lotes; let i = index" class="painel festa-tab">
+            <mat-card-header>
+                <mat-card-title>{{lote.nomeLote}}</mat-card-title>
+                <mat-card-subtitle><span class="subtitle">{{lote.descLote}}</span></mat-card-subtitle>
+            </mat-card-header>
             
-                <mat-card *ngFor="let lote of lotes; let i = index" class="painel festa-tab">
-                    <mat-card-header>
-                        <mat-card-title>{{lote.nomeLote}}</mat-card-title>
-                        <mat-card-subtitle><span class="subtitle">{{lote.descLote}}</span></mat-card-subtitle>
-                    </mat-card-header>
-                    
-                    <mat-card-content class="card-content">
-                        <div class="textos">
-                            <div class="texto">
-                                <p><b>{{'INGRESSO.NOME' | translate}}: </b> {{lote.nomeLote}}</p>
-                                <p><b>{{'INGRESSO.NUMERO' | translate}}: </b> {{lote.numeroLote}}</p>
-                            </div>
-                            <div class="texto">                        
-                                <p><b>{{'INGRESSO.QUANTIDADE' | translate}}: </b> {{lote.quantidade}}</p>
-                                <p><b>{{'INGRESSO.PRECO' | translate}}: </b> {{lote.preco}}</p>
-                            </div>
-                            <div class="texto">                        
-                                <p><b>{{'INGRESSO.DATAHRINI' | translate}}: </b> {{getDateFromDTF(lote.horarioInicio)}} - {{getTimeFromDTF(lote.horarioInicio)}}</p>
-                                <p><b>{{'INGRESSO.DATAHRFIM' | translate}}: </b> {{getDateFromDTF(lote.horarioFim)}} - {{getTimeFromDTF(lote.horarioFim)}}</p>
-                            </div>
-                        </div>
-                        <div class="botoes">
-                            <a routerLink={{createUrlEditLote(lote.codLote)}}>
-                                <button class="botao prp-btn-edit" mat-raised-button>{{'INGRESSO.EDIT' | translate}}</button>
-                            </a>
-                            <!-- <a>
-                                <button routerLink="./cupons" class="botao prp-btn-prod">Gerenciamento de cupons</button>
-                            </a>-->
-                            <button class="botao prp-btn-delete" mat-button (click)="openDialogDelete(lote, lote.codLote)">{{'INGRESSO.DELETE' | translate}}</button>
-                        </div>
-                    </mat-card-content>
-                </mat-card>
-
-            <h2 class="titulo2">{{'INGRESSO.DADOSBANC' | translate}}</h2>
-            <div class="info">
-                <p 
-                    
-                    class="info-box">{{'INGRESSO.DADOSBANCINFO' | translate}}</p>
-            </div>
-            <mat-card class="painel">
-                <form class="form" #model = "ngForm" (ngSubmit)="salvarDadosBancarios(model)">
-                    <mat-form-field appearance="fill">
-                        <mat-label>{{'INGRESSO.BANCO' | translate}}</mat-label>
-                        <mat-select ngModel #codBanco name="codBanco" [disabled]="!this.dadosBancEditavel">
-                        <mat-option *ngFor="let banco of this.listaBancos" [value]="banco.value">
-                            {{banco.value}} - {{banco.label}}
-                        </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                    <div class="agenciaconta">
-                        <mat-form-field class="form__agencia">
-                            <mat-label>{{'INGRESSO.AGENCIA' | translate}}</mat-label>
-                            <input matInput ngModel #codAgencia name="codAgencia" [disabled]="!this.dadosBancEditavel" class="form__agencia" mask="0000">
-                            <!-- <mat-hint>Errors appear instantly!</mat-hint>
-                            <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
-                              Please enter a valid email address
-                            </mat-error>
-                            <mat-error *ngIf="emailFormControl.hasError('required')">
-                              Email is <strong>required</strong>
-                            </mat-error> -->
-                        </mat-form-field>
-                        <mat-form-field class="form__conta">
-                            <mat-label>{{'INGRESSO.CONTA' | translate}}</mat-label>
-                            <input matInput ngModel name="codConta" [disabled]="!this.dadosBancEditavel" class="form__conta" mask="00000-0">
-                            <!-- <mat-hint>Errors appear instantly!</mat-hint> -->
-                            <!-- <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
-                              Please enter a valid email address
-                            </mat-error>
-                            <mat-error *ngIf="emailFormControl.hasError('required')">
-                              Email is <strong>required</strong>
-                            </mat-error> -->
-                        </mat-form-field>
+            <mat-card-content class="card-content">
+                <div class="textos">
+                    <div class="texto">
+                        <p><b>{{'INGRESSO.NOME' | translate}}: </b> {{lote.nomeLote}}</p>
+                        <p><b>{{'INGRESSO.NUMERO' | translate}}: </b> {{lote.numeroLote}}</p>
                     </div>
-                    <button 
-                        mat-button
-                        class="botao"
-                        (click)="this.editarDadosBancarios()"
-                        *ngIf="!this.dadosBancEditavel">{{'INGRESSO.EDITAR' | translate}}</button>
-                    <button
-                        mat-button 
-                        class="botao" 
-                        type="submit"
-                        [disabled]="!model.value.codBanco || !model.value.codAgencia || !model.value.codConta || !model.valid"
-                        *ngIf="this.dadosBancEditavel">{{'INGRESSO.SALVAR' | translate}}</button>
-                </form>
-            </mat-card>
-        </mat-sidenav-content>
-    </mat-sidenav-container>
+                    <div class="texto">                        
+                        <p><b>{{'INGRESSO.QUANTIDADE' | translate}}: </b> {{lote.quantidade}}</p>
+                        <p><b>{{'INGRESSO.PRECO' | translate}}: </b> {{lote.preco}}</p>
+                    </div>
+                    <div class="texto">                        
+                        <p><b>{{'INGRESSO.DATAHRINI' | translate}}: </b> {{getDateFromDTF(lote.horarioInicio)}} - {{getTimeFromDTF(lote.horarioInicio)}}</p>
+                        <p><b>{{'INGRESSO.DATAHRFIM' | translate}}: </b> {{getDateFromDTF(lote.horarioFim)}} - {{getTimeFromDTF(lote.horarioFim)}}</p>
+                    </div>
+                </div>
+                <div class="botoes">
+                    <a routerLink={{createUrlEditLote(lote.codLote)}}>
+                        <button class="botao prp-btn-edit" mat-raised-button>{{'INGRESSO.EDIT' | translate}}</button>
+                    </a>
+                    <!-- <a>
+                        <button routerLink="./cupons" class="botao prp-btn-prod">Gerenciamento de cupons</button>
+                    </a>-->
+                    <button class="botao prp-btn-delete" mat-button (click)="openDialogDelete(lote, lote.codLote)">{{'INGRESSO.DELETE' | translate}}</button>
+                </div>
+            </mat-card-content>
+        </mat-card>
+
+    <h2 class="titulo2">{{'INGRESSO.DADOSBANC' | translate}}</h2>
+    <div class="info">
+        <p 
+            
+            class="info-box">{{'INGRESSO.DADOSBANCINFO' | translate}}</p>
+    </div>
+    <mat-card class="painel">
+        <form class="form" #model = "ngForm" (ngSubmit)="salvarDadosBancarios(model)">
+            <mat-form-field appearance="fill">
+                <mat-label>{{'INGRESSO.BANCO' | translate}}</mat-label>
+                <mat-select ngModel #codBanco name="codBanco" [disabled]="!this.dadosBancEditavel">
+                <mat-option *ngFor="let banco of this.listaBancos" [value]="banco.value">
+                    {{banco.value}} - {{banco.label}}
+                </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <div class="agenciaconta">
+                <mat-form-field class="form__agencia">
+                    <mat-label>{{'INGRESSO.AGENCIA' | translate}}</mat-label>
+                    <input matInput ngModel #codAgencia name="codAgencia" [disabled]="!this.dadosBancEditavel" class="form__agencia" mask="0000">
+                    <!-- <mat-hint>Errors appear instantly!</mat-hint>
+                    <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+                        Please enter a valid email address
+                    </mat-error>
+                    <mat-error *ngIf="emailFormControl.hasError('required')">
+                        Email is <strong>required</strong>
+                    </mat-error> -->
+                </mat-form-field>
+                <mat-form-field class="form__conta">
+                    <mat-label>{{'INGRESSO.CONTA' | translate}}</mat-label>
+                    <input matInput ngModel name="codConta" [disabled]="!this.dadosBancEditavel" class="form__conta" mask="00000-0">
+                    <!-- <mat-hint>Errors appear instantly!</mat-hint> -->
+                    <!-- <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+                        Please enter a valid email address
+                    </mat-error>
+                    <mat-error *ngIf="emailFormControl.hasError('required')">
+                        Email is <strong>required</strong>
+                    </mat-error> -->
+                </mat-form-field>
+            </div>
+            <button 
+                mat-button
+                class="botao"
+                (click)="this.editarDadosBancarios()"
+                *ngIf="!this.dadosBancEditavel">{{'INGRESSO.EDITAR' | translate}}</button>
+            <button
+                mat-button 
+                class="botao" 
+                type="submit"
+                [disabled]="!model.value.codBanco || !model.value.codAgencia || !model.value.codConta || !model.valid"
+                *ngIf="this.dadosBancEditavel">{{'INGRESSO.SALVAR' | translate}}</button>
+        </form>
+    </mat-card>
 </div>

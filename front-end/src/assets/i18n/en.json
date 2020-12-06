@@ -462,7 +462,8 @@
         "VISUDADO": "View bank data",
         "ADDDADOB": "Add bank data",
         "DELEDADO": "delete bank data",
-        "EDITDADO": "Edit bank data"
+        "EDITDADO": "Edit bank data",
+        "MODDABOB": "Modify bank info"
     },
 
     "ASSIGNDIALOG": {
@@ -786,7 +787,11 @@
         "TITLE": "Coupon manager",
         "ADDCUPOM": "Add coupon",
         "CODCUPOM": "Coupon code",
-        "DESCONTO": "Discount price",
+        "TIPO": "Discount type",
+        "TIPOPORCENTAGEM": "Percentage",
+        "TIPOVALOR": "Absolute value",
+        "DESCONTOVAL": "Discount value",
+        "DESCONTOPOR": "Discount percentage",
         "EDIT": "Edit coupon",
         "DELETE": "Delete coupon",
         "CONFIRM": "Confirm",

@@ -14,6 +14,8 @@ import { FormsModule } from '@angular/forms';
 import { GetFestaService } from 'src/app/services/get-festa/get-festa.service';
 import { of } from 'rxjs';
 import { GetLoteService } from 'src/app/services/get-lote/get-lote.service';
+import { ControleSidenavComponent } from '../controle-sidenav/controle-sidenav.component';
+import { DadosBancariosService } from 'src/app/services/dados-bancarios/dados-bancarios.service';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -25,7 +27,10 @@ describe('PainelIngressoComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PainelIngressoComponent],
+      declarations: [
+        PainelIngressoComponent,
+        ControleSidenavComponent
+      ],
       imports: [
         CustomMaterialModule,
         HttpClientTestingModule,
@@ -54,6 +59,12 @@ describe('PainelIngressoComponent', () => {
             horarioInicio: '2020-09-23T19:10:25',
             horarioFim: '2020-09-23T19:10:25'
           }]),
+          setFarol: () => false,
+        }},
+        {provide: DadosBancariosService, useValue: {
+          getLote: () => of([{}]),
+          receberDado: () => of({}),
+          inserirDados: () => of({}),
           setFarol: () => false,
         }}
       ]

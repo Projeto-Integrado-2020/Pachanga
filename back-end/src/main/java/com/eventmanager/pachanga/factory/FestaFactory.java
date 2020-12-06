@@ -1,5 +1,6 @@
 package com.eventmanager.pachanga.factory;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.stereotype.Component;
@@ -27,7 +28,7 @@ public class FestaFactory {
 				.horarioFimFestaReal(festa.getHorarioFimFestaReal()).horarioInicioFesta(festa.getHorarioInicioFesta())
 				.nomeFesta(festa.getNomeFesta()).organizador(festa.getOrganizador()).statusFesta(festa.getStatusFesta())
 				.categoriaPrimaria(categoriaPrimaria).categoriaSecundaria(categoriaSecundaria)
-				.imagem(festa.getImagem() == null ? null : festa.getImagem());
+				.urlImagem(festa.getUrlImagem() == null ? null : festa.getUrlImagem());
 		if (usuarios != null) {
 			if (enviarQuantidade) {
 				festaToBuilder.quantidadeParticipantes(usuarios.size() + convidados.size());
@@ -38,13 +39,14 @@ public class FestaFactory {
 		return festaToBuilder.build();
 	}
 
-	public Festa getFesta(FestaTO festaTo, MultipartFile imagem) {
+	public Festa getFesta(FestaTO festaTo, MultipartFile imagem) throws IOException {
 		return FestaBuilder.getInstance().codEnderecoFesta(festaTo.getCodEnderecoFesta())
 				.codFesta(festaTo.getCodFesta()).descOrganizador(festaTo.getDescOrganizador())
 				.descricaoFesta(festaTo.getDescricaoFesta()).horarioFimFesta(festaTo.getHorarioFimFesta())
 				.horarioInicioFesta(festaTo.getHorarioInicioFesta()).nomeFesta(festaTo.getNomeFesta())
 				.organizador(festaTo.getOrganizador()).statusFesta(festaTo.getStatusFesta())
-				.imagem(imagem == null ? null : festaTo.getNomeFesta()).build();
+				.urlImagem(imagem == null ? null : festaTo.getNomeFesta())
+				.imagem(imagem == null ? null : imagem.getBytes()).build();
 	}
 
 	public FestaTO getFestaTO(Festa festa, List<UsuarioTO> usuarios, boolean enviarQuantidade,

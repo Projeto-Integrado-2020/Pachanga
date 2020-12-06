@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { CustomMaterialModule } from '../material/material.module';
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
@@ -16,6 +16,7 @@ import { PagSeguroService } from 'src/app/services/pag-seguro/pag-seguro.service
 import { GerarBoletoDialogComponent } from './gerar-boleto-dialog.component';
 import { CepApiService } from 'src/app/services/cep-api/cep-api.service';
 import { RouterModule } from '@angular/router';
+import { GerarIngressoService } from 'src/app/services/gerar-ingresso/gerar-ingresso.service';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -54,8 +55,19 @@ describe('GerarBoletoDialogComponent', () => {
         {provide: CepApiService, useValue: {
           resgatarEndereco: () => of({uf: 'TE', localidade: 'Teste', bairro: 'Teste', logradouro: 'Teste'})
         }},
+        {provide: GerarIngressoService, useValue: {
+          adicionarIngressos: ({}) => of([{}])
+        }},
         { provide: MatDialog, useValue: dialogSpy },
-        { provide: MAT_DIALOG_DATA, useValue: {festa: {nomeFesta: 'Teste'}, preco: 1000 }}
+        { provide: MAT_DIALOG_DATA, useValue: {festa: {nomeFesta: 'Teste'}, preco: 1000,
+        ingressos: [{
+          quantidade: [0],
+          precoUnico: '500',
+          lote: {
+            codLote: 1,
+            codFesta: 1,
+          }
+        }] }}
       ]
     })
     .compileComponents();
@@ -70,6 +82,10 @@ describe('GerarBoletoDialogComponent', () => {
       timeToken: '2020-09-21T01:14:04.028+0000',
       token: 'teste'
     };
+    component.formCheckOut = new FormGroup({
+      'nome1-0': new FormControl('teste'),
+      'email1-0': new FormControl('teste')
+    });
     localStorage.setItem('token', JSON.stringify(token));
     fixture.detectChanges();
   });
@@ -95,14 +111,18 @@ describe('GerarBoletoDialogComponent', () => {
     expect(component.form.get('numero')).toBeTruthy();
   });
 
-  it('should gerarBoleto', () => {
-    spyOn(component.pagSeguroService, 'gerarBoleto')
+  it('should gerarIngressos', () => {
+    spyOn(component.ingressosService, 'adicionarIngressos')
     .and
     .callThrough();
 
-    component.gerarBoleto();
+    spyOn(component, 'gerarIngressos')
+    .and
+    .callThrough();
 
-    expect(component.pagSeguroService.gerarBoleto).toHaveBeenCalled();
+    component.gerarIngressos();
+
+    expect(component.ingressosService.adicionarIngressos).toHaveBeenCalled();
   });
 
   it('should open a dialog through a method', () => {

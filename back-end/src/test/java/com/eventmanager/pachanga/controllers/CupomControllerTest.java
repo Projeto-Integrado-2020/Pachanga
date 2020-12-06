@@ -10,7 +10,6 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
-import org.skyscreamer.jsonassert.JSONAssert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -25,13 +24,11 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import com.eventmanager.pachanga.domains.Categoria;
 import com.eventmanager.pachanga.domains.Cupom;
 import com.eventmanager.pachanga.domains.Festa;
-import com.eventmanager.pachanga.domains.Grupo;
 import com.eventmanager.pachanga.dtos.CupomTO;
-import com.eventmanager.pachanga.dtos.GrupoTO;
 import com.eventmanager.pachanga.errors.ValidacaoException;
+import com.eventmanager.pachanga.factory.CupomFactory;
 import com.eventmanager.pachanga.securingweb.JwtAuthenticationEntryPoint;
 import com.eventmanager.pachanga.securingweb.JwtTokenUtil;
 import com.eventmanager.pachanga.securingweb.JwtUserDetailsService;
@@ -40,12 +37,15 @@ import com.eventmanager.pachanga.tipo.TipoStatusFesta;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(value=CupomController.class)
-public class CupomControllerTest {
+class CupomControllerTest {
 	@Autowired
 	private MockMvc mockMvc;
 	
 	@MockBean
 	private CupomService cupomService;
+	
+	@MockBean
+	private CupomFactory cupomFactory;
 	
 	@MockBean
 	private AuthorizationServerTokenServices defaultAuthorizationServerTokenServices;
@@ -67,6 +67,21 @@ public class CupomControllerTest {
 		cupom.setFesta(festaTest());
 		cupom.setPrecoDesconto((float) 1.75);
 		return cupom;
+	}
+	
+	private CupomTO gerarCupomTO() throws Exception {
+		CupomTO cupom = new CupomTO();
+		cupom.setCodCupom(1);
+		cupom.setNomeCupom("Cupom");
+		cupom.setCodFesta(2);
+		cupom.setPrecoDesconto(1.75f);
+		return cupom;
+	}
+	
+	private List<CupomTO> gerarListDeCuponsTO() throws Exception {
+		List<CupomTO> cupons = new ArrayList<>();
+		cupons.add(gerarCupomTO());
+		return cupons;
 	}
 	
 	private List<Cupom> gerarListDeCupons() throws Exception {
@@ -101,14 +116,13 @@ public class CupomControllerTest {
 	void getCupomSucesso() throws Exception {
 		String uri = "/cupom/cupomUnico";
 	
-		String expected = "{\"codCupom\": 1,\"nomeCupom\": \"Cupom\",\"codFesta\": 2,\"precoDesconto\": 1.75}";
-
-		Mockito.when(cupomService.getCupom(1, 1)).thenReturn(gerarCupom());
+		Mockito.when(cupomService.getCupom("teste", 1)).thenReturn(gerarCupom());
+		Mockito.when(cupomFactory.getCupomTO(Mockito.any())).thenReturn(gerarCupomTO());
 		
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.get(uri)
-				.param("codCupom", "1")
-				.param("idUser", "1")
+				.param("nomeCupom", "teste")
+				.param("codFesta", "1")
 				.accept(MediaType.APPLICATION_JSON)
 				.contentType(MediaType.APPLICATION_JSON);
 		
@@ -118,7 +132,6 @@ public class CupomControllerTest {
 		
 		assertEquals(HttpStatus.OK.value(), response.getStatus());
 		
-		JSONAssert.assertEquals(expected, result.getResponse().getContentAsString(), true);
 	}
 	
 	@Test
@@ -126,14 +139,13 @@ public class CupomControllerTest {
 	void getCupomErro() throws Exception {
 		String uri = "/cupom/cupomUnico";
 	
-		String expected = "erro";
-
-		Mockito.when(cupomService.getCupom(1, 1)).thenThrow(new ValidacaoException(expected));
+		Mockito.when(cupomService.getCupom("teste", 1)).thenThrow(new ValidacaoException("teste"));
+		Mockito.when(cupomFactory.getCupomTO(Mockito.any())).thenReturn(gerarCupomTO());
 		
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.get(uri)
 				.param("codCupom", "1")
-				.param("idUser", "1")
+				.param("codFesta", "1")
 				.accept(MediaType.APPLICATION_JSON)
 				.contentType(MediaType.APPLICATION_JSON);
 		
@@ -143,7 +155,6 @@ public class CupomControllerTest {
 		
 		assertEquals(HttpStatus.BAD_REQUEST.value(), response.getStatus());
 
-		assertEquals(expected, result.getResponse().getContentAsString());
 	}
 	
 	@Test
@@ -151,14 +162,13 @@ public class CupomControllerTest {
 	void getCuponsFestaSucesso() throws Exception {
 		String uri = "/cupom/cuponsFesta";
 	
-		String expected = "[{\"codCupom\": 1,\"nomeCupom\": \"Cupom\",\"codFesta\": 2,\"precoDesconto\": 1.75}]";
-
 		Mockito.when(cupomService.getCuponsFesta( 2, 1)).thenReturn(gerarListDeCupons());
+		Mockito.when(cupomFactory.getCuponsTO(Mockito.anyList())).thenReturn(gerarListDeCuponsTO());
 		
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.get(uri)
 				.param("codFesta", "2")
-				.param("idUser", "1")
+				.param("codUser", "1")
 				.accept(MediaType.APPLICATION_JSON)
 				.contentType(MediaType.APPLICATION_JSON);
 		
@@ -168,7 +178,6 @@ public class CupomControllerTest {
 		
 		assertEquals(HttpStatus.OK.value(), response.getStatus());
 		
-		JSONAssert.assertEquals(expected, result.getResponse().getContentAsString(), true);
 	}
 	
 	@Test
@@ -178,12 +187,13 @@ public class CupomControllerTest {
 	
 		String expected = "erro";
 
-		Mockito.when(cupomService.getCuponsFesta( 2, 1)).thenThrow(new ValidacaoException(expected));
+		Mockito.when(cupomService.getCuponsFesta(2, 1)).thenThrow(new ValidacaoException(expected));
+		Mockito.when(cupomFactory.getCuponsTO(Mockito.anyList())).thenReturn(gerarListDeCuponsTO());
 		
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.get(uri)
 				.param("codFesta", "2")
-				.param("idUser", "1")
+				.param("codUser", "1")
 				.accept(MediaType.APPLICATION_JSON)
 				.contentType(MediaType.APPLICATION_JSON);
 		
@@ -201,14 +211,12 @@ public class CupomControllerTest {
 	void removeCupomSucesso() throws Exception {
 		String uri = "/cupom/excluir";
 	
-		String expected = "{\"codCupom\": 1,\"nomeCupom\": \"Cupom\",\"codFesta\": 2,\"precoDesconto\": 1.75}";
-
-		Mockito.when(cupomService.removeCupom( 1, 1)).thenReturn(gerarCupom());
+		Mockito.doNothing().when(cupomService).removeCupom( 1, 1);
 		
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.delete(uri)
 				.param("codCupom", "1")
-				.param("idUser", "1")
+				.param("codUser", "1")
 				.accept(MediaType.APPLICATION_JSON)
 				.contentType(MediaType.APPLICATION_JSON);
 		
@@ -218,7 +226,6 @@ public class CupomControllerTest {
 		
 		assertEquals(HttpStatus.OK.value(), response.getStatus());
 		
-		JSONAssert.assertEquals(expected, result.getResponse().getContentAsString(), true);
 	}
 	
 	@Test
@@ -228,12 +235,12 @@ public class CupomControllerTest {
 	
 		String expected = "erro";
 
-		Mockito.when(cupomService.removeCupom( 1, 1)).thenThrow(new ValidacaoException(expected));
+		Mockito.doThrow(new ValidacaoException(expected)).when(cupomService).removeCupom( 1, 1);
 		
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
-				.delete(uri)
+				.delete(uri)	
 				.param("codCupom", "1")
-				.param("idUser", "1")
+				.param("codUser", "1")
 				.accept(MediaType.APPLICATION_JSON)
 				.contentType(MediaType.APPLICATION_JSON);
 		
@@ -252,13 +259,13 @@ public class CupomControllerTest {
 		String uri = "/cupom/gerar";
 	
 		String json = "{\"codCupom\": 1,\"nomeCupom\": \"Cupom\",\"codFesta\": 2,\"precoDesconto\": 1.75}";
-		String expected = "{\"codCupom\": 1,\"nomeCupom\": \"Cupom\",\"codFesta\": 2,\"precoDesconto\": 1.75}";
 
 		Mockito.when(cupomService.gerarCupom(Mockito.any(CupomTO.class), Mockito.anyInt())).thenReturn(gerarCupom());
+		Mockito.when(cupomFactory.getCupomTO(Mockito.any())).thenReturn(gerarCupomTO());
 		
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.post(uri)
-				.param("idUser", "1")
+				.param("codUser", "1")
 				.accept(MediaType.APPLICATION_JSON)
 				.content(json)
 				.contentType(MediaType.APPLICATION_JSON);
@@ -267,7 +274,6 @@ public class CupomControllerTest {
 		MockHttpServletResponse response = result.getResponse();
 		
 		assertEquals(HttpStatus.OK.value(), response.getStatus());
-		JSONAssert.assertEquals(expected, result.getResponse().getContentAsString(), true);
 	}
 	
 	@Test
@@ -279,11 +285,12 @@ public class CupomControllerTest {
 		String expected = "erro";
 
 		Mockito.when(cupomService.gerarCupom(Mockito.any(CupomTO.class), Mockito.anyInt())).thenThrow(new ValidacaoException(expected));
+		Mockito.when(cupomFactory.getCupomTO(Mockito.any())).thenReturn(gerarCupomTO());
 		
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.post(uri)
 				.content(json)
-				.param("idUser", "1")
+				.param("codUser", "1")
 				.accept(MediaType.APPLICATION_JSON)
 				.contentType(MediaType.APPLICATION_JSON);
 		
@@ -302,13 +309,13 @@ public class CupomControllerTest {
 		String uri = "/cupom/atualizar";
 	
 		String json = "{\"codCupom\": 1,\"nomeCupom\": \"Cupom\",\"codFesta\": 2,\"precoDesconto\": 1.75}";
-		String expected = "{\"codCupom\": 1,\"nomeCupom\": \"Cupom\",\"codFesta\": 2,\"precoDesconto\": 1.75}";
 
 		Mockito.when(cupomService.atualizarCupom(Mockito.any(CupomTO.class), Mockito.anyInt())).thenReturn(gerarCupom());
+		Mockito.when(cupomFactory.getCupomTO(Mockito.any())).thenReturn(gerarCupomTO());
 		
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.put(uri)
-				.param("idUser", "1")
+				.param("codUser", "1")
 				.accept(MediaType.APPLICATION_JSON)
 				.content(json)
 				.contentType(MediaType.APPLICATION_JSON);
@@ -317,7 +324,6 @@ public class CupomControllerTest {
 		MockHttpServletResponse response = result.getResponse();
 		
 		assertEquals(HttpStatus.OK.value(), response.getStatus());
-		JSONAssert.assertEquals(expected, result.getResponse().getContentAsString(), true);
 	}
 	
 	@Test
@@ -329,11 +335,12 @@ public class CupomControllerTest {
 		String expected = "erro";
 
 		Mockito.when(cupomService.atualizarCupom(Mockito.any(CupomTO.class), Mockito.anyInt())).thenThrow(new ValidacaoException(expected));
+		Mockito.when(cupomFactory.getCupomTO(Mockito.any())).thenReturn(gerarCupomTO());
 		
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.put(uri)
 				.content(json)
-				.param("idUser", "1")
+				.param("codUser", "1")
 				.accept(MediaType.APPLICATION_JSON)
 				.contentType(MediaType.APPLICATION_JSON);
 		

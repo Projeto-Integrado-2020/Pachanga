@@ -25,67 +25,68 @@ import com.eventmanager.pachanga.services.CupomService;
 @RequestMapping("/cupom")
 @CrossOrigin
 public class CupomController {
-	
+
 	@Autowired
 	private CupomService cupomService;
-	
+
+	@Autowired
+	private CupomFactory cupomFactory;
+
 	@ResponseBody
 	@GetMapping(path = "/cupomUnico")
-	public ResponseEntity<Object> getCupom(@RequestParam(required = true) int idUser, @RequestParam(required = true) int codCupom){
+	public ResponseEntity<Object> getCupom(@RequestParam(required = true) int codFesta,
+			@RequestParam(required = true) String nomeCupom) {
 		try {
-			Cupom cupom = cupomService.getCupom(codCupom, idUser);
-			return ResponseEntity.ok(CupomFactory.getCupomTO(cupom));
+			Cupom cupom = cupomService.getCupom(nomeCupom, codFesta);
+			return ResponseEntity.ok(cupom == null ? null : cupomFactory.getCupomTO(cupom));
 		} catch (ValidacaoException e) {
 			return ResponseEntity.status(400).body(e.getMessage());
 		}
 	}
-	
-	
+
 	@ResponseBody
 	@GetMapping(path = "/cuponsFesta")
-	public ResponseEntity<Object> getCuponsFesta(@RequestParam(required = true) int idUser, @RequestParam(required = true) int codFesta){
+	public ResponseEntity<Object> getCuponsFesta(@RequestParam(required = true) int codUser,
+			@RequestParam(required = true) int codFesta) {
 		try {
-			List<Cupom> cupons = cupomService.getCuponsFesta(codFesta, idUser);
-			return ResponseEntity.ok(CupomFactory.getCuponsTO(cupons));
+			List<Cupom> cupons = cupomService.getCuponsFesta(codFesta, codUser);
+			return ResponseEntity.ok(cupomFactory.getCuponsTO(cupons));
 		} catch (ValidacaoException e) {
 			return ResponseEntity.status(400).body(e.getMessage());
 		}
 	}
-	
+
 	@ResponseBody
 	@PostMapping(path = "/gerar")
-	public ResponseEntity<Object> criarCupom(@RequestBody CupomTO cupomTO, @RequestParam(required = true) int idUser){
+	public ResponseEntity<Object> criarCupom(@RequestBody CupomTO cupomTO, @RequestParam(required = true) int codUser) {
 		try {
-			Cupom cupom = cupomService.gerarCupom(cupomTO, idUser);
-			return ResponseEntity.ok(CupomFactory.getCupomTO(cupom));
+			Cupom cupom = cupomService.gerarCupom(cupomTO, codUser);
+			return ResponseEntity.ok(cupomFactory.getCupomTO(cupom));
 		} catch (ValidacaoException e) {
 			return ResponseEntity.status(400).body(e.getMessage());
 		}
 	}
-	
+
 	@ResponseBody
 	@DeleteMapping(path = "/excluir")
-	public ResponseEntity<Object> removeCupom(@RequestParam(required = true) int idUser, @RequestParam(required = true) int codCupom){
+	public ResponseEntity<Object> removeCupom(@RequestParam(required = true) int codUser,
+			@RequestParam(required = true) int codCupom) {
 		try {
-			Cupom cupom = cupomService.removeCupom(codCupom, idUser);
-			return ResponseEntity.ok(CupomFactory.getCupomTO(cupom));
+			cupomService.removeCupom(codCupom, codUser);
+			return ResponseEntity.ok().build();
 		} catch (ValidacaoException e) {
 			return ResponseEntity.status(400).body(e.getMessage());
 		}
 	}
-	
+
 	@ResponseBody
 	@PutMapping(path = "/atualizar")
-	public ResponseEntity<Object> updateCupom(@RequestBody CupomTO cupomTO, @RequestParam(required = true) int idUser){
+	public ResponseEntity<Object> updateCupom(@RequestBody CupomTO cupomTO, @RequestParam(required = true) int codUser) {
 		try {
-			Cupom cupom = cupomService.atualizarCupom(cupomTO, idUser);
-			return ResponseEntity.ok(CupomFactory.getCupomTO(cupom));
+			return ResponseEntity.ok(cupomFactory.getCupomTO(cupomService.atualizarCupom(cupomTO, codUser)));
 		} catch (ValidacaoException e) {
 			return ResponseEntity.status(400).body(e.getMessage());
 		}
 	}
-	
-	
-	
 
 }

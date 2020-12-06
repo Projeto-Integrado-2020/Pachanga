@@ -10,6 +10,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginService } from 'src/app/services/loginService/login.service';
+import { ControleSidenavComponent } from '../controle-sidenav/controle-sidenav.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -35,7 +36,10 @@ describe('RelatoriosPainelComponent', () => {
         }),
         RouterModule.forRoot([])
       ],
-      declarations: [ RelatoriosPainelComponent ]
+      declarations: [
+        RelatoriosPainelComponent,
+        ControleSidenavComponent
+       ]
     })
     .compileComponents();
   }));

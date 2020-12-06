@@ -40,7 +40,7 @@ public class UsuarioService {
 	public Usuario cadastrar(UsuarioTO user){
 		validarCadastro(user);
 		if(TipoConta.PACHANGA.getDescricao().equals(user.getTipConta())) {
-			user.setSenha(HashBuilder.gerarSenha(user.getSenha()));
+			user.setSenha(HashBuilder.gerarCodigoHasheado(user.getSenha()));
 		}
 		Usuario usuarioExistente = userRepository.findByEmail(user.getEmail());
 		Usuario usuario = UsuarioFactory.getUsuario(user);
@@ -121,7 +121,7 @@ public class UsuarioService {
 		boolean valorFaceDiferente = usuarioExistente.getFacebook() != null && !usuarioExistente.getFacebook().equals(userLogin.getConta());
 		boolean valorGmailDiferente = usuarioExistente.getGmail() != null && !usuarioExistente.getGmail().equals(userLogin.getConta());
 		if(tipoContaPachanga) {
-			boolean senhasIguais = HashBuilder.compararSenha(userLogin.getSenha(), usuarioExistente.getSenha());
+			boolean senhasIguais = HashBuilder.compararCodigos(userLogin.getSenha(), usuarioExistente.getSenha());
 			if(!senhasIguais) {
 				throw new ValidacaoException("PASSINC1");
 			}
@@ -151,14 +151,14 @@ public class UsuarioService {
 			throw new ValidacaoException("USERNFOU");
 		}
 		if(TipoConta.PACHANGA.getDescricao().equals(user.getTipConta()) && user.getSenha() != null) {
-			if(!HashBuilder.compararSenha(user.getSenha(), usuarioBanco.getSenha())) {
+			if(!HashBuilder.compararCodigos(user.getSenha(), usuarioBanco.getSenha())) {
 				throw new ValidacaoException("PASSINC2");
 			}
 			if(user.getSenhaNova() != null) {
-				if(HashBuilder.compararSenha(user.getSenhaNova(), usuarioBanco.getSenha())) {
+				if(HashBuilder.compararCodigos(user.getSenhaNova(), usuarioBanco.getSenha())) {
 					throw new ValidacaoException("PASSDIFF");
 				}
-				usuarioBanco.setSenha(HashBuilder.gerarSenha(user.getSenhaNova()));
+				usuarioBanco.setSenha(HashBuilder.gerarCodigoHasheado(user.getSenhaNova()));
 			}
 			if(user.getEmailNovo() != null) {
 				user.setEmail(user.getEmailNovo());

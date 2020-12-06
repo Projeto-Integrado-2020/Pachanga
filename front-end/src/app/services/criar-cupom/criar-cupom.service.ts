@@ -23,7 +23,7 @@ export class CriarCupomService {
     if (!this.farol) {
       this.setFarol(true);
       const httpParams = new HttpParams()
-        .append('idUser', this.loginService.usuarioInfo.codUsuario);
+        .append('codUser', this.loginService.usuarioInfo.codUsuario);
 
       let headers = new HttpHeaders();
       headers = headers.append('Content-Type', 'application/json');

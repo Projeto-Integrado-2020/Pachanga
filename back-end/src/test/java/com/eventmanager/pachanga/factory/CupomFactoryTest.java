@@ -9,6 +9,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.oauth2.provider.token.AuthorizationServerTokenServices;
@@ -24,7 +25,7 @@ import com.eventmanager.pachanga.tipo.TipoStatusFesta;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(value=CupomFactory.class)
-public class CupomFactoryTest {
+class CupomFactoryTest {
 	
 	@MockBean
 	private AuthorizationServerTokenServices defaultAuthorizationServerTokenServices;
@@ -34,6 +35,9 @@ public class CupomFactoryTest {
 	
 	@MockBean
 	private JwtTokenUtil defaultJwtTokenUtil;
+	
+	@Autowired
+	private CupomFactory cupomFactory;
 	
 	@MockBean
 	private JwtAuthenticationEntryPoint defaultJwtAuthenticationEntryPoint;
@@ -87,12 +91,11 @@ public class CupomFactoryTest {
 	void getCupomTOSucesso() throws Exception {
 		Cupom cupom = gerarCupom();
 		
-		CupomTO retorno = CupomFactory.getCupomTO(cupom);
+		CupomTO retorno = cupomFactory.getCupomTO(cupom);
 		
 		assertEquals( retorno.getCodCupom(), cupom.getCodCupom());
 		assertEquals( retorno.getNomeCupom(), cupom.getNomeCupom());
 		assertEquals( retorno.getCodFesta(), cupom.getFesta().getCodFesta());
-		//assertEquals( retorno.getPrecoDesconto(), cupom.getPrecoDesconto());
 	}
 	
 	@Test
@@ -100,26 +103,24 @@ public class CupomFactoryTest {
 		CupomTO cupomTO = gerarCupomTO();
 		Festa festa = festaTest();
 		
-		Cupom retorno = CupomFactory.getCupom(cupomTO, festa);
+		Cupom retorno = cupomFactory.getCupom(cupomTO, festa);
 		
 		assertEquals( retorno.getCodCupom(), cupomTO.getCodCupom());
 		assertEquals( retorno.getNomeCupom(), cupomTO.getNomeCupom());
 		assertEquals( retorno.getFesta().getCodFesta(), cupomTO.getCodFesta());
-		//assertEquals( retorno.getPrecoDesconto(), cupomTO.getPrecoDesconto());
 	}
 	
 	@Test
 	void getCuponsTOSucesso() throws Exception {
 		List<Cupom> cupons =  gerarListDeCupons();
 		
-		List<CupomTO> cuponsTO = CupomFactory.getCuponsTO(cupons);
+		List<CupomTO> cuponsTO = cupomFactory.getCuponsTO(cupons);
 		CupomTO retorno = cuponsTO.get(0);
 		Cupom cupom = cupons.get(0);
 		
 		assertEquals( retorno.getCodCupom(), cupom.getCodCupom());
 		assertEquals( retorno.getNomeCupom(), cupom.getNomeCupom());
 		assertEquals( retorno.getCodFesta(), cupom.getFesta().getCodFesta());
-		//assertEquals( retorno.getPrecoDesconto(), cupom.getPrecoDesconto());
 	}
 	
 	

@@ -56,6 +56,7 @@ import { MeusIngressosComponent } from '../meus-ingressos/meus-ingressos.compone
 import { MaterialFileInputModule } from 'ngx-material-file-input';
 import { NgxPayPalModule } from 'ngx-paypal';
 import { GerenciadorCuponsComponent } from '../gerenciador-cupons/gerenciador-cupons.component';
+import { ControleSidenavComponent } from '../controle-sidenav/controle-sidenav.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -116,7 +117,8 @@ describe('CadastroComponent', () => {
         LeitorQrComponent,
         CheckInComponent,
         MeusIngressosComponent,
-        GerenciadorCuponsComponent
+        GerenciadorCuponsComponent,
+        ControleSidenavComponent
       ],
       imports: [
         MomentModule,

@@ -1,23 +1,5 @@
+<app-controle-sidenav></app-controle-sidenav>
 <div class="main-container">
-    <mat-sidenav-container class="example-container">
-        <mat-sidenav #sidenav mode="side" opened class="example-sidenav"
-            [fixedInViewport]="options.value.fixed" 
-            [fixedTopGap]="options.value.top"
-            [fixedBottomGap]="options.value.bottom"
-            
-            >
-            <button routerLink="../painel" mat-button class="botao-sidenav">{{'PAINELCONTROLE.GERAL' | translate}} <mat-icon>tab</mat-icon></button>
-            <button routerLink="../estoque" mat-button class="botao-sidenav">{{'PAINELCONTROLE.ESTOQUE' | translate}} <mat-icon>store</mat-icon></button>
-            <button routerLink="../painel-seguranca" mat-button class="botao-sidenav">{{'PAINELCONTROLE.SEGURANÇA' | translate}} <mat-icon>security</mat-icon></button>
-            <button routerLink="../ingressos" mat-button class="botao-sidenav">{{'PAINELCONTROLE.INGRESSOS' | translate}} <mat-icon> local_offer</mat-icon></button>
-            <button routerLink="../relatorios" mat-button class="botao-sidenav">{{'PAINELCONTROLE.RELATORIO' | translate}} <mat-icon> format_list_numbered</mat-icon></button>
-            <!-- BOTAO TOGGLE SIDENAV -->
-
-            <button mat-icon-button class="toggle sidenavFechar" (click)="sidenav.toggle()"><mat-icon>keyboard_arrow_left</mat-icon></button>
-        </mat-sidenav>
-        
-        <mat-sidenav-content class="center-x" [formGroup]="options">
-            <button mat-icon-button class="toggle sidenavAbrir" (click)="sidenav.toggle()"><mat-icon>keyboard_arrow_right</mat-icon></button>
                 <mat-list>
                     <mat-list-item>
                         <div class="titulo2">
@@ -84,6 +66,4 @@
                     {{'PAINELCONTROLE.DELETEFESTA' | translate}} <mat-icon>delete</mat-icon>
                 </button>
                 
-        </mat-sidenav-content>
-    </mat-sidenav-container>
 </div>

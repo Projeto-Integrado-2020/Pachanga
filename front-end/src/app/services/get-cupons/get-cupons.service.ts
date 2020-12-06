@@ -27,7 +27,7 @@ export class GetCuponsService {
     if (!this.farol) {
       this.setFarol(true);
       const httpParams = new HttpParams()
-      .append('idUser', this.loginService.usuarioInfo.codUsuario)
+      .append('codUser', this.loginService.usuarioInfo.codUsuario)
       .append('codFesta', idFesta);
 
       let headers = new HttpHeaders();
