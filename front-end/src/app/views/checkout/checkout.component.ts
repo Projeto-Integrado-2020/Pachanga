@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { IPayPalConfig, ICreateOrderRequest } from 'ngx-paypal';
 import { DadosCompraIngressoService } from 'src/app/services/dados-compra-ingresso/dados-compra-ingresso.service';
 import { GerarIngressoService } from 'src/app/services/gerar-ingresso/gerar-ingresso.service';
+import { GetFestaVendaIngressosService } from 'src/app/services/get-festa-venda-ingressos/get-festa-venda-ingressos.service';
 import { GetFestaService } from 'src/app/services/get-festa/get-festa.service';
 import { LoginService } from 'src/app/services/loginService/login.service';
 import { GerarBoletoDialogComponent } from '../gerar-boleto-dialog/gerar-boleto-dialog.component';
@@ -30,9 +31,9 @@ export class CheckoutComponent implements OnInit {
     public ingressos: any;
     form: FormGroup;
 
-    constructor(public getFestaService: GetFestaService, public router: Router, public getIngressoCheckout: DadosCompraIngressoService,
-                public ingressosService: GerarIngressoService, public dialog: MatDialog,
-                public formBuilder: FormBuilder, public loginService: LoginService,
+    constructor(public getFestaService: GetFestaVendaIngressosService, public router: Router,
+                public getIngressoCheckout: DadosCompraIngressoService, public ingressosService: GerarIngressoService,
+                public dialog: MatDialog, public formBuilder: FormBuilder, public loginService: LoginService,
                 public ngZone: NgZone) { }
 
     ngOnInit() {
@@ -42,7 +43,7 @@ export class CheckoutComponent implements OnInit {
         this.gerarForm();
 
         idFesta = idFesta.substring(idFesta.indexOf('&') + 1, idFesta.indexOf('/', idFesta.indexOf('&')));
-        this.getFestaService.acessarFesta(idFesta).subscribe((resp: any) => {
+        this.getFestaService.getFestaVenda(idFesta).subscribe((resp: any) => {
             this.getFestaService.setFarol(false);
             this.festa = resp;
             this.festaNome = resp.nomeFesta;
@@ -182,13 +183,17 @@ export class CheckoutComponent implements OnInit {
                     codUsuario: this.loginService.getusuarioInfo().codUsuario,
                     statusIngresso: 'U',
                     statusCompra: 'P',
+                    boleto: false,
                     preco: lote.precoUnico,
                     nomeTitular: this.form.get('nome' + lote.lote.codLote + '-' + i).value,
                     emailTitular: this.form.get('email' + lote.lote.codLote + '-' + i).value
                 });
             }
         }
-        this.ingressosService.adicionarIngressos(ingressosCheckout).subscribe((resp: any) => {
+        const ingressosRequest = {
+            listaIngresso: ingressosCheckout
+        };
+        this.ingressosService.adicionarIngressos(ingressosRequest).subscribe((resp: any) => {
             this.router.navigate(['/meus-ingressos']);
             this.getIngressoCheckout.cleanStorage();
             this.dialog.closeAll();

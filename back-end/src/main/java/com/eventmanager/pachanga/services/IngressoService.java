@@ -83,7 +83,7 @@ public class IngressoService {
 		if (variosBoletos == null && ingressoTO.getBoleto().booleanValue()) {
 			codBoleto = this.gerarCodigosIngresso(ingresso, true, 30);
 			variosBoletos = codBoleto;
-		}else {
+		} else if (variosBoletos != null){
 			ingresso.setCodBoleto(HashBuilder.gerarCodigoHasheado(variosBoletos));
 		}
 
