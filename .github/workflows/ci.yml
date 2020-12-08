@@ -28,7 +28,13 @@ jobs:
         with:
           node-version: 10
       - run: cd front-end && npm install
-      - run: cd back-end & npm test
+      - run: cd front-end && npm test
+      - uses: akhileshns/heroku-deploy@v3.6.8 # This is the action
+        with:
+          heroku_api_key: ${{secrets.HEROKU_FRONT_API_KEY}}
+          heroku_app_name: "pachanga" #Must be unique in Heroku
+          heroku_email: "andrey-lacerda@hotmail.com"
+          appdir: front-end
   back:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
@@ -49,3 +55,9 @@ jobs:
         with:
           java-version: 1.8
       - run: cd back-end && mvn clean install
+      - uses: akhileshns/heroku-deploy@v3.6.8 # This is the action
+        with:
+          heroku_api_key: ${{secrets.HEROKU_BACK_API_KEY}}
+          heroku_app_name: "pachanga-back-end" #Must be unique in Heroku
+          heroku_email: "andrey-lacerda@hotmail.com"
+          appdir: back-end
