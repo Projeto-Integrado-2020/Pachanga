@@ -1,0 +1,52 @@
+name: CI/CD Heroku Back e Front
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+  workflow_dispatch:
+
+jobs:
+
+  front:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [10]
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+      # Runs a single command using the runners shell
+      - name: Angular 8
+        uses: actions/setup-node@v1
+        with:
+          node-version: 10
+      - run: cd front-end && npm install
+      - run: npm test
+      - run: cd front-end && npm install
+  back:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        jdk: [10]
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+        
+
+      # Runs a single command using the runners shell
+      - name: JDK 1.8
+        uses: actions/setup-jdk@v1
+        with:
+          java-version: 1.8
+      - run: cd back-end && mvn clean install
