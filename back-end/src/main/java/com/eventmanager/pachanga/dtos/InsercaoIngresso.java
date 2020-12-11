@@ -16,7 +16,7 @@ public class InsercaoIngresso {
 		this.listaIngresso = listaIngresso;
 	}
 
-	public InfoPagamentoBoletoTO getInfoPagmaento() {
+	public InfoPagamentoBoletoTO getInfoPagamento() {
 		return infoPagamento;
 	}
 

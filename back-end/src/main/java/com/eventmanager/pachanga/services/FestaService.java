@@ -5,6 +5,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.time.Duration;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -420,6 +421,7 @@ public class FestaService {
 		if (imagem == null) {
 			CloudinaryUtils.getCloudinaryCredentials().uploader().destroy(festa.getNomeFesta(), ObjectUtils.emptyMap());
 			festa.setImagem(null);
+			festa.setUrlImagem(null);
 		} else {
 			File imagemUpload = new File(festa.getNomeFesta());
 			imagemUpload.createNewFile();
@@ -427,10 +429,11 @@ public class FestaService {
 			fos.write(imagem.getBytes());
 			fos.close();
 
-			CloudinaryUtils.getCloudinaryCredentials().uploader().upload(imagemUpload,
+			Map uploadImagem = CloudinaryUtils.getCloudinaryCredentials().uploader().upload(imagemUpload,
 					ObjectUtils.asMap("public_id", festa.getNomeFesta()));
 			
-			festa.setUrlImagem(festa.getNomeFesta());
+			festa.setImagem(imagem.getBytes());
+			festa.setUrlImagem(uploadImagem.get("secure_url").toString());
 		}
 	}
 
