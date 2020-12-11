@@ -13,6 +13,7 @@ import com.eventmanager.pachanga.domains.Ingresso;
 import com.eventmanager.pachanga.domains.Lote;
 import com.eventmanager.pachanga.domains.Usuario;
 import com.eventmanager.pachanga.dtos.IngressoTO;
+import com.eventmanager.pachanga.dtos.InsercaoIngresso;
 import com.eventmanager.pachanga.errors.ValidacaoException;
 import com.eventmanager.pachanga.factory.IngressoFactory;
 import com.eventmanager.pachanga.repositories.IngressoRepository;
@@ -21,6 +22,8 @@ import com.eventmanager.pachanga.tipo.TipoStatusCompra;
 import com.eventmanager.pachanga.tipo.TipoStatusIngresso;
 import com.eventmanager.pachanga.utils.EmailMensagem;
 import com.eventmanager.pachanga.utils.HashBuilder;
+
+import br.com.uol.pagseguro.api.exception.PagSeguroException;
 
 @Service
 @Transactional
@@ -53,12 +56,19 @@ public class IngressoService {
 		festaService.validarFestaExistente(codFesta);
 		return ingressoRepository.findIngressosFesta(codFesta);
 	}
+	
 
-	public List<IngressoTO> addListaIngresso(List<IngressoTO> ingressosTO) {
+	public List<IngressoTO> addListaIngresso(InsercaoIngresso ingressosInsercao) {
 		String codBoleto = null;
 		
+		try {
+			
+		} catch (PagSeguroException e) {
+			throw new ValidacaoException("teste");
+		}
+		
 		List<IngressoTO> ingressosResposta = new ArrayList<>();
-		for (IngressoTO ingressoTO : ingressosTO) {
+		for (IngressoTO ingressoTO : ingressosInsercao.getListaIngresso()) {
 			IngressoTO ingresso = this.addIngresso(ingressoTO, codBoleto);
 			if(codBoleto == null) {
 				codBoleto = ingresso.getCodBoleto();

@@ -97,7 +97,7 @@ public class IngressoController {
 	@PostMapping(path = "/addIngressoLista")
 	public ResponseEntity<Object> addIngressoLista(@RequestBody InsercaoIngresso insercaoIngresso) {
 		try {
-			return ResponseEntity.ok(ingressoService.addListaIngresso(insercaoIngresso.getListaIngresso()));
+			return ResponseEntity.ok(ingressoService.addListaIngresso(insercaoIngresso));
 		} catch (ValidacaoException e) {
 			return ResponseEntity.status(400).body(e.getMessage());
 		}
