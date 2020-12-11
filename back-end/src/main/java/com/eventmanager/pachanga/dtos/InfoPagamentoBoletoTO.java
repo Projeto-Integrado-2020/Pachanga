@@ -7,8 +7,11 @@ public class InfoPagamentoBoletoTO {
 	private String cidade;
 	private String cep;
 	private String rua;
-	private int numero;
+	private String numero;
 	private String bairro;
+	private String cpf;
+	private String email;
+	private String nome;
 	
 	public String getPais() {
 		return pais;
@@ -40,10 +43,10 @@ public class InfoPagamentoBoletoTO {
 	public void setRua(String rua) {
 		this.rua = rua;
 	}
-	public int getNumero() {
+	public String getNumero() {
 		return numero;
 	}
-	public void setNumero(int numero) {
+	public void setNumero(String numero) {
 		this.numero = numero;
 	}
 	public String getBairro() {
@@ -51,5 +54,23 @@ public class InfoPagamentoBoletoTO {
 	}
 	public void setBairro(String bairro) {
 		this.bairro = bairro;
+	}
+	public String getCpf() {
+		return cpf;
+	}
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public String getNome() {
+		return nome;
+	}
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 }

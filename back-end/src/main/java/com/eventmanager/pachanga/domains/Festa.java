@@ -210,7 +210,7 @@ public class Festa {
 	}
 	
 	public void setUrlImagem(String urlImagem) {
-		this.urlImagem = urlImagem == null ? null : "https://res.cloudinary.com/htctb0zmi/image/upload/v1606685633/" + imagem;
+		this.urlImagem = urlImagem;
 	}
 	
 	public Boolean isOrganizador(int codUsuario) {

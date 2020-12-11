@@ -52,6 +52,8 @@ export class MeusIngressosComponent implements OnInit {
 
   abrirQRDialog(ingresso) {
     this.dialog.open(QrcodeDialogComponent, {
+      height: '255px',
+      width: '255px',
       data: {
         link: ingresso.codIngresso
       }

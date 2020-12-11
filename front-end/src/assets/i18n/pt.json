@@ -488,6 +488,7 @@
     "MEUSINGRESSOS": {
         "MEUSINGR": "Meus Ingressos",
         "IMPRIMIR": "Imprimir Ingresso",
+        "BOLETO": "Imprimir Boleto",
         "ABQRCODE": "Abrir QR Code"
     },
 
