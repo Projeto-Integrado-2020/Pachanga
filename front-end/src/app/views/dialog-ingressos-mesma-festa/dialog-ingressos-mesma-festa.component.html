@@ -1,0 +1,21 @@
+<div class="container">
+  <h1 mat-dialog-title>{{this.ingressos[0].festa.nomeFesta}}: Boletos</h1>
+  <form>
+    <mat-select [(ngModel)] = "ingressoSelecionado" name="ingresso">
+      <!-- <mat-option value="{{categoria.codCategoria}}">{{'CATEGORIA.' + categoria.nomeCategoria | translate}}</mat-option> -->
+      <mat-option *ngFor="let ingresso of this.ingressos" [value]="ingresso.codBoleto">
+        {{ingresso.codBoleto}}
+      </mat-option>
+    </mat-select>
+
+    <button 
+          class="btn"
+          mat-raised-button
+          [disabled]="!this.ingressoSelecionado"
+          (click)="apagar(this.ingressoSelecionado)"
+    >
+          <!-- [disabled]="!model.value.descProblema || !model.value.codProblema" -->
+          {{'MEUSINGRESSOS.BOLETO' | translate}}
+    </button>
+  </form>
+</div>
