@@ -17,7 +17,7 @@
           </mat-card-content>
           <mat-divider></mat-divider>
           <mat-card-actions>
-            <button mat-button>{{'MEUSINGRESSOS.IMPRIMIR' | translate}}</button>
+            <button (click)="gerarIngressoPDF(ingresso)" mat-button>{{'MEUSINGRESSOS.IMPRIMIR' | translate}}</button>
             <button mat-button (click)="abrirQRDialog(ingresso)">{{'MEUSINGRESSOS.ABQRCODE' | translate}}</button>
           </mat-card-actions>
         </mat-card>
