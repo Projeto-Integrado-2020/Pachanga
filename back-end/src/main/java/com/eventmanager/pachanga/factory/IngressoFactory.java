@@ -18,7 +18,7 @@ public class IngressoFactory {
 				.usuario(usuario).statusIngresso(ingressoTO.getStatusIngresso()).preco(ingressoTO.getPreco())
 				.statusCompra(ingressoTO.getStatusCompra()).dataCheckin(ingressoTO.getDataCheckin())
 				.dataCompra(ingressoTO.getDataCompra()).emailTitular(ingressoTO.getEmailTitular())
-				.nomeTitular(ingressoTO.getNomeTitular()).build();
+				.nomeTitular(ingressoTO.getNomeTitular()).urlBoleto(ingressoTO.getUrlBoleto()).build();
 	}
 
 	public IngressoTO getIngressoTO(Ingresso ingresso, String codBoleto) {
@@ -27,7 +27,7 @@ public class IngressoFactory {
 				.preco(ingresso.getPreco()).statusCompra(ingresso.getStatusCompra())
 				.emailTitular(ingresso.getEmailTitular()).nomeTitular(ingresso.getNomeTitular())
 				.dataCompra(ingresso.getDataCompra()).dataCheckin(ingresso.getDataCheckin())
-				.codBoleto(codBoleto).build();
+				.codBoleto(codBoleto).urlBoleto(ingresso.getUrlBoleto()).build();
 	}
 
 }

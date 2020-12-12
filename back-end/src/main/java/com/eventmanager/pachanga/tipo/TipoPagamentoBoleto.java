@@ -2,17 +2,20 @@ package com.eventmanager.pachanga.tipo;
 
 public enum TipoPagamentoBoleto {
 	
-	DECLINED("DECLINED"),
-	PAID("PAID");
+	PAGO(3),
+	DEVOLVIDO(6),
+	CANCELADO(7),
+	DEBITADO(8);
 	
-	private String descricao;
+	
+	private int valorStatus;
 
-	private TipoPagamentoBoleto(String descricao) {
-		this.descricao = descricao;
+	private TipoPagamentoBoleto(int valorStatus) {
+		this.valorStatus = valorStatus;
 	}
 
-	public String getDescricao() {
-		return this.descricao;
+	public int getStatus() {
+		return this.valorStatus;
 	}
 
 }

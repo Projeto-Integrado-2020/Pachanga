@@ -52,6 +52,9 @@ public class Ingresso {
 	
 	@Column(name = "cod_boleto")
 	private String codBoleto;
+	
+	@Column(name = "url_boleto")
+	private String urlBoleto;
 
 	public String getCodIngresso() {
 		return codIngresso;
@@ -147,6 +150,14 @@ public class Ingresso {
 
 	public void setCodBoleto(String codBoleto) {
 		this.codBoleto = codBoleto;
+	}
+
+	public String getUrlBoleto() {
+		return urlBoleto;
+	}
+
+	public void setUrlBoleto(String urlBoleto) {
+		this.urlBoleto = urlBoleto;
 	}
 
 }
