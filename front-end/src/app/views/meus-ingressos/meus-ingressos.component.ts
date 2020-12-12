@@ -39,7 +39,8 @@ export class MeusIngressosComponent implements OnInit {
 
         for (const ingresso of listaIngressosUnicos) {
           Object.assign(ingresso, {Qtde: 0});
-          ingresso.Qtde = this.listaIngressos.filter(x => x.festa.codFesta === ingresso.festa.codFesta).length;
+          ingresso.Qtde = this.listaIngressos
+            .filter(x => x.festa.codFesta === ingresso.festa.codFesta && x.statusCompra === ingresso.statusCompra).length;
           if (ingresso.festa.statusFesta === 'F') {
             this.ingressosEncerrados.push(ingresso);
           } else {
@@ -62,7 +63,8 @@ export class MeusIngressosComponent implements OnInit {
     const arrayUnica = [];
 
     for(let ingresso of ingressos) {
-      if(!arrayUnica.find(ingr => ingr.festa.codFesta === ingresso.festa.codFesta)){
+      if(!arrayUnica
+        .find(ingr => ingr.festa.codFesta === ingresso.festa.codFesta && ingr.statusCompra === ingresso.statusCompra)){
         arrayUnica.push(ingresso);
       }
     }
