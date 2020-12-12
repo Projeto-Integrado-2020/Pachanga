@@ -17,9 +17,9 @@ export class MeusIngressosComponent implements OnInit {
   ingressosEncerrados: any[] = [];
 
   constructor(
-    private ingressosService: IngressosService,
-    private dialog: MatDialog,
-    private router: Router
+    public ingressosService: IngressosService,
+    public dialog: MatDialog,
+    public router: Router
     ) { }
 
   ngOnInit() {
@@ -79,10 +79,6 @@ export class MeusIngressosComponent implements OnInit {
       subject: 'Ingresso Pachanga'
     });
 
-    ingressos = [
-      ingressos,
-      ingressos
-    ];
     let nomePDF;
     for (const [index, ingresso] of ingressos.entries()) {
       this.criarPaginaPDF(pdf, ingresso);
@@ -162,7 +158,7 @@ export class MeusIngressosComponent implements OnInit {
       ],
       [
         new Txt('Horário da festa: ' + this.processardatetime(ingresso.festa.horarioInicioFesta) + ' - ' +
-            this.processardatetime(ingresso.festa.horarioInicioFesta)).style('textosLow').end
+            this.processardatetime(ingresso.festa.horarioFimFesta)).style('textosLow').end
       ],
       [
         new Txt('Local: ' + ingresso.festa.codEnderecoFesta).style('textosLow').end

@@ -10,6 +10,8 @@ import { LoginService } from 'src/app/services/loginService/login.service';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { HttpLoaderFactory } from 'src/app/app.module';
 import { HttpClient } from '@angular/common/http';
+import { IngressosService } from 'src/app/services/ingressos/ingressos.service';
+import { of } from 'rxjs';
 
 describe('MeusIngressosComponent', () => {
   let component: MeusIngressosComponent;
@@ -33,7 +35,41 @@ describe('MeusIngressosComponent', () => {
       }),
       ],
       providers: [
-        { provide: MatDialog, useValue: dialogSpy }
+        { provide: MatDialog, useValue: dialogSpy },
+        { provide: IngressosService, useValue: {
+          listaIngressos: () => of([
+            {
+              codLote: '1',
+              codIngresso: '1',
+              statusCompra: 'P',
+              dataCompra: '2020-11-10T12:00:00',
+              codFesta: '1',
+              nomeLote: 'Ingresso VIP 1',
+              preco: 40,
+              festa: {
+                statusFesta: 'P',
+                horarioInicioFesta: '2020-11-10 12:00:00',
+                horarioFimFesta: '2020-11-15 12:00:00',
+                nomeFesta: 'Teste1'
+              }
+            },
+            {
+              codLote: '2',
+              codIngresso: '2',
+              statusCompra: 'P',
+              dataCompra: '2020-11-10T12:00:00',
+              codFesta: '2',
+              nomeLote: 'Ingresso VIP 2',
+              preco: 41,
+              festa: {
+                statusFesta: 'F',
+                horarioInicioFesta: '2020-11-10 12:00:00',
+                horarioFimFesta: '2020-11-15 12:00:00',
+                nomeFesta: 'Teste2'
+              }
+            }
+          ])
+        }},
       ],
       schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
     })
@@ -55,5 +91,112 @@ describe('MeusIngressosComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should abrirQRDialog', () => {
+    component.abrirQRDialog('teste');
+    expect(dialogSpy.open).toHaveBeenCalled();
+  });
+
+  it('should processardatetime', () => {
+    const result = component.processardatetime('2020-11-10 12:00:00');
+    expect(result).toEqual('10/11/2020, 12:00');
+  });
+
+  it('should processarDataCompra', () => {
+    const result = component.processarDataCompra('2020-11-10T12:00:00');
+    expect(result).toEqual('10/11/2020, 12:00');
+  });
+
+  it('should navegarURL', () => {
+    spyOn(component.router, 'navigateByUrl')
+    .and
+    .callThrough();
+    component.navegarURL('teste.com');
+    expect(component.router.navigateByUrl).toHaveBeenCalledWith('teste.com');
+  });
+
+  it('should listarIngressos', () => {
+    spyOn(component.ingressosService, 'listaIngressos')
+    .and
+    .callThrough();
+
+    const jsonIngressos = [
+      {
+        codLote: '1',
+        codIngresso: '1',
+        statusCompra: 'P',
+        dataCompra: '2020-11-10T12:00:00',
+        codFesta: '1',
+        nomeLote: 'Ingresso VIP 1',
+        preco: 40,
+        festa: {
+          statusFesta: 'P',
+          horarioInicioFesta: '2020-11-10 12:00:00',
+          horarioFimFesta: '2020-11-15 12:00:00',
+          nomeFesta: 'Teste1'
+        }
+      },
+      {
+        codLote: '2',
+        codIngresso: '2',
+        statusCompra: 'P',
+        dataCompra: '2020-11-10T12:00:00',
+        codFesta: '2',
+        nomeLote: 'Ingresso VIP 2',
+        preco: 41,
+        festa: {
+          statusFesta: 'F',
+          horarioInicioFesta: '2020-11-10 12:00:00',
+          horarioFimFesta: '2020-11-15 12:00:00',
+          nomeFesta: 'Teste2'
+        }
+      }
+    ];
+
+    component.listarIngressos();
+    expect(component.ingressosService.listaIngressos).toHaveBeenCalled();
+    expect(component.listaIngressos).toEqual(jsonIngressos);
+  });
+
+  it('should call criarPaginaPDF at gerarIngressoPDF', () => {
+    spyOn(component, 'criarPaginaPDF')
+    .and
+    .callThrough();
+
+    const jsonIngressos = [
+      {
+        codLote: '1',
+        codIngresso: '1',
+        statusCompra: 'P',
+        dataCompra: '2020-11-10T12:00:00',
+        codFesta: '1',
+        nomeLote: 'Ingresso VIP 1',
+        preco: 40,
+        festa: {
+          statusFesta: 'P',
+          horarioInicioFesta: '2020-11-10 12:00:00',
+          horarioFimFesta: '2020-11-15 12:00:00',
+          nomeFesta: 'Teste1'
+        }
+      },
+      {
+        codLote: '2',
+        codIngresso: '2',
+        statusCompra: 'P',
+        dataCompra: '2020-11-10T12:00:00',
+        codFesta: '2',
+        nomeLote: 'Ingresso VIP 2',
+        preco: 41,
+        festa: {
+          statusFesta: 'F',
+          horarioInicioFesta: '2020-11-10 12:00:00',
+          horarioFimFesta: '2020-11-15 12:00:00',
+          nomeFesta: 'Teste2'
+        }
+      }
+    ];
+    component.gerarIngressoPDF(jsonIngressos);
+    expect(component.criarPaginaPDF).toHaveBeenCalled();
   });
 });
