@@ -15,6 +15,7 @@
             <span>{{ingresso.festa.codEnderecoFesta}}</span>
             <span>{{this.processardatetime(ingresso.festa.horarioInicioFesta)}}</span>
             <span>{{this.processardatetime(ingresso.festa.horarioFimFesta)}}</span>
+            <span *ngIf="ingresso.Qtde > 1">{{'MEUSINGRESSOS.QTDE' | translate}}: {{ingresso.Qtde}}</span>
           </mat-card-content>
           <mat-divider></mat-divider>
           <mat-card-actions>
@@ -38,11 +39,12 @@
             <span>{{ingresso.festa.codEnderecoFesta}}</span>
             <span>{{this.processardatetime(ingresso.festa.horarioInicioFesta)}}</span>
             <span>{{this.processardatetime(ingresso.festa.horarioFimFesta)}}</span>
+            <span *ngIf="ingresso.Qtde > 1">{{'MEUSINGRESSOS.QTDE' | translate}}: {{ingresso.Qtde}}</span>
           </mat-card-content>
           <mat-divider></mat-divider>
           <mat-card-actions>
             <button *ngIf="ingresso.statusCompra === 'P'" mat-button>{{'MEUSINGRESSOS.IMPRIMIR' | translate}}</button>
-            <button *ngIf="ingresso.statusCompra === 'C'" mat-button>{{'MEUSINGRESSOS.BOLETO' | translate}}</button>
+            <button (click)="botaoImprimirBoleto(ingresso)" *ngIf="ingresso.statusCompra === 'C'" mat-button>{{'MEUSINGRESSOS.BOLETO' | translate}}</button>
             <button mat-button (click)="abrirQRDialog(ingresso)">{{'MEUSINGRESSOS.ABQRCODE' | translate}}</button>
           </mat-card-actions>
         </mat-card>

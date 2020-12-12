@@ -419,6 +419,10 @@
         "ASSIGN": "Atribuir permissão",
         "DELETECONVIDADO": "Deletar convidado"
     },
+
+    "IMPRBOL": {
+        "TITULO" : ""
+    },
     
 
     "INDEX": {
@@ -489,7 +493,8 @@
         "MEUSINGR": "Meus Ingressos",
         "IMPRIMIR": "Imprimir Ingresso",
         "BOLETO": "Imprimir Boleto",
-        "ABQRCODE": "Abrir QR Code"
+        "ABQRCODE": "Abrir QR Code",
+        "QTDE": "Quantidade"
     },
 
     "NAV": {

@@ -121,42 +121,8 @@ describe('MeusIngressosComponent', () => {
     .and
     .callThrough();
 
-    const jsonIngressos = [
-      {
-        codLote: '1',
-        codIngresso: '1',
-        statusCompra: 'P',
-        dataCompra: '2020-11-10T12:00:00',
-        codFesta: '1',
-        nomeLote: 'Ingresso VIP 1',
-        preco: 40,
-        festa: {
-          statusFesta: 'P',
-          horarioInicioFesta: '2020-11-10 12:00:00',
-          horarioFimFesta: '2020-11-15 12:00:00',
-          nomeFesta: 'Teste1'
-        }
-      },
-      {
-        codLote: '2',
-        codIngresso: '2',
-        statusCompra: 'P',
-        dataCompra: '2020-11-10T12:00:00',
-        codFesta: '2',
-        nomeLote: 'Ingresso VIP 2',
-        preco: 41,
-        festa: {
-          statusFesta: 'F',
-          horarioInicioFesta: '2020-11-10 12:00:00',
-          horarioFimFesta: '2020-11-15 12:00:00',
-          nomeFesta: 'Teste2'
-        }
-      }
-    ];
-
     component.listarIngressos();
     expect(component.ingressosService.listaIngressos).toHaveBeenCalled();
-    expect(component.listaIngressos).toEqual(jsonIngressos);
   });
 
   it('should call criarPaginaPDF at gerarIngressoPDF', () => {
