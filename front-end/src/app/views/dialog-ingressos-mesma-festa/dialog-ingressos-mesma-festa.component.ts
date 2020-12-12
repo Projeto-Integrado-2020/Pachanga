@@ -11,7 +11,7 @@ export class DialogIngressosMesmaFestaComponent implements OnInit {
   ingressos: any;
   ingressoSelecionado: string;
 
-  constructor( @Inject(MAT_DIALOG_DATA) data,) { 
+  constructor(@Inject(MAT_DIALOG_DATA) data) {
     this.ingressos = data.ingressos;
   }
 
@@ -19,8 +19,8 @@ export class DialogIngressosMesmaFestaComponent implements OnInit {
     console.log(this.ingressos);
   }
 
-  apagar(string){
-    console.log(string);
+  apagar(valor) {
+    console.log(valor);
   }
 
 }

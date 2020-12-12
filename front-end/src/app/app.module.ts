@@ -136,6 +136,11 @@ import { ProcessingDialogComponent } from './views/processing-dialog/processing-
 import { ControleSidenavComponent } from './views/controle-sidenav/controle-sidenav.component';
 import { DialogIngressosMesmaFestaComponent } from './views/dialog-ingressos-mesma-festa/dialog-ingressos-mesma-festa.component';
 
+// pdf generator
+import { PdfMakeWrapper } from 'pdfmake-wrapper';
+import pdfFonts from 'pdfmake/build/vfs_fonts'; // fonts provided for pdfmake
+PdfMakeWrapper.setFonts(pdfFonts);
+
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
 
 const config = new AuthServiceConfig([
