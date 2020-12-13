@@ -26,8 +26,8 @@ public class IngressoFactory {
 				.lote(ingresso.getLote().getCodLote()).statusIngresso(ingresso.getStatusIngresso())
 				.preco(ingresso.getPreco()).statusCompra(ingresso.getStatusCompra())
 				.emailTitular(ingresso.getEmailTitular()).nomeTitular(ingresso.getNomeTitular())
-				.dataCompra(ingresso.getDataCompra()).dataCheckin(ingresso.getDataCheckin())
-				.codBoleto(codBoleto).urlBoleto(ingresso.getUrlBoleto()).build();
+				.dataCompra(ingresso.getDataCompra()).dataCheckin(ingresso.getDataCheckin()).codBoleto(codBoleto)
+				.urlBoleto(ingresso.getUrlBoleto()).nomeLote(ingresso.getLote().getNomeLote()).build();
 	}
 
 }

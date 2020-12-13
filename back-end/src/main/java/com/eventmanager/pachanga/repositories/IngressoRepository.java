@@ -14,7 +14,7 @@ public interface IngressoRepository extends JpaRepository<Ingresso, Integer>{
 	@Query(value = "SELECT i FROM Ingresso i JOIN i.lote l WHERE l.codLote = :codLote")
 	public List<Ingresso> findIngressosLote(int codLote);
 	
-	@Query(value = "SELECT i FROM Ingresso i JOIN i.usuario u JOIN i.festa f WHERE u.codUsuario = :codUsuario")
+	@Query(value = "SELECT i FROM Ingresso i JOIN i.usuario u JOIN i.festa f JOIN i.lote l WHERE u.codUsuario = :codUsuario")
 	public List<Ingresso> findIngressosUser(int codUsuario);
 	
 	@Query(value = "SELECT i FROM Ingresso i JOIN i.festa f WHERE f.codFesta = :codFesta")
