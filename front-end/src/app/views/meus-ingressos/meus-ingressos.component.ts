@@ -40,8 +40,10 @@ export class MeusIngressosComponent implements OnInit {
 
         for (const ingresso of listaIngressosUnicos) {
           Object.assign(ingresso, {Qtde: 0});
-          ingresso.Qtde = this.listaIngressos
-            .filter(x => x.festa.codFesta === ingresso.festa.codFesta && x.statusCompra === ingresso.statusCompra).length;
+          Object.assign(ingresso, {listaUnidades: []});
+          ingresso.listaUnidades = this.listaIngressos
+          .filter(x => x.festa.codFesta === ingresso.festa.codFesta && x.statusCompra === ingresso.statusCompra);
+          ingresso.Qtde = ingresso.listaUnidades.length;
           if (ingresso.festa.statusFesta === 'F') {
             this.ingressosEncerrados.push(ingresso);
           } else {
@@ -225,7 +227,7 @@ export class MeusIngressosComponent implements OnInit {
             new Txt('Ingresso').style('subTitles').end
           ],
           [
-            new Txt('Lote: Nome do Ingresso').style('textos').end
+            new Txt('Lote: ' + ingresso.nomeLote).style('textos').end
           ],
           [
             new Txt('Valor pago: R$' + ingresso.preco.toFixed(2)).style('textos').end
