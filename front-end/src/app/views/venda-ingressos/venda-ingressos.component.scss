@@ -49,9 +49,9 @@ html {
 }
 
 .card-content {
-  padding: 0 0 0 0;
+  padding: 0 0 1rem 0;
   overflow: hidden;
-  word-wrap: break-word
+  word-wrap: break-word;
 }
 
 .textos {
@@ -67,11 +67,9 @@ html {
 }
 
 .img {
-  object-fit: cover;
+  object-fit: fill;
   height: 20rem;
-  background-size: cover;
-  background-image: url('https://material.angular.io/assets/img/examples/shiba2.jpg');
-  overflow: hidden;
+  width: 100%;
 }
 
 .card-content-inf {

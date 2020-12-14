@@ -7,6 +7,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { GetCategoriasService } from 'src/app/services/get-categorias/get-categorias.service';
 import { FileInput, FileValidator } from 'ngx-material-file-input';
+import { ProcessingDialogComponent } from '../processing-dialog/processing-dialog.component';
 
 @Component({
   selector: 'app-editar-festa',
@@ -66,6 +67,7 @@ export class EditarFestaComponent implements OnInit {
 
   atualizarFesta(nomeFesta, descricaoFesta, codEnderecoFesta, dataInicio, horaInicio, dataFim,
                  horaFim, organizador, descOrganizador) {
+    this.openDialogProcessing();
     const dadosFesta = {
       codFesta: this.festa.codFesta,
       nomeFesta,
@@ -85,6 +87,7 @@ export class EditarFestaComponent implements OnInit {
   callServiceAtualizacao(dadosFesta, imagem) {
     this.festaService.atualizarFesta(dadosFesta, imagem).subscribe((resp: any) => {
       this.festaService.setFarol(false);
+      this.dialog.closeAll();
       this.openDialogSuccess('FESTAALT');
     });
   }
@@ -124,13 +127,21 @@ export class EditarFestaComponent implements OnInit {
     if (new Date() > new Date(this.festa.horarioInicioFesta)) {
       this.minDate = new Date(this.festa.horarioInicioFesta);
     }
-    if (this.festa.imagem) {
-      const base64Data = this.festa.imagem;
-      const imagem = this.dataURItoBlob(base64Data);
-      const fileInput = new FileInput([new File([imagem], 'upload.jpg', { type: 'image/jpeg' })]);
+    if (this.festa.urlImagem) {
+      const fileInput = new FileInput([new File([this.festa.urlImagem], 'upload.jpg', { type: 'image/jpeg' })]);
       this.f.imagem.patchValue(fileInput);
-      this.alterarPreview();
+      this.carregarImagem();
     }
+  }
+
+  openDialogProcessing() {
+    this.dialog.open(ProcessingDialogComponent, {
+        width: '20rem',
+        disableClose: true,
+        data: {
+            tipo: 'EDITFESTA'
+        }
+    });
   }
 
   dataURItoBlob(dataURI) {
@@ -142,6 +153,14 @@ export class EditarFestaComponent implements OnInit {
     }
     const blob = new Blob([int8Array], { type: 'image/jpeg' });
     return blob;
+  }
+
+  carregarImagem() {
+    if (this.form.get('imagem').value) {
+      this.imagem = this.festa.urlImagem;
+    } else {
+      this.imagem = this.urlNoImage;
+    }
   }
 
   alterarPreview() {

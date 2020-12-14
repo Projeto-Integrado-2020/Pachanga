@@ -5,6 +5,8 @@ import { Router } from '@angular/router';
 import { GetCategoriasService } from 'src/app/services/get-categorias/get-categorias.service';
 import { LoginService } from 'src/app/services/loginService/login.service';
 import { FileValidator } from 'ngx-material-file-input';
+import { ProcessingDialogComponent } from '../processing-dialog/processing-dialog.component';
+import { MatDialog } from '@angular/material';
 
 @Component({
   selector: 'app-criar-festa',
@@ -24,7 +26,8 @@ export class CriarFestaComponent implements OnInit {
     public festaService: CadastrarFestaService,
     public router: Router,
     public getCategoria: GetCategoriasService,
-    public loginService: LoginService
+    public loginService: LoginService,
+    public dialog: MatDialog
     ) { }
 
   ngOnInit() {
@@ -56,10 +59,21 @@ export class CriarFestaComponent implements OnInit {
     });
   }
 
+  openDialogProcessing() {
+    this.dialog.open(ProcessingDialogComponent, {
+        width: '20rem',
+        disableClose: true,
+        data: {
+            tipo: 'CRIARFESTA'
+        }
+    });
+  }
+
   get f() { return this.form.controls; }
 
   adicionarFesta(nomeFesta, descricaoFesta, codEnderecoFesta, dataInicio, horaInicio, dataFim, horaFim,
                  categoriaPrincipal, categoriaSecundaria, organizador, descOrganizador) {
+    this.openDialogProcessing();
     const dadosFesta = {
       nomeFesta,
       statusFesta: null,
@@ -83,6 +97,7 @@ export class CriarFestaComponent implements OnInit {
                                     .replace('º', '').replace('ª', '')
                                     .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
                                     .replace(/[`~!@#$%^&*()_|+\=?;:'",.<>\{\}\[\]\\\/]/gi, '');
+      this.dialog.closeAll();
       this.router.navigate(['festas/' + nomeFesta + '&' + resp.codFesta + '/painel/']);
     });
   }

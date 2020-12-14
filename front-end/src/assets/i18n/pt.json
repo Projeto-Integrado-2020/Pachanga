@@ -810,6 +810,12 @@
         "CONFIRM": "Confirmar",
         "CANCEL": "Cancelar",
         "INFO": "Você realmente deseja deletar o cupom "
+    },
+
+    "LOADING": {
+        "PAYPAL": "Processando ingressos. Por favor aguarde.",
+        "CRIARFESTA": "Criando festa. Por favor, aguarde.",
+        "EDITFESTA": "Editando festa. Por favor, aguarde."
     }
 
 }

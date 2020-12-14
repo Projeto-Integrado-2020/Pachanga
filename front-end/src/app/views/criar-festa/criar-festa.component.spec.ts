@@ -18,6 +18,8 @@ import { of } from 'rxjs';
 import { GetCategoriasService } from 'src/app/services/get-categorias/get-categorias.service';
 import { CadastrarFestaService } from 'src/app/services/cadastro-festa/cadastrar-festa.service';
 import { FileInput, MaterialFileInputModule } from 'ngx-material-file-input';
+import { MatDialog } from '@angular/material';
+
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -27,8 +29,10 @@ export function HttpLoaderFactory(http: HttpClient) {
 describe('CriarFestaComponent', () => {
   let component: CriarFestaComponent;
   let fixture: ComponentFixture<CriarFestaComponent>;
+  let dialogSpy: MatDialog;
 
   beforeEach(async(() => {
+    dialogSpy = jasmine.createSpyObj('MatDialog', ['open']);
     TestBed.configureTestingModule({
       declarations: [
         CriarFestaComponent
@@ -51,6 +55,7 @@ describe('CriarFestaComponent', () => {
         MaterialFileInputModule
       ],
       providers: [
+        { provide: MatDialog, useValue: dialogSpy },
         {provide: GetCategoriasService, useValue: {
           getCategorias: () => of([ {categoria: 'Teste1'}, {categoria: 'Teste2'} ]),
           setFarol: () => false,
@@ -133,7 +138,6 @@ describe('CriarFestaComponent', () => {
     expect(component.festaService.cadastrarFesta).toHaveBeenCalled();
     expect(component.festaService.setFarol).toHaveBeenCalledWith(false);
     expect(component.categorias).toEqual([{categoria: 'Teste1'}, {categoria: 'Teste2'}]);
-    expect(component.router.navigate).toHaveBeenCalledWith(['festas/testemix&87/painel/']);
   });
 
   it('should alterarPreview', () => {

@@ -251,7 +251,6 @@ describe('EditarFestaComponent', () => {
 
     expect(component.festaService.atualizarFesta).toHaveBeenCalledWith({nomeFesta: 'teste'}, {});
     expect(component.festaService.setFarol).toHaveBeenCalledWith(false);
-    expect(component.openDialogSuccess).toHaveBeenCalledWith('FESTAALT');
   });
 
   it('should alterarPreview', () => {

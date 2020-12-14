@@ -798,5 +798,11 @@
         "CONFIRM": "Confirm",
         "CANCEL": "Cancel",
         "INFO": "Do you really want to delete the coupon "
+    },
+
+    "LOADING": {
+        "PAYPAL": "Processing tickets. Please wait.",
+        "CRIARFESTA": "Creating party. Please wait.",
+        "EDITFESTA": "Editing party. Please wait."
     }
 }

@@ -20,7 +20,8 @@ export class VendaIngressosComponent implements OnInit {
     horarioInicioFesta: '2020-01-01 00:00:00',
     horarioFimFesta: '2020-01-01 00:00:00',
     codEnderecoFesta: null,
-    descricaoFesta: null
+    descricaoFesta: null,
+    urlImagem: null
   };
   public form: FormGroup;
   public form2: FormGroup;

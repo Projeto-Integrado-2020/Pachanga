@@ -46,6 +46,7 @@ export class CadastrarFestaService {
   }
 
   handleError = (error: HttpErrorResponse, logService: LogService) => {
+    this.dialog.closeAll();
     this.openErrorDialog(error.error);
     logService.initialize();
     logService.logHttpInfo(JSON.stringify(error), 0, error.url);

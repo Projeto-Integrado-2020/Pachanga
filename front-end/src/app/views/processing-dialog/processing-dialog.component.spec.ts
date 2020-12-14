@@ -6,6 +6,7 @@ import { HttpClient } from '@angular/common/http';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { ProcessingDialogComponent } from './processing-dialog.component';
+import { MAT_DIALOG_DATA } from '@angular/material';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -27,8 +28,12 @@ describe('ProcessingDialogComponent', () => {
             useFactory: HttpLoaderFactory,
             deps: [HttpClient]
           }
-        })]
-    })
+        })],
+        providers: [
+          { provide: MAT_DIALOG_DATA,
+            useValue: {link: '1' }
+          }
+        ]})
     .compileComponents();
   }));
 

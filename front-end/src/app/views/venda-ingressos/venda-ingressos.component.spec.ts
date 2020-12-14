@@ -55,7 +55,8 @@ describe('VendaIngressosComponent', () => {
       horarioInicioFesta: '2020-09-23 19:10:25',
       horarioFimFesta: '2020-09-23 19:10:25',
       codEnderecoFesta: null,
-      descricaoFesta: null
+      descricaoFesta: null,
+      urlImagem: null
     };
     component.cupomDesc = [{
       codCupom: '1',

@@ -20,6 +20,7 @@ import { SuccessDialogComponent } from '../success-dialog/success-dialog.compone
 export class CheckoutComponent implements OnInit {
 
     public festaNome: string;
+    public urlImagem: any;
     options: FormGroup;
     public festa: any;
     public statusFesta: any;
@@ -47,6 +48,7 @@ export class CheckoutComponent implements OnInit {
             this.getFestaService.setFarol(false);
             this.festa = resp;
             this.festaNome = resp.nomeFesta;
+            this.urlImagem = resp.urlImagem;
             this.statusFesta = resp.statusFesta;
         });
     }
@@ -164,7 +166,10 @@ export class CheckoutComponent implements OnInit {
     openDialogProcessing() {
         this.dialog.open(ProcessingDialogComponent, {
             width: '20rem',
-            disableClose: true
+            disableClose: true,
+            data: {
+                tipo: 'PAYPAL'
+            }
         });
     }
 
