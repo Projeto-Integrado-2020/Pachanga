@@ -13,6 +13,7 @@ import com.eventmanager.pachanga.domains.Ingresso;
 import com.eventmanager.pachanga.domains.Lote;
 import com.eventmanager.pachanga.domains.Usuario;
 import com.eventmanager.pachanga.dtos.IngressoTO;
+import com.eventmanager.pachanga.dtos.InsercaoIngresso;
 import com.eventmanager.pachanga.errors.ValidacaoException;
 import com.eventmanager.pachanga.factory.IngressoFactory;
 import com.eventmanager.pachanga.repositories.IngressoRepository;
@@ -21,6 +22,7 @@ import com.eventmanager.pachanga.tipo.TipoStatusCompra;
 import com.eventmanager.pachanga.tipo.TipoStatusIngresso;
 import com.eventmanager.pachanga.utils.EmailMensagem;
 import com.eventmanager.pachanga.utils.HashBuilder;
+import com.eventmanager.pachanga.utils.PagSeguroUtils;
 
 @Service
 @Transactional
@@ -54,13 +56,23 @@ public class IngressoService {
 		return ingressoRepository.findIngressosFesta(codFesta);
 	}
 
-	public List<IngressoTO> addListaIngresso(List<IngressoTO> ingressosTO) {
+	public List<IngressoTO> addListaIngresso(InsercaoIngresso ingressosInsercao) {
 		String codBoleto = null;
-		
+		String urlBoleto = null;
+		if (ingressosInsercao.getInfoPagamento() != null
+				&& ingressosInsercao.getListaIngresso().get(0).getBoleto().booleanValue()) {
+			int codFesta = ingressosInsercao.getListaIngresso().get(0).getFesta().getCodFesta();
+			codBoleto = this.gerarCodigosIngresso(null, codFesta, true, 30);
+			Festa festa = festaService.validarFestaExistente(codFesta);
+			urlBoleto = PagSeguroUtils.criacaoBoleto(ingressosInsercao.getInfoPagamento(),
+					this.valorTotalIngressos(ingressosInsercao.getListaIngresso()), codBoleto, festa);
+		}
+
 		List<IngressoTO> ingressosResposta = new ArrayList<>();
-		for (IngressoTO ingressoTO : ingressosTO) {
+		for (IngressoTO ingressoTO : ingressosInsercao.getListaIngresso()) {
+			ingressoTO.setUrlBoleto(urlBoleto);
 			IngressoTO ingresso = this.addIngresso(ingressoTO, codBoleto);
-			if(codBoleto == null) {
+			if (codBoleto == null) {
 				codBoleto = ingresso.getCodBoleto();
 			}
 			ingressosResposta.add(ingresso);
@@ -78,12 +90,12 @@ public class IngressoService {
 		Ingresso ingresso = ingressoFactory.getIngresso(ingressoTO, usuario, festa, lote);
 		ingresso.setDataCompra(notificacaoService.getDataAtual());
 
-		this.gerarCodigosIngresso(ingresso, false, 10);// geração código ingresso
+		this.gerarCodigosIngresso(ingresso, festa.getCodFesta(), false, 10);// geração código ingresso
 
 		if (variosBoletos == null && ingressoTO.getBoleto().booleanValue()) {
-			codBoleto = this.gerarCodigosIngresso(ingresso, true, 30);
+			codBoleto = this.gerarCodigosIngresso(ingresso, festa.getCodFesta(), true, 30);
 			variosBoletos = codBoleto;
-		} else if (variosBoletos != null){
+		} else if (variosBoletos != null) {
 			ingresso.setCodBoleto(HashBuilder.gerarCodigoHasheado(variosBoletos));
 		}
 
@@ -95,7 +107,7 @@ public class IngressoService {
 		return ingressoFactory.getIngressoTO(ingresso, variosBoletos == null ? codBoleto : variosBoletos);
 	}
 
-	private String gerarCodigosIngresso(Ingresso ingresso, boolean boleto, int limite) {
+	private String gerarCodigosIngresso(Ingresso ingresso, int codFesta, boolean boleto, int limite) {
 		String codigo = "";
 		boolean sairLoop = false;
 		while (true) {
@@ -104,8 +116,10 @@ public class IngressoService {
 			if (!boleto && ingressoRepository.findIngressoByCodIngresso(codigo) == null) {
 				ingresso.setCodIngresso(codigo);
 				sairLoop = true;
-			} else if (boleto && !this.compararCodBoletosFesta(codigo, ingresso)) {
-				ingresso.setCodBoleto(HashBuilder.gerarCodigoHasheado(codigo));
+			} else if (boleto && !this.compararCodBoletosFesta(codigo, codFesta)) {
+				if (ingresso != null) {
+					ingresso.setCodBoleto(HashBuilder.gerarCodigoHasheado(codigo));
+				}
 				sairLoop = true;
 			}
 
@@ -116,10 +130,9 @@ public class IngressoService {
 		return codigo;
 	}
 
-	private boolean compararCodBoletosFesta(String codigo, Ingresso ingresso) {
+	private boolean compararCodBoletosFesta(String codigo, int codFesta) {
 		boolean mesmoValorIngresso = false;
-		List<Ingresso> ingressos = ingressoRepository
-				.findIngressosEmProcessoBoletoFesta(ingresso.getFesta().getCodFesta());
+		List<Ingresso> ingressos = ingressoRepository.findIngressosEmProcessoBoletoFesta(codFesta);
 		for (Ingresso ingressoExistente : ingressos) {
 			if (HashBuilder.compararCodigos(codigo, ingressoExistente.getCodBoleto())) {
 				mesmoValorIngresso = true;
@@ -140,15 +153,19 @@ public class IngressoService {
 		return ingresso;
 	}
 
-	public void updateStatusCompra(String codBoleto, String statusPagamento) {
+	public void updateStatusCompra(String codBoleto, String notificationCode) {
+
+		int statusPagamento = PagSeguroUtils.retornoDadosTransacao(notificationCode);
 
 		List<Ingresso> ingressos = ingressoRepository.findIngressosEmProcessoBoleto();
 
 		ingressos.stream().forEach(i -> {
 			if (HashBuilder.compararCodigos(codBoleto, i.getCodBoleto())) {
-				if (TipoPagamentoBoleto.DECLINED.getDescricao().equals(statusPagamento)) {
+				if (TipoPagamentoBoleto.DEVOLVIDO.getStatus() == statusPagamento
+						|| TipoPagamentoBoleto.CANCELADO.getStatus() == statusPagamento
+						|| TipoPagamentoBoleto.DEBITADO.getStatus() == statusPagamento) {
 					ingressoRepository.delete(i);
-				} else if (TipoPagamentoBoleto.PAID.getDescricao().equals(statusPagamento)) {
+				} else if (TipoPagamentoBoleto.PAGO.getStatus() == statusPagamento) {
 					i.setStatusCompra(TipoStatusCompra.PAGO.getDescricao());
 					this.criacaoEmailIngresso(i, i.getFesta());
 				}
@@ -182,6 +199,14 @@ public class IngressoService {
 		return new Random().ints(48, 122 + 1).filter(i -> (i <= 57 || i >= 65) && (i <= 90 || i >= 97)).limit(limit)
 				.collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append).toString();
 
+	}
+
+	private float valorTotalIngressos(List<IngressoTO> listaIngresso) {
+		float valorTotal = 0;
+		for (IngressoTO ingresso : listaIngresso) {
+			valorTotal += ingresso.getPreco();
+		}
+		return valorTotal;
 	}
 
 }

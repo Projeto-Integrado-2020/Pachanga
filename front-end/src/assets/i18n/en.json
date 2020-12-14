@@ -780,7 +780,8 @@
         "MEUSINGR": "My Tickets",
         "IMPRIMIR": "Print Ticket",
         "BOLETO": "Print Boleto",
-        "ABQRCODE": "Open QR Code"
+        "ABQRCODE": "Open QR Code",
+        "QTDE": "Quantity"
 
     },
     

@@ -24,7 +24,6 @@ import com.eventmanager.pachanga.factory.FestaFactory;
 import com.eventmanager.pachanga.factory.IngressoFactory;
 import com.eventmanager.pachanga.services.IngressoService;
 import com.eventmanager.pachanga.tipo.TipoCategoria;
-import com.fasterxml.jackson.databind.JsonNode;
 
 @Controller
 @RequestMapping("/ingresso")
@@ -97,7 +96,7 @@ public class IngressoController {
 	@PostMapping(path = "/addIngressoLista")
 	public ResponseEntity<Object> addIngressoLista(@RequestBody InsercaoIngresso insercaoIngresso) {
 		try {
-			return ResponseEntity.ok(ingressoService.addListaIngresso(insercaoIngresso.getListaIngresso()));
+			return ResponseEntity.ok(ingressoService.addListaIngresso(insercaoIngresso));
 		} catch (ValidacaoException e) {
 			return ResponseEntity.status(400).body(e.getMessage());
 		}
@@ -115,10 +114,11 @@ public class IngressoController {
 
 	@ResponseBody
 	@PostMapping(path = "/updateStatusCompra")
-	public ResponseEntity<Object> updateStatusCompra(@RequestBody JsonNode infoPagamento,
-			@RequestParam(required = true) String codBoleto) {
+	public ResponseEntity<Object> updateStatusCompra(@RequestParam(required = true) String codBoleto,
+			@RequestParam(required = true) String notificationType,
+			@RequestParam(required = true) String notificationCode) {
 		try {
-			ingressoService.updateStatusCompra(codBoleto, infoPagamento.get("status").asText());
+			ingressoService.updateStatusCompra(codBoleto, notificationCode);
 			return ResponseEntity.ok().build();
 		} catch (ValidacaoException e) {
 			return ResponseEntity.status(400).body(e.getMessage());

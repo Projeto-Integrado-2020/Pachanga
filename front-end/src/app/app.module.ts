@@ -134,6 +134,12 @@ import { DeletarCupomDialogComponent } from './views/deletar-cupom-dialog/deleta
 import { NgxMaskModule, IConfig } from 'ngx-mask';
 import { ProcessingDialogComponent } from './views/processing-dialog/processing-dialog.component';
 import { ControleSidenavComponent } from './views/controle-sidenav/controle-sidenav.component';
+import { DialogIngressosMesmaFestaComponent } from './views/dialog-ingressos-mesma-festa/dialog-ingressos-mesma-festa.component';
+
+// pdf generator
+import { PdfMakeWrapper } from 'pdfmake-wrapper';
+import pdfFonts from 'pdfmake/build/vfs_fonts'; // fonts provided for pdfmake
+PdfMakeWrapper.setFonts(pdfFonts);
 
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
 
@@ -235,7 +241,8 @@ export function provideConfig() {
     EditarCupomDialogComponent,
     DeletarCupomDialogComponent,
     ProcessingDialogComponent,
-    ControleSidenavComponent
+    ControleSidenavComponent,
+    DialogIngressosMesmaFestaComponent
   ],
   entryComponents: [
     LoginComponent,
@@ -284,7 +291,8 @@ export function provideConfig() {
     CriarCupomDialogComponent,
     DeletarCupomDialogComponent,
     EditarCupomDialogComponent,
-    ProcessingDialogComponent
+    ProcessingDialogComponent,
+    DialogIngressosMesmaFestaComponent
   ],
   imports: [
     BrowserModule,

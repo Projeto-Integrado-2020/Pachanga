@@ -20,6 +20,7 @@ public class IngressoBuilder {
 	private LocalDateTime dataCheckin;
 	private String nomeTitular;
 	private String emailTitular;
+	private String urlBoleto;
 	
 	public static IngressoBuilder getInstance() {
 		return new IngressoBuilder();
@@ -80,6 +81,11 @@ public class IngressoBuilder {
 		return this;
 	}
 	
+	public IngressoBuilder urlBoleto(String urlBoleto) {
+		this.urlBoleto = urlBoleto;
+		return this;
+	}
+	
 	public Ingresso build() {
 		Ingresso ingresso = new Ingresso();
 		ingresso.setCodIngresso(codIngresso);
@@ -93,6 +99,7 @@ public class IngressoBuilder {
 		ingresso.setUsuario(usuario);
 		ingresso.setNomeTitular(nomeTitular);
 		ingresso.setEmailTitular(emailTitular);
+		ingresso.setUrlBoleto(urlBoleto);
 		return ingresso;
 		
 	}

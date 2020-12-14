@@ -17,6 +17,8 @@ public class IngressoTO {
 	private String emailTitular;
 	private String codBoleto;
 	private Boolean boleto;
+	private String urlBoleto;
+	private String nomeLote;
 	
 	public FestaTO getFesta() {
 		return festa;
@@ -96,6 +98,18 @@ public class IngressoTO {
 	}
 	public void setBoleto(Boolean boleto) {
 		this.boleto = boleto;
+	}
+	public String getUrlBoleto() {
+		return urlBoleto;
+	}
+	public void setUrlBoleto(String urlBoleto) {
+		this.urlBoleto = urlBoleto;
+	}
+	public String getNomeLote() {
+		return nomeLote;
+	}
+	public void setNomeLote(String nomeLote) {
+		this.nomeLote = nomeLote;
 	}
 
 }

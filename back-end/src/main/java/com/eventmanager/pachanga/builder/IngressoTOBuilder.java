@@ -19,6 +19,8 @@ public class IngressoTOBuilder {
 	private String nomeTitular;
 	private String emailTitular;
 	private String codBoleto;
+	private String urlBoleto;
+	private String nomeLote;
 	
 	public static IngressoTOBuilder getInstance() {
 		return new IngressoTOBuilder();
@@ -84,6 +86,16 @@ public class IngressoTOBuilder {
 		return this;
 	}
 	
+	public IngressoTOBuilder urlBoleto(String urlBoleto) {
+		this.urlBoleto = urlBoleto;
+		return this;
+	}
+	
+	public IngressoTOBuilder nomeLote(String nomeLote) {
+		this.nomeLote = nomeLote;
+		return this;
+	}
+	
 	public IngressoTO build() {
 		IngressoTO ingressoTO = new IngressoTO();
 		ingressoTO.setCodIngresso(codIngresso);
@@ -98,6 +110,8 @@ public class IngressoTOBuilder {
 		ingressoTO.setNomeTitular(nomeTitular);
 		ingressoTO.setEmailTitular(emailTitular);
 		ingressoTO.setCodBoleto(codBoleto);
+		ingressoTO.setUrlBoleto(urlBoleto);
+		ingressoTO.setNomeLote(nomeLote);
 		return ingressoTO;
 		
 	}
