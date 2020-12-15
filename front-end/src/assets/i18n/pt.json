@@ -820,7 +820,8 @@
     "LOADING": {
         "PAYPAL": "Processando ingressos. Por favor aguarde.",
         "CRIARFESTA": "Criando festa. Por favor, aguarde.",
-        "EDITFESTA": "Editando festa. Por favor, aguarde."
+        "EDITFESTA": "Editando festa. Por favor, aguarde.",
+        "BOLETO": "Processando boleto. Por favor aguarde."
     }
 
 }

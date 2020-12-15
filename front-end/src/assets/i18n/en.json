@@ -804,6 +804,7 @@
     "LOADING": {
         "PAYPAL": "Processing tickets. Please wait.",
         "CRIARFESTA": "Creating party. Please wait.",
-        "EDITFESTA": "Editing party. Please wait."
+        "EDITFESTA": "Editing party. Please wait.",
+        "BOLETO": "Processing bill. Please wait."
     }
 }

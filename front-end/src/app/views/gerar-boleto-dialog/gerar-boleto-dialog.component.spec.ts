@@ -140,4 +140,9 @@ describe('GerarBoletoDialogComponent', () => {
 
     expect(component.cepService.resgatarEndereco).toHaveBeenCalledWith('123');
   });
+
+  it('should openDialogProcessing', () => {
+    component.openDialogProcessing();
+    expect(dialogSpy.open).toHaveBeenCalled();
+  });
 });

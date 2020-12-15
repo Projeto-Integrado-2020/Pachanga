@@ -6,6 +6,7 @@ import { CepApiService } from 'src/app/services/cep-api/cep-api.service';
 import { DadosCompraIngressoService } from 'src/app/services/dados-compra-ingresso/dados-compra-ingresso.service';
 import { GerarIngressoService } from 'src/app/services/gerar-ingresso/gerar-ingresso.service';
 import { LoginService } from 'src/app/services/loginService/login.service';
+import { ProcessingDialogComponent } from '../processing-dialog/processing-dialog.component';
 import { SuccessDialogComponent } from '../success-dialog/success-dialog.component';
 
 @Component({
@@ -72,8 +73,8 @@ export class GerarBoletoDialogComponent implements OnInit {
     const body = {
       listaIngresso: ingressosCheckout,
       infoPagamento: {
-        nomePagador: this.form.get('nomePagador').value,
-        identificacao: this.form.get('identificacao').value,
+        nome: this.form.get('nomePagador').value,
+        cpf: this.form.get('identificacao').value,
         email: this.form.get('email').value,
         pais: this.form.get('pais').value,
         estado: this.form.get('estado').value,
@@ -85,8 +86,10 @@ export class GerarBoletoDialogComponent implements OnInit {
         preco: this.preco
       }
     };
+
+    this.openDialogProcessing();
     this.ingressosService.adicionarIngressos(body).subscribe((resp: any) => {
-      window.open(resp.links[0].href, '_blank');
+      window.open(resp[0].urlBoleto);
       this.router.navigate(['/meus-ingressos']);
       this.dadosService.cleanStorage();
       this.dialog.closeAll();
@@ -143,6 +146,16 @@ export class GerarBoletoDialogComponent implements OnInit {
       this.form.get('cidade').setValue(resp.localidade);
       this.form.get('bairro').setValue(resp.bairro);
       this.form.get('rua').setValue(resp.logradouro);
+    });
+  }
+
+  openDialogProcessing() {
+    this.dialog.open(ProcessingDialogComponent, {
+        width: '20rem',
+        disableClose: true,
+        data: {
+            tipo: 'BOLETO'
+        }
     });
   }
 

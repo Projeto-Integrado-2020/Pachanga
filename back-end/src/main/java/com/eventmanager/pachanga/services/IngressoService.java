@@ -62,7 +62,7 @@ public class IngressoService {
 		if (ingressosInsercao.getInfoPagamento() != null
 				&& ingressosInsercao.getListaIngresso().get(0).getBoleto().booleanValue()) {
 			int codFesta = ingressosInsercao.getListaIngresso().get(0).getFesta().getCodFesta();
-			codBoleto = this.gerarCodigosIngresso(null, codFesta, true, 30);
+			codBoleto = this.gerarCodigosIngresso(null, codFesta, true, 20);
 			Festa festa = festaService.validarFestaExistente(codFesta);
 			urlBoleto = PagSeguroUtils.criacaoBoleto(ingressosInsercao.getInfoPagamento(),
 					this.valorTotalIngressos(ingressosInsercao.getListaIngresso()), codBoleto, festa);
@@ -93,7 +93,7 @@ public class IngressoService {
 		this.gerarCodigosIngresso(ingresso, festa.getCodFesta(), false, 10);// geração código ingresso
 
 		if (variosBoletos == null && ingressoTO.getBoleto().booleanValue()) {
-			codBoleto = this.gerarCodigosIngresso(ingresso, festa.getCodFesta(), true, 30);
+			codBoleto = this.gerarCodigosIngresso(ingresso, festa.getCodFesta(), true, 20);
 			variosBoletos = codBoleto;
 		} else if (variosBoletos != null) {
 			ingresso.setCodBoleto(HashBuilder.gerarCodigoHasheado(variosBoletos));
