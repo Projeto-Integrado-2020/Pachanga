@@ -19,6 +19,7 @@ public class  AreaSegurancaProblemaBuilder {
 	private Usuario usuarioEmissor;
     private String descProblema;
     private String observacaoSolucao;
+    private byte[] imagemProblema;
 	
 	public static AreaSegurancaProblemaBuilder getInstance() {
 		return new AreaSegurancaProblemaBuilder();
@@ -73,6 +74,11 @@ public class  AreaSegurancaProblemaBuilder {
 		this.observacaoSolucao = observacaoSolucao;
 		return this;
 	}
+	
+	public AreaSegurancaProblemaBuilder imagemProblema(byte[] imagemProblema) {
+		this.imagemProblema = imagemProblema;
+		return this;
+	}
 
 	public AreaSegurancaProblema build() {
 		AreaSegurancaProblema problemaSeguranca = new AreaSegurancaProblema();
@@ -86,6 +92,7 @@ public class  AreaSegurancaProblemaBuilder {
 		problemaSeguranca.setHorarioInicio(horarioInicio);
 		problemaSeguranca.setStatusProblema(statusProblema);
 		problemaSeguranca.setObservacaoSolucao(observacaoSolucao);
+		problemaSeguranca.setImagemProblema(imagemProblema);
 		return problemaSeguranca;
 	}
 }

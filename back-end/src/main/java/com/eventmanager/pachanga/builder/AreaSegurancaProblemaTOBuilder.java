@@ -17,6 +17,7 @@ public class AreaSegurancaProblemaTOBuilder {
     private String descProblema;
     private String observacaoSolucao;
     private String descProblemaEmissor;
+    private byte[] imagemProblema;
 	
 	public static AreaSegurancaProblemaTOBuilder getInstance() {
 		return new AreaSegurancaProblemaTOBuilder();
@@ -81,6 +82,11 @@ public class AreaSegurancaProblemaTOBuilder {
 		this.descProblemaEmissor = descProblemaEmissor;
 		return this;
 	}
+	
+	public AreaSegurancaProblemaTOBuilder imagemProblema(byte[] imagemProblema) {
+		this.imagemProblema = imagemProblema;
+		return this;
+	}
 
 	public  AreaSegurancaProblemaTO build() {
 		AreaSegurancaProblemaTO problemaSegurancaTO = new  AreaSegurancaProblemaTO();
@@ -96,6 +102,7 @@ public class AreaSegurancaProblemaTOBuilder {
 		problemaSegurancaTO.setCodAreaProblema(codAreaProblema);
 		problemaSegurancaTO.setObservacaoSolucao(observacaoSolucao);
 		problemaSegurancaTO.setDescProblemaEmissor(descProblemaEmissor);
+		problemaSegurancaTO.setImagemProblema(imagemProblema);
 		return problemaSegurancaTO;
 	}
 	

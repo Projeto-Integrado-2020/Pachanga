@@ -15,6 +15,7 @@ public class AreaSegurancaProblemaTO {
     private String descProblemaEmissor;
     private String observacaoSolucao;
     private String descProblema;
+    private byte[] imagemProblema;
     
 	public int getCodAreaSeguranca() {
 		return codAreaSeguranca;
@@ -87,6 +88,12 @@ public class AreaSegurancaProblemaTO {
 	}
 	public void setDescProblemaEmissor(String descProblemaEmissor) {
 		this.descProblemaEmissor = descProblemaEmissor;
+	}
+	public byte[] getImagemProblema() {
+		return imagemProblema;
+	}
+	public void setImagemProblema(byte[] imagemProblema) {
+		this.imagemProblema = imagemProblema;
 	}
     
 }

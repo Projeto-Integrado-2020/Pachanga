@@ -38,7 +38,7 @@ public class AreaSegurancaFactory {
 				.codFesta(areaSeguranca.getCodFesta()).nomeArea(areaSeguranca.getNomeArea())
 				.statusSeguranca(areaSeguranca.getStatusSeguranca())
 				.problemasArea(
-						problemasArea.stream().map(p -> areaSegurancaProblemaFactory.getAreaSegurancaProblemaTO(p))
+						problemasArea.stream().map(p -> areaSegurancaProblemaFactory.getAreaSegurancaProblemaTO(p, false))
 								.collect(Collectors.toList()))
 				.build();
 	}

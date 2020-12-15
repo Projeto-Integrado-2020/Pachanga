@@ -35,10 +35,8 @@ import com.eventmanager.pachanga.services.ConvidadoService;
 import com.eventmanager.pachanga.services.FestaService;
 import com.eventmanager.pachanga.services.UsuarioService;
 import com.eventmanager.pachanga.tipo.TipoCategoria;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
+import com.eventmanager.pachanga.utils.TransformadorJsonObjeto;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 
 @Controller
@@ -116,7 +114,7 @@ public class FestaController {
 	@JsonDeserialize(using = LocalDateTimeDeserializer.class)
 	public ResponseEntity<Object> addFesta(@RequestParam String json, @RequestParam(required = false) MultipartFile imagem, @RequestParam(required = true) int idUser) throws IOException{
 		try {
-			FestaTO festaTo = criarFestaTOByString(json);
+			FestaTO festaTo = (FestaTO) TransformadorJsonObjeto.criarFestaTOByString(json, new FestaTO());
 			Festa festa = festaService.addFesta(festaTo, idUser, imagem);
 			CategoriaTO categoriaPrimaria = categoriaFesta(festa.getCodFesta(), TipoCategoria.PRIMARIO.getDescricao());
 			CategoriaTO categoriaSecundario = categoriaFesta(festa.getCodFesta(), TipoCategoria.SECUNDARIO.getDescricao());
@@ -128,13 +126,11 @@ public class FestaController {
 
 	@ResponseBody
 	@DeleteMapping(path = "/delete")
-	public ResponseEntity<Object> deleteFesta(@RequestParam(required = true) int idFesta, @RequestParam(required = true) int idUser){
+	public ResponseEntity<Object> deleteFesta(@RequestParam(required = true) int idFesta, @RequestParam(required = true) int idUser) throws IOException{
 		try {
 			festaService.deleteFesta(idFesta, idUser);
 			return ResponseEntity.ok("FESTDELE");//ver se precisa colocar alguma coisa aqui ou pode mandar somente um ok
 		}catch(ValidacaoException e) {
-			return ResponseEntity.status(400).body(e.getMessage());
-		} catch (IOException e) {
 			return ResponseEntity.status(400).body(e.getMessage());
 		}
 	}
@@ -144,7 +140,7 @@ public class FestaController {
 	@JsonDeserialize(using = LocalDateTimeDeserializer.class)
 	public ResponseEntity<Object> atualizaFesta(@RequestParam String json, @RequestParam(required = false) MultipartFile imagem, @RequestParam(required = true) int idUser)throws IOException{
 		try {
-			FestaTO festaTo = criarFestaTOByString(json);
+			FestaTO festaTo =(FestaTO) TransformadorJsonObjeto.criarFestaTOByString(json, new FestaTO());
 			Festa festa = festaService.updateFesta(festaTo, idUser, imagem);
 			CategoriaTO categoriaPrimaria = categoriaFesta(festa.getCodFesta(), TipoCategoria.PRIMARIO.getDescricao());
 			CategoriaTO categoriaSecundario = categoriaFesta(festa.getCodFesta(), TipoCategoria.SECUNDARIO.getDescricao());
@@ -218,12 +214,5 @@ public class FestaController {
 		}else {
 			return null;
 		}
-	}
-	
-	private FestaTO criarFestaTOByString(String json) throws IOException{
-		ObjectMapper objectMapper = new ObjectMapper();
-		objectMapper.registerModule(new JavaTimeModule());
-		objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
-		return objectMapper.readValue(json, FestaTO.class);
 	}
 }

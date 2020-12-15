@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -51,6 +52,10 @@ public class AreaSegurancaProblema {
 	
 	@Column(name = "obs_solucao")
 	private String observacaoSolucao;
+	
+	@Column(name="imagem_problema")
+	@Lob
+	private byte[] imagemProblema;
 
 	public Problema getProblema() {
 		return problema;
@@ -138,6 +143,14 @@ public class AreaSegurancaProblema {
 
 	public void setObservacaoSolucao(String observacaoSolucao) {
 		this.observacaoSolucao = observacaoSolucao;
+	}
+
+	public byte[] getImagemProblema() {
+		return imagemProblema;
+	}
+
+	public void setImagemProblema(byte[] imagemProblema) {
+		this.imagemProblema = imagemProblema;
 	}
 
 }

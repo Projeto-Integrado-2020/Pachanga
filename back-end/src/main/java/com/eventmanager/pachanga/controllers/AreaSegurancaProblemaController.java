@@ -1,8 +1,10 @@
 package com.eventmanager.pachanga.controllers;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -13,12 +15,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.eventmanager.pachanga.domains.AreaSegurancaProblema;
 import com.eventmanager.pachanga.dtos.AreaSegurancaProblemaTO;
 import com.eventmanager.pachanga.errors.ValidacaoException;
 import com.eventmanager.pachanga.factory.AreaSegurancaProblemaFactory;
 import com.eventmanager.pachanga.services.AreaSegurancaProblemaService;
+import com.eventmanager.pachanga.utils.TransformadorJsonObjeto;
 
 @Controller
 @RequestMapping("/areaSegurancaProblema")
@@ -32,13 +36,16 @@ public class AreaSegurancaProblemaController {
 	private AreaSegurancaProblemaFactory areaSegurancaProblemaFactory;
 
 	@ResponseBody
-	@PostMapping(path = "/adicionar")
-	public ResponseEntity<Object> addProblemaSeguranca(@RequestBody AreaSegurancaProblemaTO problemaSegurancaTO,
-			@RequestParam(required = true) int idUsuario) {
+	@PostMapping(path = "/adicionar", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+	public ResponseEntity<Object> addProblemaSeguranca(@RequestParam String problemaSegurancaTO,
+			@RequestParam(required = false) MultipartFile imagem, @RequestParam(required = true) int idUsuario)
+			throws IOException {
 		try {
-			AreaSegurancaProblema problemaSeguranca = areaSegurancaProblemaService
-					.addProblemaSeguranca(problemaSegurancaTO, idUsuario);
-			return ResponseEntity.ok(areaSegurancaProblemaFactory.getAreaSegurancaProblemaTO(problemaSeguranca));
+			AreaSegurancaProblema problemaSeguranca = areaSegurancaProblemaService.addProblemaSeguranca(
+					(AreaSegurancaProblemaTO) TransformadorJsonObjeto.criarFestaTOByString(problemaSegurancaTO,
+							new AreaSegurancaProblemaTO()),
+					idUsuario, imagem);
+			return ResponseEntity.ok(areaSegurancaProblemaFactory.getAreaSegurancaProblemaTO(problemaSeguranca, false));
 		} catch (ValidacaoException e) {
 			return ResponseEntity.status(400).body(e.getMessage());
 		}
@@ -51,7 +58,7 @@ public class AreaSegurancaProblemaController {
 		try {
 			AreaSegurancaProblema problemaSeguranca = areaSegurancaProblemaService
 					.updateProblemaSeguranca(problemaSegurancaTO, idUsuario);
-			return ResponseEntity.ok(areaSegurancaProblemaFactory.getAreaSegurancaProblemaTO(problemaSeguranca));
+			return ResponseEntity.ok(areaSegurancaProblemaFactory.getAreaSegurancaProblemaTO(problemaSeguranca, false));
 		} catch (ValidacaoException e) {
 			return ResponseEntity.status(400).body(e.getMessage());
 		}
@@ -71,13 +78,14 @@ public class AreaSegurancaProblemaController {
 
 	@ResponseBody
 	@GetMapping(path = "/findProblemaSeguranca")
-	public ResponseEntity<Object> findProblemaSeguranca(@RequestParam(required = true) int codAreaSeguranca,
-			@RequestParam(required = true) int codProblema, @RequestParam(required = true) int codFesta,
-			@RequestParam(required = true) int idUsuario) {
+	public ResponseEntity<Object> findProblemaSeguranca(@RequestParam(required = true) int codAreaSegurancaProblema,
+			@RequestParam(required = true) int codFesta, @RequestParam(required = true) int idUsuario,
+			@RequestParam(required = true) Boolean retornoImagem) {
 		try {
 			AreaSegurancaProblema problemaSeguranca = areaSegurancaProblemaService
-					.findProblemaSeguranca(codAreaSeguranca, codProblema, codFesta, idUsuario);
-			return ResponseEntity.ok(areaSegurancaProblemaFactory.getAreaSegurancaProblemaTO(problemaSeguranca));
+					.findProblemaSeguranca(codAreaSegurancaProblema, codFesta, idUsuario);
+			return ResponseEntity.ok(areaSegurancaProblemaFactory.getAreaSegurancaProblemaTO(problemaSeguranca,
+					retornoImagem.booleanValue()));
 		} catch (ValidacaoException e) {
 			return ResponseEntity.status(400).body(e.getMessage());
 		}

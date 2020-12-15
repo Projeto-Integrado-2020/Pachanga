@@ -1,10 +1,12 @@
 package com.eventmanager.pachanga.services;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.eventmanager.pachanga.domains.AreaSeguranca;
 import com.eventmanager.pachanga.domains.AreaSegurancaProblema;
@@ -65,7 +67,8 @@ public class AreaSegurancaProblemaService {
 	@Autowired
 	private AreaSegurancaProblemaFluxoRepository areaSegurancaProblemaFluxoRepository;
 
-	public AreaSegurancaProblema addProblemaSeguranca(AreaSegurancaProblemaTO problemaSegurancaTO, int idUsuario) {
+	public AreaSegurancaProblema addProblemaSeguranca(AreaSegurancaProblemaTO problemaSegurancaTO, int idUsuario,
+			MultipartFile imagem) throws IOException {
 		grupoService.validarPermissaoUsuarioGrupo(problemaSegurancaTO.getCodFesta(), idUsuario,
 				TipoPermissao.ADDPSEGU.getCodigo());
 
@@ -80,7 +83,7 @@ public class AreaSegurancaProblemaService {
 		Festa festa = festaService.validarFestaExistente(problemaSegurancaTO.getCodFesta());
 
 		AreaSegurancaProblema problemaSeguranca = areaSegurancaProblemaFactory.getProblemaSeguranca(problemaSegurancaTO,
-				festa, areaSeguranca, problema, usuarioEmissor, null);
+				imagem, festa, areaSeguranca, problema, usuarioEmissor, null);
 		problemaSeguranca.setCodAreaProblema(areaSegurancaProblemaRepository.getNextValMySequence());
 		this.validarAreaSegurancaProblema(problemaSeguranca);
 		areaSegurancaProblemaRepository.save(problemaSeguranca);
@@ -107,10 +110,10 @@ public class AreaSegurancaProblemaService {
 		return problemaSeguranca;
 	}
 
-	public AreaSegurancaProblema findProblemaSeguranca(int codAreaSeguranca, int codProblema, int codFesta,
+	public AreaSegurancaProblema findProblemaSeguranca(int codAreaSegurancaProblema, int codFesta,
 			int idUsuario) {
 		grupoService.validarPermissaoUsuarioGrupo(codFesta, idUsuario, TipoPermissao.VISUPSEG.getCodigo());
-		return areaSegurancaProblemaRepository.findAreaSegurancaProblema(codAreaSeguranca, codProblema);
+		return areaSegurancaProblemaRepository.findAreaSegurancaProblema(codAreaSegurancaProblema);
 	}
 
 	public List<AreaSegurancaProblema> findAllProblemasSegurancaArea(int codAreaProblema, int codFesta, int idUsuario) {

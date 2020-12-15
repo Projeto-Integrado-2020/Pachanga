@@ -140,13 +140,14 @@ class AreaSegurancaProblemaControllerTest {
 
 		String json = "{\"codAreaSeguranca\": 1,\"codFesta\": 1,\"codProblema\": 1,\"codUsuarioResolv\": 2,\"statusProblema\": \"A\",\"horarioInicio\": \"2016-06-22T19:10:00\",\"horarioFim\":  \"2018-06-22T19:10:00\",\"codUsuarioEmissor\": 2,\"descProblema\": \"teste2\"}";
 		
-		Mockito.when(areaSegurancaProblemaService.addProblemaSeguranca(Mockito.any(AreaSegurancaProblemaTO.class), Mockito.anyInt())).thenReturn(criacaoAreaSegurancaProblema());
+		Mockito.when(areaSegurancaProblemaService.addProblemaSeguranca(Mockito.any(AreaSegurancaProblemaTO.class), Mockito.anyInt(), Mockito.any())).thenReturn(criacaoAreaSegurancaProblema());
 
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
-				.post(uri).accept(MediaType.APPLICATION_JSON)
-				.content(json)
+				.post(uri)
+				.contentType(MediaType.MULTIPART_FORM_DATA_VALUE)
+				.param("problemaSegurancaTO", json)
 				.param("idUsuario", "1")
-				.contentType(MediaType.APPLICATION_JSON);
+				.contentType(MediaType.MULTIPART_FORM_DATA_VALUE);
 
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
 
@@ -164,13 +165,14 @@ class AreaSegurancaProblemaControllerTest {
 		String expected = "erro";
 		String json = "{\"codAreaSeguranca\": 1,\"codFesta\": 1,\"codProblema\": 1,\"codUsuarioResolv\": 2,\"statusProblema\": \"A\",\"horarioInicio\": \"2016-06-22T19:10:00\",\"horarioFim\":  \"2018-06-22T19:10:00\",\"codUsuarioEmissor\": 2,\"descProblema\": \"teste2\"}";
 
-		Mockito.when(areaSegurancaProblemaService.addProblemaSeguranca(Mockito.any(AreaSegurancaProblemaTO.class), Mockito.anyInt())).thenThrow(new ValidacaoException(expected));
+		Mockito.when(areaSegurancaProblemaService.addProblemaSeguranca(Mockito.any(AreaSegurancaProblemaTO.class), Mockito.anyInt(), Mockito.any())).thenThrow(new ValidacaoException(expected));
 		
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
-				.post(uri).accept(MediaType.APPLICATION_JSON)
-				.content(json)
+				.post(uri)
+				.contentType(MediaType.MULTIPART_FORM_DATA_VALUE)
+				.param("problemaSegurancaTO", json)
 				.param("idUsuario", "1")
-				.contentType(MediaType.APPLICATION_JSON);
+				.contentType(MediaType.MULTIPART_FORM_DATA_VALUE);
 
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
 
@@ -285,14 +287,14 @@ class AreaSegurancaProblemaControllerTest {
 	void findProblemaSegurancaSucesso() throws Exception {
 		String uri = "/areaSegurancaProblema/findProblemaSeguranca";
 
-		Mockito.when(areaSegurancaProblemaService.findProblemaSeguranca(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(criacaoAreaSegurancaProblema());
+		Mockito.when(areaSegurancaProblemaService.findProblemaSeguranca(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(criacaoAreaSegurancaProblema());
 
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.get(uri).accept(MediaType.APPLICATION_JSON)
-				.param("codAreaSeguranca", "1")
-				.param("codProblema", "1")
+				.param("codAreaSegurancaProblema", "1")
 				.param("codFesta", "1")
 				.param("idUsuario", "1")
+				.param("retornoImagem", "true")
 				.contentType(MediaType.APPLICATION_JSON);
 
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
@@ -310,13 +312,13 @@ class AreaSegurancaProblemaControllerTest {
 
 		String expected = "erro";
 
-		Mockito.when(areaSegurancaProblemaService.findProblemaSeguranca(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenThrow(new ValidacaoException(expected));
+		Mockito.when(areaSegurancaProblemaService.findProblemaSeguranca(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenThrow(new ValidacaoException(expected));
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.get(uri).accept(MediaType.APPLICATION_JSON)
-				.param("codAreaSeguranca", "1")
-				.param("codProblema", "1")
+				.param("codAreaSegurancaProblema", "1")
 				.param("codFesta", "1")
 				.param("idUsuario", "1")
+				.param("retornoImagem", "false")
 				.contentType(MediaType.APPLICATION_JSON);
 
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();

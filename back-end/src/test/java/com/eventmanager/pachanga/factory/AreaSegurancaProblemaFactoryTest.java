@@ -13,8 +13,10 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.security.oauth2.provider.token.AuthorizationServerTokenServices;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.eventmanager.pachanga.domains.AreaSeguranca;
 import com.eventmanager.pachanga.domains.AreaSegurancaProblema;
@@ -30,25 +32,24 @@ import com.eventmanager.pachanga.tipo.TipoStatusFesta;
 import com.eventmanager.pachanga.tipo.TipoStatusProblema;
 
 @RunWith(SpringRunner.class)
-@WebMvcTest(value=AreaSegurancaProblemaFactory.class)
+@WebMvcTest(value = AreaSegurancaProblemaFactory.class)
 class AreaSegurancaProblemaFactoryTest {
-	
+
 	@Autowired
 	private AreaSegurancaProblemaFactory areaSegurancaProblemaFactory;
-	
+
 	@MockBean
 	private AuthorizationServerTokenServices defaultAuthorizationServerTokenServices;
-	
+
 	@MockBean
 	private JwtUserDetailsService defaultJwtUserDetailsService;
-	
+
 	@MockBean
 	private JwtTokenUtil defaultJwtTokenUtil;
-	
+
 	@MockBean
 	private JwtAuthenticationEntryPoint defaultJwtAuthenticationEntryPoint;
-	
-	
+
 	public AreaSegurancaProblema criacaoAreaSegurancaProblema() throws Exception {
 		AreaSegurancaProblema areaSegurancaProblema = new AreaSegurancaProblema();
 		areaSegurancaProblema.setArea(areaTest());
@@ -60,14 +61,14 @@ class AreaSegurancaProblemaFactoryTest {
 		areaSegurancaProblema.setStatusProblema(TipoStatusProblema.ANDAMENTO.getValor());
 		areaSegurancaProblema.setCodUsuarioResolv(usuarioTest());
 		areaSegurancaProblema.setCodUsuarioEmissor(usuarioTest());
-		
+
 		return areaSegurancaProblema;
 	}
-	
+
 	public AreaSegurancaProblemaTO criacaoAreaSegurancaProblemaTO() throws Exception {
 		AreaSegurancaProblemaTO areaSegurancaProblemaTO = new AreaSegurancaProblemaTO();
 		areaSegurancaProblemaTO.setCodAreaSeguranca(areaTest().getCodArea());
-		areaSegurancaProblemaTO.setCodProblema(criacaoProblema().getCodProblema());	
+		areaSegurancaProblemaTO.setCodProblema(criacaoProblema().getCodProblema());
 		areaSegurancaProblemaTO.setCodFesta(criacaoFesta().getCodFesta());
 		areaSegurancaProblemaTO.setDescProblema("Situação está séria");
 		areaSegurancaProblemaTO.setHorarioInicio(LocalDateTime.of(2016, Month.JUNE, 22, 19, 10));
@@ -75,11 +76,11 @@ class AreaSegurancaProblemaFactoryTest {
 		areaSegurancaProblemaTO.setStatusProblema("A");
 		areaSegurancaProblemaTO.setCodUsuarioEmissor(usuarioTest().getCodUsuario());
 		areaSegurancaProblemaTO.setCodUsuarioResolv(usuarioTest().getCodUsuario());
-		
+
 		return areaSegurancaProblemaTO;
 	}
-	
-	private Festa criacaoFesta() throws Exception{
+
+	private Festa criacaoFesta() throws Exception {
 		Festa festaTest = new Festa();
 		festaTest.setCodFesta(1);
 		festaTest.setCodEnderecoFesta("https//:minhacasa.org");
@@ -93,14 +94,14 @@ class AreaSegurancaProblemaFactoryTest {
 		festaTest.setHorarioFimFestaReal(LocalDateTime.of(2016, Month.JUNE, 23, 19, 10));
 		return festaTest;
 	}
-	
+
 	public Problema criacaoProblema() {
 		Problema problema = new Problema();
 		problema.setCodProblema(1);
 		problema.setDescProblema("Teste");
 		return problema;
 	}
-	
+
 	private AreaSeguranca areaTest() {
 		AreaSeguranca area = new AreaSeguranca();
 		area.setCodArea(1);
@@ -109,9 +110,9 @@ class AreaSegurancaProblemaFactoryTest {
 		area.setStatusSeguranca(TipoAreaSeguranca.SEGURO.getDescricao());
 		return area;
 	}
-	
+
 	@SuppressWarnings("deprecation")
-	private Usuario usuarioTest(){
+	private Usuario usuarioTest() {
 		Usuario usuarioTest = new Usuario();
 
 		usuarioTest.setCodUsuario(2);
@@ -123,32 +124,39 @@ class AreaSegurancaProblemaFactoryTest {
 
 		return usuarioTest;
 	}
+
 	@Test
 	void getAreaSegurancaProblemaTOSucesso() throws Exception {
 		AreaSegurancaProblema areaSegurancaProblema = criacaoAreaSegurancaProblema();
-		AreaSegurancaProblemaTO areaSegurancaProblemaTO = areaSegurancaProblemaFactory.getAreaSegurancaProblemaTO(areaSegurancaProblema);
-		
+		AreaSegurancaProblemaTO areaSegurancaProblemaTO = areaSegurancaProblemaFactory
+				.getAreaSegurancaProblemaTO(areaSegurancaProblema, true);
+
 		assertEquals(areaSegurancaProblemaTO.getCodAreaSeguranca(), areaSegurancaProblema.getArea().getCodArea());
 		assertEquals(areaSegurancaProblemaTO.getCodFesta(), areaSegurancaProblema.getFesta().getCodFesta());
 		assertEquals(areaSegurancaProblemaTO.getCodProblema(), areaSegurancaProblema.getProblema().getCodProblema());
-		assertEquals(areaSegurancaProblemaTO.getCodUsuarioEmissor(), areaSegurancaProblema.getCodUsuarioEmissor().getCodUsuario());
-		assertEquals(areaSegurancaProblemaTO.getCodUsuarioResolv(), areaSegurancaProblema.getCodUsuarioResolv().getCodUsuario());
+		assertEquals(areaSegurancaProblemaTO.getCodUsuarioEmissor(),
+				areaSegurancaProblema.getCodUsuarioEmissor().getCodUsuario());
+		assertEquals(areaSegurancaProblemaTO.getCodUsuarioResolv(),
+				areaSegurancaProblema.getCodUsuarioResolv().getCodUsuario());
 		assertEquals(areaSegurancaProblemaTO.getDescProblemaEmissor(), areaSegurancaProblema.getDescProblema());
 		assertEquals(areaSegurancaProblemaTO.getHorarioFim(), areaSegurancaProblema.getHorarioFim());
 		assertEquals(areaSegurancaProblemaTO.getHorarioInicio(), areaSegurancaProblema.getHorarioInicio());
 		assertEquals(areaSegurancaProblemaTO.getStatusProblema(), areaSegurancaProblema.getStatusProblema());
 
 	}
+
 	@Test
 	void getAreaSegurancaProblemaTOSucessoUsuarioResolvNull() throws Exception {
 		AreaSegurancaProblema areaSegurancaProblema = criacaoAreaSegurancaProblema();
 		areaSegurancaProblema.setCodUsuarioResolv(null);
-		AreaSegurancaProblemaTO areaSegurancaProblemaTO = areaSegurancaProblemaFactory.getAreaSegurancaProblemaTO(areaSegurancaProblema);
-		
+		AreaSegurancaProblemaTO areaSegurancaProblemaTO = areaSegurancaProblemaFactory
+				.getAreaSegurancaProblemaTO(areaSegurancaProblema, false);
+
 		assertEquals(areaSegurancaProblemaTO.getCodAreaSeguranca(), areaSegurancaProblema.getArea().getCodArea());
 		assertEquals(areaSegurancaProblemaTO.getCodFesta(), areaSegurancaProblema.getFesta().getCodFesta());
 		assertEquals(areaSegurancaProblemaTO.getCodProblema(), areaSegurancaProblema.getProblema().getCodProblema());
-		assertEquals(areaSegurancaProblemaTO.getCodUsuarioEmissor(), areaSegurancaProblema.getCodUsuarioEmissor().getCodUsuario());
+		assertEquals(areaSegurancaProblemaTO.getCodUsuarioEmissor(),
+				areaSegurancaProblema.getCodUsuarioEmissor().getCodUsuario());
 		assertEquals(areaSegurancaProblemaTO.getCodUsuarioResolv(), 0);
 		assertEquals(areaSegurancaProblemaTO.getDescProblemaEmissor(), areaSegurancaProblema.getDescProblema());
 		assertEquals(areaSegurancaProblemaTO.getHorarioFim(), areaSegurancaProblema.getHorarioFim());
@@ -156,39 +164,48 @@ class AreaSegurancaProblemaFactoryTest {
 		assertEquals(areaSegurancaProblemaTO.getStatusProblema(), areaSegurancaProblema.getStatusProblema());
 
 	}
-	
+
 	@Test
 	void getAreaSegurancaProblemaSucesso() throws Exception {
 		AreaSegurancaProblemaTO areaSegurancaProblemaTO = criacaoAreaSegurancaProblemaTO();
-		AreaSegurancaProblema areaSegurancaProblema = areaSegurancaProblemaFactory.getProblemaSeguranca(areaSegurancaProblemaTO, criacaoFesta(), areaTest(), criacaoProblema(), usuarioTest(), usuarioTest());
+
+		MultipartFile imagem = new MockMultipartFile("teste", "Hello World".getBytes());
 		
+		AreaSegurancaProblema areaSegurancaProblema = areaSegurancaProblemaFactory.getProblemaSeguranca(
+				areaSegurancaProblemaTO, imagem, criacaoFesta(), areaTest(), criacaoProblema(), usuarioTest(),
+				usuarioTest());
+
 		assertEquals(areaSegurancaProblemaTO.getCodAreaSeguranca(), areaSegurancaProblema.getArea().getCodArea());
 		assertEquals(areaSegurancaProblemaTO.getCodFesta(), areaSegurancaProblema.getFesta().getCodFesta());
 		assertEquals(areaSegurancaProblemaTO.getCodProblema(), areaSegurancaProblema.getProblema().getCodProblema());
-		assertEquals(areaSegurancaProblemaTO.getCodUsuarioEmissor(), areaSegurancaProblema.getCodUsuarioEmissor().getCodUsuario());
-		assertEquals(areaSegurancaProblemaTO.getCodUsuarioResolv(), areaSegurancaProblema.getCodUsuarioResolv().getCodUsuario());
+		assertEquals(areaSegurancaProblemaTO.getCodUsuarioEmissor(),
+				areaSegurancaProblema.getCodUsuarioEmissor().getCodUsuario());
+		assertEquals(areaSegurancaProblemaTO.getCodUsuarioResolv(),
+				areaSegurancaProblema.getCodUsuarioResolv().getCodUsuario());
 		assertEquals(areaSegurancaProblemaTO.getDescProblema(), areaSegurancaProblema.getDescProblema());
 		assertEquals(areaSegurancaProblemaTO.getHorarioFim(), areaSegurancaProblema.getHorarioFim());
 		assertEquals(areaSegurancaProblemaTO.getHorarioInicio(), areaSegurancaProblema.getHorarioInicio());
 		assertEquals(areaSegurancaProblemaTO.getStatusProblema(), areaSegurancaProblema.getStatusProblema());
 
 	}
-	
+
 	@Test
 	void getAreasSegurancaProblemaTOSucesso() throws Exception {
 		AreaSegurancaProblema areaSegurancaProblema = criacaoAreaSegurancaProblema();
 		List<AreaSegurancaProblema> areasSegurancaProblema = new ArrayList<>();
 		areasSegurancaProblema.add(areaSegurancaProblema);
-		
-		List<AreaSegurancaProblemaTO> areasSegurancaProblemaTO = areaSegurancaProblemaFactory.getProblemasSegurancaTO(areasSegurancaProblema);
+
+		List<AreaSegurancaProblemaTO> areasSegurancaProblemaTO = areaSegurancaProblemaFactory
+				.getProblemasSegurancaTO(areasSegurancaProblema);
 		AreaSegurancaProblemaTO areaSegurancaProblemaTO = areasSegurancaProblemaTO.get(0);
-		
-		
+
 		assertEquals(areaSegurancaProblemaTO.getCodAreaSeguranca(), areaSegurancaProblema.getArea().getCodArea());
 		assertEquals(areaSegurancaProblemaTO.getCodFesta(), areaSegurancaProblema.getFesta().getCodFesta());
 		assertEquals(areaSegurancaProblemaTO.getCodProblema(), areaSegurancaProblema.getProblema().getCodProblema());
-		assertEquals(areaSegurancaProblemaTO.getCodUsuarioEmissor(), areaSegurancaProblema.getCodUsuarioEmissor().getCodUsuario());
-		assertEquals(areaSegurancaProblemaTO.getCodUsuarioResolv(), areaSegurancaProblema.getCodUsuarioResolv().getCodUsuario());
+		assertEquals(areaSegurancaProblemaTO.getCodUsuarioEmissor(),
+				areaSegurancaProblema.getCodUsuarioEmissor().getCodUsuario());
+		assertEquals(areaSegurancaProblemaTO.getCodUsuarioResolv(),
+				areaSegurancaProblema.getCodUsuarioResolv().getCodUsuario());
 		assertEquals(areaSegurancaProblemaTO.getDescProblemaEmissor(), areaSegurancaProblema.getDescProblema());
 		assertEquals(areaSegurancaProblemaTO.getHorarioFim(), areaSegurancaProblema.getHorarioFim());
 		assertEquals(areaSegurancaProblemaTO.getHorarioInicio(), areaSegurancaProblema.getHorarioInicio());
