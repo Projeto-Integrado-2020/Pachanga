@@ -12,12 +12,16 @@ export class QrcodeDialogComponent implements OnInit {
   elementType = NgxQrcodeElementTypes.URL;
   correctionLevel = NgxQrcodeErrorCorrectionLevels.HIGH;
   value: any;
+  ingressos: any;
+  codigosIngressos
+  
 
   constructor(@Inject(MAT_DIALOG_DATA) data) {
-      this.value = data.link;
+      this.ingressos = data.ingressos;
    }
 
   ngOnInit() {
+    this.value = this.ingressos[0].codIngresso
   }
 
 }

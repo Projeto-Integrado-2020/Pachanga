@@ -36,7 +36,6 @@ export class MeusIngressosComponent implements OnInit {
 
         this.listaIngressos = res;
         const listaIngressosUnicos = this.getArrayUnica(this.listaIngressos);
-        console.log(listaIngressosUnicos);
 
         for (const ingresso of listaIngressosUnicos) {
           Object.assign(ingresso, {Qtde: 0});
@@ -50,14 +49,6 @@ export class MeusIngressosComponent implements OnInit {
             this.ingressosAtivos.push(ingresso);
           }
         }
-
-        console.log(this.listaIngressos);
-        //   console.log(ingresso.festa.horarioFimFesta);
-        //   // if (this.datetimeVenceu(ingresso.festa.HorarioFimFesta)) {
-
-        //   // }
-
-        // }
       }
     );
   }
@@ -79,7 +70,7 @@ export class MeusIngressosComponent implements OnInit {
     if (ingresso.Qtde > 1) {
       this.abrirBoletoIngressosMultiplos(ingresso.festa.codFesta);
     } else {
-      console.log('abrir url do boleto');
+      console.log('abrir url do boleto, qtde < 1');
     }
   }
 
@@ -93,7 +84,6 @@ export class MeusIngressosComponent implements OnInit {
         boletosUnicos.push(ingresso);
       }
     }
-
     if (boletosUnicos.length > 1) {
       this.dialog.open(DialogIngressosMesmaFestaComponent, {
         data: {
@@ -106,11 +96,11 @@ export class MeusIngressosComponent implements OnInit {
   }
 
   abrirQRDialog(ingresso) {
+
+    const ingressos = this.listaIngressos.filter(x => x.festa.codFesta === ingresso.festa.codFesta && x.statusCompra === ingresso.statusCompra);
     this.dialog.open(QrcodeDialogComponent, {
-      height: '255px',
-      width: '255px',
       data: {
-        link: ingresso.codIngresso
+        ingressos: ingressos
       }
     });
   }

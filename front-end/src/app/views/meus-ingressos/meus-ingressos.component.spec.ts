@@ -47,6 +47,7 @@ describe('MeusIngressosComponent', () => {
               nomeLote: 'Ingresso VIP 1',
               preco: 40,
               festa: {
+                codFesta: '1',
                 statusFesta: 'P',
                 horarioInicioFesta: '2020-11-10 12:00:00',
                 horarioFimFesta: '2020-11-15 12:00:00',
@@ -62,6 +63,7 @@ describe('MeusIngressosComponent', () => {
               nomeLote: 'Ingresso VIP 2',
               preco: 41,
               festa: {
+                codFesta: '1',
                 statusFesta: 'F',
                 horarioInicioFesta: '2020-11-10 12:00:00',
                 horarioFimFesta: '2020-11-15 12:00:00',
@@ -94,7 +96,24 @@ describe('MeusIngressosComponent', () => {
   });
 
   it('should abrirQRDialog', () => {
-    component.abrirQRDialog('teste');
+
+    const ingresso = {
+      codLote: '1',
+      codIngresso: '1',
+      statusCompra: 'P',
+      dataCompra: '2020-11-10T12:00:00',
+      codFesta: '1',
+      nomeLote: 'Ingresso VIP 1',
+      preco: 40,
+      festa: {
+        statusFesta: 'P',
+        horarioInicioFesta: '2020-11-10 12:00:00',
+        horarioFimFesta: '2020-11-15 12:00:00',
+        nomeFesta: 'Teste1'
+      }
+    }
+
+    component.abrirQRDialog(ingresso);
     expect(dialogSpy.open).toHaveBeenCalled();
   });
 
