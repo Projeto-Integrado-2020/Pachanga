@@ -16,12 +16,15 @@ public interface LoteRepository extends JpaRepository<Lote, Integer>{
 	List<Lote> listaLoteFesta(int codFesta);
 
 	@Query(value = "SELECT l FROM Lote l JOIN l.festa f WHERE f.codFesta = :codFesta AND l.nomeLote = :nomeLote")
-	public Lote findByNomeLote(String nomeLote, int codFesta);
+	public List<Lote> findByNomeLote(String nomeLote, int codFesta);
 
 	@Query(value = "SELECT l FROM Lote l JOIN l.festa f WHERE l.codLote = :codLote")
 	public Lote findByCodLote(int codLote);
 	
-	@Query(value = "SELECT l FROM Lote l JOIN l.festa f WHERE f.codFesta = :codFesta AND l.horarioFim > CURRENT_TIMESTAMP AND l.quantidade > ( SELECT count(i) FROM Ingresso i JOIN i.lote lt JOIN lt.festa fe WHERE fe.codFesta = f.codFesta AND lt.codLote = l.codLote ) ")
+	@Query(value = "SELECT l FROM Lote l JOIN l.festa f WHERE f.codFesta = :codFesta AND l.horarioFim > CURRENT_TIMESTAMP AND (SELECT COUNT(l1) FROM Lote l1 WHERE l1.numeroLote < l.numeroLote AND l1.nomeLote = l.nomeLote AND l1.quantidade > ( SELECT count(i) FROM Ingresso i JOIN i.lote lt JOIN lt.festa fe WHERE fe.codFesta = f.codFesta AND lt.codLote = l1.codLote)) = 0 AND l.quantidade > ( SELECT count(i) FROM Ingresso i JOIN i.lote lt JOIN lt.festa fe WHERE fe.codFesta = f.codFesta AND lt.codLote = l.codLote)")
 	public List<Lote> findAllCompraveisFesta(int codFesta);
+	
+	@Query(value = "SELECT l FROM Lote l JOIN l.festa f WHERE f.codFesta = :codFesta AND l.codLote = :codLote AND l.horarioFim > CURRENT_TIMESTAMP AND (SELECT COUNT(l1) FROM Lote l1 WHERE l1.numeroLote < l.numeroLote AND l1.nomeLote = l.nomeLote AND l1.quantidade > ( SELECT count(i) FROM Ingresso i JOIN i.lote lt JOIN lt.festa fe WHERE fe.codFesta = f.codFesta AND lt.codLote = l1.codLote)) = 0 AND l.quantidade > ( SELECT count(i) FROM Ingresso i JOIN i.lote lt JOIN lt.festa fe WHERE fe.codFesta = f.codFesta AND lt.codLote = l.codLote)")
+	public Lote findAllIngressosCompraveisFestaLote(int codFesta, int codLote);
 
 }

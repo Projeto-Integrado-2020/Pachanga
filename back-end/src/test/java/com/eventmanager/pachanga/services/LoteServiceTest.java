@@ -159,7 +159,7 @@ class LoteServiceTest {
 		Mockito.when(festaService.validarFestaExistente(Mockito.anyInt())).thenReturn(festaTest());
 		Mockito.when(festaService.validarUsuarioFesta(Mockito.anyInt(), Mockito.anyInt())).thenReturn(usuarioTest());
 		Mockito.when(grupoService.validarPermissaoUsuarioGrupo(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(true);
-		Mockito.when(loteRepository.findByNomeLote(Mockito.anyString(), Mockito.anyInt())).thenReturn(null);
+		Mockito.when(loteRepository.findByNomeLote(Mockito.anyString(), Mockito.anyInt())).thenReturn(new ArrayList<Lote>());
 		Mockito.when(loteFactory.getLote(Mockito.any(), Mockito.any())).thenReturn(loteTest());
 		Mockito.when(loteRepository.getNextValMySequence()).thenReturn(1);
 		
@@ -173,21 +173,23 @@ class LoteServiceTest {
 	
 	@Test
 	void adicionarLoteErroLoteMesmoNome() {
+		LoteTO lote = loteToTest();
+		lote.setNumeroLote(2);
 		Mockito.when(festaService.validarFestaExistente(Mockito.anyInt())).thenReturn(festaTest());
 		Mockito.when(festaService.validarUsuarioFesta(Mockito.anyInt(), Mockito.anyInt())).thenReturn(usuarioTest());
 		Mockito.when(grupoService.validarPermissaoUsuarioGrupo(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(true);
-		Mockito.when(loteRepository.findByNomeLote(Mockito.anyString(), Mockito.anyInt())).thenReturn(new Lote());
+		Mockito.when(loteRepository.findByNomeLote(Mockito.anyString(), Mockito.anyInt())).thenReturn(new ArrayList<Lote>());
 		Mockito.when(loteFactory.getLote(Mockito.any(), Mockito.any())).thenReturn(loteTest());
 		Mockito.when(loteRepository.getNextValMySequence()).thenReturn(1);
 		
 		String erro = "";
 		try {
-			loteService.adicionarLote(loteToTest(), 1);			
+			loteService.adicionarLote(lote, 1);			
 		} catch (ValidacaoException e) {
 			erro = e.getMessage();
 		}
 		
-		assertEquals("NOMELOTE", erro);
+		assertEquals("NINVLOTE", erro);
 		
 	}
 	
@@ -201,6 +203,7 @@ class LoteServiceTest {
 		Mockito.when(festaService.validarUsuarioFesta(Mockito.anyInt(), Mockito.anyInt())).thenReturn(usuarioTest());
 		Mockito.when(grupoService.validarPermissaoUsuarioGrupo(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(true);
 		Mockito.when(loteRepository.findByNomeLote(Mockito.anyString(), Mockito.anyInt())).thenReturn(null);
+		Mockito.when(loteRepository.findByNomeLote(Mockito.anyString(), Mockito.anyInt())).thenReturn(new ArrayList<Lote>());
 		Mockito.when(loteFactory.getLote(Mockito.any(), Mockito.any())).thenReturn(loteTest());
 		Mockito.when(loteRepository.getNextValMySequence()).thenReturn(1);
 		
@@ -226,6 +229,7 @@ class LoteServiceTest {
 		Mockito.when(grupoService.validarPermissaoUsuarioGrupo(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(true);
 		Mockito.when(loteRepository.findByNomeLote(Mockito.anyString(), Mockito.anyInt())).thenReturn(null);
 		Mockito.when(loteFactory.getLote(Mockito.any(), Mockito.any())).thenReturn(loteTest());
+		Mockito.when(loteRepository.findByNomeLote(Mockito.anyString(), Mockito.anyInt())).thenReturn(new ArrayList<Lote>());
 		Mockito.when(loteRepository.getNextValMySequence()).thenReturn(1);
 		
 		String erro = "";
@@ -250,6 +254,7 @@ class LoteServiceTest {
 		Mockito.when(grupoService.validarPermissaoUsuarioGrupo(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(true);
 		Mockito.when(loteRepository.findByNomeLote(Mockito.anyString(), Mockito.anyInt())).thenReturn(null);
 		Mockito.when(loteFactory.getLote(Mockito.any(), Mockito.any())).thenReturn(loteTest());
+		Mockito.when(loteRepository.findByNomeLote(Mockito.anyString(), Mockito.anyInt())).thenReturn(new ArrayList<Lote>());
 		Mockito.when(loteRepository.getNextValMySequence()).thenReturn(1);
 		
 		String erro = "";
@@ -295,29 +300,6 @@ class LoteServiceTest {
 		}
 		
 		assertEquals("LOTENFOU", erro);		
-		
-	}
-	
-	@Test
-	void atualizarLoteErroNomeLoteJaUsado() {
-		Mockito.when(festaService.validarFestaExistente(Mockito.anyInt())).thenReturn(festaTest());
-		Mockito.when(festaService.validarUsuarioFesta(Mockito.anyInt(), Mockito.anyInt())).thenReturn(usuarioTest());
-		Mockito.when(loteRepository.findByCodLote(Mockito.anyInt())).thenReturn(loteTest());
-		Mockito.when(grupoService.validarPermissaoUsuarioGrupo(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(true);
-		Mockito.when(loteRepository.findByNomeLote(Mockito.anyString(), Mockito.anyInt())).thenReturn(loteTest());
-		Mockito.when(loteFactory.getLote(Mockito.any(), Mockito.any())).thenReturn(loteTest());
-		
-		LoteTO loteTo = loteToTest();
-		loteTo.setCodLote(2);
-		
-		String erro = "";
-		try {
-			loteService.atualizarLote(loteTo, 1);
-		} catch (ValidacaoException e) {
-			erro = e.getMessage();
-		}
-		
-		assertEquals("NOMELOTE", erro);		
 		
 	}
 	

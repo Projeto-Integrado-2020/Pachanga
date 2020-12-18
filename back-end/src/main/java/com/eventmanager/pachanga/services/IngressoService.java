@@ -17,6 +17,7 @@ import com.eventmanager.pachanga.dtos.InsercaoIngresso;
 import com.eventmanager.pachanga.errors.ValidacaoException;
 import com.eventmanager.pachanga.factory.IngressoFactory;
 import com.eventmanager.pachanga.repositories.IngressoRepository;
+import com.eventmanager.pachanga.repositories.LoteRepository;
 import com.eventmanager.pachanga.tipo.TipoPagamentoBoleto;
 import com.eventmanager.pachanga.tipo.TipoStatusCompra;
 import com.eventmanager.pachanga.tipo.TipoStatusIngresso;
@@ -30,6 +31,9 @@ public class IngressoService {
 
 	@Autowired
 	private IngressoRepository ingressoRepository;
+
+	@Autowired
+	private LoteRepository loteRepository;
 
 	@Autowired
 	private UsuarioService usuarioService;
@@ -59,6 +63,15 @@ public class IngressoService {
 	public List<IngressoTO> addListaIngresso(InsercaoIngresso ingressosInsercao) {
 		String codBoleto = null;
 		String urlBoleto = null;
+
+		if (loteRepository
+				.findAllIngressosCompraveisFestaLote(
+						ingressosInsercao.getListaIngresso().get(0).getFesta().getCodFesta(),
+						ingressosInsercao.getListaIngresso().get(0).getCodLote())
+				.getQuantidade() < ingressosInsercao.getListaIngresso().size()) {
+			throw new ValidacaoException("QINGRINV");// quantidade ingressos invalidas
+		}
+
 		if (ingressosInsercao.getInfoPagamento() != null
 				&& ingressosInsercao.getListaIngresso().get(0).getBoleto().booleanValue()) {
 			int codFesta = ingressosInsercao.getListaIngresso().get(0).getFesta().getCodFesta();
