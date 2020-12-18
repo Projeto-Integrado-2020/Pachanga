@@ -35,7 +35,6 @@ export class MeusIngressosComponent implements OnInit {
       (res) => {
 
         this.listaIngressos = res;
-        console.log(res);
         const listaIngressosUnicos = this.getArrayUnica(this.listaIngressos);
 
         for (const ingresso of listaIngressosUnicos) {
@@ -86,7 +85,6 @@ export class MeusIngressosComponent implements OnInit {
       }
     }
 
-    console.log(boletosUnicos);
     if (boletosUnicos.length > 1) {
       this.dialog.open(DialogIngressosMesmaFestaComponent, {
         data: {
