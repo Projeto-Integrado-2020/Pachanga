@@ -35,6 +35,7 @@ export class MeusIngressosComponent implements OnInit {
       (res) => {
 
         this.listaIngressos = res;
+        console.log(res);
         const listaIngressosUnicos = this.getArrayUnica(this.listaIngressos);
 
         for (const ingresso of listaIngressosUnicos) {
@@ -68,22 +69,24 @@ export class MeusIngressosComponent implements OnInit {
 
   botaoImprimirBoleto(ingresso) {
     if (ingresso.Qtde > 1) {
-      this.abrirBoletoIngressosMultiplos(ingresso.festa.codFesta);
+      this.abrirBoletoIngressosMultiplos(ingresso);
     } else {
-      console.log('abrir url do boleto, qtde < 1');
+      this.router.navigate([]).then(() => {  window.open(ingresso.urlBoleto, '_blank'); });
     }
   }
 
 
-  abrirBoletoIngressosMultiplos(codFesta) {
-    const ingressos = this.listaIngressos.filter(x => x.festa.codFesta === codFesta);
+  abrirBoletoIngressosMultiplos(ingresso) {
+    const ingressos = this.listaIngressos.filter(x => x.festa.codFesta === ingresso.festa.codFesta);
     const boletosUnicos = [];
 
-    for (const ingresso of ingressos) {
-      if (!boletosUnicos.find(ingr => ingr.codBoleto === ingresso.codBoleto)) {
-        boletosUnicos.push(ingresso);
+    for (const i of ingressos) {
+      if (!boletosUnicos.find(ingr => ingr.urlBoleto === i.urlBoleto)) {
+        boletosUnicos.push(i);
       }
     }
+
+    console.log(boletosUnicos);
     if (boletosUnicos.length > 1) {
       this.dialog.open(DialogIngressosMesmaFestaComponent, {
         data: {
@@ -91,7 +94,7 @@ export class MeusIngressosComponent implements OnInit {
         }
       });
     } else {
-      console.log('abrir url do boleto: ' + boletosUnicos[0].codBoleto);
+      this.router.navigate([]).then(() => {  window.open(ingresso.urlBoleto, '_blank'); });
     }
   }
 
