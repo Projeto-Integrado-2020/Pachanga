@@ -98,7 +98,7 @@ public class FestaService {
 	private ItemEstoqueFluxoRepository itemEstoqueFluxoRepository;
 
 	public List<Festa> procurarFestas() {
-		return (List<Festa>) festaRepository.findAll();
+		return festaRepository.findAll();
 	}
 
 	public List<Festa> procurarFestasPorUsuario(int idUser) {
@@ -429,8 +429,8 @@ public class FestaService {
 			fos.write(imagem.getBytes());
 			fos.close();
 
-			Map uploadImagem = CloudinaryUtils.getCloudinaryCredentials().uploader().upload(imagemUpload,
-					ObjectUtils.asMap("public_id", festa.getNomeFesta()));
+			Map<?,?> uploadImagem = CloudinaryUtils.getCloudinaryCredentials().uploader().upload(imagemUpload,
+					ObjectUtils.asMap("public_id", "prod/"+festa.getNomeFesta()));// quando for feito os testes em desenvolvimento trocar para dev o prod
 			
 			festa.setImagem(imagem.getBytes());
 			festa.setUrlImagem(uploadImagem.get("secure_url").toString());
