@@ -81,6 +81,7 @@
         "SERVERRO": "Ops! Something strange just happened. Please try later.",
         "USEDMAIL": "Another account is using this email.",
         "UORPINCO": "Incorrect username or password.",
+        "EMALINCO": "Incorrect username or password.",
         "PASSDIFF": "New password must be different from the current.",
         "USERNFOU": "User not found.",
         "PASSINCO": "Incorrect password.",
@@ -153,7 +154,15 @@
         "DADBEXIS": "Bank data already registered at the party.",
         "DADBNFOU": "Bank data not found.",
         "CUPMDUPL": "Duplicate coupon.",
-        "CUPMNFOU": "Coupon not found."
+        "CUPMNFOU": "Coupon not found.",
+        "CHECKERR": "This participant has already checked-in.",
+        "INGRNFOU": "Ticket not found.",
+        "QINGRINV": "Tickets sold-out.",
+        "NINVLOTE": "Invalid batch number.",
+        "INGRNOTF": "This ticket does not belong to this party.",
+        "INGRNOTP": "This ticket has not been paid.",
+        "INGRVERI": "This ticket has already been verified.",
+        "HORAINCC": "The party is over or not yet started."
     },
 
     "SUCCESS": {
@@ -169,7 +178,8 @@
         "FORMDELE": "Form successfully deleted.",
         "LOTEALT": "Batch successfully updated.",
         "INTEDELE": "Third-Party integration successfully deleted.",
-        "SYMCHECK": "Check-in via Sympla confirmed.",
+        "SYMCHECK": "Check-in by Sympla confirmed.",
+        "PACCHECK": "Check-in by Pachanga confirmed.",
         "CUPOMDEL": "Coupon deleted successfully.",
         "BOLEGERA": "Billet generated successfully. Waiting for payment to process ticket.",
         "COMPAPRO": "Purchase approved. Ticket(s) generated. Have fun!"
@@ -805,6 +815,7 @@
         "PAYPAL": "Processing tickets. Please wait.",
         "CRIARFESTA": "Creating party. Please wait.",
         "EDITFESTA": "Editing party. Please wait.",
-        "BOLETO": "Processing bill. Please wait."
+        "BOLETO": "Processing bill. Please wait.",
+        "CHECKIN": "Performing check-in. Por favor aguarde."
     }
 }

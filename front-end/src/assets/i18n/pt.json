@@ -230,6 +230,7 @@
         "SERVERRO": "Ops! Algo estranho aconteceu. Por favor tente mais tarde.",
         "USERMAIL": "Outra conta está utlizando este e-mail.",
         "UORPINCO": "Usuário ou senha incorretos.",
+        "EMALINCO": "Usuário ou senha incorretos.",
         "PASSDIFF": "Senha nova precisa ser diferente da atual.",
         "USERNFOU": "Usuário não encontrado.",
         "PASSINCO": "Senha incorreta.",
@@ -304,7 +305,15 @@
         "DADBEXIS": "Dado bancário já registrado na festa.",
         "DADBNFOU": "Dado bancário não encontrado.",
         "CUPMDUPL": "Cupom duplicado.",
-        "CUPMNFOU": "Cupom não encontrado."
+        "CUPMNFOU": "Cupom não encontrado.",
+        "CHECKERR": "Este participante já fez check-in.",
+        "INGRNFOU": "Ingresso não encontrado.",
+        "QINGRINV": "Ingressos esgotados.",
+        "NINVLOTE": "Número de lote inválido.",
+        "INGRNOTF": "Este ingresso não pertence a esta festa.",
+        "INGRNOTP": "Este ingresso não foi pago.",
+        "INGRVERI": "Este ingresso já foi verificado.",
+        "HORAINCC": "A festa já acabou ou ainda não iniciou."
     },
 
     "ESTOQUE": {
@@ -768,6 +777,7 @@
         "LOTEALT": "Lote alterado com sucesso.",
         "INTEDELE": "Integração com terceiro deletada com sucesso.",
         "SYMCHECK": "Check-in via Sympla confirmado.",
+        "PACCHECK": "Check-in via Pachanga confirmado.",
         "CUPOMDEL": "Cupom deletado com sucesso.",
         "BOLEGERA": "Boleto gerado com sucesso. Aguardando pagamento para processar ingresso.",
         "COMPAPRO": "Compra aprovada. Ingresso(s) gerado(s). Divirta-se!"
@@ -821,7 +831,8 @@
         "PAYPAL": "Processando ingressos. Por favor aguarde.",
         "CRIARFESTA": "Criando festa. Por favor, aguarde.",
         "EDITFESTA": "Editando festa. Por favor, aguarde.",
-        "BOLETO": "Processando boleto. Por favor aguarde."
+        "BOLETO": "Processando boleto. Por favor aguarde.",
+        "CHECKIN": "Realizando check-in. Por favor aguarde."
     }
 
 }

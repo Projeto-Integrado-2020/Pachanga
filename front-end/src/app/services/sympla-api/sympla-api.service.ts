@@ -3,7 +3,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular
 import { MatDialog } from '@angular/material/dialog';
 import { LogService } from '../logging/log.service';
 import { take, catchError } from 'rxjs/operators';
-import { throwError } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { LoginService } from '../loginService/login.service';
 import { ErroDialogComponent } from 'src/app/views/erro-dialog/erro-dialog.component';
 
@@ -12,10 +12,11 @@ import { ErroDialogComponent } from 'src/app/views/erro-dialog/erro-dialog.compo
 })
 export class SymplaApiService {
 
+  farol = false;
   private readonly urlProxy = 'https://cors-anywhere.herokuapp.com/';
   private readonly urlBaseAPI = 'https://api.sympla.com.br/public/v3/events/';
   private readonly urlParticipants = '/participants';
-  private readonly urlTicketNumber = '/ticketNumber';
+  private readonly urlTicketNumber = '/ticketNumber/';
   private readonly urlCheckIn = '/checkIn';
 
   constructor(private http: HttpClient, public logService: LogService, public dialog: MatDialog,
@@ -53,14 +54,18 @@ export class SymplaApiService {
   }
 
   checkInIngresso(eventId, ticketNumber, S_TOKEN) {
-    let headers = new HttpHeaders();
-    headers = headers.append('Content-Type', 'application/json');
-    headers = headers.append('S_TOKEN', S_TOKEN);
+    if (!this.farol) {
+      this.setFarol(true);
+      let headers = new HttpHeaders();
+      headers = headers.append('Content-Type', 'application/json');
+      headers = headers.append('S_TOKEN', S_TOKEN);
 
-    const url = this.urlProxy + this.urlBaseAPI + eventId +
-                this.urlParticipants + this.urlTicketNumber + ticketNumber + this.urlCheckIn;
+      const url = this.urlProxy + this.urlBaseAPI + eventId +
+                  this.urlParticipants + this.urlTicketNumber + ticketNumber + this.urlCheckIn;
 
-    return this.http.post(url, null, {headers});
+      return this.http.post(url, null, {headers});
+    }
+    return new Observable<never>();
   }
 
   handleError = (error: HttpErrorResponse, logService: LogService) => {
@@ -75,6 +80,14 @@ export class SymplaApiService {
       width: '250px',
       data: {erro: error}
     });
+  }
+
+  setFarol(flag: boolean) {
+    this.farol = flag;
+  }
+
+  getFarol() {
+    return this.farol;
   }
 
 }

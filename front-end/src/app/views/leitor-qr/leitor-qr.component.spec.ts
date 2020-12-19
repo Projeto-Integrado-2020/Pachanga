@@ -16,6 +16,7 @@ import { GetIntegracaoService } from 'src/app/services/get-integracao/get-integr
 import { of } from 'rxjs';
 import { GetFestaService } from 'src/app/services/get-festa/get-festa.service';
 import { SymplaApiService } from 'src/app/services/sympla-api/sympla-api.service';
+import { CheckInService } from 'src/app/services/check-in/check-in.service';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -65,6 +66,12 @@ describe('LeitorQrComponent', () => {
         {provide: SymplaApiService, useValue: {
           checkInIngresso: () => of({
           }),
+          setFarol: () => false
+        }},
+        {provide: CheckInService, useValue: {
+          checkInIngresso: () => of({
+          }),
+          setFarol: () => false
         }},
       ]
     })
@@ -93,14 +100,16 @@ describe('LeitorQrComponent', () => {
   });
 
   it('should alterarTipoIngresso scanner', () => {
-    component.alterarTipoIngresso(true);
+    component.alterarTipoIngresso(true, 'P');
+    expect(component.tipoIngressoScanner).toBe('P');
+    component.alterarTipoIngresso(true, 'S');
     expect(component.tipoIngressoScanner).toBe('S');
-    expect(component.tipoIngressoForm).toBe('P');
   });
 
   it('should alterarTipoIngresso form', () => {
-    component.alterarTipoIngresso(false);
-    expect(component.tipoIngressoScanner).toBe('P');
+    component.alterarTipoIngresso(false, 'P');
+    expect(component.tipoIngressoForm).toBe('P');
+    component.alterarTipoIngresso(false, 'S');
     expect(component.tipoIngressoForm).toBe('S');
   });
 

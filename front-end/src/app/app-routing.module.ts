@@ -97,12 +97,6 @@ const routes: Routes = [
 
     {
       path: 'festas/:festa&:id/ingressos/check-in',
-      component: CheckInComponent,
-      canActivate: [AuthGuard]
-    },
-
-    {
-      path: 'festas/:festa&:id/ingressos/check-in/leitor-qr',
       component: LeitorQrComponent,
       canActivate: [AuthGuard]
     },

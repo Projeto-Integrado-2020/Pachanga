@@ -51,6 +51,6 @@ describe('SuccessDialogComponent', () => {
 
   it('should show message', () => {
     component.ngOnInit();
-    expect(component.message).toEqual('SUCCESS.ATRIBSUC');
+    expect(component.message).toEqual('ATRIBSUC');
   });
 });

@@ -52,4 +52,17 @@ describe('SymplaApiService', () => {
     service.loginService.usuarioInfo = {codusuario: 'teste'};
     expect(service.checkInIngresso('teste', 'teste', 'teste')).toBeTruthy();
   });
+
+  it('should set farol', () => {
+    service.setFarol(true);
+    expect(service.getFarol()).toBeTruthy();
+    service.setFarol(false);
+    expect(service.getFarol()).toBeFalsy();
+  });
+
+  it('should get farol', () => {
+    expect(service.getFarol()).toBeFalsy();
+    service.setFarol(true);
+    expect(service.getFarol()).toBeTruthy();
+  });
 });

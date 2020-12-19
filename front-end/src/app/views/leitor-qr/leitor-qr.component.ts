@@ -5,11 +5,13 @@ import { MatDialog } from '@angular/material';
 import { Router } from '@angular/router';
 import { throwError } from 'rxjs';
 import { catchError, take } from 'rxjs/operators';
+import { CheckInService } from 'src/app/services/check-in/check-in.service';
 import { GetFestaService } from 'src/app/services/get-festa/get-festa.service';
 import { GetIntegracaoService } from 'src/app/services/get-integracao/get-integracao.service';
 import { LogService } from 'src/app/services/logging/log.service';
 import { SymplaApiService } from 'src/app/services/sympla-api/sympla-api.service';
 import { ErroDialogComponent } from '../erro-dialog/erro-dialog.component';
+import { ProcessingDialogComponent } from '../processing-dialog/processing-dialog.component';
 import { SuccessDialogComponent } from '../success-dialog/success-dialog.component';
 
 @Component({
@@ -32,7 +34,7 @@ export class LeitorQrComponent implements OnInit {
   constructor(public getFestaService: GetFestaService, public router: Router,
               public formBuilder: FormBuilder, public getIntegracoes: GetIntegracaoService,
               public symplaApi: SymplaApiService, public dialog: MatDialog,
-              public logService: LogService) { }
+              public logService: LogService, public pachangaCheckIn: CheckInService) { }
 
   get f() { return this.form.controls; }
 
@@ -77,10 +79,17 @@ export class LeitorQrComponent implements OnInit {
           .pipe(
             take(1),
             catchError(error => {
+              if (error.error.code === 112) {
+                error.error = 'INGRNFOU';
+              } else if (error.error.code === 113) {
+                error.error = 'CHECKERR';
+              }
               return this.handleErrorScanner(error, this.logService);
             })
           )
           .subscribe(resp => {
+            this.symplaApi.setFarol(false);
+            this.dialog.closeAll();
             this.scannerLoading = false;
             this.scannerSucesso = true;
             this.openSuccessDialog('SYMCHECK');
@@ -91,29 +100,59 @@ export class LeitorQrComponent implements OnInit {
           this.openErrorDialog('SYMPNFOU');
         }
       } else {
-        // checkIn Pachanga
+        this.pachangaCheckIn.checkInIngresso(event, this.festa.codFesta)
+        .pipe(
+          take(1),
+          catchError(error => {
+            return this.handleErrorScanner(error, this.logService);
+          })
+        )
+        .subscribe(resp => {
+          this.pachangaCheckIn.setFarol(false);
+          this.dialog.closeAll();
+          this.openSuccessDialog('PACCHECK');
+        });
       }
     }
   }
 
   executarCheckInForm(codigoIngresso) {
+    this.openDialogProcessing();
     if (this.tipoIngressoForm === 'S') {
       if (this.integracaoSympla) {
         this.symplaApi.checkInIngresso(this.integracaoSympla.codEvent, codigoIngresso, this.integracaoSympla.token)
         .pipe(
           take(1),
           catchError(error => {
+            if (error.error.code === 112) {
+              error.error = 'INGRNFOU';
+            } else if (error.error.code === 113) {
+              error.error = 'CHECKERR';
+            }
             return this.handleErrorForm(error, this.logService);
           })
         )
         .subscribe(resp => {
+          this.symplaApi.setFarol(false);
+          this.dialog.closeAll();
           this.openSuccessDialog('SYMCHECK');
         });
       } else {
         this.openErrorDialog('SYMPNFOU');
       }
     } else {
-      // checkIn Pachanga
+      this.pachangaCheckIn.checkInIngresso(codigoIngresso, this.festa.codFesta)
+      .pipe(
+        take(1),
+        catchError(error => {
+          return this.handleErrorForm(error, this.logService);
+        })
+      )
+      .subscribe(resp => {
+        this.pachangaCheckIn.setFarol(false);
+        this.dialog.closeAll();
+        this.openSuccessDialog('PACCHECK');
+      });
     }
   }
 
@@ -123,11 +162,11 @@ export class LeitorQrComponent implements OnInit {
     this.scannerLoading = false;
   }
 
-  alterarTipoIngresso(scanner) {
+  alterarTipoIngresso(scanner, tipo) {
     if (scanner) {
-      this.tipoIngressoScanner = this.tipoIngressoScanner !== 'P' ? 'P' : 'S';
+      this.tipoIngressoScanner = tipo;
     } else {
-      this.tipoIngressoForm = this.tipoIngressoForm !== 'P' ? 'P' : 'S';
+      this.tipoIngressoForm = tipo;
     }
   }
 
@@ -138,16 +177,29 @@ export class LeitorQrComponent implements OnInit {
     });
   }
 
-  openSuccessDialog(error) {
+  openSuccessDialog(message) {
     this.dialog.open(SuccessDialogComponent, {
       width: '250px',
-      data: {erro: error}
+      data: {message}
+    });
+  }
+
+  openDialogProcessing() {
+    this.dialog.open(ProcessingDialogComponent, {
+        width: '20rem',
+        disableClose: true,
+        data: {
+          tipo: 'CHECKIN'
+        }
     });
   }
 
   handleErrorScanner = (error: HttpErrorResponse, logService: LogService) => {
     this.scannerLoading = false;
     this.scannerErro = true;
+    this.symplaApi.setFarol(false);
+    this.pachangaCheckIn.setFarol(false);
+    this.dialog.closeAll();
     this.openErrorDialog(error.error);
     logService.initialize();
     logService.logHttpInfo(JSON.stringify(error), 0, error.url);
@@ -155,6 +207,9 @@ export class LeitorQrComponent implements OnInit {
   }
 
   handleErrorForm = (error: HttpErrorResponse, logService: LogService) => {
+    this.symplaApi.setFarol(false);
+    this.pachangaCheckIn.setFarol(false);
+    this.dialog.closeAll();
     this.openErrorDialog(error.error);
     logService.initialize();
     logService.logHttpInfo(JSON.stringify(error), 0, error.url);
