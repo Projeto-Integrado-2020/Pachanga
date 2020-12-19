@@ -38,7 +38,7 @@ public class AreaSegurancaProblemaFactory {
 				.observacaoSolucao(problemaSeguranca.getObservacaoSolucao())
 				.imagemProblema(problemaSeguranca.getImagemProblema() == null || !retornoImagem ? null
 						: problemaSeguranca.getImagemProblema())
-				.hasImagem(problemaSeguranca.getImagemProblema() == null)
+				.hasImagem(problemaSeguranca.getImagemProblema() != null)
 				.build();
 	}
 
