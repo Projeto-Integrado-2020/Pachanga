@@ -270,11 +270,13 @@ class LoteServiceTest {
 	
 	@Test
 	void atualizarLoteTest() {
+		Lote loteRetorno = loteTest();
+		loteRetorno.setNumeroLote(2);
 		Mockito.when(festaService.validarFestaExistente(Mockito.anyInt())).thenReturn(festaTest());
 		Mockito.when(festaService.validarUsuarioFesta(Mockito.anyInt(), Mockito.anyInt())).thenReturn(usuarioTest());
-		Mockito.when(loteRepository.findByCodLote(Mockito.anyInt())).thenReturn(loteTest());
+		Mockito.when(loteRepository.findByCodLote(Mockito.anyInt())).thenReturn(loteRetorno);
 		Mockito.when(grupoService.validarPermissaoUsuarioGrupo(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(true);
-		Mockito.when(loteRepository.findByNomeLote(Mockito.anyString(), Mockito.anyInt())).thenReturn(null);
+		Mockito.when(loteRepository.findByNomeLote(Mockito.anyString(), Mockito.anyInt())).thenReturn(new ArrayList<Lote>());
 		Mockito.when(loteFactory.getLote(Mockito.any(), Mockito.any())).thenReturn(loteTest());
 		
 		Lote lote = loteService.atualizarLote(loteToTest(), 1);
