@@ -1,6 +1,5 @@
 package com.eventmanager.pachanga.services;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -22,6 +21,7 @@ import com.eventmanager.pachanga.repositories.LoteRepository;
 import com.eventmanager.pachanga.tipo.TipoPagamentoBoleto;
 import com.eventmanager.pachanga.tipo.TipoPermissao;
 import com.eventmanager.pachanga.tipo.TipoStatusCompra;
+import com.eventmanager.pachanga.tipo.TipoStatusFesta;
 import com.eventmanager.pachanga.tipo.TipoStatusIngresso;
 import com.eventmanager.pachanga.utils.EmailMensagem;
 import com.eventmanager.pachanga.utils.HashBuilder;
@@ -163,7 +163,6 @@ public class IngressoService {
 		this.festaService.validarFestaExistente(codFesta);
 		this.festaService.validarUsuarioFesta(codUsuario, codFesta);
 		Ingresso ingresso = this.validarIngressoExistente(codIngresso);
-		LocalDateTime horarioAtual = notificacaoService.getDataAtual();
 
 		grupoService.validarPermissaoUsuarioGrupo(ingresso.getFesta().getCodFesta(), codUsuario,
 				TipoPermissao.RELCHECK.getCodigo());
@@ -173,13 +172,12 @@ public class IngressoService {
 			throw new ValidacaoException("INGRNOTP");// ingresso não foi pago
 		} else if (ingresso.getStatusIngresso().equals(TipoStatusIngresso.CHECKED.getDescricao())) {
 			throw new ValidacaoException("INGRVERI");// ingresso já foi verificado
-		} else if (horarioAtual.isAfter(ingresso.getFesta().getHorarioFimFesta())
-				|| horarioAtual.isBefore(ingresso.getFesta().getHorarioInicioFesta())) {
+		} else if (!TipoStatusFesta.INICIADO.getValor().equals(ingresso.getFesta().getStatusFesta())) {
 			throw new ValidacaoException("HORAINCC");// horario incorreto para o check-in
 		}
 
 		ingresso.setStatusIngresso(TipoStatusIngresso.CHECKED.getDescricao());
-		ingresso.setDataCheckin(horarioAtual);
+		ingresso.setDataCheckin(notificacaoService.getDataAtual());
 		ingressoRepository.save(ingresso);
 		return ingresso;
 	}

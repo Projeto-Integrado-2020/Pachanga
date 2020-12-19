@@ -16,6 +16,7 @@ public class AreaSegurancaProblemaTO {
     private String observacaoSolucao;
     private String descProblema;
     private byte[] imagemProblema;
+    private boolean hasImagem;
     
 	public int getCodAreaSeguranca() {
 		return codAreaSeguranca;
@@ -94,6 +95,12 @@ public class AreaSegurancaProblemaTO {
 	}
 	public void setImagemProblema(byte[] imagemProblema) {
 		this.imagemProblema = imagemProblema;
+	}
+	public boolean isHasImagem() {
+		return hasImagem;
+	}
+	public void setHasImagem(boolean hasImagem) {
+		this.hasImagem = hasImagem;
 	}
     
 }

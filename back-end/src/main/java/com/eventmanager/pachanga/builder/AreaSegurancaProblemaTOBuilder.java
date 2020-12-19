@@ -18,6 +18,7 @@ public class AreaSegurancaProblemaTOBuilder {
     private String observacaoSolucao;
     private String descProblemaEmissor;
     private byte[] imagemProblema;
+    private boolean hasImagem;
 	
 	public static AreaSegurancaProblemaTOBuilder getInstance() {
 		return new AreaSegurancaProblemaTOBuilder();
@@ -87,6 +88,11 @@ public class AreaSegurancaProblemaTOBuilder {
 		this.imagemProblema = imagemProblema;
 		return this;
 	}
+	
+	public AreaSegurancaProblemaTOBuilder hasImagem(boolean hasImagem) {
+		this.hasImagem = hasImagem;
+		return this;
+	}
 
 	public  AreaSegurancaProblemaTO build() {
 		AreaSegurancaProblemaTO problemaSegurancaTO = new  AreaSegurancaProblemaTO();
@@ -103,6 +109,7 @@ public class AreaSegurancaProblemaTOBuilder {
 		problemaSegurancaTO.setObservacaoSolucao(observacaoSolucao);
 		problemaSegurancaTO.setDescProblemaEmissor(descProblemaEmissor);
 		problemaSegurancaTO.setImagemProblema(imagemProblema);
+		problemaSegurancaTO.setHasImagem(hasImagem);
 		return problemaSegurancaTO;
 	}
 	
