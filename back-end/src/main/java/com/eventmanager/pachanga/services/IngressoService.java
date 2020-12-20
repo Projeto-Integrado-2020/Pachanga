@@ -68,18 +68,16 @@ public class IngressoService {
 	public List<IngressoTO> addListaIngresso(InsercaoIngresso ingressosInsercao) {
 		String codBoleto = null;
 		String urlBoleto = null;
+		int codFesta = ingressosInsercao.getListaIngresso().get(0).getFesta().getCodFesta();
+		int codLote = ingressosInsercao.getListaIngresso().get(0).getCodLote();
 
-		if (loteRepository
-				.findAllIngressosCompraveisFestaLote(
-						ingressosInsercao.getListaIngresso().get(0).getFesta().getCodFesta(),
-						ingressosInsercao.getListaIngresso().get(0).getCodLote())
-				.getQuantidade() < ingressosInsercao.getListaIngresso().size()) {
+		if (loteRepository.findLoteByFestaAndLote(codFesta, codLote).getQuantidade() - ingressoRepository
+				.findIngressosLoteVendido(codFesta, codLote) < ingressosInsercao.getListaIngresso().size()) {
 			throw new ValidacaoException("QINGRINV");// quantidade ingressos invalidas
 		}
 
 		if (ingressosInsercao.getInfoPagamento() != null
 				&& ingressosInsercao.getListaIngresso().get(0).getBoleto().booleanValue()) {
-			int codFesta = ingressosInsercao.getListaIngresso().get(0).getFesta().getCodFesta();
 			codBoleto = this.gerarCodigosIngresso(null, codFesta, true, 20);
 			Festa festa = festaService.validarFestaExistente(codFesta);
 			urlBoleto = PagSeguroUtils.criacaoBoleto(ingressosInsercao.getInfoPagamento(),
@@ -166,9 +164,9 @@ public class IngressoService {
 
 		grupoService.validarPermissaoUsuarioGrupo(ingresso.getFesta().getCodFesta(), codUsuario,
 				TipoPermissao.RELCHECK.getCodigo());
-		if(ingresso.getFesta().getCodFesta() != codFesta) {
+		if (ingresso.getFesta().getCodFesta() != codFesta) {
 			throw new ValidacaoException("INGRNOTF");// ingresso não pertence a festa
-		}else if (!ingresso.getStatusCompra().equals(TipoStatusCompra.PAGO.getDescricao())) {
+		} else if (!ingresso.getStatusCompra().equals(TipoStatusCompra.PAGO.getDescricao())) {
 			throw new ValidacaoException("INGRNOTP");// ingresso não foi pago
 		} else if (ingresso.getStatusIngresso().equals(TipoStatusIngresso.CHECKED.getDescricao())) {
 			throw new ValidacaoException("INGRVERI");// ingresso já foi verificado
