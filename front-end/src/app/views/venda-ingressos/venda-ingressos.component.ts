@@ -100,7 +100,7 @@ export class VendaIngressosComponent implements OnInit {
     let precoTotal = 0;
     for (const lote of this.lotes) {
       const quantidade = this.form.get('quantidade-' + lote.codLote).value;
-      if (quantidade) {
+      if (quantidade > 0) {
         const quantidadeArray = [];
         for (let i = 0; i < quantidade; i++) {
           quantidadeArray.push(i);
@@ -148,7 +148,7 @@ export class VendaIngressosComponent implements OnInit {
     for (const lote of this.lotes) {
       const quantidade = this.form.get('quantidade-' + lote.codLote).value;
       loteCount ++;
-      if (!quantidade) {
+      if (!quantidade || quantidade > 5 || quantidade < 0) {
         flag++;
       }
     }
@@ -177,7 +177,7 @@ export class VendaIngressosComponent implements OnInit {
   buildForm() {
     const group = {};
     for (const lote of this.lotes) {
-      group['quantidade-' + lote.codLote] = new FormControl('');
+      group['quantidade-' + lote.codLote] = new FormControl('', [Validators.max(5), Validators.min(0)]);
     }
     this.form = this.formBuilder.group(group);
   }
