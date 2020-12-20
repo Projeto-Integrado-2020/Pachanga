@@ -344,7 +344,11 @@
         "ATENTPUD": "Indecent Exposure",
         "ENTRPROB": "Disallowed Entry",
         "OUTRPROB": "Something Else",
-        "RELATAR":"Report"
+        "RELATAR":"Report",
+        "DETALHE": "Issue details",
+        "IMAGEM": "Image (Used to help identify an offense or occurrence)",
+        "SEMIMAGEM": "No file selected",
+        "DETALHES": "Details"
     },
 
     "404": {
@@ -726,7 +730,8 @@
         "DATA": "Report Date",
         "MARCARCOMO":"Set as ",
         "OBSERVACOES": "Note about solution",
-        "DETALHES": "Details about solution"
+        "DETALHES": "Details about solution",
+        "VISUIMAGEM": "View image"
     },
 
     "CHECKIN": {
@@ -805,6 +810,8 @@
         "PAYPAL": "Processing tickets. Please wait.",
         "CRIARFESTA": "Creating party. Please wait.",
         "EDITFESTA": "Editing party. Please wait.",
-        "BOLETO": "Processing bill. Please wait."
+        "BOLETO": "Processing bill. Please wait.",
+        "RELATPROBLM": "Reporting problem. Please wait.",
+        "CARREGIMAGEM": "Loading image. Please wait."
     }
 }

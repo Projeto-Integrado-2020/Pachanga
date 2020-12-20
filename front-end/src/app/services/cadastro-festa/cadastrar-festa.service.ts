@@ -25,7 +25,7 @@ export class CadastrarFestaService {
     if (!this.farol) {
       this.setFarol(true);
       const httpParams = new HttpParams()
-      .append('idUser', this.loginService.usuarioInfo.codUsuario);
+      .append('idUsuario', this.loginService.usuarioInfo.codUsuario);
 
       let headers = new HttpHeaders();
       headers = headers.append('Authorization', 'Bearer ' + JSON.parse(localStorage.getItem('token')).token);

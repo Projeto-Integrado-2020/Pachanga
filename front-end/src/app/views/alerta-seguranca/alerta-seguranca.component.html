@@ -8,7 +8,8 @@
     <form [formGroup]="form">
         <mat-form-field class="texto-input">
             <mat-label>{{'PROBLEMADETALHES.OBSERVACOES' | translate}}</mat-label>
-            <textarea #observacaoSolucao formControlName="observacaoSolucao" required matInput></textarea>
+            <textarea #observacaoSolucao formControlName="observacaoSolucao" required matInput maxlength="1000"></textarea>
+            <mat-hint align="end">{{observacaoSolucao.value.length}} / 1000</mat-hint>
             <mat-error *ngIf="f.observacaoSolucao.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
         </mat-form-field>
         <br>

@@ -138,7 +138,8 @@ import { DialogIngressosMesmaFestaComponent } from './views/dialog-ingressos-mes
 
 // pdf generator
 import { PdfMakeWrapper } from 'pdfmake-wrapper';
-import pdfFonts from 'pdfmake/build/vfs_fonts'; // fonts provided for pdfmake
+import pdfFonts from 'pdfmake/build/vfs_fonts';
+import { ImagemAreaProblemaDialogComponent } from './views/imagem-area-problema-dialog/imagem-area-problema-dialog.component';
 PdfMakeWrapper.setFonts(pdfFonts);
 
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
@@ -242,7 +243,8 @@ export function provideConfig() {
     DeletarCupomDialogComponent,
     ProcessingDialogComponent,
     ControleSidenavComponent,
-    DialogIngressosMesmaFestaComponent
+    DialogIngressosMesmaFestaComponent,
+    ImagemAreaProblemaDialogComponent
   ],
   entryComponents: [
     LoginComponent,
@@ -292,7 +294,8 @@ export function provideConfig() {
     DeletarCupomDialogComponent,
     EditarCupomDialogComponent,
     ProcessingDialogComponent,
-    DialogIngressosMesmaFestaComponent
+    DialogIngressosMesmaFestaComponent,
+    ImagemAreaProblemaDialogComponent
   ],
   imports: [
     BrowserModule,

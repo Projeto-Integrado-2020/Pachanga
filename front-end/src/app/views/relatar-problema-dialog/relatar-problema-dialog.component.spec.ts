@@ -1,7 +1,5 @@
 /* tslint:disable:no-unused-variable */
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { DebugElement } from '@angular/core';
 
 import { RelatarProblemaDialogComponent } from './relatar-problema-dialog.component';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
@@ -14,21 +12,27 @@ import { HttpLoaderFactory } from 'src/app/app.module';
 import { of } from 'rxjs';
 import { DatePipe } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
 import { LoginService } from 'src/app/services/loginService/login.service';
+import { FileInput, MaterialFileInputModule } from 'ngx-material-file-input';
+import { SegurancaProblemasService } from 'src/app/services/seguranca-problemas/seguranca-problemas.service';
 
 describe('RelatarProblemaDialogComponent', () => {
   let component: RelatarProblemaDialogComponent;
   let fixture: ComponentFixture<RelatarProblemaDialogComponent>;
   let dialogSpy: MatDialog;
+  let datePipe: DatePipe;
 
   beforeEach(async(() => {
     dialogSpy = jasmine.createSpyObj('MatDialog', ['open', 'closeAll']);
+    datePipe = jasmine.createSpyObj('DatePipe', ['transform']);
     TestBed.configureTestingModule({
       declarations: [ RelatarProblemaDialogComponent ],
       imports: [
+        MaterialFileInputModule,
         CustomMaterialModule,
         FormsModule,
+        ReactiveFormsModule,
         HttpClientTestingModule,
         BrowserAnimationsModule,
         RouterModule.forRoot([]),
@@ -46,11 +50,12 @@ describe('RelatarProblemaDialogComponent', () => {
           provide: MatDialogRef,
           useValue: {}
         },
-        {provide: RelatarProblemaDialogComponent, useValue: {
-          atualizarAreaSeguranca: () => of({}),
+        {provide: SegurancaProblemasService, useValue: {
+          adicionarProblema: () => of({}),
+          listarProblemas: () => of([{}]),
           setFarol: () => false,
         }},
-        {provide: DatePipe}
+        {provide: DatePipe, useValue: datePipe}
       ]
     })
     .compileComponents();
@@ -65,6 +70,7 @@ describe('RelatarProblemaDialogComponent', () => {
       timeToken: '2020-09-21T01:14:04.028+0000',
       token: 'teste'
     };
+    component.date = new Date();
     localStorage.setItem('token', JSON.stringify(token));
     fixture.detectChanges();
   });
@@ -72,4 +78,68 @@ describe('RelatarProblemaDialogComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should excluirInputImagem', () => {
+    component.form.get('imagemProblema').setValue(new FileInput([]));
+    component.imagem = 'teste';
+    expect(component.form.get('imagemProblema').value).toBeTruthy();
+    expect(component.imagem).toEqual('teste');
+
+    component.excluirInputImagem();
+    expect(component.form.get('imagemProblema').value).toBeFalsy();
+  });
+
+  it('should buildForm', () => {
+    expect(component.form.get('imagemProblema')).toBeTruthy();
+    expect(component.form.get('codProblema')).toBeTruthy();
+    expect(component.form.get('descProblema')).toBeTruthy();
+  });
+
+  it('should get f to get form controls', () => {
+    expect(component.f).toBe(component.form.controls);
+  });
+
+  it('should alterarPreview', () => {
+    component.alterarPreview();
+
+    expect(component.urlNoImage).toBe('https://xtremebike.com.br/website/images/product/1.jpg');
+  });
+
+  it('should open a dialog through a method', () => {
+    component.openDialogProcessing();
+    expect(dialogSpy.open).toHaveBeenCalled();
+  });
+
+  it('should relatarProblm', () => {
+    spyOn(component.segurancaProblemaService, 'adicionarProblema')
+    .and
+    .callThrough();
+
+    spyOn(component.segurancaProblemaService, 'setFarol')
+    .and
+    .callThrough();
+
+
+    spyOn(component, 'openDialogProcessing')
+    .and
+    .callThrough();
+
+    const codProblema = 1;
+    const descProblema = 'teste';
+    const imagem = null;
+    const problemaTO = {
+      codProblema: 1,
+      descProblema: 'teste',
+      horarioInicio: undefined,
+      observacaoSolucao: '',
+      codFesta: '1',
+      codAreaSeguranca: '1',
+      codUsuarioEmissor: '1',
+    };
+
+    component.relatarProblm(codProblema, descProblema);
+
+    expect(component.segurancaProblemaService.adicionarProblema).toHaveBeenCalledWith(problemaTO, imagem);
+  });
+
 });

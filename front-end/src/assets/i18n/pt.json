@@ -686,7 +686,8 @@
         "DATA": "Data",
         "MARCARCOMO": "Marcar Como ",
         "OBSERVACOES": "Observações sobre solução",
-        "DETALHES": "Detalhes da solução"
+        "DETALHES": "Detalhes da solução",
+        "VISUIMAGEM": "Visualizar imagem"
     },
 
     "PRODUTO": {
@@ -737,7 +738,11 @@
         "ATENTPUD": "Atentado Ao Pudor",
         "ENTRPROB": "Entrada Proibida",
         "OUTRPROB": "Outro Problema",
-        "RELATAR":"Relatar"
+        "RELATAR":"Relatar",
+        "DETALHE": "Detalhes do problema",
+        "IMAGEM": "Imagem (Usada para ajudar na identificação de um delito ou ocorrência)",
+        "SEMIMAGEM": "Nenhum arquivo selecionado",
+        "DETALHES": "Detalhes"
     },
 
     "SEXO": {
@@ -821,7 +826,9 @@
         "PAYPAL": "Processando ingressos. Por favor aguarde.",
         "CRIARFESTA": "Criando festa. Por favor, aguarde.",
         "EDITFESTA": "Editando festa. Por favor, aguarde.",
-        "BOLETO": "Processando boleto. Por favor aguarde."
+        "BOLETO": "Processando boleto. Por favor aguarde.",
+        "RELATPROBLM": "Relatando problema. Por favor, aguarde.",
+        "CARREGIMAGEM": "Carregando imagem. Por favor, aguarde."
     }
 
 }

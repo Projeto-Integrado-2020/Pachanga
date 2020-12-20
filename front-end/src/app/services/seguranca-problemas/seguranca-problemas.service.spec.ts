@@ -39,20 +39,25 @@ describe('Service: SegurancaProblemas', () => {
 
   it('should post Info at adicionarProblema', () => {
     service.loginService.usuarioInfo = {codusuario: 'teste'};
-    const problemaTO = {};
-    expect(service.adicionarProblema(problemaTO)).toBeTruthy();
-  });
-
-  it('should delete Info at deletarProblema', () => {
-    service.loginService.usuarioInfo = {codusuario: 'teste'};
-    const problemaTO = {};
-    expect(service.adicionarProblema(problemaTO)).toBeTruthy();
-  });
-
-  it('should delete Info at deletarProblema', () => {
-    service.loginService.usuarioInfo = {codusuario: 'teste'};
-    const problemaTO = {};
-    expect(service.adicionarProblema(problemaTO)).toBeTruthy();
+    const imagem = {
+      _files: ['teste']
+    };
+    const problemaTO = {
+      codAreaProblema: 7,
+      codAreaSeguranca: 1,
+      codFesta: 2,
+      codProblema: 4,
+      codUsuarioResolv: 0,
+      statusProblema: 'A',
+      horarioInicio: '2020-12-19T13:39:53.474387',
+      horarioFim: null,
+      codUsuarioEmissor: 1,
+      descProblemaEmissor: 'tryrteytryeyetryter',
+      observacaoSolucao: null,
+      descProblema: 'FURTOOBJ',
+      imagemProblema: '75462'
+    };
+    expect(service.adicionarProblema(problemaTO, imagem)).toBeTruthy();
   });
 
   it('should get Info at getAllProblemasArea', () => {
@@ -80,14 +85,4 @@ describe('Service: SegurancaProblemas', () => {
     service.setFarol(true);
     expect(service.getFarol()).toBeTruthy();
   });
-
-  // it('should get Info at getEstoque', () => {
-  //   service.loginService.usuarioInfo = {codusuario: 'teste'};
-  //   expect(service.getEstoque('teste')).toBeTruthy();
-  // });
-
-  // it('should get Info at getEstoque', () => {
-  //   service.loginService.usuarioInfo = {codusuario: 'teste'};
-  //   expect(service.getEstoque('teste')).toBeTruthy();
-  // });
 });
