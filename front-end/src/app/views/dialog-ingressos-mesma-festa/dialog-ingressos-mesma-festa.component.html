@@ -4,7 +4,7 @@
     <mat-select [(ngModel)] = "ingressoSelecionado" name="ingresso">
       <!-- <mat-option value="{{categoria.codCategoria}}">{{'CATEGORIA.' + categoria.nomeCategoria | translate}}</mat-option> -->
       <mat-option *ngFor="let ingresso of this.ingressos" [value]="ingresso.urlBoleto">
-        {{ingresso.dataCompra}}
+        {{ingresso.urlBoleto}}
       </mat-option>
     </mat-select>
 
