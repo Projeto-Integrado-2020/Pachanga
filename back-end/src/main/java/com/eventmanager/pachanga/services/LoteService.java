@@ -42,37 +42,34 @@ public class LoteService {
 		grupoService.validarPermissaoUsuarioGrupo(codFesta, codUsuario, TipoPermissao.VISULOTE.getCodigo());
 		return loteRepository.listaLoteFesta(codFesta);
 	}
-	
+
 	public List<Lote> listarLotesFestaDadosPublicos(int codFesta) {
 		festaService.validarFestaExistente(codFesta);
 		return loteRepository.findAllCompraveisFesta(codFesta);
-	} 
-	
+	}
+
 	public Lote encontrarLote(int codLote, int codUsuario) {
 		Lote lote = this.validarLoteExistente(codLote);
 		festaService.validarFestaExistente(lote.getFesta().getCodFesta());
 		festaService.validarUsuarioFesta(codUsuario, lote.getFesta().getCodFesta());
-		grupoService.validarPermissaoUsuarioGrupo(lote.getFesta().getCodFesta(), codUsuario, TipoPermissao.VISULOTE.getCodigo());
+		grupoService.validarPermissaoUsuarioGrupo(lote.getFesta().getCodFesta(), codUsuario,
+				TipoPermissao.VISULOTE.getCodigo());
 		return lote;
 	}
-	
+
 	public Lote encontrarLoteDadosPublicos(int codLote) {
-		Lote lote = this.validarLoteExistente(codLote);
-		return lote;
+		return this.validarLoteExistente(codLote);
 	}
-	
+
 	public List<Lote> encontrarLotesCompraveisFesta(int codFesta) {
-		List<Lote> lotes = loteRepository.findAllCompraveisFesta(codFesta);
-		return lotes;
+		return loteRepository.findAllCompraveisFesta(codFesta);
 	}
 
 	public Lote adicionarLote(LoteTO loteTo, int codUsuario) {
 		Festa festa = festaService.validarFestaExistente(loteTo.getCodFesta());
 		festaService.validarUsuarioFesta(codUsuario, festa.getCodFesta());
 		grupoService.validarPermissaoUsuarioGrupo(festa.getCodFesta(), codUsuario, TipoPermissao.ADDLOTES.getCodigo());
-		if (loteRepository.findByNomeLote(loteTo.getNomeLote(), loteTo.getCodFesta()) != null) {
-			throw new ValidacaoException("NOMELOTE");// nome do lote já usado por outro lote da festa
-		}
+		this.validarNumeroLote(loteTo);
 		this.validarLote(loteTo);
 		Lote lote = loteFactory.getLote(loteTo, festa);
 		lote.setCodLote(loteRepository.getNextValMySequence());
@@ -85,16 +82,15 @@ public class LoteService {
 		festaService.validarUsuarioFesta(codUsuario, festa.getCodFesta());
 		grupoService.validarPermissaoUsuarioGrupo(festa.getCodFesta(), codUsuario, TipoPermissao.EDITLOTE.getCodigo());
 		Lote lote = this.validarLoteExistente(loteTo.getCodLote());
-		Lote loteNome = loteRepository.findByNomeLote(loteTo.getNomeLote(), loteTo.getCodFesta());
-		if ( loteNome != null && loteNome.getCodLote() != loteTo.getCodLote()) {
-			throw new ValidacaoException("NOMELOTE");// nome do lote já usado por outro lote da festa
+		if(!lote.getNomeLote().equals(loteTo.getNomeLote())) {
+			this.validarNumeroLote(loteTo);
 		}
 		this.validarLote(loteTo);
 		lote.setDescLote(loteTo.getDescLote());
 		lote.setNomeLote(loteTo.getNomeLote());
+		lote.setNumeroLote(loteTo.getNumeroLote());
 		lote.setPreco(loteTo.getPreco());
 		lote.setQuantidade(loteTo.getQuantidade());
-		lote.setNumeroLote(loteTo.getNumeroLote());
 		lote.setHorarioInicio(loteTo.getHorarioInicio());
 		lote.setHorarioFim(loteTo.getHorarioFim());
 		loteRepository.save(lote);
@@ -119,10 +115,17 @@ public class LoteService {
 		} else if (loteTo.getQuantidade() <= 0) {
 			throw new ValidacaoException("QUAILOTE");// quantidade do lote incorreta
 		}
-		
+
 		if (loteTo.getHorarioFim().isBefore(loteTo.getHorarioInicio())
 				|| Duration.between(loteTo.getHorarioInicio(), loteTo.getHorarioFim()).isZero()) {
 			throw new ValidacaoException("DATEINFE");// data final menor que inicial
+		}
+	}
+	
+	private void validarNumeroLote(LoteTO loteTo) {
+		List<Lote> lotesExistente = loteRepository.findByNomeLote(loteTo.getNomeLote().toUpperCase(), loteTo.getCodFesta());
+		if(loteTo.getNumeroLote() != lotesExistente.size() + 1) {
+			throw new ValidacaoException("NINVLOTE");// numero invalido para o lote
 		}
 	}
 

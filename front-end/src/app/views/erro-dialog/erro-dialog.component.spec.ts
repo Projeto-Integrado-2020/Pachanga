@@ -48,6 +48,6 @@ describe('ErroDialogComponent', () => {
 
   it('should show erro', () => {
     component.ngOnInit();
-    expect(component.erro).toEqual('ERRO.SERVERRO');
+    expect(component.erro).toEqual('SERVERRO');
   });
 });

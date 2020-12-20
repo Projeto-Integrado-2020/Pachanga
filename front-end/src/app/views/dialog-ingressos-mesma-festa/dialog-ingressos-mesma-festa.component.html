@@ -3,8 +3,8 @@
   <form>
     <mat-select [(ngModel)] = "ingressoSelecionado" name="ingresso">
       <!-- <mat-option value="{{categoria.codCategoria}}">{{'CATEGORIA.' + categoria.nomeCategoria | translate}}</mat-option> -->
-      <mat-option *ngFor="let ingresso of this.ingressos" [value]="ingresso.codBoleto">
-        {{ingresso.codBoleto}}
+      <mat-option *ngFor="let ingresso of this.ingressos" [value]="ingresso.urlBoleto">
+        {{ingresso.urlBoleto}}
       </mat-option>
     </mat-select>
 
@@ -12,7 +12,7 @@
           class="btn"
           mat-raised-button
           [disabled]="!this.ingressoSelecionado"
-          (click)="apagar(this.ingressoSelecionado)"
+          (click)="acessarUrl(this.ingressoSelecionado)"
     >
           <!-- [disabled]="!model.value.descProblema || !model.value.codProblema" -->
           {{'MEUSINGRESSOS.BOLETO' | translate}}

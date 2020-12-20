@@ -1,14 +1,14 @@
 <div class="main-container">
     <header>
         <div class="header-flex">
-            <h1 class="title">{{festaNome}} - {{'CHECKIN.LEITOR' | translate}}</h1>
+            <h1 class="title">{{festaNome}} - {{'CHECKIN.TITLE' | translate}}</h1>
         </div>
     </header>
     <div>
         <div class="div-tipo">
             <mat-button-toggle-group name="tipo" value="P" aria-label="Tipo de Ingresso">
-                <mat-button-toggle value="P"><div (click)="alterarTipoIngresso(true)">Pachanga</div></mat-button-toggle>
-                <mat-button-toggle value="S"><div (click)="alterarTipoIngresso(true)">Sympla</div></mat-button-toggle>
+                <mat-button-toggle value="P"><div (click)="alterarTipoIngresso(true, 'P')">Pachanga</div></mat-button-toggle>
+                <mat-button-toggle value="S"><div (click)="alterarTipoIngresso(true, 'S')">Sympla</div></mat-button-toggle>
             </mat-button-toggle-group>
         </div>
         <div class="div-imagens">
@@ -28,8 +28,8 @@
         </div>
         <div class="div-tipo">
             <mat-button-toggle-group name="tipo" value="P" aria-label="Tipo de Ingresso">
-                <mat-button-toggle value="P"><div (click)="alterarTipoIngresso(false)">Pachanga</div></mat-button-toggle>
-                <mat-button-toggle value="S"><div (click)="alterarTipoIngresso(false)">Sympla</div></mat-button-toggle>
+                <mat-button-toggle value="P"><div (click)="alterarTipoIngresso(false, 'P')">Pachanga</div></mat-button-toggle>
+                <mat-button-toggle value="S"><div (click)="alterarTipoIngresso(false, 'S')">Sympla</div></mat-button-toggle>
             </mat-button-toggle-group>
         </div>
         <form [formGroup]="form" class="form-ticket" (submit)="executarCheckInForm(codIngresso.value)">

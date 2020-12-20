@@ -9,6 +9,7 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { HttpLoaderFactory } from 'src/app/app.module';
 import { HttpClient } from '@angular/common/http';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { RouterModule } from '@angular/router';
 
 describe('DialogIngressosMesmaFestaComponent', () => {
   let component: DialogIngressosMesmaFestaComponent;
@@ -19,6 +20,7 @@ describe('DialogIngressosMesmaFestaComponent', () => {
       declarations: [ DialogIngressosMesmaFestaComponent ],
       imports: [
         HttpClientTestingModule,
+        RouterModule.forRoot([]),
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,

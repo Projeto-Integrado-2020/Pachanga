@@ -13,13 +13,13 @@ public class LoteFactory {
 	
 	public Lote getLote(LoteTO loteTo, Festa festa) {
 		return LoteBuilder.getInstance().festa(festa).codLote(loteTo.getCodLote()).descLote(loteTo.getDescLote())
-				.horarioFim(loteTo.getHorarioFim()).horarioInicio(loteTo.getHorarioInicio()).nomeLote(loteTo.getNomeLote())
+				.horarioFim(loteTo.getHorarioFim()).horarioInicio(loteTo.getHorarioInicio()).nomeLote(loteTo.getNomeLote().toUpperCase())
 				.numeroLote(loteTo.getNumeroLote()).preco(loteTo.getPreco()).quantidade(loteTo.getQuantidade()).build();
 	}
 	
 	public LoteTO getLoteTO(Lote lote) {
 		return LoteTOBuilder.getInstance().codFesta(lote.getFesta().getCodFesta()).codLote(lote.getCodLote()).descLote(lote.getDescLote())
-				.horarioFim(lote.getHorarioFim()).horarioInicio(lote.getHorarioInicio()).nomeLote(lote.getNomeLote())
+				.horarioFim(lote.getHorarioFim()).horarioInicio(lote.getHorarioInicio()).nomeLote(lote.getNomeLote().toUpperCase())
 				.numeroLote(lote.getNumeroLote()).preco(lote.getPreco()).quantidade(lote.getQuantidade()).build();
 	}
 

@@ -1,3 +1,10 @@
+<mat-select [(ngModel)] = "value" name="ingresso">
+  <!-- <mat-option value="{{categoria.codCategoria}}">{{'CATEGORIA.' + categoria.nomeCategoria | translate}}</mat-option> -->
+  <mat-option *ngFor="let ingresso of this.ingressos" [value]="ingresso.codIngresso">
+    {{ingresso.nomeTitular}}
+  </mat-option>
+</mat-select>
+
 <ngx-qrcode
   [elementType]="elementType"
   [errorCorrectionLevel]="correctionLevel"

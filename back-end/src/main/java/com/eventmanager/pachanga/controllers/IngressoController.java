@@ -104,9 +104,11 @@ public class IngressoController {
 
 	@ResponseBody
 	@PutMapping(path = "/updateCheckin")
-	public ResponseEntity<Object> updateChekin(@RequestBody IngressoTO ingressoTO) {
+	public ResponseEntity<Object> updateChekin(@RequestParam(required = true) String codIngresso,
+			@RequestParam(required = true) int codFesta, @RequestParam(required = true) int codUsuario) {
 		try {
-			return ResponseEntity.ok(ingressoFactory.getIngressoTO(ingressoService.updateCheckin(ingressoTO), null));
+			return ResponseEntity
+					.ok(ingressoFactory.getIngressoTO(ingressoService.updateCheckin(codIngresso, codUsuario, codFesta), null));
 		} catch (ValidacaoException e) {
 			return ResponseEntity.status(400).body(e.getMessage());
 		}

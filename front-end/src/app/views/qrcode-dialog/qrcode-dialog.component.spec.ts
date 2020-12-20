@@ -15,7 +15,7 @@ describe('QrcodeDialogComponent', () => {
       declarations: [ QrcodeDialogComponent ],
       providers: [
         { provide: MAT_DIALOG_DATA,
-          useValue: {link: '1' }
+          useValue: {link: '1', ingressos: ['helloworld']}
         }
     ],
       schemas: [ CUSTOM_ELEMENTS_SCHEMA ]

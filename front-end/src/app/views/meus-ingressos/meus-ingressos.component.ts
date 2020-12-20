@@ -36,7 +36,6 @@ export class MeusIngressosComponent implements OnInit {
 
         this.listaIngressos = res;
         const listaIngressosUnicos = this.getArrayUnica(this.listaIngressos);
-        console.log(listaIngressosUnicos);
 
         for (const ingresso of listaIngressosUnicos) {
           Object.assign(ingresso, {Qtde: 0});
@@ -50,14 +49,6 @@ export class MeusIngressosComponent implements OnInit {
             this.ingressosAtivos.push(ingresso);
           }
         }
-
-        console.log(this.listaIngressos);
-        //   console.log(ingresso.festa.horarioFimFesta);
-        //   // if (this.datetimeVenceu(ingresso.festa.HorarioFimFesta)) {
-
-        //   // }
-
-        // }
       }
     );
   }
@@ -77,20 +68,20 @@ export class MeusIngressosComponent implements OnInit {
 
   botaoImprimirBoleto(ingresso) {
     if (ingresso.Qtde > 1) {
-      this.abrirBoletoIngressosMultiplos(ingresso.festa.codFesta);
+      this.abrirBoletoIngressosMultiplos(ingresso);
     } else {
-      console.log('abrir url do boleto');
+      this.router.navigate([]).then(() => {  window.open(ingresso.urlBoleto, '_blank'); });
     }
   }
 
 
-  abrirBoletoIngressosMultiplos(codFesta) {
-    const ingressos = this.listaIngressos.filter(x => x.festa.codFesta === codFesta);
+  abrirBoletoIngressosMultiplos(ingresso) {
+    const ingressos = this.listaIngressos.filter(x => x.festa.codFesta === ingresso.festa.codFesta);
     const boletosUnicos = [];
 
-    for (const ingresso of ingressos) {
-      if (!boletosUnicos.find(ingr => ingr.codBoleto === ingresso.codBoleto)) {
-        boletosUnicos.push(ingresso);
+    for (const i of ingressos) {
+      if (!boletosUnicos.find(ingr => ingr.urlBoleto === i.urlBoleto)) {
+        boletosUnicos.push(i);
       }
     }
 
@@ -101,16 +92,16 @@ export class MeusIngressosComponent implements OnInit {
         }
       });
     } else {
-      console.log('abrir url do boleto: ' + boletosUnicos[0].codBoleto);
+      this.router.navigate([]).then(() => {  window.open(ingresso.urlBoleto, '_blank'); });
     }
   }
 
   abrirQRDialog(ingresso) {
+
+    const ingressos = this.listaIngressos.filter(x => x.festa.codFesta === ingresso.festa.codFesta && x.statusCompra === ingresso.statusCompra);
     this.dialog.open(QrcodeDialogComponent, {
-      height: '255px',
-      width: '255px',
       data: {
-        link: ingresso.codIngresso
+        ingressos: ingressos
       }
     });
   }

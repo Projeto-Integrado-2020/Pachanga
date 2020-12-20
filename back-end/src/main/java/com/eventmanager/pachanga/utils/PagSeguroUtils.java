@@ -62,13 +62,13 @@ public class PagSeguroUtils {
 						+ "    \"https://pachanga-back-end.herokuapp.com/ingresso/updateStatusCompra?codBoleto="+codBoleto+"\"\r\n"
 						+ "  ]\r\n" + "}")
 				.asString();
+		if (response.getStatus() != 201) {
+			throw new ValidacaoException(response.getBody());
+		}
 		
 		JSONObject obj = new JSONObject(response.getBody());
 		String urlBoletoPdf = obj.getJSONArray("links").getJSONObject(0).getString("href");
 		
-		if (response.getStatus() != 201) {
-			throw new ValidacaoException(response.getBody());
-		}
 		return urlBoletoPdf;
 	}
 

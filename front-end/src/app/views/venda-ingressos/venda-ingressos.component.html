@@ -49,7 +49,7 @@
                                                 <p><b>{{'VENDAINGRESSOS.PRECO' | translate }}:</b> R${{parserFloat(lote.preco)}}</p>
                                             </div>
                                             <mat-form-field class="remove">
-                                                <p><b>{{'VENDAINGRESSOS.QUANTIDADE' | translate }}:</b><input matInput formControlName="quantidade-{{lote.codLote}}" type="number"></p>
+                                                <p><b>{{'VENDAINGRESSOS.QUANTIDADE' | translate }}:</b><input matInput formControlName="quantidade-{{lote.codLote}}" type="number" min="0" max="5"></p>
                                             </mat-form-field>
                                         </div>
                                     </div>

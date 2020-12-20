@@ -17,8 +17,11 @@ import com.eventmanager.pachanga.dtos.InsercaoIngresso;
 import com.eventmanager.pachanga.errors.ValidacaoException;
 import com.eventmanager.pachanga.factory.IngressoFactory;
 import com.eventmanager.pachanga.repositories.IngressoRepository;
+import com.eventmanager.pachanga.repositories.LoteRepository;
 import com.eventmanager.pachanga.tipo.TipoPagamentoBoleto;
+import com.eventmanager.pachanga.tipo.TipoPermissao;
 import com.eventmanager.pachanga.tipo.TipoStatusCompra;
+import com.eventmanager.pachanga.tipo.TipoStatusFesta;
 import com.eventmanager.pachanga.tipo.TipoStatusIngresso;
 import com.eventmanager.pachanga.utils.EmailMensagem;
 import com.eventmanager.pachanga.utils.HashBuilder;
@@ -32,6 +35,9 @@ public class IngressoService {
 	private IngressoRepository ingressoRepository;
 
 	@Autowired
+	private LoteRepository loteRepository;
+
+	@Autowired
 	private UsuarioService usuarioService;
 
 	@Autowired
@@ -42,6 +48,9 @@ public class IngressoService {
 
 	@Autowired
 	private LoteService loteService;
+
+	@Autowired
+	private GrupoService grupoService;
 
 	@Autowired
 	private NotificacaoService notificacaoService;
@@ -59,9 +68,16 @@ public class IngressoService {
 	public List<IngressoTO> addListaIngresso(InsercaoIngresso ingressosInsercao) {
 		String codBoleto = null;
 		String urlBoleto = null;
+		int codFesta = ingressosInsercao.getListaIngresso().get(0).getFesta().getCodFesta();
+		int codLote = ingressosInsercao.getListaIngresso().get(0).getCodLote();
+
+		if (loteRepository.findLoteByFestaAndLote(codFesta, codLote).getQuantidade() - ingressoRepository
+				.findIngressosLoteVendido(codFesta, codLote) < ingressosInsercao.getListaIngresso().size()) {
+			throw new ValidacaoException("QINGRINV");// quantidade ingressos invalidas
+		}
+
 		if (ingressosInsercao.getInfoPagamento() != null
 				&& ingressosInsercao.getListaIngresso().get(0).getBoleto().booleanValue()) {
-			int codFesta = ingressosInsercao.getListaIngresso().get(0).getFesta().getCodFesta();
 			codBoleto = this.gerarCodigosIngresso(null, codFesta, true, 20);
 			Festa festa = festaService.validarFestaExistente(codFesta);
 			urlBoleto = PagSeguroUtils.criacaoBoleto(ingressosInsercao.getInfoPagamento(),
@@ -141,14 +157,25 @@ public class IngressoService {
 		return mesmoValorIngresso;
 	}
 
-	public Ingresso updateCheckin(IngressoTO ingressoTO) {
-		Ingresso ingresso = this.validarIngressoExistente(ingressoTO.getCodIngresso());
-		this.validarStatusIngresso(ingressoTO.getStatusIngresso());
-		ingresso.setStatusCompra(ingressoTO.getStatusCompra());
-		if (ingressoTO.getDataCheckin() == null) {
-			throw new ValidacaoException("CHECDATN");// data do check-in não informada
+	public Ingresso updateCheckin(String codIngresso, int codUsuario, int codFesta) {
+		this.festaService.validarFestaExistente(codFesta);
+		this.festaService.validarUsuarioFesta(codUsuario, codFesta);
+		Ingresso ingresso = this.validarIngressoExistente(codIngresso);
+
+		grupoService.validarPermissaoUsuarioGrupo(ingresso.getFesta().getCodFesta(), codUsuario,
+				TipoPermissao.RELCHECK.getCodigo());
+		if (ingresso.getFesta().getCodFesta() != codFesta) {
+			throw new ValidacaoException("INGRNOTF");// ingresso não pertence a festa
+		} else if (!ingresso.getStatusCompra().equals(TipoStatusCompra.PAGO.getDescricao())) {
+			throw new ValidacaoException("INGRNOTP");// ingresso não foi pago
+		} else if (ingresso.getStatusIngresso().equals(TipoStatusIngresso.CHECKED.getDescricao())) {
+			throw new ValidacaoException("INGRVERI");// ingresso já foi verificado
+		} else if (!TipoStatusFesta.INICIADO.getValor().equals(ingresso.getFesta().getStatusFesta())) {
+			throw new ValidacaoException("HORAINCC");// horario incorreto para o check-in
 		}
-		ingresso.setDataCheckin(ingressoTO.getDataCheckin());
+
+		ingresso.setStatusIngresso(TipoStatusIngresso.CHECKED.getDescricao());
+		ingresso.setDataCheckin(notificacaoService.getDataAtual());
 		ingressoRepository.save(ingresso);
 		return ingresso;
 	}
@@ -173,13 +200,6 @@ public class IngressoService {
 
 		});
 
-	}
-
-	private void validarStatusIngresso(String statusCompra) {
-		if (TipoStatusIngresso.CHECKED.getDescricao().equals(statusCompra)
-				&& TipoStatusIngresso.UNCHECKED.getDescricao().equals(statusCompra)) {
-			throw new ValidacaoException("STAIIINC");// status do ingresso do ingresso incorreto
-		}
 	}
 
 	public Ingresso validarIngressoExistente(String codIngresso) {
