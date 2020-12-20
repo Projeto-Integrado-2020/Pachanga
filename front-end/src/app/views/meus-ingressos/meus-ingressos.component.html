@@ -20,7 +20,7 @@
           <mat-divider></mat-divider>
           <mat-card-actions>
             <button (click)="gerarIngressoPDF(ingresso.listaUnidades)" *ngIf="ingresso.statusCompra === 'P'" mat-button>{{'MEUSINGRESSOS.IMPRIMIR' | translate}}</button>
-            <button *ngIf="ingresso.statusCompra === 'C'" mat-button>{{'MEUSINGRESSOS.BOLETO' | translate}}</button>
+            <button (click)="botaoImprimirBoleto(ingresso)"  *ngIf="ingresso.statusCompra === 'C'" mat-button>{{'MEUSINGRESSOS.BOLETO' | translate}}</button>
             <button *ngIf="ingresso.statusCompra != 'C'"  mat-button (click)="abrirQRDialog(ingresso)">{{'MEUSINGRESSOS.ABQRCODE' | translate}}</button>
           </mat-card-actions>
         </mat-card>
