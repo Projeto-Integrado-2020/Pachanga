@@ -43,6 +43,10 @@ describe('DialogIngressosMesmaFestaComponent', () => {
     fixture.detectChanges();
   });
 
+  it('should acessarUrl', () => {
+    expect(component).toBeTruthy();
+  });
+
   it('should create', () => {
     expect(component).toBeTruthy();
   });

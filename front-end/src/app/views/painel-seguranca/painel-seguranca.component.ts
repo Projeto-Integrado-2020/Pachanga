@@ -138,7 +138,6 @@ export class PainelSegurancaComponent implements OnInit, OnDestroy {
 
   openDialogRelatarProblema(area) {
     this.dialog.open(RelatarProblemaDialogComponent, {
-      width: '34rem',
       data: {
         codFesta: this.festa.codFesta,
         component: this,

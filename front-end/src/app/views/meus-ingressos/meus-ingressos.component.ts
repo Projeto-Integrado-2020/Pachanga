@@ -98,10 +98,11 @@ export class MeusIngressosComponent implements OnInit {
 
   abrirQRDialog(ingresso) {
 
-    const ingressos = this.listaIngressos.filter(x => x.festa.codFesta === ingresso.festa.codFesta && x.statusCompra === ingresso.statusCompra);
+    const ingressos = this.listaIngressos.
+      filter(x => x.festa.codFesta === ingresso.festa.codFesta && x.statusCompra === ingresso.statusCompra);
     this.dialog.open(QrcodeDialogComponent, {
       data: {
-        ingressos: ingressos
+        ingressos
       }
     });
   }
