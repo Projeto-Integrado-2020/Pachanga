@@ -23,7 +23,7 @@ export class DialogIngressosMesmaFestaComponent implements OnInit {
     console.log(this.ingressos);
   }
 
-  acessarUrl(urlBoleto){
+  acessarUrl(urlBoleto) {
     this.router.navigate([]).then(() => {  window.open(urlBoleto, '_blank'); });
   }
 

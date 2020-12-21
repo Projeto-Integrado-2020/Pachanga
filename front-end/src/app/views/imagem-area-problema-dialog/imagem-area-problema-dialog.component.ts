@@ -14,7 +14,7 @@ export class ImagemAreaProblemaDialogComponent implements OnInit {
 
   public detalhes: any;
   public problemaSeguranca: any = null;
-  urlNoImage = 'https://xtremebike.com.br/website/images/product/1.jpg';
+  urlNoImage = 'https://portal.ufvjm.edu.br/a-universidade/cursos/grade_curricular_ckan/loading.gif/@@images/image.gif';
   imagem = this.urlNoImage;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data, public modal: MatDialog, public segProblemaService: SegurancaProblemasService,

@@ -10,69 +10,20 @@ form {
     flex-direction: column;
 }
 
-.button{
-    
-    &-return {
-        margin: 1rem 0 0 1rem;
-    }
-
-    &-form {
-        background-color: $color-primary;
-        color: #ffffff;
-        padding: .2rem .6rem .2rem .6rem;
-    }
-}
-
-// MOBILE
-@media (max-width: 748px){
-    .content {
-        margin: 0;
-    }
-
-    .campo {
-        max-width: 75%;
-    }
-
-    .formulario {
-        max-width: 90%;
-    }
-
-    .campos-linha {
-        flex-direction: column;
-    }
-
-    .formulario-card {
-        width: 90%;
-    }
-}
-
-//DESKTOP
-@media (min-width: 749px) {
-    .campo {
-        max-width: 75%;
-    }
-
-    .formulario {
-        max-width: 60%;
-    }
-
-    .campos-linha {
-
-        gap: 1rem;
-    }
-
-
-}
-
 .imagem-input {
-    width: 60%;
+    width: 90%;
     margin-top: .5rem;
     margin-bottom: .7rem;
 }
 
 .div-imagem-input {
     width: 100%;
+}
 
-    position: relative;
-    left: 18%;
+.button-delete {
+    margin-bottom: 1rem;
+}
+
+.remove {
+    transform: translateY(-30px);
 }

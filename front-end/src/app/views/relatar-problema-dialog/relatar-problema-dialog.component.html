@@ -1,5 +1,5 @@
 <h1 mat-dialog-title>{{'RELATARPROB.TITULO' | translate}} {{this.area.nomeArea}}</h1>
-<div mat-dialog-content>
+<div class ="div-form" mat-dialog-content>
 
   <form [formGroup]="form" (submit)="relatarProblm(codProblema.value, descProblema.value)">
     <mat-form-field appearance="fill">
@@ -19,7 +19,7 @@
       <mat-hint align="end">{{descProblema.value.length}} / 1000</mat-hint>
     </mat-form-field>
 
-    <img [src]="imagem" height="200" width="500">
+    <img [src]="imagem" height="200">
     <div class="div-imagem-input">
       <mat-form-field class="campo imagem-input">
         <ngx-mat-file-input formControlName="imagemProblema" [accept]="'.jpg,.jpeg,.png'" #imagemProblema placeholder="{{'RELATARPROB.IMAGEM' | translate}}" valuePlaceholder="{{'RELATARPROB.SEMIMAGEM' | translate}}" (change)="alterarPreview()">
@@ -33,9 +33,7 @@
             {{'CRIARFESTA.IMAGEMHINT' | translate}}
         </mat-hint>
       </mat-form-field>
-      <button class="button-delete" type="button" mat-icon-button (click)="excluirInputImagem()">
-        <mat-icon matTooltip="{{'CRIARFESTA.DELETEIMAGEM' | translate}}">delete_forever</mat-icon>
-      </button>
+      <mat-icon class="remove" (click)="excluirInputImagem()" matTooltip="{{'CRIARFESTA.DELETEIMAGEM' | translate}}">delete_forever</mat-icon>
     </div>
     
 
