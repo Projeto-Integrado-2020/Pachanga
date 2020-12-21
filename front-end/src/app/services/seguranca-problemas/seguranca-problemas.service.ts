@@ -1,5 +1,6 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable, EventEmitter } from '@angular/core';
+import { MatDialog } from '@angular/material';
 import { Router } from '@angular/router';
 import { throwError } from 'rxjs';
 import { catchError, take } from 'rxjs/operators';
@@ -21,7 +22,8 @@ export class SegurancaProblemasService {
     private httpClient: HttpClient,
     public loginService: LoginService,
     private logService: LogService,
-    private router: Router
+    private router: Router,
+    public dialog: MatDialog
     ) { }
 
   listarProblemas() {
@@ -40,17 +42,25 @@ export class SegurancaProblemasService {
     }
   }
 
-  adicionarProblema(problemaTO) {
+  adicionarProblema(problemaTO, imagem) {
     if (!this.farol) {
       this.setFarol(true);
-      let headers = new HttpHeaders();
-      headers = headers.append('Content-Type', 'application/json');
-      headers = headers.append('Authorization', 'Bearer ' + JSON.parse(localStorage.getItem('token')).token);
 
       const httpParams = new HttpParams()
         .append('idUsuario', this.loginService.getusuarioInfo().codUsuario);
 
-      return this.httpClient.post(this.baseUrl + '/adicionar', problemaTO, {headers, params: httpParams}).pipe(
+      let headers = new HttpHeaders();
+      headers = headers.append('Authorization', 'Bearer ' + JSON.parse(localStorage.getItem('token')).token);
+
+      const formData = new FormData();
+      formData.append('problemaSegurancaTO', JSON.stringify(problemaTO));
+      if (imagem) {
+        formData.append('imagem', imagem._files[0]);
+      }
+
+      console.log(formData);
+
+      return this.httpClient.post(this.baseUrl + '/adicionar', formData, {params: httpParams, headers}).pipe(
         take(1),
         catchError(error => {
           return this.handleError(error, this.logService);
@@ -140,6 +150,29 @@ export class SegurancaProblemasService {
       }
     }
 
+    getProblemaSeguranca(codAreaSegurancaProblema, codFesta) {
+      if (!this.farol) {
+        this.setFarol(true);
+
+        let headers = new HttpHeaders();
+        headers = headers.append('Content-Type', 'application/json');
+        headers = headers.append('Authorization', 'Bearer ' + JSON.parse(localStorage.getItem('token')).token);
+
+        const httpParams = new HttpParams()
+          .append('codAreaSegurancaProblema', codAreaSegurancaProblema)
+          .append('idUsuario', this.loginService.getusuarioInfo().codUsuario)
+          .append('codFesta', codFesta)
+          .append('retornoImagem', 'true');
+
+        return this.httpClient.get(this.baseUrl + '/findProblemaSeguranca', {headers, params: httpParams}).pipe(
+          take(1),
+          catchError(error => {
+            return this.handleError(error, this.logService);
+          })
+        );
+      }
+    }
+
     // updateProblemas() {
     //   if (!this.farol) {
     //   this.updateProblemasEmitter.emit();
@@ -147,6 +180,7 @@ export class SegurancaProblemasService {
     // }
 
     handleError = (error: HttpErrorResponse, logService: LogService) => {
+      this.dialog.closeAll();
       logService.initialize();
       logService.logHttpInfo(JSON.stringify(error), 0, error.url);
       this.setFarol(false);

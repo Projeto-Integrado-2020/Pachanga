@@ -1,25 +1,45 @@
 <h1 mat-dialog-title>{{'RELATARPROB.TITULO' | translate}} {{this.area.nomeArea}}</h1>
-<div mat-dialog-content>
-  <form #model = "ngForm" (ngSubmit)="relatarProblema(model)">
+<div class ="div-form" mat-dialog-content>
+
+  <form [formGroup]="form" (submit)="relatarProblm(codProblema.value, descProblema.value)">
     <mat-form-field appearance="fill">
       <mat-label>{{'RELATARPROB.PROBLEMA' | translate}}</mat-label>
-      <mat-select ngModel #listaproblema name="codProblema">
+      <mat-select formControlName="codProblema" #codProblema name="codProblema">
         <!-- <mat-option value="{{categoria.codCategoria}}">{{'CATEGORIA.' + categoria.nomeCategoria | translate}}</mat-option> -->
         <mat-option *ngFor="let problema of this.listaProblemas" [value]="problema.codProblema">
           {{'RELATARPROB.' + problema.descProblema | translate}}
         </mat-option>
       </mat-select>
     </mat-form-field>
+
     <mat-form-field class="example-full-width">
-      <mat-label>Detalhes</mat-label>
-      <textarea ngModel name="descProblema" matInput #message maxlength="200"  placeholder="Detalhe do problema">
-      </textarea>
+      <mat-label>{{'RELATARPROB.DETALHES' | translate}}</mat-label>
+      <textarea formControlName="descProblema" matInput #descProblema maxlength="1000" placeholder="{{'RELATARPROB.DETALHE' | translate}}"></textarea>
       <!-- <mat-hint align="start"><strong>Don't disclose personal info</strong> </mat-hint> -->
-      <mat-hint align="end">{{message.value.length}} / 200</mat-hint>
+      <mat-hint align="end">{{descProblema.value.length}} / 1000</mat-hint>
     </mat-form-field>
+
+    <img [src]="imagem" height="200">
+    <div class="div-imagem-input">
+      <mat-form-field class="campo imagem-input">
+        <ngx-mat-file-input formControlName="imagemProblema" [accept]="'.jpg,.jpeg,.png'" #imagemProblema placeholder="{{'RELATARPROB.IMAGEM' | translate}}" valuePlaceholder="{{'RELATARPROB.SEMIMAGEM' | translate}}" (change)="alterarPreview()">
+        </ngx-mat-file-input>
+        <mat-icon matSuffix>image</mat-icon>
+        <mat-error *ngIf="form.get('imagemProblema').hasError('maxContentSize')">
+            {{'FORMERRORS.FILESIZE' | translate}} {{form.get('imagemProblema')?.getError('maxContentSize').maxSize | byteFormat}} ({{form.get('imagemProblema')?.getError('maxContentSize').actualSize
+            | byteFormat}}).
+        </mat-error>
+        <mat-hint *ngIf="!form.get('imagemProblema').hasError('maxContentSize')">
+            {{'CRIARFESTA.IMAGEMHINT' | translate}}
+        </mat-hint>
+      </mat-form-field>
+      <mat-icon class="remove" (click)="excluirInputImagem()" matTooltip="{{'CRIARFESTA.DELETEIMAGEM' | translate}}">delete_forever</mat-icon>
+    </div>
+    
+
     <button 
       class="prp-btn"
-      [disabled]="!model.value.descProblema || !model.value.codProblema"
+      [disabled]="(!form.value.codProblema) || (form.value.codProblema == 14 && !form.value.descProblema)"
       mat-raised-button>{{'RELATARPROB.RELATAR' | translate}}</button>
   </form>
 </div>

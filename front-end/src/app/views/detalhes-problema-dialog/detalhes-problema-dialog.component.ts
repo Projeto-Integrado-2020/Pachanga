@@ -3,6 +3,8 @@ import { MatDialog, MAT_DIALOG_DATA } from '@angular/material';
 import { TranslateService } from '@ngx-translate/core';
 import { LoginService } from 'src/app/services/loginService/login.service';
 import { SegurancaProblemasService } from 'src/app/services/seguranca-problemas/seguranca-problemas.service';
+import { ImagemAreaProblemaDialogComponent } from '../imagem-area-problema-dialog/imagem-area-problema-dialog.component';
+import { ProcessingDialogComponent } from '../processing-dialog/processing-dialog.component';
 
 @Component({
   selector: 'app-detalhes-problema-dialog',
@@ -14,6 +16,7 @@ export class DetalhesProblemaDialogComponent implements OnInit {
   public detalhes: any;
   public dia: string;
   public hora: string;
+  public problemaSeguranca: any = null;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data,
@@ -27,8 +30,15 @@ export class DetalhesProblemaDialogComponent implements OnInit {
 
   ngOnInit() {
     this.detalhes = this.data;
-    console.log(this.detalhes);
-    console.log(this.dataHorarioProblema());
+    this.dataHorarioProblema();
+  }
+
+  verImagem(detalhes) {
+    this.modal.open(ImagemAreaProblemaDialogComponent, {
+      data: {
+        detalhes
+      }
+    });
   }
 
   dataHorarioProblema() {
@@ -53,7 +63,6 @@ export class DetalhesProblemaDialogComponent implements OnInit {
   alterarStatus(finaliza: boolean, status: string) {
     this.detalhes.problema.statusProblema = status;
     this.detalhes.problema.codUsuarioResolv = this.loginService.getusuarioInfo().codUsuario;
-    console.log(this.detalhes.problema);
     this.segProblemaService.alterarStatus(finaliza, this.detalhes.problema).subscribe(
       () => {
         this.segProblemaService.setFarol(false);

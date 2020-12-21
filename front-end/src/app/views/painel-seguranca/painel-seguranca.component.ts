@@ -68,7 +68,6 @@ export class PainelSegurancaComponent implements OnInit, OnDestroy {
 
   resgatarAreaSeguranca() {
     this.getSeguranca.getAreaSeguranca(this.idFesta).subscribe((resp: any) => {
-      this.getSeguranca.setFarol(false);
       for (const areaResp of resp) {
         let flag = 0;
         for (const area of this.areas) {
@@ -139,7 +138,6 @@ export class PainelSegurancaComponent implements OnInit, OnDestroy {
 
   openDialogRelatarProblema(area) {
     this.dialog.open(RelatarProblemaDialogComponent, {
-      width: '20rem',
       data: {
         codFesta: this.festa.codFesta,
         component: this,

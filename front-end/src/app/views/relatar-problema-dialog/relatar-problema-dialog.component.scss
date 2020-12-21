@@ -9,3 +9,21 @@ form {
     display: flex;
     flex-direction: column;
 }
+
+.imagem-input {
+    width: 90%;
+    margin-top: .5rem;
+    margin-bottom: .7rem;
+}
+
+.div-imagem-input {
+    width: 100%;
+}
+
+.button-delete {
+    margin-bottom: 1rem;
+}
+
+.remove {
+    transform: translateY(-30px);
+}

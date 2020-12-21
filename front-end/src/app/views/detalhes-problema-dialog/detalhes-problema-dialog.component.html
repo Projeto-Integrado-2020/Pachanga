@@ -13,15 +13,17 @@
       <strong>{{"PROBLEMADETALHES.OBSERVACOES" | translate}}:</strong> {{this.detalhes.problema.observacaoSolucao}}
     </span>
   </div>
+  <button class="prp-btn" mat-raised-button (click)="verImagem(this.detalhes)" *ngIf="this.detalhes.problema.hasImagem === true">{{'PROBLEMADETALHES.VISUIMAGEM' | translate}}</button>
+  
   <mat-form-field
     class="example-full-width"
     *ngIf="this.detalhes.problema.statusProblema == 'A'"
     >
     <mat-label>{{"PROBLEMADETALHES.OBSERVACOES" | translate}}</mat-label>
-    <textarea [(ngModel)]="this.detalhes.problema.observacaoSolucao"  matInput #message maxlength="200">
+    <textarea [(ngModel)]="this.detalhes.problema.observacaoSolucao"  matInput #message maxlength="1000">
     </textarea>
     <!-- <mat-hint align="start"><strong>Don't disclose personal info</strong> </mat-hint> -->
-    <mat-hint align="end">{{message.value.length}} / 200</mat-hint>
+    <mat-hint align="end">{{message.value.length}} / 1000</mat-hint>
   </mat-form-field>
   <div class="botoes">
       <button 

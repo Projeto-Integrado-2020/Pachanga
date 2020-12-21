@@ -111,7 +111,7 @@ describe('MeusIngressosComponent', () => {
         horarioFimFesta: '2020-11-15 12:00:00',
         nomeFesta: 'Teste1'
       }
-    }
+    };
 
     component.abrirQRDialog(ingresso);
     expect(dialogSpy.open).toHaveBeenCalled();
