@@ -1,7 +1,10 @@
 package com.eventmanager.pachanga.services;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +27,7 @@ import com.eventmanager.pachanga.tipo.TipoStatusCompra;
 import com.eventmanager.pachanga.tipo.TipoStatusFesta;
 import com.eventmanager.pachanga.tipo.TipoStatusIngresso;
 import com.eventmanager.pachanga.utils.EmailMensagem;
+import com.eventmanager.pachanga.utils.EnvioEmMassaDeConvite;
 import com.eventmanager.pachanga.utils.HashBuilder;
 import com.eventmanager.pachanga.utils.PagSeguroUtils;
 
@@ -116,7 +120,7 @@ public class IngressoService {
 		}
 
 		if (TipoStatusCompra.PAGO.getDescricao().equals(ingressoTO.getStatusCompra())) {
-			this.criacaoEmailIngresso(ingresso, festa);
+			this.criacaoEmailIngresso(usuario.getEmail(), ingresso, festa);
 		}
 		ingressoRepository.save(ingresso);
 
@@ -185,7 +189,8 @@ public class IngressoService {
 		int statusPagamento = PagSeguroUtils.retornoDadosTransacao(notificationCode);
 
 		List<Ingresso> ingressos = ingressoRepository.findIngressosEmProcessoBoleto();
-
+	
+		List<Ingresso> ingressosPagos = new ArrayList<>();
 		ingressos.stream().forEach(i -> {
 			if (HashBuilder.compararCodigos(codBoleto, i.getCodBoleto())) {
 				if (TipoPagamentoBoleto.DEVOLVIDO.getStatus() == statusPagamento
@@ -194,11 +199,15 @@ public class IngressoService {
 					ingressoRepository.delete(i);
 				} else if (TipoPagamentoBoleto.PAGO.getStatus() == statusPagamento) {
 					i.setStatusCompra(TipoStatusCompra.PAGO.getDescricao());
-					this.criacaoEmailIngresso(i, i.getFesta());
+					ingressosPagos.add(i);
 				}
 			}
 
 		});
+		
+		EnvioEmMassaDeConvite envioEmMassaDeConvite = new EnvioEmMassaDeConvite();
+		envioEmMassaDeConvite.upsertAll(ingressosPagos);
+		envioEmMassaDeConvite.enviarTudo();
 
 	}
 
@@ -209,10 +218,11 @@ public class IngressoService {
 		}
 		return ingresso;
 	}
-
-	private void criacaoEmailIngresso(Ingresso ingresso, Festa festa) {
-		EmailMensagem emailMessage = new EmailMensagem();
-		emailMessage.enviarEmailQRCode(ingresso.getUsuario().getEmail(), ingresso.getCodIngresso(), festa);
+	
+	private void criacaoEmailIngresso( String email ,Ingresso ingresso, Festa festa) {
+		List<Ingresso> ingressos =new ArrayList<>();
+		ingressos.add(ingresso);
+		EmailMensagem.enviarEmailQRCode(email, festa, ingressos);
 	}
 
 	private String geracaoCodigo(int limit) {
