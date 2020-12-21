@@ -144,6 +144,32 @@ describe('MeusIngressosComponent', () => {
     expect(component.ingressosService.listaIngressos).toHaveBeenCalled();
   });
 
+  it('should abrirBoletoIngressosMultiplos', () => {
+
+    const ingresso = {
+      codLote: '1',
+      codIngresso: '1',
+      statusCompra: 'P',
+      dataCompra: '2020-11-10T12:00:00',
+      codFesta: '1',
+      nomeLote: 'Ingresso VIP 1',
+      preco: 40,
+      festa: {
+        statusFesta: 'P',
+        horarioInicioFesta: '2020-11-10 12:00:00',
+        horarioFimFesta: '2020-11-15 12:00:00',
+        nomeFesta: 'Teste1'
+      }
+    }
+
+    spyOn(component.router, 'navigate')
+    .and
+    .callThrough();
+    component.abrirBoletoIngressosMultiplos(ingresso);
+    expect(component.router.navigate).toHaveBeenCalled();
+  });
+  
+
   it('should call criarPaginaPDF at gerarIngressoPDF', () => {
     spyOn(component, 'criarPaginaPDF')
     .and
