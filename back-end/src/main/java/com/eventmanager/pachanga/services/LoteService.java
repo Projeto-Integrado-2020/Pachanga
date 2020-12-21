@@ -82,8 +82,10 @@ public class LoteService {
 		festaService.validarUsuarioFesta(codUsuario, festa.getCodFesta());
 		grupoService.validarPermissaoUsuarioGrupo(festa.getCodFesta(), codUsuario, TipoPermissao.EDITLOTE.getCodigo());
 		Lote lote = this.validarLoteExistente(loteTo.getCodLote());
-		if(!lote.getNomeLote().equals(loteTo.getNomeLote())) {
+		if (!lote.getNomeLote().equals(loteTo.getNomeLote())) {
 			this.validarNumeroLote(loteTo);
+		}else if(lote.getNumeroLote() != loteTo.getNumeroLote()) {
+			throw new ValidacaoException("NINVLOTE");
 		}
 		this.validarLote(loteTo);
 		lote.setDescLote(loteTo.getDescLote());
@@ -121,10 +123,11 @@ public class LoteService {
 			throw new ValidacaoException("DATEINFE");// data final menor que inicial
 		}
 	}
-	
+
 	private void validarNumeroLote(LoteTO loteTo) {
-		List<Lote> lotesExistente = loteRepository.findByNomeLote(loteTo.getNomeLote().toUpperCase(), loteTo.getCodFesta());
-		if(loteTo.getNumeroLote() != lotesExistente.size() + 1) {
+		List<Lote> lotesExistente = loteRepository.findByNomeLote(loteTo.getNomeLote().toUpperCase(),
+				loteTo.getCodFesta());
+		if (loteTo.getNumeroLote() != lotesExistente.size() + 1) {
 			throw new ValidacaoException("NINVLOTE");// numero invalido para o lote
 		}
 	}
