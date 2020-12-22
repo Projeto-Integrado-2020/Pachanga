@@ -157,12 +157,16 @@
         "CUPMNFOU": "Coupon not found.",
         "CHECKERR": "This participant has already checked-in.",
         "INGRNFOU": "Ticket not found.",
-        "QINGRINV": "Tickets sold-out.",
+        "QINGRINV": "Number of tickets exceeds available number.",
         "NINVLOTE": "Invalid batch number.",
         "INGRNOTF": "This ticket does not belong to this party.",
         "INGRNOTP": "This ticket has not been paid.",
         "INGRVERI": "This ticket has already been verified.",
-        "HORAINCC": "The party is over or not yet started."
+        "HORAINCC": "The party is over or not yet started.",
+        "payment_method.boleto.holder.tax_id": "Invalid CPF.",
+        "payment_method.boleto.holder.address.region_code": "Invalid region code.",
+        "payment_method.boleto.holder.email": "Invalid e-mail.",
+        "BOLEREGI": "Invalid State/City."
     },
 
     "SUCCESS": {

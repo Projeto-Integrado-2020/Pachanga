@@ -160,7 +160,7 @@ describe('MeusIngressosComponent', () => {
         horarioFimFesta: '2020-11-15 12:00:00',
         nomeFesta: 'Teste1'
       }
-    }
+    };
 
     spyOn(component.router, 'navigate')
     .and
@@ -168,7 +168,7 @@ describe('MeusIngressosComponent', () => {
     component.abrirBoletoIngressosMultiplos(ingresso);
     expect(component.router.navigate).toHaveBeenCalled();
   });
-  
+
 
   it('should call criarPaginaPDF at gerarIngressoPDF', () => {
     spyOn(component, 'criarPaginaPDF')
