@@ -11,10 +11,11 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.eventmanager.pachanga.errors.ValidacaoException;
 
 
 @RestController
@@ -30,9 +31,8 @@ public class JwtAuthenticationController {
 	@Autowired
 	private UserDetailsService jwtInMemoryUserDetailsService;
 
-	@RequestMapping(value = "/authenticate", method = RequestMethod.POST)
-	public ResponseEntity<?> generateAuthenticationToken(@RequestBody JwtRequest authenticationRequest)
-			throws Exception {
+	@PostMapping(value = "/authenticate")
+	public ResponseEntity<Object> generateAuthenticationToken(@RequestBody JwtRequest authenticationRequest) {
 
 		authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
 
@@ -44,15 +44,15 @@ public class JwtAuthenticationController {
 		return ResponseEntity.ok(token);
 	}
 
-	private void authenticate(String username, String password) throws Exception {
+	private void authenticate(String username, String password){
 		Objects.requireNonNull(username);
 		Objects.requireNonNull(password);
 		try {
 			authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
 		} catch (DisabledException e) {
-			throw new Exception("USER_DISABLED", e);
+			throw new ValidacaoException("USER_DISABLED");
 		} catch (BadCredentialsException e) {
-			throw new Exception("INVALID_CREDENTIALS", e);
+			throw new ValidacaoException("INVALID_CREDENTIALS");
 		}
 	}
 }

@@ -32,9 +32,9 @@ public class Paragraph {
 	private Color color;
 	private float lineSpacing;
 
-	private final static int DEFAULT_TAB = 4;
-	private final static int DEFAULT_TAB_AND_BULLET = 6;
-	private final static int BULLET_SPACE = 2;
+	private static final int DEFAULT_TAB = 4;
+	private static final int DEFAULT_TAB_AND_BULLET = 6;
+	private static final int BULLET_SPACE = 2;
 
 	private boolean drawDebug;
 	private final Map<Integer, Float> lineWidths = new HashMap<>();
@@ -291,7 +291,6 @@ public class Paragraph {
 								textInLine.push(currentFont, fontSize, new Token(TokenType.PADDING,
 										String.valueOf(tabBullet / 1000 * getFontSize())));
 							} catch (IOException e) {
-								// TODO Auto-generated catch block
 								e.printStackTrace();
 							}
 						}
@@ -317,7 +316,6 @@ public class Paragraph {
 							listLevel = 0;
 						}
 						if (numberOfOrderedLists>0) {
-//							String orderingNumber = String.valueOf(orderListElement) + ". ";
 							String orderingNumber = stack.isEmpty() ? String.valueOf("1") + "." : stack.pop().getValue() + ". ";
 							try {
 								float tab = indentLevel(DEFAULT_TAB);
@@ -486,6 +484,8 @@ public class Paragraph {
 					e.printStackTrace();
 				}
 				break;
+			default:
+				break;
 			}
 		}
 		if (sinceLastWrapPoint.trimmedWidth() + textInLine.trimmedWidth() > 0)
@@ -600,7 +600,7 @@ public class Paragraph {
 	}
 
 	public float getHeight() {
-		if (getLines().size() == 0) {
+		if (getLines().isEmpty()) {
 			return 0;
 		} else {
 			return (getLines().size() - 1) * getLineSpacing() * getFontHeight() + getFontHeight();
@@ -609,15 +609,6 @@ public class Paragraph {
 
 	public float getFontHeight() {
 		return FontUtils.getHeight(font, fontSize);
-	}
-
-	/**
-	 * @deprecated This method will be removed in a future release
-	 * @return current font width
-	 */
-	@Deprecated
-	public float getFontWidth() {
-		return font.getFontDescriptor().getFontBoundingBox().getWidth() / 1000 * fontSize;
 	}
 
 	/**
@@ -633,51 +624,10 @@ public class Paragraph {
 		return this;
 	}
 
-	/**
-	 * @deprecated This method will be removed in a future release
-	 * @param font
-	 *            {@link PDFont} for {@link Paragraph}
-	 * @param fontSize
-	 *            font size for {@link Paragraph}
-	 * @return {@link Paragraph} with designated font and font size
-	 */
-	@Deprecated
-	public Paragraph withFont(PDFont font, int fontSize) {
-		invalidateLineWrapping();
-		this.spaceWidth = null;
-		this.font = font;
-		this.fontSize = fontSize;
-		return this;
-	}
-
 	// font, fontSize, width, and align are non-final and used in getLines(),
 	// so if they are mutated, getLines() needs to be recomputed
 	private void invalidateLineWrapping() {
 		lines = null;
-	}
-
-	/**
-	 * /**
-	 *
-	 * @deprecated This method will be removed in a future release
-	 * @param color
-	 *            {@code int} rgb value for color
-	 * @return Paragraph's {@link Color}
-	 */
-	@Deprecated
-	public Paragraph withColor(int color) {
-		this.color = new Color(color);
-		return this;
-	}
-
-	/**
-	 * @deprecated This method will be replaced by
-	 *             {@code public Color getColor()} in a future release
-	 * @return Paragraph's {@link Color}
-	 */
-	@Deprecated
-	public int getColor() {
-		return color.getRGB();
 	}
 
 	private float getHorizontalFreeSpace(final String text) {

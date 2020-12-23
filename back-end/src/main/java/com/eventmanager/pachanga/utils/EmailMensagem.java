@@ -109,7 +109,7 @@ public class EmailMensagem {
 			MimeBodyPart attachmentPart = new MimeBodyPart();
 			MimeMultipart multipart = new MimeMultipart("related");
 			
-			File file = PdfConviteManager.GerarPDF(ingressos);
+			File file = PdfConviteManager.gerarPDF(ingressos);
 			try {
 				attachmentPart = new MimeBodyPart();
 				attachmentPart.attachFile(file);

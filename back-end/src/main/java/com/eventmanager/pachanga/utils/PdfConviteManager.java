@@ -27,16 +27,13 @@ import com.eventmanager.pachanga.pdfbox.Row;
 
 public class PdfConviteManager {
 	
-	public static final String pdfPath = "src/main/resources/arquivos/pdf/";
-	public static final String qrCodePath = "src/main/resources/arquivos/png/";
-	
-	//public static final Color roxo = Color.getHSBColor(276, 79, 61);
-	//public static final Color magenta = Color.getHSBColor(336, 79, 61);
-	
+	private PdfConviteManager() {
+	}
+
 	public static final Color roxo = Color.RED;
 	public static final Color magenta = Color.BLUE;
 	
-	public static File GerarPDF(List<Ingresso> ingressos) {
+	public static File gerarPDF(List<Ingresso> ingressos) {
 	
 		PDDocument pdf = new PDDocument();
 		String path = null;
@@ -49,16 +46,16 @@ public class PdfConviteManager {
 			    pdf.addPage(page);
 			    PDPageContentStream content = new PDPageContentStream(pdf, page);
 		    	
-		    	addToTitlePachanga(page, content, pdf);
-		    	addToTitleUrl(page, content, pdf);
-		    	AddDadosFesta(page, pdf, festa);
-		    	AddDadosIngresso(page, pdf, ingresso);
-		    	AddDadosParticipante(page, pdf, ingresso);
-		    	inserirQRCode(page, content, pdf, ingresso);
+		    	addToTitlePachanga(page, content);
+		    	addToTitleUrl(page, content);
+		    	addDadosFesta(page, pdf, festa);
+		    	addDadosIngresso(page, pdf, ingresso);
+		    	addDadosParticipante(page, pdf, ingresso);
+		    	inserirQRCode(content, pdf, ingresso);
 		    	
 		    	content.close();
 	    	}	
-	    	path = pdfPath + ingressos.get(0).getCodIngresso() + ".pdf";
+	    	path = ingressos.get(0).getCodIngresso() + ".pdf";
 	    	pdf.save(path);
 	    	pdf.close();
 	    } catch (IOException e) {
@@ -72,7 +69,7 @@ public class PdfConviteManager {
 	    	
 	 }
 	    
-	 private static void addToTitlePachanga(PDPage page, PDPageContentStream content, PDDocument pdf) {
+	 private static void addToTitlePachanga(PDPage page, PDPageContentStream content) {
 		 try {
 			 String title = "Pachanga";
 	         PDFont font = PDType1Font.HELVETICA_BOLD;  
@@ -93,7 +90,7 @@ public class PdfConviteManager {
 	       }
 	   }
 	   
-	  private static void addToTitleUrl(PDPage page, PDPageContentStream content, PDDocument pdf) {
+	  private static void addToTitleUrl(PDPage page, PDPageContentStream content) {
 		   try {
 	           String title = "https://pachanga.herokuapp.com/";
 	           PDFont font = PDType1Font.HELVETICA_BOLD;
@@ -116,7 +113,7 @@ public class PdfConviteManager {
 	       }
 	   }
 	   
-	  private static void AddDadosFesta(PDPage page, PDDocument doc, Festa festa) throws IOException {
+	  private static void addDadosFesta(PDPage page, PDDocument doc, Festa festa) throws IOException {
 		   float margin = 60;
 		   float yStartNewPage = page.getMediaBox().getHeight() - (2 * margin);
 		   float yStart = 700;
@@ -145,7 +142,7 @@ public class PdfConviteManager {
 		   
 	   }
 	   
-	  private static void AddDadosIngresso(PDPage page, PDDocument doc, Ingresso ingresso) throws IOException {
+	  private static void addDadosIngresso(PDPage page, PDDocument doc, Ingresso ingresso) throws IOException {
 		   Lote lote = ingresso.getLote();
 		   float margin = 60;
 		   float yStartNewPage = page.getMediaBox().getHeight() - (2 * margin);
@@ -181,7 +178,7 @@ public class PdfConviteManager {
 		   
 	   }
 	   
-	   private static void AddDadosParticipante(PDPage page, PDDocument doc, Ingresso ingresso) throws IOException {
+	   private static void addDadosParticipante(PDPage page, PDDocument doc, Ingresso ingresso) throws IOException {
 		   float margin = 60;
 		   float leght = (float) 55.00;
 		   float yStartNewPage = page.getMediaBox().getHeight() - (2 * margin);
@@ -211,7 +208,7 @@ public class PdfConviteManager {
 		   
 	   }
 	   
-	   private static void inserirQRCode(PDPage page, PDPageContentStream content, PDDocument pdf, Ingresso ingresso) throws IOException {   
+	   private static void inserirQRCode(PDPageContentStream content, PDDocument pdf, Ingresso ingresso) throws IOException {   
 	       //escreve texto abaixo do QRCode
 		   String title = ingresso.getCodIngresso();
 	       PDFont font = PDType1Font.HELVETICA_BOLD;
@@ -229,7 +226,7 @@ public class PdfConviteManager {
 	       
 	       //insere QRCode
 	       BufferedImage bufferedImage;
-	       File file = new File(qrCodePath + ingresso.getCodIngresso() + ".png");
+	       File file = new File(ingresso.getCodIngresso() + ".png");
 	       try {
 	    	   bufferedImage = QRCodeManager.generateQRCodeImage(ingresso.getCodIngresso());
 	    	   ImageIO.write(bufferedImage, "png", file);
@@ -257,8 +254,7 @@ public class PdfConviteManager {
 	   
 	   private static String prettyPrint(float preco) {
 		   DecimalFormat decimalFormat = new DecimalFormat("#.00");
-	       String numberAsString = decimalFormat.format(preco);
-		   return numberAsString;
+		   return decimalFormat.format(preco);
 	   }
 	  
 }

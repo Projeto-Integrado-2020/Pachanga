@@ -252,8 +252,6 @@ public class Cell<T extends PDPage> {
 		if (isTextRotated()) {
 			// need to calculate max line width so we just iterating through
 			// lines
-			for (String line : getParagraph().getLines()) {
-			}
 			return getInnerHeight() - getParagraph().getMaxLineWidth();
 		} else {
 			return getInnerHeight() - getTextHeight();
@@ -365,10 +363,10 @@ public class Cell<T extends PDPage> {
 		this.valign = valign;
 	}
 
-	public void copyCellStyle(Cell sourceCell) {
+	public void copyCellStyle(Cell<T> sourceCell) {
 		Boolean leftBorder = this.leftBorderStyle == null;
 		setBorderStyle(sourceCell.getTopBorder());
-		if (leftBorder) {
+		if (leftBorder.booleanValue()) {
 			this.leftBorderStyle = null;// if left border wasn't set, don't set
 										// it now
 		}
@@ -381,7 +379,7 @@ public class Cell<T extends PDPage> {
 		setValign(sourceCell.getValign());
 	}
 
-	public Boolean hasSameStyle(Cell sourceCell) {
+	public Boolean hasSameStyle(Cell<T> sourceCell) {
 		if (!sourceCell.getTopBorder().equals(getTopBorder())) {
 			return false;
 		}

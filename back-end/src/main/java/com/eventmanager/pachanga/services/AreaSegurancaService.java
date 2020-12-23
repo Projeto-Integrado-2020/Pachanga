@@ -69,9 +69,9 @@ public class AreaSegurancaService {
 		AreaSeguranca areaSeguranca = this.validarAreaExistente(codArea);
 		grupoService.validarPermissaoUsuarioGrupo(areaSeguranca.getCodFesta(), codUsuario, TipoPermissao.DELEAREA.getCodigo());
 		List<AreaSegurancaProblema> problemasArea = areaSegurancaProblemaRepository.findProblemasArea(codArea);
-		problemasArea.forEach(pa->{
-			areaSegurancaProblemaService.deletarNotificacoes(pa);
-		});
+		problemasArea.forEach(pa->
+			areaSegurancaProblemaService.deletarNotificacoes(pa)
+		);
 		List<AreaSegurancaProblema> areasSegurancasProblemas = areaSegurancaProblemaRepository
 				.findProblemasArea(codArea);
 		areaSegurancaProblemaRepository.deleteAll(areasSegurancasProblemas);

@@ -19,7 +19,7 @@ import com.eventmanager.pachanga.securingweb.JwtUserDetailsService;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(value=QuestionarioFormsFactory.class)
-public class QuestionarioFormsFactoryTest {
+class QuestionarioFormsFactoryTest {
 	
 	@MockBean
 	private AuthorizationServerTokenServices defaultAuthorizationServerTokenServices;

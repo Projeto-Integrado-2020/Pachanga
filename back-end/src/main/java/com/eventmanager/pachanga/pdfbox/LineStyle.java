@@ -1,6 +1,5 @@
 package com.eventmanager.pachanga.pdfbox;
 
-import java.awt.BasicStroke;
 import java.awt.Color;
 import java.util.Objects;
 

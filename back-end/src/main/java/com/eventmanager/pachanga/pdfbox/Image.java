@@ -1,12 +1,13 @@
 package com.eventmanager.pachanga.pdfbox;
 
-import be.quodlibet.boxable.utils.ImageUtils;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+
 import org.apache.pdfbox.pdmodel.PDDocument;
-import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.graphics.image.LosslessFactory;
 import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
+
+import be.quodlibet.boxable.utils.ImageUtils;
 
 public class Image {
 

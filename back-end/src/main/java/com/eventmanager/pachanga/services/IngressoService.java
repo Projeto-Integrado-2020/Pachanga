@@ -204,7 +204,7 @@ public class IngressoService {
 		
 		EnvioEmMassaDeConvite envioEmMassaDeConvite = new EnvioEmMassaDeConvite();
 		envioEmMassaDeConvite.upsertAll(ingressosPagos);
-//		envioEmMassaDeConvite.enviarTudo();
+		envioEmMassaDeConvite.enviarTudo();
 
 	}
 

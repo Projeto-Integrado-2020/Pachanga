@@ -31,7 +31,7 @@ public class Row<T extends PDPage> {
 	}
 
 	public Cell<T> createCell(float width, String value) {
-		Cell<T> cell = new Cell<T>(this, width, value, true);
+		Cell<T> cell = new Cell<>(this, width, value, true);
 		if (headerRow) {
 			// set all cell as header cell
 			cell.setHeaderCell(true);
@@ -43,7 +43,7 @@ public class Row<T extends PDPage> {
 	}
 	
 	public Cell<T> createCell(float width, String value, float fontSize) {
-		Cell<T> cell = new Cell<T>(this, width, value, true);
+		Cell<T> cell = new Cell<>(this, width, value, true);
 		if (headerRow) {
 			// set all cell as header cell
 			cell.setHeaderCell(true);
@@ -56,7 +56,7 @@ public class Row<T extends PDPage> {
 	}
 	
 	public Cell<T> createCell(float width, String value, float fontSize, boolean top, boolean bottom) {
-		Cell<T> cell = new Cell<T>(this, width, value, true);
+		Cell<T> cell = new Cell<>(this, width, value, true);
 		if (headerRow) {
 			// set all cell as header cell
 			cell.setHeaderCell(true);
@@ -64,8 +64,8 @@ public class Row<T extends PDPage> {
 		setBorders(cell, cells.isEmpty());
 		cell.setLineSpacing(lineSpacing);
 		cell.setFontSize(fontSize);
-		if(top != true)cell.setTopBorderStyle(new LineStyle(Color.WHITE, 1));
-		if(bottom != true)cell.setBottomBorderStyle(new LineStyle(Color.WHITE, 1));
+		if(!top)cell.setTopBorderStyle(new LineStyle(Color.WHITE, 1));
+		if(!bottom)cell.setBottomBorderStyle(new LineStyle(Color.WHITE, 1));
 		cells.add(cell);
 		return cell;
 	}
@@ -78,7 +78,7 @@ public class Row<T extends PDPage> {
 	}
 
 	public Cell<T> createImageCell(float width, Image img, HorizontalAlignment align, VerticalAlignment valign) {
-		Cell<T> cell = new ImageCell<T>(this, width, img, true, align, valign);
+		Cell<T> cell = new ImageCell<>(this, width, img, true, align, valign);
 		setBorders(cell, cells.isEmpty());
 		cells.add(cell);
 		return cell;
@@ -94,7 +94,7 @@ public class Row<T extends PDPage> {
 	}
 
 	public Cell<T> createCell(float width, String value, HorizontalAlignment align, VerticalAlignment valign) {
-		Cell<T> cell = new Cell<T>(this, width, value, true, align, valign);
+		Cell<T> cell = new Cell<>(this, width, value, true, align, valign);
 		if (headerRow) {
 			// set all cell as header cell
 			cell.setHeaderCell(true);
@@ -108,7 +108,7 @@ public class Row<T extends PDPage> {
 
 	public Cell<T> createCell(String value) {
 		float headerCellWidth = table.getHeader().getCells().get(cells.size()).getWidth();
-		Cell<T> cell = new Cell<T>(this, headerCellWidth, value, false);
+		Cell<T> cell = new Cell<>(this, headerCellWidth, value, false);
 		setBorders(cell, cells.isEmpty());
 		cells.add(cell);
 		return cell;
@@ -187,8 +187,7 @@ public class Row<T extends PDPage> {
 			cellWidth += cell.getWidth();
 		}
 
-		float lastCellExtraWidth = this.getWidth() - cellWidth;
-		return lastCellExtraWidth;
+		return this.getWidth() - cellWidth;
 	}
 
 	public float xEnd() {
