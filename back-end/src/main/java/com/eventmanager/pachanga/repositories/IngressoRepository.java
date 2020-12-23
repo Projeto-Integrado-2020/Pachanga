@@ -34,10 +34,10 @@ public interface IngressoRepository extends JpaRepository<Ingresso, Integer>{
 	@Query(value = "SELECT i FROM Ingresso i WHERE i.codBoleto = :codBoleto")
 	public List<Ingresso> findIngressoByCodBoleto(String codBoleto);
 
-	@Query(value = "SELECT i FROM Ingresso i JOIN i.festa f WHERE i.statusCompra = 'C'")
+	@Query(value = "SELECT i FROM Ingresso i JOIN i.festa f WHERE i.statusCompra = 'C' AND i.codBoleto != null")
 	public List<Ingresso> findIngressosEmProcessoBoleto();
 
-	@Query(value = "SELECT i FROM Ingresso i JOIN i.festa f WHERE i.statusCompra = 'C' AND f.codFesta = :codFesta")
+	@Query(value = "SELECT i FROM Ingresso i JOIN i.festa f WHERE i.statusCompra = 'C' AND f.codFesta = :codFesta AND i.codBoleto != null")
 	public List<Ingresso> findIngressosEmProcessoBoletoFesta(int codFesta);
 	
 	@Query(value = "SELECT count(i) FROM Ingresso i JOIN i.lote lt JOIN lt.festa fe WHERE fe.codFesta = :codFesta AND lt.codLote = :codLote")
