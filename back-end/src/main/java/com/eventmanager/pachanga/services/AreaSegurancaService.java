@@ -74,6 +74,7 @@ public class AreaSegurancaService {
 		);
 		List<AreaSegurancaProblema> areasSegurancasProblemas = areaSegurancaProblemaRepository
 				.findProblemasArea(codArea);
+		areaSegurancaProblemaRepository.deleteAll(problemasArea);
 		areaSegurancaProblemaRepository.deleteAll(areasSegurancasProblemas);
 		areaSegurancaRepository.delete(areaSeguranca);
 	}
