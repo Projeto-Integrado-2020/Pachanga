@@ -21,10 +21,12 @@ describe('RelatarProblemaDialogComponent', () => {
   let component: RelatarProblemaDialogComponent;
   let fixture: ComponentFixture<RelatarProblemaDialogComponent>;
   let dialogSpy: MatDialog;
+  let dialogRefSpy: MatDialogRef<RelatarProblemaDialogComponent>;
   let datePipe: DatePipe;
 
   beforeEach(async(() => {
     dialogSpy = jasmine.createSpyObj('MatDialog', ['open', 'closeAll']);
+    dialogRefSpy = jasmine.createSpyObj('MatDialogRef<RelatarProblemaDialogComponent>', ['close']);
     datePipe = jasmine.createSpyObj('DatePipe', ['transform']);
     TestBed.configureTestingModule({
       declarations: [ RelatarProblemaDialogComponent ],
@@ -48,7 +50,7 @@ describe('RelatarProblemaDialogComponent', () => {
         { provide: MatDialog, useValue: dialogSpy },
         {
           provide: MatDialogRef,
-          useValue: {}
+          useValue: {dialogRefSpy}
         },
         {provide: SegurancaProblemasService, useValue: {
           adicionarProblema: () => of({}),
