@@ -157,7 +157,7 @@
         "CUPMNFOU": "Coupon not found.",
         "CHECKERR": "This participant has already checked-in.",
         "INGRNFOU": "Ticket not found.",
-        "QINGRINV": "Number of tickets exceeds available number.",
+        "QINGRINV": "Number of tickets exceeds available number. Cancelled purchase.",
         "NINVLOTE": "Invalid batch number.",
         "INGRNOTF": "This ticket does not belong to this party.",
         "INGRNOTP": "This ticket has not been paid.",

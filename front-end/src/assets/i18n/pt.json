@@ -308,7 +308,7 @@
         "CUPMNFOU": "Cupom não encontrado.",
         "CHECKERR": "Este participante já fez check-in.",
         "INGRNFOU": "Ingresso não encontrado.",
-        "QINGRINV": "Quantidade de ingressos ultrapassa número disponível.",
+        "QINGRINV": "Quantidade de ingressos ultrapassa número disponível. Compra cancelada.",
         "NINVLOTE": "Número de lote inválido.",
         "INGRNOTF": "Este ingresso não pertence a esta festa.",
         "INGRNOTP": "Este ingresso não foi pago.",

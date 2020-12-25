@@ -183,6 +183,11 @@
     		<artifactId>jsoup</artifactId>
     		<version>1.13.1</version>
 		</dependency>
+		<dependency>
+		    <groupId>com.paypal.sdk</groupId>
+		    <artifactId>checkout-sdk</artifactId>
+		    <version>1.0.1</version>
+		</dependency>
 	</dependencies>
 
 	<build>
