@@ -3,6 +3,7 @@ package com.eventmanager.pachanga.repositories;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -42,5 +43,9 @@ public interface AreaSegurancaProblemaRepository extends JpaRepository<AreaSegur
 
 	@Query(value = "SELECT COUNT(*) from AreaSegurancaProblema asp JOIN asp.codUsuarioResolv u WHERE u.codUsuario = :codUsuario")
 	int findQuantidadeChamadasResolvidasByUsuario(int codUsuario);
+	
+	@Modifying(clearAutomatically = true)
+	@Query(value = "DELETE FROM area_seguranca_x_problema WHERE cod_Festa = :idFesta", nativeQuery=true)
+	public void deleteByCodFesta(int idFesta);
 	
 }

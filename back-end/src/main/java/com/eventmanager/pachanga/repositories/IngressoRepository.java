@@ -51,5 +51,9 @@ public interface IngressoRepository extends JpaRepository<Ingresso, Integer>{
 	
 	@Query(value = "SELECT count(i) FROM Ingresso i JOIN i.lote lt JOIN lt.festa fe WHERE fe.codFesta = :codFesta AND lt.codLote = :codLote")
 	public int findIngressosLoteVendido(int codFesta, int codLote);
+	
+	@Modifying(clearAutomatically = true)
+	@Query(value = "DELETE FROM ingresso WHERE cod_Festa = :idFesta", nativeQuery = true)
+	public void deleteByCodFesta(int idFesta);
 
 }

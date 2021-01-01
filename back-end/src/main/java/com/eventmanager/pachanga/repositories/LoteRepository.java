@@ -3,6 +3,7 @@ package com.eventmanager.pachanga.repositories;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
 import com.eventmanager.pachanga.domains.Lote;
@@ -26,5 +27,9 @@ public interface LoteRepository extends JpaRepository<Lote, Integer>{
 	
 	@Query(value = "SELECT l FROM Lote l JOIN l.festa f WHERE f.codFesta = :codFesta AND l.codLote = :codLote")
 	public Lote findLoteByFestaAndLote(int codFesta, int codLote);
+	
+	@Modifying(clearAutomatically = true)
+	@Query(value = "DELETE FROM lote WHERE cod_Festa = :idFesta", nativeQuery = true)
+	public void deleteByCodFesta(int idFesta);
 
 }

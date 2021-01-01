@@ -19,16 +19,15 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.security.oauth2.provider.token.AuthorizationServerTokenServices;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.eventmanager.pachanga.domains.Categoria;
 import com.eventmanager.pachanga.domains.CategoriasFesta;
 import com.eventmanager.pachanga.domains.Estoque;
 import com.eventmanager.pachanga.domains.Festa;
 import com.eventmanager.pachanga.domains.Grupo;
+import com.eventmanager.pachanga.domains.Ingresso;
 import com.eventmanager.pachanga.domains.ItemEstoque;
 import com.eventmanager.pachanga.domains.Produto;
 import com.eventmanager.pachanga.domains.Usuario;
@@ -41,14 +40,23 @@ import com.eventmanager.pachanga.errors.ValidacaoException;
 import com.eventmanager.pachanga.factory.ConviteFestaFactory;
 import com.eventmanager.pachanga.factory.FestaFactory;
 import com.eventmanager.pachanga.factory.NotificacaoMudancaStatusFactory;
+import com.eventmanager.pachanga.repositories.AreaSegurancaProblemaFluxoRepository;
+import com.eventmanager.pachanga.repositories.AreaSegurancaProblemaRepository;
+import com.eventmanager.pachanga.repositories.AreaSegurancaRepository;
 import com.eventmanager.pachanga.repositories.CategoriaRepository;
 import com.eventmanager.pachanga.repositories.CategoriasFestaRepository;
 import com.eventmanager.pachanga.repositories.ConvidadoRepository;
+import com.eventmanager.pachanga.repositories.CupomRepository;
+import com.eventmanager.pachanga.repositories.DadoBancarioRepository;
 import com.eventmanager.pachanga.repositories.EstoqueRepository;
 import com.eventmanager.pachanga.repositories.FestaRepository;
 import com.eventmanager.pachanga.repositories.GrupoRepository;
+import com.eventmanager.pachanga.repositories.InfoIntegracaoRepository;
+import com.eventmanager.pachanga.repositories.IngressoRepository;
 import com.eventmanager.pachanga.repositories.ItemEstoqueFluxoRepository;
+import com.eventmanager.pachanga.repositories.LoteRepository;
 import com.eventmanager.pachanga.repositories.ProdutoRepository;
+import com.eventmanager.pachanga.repositories.QuestionarioFormsRepository;
 import com.eventmanager.pachanga.repositories.UsuarioRepository;
 import com.eventmanager.pachanga.securingweb.JwtAuthenticationEntryPoint;
 import com.eventmanager.pachanga.securingweb.JwtTokenUtil;
@@ -90,6 +98,9 @@ class FestaServiceTest {
 	
 	@MockBean
 	private ProdutoService produtoService;
+	
+	@MockBean
+	private LoteService loteService;
 
 	@MockBean
 	private EstoqueService estoqueService;
@@ -102,6 +113,33 @@ class FestaServiceTest {
 
 	@MockBean
 	private NotificacaoService notificacaoService;
+	
+	@MockBean
+	private AreaSegurancaProblemaFluxoRepository areaProblemaFluxoRepository;
+	
+	@MockBean
+	private AreaSegurancaProblemaRepository areaProblemaRepository;
+	
+	@MockBean
+	private AreaSegurancaRepository areaRepository;
+	
+	@MockBean
+	private CupomRepository cupomRepository;
+	
+	@MockBean
+	private DadoBancarioRepository dadoBancarioRepository;
+	
+	@MockBean
+	private InfoIntegracaoRepository infoIntegracaoRepository;
+	
+	@MockBean
+	private IngressoRepository ingressoRepository;
+	
+	@MockBean
+	private LoteRepository loteRepository;
+	
+	@MockBean
+	private QuestionarioFormsRepository questionarioFormsRepository;
 	
 	@MockBean
 	private ItemEstoqueFluxoRepository itemEstoqueFluxoRepository;
@@ -632,27 +670,24 @@ class FestaServiceTest {
 		List<Integer> cods = new ArrayList<>();
 		cods.add(1);
 
-		Mockito.when(festaRepository.findFestaByUsuarioResponsavel(idUser, festaTO.getCodFesta())).thenReturn(festaTest);
-		Mockito.when(grupoRepository.findGruposFesta(festaTO.getCodFesta())).thenReturn(grupos);
-		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(criacaoGrupos());
-		Mockito.when(festaRepository.findById(Mockito.anyInt())).thenReturn(festaTest);
-		Mockito.when(categoriasFestaRepository.findCategoriasFesta(Mockito.anyInt())).thenReturn(categoriasFesta);
-		Mockito.when(grupoRepository.findCodGruposFesta(Mockito.anyInt())).thenReturn(cods);
-		Mockito.when(convidadoRepository.findCodConvidadosNoGrupo(Mockito.anyInt())).thenReturn(cods);
-		Mockito.when(estoqueRepository.findEstoqueByCodFesta(Mockito.anyInt())).thenReturn(estoques);
-		Mockito.when(usuarioRepository.findUsuariosPorGrupo(Mockito.anyInt())).thenReturn(usuarios);
-		Mockito.when(notificacaoService.criacaoMensagemNotificacaoUsuarioConvidado(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyString())).thenReturn("teste");
 		Mockito.when(festaRepository.findByCodFesta(Mockito.anyInt())).thenReturn(festaTest);
+		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(criacaoGrupos());
+		Mockito.when(grupoRepository.findGruposFesta(festaTO.getCodFesta())).thenReturn(grupos);
+		Mockito.when(categoriasFestaRepository.findCategoriasFesta(Mockito.anyInt())).thenReturn(categoriasFesta);
 		
-		doNothing().when(estoqueRepository).deleteProdEstoque(Mockito.anyInt(), Mockito.anyInt());
-		doNothing().when(convidadoRepository).deleteAllConvidadosNotificacao(Mockito.anyList());
-		doNothing().when(convidadoRepository).deleteConvidados(Mockito.anyList());
-		doNothing().when(grupoRepository).deleteUsuariosGrupo(Mockito.anyInt());
-		doNothing().when(convidadoRepository).deleteAllConvidadosGrupo(Mockito.anyInt());
-		doNothing().when(grupoRepository).deleteAll(Mockito.<Grupo>anyList());
-		doNothing().when(notificacaoService).deleteNotificacao(Mockito.anyInt(), Mockito.anyString());
+		doNothing().when(grupoService).deleteCascade(Mockito.anyInt(), Mockito.anyInt());
+		doNothing().when(estoqueService).deleteCascade(Mockito.anyInt());
+		doNothing().when(loteService).deleteCascade(Mockito.any());
+
 		doNothing().when(festaRepository).deleteById(Mockito.any(Integer.class));
 		doNothing().when(categoriasFestaRepository).deleteAll(Mockito.anySet());
+		doNothing().when(areaProblemaRepository).deleteByCodFesta(Mockito.anyInt());
+		doNothing().when(areaRepository).deleteByCodFesta(Mockito.anyInt());
+		doNothing().when(areaProblemaFluxoRepository).deleteByCodFesta(Mockito.anyInt());
+		doNothing().when(questionarioFormsRepository).deleteByCodFesta(Mockito.anyInt());
+		doNothing().when(infoIntegracaoRepository).deleteByCodFesta(Mockito.anyInt());
+		doNothing().when(cupomRepository).deleteByCodFesta(Mockito.anyInt());
+		doNothing().when(dadoBancarioRepository).deleteByCodFesta(Mockito.anyInt());
 
 
 		festaService.deleteFesta(festaTO.getCodFesta(), idUser);
@@ -697,86 +732,27 @@ class FestaServiceTest {
 		List<Integer> cods = new ArrayList<>();
 		cods.add(1);
 
-		Mockito.when(festaRepository.findFestaByUsuarioResponsavel(idUser, festaTO.getCodFesta())).thenReturn(festaTest);
-		Mockito.when(grupoRepository.findGruposFesta(festaTO.getCodFesta())).thenReturn(grupos);
-		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(criacaoGrupos());
-		Mockito.when(festaRepository.findById(Mockito.anyInt())).thenReturn(festaTest);
-		Mockito.when(categoriasFestaRepository.findCategoriasFesta(Mockito.anyInt())).thenReturn(categoriasFesta);
-		Mockito.when(grupoRepository.findCodGruposFesta(Mockito.anyInt())).thenReturn(cods);
-		Mockito.when(convidadoRepository.findCodConvidadosNoGrupo(Mockito.anyInt())).thenReturn(cods);
-		Mockito.when(estoqueRepository.findEstoqueByCodFesta(Mockito.anyInt())).thenReturn(estoques);
-		Mockito.when(usuarioRepository.findUsuariosPorGrupo(Mockito.anyInt())).thenReturn(usuarios);
-		Mockito.when(notificacaoService.criacaoMensagemNotificacaoUsuarioConvidado(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyString())).thenReturn("teste");
 		Mockito.when(festaRepository.findByCodFesta(Mockito.anyInt())).thenReturn(festaTest);
+		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(criacaoGrupos());
+		Mockito.when(grupoRepository.findGruposFesta(festaTO.getCodFesta())).thenReturn(grupos);
+		Mockito.when(categoriasFestaRepository.findCategoriasFesta(Mockito.anyInt())).thenReturn(categoriasFesta);
 		
-		doNothing().when(estoqueRepository).deleteProdEstoque(Mockito.anyInt(), Mockito.anyInt());
-		doNothing().when(convidadoRepository).deleteAllConvidadosNotificacao(Mockito.anyList());
-		doNothing().when(convidadoRepository).deleteConvidados(Mockito.anyList());
-		doNothing().when(grupoRepository).deleteUsuariosGrupo(Mockito.anyInt());
-		doNothing().when(convidadoRepository).deleteAllConvidadosGrupo(Mockito.anyInt());
-		doNothing().when(grupoRepository).deleteAll(Mockito.<Grupo>anyList());
-		doNothing().when(notificacaoService).deleteNotificacao(Mockito.anyInt(), Mockito.anyString());
+		doNothing().when(grupoService).deleteCascade(Mockito.anyInt(), Mockito.anyInt());
+		doNothing().when(estoqueService).deleteCascade(Mockito.anyInt());
+		doNothing().when(loteService).deleteCascade(Mockito.any());
+
 		doNothing().when(festaRepository).deleteById(Mockito.any(Integer.class));
 		doNothing().when(categoriasFestaRepository).deleteAll(Mockito.anySet());
+		doNothing().when(areaProblemaRepository).deleteByCodFesta(Mockito.anyInt());
+		doNothing().when(areaRepository).deleteByCodFesta(Mockito.anyInt());
+		doNothing().when(areaProblemaFluxoRepository).deleteByCodFesta(Mockito.anyInt());
+		doNothing().when(questionarioFormsRepository).deleteByCodFesta(Mockito.anyInt());
+		doNothing().when(infoIntegracaoRepository).deleteByCodFesta(Mockito.anyInt());
+		doNothing().when(cupomRepository).deleteByCodFesta(Mockito.anyInt());
+		doNothing().when(dadoBancarioRepository).deleteByCodFesta(Mockito.anyInt());
 
 
 		festaService.deleteFesta(festaTO.getCodFesta(), idUser);
-
-	}
-
-	@Test
-	void deleteFestaTestErro() throws Exception {
-		FestaTO festaTO = festaTOTest();
-		Festa festaTest = festaTest();
-		Festa festaTestIni = festaTest();
-		festaTestIni.setStatusFesta("I");
-
-		List<Grupo> grupos = new ArrayList<Grupo>();
-
-		Grupo grupo1 = this.criacaoGrupo();
-		grupo1.setCodGrupo(1);
-		grupo1.setFesta(festaTest);
-		grupo1.setNomeGrupo("Grupo1");
-		grupos.add(grupo1);
-
-		Grupo grupo2 = this.criacaoGrupo();
-		grupo2.setCodGrupo(2);
-		grupo2.setFesta(festaTest);
-		grupo2.setNomeGrupo("Grupo2");
-		grupos.add(grupo2);
-
-		int idUser = 1;
-
-		Usuario usuario1 = UsuarioServiceTest.usuarioTest();
-		usuario1.setCodUsuario(idUser);
-		usuario1.setNomeUser("Aires_qualquer_e_ficticio");
-
-		Set<CategoriasFesta> categoriasFesta = new HashSet<CategoriasFesta>();
-		categoriasFesta.add(categoriaFestaTest());
-
-		Mockito.when(festaRepository.findFestaByUsuarioResponsavel(idUser, festaTO.getCodFesta())).thenReturn(festaTest);
-		Mockito.when(grupoRepository.findGruposFesta(festaTO.getCodFesta())).thenReturn(grupos);
-		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(criacaoGrupos());
-		Mockito.when(festaRepository.findById(Mockito.anyInt())).thenReturn(festaTestIni);
-		Mockito.when(festaRepository.findByCodFesta(Mockito.anyInt())).thenReturn(festaTestIni);
-		Mockito.when(categoriasFestaRepository.findCategoriasFesta(Mockito.anyInt())).thenReturn(categoriasFesta);
-
-		doNothing().when(grupoRepository).deleteAll(Mockito.<Grupo>anyList());
-		doNothing().when(festaRepository).deleteById(Mockito.any(Integer.class));
-		doNothing().when(categoriasFestaRepository).deleteAll(Mockito.anySet());
-
-		boolean erro = false;
-		String mensagemErro = null;
-
-		try {
-			festaService.deleteFesta(festaTO.getCodFesta(), idUser);			
-		} catch (ValidacaoException e) {
-			erro = true;
-			mensagemErro = e.getMessage();
-		}
-
-		assertEquals(true, erro);
-		assertEquals("FESTINIC", mensagemErro);
 
 	}
 

@@ -58,6 +58,7 @@ export class PainelSegurancaComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.source = null;
+    this.areas = [];
     const url = this.router.url;
     this.dataSources = [];
     this.idFesta = url.substring(url.indexOf('&') + 1, url.indexOf('/', url.indexOf('&')));

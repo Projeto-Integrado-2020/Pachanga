@@ -317,7 +317,8 @@
         "payment_method.boleto.holder.tax_id": "CPF inválido.",
         "payment_method.boleto.holder.address.region_code": "Código regional inválido.",
         "payment_method.boleto.holder.email": "E-mail inválido.",
-        "BOLEREGI": "Estado/Cidade inválida."
+        "BOLEREGI": "Estado/Cidade inválida.",
+        "FESDEING": "A festa já vendeu ingressos e ainda não aconteceu."
     },
 
     "ESTOQUE": {
