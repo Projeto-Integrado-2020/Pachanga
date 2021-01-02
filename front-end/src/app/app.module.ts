@@ -135,6 +135,7 @@ import { NgxMaskModule, IConfig } from 'ngx-mask';
 import { ProcessingDialogComponent } from './views/processing-dialog/processing-dialog.component';
 import { ControleSidenavComponent } from './views/controle-sidenav/controle-sidenav.component';
 import { DialogIngressosMesmaFestaComponent } from './views/dialog-ingressos-mesma-festa/dialog-ingressos-mesma-festa.component';
+import { GoogleSheetsDbService } from 'ng-google-sheets-db';
 
 // pdf generator
 import { PdfMakeWrapper } from 'pdfmake-wrapper';
@@ -341,6 +342,7 @@ export function provideConfig() {
     MenuFestasService,
     CadastrarFestaService,
     DatePipe,
+    GoogleSheetsDbService,
     {
       provide: MatPaginatorIntl,
       useClass: MatPaginatorPtBr

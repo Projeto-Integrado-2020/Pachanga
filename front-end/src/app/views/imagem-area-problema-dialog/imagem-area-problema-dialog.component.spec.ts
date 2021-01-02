@@ -110,6 +110,7 @@ describe('ImagemAreaProblemaDialogComponent', () => {
   it('should alterarPreview', () => {
     component.alterarPreview();
 
-    expect(component.urlNoImage).toBe('https://portal.ufvjm.edu.br/a-universidade/cursos/grade_curricular_ckan/loading.gif/@@images/image.gif');
+    expect(component.urlNoImage).
+    toBe('https://portal.ufvjm.edu.br/a-universidade/cursos/grade_curricular_ckan/loading.gif/@@images/image.gif');
   });
 });
