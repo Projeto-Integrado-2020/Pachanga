@@ -1,6 +1,7 @@
 package com.eventmanager.pachanga.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
 import com.eventmanager.pachanga.domains.DadoBancario;
@@ -18,5 +19,9 @@ public interface DadoBancarioRepository extends JpaRepository<DadoBancario, Inte
 	
 	@Query(value = "SELECT db FROM DadoBancario db WHERE db.codDadosBancario = :codDadoBancario")
 	public DadoBancario findDadoByCodBancario(int codDadoBancario);
+	
+	@Modifying(clearAutomatically = true)
+	@Query(value = "DELETE FROM dado_bancario WHERE cod_Festa = :idFesta", nativeQuery = true)
+	public void deleteByCodFesta(int idFesta);
 
 }

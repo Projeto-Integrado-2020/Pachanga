@@ -3,6 +3,7 @@ package com.eventmanager.pachanga.repositories;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
@@ -22,5 +23,9 @@ public interface CupomRepository extends JpaRepository<Cupom, Integer>{
 	
 	@Query(value = "SELECT NEXTVAL('seq_cupom');", nativeQuery = true)
 	public int getNextValMySequence();
+	
+	@Modifying(clearAutomatically = true)
+	@Query(value = "DELETE FROM cupom WHERE cod_Festa = :idFesta", nativeQuery = true)
+	public void deleteByCodFesta(int idFesta);
 
 }

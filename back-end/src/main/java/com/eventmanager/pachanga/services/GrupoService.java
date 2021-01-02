@@ -19,6 +19,7 @@ import com.eventmanager.pachanga.repositories.FestaRepository;
 import com.eventmanager.pachanga.repositories.GrupoRepository;
 import com.eventmanager.pachanga.repositories.PermissaoRepository;
 import com.eventmanager.pachanga.repositories.UsuarioRepository;
+import com.eventmanager.pachanga.tipo.TipoNotificacao;
 import com.eventmanager.pachanga.tipo.TipoPermissao;
 
 @Service
@@ -86,6 +87,28 @@ public class GrupoService {
 		grupoRepository.deleteGrupo(grupo.getCodGrupo());
 		permissaoRepository.deletePermissoesGrupo(grupo.getCodGrupo());
 		return grupo;
+	}
+	
+	public void deleteCascade(int idFesta, int idUser) {
+		List<Integer> codGrupos = grupoRepository.findCodGruposFesta(idFesta);
+		codGrupos.stream().forEach(g -> {
+			List<Integer> codConvidados = convidadoRepository.findCodConvidadosNoGrupo(g);
+			convidadoRepository.deleteAllConvidadosNotificacao(codConvidados);
+			convidadoRepository.deleteAllConvidadosGrupo(g);
+			convidadoRepository.deleteConvidados(codConvidados);
+			List<Usuario> usuarios = usuarioRepository.findUsuariosPorGrupo(g);
+			usuarios.stream().forEach(u -> {
+				notificacaoService.deleteNotificacao(u.getCodUsuario(),
+						notificacaoService.criacaoMensagemNotificacaoUsuarioConvidado(g, u.getCodUsuario(),
+								TipoNotificacao.CONVACEI.getValor()));
+				notificacaoService.deleteNotificacao(idUser, TipoNotificacao.ESTBAIXO.getValor() + "?" + idFesta);
+				notificacaoService.deleteNotificacao(idUser, TipoNotificacao.STAALTER.getValor() + "?" + idFesta);
+			});
+			grupoRepository.deleteUsuariosGrupo(g);
+		});
+		grupoRepository.deletePermissoesGrupos(codGrupos);
+		notificacaoService.deleteNotificacoesGrupos(codGrupos);
+		grupoRepository.deleteByCodFesta(idFesta);
 	}
 
 	public Grupo atualizar(GrupoTO grupoTO, int idUsuario) {

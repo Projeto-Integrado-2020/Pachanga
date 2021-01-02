@@ -3,6 +3,7 @@ package com.eventmanager.pachanga.repositories;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
 import com.eventmanager.pachanga.domains.InfoIntegracao;
@@ -26,5 +27,9 @@ public interface InfoIntegracaoRepository extends JpaRepository<InfoIntegracao, 
 
 	@Query(value="SELECT ini FROM InfoIntegracao ini JOIN ini.festa f WHERE f.codFesta = :codFesta AND ini.terceiroInt = :terceiroInt")
 	public InfoIntegracao findInfoFesta(int codFesta, String terceiroInt);
+	
+	@Modifying(clearAutomatically = true)
+	@Query(value = "DELETE FROM info_integracao WHERE cod_Festa = :idFesta", nativeQuery = true)
+	public void deleteByCodFesta(int idFesta);
 
 }

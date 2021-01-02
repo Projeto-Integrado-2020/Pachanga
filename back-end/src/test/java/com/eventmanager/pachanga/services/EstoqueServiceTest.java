@@ -1,6 +1,7 @@
 package com.eventmanager.pachanga.services;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.doNothing;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -31,6 +32,7 @@ import com.eventmanager.pachanga.factory.EstoqueFactory;
 import com.eventmanager.pachanga.repositories.EstoqueRepository;
 import com.eventmanager.pachanga.repositories.FestaRepository;
 import com.eventmanager.pachanga.repositories.GrupoRepository;
+import com.eventmanager.pachanga.repositories.ItemEstoqueFluxoRepository;
 import com.eventmanager.pachanga.repositories.ItemEstoqueRepository;
 import com.eventmanager.pachanga.repositories.ProdutoRepository;
 import com.eventmanager.pachanga.securingweb.JwtAuthenticationEntryPoint;
@@ -61,6 +63,9 @@ class EstoqueServiceTest {
 	
 	@MockBean
 	private FestaService festaService;
+	
+	@MockBean
+	private ItemEstoqueFluxoRepository itemEstoqueFluxoRepository;
 	
 	@Autowired
 	private EstoqueService estoqueService;
@@ -413,6 +418,19 @@ class EstoqueServiceTest {
 		Mockito.when(estoqueRepository.findByEstoqueCodEstoque(Mockito.anyInt())).thenReturn(estoque);
 		
 		estoqueService.deleteEstoque(estoque.getCodEstoque(), festa.getCodFesta(), 2);
+	}
+	
+	@Test
+	void deleteCascadeTeste() {
+		List<Estoque> estoques = new ArrayList<Estoque>();
+		estoques.add(new Estoque());
+		Mockito.when(estoqueRepository.findEstoqueByCodFesta(Mockito.anyInt())).thenReturn(estoques);
+		doNothing().when(estoqueRepository).deleteProdEstoque(Mockito.anyInt(), Mockito.anyInt());
+		doNothing().when(produtoRepository).deleteProdFesta(Mockito.anyInt());
+		doNothing().when(estoqueRepository).deleteEstoque(Mockito.anyInt());
+		doNothing().when(itemEstoqueFluxoRepository).deleteByCodFesta(Mockito.anyInt());
+
+		estoqueService.deleteCascade(Mockito.anyInt());
 	}
 	
 	@Test

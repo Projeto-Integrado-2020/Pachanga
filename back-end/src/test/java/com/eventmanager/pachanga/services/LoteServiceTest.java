@@ -1,6 +1,7 @@
 package com.eventmanager.pachanga.services;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.doNothing;
 
 import java.time.LocalDateTime;
 import java.time.Month;
@@ -376,6 +377,42 @@ class LoteServiceTest {
 		}
 
 		assertEquals("LOTEVING", erro);
+	}
+	
+	@Test
+	void deleteCascadeTeste() {
+		Festa festa = new Festa();
+		festa.setCodFesta(1);
+		festa.setStatusFesta("F");
+		List<Ingresso> ingressos = new ArrayList<Ingresso>();
+		ingressos.add(new Ingresso());
+		Mockito.when(ingressoRepository.findIngressosFesta(Mockito.anyInt())).thenReturn(ingressos);
+		doNothing().when(ingressoRepository).deleteByCodFesta(Mockito.anyInt());
+		doNothing().when(loteRepository).deleteByCodFesta(Mockito.anyInt());
+
+		loteService.deleteCascade(festa);
+	}
+	
+	@Test
+	void deleteCascadeTesteError() {
+		Festa festa = new Festa();
+		festa.setCodFesta(1);
+		festa.setStatusFesta("I");
+		List<Ingresso> ingressos = new ArrayList<Ingresso>();
+		ingressos.add(new Ingresso());
+		Mockito.when(ingressoRepository.findIngressosFesta(Mockito.anyInt())).thenReturn(ingressos);
+		doNothing().when(ingressoRepository).deleteByCodFesta(Mockito.anyInt());
+		doNothing().when(loteRepository).deleteByCodFesta(Mockito.anyInt());
+
+		String mensagemError = "";
+		try {
+			loteService.deleteCascade(festa);
+		} catch (Exception error) {
+			mensagemError = error.getMessage();
+		}
+		
+		assertEquals(true, mensagemError.equals("FESDEING"));
+		
 	}
 
 	@Test
