@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -110,6 +111,9 @@ public class FestaService {
 
 	@Autowired
 	private NotificacaoService notificacaoService;
+	
+	@Autowired
+	private Environment env;
 
 	public List<Festa> procurarFestas() {
 		return festaRepository.findAll();
@@ -186,7 +190,7 @@ public class FestaService {
 		cupomRepository.deleteByCodFesta(idFesta);
 		dadoBancarioRepository.deleteByCodFesta(idFesta);
 		festaRepository.deleteById(idFesta);
-		CloudinaryUtils.getCloudinaryCredentials().uploader().destroy(festa.getNomeFesta(), ObjectUtils.emptyMap());
+		CloudinaryUtils.getCloudinaryCredentials().uploader().destroy(env.getProperty("spring.profiles.active") + "/" + festa.getNomeFesta(), ObjectUtils.emptyMap());
 	}
 
 	public Festa updateFesta(FestaTO festaTo, int idUser, MultipartFile imagem) throws IOException {
@@ -417,7 +421,7 @@ public class FestaService {
 
 	private void adicionarImagemCloudnary(MultipartFile imagem, Festa festa) throws IOException {
 		if (imagem == null) {
-			CloudinaryUtils.getCloudinaryCredentials().uploader().destroy(festa.getNomeFesta(), ObjectUtils.emptyMap());
+			CloudinaryUtils.getCloudinaryCredentials().uploader().destroy(env.getProperty("spring.profiles.active") + "/" + festa.getNomeFesta(), ObjectUtils.emptyMap());
 			festa.setImagem(null);
 			festa.setUrlImagem(null);
 		} else {
@@ -428,7 +432,7 @@ public class FestaService {
 			fos.close();
 
 			Map<?,?> uploadImagem = CloudinaryUtils.getCloudinaryCredentials().uploader().upload(imagemUpload,
-					ObjectUtils.asMap("public_id", "prod/"+festa.getNomeFesta()));// quando for feito os testes em desenvolvimento trocar para dev o prod
+					ObjectUtils.asMap("public_id", env.getProperty("spring.profiles.active") + "/" + festa.getNomeFesta()));// quando for feito os testes em desenvolvimento trocar para dev o prod
 			
 			festa.setImagem(imagem.getBytes());
 			festa.setUrlImagem(uploadImagem.get("secure_url").toString());

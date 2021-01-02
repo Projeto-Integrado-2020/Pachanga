@@ -19,6 +19,7 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.core.env.Environment;
 import org.springframework.security.oauth2.provider.token.AuthorizationServerTokenServices;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -27,7 +28,6 @@ import com.eventmanager.pachanga.domains.CategoriasFesta;
 import com.eventmanager.pachanga.domains.Estoque;
 import com.eventmanager.pachanga.domains.Festa;
 import com.eventmanager.pachanga.domains.Grupo;
-import com.eventmanager.pachanga.domains.Ingresso;
 import com.eventmanager.pachanga.domains.ItemEstoque;
 import com.eventmanager.pachanga.domains.Produto;
 import com.eventmanager.pachanga.domains.Usuario;
@@ -161,6 +161,9 @@ class FestaServiceTest {
 
 	@Autowired
 	private FestaService festaService;
+	
+	@Autowired
+	private Environment env;
 
 
 	//metodos auxiliares___________________________________________________________________________________________________________________________________	
