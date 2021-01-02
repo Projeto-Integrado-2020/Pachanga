@@ -32,7 +32,6 @@ describe('GetSheetsService', () => {
   });
 
   it('should be created', () => {
-    const service: GetSheetsService = TestBed.get(GetSheetsService);
     expect(service).toBeTruthy();
   });
 

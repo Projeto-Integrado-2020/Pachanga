@@ -157,7 +157,7 @@ class AreaSegurancaProblemaFactoryTest {
 		assertEquals(areaSegurancaProblemaTO.getCodProblema(), areaSegurancaProblema.getProblema().getCodProblema());
 		assertEquals(areaSegurancaProblemaTO.getCodUsuarioEmissor(),
 				areaSegurancaProblema.getCodUsuarioEmissor().getCodUsuario());
-		assertEquals(areaSegurancaProblemaTO.getCodUsuarioResolv(), 0);
+		assertEquals(0, areaSegurancaProblemaTO.getCodUsuarioResolv());
 		assertEquals(areaSegurancaProblemaTO.getDescProblemaEmissor(), areaSegurancaProblema.getDescProblema());
 		assertEquals(areaSegurancaProblemaTO.getHorarioFim(), areaSegurancaProblema.getHorarioFim());
 		assertEquals(areaSegurancaProblemaTO.getHorarioInicio(), areaSegurancaProblema.getHorarioInicio());

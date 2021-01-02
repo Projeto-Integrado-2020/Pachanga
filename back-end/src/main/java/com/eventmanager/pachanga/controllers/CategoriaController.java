@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.eventmanager.pachanga.domains.Categoria;
-import com.eventmanager.pachanga.dtos.CategoriaTO;
 import com.eventmanager.pachanga.errors.ValidacaoException;
 import com.eventmanager.pachanga.factory.CategoriaFactory;
 import com.eventmanager.pachanga.services.CategoriaService;
@@ -30,8 +29,7 @@ public class CategoriaController {
 	public ResponseEntity<Object> listaCategorias(){
 		try {
 			List<Categoria> categorias = categoriaService.procurarCategorias();
-			List<CategoriaTO> categoriasTo = categorias.stream().map(c -> CategoriaFactory.getCategoriaTO(c)).collect(Collectors.toList());
-			return ResponseEntity.ok(categoriasTo);
+			return ResponseEntity.ok(categorias.stream().map(c -> CategoriaFactory.getCategoriaTO(c)).collect(Collectors.toList()));
 		} catch (ValidacaoException e) {
 			return ResponseEntity.status(400).body(e.getMessage());
 		}

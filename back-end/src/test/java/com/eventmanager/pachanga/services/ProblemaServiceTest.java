@@ -23,7 +23,7 @@ import com.eventmanager.pachanga.securingweb.JwtUserDetailsService;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(value=ProblemaSevice.class)
-public class ProblemaServiceTest {
+class ProblemaServiceTest {
 	
 	@MockBean
 	private ProblemaRepository problemaRepository;

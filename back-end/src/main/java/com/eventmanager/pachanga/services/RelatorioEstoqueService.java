@@ -49,30 +49,30 @@ public class RelatorioEstoqueService {
 
 		List<Estoque> estoques = estoqueRepository.findEstoqueByCodFestaJoinProduto(codFesta);
 
-		estoques.stream().forEach(e -> {
+		estoques.stream().forEach(e ->
 
-			e.getItemEstoque().stream().forEach(ie -> {
+		e.getItemEstoque().stream().forEach(ie -> {
 
-				Map<LocalDateTime, Integer> quantidadeHora = new LinkedHashMap<>();
+			Map<LocalDateTime, Integer> quantidadeHora = new LinkedHashMap<>();
 
-				List<ItemEstoqueFluxo> itensEstoque = itemEstoqueFluxoRepository
-						.getFluxoEstoqueProduto(e.getCodEstoque(), ie.getProduto().getCodProduto());
-				if (codRelatorio == 1) {
-					this.relatorioConsumoItemEstoque(itensEstoque, quantidadeHora);
-				} else if (codRelatorio == 2) {
-					this.relatorioPerdaItemEstoque(itensEstoque, quantidadeHora);
-				} else if (codRelatorio == 3) {
-					this.relatorioQuantidadeItemEstoque(itensEstoque, quantidadeHora);
-				} else {
-					throw new ValidacaoException("CODRELIN");
-				}
+			List<ItemEstoqueFluxo> itensEstoque = itemEstoqueFluxoRepository.getFluxoEstoqueProduto(e.getCodEstoque(),
+					ie.getProduto().getCodProduto());
+			if (codRelatorio == 1) {
+				this.relatorioConsumoItemEstoque(itensEstoque, quantidadeHora);
+			} else if (codRelatorio == 2) {
+				this.relatorioPerdaItemEstoque(itensEstoque, quantidadeHora);
+			} else if (codRelatorio == 3) {
+				this.relatorioQuantidadeItemEstoque(itensEstoque, quantidadeHora);
+			} else {
+				throw new ValidacaoException("CODRELIN");
+			}
 
-				relatoriosEstoques.add(relatorioEstoqueTOFactory.getRelatorioEstoque(e.getNomeEstoque(),
-						ie.getProduto().getMarca(), quantidadeHora));
+			relatoriosEstoques.add(relatorioEstoqueTOFactory.getRelatorioEstoque(e.getNomeEstoque(),
+					ie.getProduto().getMarca(), quantidadeHora));
 
-			});
+		})
 
-		});
+		);
 
 		return relatoriosEstoques;
 	}

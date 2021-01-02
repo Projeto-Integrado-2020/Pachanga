@@ -308,12 +308,17 @@
         "CUPMNFOU": "Cupom não encontrado.",
         "CHECKERR": "Este participante já fez check-in.",
         "INGRNFOU": "Ingresso não encontrado.",
-        "QINGRINV": "Ingressos esgotados.",
+        "QINGRINV": "Quantidade de ingressos ultrapassa número disponível. Compra cancelada.",
         "NINVLOTE": "Número de lote inválido.",
         "INGRNOTF": "Este ingresso não pertence a esta festa.",
         "INGRNOTP": "Este ingresso não foi pago.",
         "INGRVERI": "Este ingresso já foi verificado.",
-        "HORAINCC": "A festa já acabou ou ainda não iniciou."
+        "HORAINCC": "A festa já acabou ou ainda não iniciou.",
+        "payment_method.boleto.holder.tax_id": "CPF inválido.",
+        "payment_method.boleto.holder.address.region_code": "Código regional inválido.",
+        "payment_method.boleto.holder.email": "E-mail inválido.",
+        "BOLEREGI": "Estado/Cidade inválida.",
+        "FESDEING": "A festa já vendeu ingressos e ainda não aconteceu."
     },
 
     "ESTOQUE": {

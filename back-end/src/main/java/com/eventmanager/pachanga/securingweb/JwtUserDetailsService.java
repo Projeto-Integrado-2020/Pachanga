@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 public class JwtUserDetailsService implements UserDetailsService {
 
 	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+	public UserDetails loadUserByUsername(String username) {
 		if ("pachanga".equals(username)) {
 			return new User("pachanga", "$2a$04$FsYnWufxj2.CuVq1isgyxOIKQh/24IOtTAdH02tKxFZnBXxhH/NBC",
 					new ArrayList<>());

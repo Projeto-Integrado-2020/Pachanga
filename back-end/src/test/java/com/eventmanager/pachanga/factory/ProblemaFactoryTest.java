@@ -28,7 +28,7 @@ import com.eventmanager.pachanga.securingweb.JwtUserDetailsService;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(value=ProblemaFactory.class)
-public class ProblemaFactoryTest {
+class ProblemaFactoryTest {
 	
 	@Autowired
 	private ProblemaFactory problemaFactory;

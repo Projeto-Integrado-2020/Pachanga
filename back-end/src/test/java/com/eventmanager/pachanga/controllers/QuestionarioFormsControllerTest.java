@@ -34,7 +34,7 @@ import com.eventmanager.pachanga.services.QuestionarioFormsService;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(value = QuestionarioFormsController.class)
-public class QuestionarioFormsControllerTest {
+class QuestionarioFormsControllerTest {
 	
 	@Autowired
 	private MockMvc mockMvc;

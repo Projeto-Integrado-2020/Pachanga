@@ -34,7 +34,7 @@ import com.eventmanager.pachanga.services.ProblemaSevice;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(value=ProblemaController.class)
-public class ProblemaControllerTest {
+class ProblemaControllerTest {
 	
 	@Autowired
 	private MockMvc mockMvc;

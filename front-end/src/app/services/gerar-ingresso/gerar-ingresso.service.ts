@@ -33,7 +33,20 @@ export class GerarIngressoService {
 
   handleError = (error: HttpErrorResponse, logService: LogService) => {
     this.dialog.closeAll();
-    this.openErrorDialog(error.error);
+    let mensagemError;
+    if (error.error) {
+      if (error.error.error_messages) {
+        mensagemError = error.error.error_messages[0];
+        if (mensagemError.code === '40002') {
+          mensagemError = mensagemError.parameter_name;
+        }
+      } else {
+        mensagemError = error.error;
+      }
+    } else {
+      mensagemError = 'BOLEREGI';
+    }
+    this.openErrorDialog(mensagemError);
     logService.initialize();
     logService.logHttpInfo(JSON.stringify(error), 0, error.url);
     return throwError(error);

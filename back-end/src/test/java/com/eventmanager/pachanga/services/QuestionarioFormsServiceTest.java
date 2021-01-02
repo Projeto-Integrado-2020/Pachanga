@@ -31,7 +31,7 @@ import com.eventmanager.pachanga.securingweb.JwtUserDetailsService;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(value=QuestionarioFormsService.class)
-public class QuestionarioFormsServiceTest {
+class QuestionarioFormsServiceTest {
 	
 	@Autowired
 	private QuestionarioFormsService questionarioFormsService;

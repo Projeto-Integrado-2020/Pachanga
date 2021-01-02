@@ -6,8 +6,9 @@ import { IPayPalConfig, ICreateOrderRequest } from 'ngx-paypal';
 import { DadosCompraIngressoService } from 'src/app/services/dados-compra-ingresso/dados-compra-ingresso.service';
 import { GerarIngressoService } from 'src/app/services/gerar-ingresso/gerar-ingresso.service';
 import { GetFestaVendaIngressosService } from 'src/app/services/get-festa-venda-ingressos/get-festa-venda-ingressos.service';
-import { GetFestaService } from 'src/app/services/get-festa/get-festa.service';
 import { LoginService } from 'src/app/services/loginService/login.service';
+import { environment } from 'src/environments/environment';
+import { ErroDialogComponent } from '../erro-dialog/erro-dialog.component';
 import { GerarBoletoDialogComponent } from '../gerar-boleto-dialog/gerar-boleto-dialog.component';
 import { ProcessingDialogComponent } from '../processing-dialog/processing-dialog.component';
 import { SuccessDialogComponent } from '../success-dialog/success-dialog.component';
@@ -111,15 +112,35 @@ export class CheckoutComponent implements OnInit {
                 color: 'blue',
                 shape: 'rect'
             },
+            authorizeOnServer: (approveData) => 
+            fetch(`${environment.URL_BACK}paypal/authorizeOrder?orderId=` + approveData.orderID, {
+                method: 'post',
+                body: JSON.stringify(this.gerarIngressosPayPal()),
+                headers: {
+                    'content-type': 'application/json',
+                    'authorization': 'Bearer ' + JSON.parse(localStorage.getItem('token')).token
+                }
+            }).then((res) => {
+                return res.json();
+            }).then((details) => {
+                if (details.error) {
+                    this.dialog.closeAll();
+                    this.openErrorDialog(details.error);
+                } else {
+                    this.router.navigate(['/meus-ingressos']);
+                    this.getIngressoCheckout.cleanStorage();
+                    this.dialog.closeAll();
+                    this.openDialogSuccess('COMPAPRO');
+                }
+            }),
             onApprove: (data, actions) => {
                 this.openDialogProcessing();
-            },
-            onClientAuthorization: (data) => {
-                this.ngZone.run(() => this.gerarIngressosPayPal());
             },
             onCancel: (data, actions) => {
             },
             onError: err => {
+                this.dialog.closeAll();
+                this.openErrorDialog(err.error);
             },
             onClick: (data, actions) => {
             },
@@ -153,6 +174,13 @@ export class CheckoutComponent implements OnInit {
                 ingressos: this.ingressos,
                 form: this.form
             }
+        });
+    }
+
+    openErrorDialog(error) {
+        const dialogRef = this.dialog.open(ErroDialogComponent, {
+            width: '250px',
+            data: {erro: error}
         });
     }
 
@@ -198,11 +226,14 @@ export class CheckoutComponent implements OnInit {
         const ingressosRequest = {
             listaIngresso: ingressosCheckout
         };
+        /*
         this.ingressosService.adicionarIngressos(ingressosRequest).subscribe((resp: any) => {
             this.router.navigate(['/meus-ingressos']);
             this.getIngressoCheckout.cleanStorage();
             this.dialog.closeAll();
             this.openDialogSuccess('COMPAPRO');
         });
+        */
+        return ingressosRequest;
     }
 }

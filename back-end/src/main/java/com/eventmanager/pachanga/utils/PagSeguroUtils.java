@@ -29,7 +29,7 @@ public class PagSeguroUtils {
 
 	public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 
-	public static final String CREDENTIAL = "E8F72599309B4733A2084C38BF60866C";
+	public static final String CREDENTIAL = "FC6E0C59A56D4C37A3C0DBCB719CAE84";
 
 	public static String criacaoBoleto(InfoPagamentoBoletoTO infoPagamento, float preco, String codBoleto, Festa festa) {
 
@@ -90,14 +90,11 @@ public class PagSeguroUtils {
 			Element element= (Element) statusPagamento.item(0);
 			status = Integer.parseInt(element.getTextContent());
 		} catch (ParserConfigurationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new ValidacaoException(e.getMessage());
 		} catch (SAXException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new ValidacaoException(e.getMessage());
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new ValidacaoException(e.getMessage());
 		}
 		return status;
 		

@@ -83,7 +83,6 @@ describe('RelatoriosPainelComponent', () => {
       timeToken: '2020-09-21T01:14:04.028+0000',
       token: 'teste'
     };
-    component.formsResult = []
     localStorage.setItem('token', JSON.stringify(token));
     fixture.detectChanges();
   });

@@ -162,22 +162,6 @@ describe('CheckoutComponent', () => {
   });
 
   it('should gerarIngressosPayPal', () => {
-    spyOn(component.ingressosService, 'adicionarIngressos')
-    .and
-    .callThrough();
-
-    spyOn(component.router, 'navigate')
-    .and
-    .callThrough();
-
-    spyOn(component, 'openDialogSuccess')
-    .and
-    .callThrough();
-
-    spyOn(component.getIngressoCheckout, 'cleanStorage')
-    .and
-    .callThrough();
-
     component.ingressos = [{
       quantidade: ['1'],
       precoUnico: 35,
@@ -192,14 +176,20 @@ describe('CheckoutComponent', () => {
     component.form.get('nome1-0').setValue('TesteNome');
     component.form.get('email1-0').setValue('TesteEmail');
 
-    component.gerarIngressosPayPal();
-
-    expect(component.ingressosService.adicionarIngressos).toHaveBeenCalled();
-    expect(component.getIngressoCheckout.cleanStorage).toHaveBeenCalled();
-    expect(component.openDialogSuccess).toHaveBeenCalledWith('COMPAPRO');
-    expect(dialogSpy.closeAll).toHaveBeenCalled();
-    expect(dialogSpy.open).toHaveBeenCalled();
-    expect(component.router.navigate).toHaveBeenCalledWith(['/meus-ingressos']);
+    const resultIngresso = {
+      listaIngresso: [{
+        codLote: '1',
+        festa: {codFesta: '1'},
+        codUsuario: '1',
+        statusIngresso: 'U',
+        statusCompra: 'P',
+        boleto: false,
+        preco: 35,
+        nomeTitular: 'TesteNome',
+        emailTitular: 'TesteEmail'
+      }]
+    };
+    expect(component.gerarIngressosPayPal()).toEqual(resultIngresso);
   });
 
   it('should openDialogProcessing', () => {
@@ -210,6 +200,16 @@ describe('CheckoutComponent', () => {
   it('should parserFloat', () => {
     const result = component.parserFloat(1);
     expect(result).toBe('1.00');
+  });
+
+  it('should openDialogSuccess', () => {
+    component.openDialogSuccess('teste');
+    expect(dialogSpy.open).toHaveBeenCalled();
+  });
+
+  it('should openErrorDialog', () => {
+    component.openErrorDialog('teste');
+    expect(dialogSpy.open).toHaveBeenCalled();
   });
 
 });

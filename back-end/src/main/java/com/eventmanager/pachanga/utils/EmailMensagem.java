@@ -1,11 +1,11 @@
 package com.eventmanager.pachanga.utils;
 
-import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 import java.util.Properties;
+import java.util.List;
 
-import javax.imageio.ImageIO;
 import javax.mail.Address;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -20,6 +20,7 @@ import javax.mail.internet.MimeMultipart;
 import org.springframework.stereotype.Component;
 
 import com.eventmanager.pachanga.domains.Festa;
+import com.eventmanager.pachanga.domains.Ingresso;
 import com.eventmanager.pachanga.errors.ValidacaoException;
 
 @Component(value = "emailMensagem")
@@ -75,7 +76,7 @@ public class EmailMensagem {
 		}
 	}
 	
-	public void enviarEmailQRCode(String email, String barcode, Festa festa) {
+	public static void enviarEmailQRCode(String email, Festa festa, List<Ingresso> ingressos) {
 		Properties props = new Properties();
 		props.put("mail.smtp.host", "smtp.gmail.com");
 		props.put("mail.smtp.auth", "true");
@@ -107,19 +108,18 @@ public class EmailMensagem {
 			MimeBodyPart messageBodyPart = new MimeBodyPart();
 			MimeBodyPart attachmentPart = new MimeBodyPart();
 			MimeMultipart multipart = new MimeMultipart("related");
-			File file = new File("image.png");
+			
+			File file = PdfConviteManager.gerarPDF(ingressos);
 			try {
-				BufferedImage image = QRCodeManager.generateQRCodeImage(barcode);
-				ImageIO.write(image, "png", file);
 				attachmentPart = new MimeBodyPart();
 				attachmentPart.attachFile(file);
-			} catch (Exception e) {
+			} catch (IOException e) {
 				e.printStackTrace();
 			}
 
 			String htmlMessage = "<h1><strong>Sua participa&ccedil;&atilde;o na festa " + festa.getNomeFesta()
-					+ " foi aprovada!</strong></h1>\r\n" + "\r\n" + "<p>Segue o QR Code do ingresso da festa: </p>\r\n"
-					+ "<p>Esperamos&nbsp;que aproveite a festa! </p> \r\n" + "<p><strong>Equipe Pachanga.</strong></p>";
+					+ " foi aprovada!</strong></h1>\r\n" + "\r\n" + "<p>Seu pedido foi aprovado. Segue em anexo seu(s) ingresso(s).</p>\r\n"
+					+ "<p>Esperamos&nbsp;que aproveite a festa! </p> \r\n" + "<p><strong>Equipe Pachanga</strong></p>";
 
 			messageBodyPart.setContent(htmlMessage, "text/html");
 			multipart.addBodyPart(messageBodyPart);

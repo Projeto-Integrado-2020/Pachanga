@@ -16,6 +16,7 @@ import com.eventmanager.pachanga.factory.LoteFactory;
 import com.eventmanager.pachanga.repositories.IngressoRepository;
 import com.eventmanager.pachanga.repositories.LoteRepository;
 import com.eventmanager.pachanga.tipo.TipoPermissao;
+import com.eventmanager.pachanga.tipo.TipoStatusFesta;
 
 @Service
 @Transactional
@@ -109,6 +110,16 @@ public class LoteService {
 			throw new ValidacaoException("LOTEVING");// lote já vendeu alguns ingressos
 		}
 		loteRepository.delete(lote);
+	}
+	
+	public void deleteCascade(Festa festa) {
+		List<Ingresso> ingressos = ingressoRepository.findIngressosFesta(festa.getCodFesta());
+		
+		if(!TipoStatusFesta.FINALIZADO.getValor().equals(festa.getStatusFesta()) && ingressos.size() > 0) {
+			throw new ValidacaoException("FESDEING");
+		}
+		ingressoRepository.deleteByCodFesta(festa.getCodFesta());
+		loteRepository.deleteByCodFesta(festa.getCodFesta());
 	}
 
 	private void validarLote(LoteTO loteTo) {

@@ -20,6 +20,7 @@ import com.eventmanager.pachanga.factory.EstoqueFactory;
 import com.eventmanager.pachanga.repositories.EstoqueRepository;
 import com.eventmanager.pachanga.repositories.FestaRepository;
 import com.eventmanager.pachanga.repositories.GrupoRepository;
+import com.eventmanager.pachanga.repositories.ItemEstoqueFluxoRepository;
 import com.eventmanager.pachanga.repositories.ItemEstoqueRepository;
 import com.eventmanager.pachanga.repositories.ProdutoRepository;
 import com.eventmanager.pachanga.tipo.TipoPermissao;
@@ -42,6 +43,9 @@ public class EstoqueService {
 	
 	@Autowired
 	private ItemEstoqueRepository itemEstoqueRepository;
+	
+	@Autowired
+	private ItemEstoqueFluxoRepository itemEstoqueFluxoRepository;
 	
 	@Autowired
 	private EstoqueFactory estoqueFactory;
@@ -120,6 +124,17 @@ public class EstoqueService {
 			throw new ValidacaoException("ESTOPRIN");//estoque principal
 		}
 		estoqueRepository.delete(estoque);
+	}
+	
+	public void deleteCascade(int idFesta) {
+		List<Estoque> estoques = estoqueRepository.findEstoqueByCodFesta(idFesta);
+
+		for (Estoque estoque : estoques) {
+			estoqueRepository.deleteProdEstoque(idFesta, estoque.getCodEstoque());
+		}
+		produtoRepository.deleteProdFesta(idFesta);
+		estoqueRepository.deleteEstoque(idFesta);
+		itemEstoqueFluxoRepository.deleteByCodFesta(idFesta);
 	}
 
 	private Estoque validarEstoque(int codEstoque) {

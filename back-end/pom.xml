@@ -167,7 +167,27 @@
 			<artifactId>okhttp</artifactId>
 			<version>4.2.2</version>
 		</dependency>
-
+		<!-- https://mvnrepository.com/artifact/com.github.dhorions/boxable -->
+		<dependency>
+    		<groupId>com.github.dhorions</groupId>
+    		<artifactId>boxable</artifactId>
+    		<version>1.5-RC</version>
+		</dependency>
+		<dependency>
+    		<groupId>org.apache.pdfbox</groupId>
+    		<artifactId>pdfbox</artifactId>
+    		<version>2.0.21</version>
+		</dependency>
+		<dependency>
+    		<groupId>org.jsoup</groupId>
+    		<artifactId>jsoup</artifactId>
+    		<version>1.13.1</version>
+		</dependency>
+		<dependency>
+		    <groupId>com.paypal.sdk</groupId>
+		    <artifactId>checkout-sdk</artifactId>
+		    <version>1.0.1</version>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -182,5 +202,6 @@
 			</plugin>
 		</plugins>
 	</build>
+	
 
 </project>
