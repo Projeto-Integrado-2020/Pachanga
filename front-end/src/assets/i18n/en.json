@@ -166,7 +166,8 @@
         "payment_method.boleto.holder.tax_id": "Invalid CPF.",
         "payment_method.boleto.holder.address.region_code": "Invalid region code.",
         "payment_method.boleto.holder.email": "Invalid e-mail.",
-        "BOLEREGI": "Invalid State/City."
+        "BOLEREGI": "Invalid State/City.",
+        "FESDEING": "The party has already sold tickets and has not happened yet."
     },
 
     "SUCCESS": {

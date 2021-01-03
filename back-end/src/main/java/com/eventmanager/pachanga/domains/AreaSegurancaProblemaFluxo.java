@@ -21,11 +21,20 @@ public class AreaSegurancaProblemaFluxo {
 	@Column(name = "cod_usuario_resolv")
 	private Integer codUsuarioResolv;
 	
+	@Column(name = "cod_festa")
+	private Integer codFesta;
+	
+	@Column(name = "nome_usuario_resolv")
+	private String nomeUsuarioResolv;
+	
 	@Column(name = "horario_inicio")
 	private LocalDateTime horarioInicio;
 	
 	@Column(name = "cod_usuario_emissor")
 	private Integer codUsuarioEmissor;
+	
+	@Column(name = "nome_usuario_emissor")
+	private String nomeUsuarioEmissor;
 	
 	@Column(name = "descricao_prob")
 	private String descProblema;
@@ -39,6 +48,9 @@ public class AreaSegurancaProblemaFluxo {
 	@Column(name = "cod_area")
 	private Integer codArea;
 	
+	@Column(name = "nome_area")
+	private String nomeArea;
+	
 	@Column(name = "cod_problema")
 	private Integer codProblema;
 	
@@ -49,7 +61,7 @@ public class AreaSegurancaProblemaFluxo {
 		
 	}
 	
-	public AreaSegurancaProblemaFluxo(AreaSegurancaProblema areaProblema) {
+	public AreaSegurancaProblemaFluxo(AreaSegurancaProblema areaProblema, Usuario usuarioEmissor, Usuario usuarioResolv) {
 		this.codUsuarioResolv = areaProblema.getCodUsuarioResolv() == null ? null : areaProblema.getCodUsuarioResolv().getCodUsuario();
 		this.horarioInicio = areaProblema.getHorarioInicio();
 		this.codUsuarioEmissor = areaProblema.getCodUsuarioEmissor() == null ? null : areaProblema.getCodUsuarioEmissor().getCodUsuario();
@@ -59,6 +71,10 @@ public class AreaSegurancaProblemaFluxo {
 		this.codArea = areaProblema.getArea().getCodArea();
 		this.codProblema = areaProblema.getProblema().getCodProblema();
 		this.codAreaProblema = areaProblema.getCodAreaProblema();
+		this.nomeArea = areaProblema.getArea().getNomeArea();
+		this.codFesta = areaProblema.getFesta().getCodFesta();
+		this.nomeUsuarioEmissor = usuarioEmissor == null ? null : usuarioEmissor.getNomeUser();
+		this.nomeUsuarioResolv = usuarioResolv == null ? null : usuarioResolv.getNomeUser();
 	}
 	
 	public Integer getCodHistorico() {
@@ -139,6 +155,62 @@ public class AreaSegurancaProblemaFluxo {
 
 	public void setCodUsuarioEmissor(int codUsuarioEmissor) {
 		this.codUsuarioEmissor = codUsuarioEmissor;
+	}
+
+	public String getNomeUsuarioResolv() {
+		return nomeUsuarioResolv;
+	}
+
+	public void setNomeUsuarioResolv(String nomeUsuarioResolv) {
+		this.nomeUsuarioResolv = nomeUsuarioResolv;
+	}
+
+	public String getNomeUsuarioEmissor() {
+		return nomeUsuarioEmissor;
+	}
+
+	public void setNomeUsuarioEmissor(String nomeUsuarioEmissor) {
+		this.nomeUsuarioEmissor = nomeUsuarioEmissor;
+	}
+
+	public String getNomeArea() {
+		return nomeArea;
+	}
+
+	public void setNomeArea(String nomeArea) {
+		this.nomeArea = nomeArea;
+	}
+
+	public Integer getCodAreaProblema() {
+		return codAreaProblema;
+	}
+
+	public void setCodAreaProblema(Integer codAreaProblema) {
+		this.codAreaProblema = codAreaProblema;
+	}
+
+	public void setCodUsuarioResolv(Integer codUsuarioResolv) {
+		this.codUsuarioResolv = codUsuarioResolv;
+	}
+
+	public void setCodUsuarioEmissor(Integer codUsuarioEmissor) {
+		this.codUsuarioEmissor = codUsuarioEmissor;
+	}
+
+	public void setCodArea(Integer codArea) {
+		this.codArea = codArea;
+	}
+
+	public void setCodProblema(Integer codProblema) {
+		this.codProblema = codProblema;
+	}
+
+	public Integer getCodFesta() {
+		return codFesta;
+	}
+
+	public void setCodFesta(Integer codFesta) {
+		this.codFesta = codFesta;
 	}
 
 }

@@ -73,7 +73,7 @@ public class RelatorioAreaSegurancaService {
 		int quantidadeProblemasTotal = areaSegurancaProblemaRepository.countProblemasFesta(codFesta);
 		usuarioRepository.findByIdFesta(codFesta).stream().forEach(u -> {
 			int chamadasResolvidas = areaSegurancaProblemaRepository.findQuantidadeChamadasResolvidasByUsuario(u.getCodUsuario());
-			solucionadorAlertasSeguranca.put(u.getNomeUser(), (chamadasResolvidas/quantidadeProblemasTotal) * 100);
+			solucionadorAlertasSeguranca.put(u.getNomeUser(), chamadasResolvidas == 0 ? 0 : (chamadasResolvidas/quantidadeProblemasTotal) * 100);
 		});
 		return relatorioAreaSegurancaTOFactory.getUsuarioSolucionador(solucionadorAlertasSeguranca);
 	}

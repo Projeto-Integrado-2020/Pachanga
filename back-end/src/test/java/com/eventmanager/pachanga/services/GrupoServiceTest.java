@@ -1,6 +1,7 @@
 package com.eventmanager.pachanga.services;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.doNothing;
 
 import java.time.LocalDateTime;
 import java.time.Month;
@@ -404,6 +405,35 @@ import com.eventmanager.pachanga.securingweb.JwtUserDetailsService;
 		assertEquals(retorno.getNomeGrupo(), grupo.getNomeGrupo());
 		assertEquals(retorno.getOrganizador(), grupo.getOrganizador());
 		
+	}
+	
+	@Test
+	void deleteCascadeTeste() {
+		List<Integer> codGrupos = new ArrayList<Integer>();
+		codGrupos.add(1);
+		Mockito.when(grupoRepository.findCodGruposFesta(Mockito.anyInt())).thenReturn(codGrupos);
+		List<Integer> codConvidados = new ArrayList<Integer>();
+		codConvidados.add(1);
+		Mockito.when(convidadoRepository.findCodConvidadosNoGrupo(Mockito.anyInt())).thenReturn(codConvidados);
+
+		doNothing().when(convidadoRepository).deleteAllConvidadosNotificacao(Mockito.any());
+		doNothing().when(convidadoRepository).deleteAllConvidadosGrupo(Mockito.anyInt());
+		doNothing().when(convidadoRepository).deleteConvidados(Mockito.any());
+
+		List<Usuario> usuarios = new ArrayList<Usuario>();
+		Usuario usuario = new Usuario();
+		usuario.setCodUsuario(1);
+		usuarios.add(usuario);
+		Mockito.when(usuarioRepository.findUsuariosPorGrupo(Mockito.anyInt())).thenReturn(usuarios);
+
+		doNothing().when(notificacaoService).deleteNotificacao(Mockito.anyInt(),  Mockito.anyString());
+		Mockito.when(notificacaoService.criacaoMensagemNotificacaoUsuarioConvidado(Mockito.anyInt(), Mockito.anyInt(),  Mockito.anyString())).thenReturn(null);
+		doNothing().when(notificacaoService).deleteNotificacao(Mockito.anyInt(), Mockito.anyString());
+		doNothing().when(notificacaoService).deleteNotificacoesGrupos(Mockito.any());
+		doNothing().when(grupoRepository).deleteUsuariosGrupo(Mockito.anyInt());
+		doNothing().when(grupoRepository).deletePermissoesGrupos(Mockito.any());
+
+		grupoService.deleteCascade(1, 1);
 	}
 	
 	@Test

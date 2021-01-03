@@ -14,10 +14,19 @@ public interface IngressoRepository extends JpaRepository<Ingresso, Integer>{
 	@Query(value = "SELECT i FROM Ingresso i JOIN i.lote l WHERE l.codLote = :codLote")
 	public List<Ingresso> findIngressosLote(int codLote);
 	
+	@Query(value = "SELECT count(i) FROM Ingresso i JOIN i.lote l WHERE l.codLote = :codLote")
+	public int findQuantidadeIngressosLote(int codLote);
+	
+	@Query(value = "SELECT count(i) FROM Ingresso i JOIN i.lote l WHERE l.codLote = :codLote AND i.statusCompra = :statusCompra")
+	public int findQuantidadeIngressosLoteStatusCompra(int codLote, String statusCompra);
+	
+	@Query(value = "SELECT count(i) FROM Ingresso i JOIN i.lote l WHERE l.codLote = :codLote AND i.statusIngresso = :statusIngresso")
+	public int findQuantidadeIngressosLoteStatusIngresso(int codLote, String statusIngresso);
+	
 	@Query(value = "SELECT i FROM Ingresso i JOIN i.usuario u JOIN i.festa f JOIN i.lote l WHERE u.codUsuario = :codUsuario")
 	public List<Ingresso> findIngressosUser(int codUsuario);
 	
-	@Query(value = "SELECT i FROM Ingresso i JOIN i.festa f WHERE f.codFesta = :codFesta")
+	@Query(value = "SELECT i FROM Ingresso i JOIN i.festa f JOIN i.usuario u WHERE f.codFesta = :codFesta")
 	public List<Ingresso> findIngressosFesta(int codFesta);
 	
 	@Modifying(clearAutomatically = true)
@@ -42,5 +51,18 @@ public interface IngressoRepository extends JpaRepository<Ingresso, Integer>{
 	
 	@Query(value = "SELECT count(i) FROM Ingresso i JOIN i.lote lt JOIN lt.festa fe WHERE fe.codFesta = :codFesta AND lt.codLote = :codLote")
 	public int findIngressosLoteVendido(int codFesta, int codLote);
+	
+	@Modifying(clearAutomatically = true)
+	@Query(value = "DELETE FROM ingresso WHERE cod_Festa = :idFesta", nativeQuery = true)
+	public void deleteByCodFesta(int idFesta);
+
+	@Query(value = "SELECT count(i) FROM Ingresso i JOIN i.lote lt JOIN lt.festa fe WHERE fe.codFesta = :codFesta")
+	public int findIngressosFestaVendido(int codFesta);
+
+	@Query(value = "SELECT count(i) FROM Ingresso i JOIN i.lote lt JOIN lt.festa fe WHERE fe.codFesta = :codFesta AND i.statusIngresso = 'C'")
+	public int findIngressosChecked(int codFesta);
+	
+	@Query(value = "SELECT i FROM Ingresso i JOIN i.festa f JOIN i.usuario u WHERE f.codFesta = :codFesta AND i.statusIngresso = 'C' ORDER BY i.dataCheckin")
+	public List<Ingresso> findIngressoCheckedOrdenado(int codFesta);
 
 }

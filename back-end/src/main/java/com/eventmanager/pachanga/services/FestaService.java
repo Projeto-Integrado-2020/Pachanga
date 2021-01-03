@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -16,7 +17,6 @@ import org.springframework.web.multipart.MultipartFile;
 import com.cloudinary.utils.ObjectUtils;
 import com.eventmanager.pachanga.domains.Categoria;
 import com.eventmanager.pachanga.domains.CategoriasFesta;
-import com.eventmanager.pachanga.domains.Estoque;
 import com.eventmanager.pachanga.domains.Festa;
 import com.eventmanager.pachanga.domains.Grupo;
 import com.eventmanager.pachanga.domains.ItemEstoque;
@@ -29,14 +29,17 @@ import com.eventmanager.pachanga.errors.ValidacaoException;
 import com.eventmanager.pachanga.factory.ConviteFestaFactory;
 import com.eventmanager.pachanga.factory.FestaFactory;
 import com.eventmanager.pachanga.factory.NotificacaoMudancaStatusFactory;
+import com.eventmanager.pachanga.repositories.AreaSegurancaProblemaFluxoRepository;
+import com.eventmanager.pachanga.repositories.AreaSegurancaProblemaRepository;
+import com.eventmanager.pachanga.repositories.AreaSegurancaRepository;
 import com.eventmanager.pachanga.repositories.CategoriaRepository;
 import com.eventmanager.pachanga.repositories.CategoriasFestaRepository;
-import com.eventmanager.pachanga.repositories.ConvidadoRepository;
-import com.eventmanager.pachanga.repositories.EstoqueRepository;
+import com.eventmanager.pachanga.repositories.CupomRepository;
+import com.eventmanager.pachanga.repositories.DadoBancarioRepository;
 import com.eventmanager.pachanga.repositories.FestaRepository;
 import com.eventmanager.pachanga.repositories.GrupoRepository;
-import com.eventmanager.pachanga.repositories.ItemEstoqueFluxoRepository;
-import com.eventmanager.pachanga.repositories.ProdutoRepository;
+import com.eventmanager.pachanga.repositories.InfoIntegracaoRepository;
+import com.eventmanager.pachanga.repositories.QuestionarioFormsRepository;
 import com.eventmanager.pachanga.repositories.UsuarioRepository;
 import com.eventmanager.pachanga.tipo.TipoCategoria;
 import com.eventmanager.pachanga.tipo.TipoGrupo;
@@ -59,19 +62,31 @@ public class FestaService {
 	private GrupoRepository grupoRepository;
 
 	@Autowired
-	private ConvidadoRepository convidadoRepository;
-
-	@Autowired
 	private CategoriasFestaRepository categoriasFestaRepository;
 
 	@Autowired
 	private CategoriaRepository categoriaRepository;
-
+	
 	@Autowired
-	private EstoqueRepository estoqueRepository;
-
+	private AreaSegurancaProblemaFluxoRepository areaProblemaFluxoRepository;
+	
 	@Autowired
-	private ProdutoRepository produtoRepository;
+	private AreaSegurancaProblemaRepository areaProblemaRepository;
+	
+	@Autowired
+	private AreaSegurancaRepository areaRepository;
+	
+	@Autowired
+	private CupomRepository cupomRepository;
+	
+	@Autowired
+	private DadoBancarioRepository dadoBancarioRepository;
+	
+	@Autowired
+	private InfoIntegracaoRepository infoIntegracaoRepository;
+	
+	@Autowired
+	private QuestionarioFormsRepository questionarioFormsRepository;
 
 	@Autowired
 	private NotificacaoMudancaStatusFactory notificacaoMudancaStatusFactory;
@@ -81,6 +96,9 @@ public class FestaService {
 
 	@Autowired
 	private EstoqueService estoqueService;
+	
+	@Autowired
+	private LoteService loteService;
 
 	@Autowired
 	private ProdutoService produtoService;
@@ -93,9 +111,9 @@ public class FestaService {
 
 	@Autowired
 	private NotificacaoService notificacaoService;
-
+	
 	@Autowired
-	private ItemEstoqueFluxoRepository itemEstoqueFluxoRepository;
+	private Environment env;
 
 	public List<Festa> procurarFestas() {
 		return festaRepository.findAll();
@@ -157,38 +175,22 @@ public class FestaService {
 	public void deleteFesta(int idFesta, int idUser) throws IOException {
 		validarPermissaoUsuario(idUser, idFesta, TipoPermissao.DELEFEST.getCodigo());
 		Festa festa = this.validarFestaExistente(idFesta);
-		List<Integer> codGrupos = grupoRepository.findCodGruposFesta(idFesta);
-		codGrupos.stream().forEach(g -> {
-			List<Integer> codConvidados = convidadoRepository.findCodConvidadosNoGrupo(g);
-			convidadoRepository.deleteAllConvidadosNotificacao(codConvidados);
-			convidadoRepository.deleteAllConvidadosGrupo(g);
-			convidadoRepository.deleteConvidados(codConvidados);
-			List<Usuario> usuarios = usuarioRepository.findUsuariosPorGrupo(g);
-			usuarios.stream().forEach(u -> {
-				notificacaoService.deleteNotificacao(u.getCodUsuario(),
-						notificacaoService.criacaoMensagemNotificacaoUsuarioConvidado(g, u.getCodUsuario(),
-								TipoNotificacao.CONVACEI.getValor()));
-				notificacaoService.deleteNotificacao(idUser, TipoNotificacao.ESTBAIXO.getValor() + "?" + idFesta);
-				notificacaoService.deleteNotificacao(idUser, TipoNotificacao.STAALTER.getValor() + "?" + idFesta);
-			});
-			grupoRepository.deleteUsuariosGrupo(g);
-		});
-		grupoRepository.deletePermissoesGrupos(codGrupos);
-		notificacaoService.deleteNotificacoesGrupos(codGrupos);
+		grupoService.deleteCascade(idFesta, idUser);
 		Set<CategoriasFesta> categorias = categoriasFestaRepository.findCategoriasFesta(idFesta);
 		categoriasFestaRepository.deleteAll(categorias);
-		grupoRepository.deleteByCodFesta(idFesta);
-
-		List<Estoque> estoques = estoqueRepository.findEstoqueByCodFesta(idFesta);
-
-		for (Estoque estoque : estoques) {
-			estoqueRepository.deleteProdEstoque(idFesta, estoque.getCodEstoque());
-		}
-		itemEstoqueFluxoRepository.deleteByCodFesta(idFesta);
-		produtoRepository.deleteProdFesta(idFesta);
-		estoqueRepository.deleteEstoque(idFesta);
+		estoqueService.deleteCascade(idFesta);
+		loteService.deleteCascade(festa);
+		
+		areaProblemaRepository.deleteByCodFesta(idFesta);
+		areaRepository.deleteByCodFesta(idFesta);
+		areaProblemaFluxoRepository.deleteByCodFesta(idFesta);
+		
+		questionarioFormsRepository.deleteByCodFesta(idFesta);
+		infoIntegracaoRepository.deleteByCodFesta(idFesta);
+		cupomRepository.deleteByCodFesta(idFesta);
+		dadoBancarioRepository.deleteByCodFesta(idFesta);
 		festaRepository.deleteById(idFesta);
-		CloudinaryUtils.getCloudinaryCredentials().uploader().destroy(festa.getNomeFesta(), ObjectUtils.emptyMap());
+		CloudinaryUtils.getCloudinaryCredentials().uploader().destroy(env.getProperty("spring.profiles.active") + "/" + festa.getNomeFesta(), ObjectUtils.emptyMap());
 	}
 
 	public Festa updateFesta(FestaTO festaTo, int idUser, MultipartFile imagem) throws IOException {
@@ -419,7 +421,7 @@ public class FestaService {
 
 	private void adicionarImagemCloudnary(MultipartFile imagem, Festa festa) throws IOException {
 		if (imagem == null) {
-			CloudinaryUtils.getCloudinaryCredentials().uploader().destroy(festa.getNomeFesta(), ObjectUtils.emptyMap());
+			CloudinaryUtils.getCloudinaryCredentials().uploader().destroy(env.getProperty("spring.profiles.active") + "/" + festa.getNomeFesta(), ObjectUtils.emptyMap());
 			festa.setImagem(null);
 			festa.setUrlImagem(null);
 		} else {
@@ -430,7 +432,7 @@ public class FestaService {
 			fos.close();
 
 			Map<?,?> uploadImagem = CloudinaryUtils.getCloudinaryCredentials().uploader().upload(imagemUpload,
-					ObjectUtils.asMap("public_id", "prod/"+festa.getNomeFesta()));// quando for feito os testes em desenvolvimento trocar para dev o prod
+					ObjectUtils.asMap("public_id", env.getProperty("spring.profiles.active") + "/" + festa.getNomeFesta()));// quando for feito os testes em desenvolvimento trocar para dev o prod
 			
 			festa.setImagem(imagem.getBytes());
 			festa.setUrlImagem(uploadImagem.get("secure_url").toString());

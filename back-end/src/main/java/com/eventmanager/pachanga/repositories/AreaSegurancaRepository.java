@@ -3,6 +3,7 @@ package com.eventmanager.pachanga.repositories;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
@@ -28,5 +29,9 @@ public interface AreaSegurancaRepository extends JpaRepository<AreaSeguranca, In
 	
 	@Query(value = "SELECT a FROM AreaSeguranca a WHERE codArea = :codArea")
 	public AreaSeguranca findAreaByCodFesta(int codArea);
+	
+	@Modifying(clearAutomatically = true)
+	@Query(value = "DELETE FROM AreaSeguranca WHERE cod_Festa = :idFesta")
+	public void deleteByCodFesta(int idFesta);
 
 }

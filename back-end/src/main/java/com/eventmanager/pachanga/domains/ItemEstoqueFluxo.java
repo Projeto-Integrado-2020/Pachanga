@@ -18,8 +18,14 @@ public class ItemEstoqueFluxo {
 	@Column(name = "cod_produto")
 	private Integer codProduto;
 	
+	@Column(name = "nome_produto")
+	private String nomeProduto;
+	
 	@Column(name = "cod_estoque")
 	private Integer codEstoque;
+	
+	@Column(name = "nome_estoque")
+	private String nomeEstoque;
 	
 	@Column(name = "cod_festa")
 	private Integer codFesta;
@@ -42,7 +48,9 @@ public class ItemEstoqueFluxo {
 	public ItemEstoqueFluxo(ItemEstoque itemEstoque,LocalDateTime dataHorario, Integer codHistorico, boolean dose) {
 		this.codHistorico = codHistorico;
 		this.codProduto = itemEstoque.getProduto().getCodProduto();
+		this.nomeProduto = itemEstoque.getProduto().getMarca();
 		this.codEstoque = itemEstoque.getEstoque().getCodEstoque();
+		this.nomeEstoque = itemEstoque.getEstoque().getNomeEstoque();
 		this.codFesta = itemEstoque.getCodFesta();
 		this.quantidadeEstoque = itemEstoque.getQuantidadeAtual();
 		this.dataHorario = dataHorario;
@@ -104,6 +112,30 @@ public class ItemEstoqueFluxo {
 
 	public void setQuantPerda(int quantPerda) {
 		this.quantPerda = quantPerda;
+	}
+
+	public String getNomeProduto() {
+		return nomeProduto;
+	}
+
+	public void setNomeProduto(String nomeProduto) {
+		this.nomeProduto = nomeProduto;
+	}
+
+	public String getNomeEstoque() {
+		return nomeEstoque;
+	}
+
+	public void setNomeEstoque(String nomeEstoque) {
+		this.nomeEstoque = nomeEstoque;
+	}
+
+	public Boolean getDose() {
+		return dose;
+	}
+
+	public void setDose(Boolean dose) {
+		this.dose = dose;
 	}
 
 }

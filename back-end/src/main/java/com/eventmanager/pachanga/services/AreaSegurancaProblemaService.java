@@ -110,8 +110,7 @@ public class AreaSegurancaProblemaService {
 		return problemaSeguranca;
 	}
 
-	public AreaSegurancaProblema findProblemaSeguranca(int codAreaSegurancaProblema, int codFesta,
-			int idUsuario) {
+	public AreaSegurancaProblema findProblemaSeguranca(int codAreaSegurancaProblema, int codFesta, int idUsuario) {
 		grupoService.validarPermissaoUsuarioGrupo(codFesta, idUsuario, TipoPermissao.VISUPSEG.getCodigo());
 		return areaSegurancaProblemaRepository.findAreaSegurancaProblema(codAreaSegurancaProblema);
 	}
@@ -156,7 +155,8 @@ public class AreaSegurancaProblemaService {
 	}
 
 	private void salvarAreaProblemaHistorico(AreaSegurancaProblema problemaSeguranca) {
-		AreaSegurancaProblemaFluxo areaFluxo = new AreaSegurancaProblemaFluxo(problemaSeguranca);
+		AreaSegurancaProblemaFluxo areaFluxo = new AreaSegurancaProblemaFluxo(problemaSeguranca,
+				problemaSeguranca.getCodUsuarioEmissor(), problemaSeguranca.getCodUsuarioResolv());
 		areaFluxo.setDataHorario(notificacaoService.getDataAtual());
 		areaFluxo.setCodHistorico(areaSegurancaProblemaFluxoRepository.getNextValMySequence());
 		areaSegurancaProblemaFluxoRepository.save(areaFluxo);
