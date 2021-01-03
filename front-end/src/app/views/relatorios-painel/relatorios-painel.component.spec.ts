@@ -11,6 +11,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginService } from 'src/app/services/loginService/login.service';
 import { ControleSidenavComponent } from '../controle-sidenav/controle-sidenav.component';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -39,7 +40,8 @@ describe('RelatoriosPainelComponent', () => {
       declarations: [
         RelatoriosPainelComponent,
         ControleSidenavComponent
-       ]
+       ],
+       schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
     })
     .compileComponents();
   }));

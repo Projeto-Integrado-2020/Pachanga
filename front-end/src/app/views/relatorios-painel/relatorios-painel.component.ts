@@ -16,6 +16,15 @@ export class RelatoriosPainelComponent implements OnInit {
   festa: any;
   festaNome: string;
 
+  saleData = [
+    { name: "Dose Vodka", value: 80 },
+    { name: "Dose Whisky", value: 45 },
+    { name: "Combo Vodka Energ", value: 26 },
+    { name: "Ceveja", value: 218 },
+    { name: "Água", value: 38 }
+  ];
+
+
   constructor(
     private fb: FormBuilder,
     private getFestaService: GetFestaService,
@@ -30,6 +39,7 @@ export class RelatoriosPainelComponent implements OnInit {
   }
 
   ngOnInit() {
+    
     let idFesta = this.router.url;
     idFesta = idFesta.substring(idFesta.indexOf('&') + 1, idFesta.indexOf('/', idFesta.indexOf('&')));
     this.getFestaService.acessarFesta(idFesta).subscribe((resp: any) => {
@@ -37,12 +47,12 @@ export class RelatoriosPainelComponent implements OnInit {
       this.festa = resp;
       this.festaNome = resp.nomeFesta;
       
-      this.problemasArea();
-      this.chamadasUsuario();
-      this.usuarioSolucionador();
-      this.consumoItemEstoque();
-      this.perdaItemEstoque();
-      this.quantidadeItemEstoque();
+      // this.problemasArea();
+      // this.chamadasUsuario();
+      // this.usuarioSolucionador();
+      // this.consumoItemEstoque();
+      // this.perdaItemEstoque();
+      // this.quantidadeItemEstoque();
     });
   }
   // relatorios areaseg

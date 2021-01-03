@@ -140,6 +140,7 @@ import { DialogIngressosMesmaFestaComponent } from './views/dialog-ingressos-mes
 import { PdfMakeWrapper } from 'pdfmake-wrapper';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
 import { ImagemAreaProblemaDialogComponent } from './views/imagem-area-problema-dialog/imagem-area-problema-dialog.component';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 PdfMakeWrapper.setFonts(pdfFonts);
 
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
@@ -326,7 +327,8 @@ export function provideConfig() {
     MaterialFileInputModule,
     NgxPayPalModule,
     NgxQRCodeModule,
-    NgxMaskModule.forRoot()
+    NgxMaskModule.forRoot(),
+    NgxChartsModule
   ],
   providers: [
     {

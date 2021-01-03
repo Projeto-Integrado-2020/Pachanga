@@ -54,6 +54,7 @@ import { MaterialFileInputModule } from 'ngx-material-file-input';
 import { NgxPayPalModule } from 'ngx-paypal';
 import { GerenciadorCuponsComponent } from '../gerenciador-cupons/gerenciador-cupons.component';
 import { ControleSidenavComponent } from '../controle-sidenav/controle-sidenav.component';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 100000;
 
@@ -147,7 +148,8 @@ describe('NavbarComponent', () => {
           useFactory: provideConfig
         },
         { provide: MatDialog, useValue: dialogSpy },
-      ]
+      ],
+      schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
     })
     .compileComponents();
   }));

@@ -48,6 +48,7 @@ import { MaterialFileInputModule } from 'ngx-material-file-input';
 import { NgxPayPalModule } from 'ngx-paypal';
 import { GerenciadorCuponsComponent } from '../gerenciador-cupons/gerenciador-cupons.component';
 import { ControleSidenavComponent } from '../controle-sidenav/controle-sidenav.component';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -137,7 +138,8 @@ describe('NotificacoesComponent', () => {
           provide: AuthServiceConfig,
           useFactory: provideConfig
         }
-      ]
+      ],
+      schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
     })
     .compileComponents();
   }));
