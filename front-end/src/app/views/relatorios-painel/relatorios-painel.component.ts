@@ -29,6 +29,80 @@ export class RelatoriosPainelComponent implements OnInit {
     { name: "Água", value: 38 }
   ];
 
+  paises = [
+    {
+      "name": "Vodka",
+      "series": [
+        {
+          "name": "1990",
+          "value": 62000000
+        },
+        {
+          "name": "2010",
+          "value": 73000000
+        },
+        {
+          "name": "2011",
+          "value": 89400000
+        }
+      ]
+    },
+  
+    {
+      "name": "Whisky",
+      "series": [
+        {
+          "name": "1990",
+          "value": 250000000
+        },
+        {
+          "name": "2010",
+          "value": 309000000
+        },
+        {
+          "name": "2011",
+          "value": 311000000
+        }
+      ]
+    },
+  
+    {
+      "name": "Cerveja",
+      "series": [
+        {
+          "name": "1990",
+          "value": 58000000
+        },
+        {
+          "name": "2010",
+          "value": 50000020
+        },
+        {
+          "name": "2011",
+          "value": 58000000
+        }
+      ]
+    },
+    {
+      "name": "Agua",
+      "series": [
+        {
+          "name": "1990",
+          "value": 57000000
+        },
+        {
+          "name": "2010",
+          "value": 62000000
+        }
+      ]
+    }
+  ];
+  
+
+  colorScheme = {
+    domain: ['#5AA454', '#E44D25', '#CFC0BB', '#7aa3e5', '#a8385d', '#aae3f5']
+  };
+
 
   constructor(
     private fb: FormBuilder,

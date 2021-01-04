@@ -13,20 +13,47 @@
                 </button>
         </mat-list-item>
     </mat-list>
-    <div class="relatorio-container">
-        <ngx-charts-bar-vertical 
-            [results]="saleData"
-            [xAxisLabel]="'Produtos'"
-            [legendTitle]="'Gráfico de Venda de Produtos'"
-            [yAxisLabel]="'Vendas'"
-            [legend]="true"
-            [showXAxisLabel]="true"
-            [showYAxisLabel]="true"
-            [xAxis]="true"
-            [yAxis]="true"
-            [gradient]="false">
-        </ngx-charts-bar-vertical>
-    </div>
+
+    <mat-tab-group>
+        <mat-tab label="Ex. Grafico Barra">
+            <div class="relatorio-container">
+                <ngx-charts-bar-vertical 
+                    [results]="saleData"
+                    [xAxisLabel]="'Produtos'"
+                    [legendTitle]="'Gráfico de Venda de Produtos'"
+                    [yAxisLabel]="'Vendas'"
+                    [legend]="true"
+                    [showXAxisLabel]="true"
+                    [showYAxisLabel]="true"
+                    [xAxis]="true"
+                    [yAxis]="true"
+                    [gradient]="false">
+                </ngx-charts-bar-vertical>
+            </div>
+        </mat-tab>
+        <mat-tab label="Ex. Grafico Linha">
+            <div class="relatorio-container">
+                <ngx-charts-line-chart
+                    [results]="paises"
+                    [scheme]="colorScheme"
+                    [xAxisLabel]="'Produtos'"
+                    [showXAxisLabel]="true"
+                    [showYAxisLabel]="true"
+                    [legendTitle]="'Gráfico de Venda de Produtos'"
+                    [yAxisLabel]="'Vendas'"
+                    [legend]="true"
+                    [showXAxisLabel]="true"
+                    [showYAxisLabel]="true"
+                    [xAxis]="true"
+                    [yAxis]="true"
+                    [gradient]="false">
+                    >
+                </ngx-charts-line-chart>
+                </div>
+        </mat-tab>
+      </mat-tab-group>
+
+
 </div>
 
 
