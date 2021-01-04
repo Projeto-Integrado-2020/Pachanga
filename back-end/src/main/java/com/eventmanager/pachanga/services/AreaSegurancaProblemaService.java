@@ -153,6 +153,14 @@ public class AreaSegurancaProblemaService {
 		areaSegurancaRepository.save(area);
 		areaSegurancaProblemaRepository.save(areaSegurancaProblema);
 	}
+	
+	public void deleteByFesta(int idFesta) {
+		List<AreaSegurancaProblema> areas = areaSegurancaProblemaRepository.findAllAreaSegurancaProblemaFesta(idFesta);
+		areas.stream().forEach(asp -> {
+			this.deletarNotificacoes(asp);
+		});
+		areaSegurancaProblemaRepository.deleteByCodFesta(idFesta);
+	}
 
 	private void salvarAreaProblemaHistorico(AreaSegurancaProblema problemaSeguranca) {
 		AreaSegurancaProblemaFluxo areaFluxo = new AreaSegurancaProblemaFluxo(problemaSeguranca,

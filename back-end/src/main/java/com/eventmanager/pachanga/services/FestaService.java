@@ -30,7 +30,6 @@ import com.eventmanager.pachanga.factory.ConviteFestaFactory;
 import com.eventmanager.pachanga.factory.FestaFactory;
 import com.eventmanager.pachanga.factory.NotificacaoMudancaStatusFactory;
 import com.eventmanager.pachanga.repositories.AreaSegurancaProblemaFluxoRepository;
-import com.eventmanager.pachanga.repositories.AreaSegurancaProblemaRepository;
 import com.eventmanager.pachanga.repositories.AreaSegurancaRepository;
 import com.eventmanager.pachanga.repositories.CategoriaRepository;
 import com.eventmanager.pachanga.repositories.CategoriasFestaRepository;
@@ -71,7 +70,7 @@ public class FestaService {
 	private AreaSegurancaProblemaFluxoRepository areaProblemaFluxoRepository;
 	
 	@Autowired
-	private AreaSegurancaProblemaRepository areaProblemaRepository;
+	private AreaSegurancaProblemaService areaSegurancaProblemaService;
 	
 	@Autowired
 	private AreaSegurancaRepository areaRepository;
@@ -175,16 +174,18 @@ public class FestaService {
 	public void deleteFesta(int idFesta, int idUser) throws IOException {
 		validarPermissaoUsuario(idUser, idFesta, TipoPermissao.DELEFEST.getCodigo());
 		Festa festa = this.validarFestaExistente(idFesta);
+
+		areaSegurancaProblemaService.deleteByFesta(idFesta);
+		areaRepository.deleteByCodFesta(idFesta);
+		areaProblemaFluxoRepository.deleteByCodFesta(idFesta);
+
 		grupoService.deleteCascade(idFesta, idUser);
 		Set<CategoriasFesta> categorias = categoriasFestaRepository.findCategoriasFesta(idFesta);
 		categoriasFestaRepository.deleteAll(categorias);
+
 		estoqueService.deleteCascade(idFesta);
 		loteService.deleteCascade(festa);
-		
-		areaProblemaRepository.deleteByCodFesta(idFesta);
-		areaRepository.deleteByCodFesta(idFesta);
-		areaProblemaFluxoRepository.deleteByCodFesta(idFesta);
-		
+
 		questionarioFormsRepository.deleteByCodFesta(idFesta);
 		infoIntegracaoRepository.deleteByCodFesta(idFesta);
 		cupomRepository.deleteByCodFesta(idFesta);

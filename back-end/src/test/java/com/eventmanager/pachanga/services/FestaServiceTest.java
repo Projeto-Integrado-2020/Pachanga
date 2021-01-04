@@ -41,7 +41,6 @@ import com.eventmanager.pachanga.factory.ConviteFestaFactory;
 import com.eventmanager.pachanga.factory.FestaFactory;
 import com.eventmanager.pachanga.factory.NotificacaoMudancaStatusFactory;
 import com.eventmanager.pachanga.repositories.AreaSegurancaProblemaFluxoRepository;
-import com.eventmanager.pachanga.repositories.AreaSegurancaProblemaRepository;
 import com.eventmanager.pachanga.repositories.AreaSegurancaRepository;
 import com.eventmanager.pachanga.repositories.CategoriaRepository;
 import com.eventmanager.pachanga.repositories.CategoriasFestaRepository;
@@ -118,7 +117,7 @@ class FestaServiceTest {
 	private AreaSegurancaProblemaFluxoRepository areaProblemaFluxoRepository;
 	
 	@MockBean
-	private AreaSegurancaProblemaRepository areaProblemaRepository;
+	private AreaSegurancaProblemaService areaSegurancaProblemaService;
 	
 	@MockBean
 	private AreaSegurancaRepository areaRepository;
@@ -684,7 +683,7 @@ class FestaServiceTest {
 
 		doNothing().when(festaRepository).deleteById(Mockito.any(Integer.class));
 		doNothing().when(categoriasFestaRepository).deleteAll(Mockito.anySet());
-		doNothing().when(areaProblemaRepository).deleteByCodFesta(Mockito.anyInt());
+		doNothing().when(areaSegurancaProblemaService).deleteByFesta(Mockito.anyInt());
 		doNothing().when(areaRepository).deleteByCodFesta(Mockito.anyInt());
 		doNothing().when(areaProblemaFluxoRepository).deleteByCodFesta(Mockito.anyInt());
 		doNothing().when(questionarioFormsRepository).deleteByCodFesta(Mockito.anyInt());
@@ -746,7 +745,7 @@ class FestaServiceTest {
 
 		doNothing().when(festaRepository).deleteById(Mockito.any(Integer.class));
 		doNothing().when(categoriasFestaRepository).deleteAll(Mockito.anySet());
-		doNothing().when(areaProblemaRepository).deleteByCodFesta(Mockito.anyInt());
+		doNothing().when(areaSegurancaProblemaService).deleteByFesta(Mockito.anyInt());
 		doNothing().when(areaRepository).deleteByCodFesta(Mockito.anyInt());
 		doNothing().when(areaProblemaFluxoRepository).deleteByCodFesta(Mockito.anyInt());
 		doNothing().when(questionarioFormsRepository).deleteByCodFesta(Mockito.anyInt());

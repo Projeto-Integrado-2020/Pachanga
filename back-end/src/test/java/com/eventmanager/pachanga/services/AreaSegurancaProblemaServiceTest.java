@@ -565,4 +565,28 @@ class AreaSegurancaProblemaServiceTest {
 		
 	}
 	
+	@Test
+	void deleteByFestaTest() {
+		Usuario usuario = usuarioTest();
+		List<Grupo> grupos = new ArrayList<>();
+		grupos.add(this.criacaoGrupo());
+		List<Usuario> usuarios = new ArrayList<>();
+		usuarios.add(usuario);
+		List<AreaSegurancaProblema> areasSegurancaProblema = new ArrayList<>();
+		AreaSegurancaProblema area = new AreaSegurancaProblema();
+		area.setCodAreaProblema(1);
+		area.setArea(new AreaSeguranca());
+		areasSegurancaProblema.add(area);
+		Mockito.when(areaSegurancaProblemaRepository.findAllAreaSegurancaProblemaFesta(Mockito.anyInt())).thenReturn(areasSegurancaProblema);
+		Mockito.doNothing().when(areaSegurancaProblemaRepository).deleteByCodFesta(Mockito.anyInt());
+		Mockito.when(usuarioService.validarUsuario(Mockito.anyInt())).thenReturn(usuario);
+		Mockito.when(grupoRepository.findGruposFesta(Mockito.anyInt())).thenReturn(grupos);
+		Mockito.when(usuarioRepository.findUsuariosPorGrupo(Mockito.anyInt())).thenReturn(usuarios);
+		Mockito.doNothing().when(notificacaoService).deleteNotificacao(Mockito.anyInt(), Mockito.anyString());
+		Mockito.doNothing().when(notificacaoService).deletarNotificacaoGrupo(Mockito.anyInt(), Mockito.anyString());
+		
+		areaSegurancaProblemaService.deleteByFesta(1);
+	
+	}
+	
 }

@@ -57,7 +57,7 @@ export class PainelSegurancaComponent implements OnInit, OnDestroy {
 
 
   ngOnInit() {
-    this.source = null;
+    this.ngOnDestroy();
     this.areas = [];
     const url = this.router.url;
     this.dataSources = [];
@@ -114,8 +114,6 @@ export class PainelSegurancaComponent implements OnInit, OnDestroy {
       //   area,
       //   {problemas: this.getProblemasArea(area)}
       // );
-
-      console.log(this.getProblemasArea(area));
     }
   }
 
