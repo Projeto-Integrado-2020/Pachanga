@@ -34,16 +34,16 @@ export class RelatoriosPainelComponent implements OnInit {
       "name": "Vodka",
       "series": [
         {
-          "name": "1990",
-          "value": 62000000
+          "name": "19h",
+          "value": 10
         },
         {
-          "name": "2010",
-          "value": 73000000
+          "name": "22h",
+          "value": 5
         },
         {
-          "name": "2011",
-          "value": 89400000
+          "name": "01h",
+          "value": 12
         }
       ]
     },
@@ -52,16 +52,16 @@ export class RelatoriosPainelComponent implements OnInit {
       "name": "Whisky",
       "series": [
         {
-          "name": "1990",
-          "value": 250000000
+          "name": "19h",
+          "value": 2
         },
         {
-          "name": "2010",
-          "value": 309000000
+          "name": "22h",
+          "value": 8
         },
         {
-          "name": "2011",
-          "value": 311000000
+          "name": "01h",
+          "value": 4
         }
       ]
     },
@@ -70,16 +70,16 @@ export class RelatoriosPainelComponent implements OnInit {
       "name": "Cerveja",
       "series": [
         {
-          "name": "1990",
-          "value": 58000000
+          "name": "19h",
+          "value": 14
         },
         {
-          "name": "2010",
-          "value": 50000020
+          "name": "22h",
+          "value": 50
         },
         {
-          "name": "2011",
-          "value": 58000000
+          "name": "01h",
+          "value": 15
         }
       ]
     },
@@ -87,12 +87,16 @@ export class RelatoriosPainelComponent implements OnInit {
       "name": "Agua",
       "series": [
         {
-          "name": "1990",
-          "value": 57000000
+          "name": "19h",
+          "value": 6
         },
         {
-          "name": "2010",
-          "value": 62000000
+          "name": "22h",
+          "value": 14
+        },
+        {
+          "name": "01h",
+          "value": 14
         }
       ]
     }
