@@ -22,86 +22,86 @@ export class RelatoriosPainelComponent implements OnInit {
   sheets = [];
 
   saleData = [
-    { name: "Dose Vodka", value: 80 },
-    { name: "Dose Whisky", value: 45 },
-    { name: "Combo Vodka Energ", value: 26 },
-    { name: "Ceveja", value: 218 },
-    { name: "Água", value: 38 }
+    { name: 'Dose Vodka', value: 80 },
+    { name: 'Dose Whisky', value: 45 },
+    { name: 'Combo Vodka Energ', value: 26 },
+    { name: 'Ceveja', value: 218 },
+    { name: 'Água', value: 38 }
   ];
 
   paises = [
     {
-      "name": "Vodka",
-      "series": [
+      name: 'Vodka',
+      series: [
         {
-          "name": "19h",
-          "value": 10
+          name: '19h',
+          value: 10
         },
         {
-          "name": "22h",
-          "value": 5
+          name: '22h',
+          value: 5
         },
         {
-          "name": "01h",
-          "value": 12
+          name: '01h',
+          value: 12
         }
       ]
     },
-  
+
     {
-      "name": "Whisky",
-      "series": [
+      name: 'Whisky',
+      series: [
         {
-          "name": "19h",
-          "value": 2
+          name: '19h',
+          value: 2
         },
         {
-          "name": "22h",
-          "value": 8
+          name: '22h',
+          value: 8
         },
         {
-          "name": "01h",
-          "value": 4
+          name: '01h',
+          value: 4
         }
       ]
     },
-  
+
     {
-      "name": "Cerveja",
-      "series": [
+      name: 'Cerveja',
+      series: [
         {
-          "name": "19h",
-          "value": 14
+          name: '19h',
+          value: 14
         },
         {
-          "name": "22h",
-          "value": 50
+          name: '22h',
+          value: 50
         },
         {
-          "name": "01h",
-          "value": 15
+          name: '01h',
+          value: 15
         }
       ]
     },
     {
-      "name": "Agua",
-      "series": [
+      name: 'Agua',
+      series: [
         {
-          "name": "19h",
-          "value": 6
+          name: '19h',
+          value: 6
         },
         {
-          "name": "22h",
-          "value": 14
+          name: '22h',
+          value: 14
         },
         {
-          "name": "01h",
-          "value": 14
+          name: '01h',
+          value: 14
         }
       ]
     }
   ];
-  
+
 
   colorScheme = {
     domain: ['#5AA454', '#E44D25', '#CFC0BB', '#7aa3e5', '#a8385d', '#aae3f5']
