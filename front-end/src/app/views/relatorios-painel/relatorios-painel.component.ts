@@ -120,7 +120,6 @@ export class RelatoriosPainelComponent implements OnInit {
   }
 
   ngOnInit() {
-    
     this.getFesta();
   }
 
@@ -132,13 +131,6 @@ export class RelatoriosPainelComponent implements OnInit {
       this.getFestaService.setFarol(false);
       this.festa = resp;
       this.festaNome = resp.nomeFesta;
-      
-      // this.problemasArea();
-      // this.chamadasUsuario();
-      // this.usuarioSolucionador();
-      // this.consumoItemEstoque();
-      // this.perdaItemEstoque();
-      // this.quantidadeItemEstoque();
       this.getQuestionarios(idFesta);
     });
   }
@@ -149,7 +141,9 @@ export class RelatoriosPainelComponent implements OnInit {
       this.formsResult = resp;
       console.log(this.formsResult);
       for (const questionario of this.formsResult) {
-        questionario.urlQuestionario = questionario.urlQuestionario.substring(39, questionario.urlQuestionario.length - 20);
+        questionario.urlQuestionario = questionario.urlQuestionario.
+        substring(39, questionario.urlQuestionario.length - questionario.urlQuestionario.
+          substring(questionario.urlQuestionario.indexOf('', 83)).length);
         this.getSheets(questionario.urlQuestionario);
       }
     });
