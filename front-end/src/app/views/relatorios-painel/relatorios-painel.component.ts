@@ -157,52 +157,9 @@ export class RelatoriosPainelComponent implements OnInit {
     this.getSheetsService.getSheets(urlQuestionario).subscribe((resp: any) => {
       this.sheets.push(resp);
       console.log(this.sheets);
-      this.problemasArea();
     });
   }
   // relatorios areaseg
-  problemasArea() {
-    this.relAreaSegService.problemasArea().subscribe((resp: any) => {
-        console.log('problemasArea');
-        console.log(resp);
-        this.chamadasUsuario();
-      });
-  }
-  chamadasUsuario() {
-    this.relAreaSegService.chamadasUsuario().subscribe((resp: any) => {
-      console.log('chamadasUsuario');
-      console.log(resp);
-      this.usuarioSolucionador();
-    });
-  }
-  usuarioSolucionador() {
-    this.relAreaSegService.usuarioSolucionador().subscribe((resp: any) => {
-      console.log('usuarioSolucionador');
-      console.log(resp);
-      this.consumoItemEstoque();
-    });
-  }
-
-  // relatorios estoque
-  consumoItemEstoque() {
-    this.relEstoqueService.consumoItemEstoque().subscribe((resp: any) => {
-      console.log('consumoItemEstoque');
-      console.log(resp);
-      this.perdaItemEstoque();
-    });
-  }
-  perdaItemEstoque() {
-    this.relEstoqueService.perdaItemEstoque().subscribe((resp: any) => {
-      console.log('perdaItemEstoque');
-      console.log(resp);
-      this.quantidadeItemEstoque();
-    });
-  }
-  quantidadeItemEstoque() {
-    this.relEstoqueService.quantidadeItemEstoque().subscribe((resp: any) => {
-      console.log('quantidadeItemEstoque');
-      console.log(resp);
-    });
-  }
+ 
 
 }

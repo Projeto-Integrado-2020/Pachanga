@@ -29,10 +29,11 @@ export class RelatorioAreaSegService {
   // usuarioSolucionador: get
   //    param: codFesta (int), codUsuario (int)
 
-  problemasArea() {
+  problemasArea(codFesta) {
     if (!this.farol) {
     const httpParams = new HttpParams()
-      .append('idUser', this.loginService.getusuarioInfo().codUsuario);
+      .append('codUsuario', this.loginService.getusuarioInfo().codUsuario)
+      .append('codFesta', codFesta);
 
     let headers = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
