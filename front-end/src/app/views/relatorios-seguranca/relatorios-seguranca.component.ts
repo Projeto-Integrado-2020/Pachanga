@@ -18,28 +18,31 @@ export class RelatoriosSegurancaComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    //this.problemasArea(this.codFesta)
+    this.problemasArea(this.codFesta)
   }
 
   problemasArea(codFesta) {
     this.relAreaSegService.problemasArea(codFesta).subscribe((resp: any) => {
         console.log('problemasArea');
         console.log(resp);
+        this.chamadasUsuario(codFesta)
       });
   }
 
-  /*
-  chamadasUsuario() {
-    this.relAreaSegService.chamadasUsuario().subscribe((resp: any) => {
+
+  chamadasUsuario(codFesta) {
+    this.relAreaSegService.chamadasUsuario(codFesta).subscribe((resp: any) => {
       console.log('chamadasUsuario');
       console.log(resp);
+      this.usuarioSolucionador(codFesta);
     });
   }
-  usuarioSolucionador() {
-    this.relAreaSegService.usuarioSolucionador().subscribe((resp: any) => {
+
+  usuarioSolucionador(codFesta) {
+    this.relAreaSegService.usuarioSolucionador(codFesta).subscribe((resp: any) => {
       console.log('usuarioSolucionador');
       console.log(resp);
     });
-  }*/
+  }
 
 }

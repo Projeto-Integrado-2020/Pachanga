@@ -32,8 +32,8 @@ export class RelatorioAreaSegService {
   problemasArea(codFesta) {
     if (!this.farol) {
     const httpParams = new HttpParams()
-      .append('codUsuario', this.loginService.getusuarioInfo().codUsuario)
-      .append('codFesta', codFesta);
+      .append('codFesta', codFesta)
+      .append('codUsuario', this.loginService.getusuarioInfo().codUsuario);
 
     let headers = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
@@ -48,10 +48,11 @@ export class RelatorioAreaSegService {
     }
   }
 
-  chamadasUsuario() {
+  chamadasUsuario(codFesta) {
     if (!this.farol) {
     const httpParams = new HttpParams()
-      .append('idUser', this.loginService.getusuarioInfo().codUsuario);
+      .append('codFesta', codFesta)
+      .append('codUsuario', this.loginService.getusuarioInfo().codUsuario);
 
     let headers = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
@@ -66,10 +67,11 @@ export class RelatorioAreaSegService {
     }
   }
 
-  usuarioSolucionador() {
+  usuarioSolucionador(codFesta) {
     if (!this.farol) {
     const httpParams = new HttpParams()
-      .append('idUser', this.loginService.getusuarioInfo().codUsuario);
+      .append('codFesta', codFesta)
+      .append('codUsuario', this.loginService.getusuarioInfo().codUsuario);
 
     let headers = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
