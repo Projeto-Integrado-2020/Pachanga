@@ -54,8 +54,14 @@ public class AreaSegurancaProblemaFluxo {
 	@Column(name = "cod_problema")
 	private Integer codProblema;
 	
+	@Column(name = "desc_problema")
+	private String nomeProblema;
+	
 	@Column(name = "cod_area_problema")
 	private Integer codAreaProblema;
+	
+	@Column(name = "status_problema")
+	private String statusProblema;
 	
 	public AreaSegurancaProblemaFluxo() {
 		
@@ -75,6 +81,8 @@ public class AreaSegurancaProblemaFluxo {
 		this.codFesta = areaProblema.getFesta().getCodFesta();
 		this.nomeUsuarioEmissor = usuarioEmissor == null ? null : usuarioEmissor.getNomeUser();
 		this.nomeUsuarioResolv = usuarioResolv == null ? null : usuarioResolv.getNomeUser();
+		this.statusProblema = areaProblema.getStatusProblema();
+		this.nomeProblema = areaProblema.getProblema() == null ? null: areaProblema.getProblema().getDescProblema();
 	}
 	
 	public Integer getCodHistorico() {
@@ -211,6 +219,22 @@ public class AreaSegurancaProblemaFluxo {
 
 	public void setCodFesta(Integer codFesta) {
 		this.codFesta = codFesta;
+	}
+
+	public String getNomeProblema() {
+		return nomeProblema;
+	}
+
+	public void setNomeProblema(String nomeProblema) {
+		this.nomeProblema = nomeProblema;
+	}
+
+	public String getStatusProblema() {
+		return statusProblema;
+	}
+
+	public void setStatusProblema(String statusProblema) {
+		this.statusProblema = statusProblema;
 	}
 
 }

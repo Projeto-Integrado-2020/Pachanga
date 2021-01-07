@@ -13,6 +13,8 @@ import org.springframework.stereotype.Service;
 import com.eventmanager.pachanga.dtos.RelatorioCheckInTO;
 import com.eventmanager.pachanga.factory.RelatorioCheckInFactory;
 import com.eventmanager.pachanga.repositories.IngressoRepository;
+import com.eventmanager.pachanga.repositories.LoteRepository;
+import com.eventmanager.pachanga.tipo.TipoStatusIngresso;
 
 @Service
 @Transactional
@@ -27,11 +29,22 @@ public class RelatorioCheckInService {
 	@Autowired
 	private RelatorioAreaSegurancaService relatorioAreaSegurancaService;
 
+	@Autowired
+	private LoteRepository loteRepository;
+
 	public RelatorioCheckInTO ingressosCompradosEntradas(int codFesta, int codUsuario) {
 		relatorioAreaSegurancaService.validacaoUsuarioFestaRelatorio(codFesta, codUsuario);
-		int quantidadeComprados = ingressoRepository.findIngressosFestaVendido(codFesta);
-		int quantidadeEntradas = ingressoRepository.findIngressosChecked(codFesta);
-		return relatorioCheckInFactory.relatorioIngressosCompradosEntradas(quantidadeComprados, quantidadeEntradas);
+
+		Map<String, Map<Integer, Integer>> ingressosLoteFesta = new LinkedHashMap<>();
+
+		loteRepository.listaLoteFesta(codFesta).stream().forEach(l -> {
+			Map<Integer, Integer> quantidadeIngressosTotaisChecked = new LinkedHashMap<>();
+			quantidadeIngressosTotaisChecked.put(ingressoRepository.findIngressosLoteVendido(codFesta, l.getCodLote()),
+					ingressoRepository.findIngressosLoteChecked(codFesta, l.getCodLote()));
+			ingressosLoteFesta.put(l.getNomeLote(), quantidadeIngressosTotaisChecked);
+		});
+
+		return relatorioCheckInFactory.relatorioIngressosCompradosEntradas(ingressosLoteFesta);
 	}
 
 	public RelatorioCheckInTO faixaEtariaFesta(int codFesta, int codUsuario) {
@@ -100,6 +113,21 @@ public class RelatorioCheckInService {
 			}
 		});
 		return relatorioCheckInFactory.relatorioEntradaHora(quantidadeEntradaHora);
+	}
+
+	public RelatorioCheckInTO relatorioDeIngressosCheckIn(int codFesta, int codUsuario) {
+		relatorioAreaSegurancaService.validacaoUsuarioFestaRelatorio(codFesta, codUsuario);
+
+		Map<String, Map<Integer, Integer>> ingressoStatus = new LinkedHashMap<>();
+		loteRepository.listaLoteFesta(codFesta).stream().forEach(e -> {
+			
+			Map<Integer, Integer> ingressosChecadosUnchecked = new LinkedHashMap<>();
+			ingressosChecadosUnchecked.put(ingressoRepository.findQuantidadeIngressosLoteStatusIngresso(e.getCodLote(), TipoStatusIngresso.CHECKED.getDescricao()), ingressoRepository.findQuantidadeIngressosLoteStatusIngresso(e.getCodLote(), TipoStatusIngresso.UNCHECKED.getDescricao()));
+			ingressoStatus.put(e.getNomeLote(), ingressosChecadosUnchecked);
+			
+			});
+		
+		return relatorioCheckInFactory.relatorioCheckedUnchecked(ingressoStatus);
 	}
 
 }

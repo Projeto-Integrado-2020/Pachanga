@@ -27,7 +27,6 @@ import com.eventmanager.pachanga.domains.Produto;
 import com.eventmanager.pachanga.dtos.RelatorioEstoqueTO;
 import com.eventmanager.pachanga.errors.ValidacaoException;
 import com.eventmanager.pachanga.factory.RelatorioEstoqueTOFactory;
-import com.eventmanager.pachanga.repositories.EstoqueRepository;
 import com.eventmanager.pachanga.repositories.ItemEstoqueFluxoRepository;
 import com.eventmanager.pachanga.securingweb.JwtAuthenticationEntryPoint;
 import com.eventmanager.pachanga.securingweb.JwtTokenUtil;
@@ -45,16 +44,10 @@ class RelatorioEstoqueServiceTest {
 	private ItemEstoqueFluxoRepository itemEstoqueFluxoRepository;
 
 	@MockBean
-	private FestaService festaService;
-
-	@MockBean
-	private GrupoService grupoService;
-
-	@MockBean
-	private EstoqueRepository estoqueRepository;
-
-	@MockBean
 	private RelatorioEstoqueTOFactory relatorioEstoqueTOFactory;
+	
+	@MockBean
+	private RelatorioAreaSegurancaService relatorioAreaSegurancaService;
 
 	@MockBean
 	private AuthorizationServerTokenServices defaultAuthorizationServerTokenServices;
@@ -139,8 +132,11 @@ class RelatorioEstoqueServiceTest {
 		List<ItemEstoqueFluxo> itemFluxo = new ArrayList<>();
 		itemFluxo.add(itemEstoqueFluxoTest());
 		itemFluxo.add(fluxo);
+		
+		List<Integer[]> dadosItensFluxo = new ArrayList<>();
+		dadosItensFluxo.add(new Integer[]{ 1, 2});
 
-		Mockito.when(estoqueRepository.findEstoqueByCodFestaJoinProduto(Mockito.anyInt())).thenReturn(estoques);
+		Mockito.when(itemEstoqueFluxoRepository.getEstoqueProdutoFluxoFesta(Mockito.anyInt())).thenReturn(dadosItensFluxo);
 		Mockito.when(itemEstoqueFluxoRepository.getFluxoEstoqueProduto(Mockito.anyInt(), Mockito.anyInt()))
 				.thenReturn(itemFluxo);
 		Mockito.when(relatorioEstoqueTOFactory.getRelatorioEstoque(Mockito.anyString(), Mockito.anyString(),
@@ -163,8 +159,11 @@ class RelatorioEstoqueServiceTest {
 		List<ItemEstoqueFluxo> itemFluxo = new ArrayList<>();
 		itemFluxo.add(itemEstoqueFluxoTest());
 		itemFluxo.add(fluxo);
+		
+		List<Integer[]> dadosItensFluxo = new ArrayList<>();
+		dadosItensFluxo.add(new Integer[]{ 1, 2});
 
-		Mockito.when(estoqueRepository.findEstoqueByCodFestaJoinProduto(Mockito.anyInt())).thenReturn(estoques);
+		Mockito.when(itemEstoqueFluxoRepository.getEstoqueProdutoFluxoFesta(Mockito.anyInt())).thenReturn(dadosItensFluxo);
 		Mockito.when(itemEstoqueFluxoRepository.getFluxoEstoqueProduto(Mockito.anyInt(), Mockito.anyInt()))
 				.thenReturn(itemFluxo);
 		Mockito.when(relatorioEstoqueTOFactory.getRelatorioEstoque(Mockito.anyString(), Mockito.anyString(),
@@ -187,8 +186,11 @@ class RelatorioEstoqueServiceTest {
 		List<ItemEstoqueFluxo> itemFluxo = new ArrayList<>();
 		itemFluxo.add(itemEstoqueFluxoTest());
 		itemFluxo.add(fluxo);
+		
+		List<Integer[]> dadosItensFluxo = new ArrayList<>();
+		dadosItensFluxo.add(new Integer[]{ 1, 2});
 
-		Mockito.when(estoqueRepository.findEstoqueByCodFestaJoinProduto(Mockito.anyInt())).thenReturn(estoques);
+		Mockito.when(itemEstoqueFluxoRepository.getEstoqueProdutoFluxoFesta(Mockito.anyInt())).thenReturn(dadosItensFluxo);
 		Mockito.when(itemEstoqueFluxoRepository.getFluxoEstoqueProduto(Mockito.anyInt(), Mockito.anyInt()))
 				.thenReturn(itemFluxo);
 		Mockito.when(relatorioEstoqueTOFactory.getRelatorioEstoque(Mockito.anyString(), Mockito.anyString(),
@@ -211,8 +213,11 @@ class RelatorioEstoqueServiceTest {
 		List<ItemEstoqueFluxo> itemFluxo = new ArrayList<>();
 		itemFluxo.add(itemEstoqueFluxoTest());
 		itemFluxo.add(fluxo);
+		
+		List<Integer[]> dadosItensFluxo = new ArrayList<>();
+		dadosItensFluxo.add(new Integer[]{ 1, 2});
 
-		Mockito.when(estoqueRepository.findEstoqueByCodFestaJoinProduto(Mockito.anyInt())).thenReturn(estoques);
+		Mockito.when(itemEstoqueFluxoRepository.getEstoqueProdutoFluxoFesta(Mockito.anyInt())).thenReturn(dadosItensFluxo);
 		Mockito.when(itemEstoqueFluxoRepository.getFluxoEstoqueProduto(Mockito.anyInt(), Mockito.anyInt()))
 				.thenReturn(itemFluxo);
 		Mockito.when(relatorioEstoqueTOFactory.getRelatorioEstoque(Mockito.anyString(), Mockito.anyString(),

@@ -69,5 +69,16 @@ public class RelatorioCheckInController {
 		}
 		
 	}
-
+	
+	@ResponseBody
+	@GetMapping(path = "/ingressosFestaCheckedUnchecked")
+	public ResponseEntity<Object> relatorioIngressosFestaCheckedUnchecked(@RequestParam(required = true) int codFesta,
+			@RequestParam(required = true) int codUsuario) {
+		try {
+			return ResponseEntity.ok(relatorioCheckInService.relatorioDeIngressosCheckIn(codFesta, codUsuario));
+		} catch (ValidacaoException e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+	}
+	
 }
