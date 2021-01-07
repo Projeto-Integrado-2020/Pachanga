@@ -14,7 +14,7 @@ import com.eventmanager.pachanga.domains.AreaSegurancaProblema;
 public interface AreaSegurancaProblemaRepository extends JpaRepository<AreaSegurancaProblema, Integer> {
 
 	@Query(value = "SELECT asp FROM AreaSegurancaProblema asp JOIN asp.area a JOIN asp.problema p WHERE a.codArea= :codArea")
-	List<AreaSegurancaProblema> findProblemasArea(int codArea);
+	public List<AreaSegurancaProblema> findProblemasArea(int codArea);
 
 	@Query(value = "SELECT asp FROM AreaSegurancaProblema asp WHERE asp.codAreaProblema = :codAreaSegurancaProblema")
 	public AreaSegurancaProblema findAreaSegurancaProblema(int codAreaSegurancaProblema);
@@ -42,7 +42,7 @@ public interface AreaSegurancaProblemaRepository extends JpaRepository<AreaSegur
 	public int countProblemasFesta(int codFesta);
 
 	@Query(value = "SELECT COUNT(*) from AreaSegurancaProblema asp JOIN asp.codUsuarioResolv u WHERE u.codUsuario = :codUsuario")
-	int findQuantidadeChamadasResolvidasByUsuario(int codUsuario);
+	public int findQuantidadeChamadasResolvidasByUsuario(int codUsuario);
 
 	@Modifying(clearAutomatically = true)
 	@Query(value = "DELETE FROM area_seguranca_x_problema WHERE cod_Festa = :idFesta", nativeQuery = true)

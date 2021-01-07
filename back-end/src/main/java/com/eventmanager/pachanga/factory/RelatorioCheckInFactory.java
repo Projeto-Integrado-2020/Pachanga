@@ -10,9 +10,9 @@ import com.eventmanager.pachanga.dtos.RelatorioCheckInTO;
 @Component(value = "relatorioCheckInFactory")
 public class RelatorioCheckInFactory {
 
-	public RelatorioCheckInTO relatorioIngressosCompradosEntradas(int quantidadeComprados, int quantidadeEntradas) {
-		return RelatorioCheckInTOBuilder.getInstance().quantidadeIngressosComprados(quantidadeComprados)
-				.quantidadeIngressosEntradas(quantidadeEntradas).build();
+	public RelatorioCheckInTO relatorioIngressosCompradosEntradas(
+			Map<String, Map<Integer, Integer>> ingressosLoteFesta) {
+		return RelatorioCheckInTOBuilder.getInstance().ingressosLoteFesta(ingressosLoteFesta).build();
 	}
 
 	public RelatorioCheckInTO relatorioFaixaEtariaFesta(Map<Integer, Integer> quantidadeFaixaEtaria) {
@@ -25,6 +25,10 @@ public class RelatorioCheckInFactory {
 
 	public RelatorioCheckInTO relatorioEntradaHora(Map<String, Integer> quantidadeEntradaHora) {
 		return RelatorioCheckInTOBuilder.getInstance().quantidadePessoasHora(quantidadeEntradaHora).build();
+	}
+	
+	public RelatorioCheckInTO relatorioCheckedUnchecked(Map<String, Map<Integer, Integer>> ingressosLoteFesta) {
+		return RelatorioCheckInTOBuilder.getInstance().ingressoFestaCheckedUnchecked(ingressosLoteFesta).build();
 	}
 
 }

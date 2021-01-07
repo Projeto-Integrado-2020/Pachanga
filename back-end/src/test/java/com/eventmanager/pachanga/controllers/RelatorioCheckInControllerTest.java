@@ -220,5 +220,49 @@ class RelatorioCheckInControllerTest {
 		assertEquals(expected, result.getResponse().getContentAsString());
 		
 	}
+	
+	@Test
+	@WithMockUser
+	void relatorioIngressosFestaCheckedUncheckedSucesso() throws Exception {
+		
+		String uri = "/relatorioCheckIn/ingressosFestaCheckedUnchecked";
+		
+		Mockito.when(relatorioCheckInService.relatorioDeIngressosCheckIn(Mockito.anyInt(), Mockito.anyInt()))
+		.thenReturn(new RelatorioCheckInTO());
+		
+		RequestBuilder requestBuilder = MockMvcRequestBuilders.get(uri).accept(MediaType.APPLICATION_JSON)
+				.param("codFesta", "1").param("codUsuario", "1").contentType(MediaType.APPLICATION_JSON);
+		
+		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+
+		MockHttpServletResponse response = result.getResponse();
+
+		assertEquals(HttpStatus.OK.value(), response.getStatus());
+		
+	}
+	
+	@Test
+	@WithMockUser
+	void relatorioIngressosFestaCheckedUncheckedErro() throws Exception {
+		
+		String uri = "/relatorioCheckIn/ingressosFestaCheckedUnchecked";
+		
+		String expected = "teste";
+		
+		Mockito.when(relatorioCheckInService.relatorioDeIngressosCheckIn(Mockito.anyInt(), Mockito.anyInt()))
+		.thenThrow(new ValidacaoException("teste"));
+		
+		RequestBuilder requestBuilder = MockMvcRequestBuilders.get(uri).accept(MediaType.APPLICATION_JSON)
+				.param("codFesta", "1").param("codUsuario", "1").contentType(MediaType.APPLICATION_JSON);
+		
+		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+
+		MockHttpServletResponse response = result.getResponse();
+
+		assertEquals(HttpStatus.BAD_REQUEST.value(), response.getStatus());
+
+		assertEquals(expected, result.getResponse().getContentAsString());
+		
+	}
 
 }

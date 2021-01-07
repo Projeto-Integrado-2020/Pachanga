@@ -12,78 +12,45 @@ import com.eventmanager.pachanga.dtos.RelatorioDeVendaTO;
 import com.eventmanager.pachanga.factory.RelatorioDeVendaFactory;
 import com.eventmanager.pachanga.repositories.IngressoRepository;
 import com.eventmanager.pachanga.repositories.LoteRepository;
-import com.eventmanager.pachanga.tipo.TipoPermissao;
 
 @Service
 @Transactional
 public class RelatorioDeVendaService {
-	
-	@Autowired
-	private FestaService festaService;
-	
-	@Autowired
-	private GrupoService grupoService;
-	
+
 	@Autowired
 	private LoteRepository loteRepository;
-	
+
 	@Autowired
 	private IngressoRepository ingressoRepository;
-	
-	public Map<String, Integer> relatorioDeIngressos(int codFesta, int codUsuario, String statusCompra) {
-		this.validacaoUsuarioFestaRelatorio(codFesta, codUsuario);
-		
-		Map<String, Integer> ingreessos = new LinkedHashMap<>();
-		loteRepository.listaLoteFesta(codFesta).stream()
-			.forEach(e -> 
-			{
-				ingreessos.put(e.getNomeLote(), ingressoRepository.findQuantidadeIngressosLoteStatusCompra(e.getCodLote(), statusCompra));
-		    });
 
-		return ingreessos;
-	}
+	@Autowired
+	private RelatorioAreaSegurancaService relatorioAreaSegurancaService;
 	
-	public Map<String, Integer> relatorioDeIngressos(int codFesta, int codUsuario) {
-		this.validacaoUsuarioFestaRelatorio(codFesta, codUsuario);
-		
-		Map<String, Integer> ingreessos = new LinkedHashMap<>();
-		loteRepository.listaLoteFesta(codFesta).stream()
-			.forEach(e -> 
-			{
-				ingreessos.put(e.getNomeLote(), ingressoRepository.findQuantidadeIngressosLote(e.getCodLote()));
-		    });
+	@Autowired
+	private RelatorioDeVendaFactory relatorioDeVendaFactory;
 
-		return ingreessos;
-	}
-	
-	public Map<String, Integer> relatorioDeIngressosCheckIn(int codFesta, int codUsuario, String statusIngresso) {
-		this.validacaoUsuarioFestaRelatorio(codFesta, codUsuario);
-		
-		Map<String, Integer> ingreessos = new LinkedHashMap<>();
-		loteRepository.listaLoteFesta(codFesta).stream()
-			.forEach(e -> 
-			{
-				ingreessos.put(e.getNomeLote(), ingressoRepository.findQuantidadeIngressosLoteStatusIngresso(e.getCodLote(), statusIngresso));
-		    });
+	public RelatorioDeVendaTO relatorioDeIngressosPagosComprados(int codFesta, int codUsuario) {
+		relatorioAreaSegurancaService.validacaoUsuarioFestaRelatorio(codFesta, codUsuario);
 
-		return ingreessos;
+		Map<String, Map<Integer, Integer>> ingreessos = new LinkedHashMap<>();
+		loteRepository.listaLoteFesta(codFesta).stream().forEach(e -> {
+			Map<Integer, Integer> quantidadeIngressosPagoComprado = new LinkedHashMap<>();
+			quantidadeIngressosPagoComprado.put(ingressoRepository.findQuantidadeIngressosLotePago(e.getCodLote()),
+					ingressoRepository.findQuantidadeIngressosLoteComprado(e.getCodLote()));
+			ingreessos.put(e.getNomeLote(), quantidadeIngressosPagoComprado);
+		});
+
+		return relatorioDeVendaFactory.getIngressosPagosComprados(ingreessos);
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	public void validacaoUsuarioFestaRelatorio(int codFesta, int codUsuario) {
-		festaService.validarFestaExistente(codFesta);
-		festaService.validarUsuarioFesta(codUsuario, codFesta);
-		grupoService.validarPermissaoUsuarioGrupo(codFesta, codUsuario, TipoPermissao.VISULOTE.getCodigo());// trocar a
-																											// permissao
+
+	public RelatorioDeVendaTO relatorioDeIngressos(int codFesta, int codUsuario) {
+		relatorioAreaSegurancaService.validacaoUsuarioFestaRelatorio(codFesta, codUsuario);
+
+		Map<String, Integer> ingreessos = new LinkedHashMap<>();
+		loteRepository.listaLoteFesta(codFesta).stream().forEach(
+				e -> ingreessos.put(e.getNomeLote(), ingressoRepository.findQuantidadeIngressosLote(e.getCodLote())));
+
+		return relatorioDeVendaFactory.getRelatorioDeVenda(ingreessos);
 	}
+
 }

@@ -141,8 +141,11 @@ import { PdfMakeWrapper } from 'pdfmake-wrapper';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
 import { ImagemAreaProblemaDialogComponent } from './views/imagem-area-problema-dialog/imagem-area-problema-dialog.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
-import { RelatoriosEstoqueComponent } from './views/relatorios-estoque/relatorios-estoque.component';
+
 PdfMakeWrapper.setFonts(pdfFonts);
+
+import { RelatoriosEstoqueComponent } from './views/relatorios-estoque/relatorios-estoque.component';
+import { RelatoriosSegurancaComponent } from './views/relatorios-seguranca/relatorios-seguranca.component';
 
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
 
@@ -247,7 +250,8 @@ export function provideConfig() {
     ControleSidenavComponent,
     DialogIngressosMesmaFestaComponent,
     ImagemAreaProblemaDialogComponent,
-    RelatoriosEstoqueComponent
+    RelatoriosEstoqueComponent,
+    RelatoriosSegurancaComponent
   ],
   entryComponents: [
     LoginComponent,

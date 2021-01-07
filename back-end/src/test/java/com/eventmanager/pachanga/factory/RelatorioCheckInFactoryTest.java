@@ -3,6 +3,7 @@ package com.eventmanager.pachanga.factory;
 import static org.junit.Assert.assertEquals;
 
 import java.util.LinkedHashMap;
+import java.util.Map;
 
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -39,10 +40,9 @@ class RelatorioCheckInFactoryTest {
 	@Test
 	void relatorioIngressosCompradosEntradasTest() {
 		
-		RelatorioCheckInTO relatorio = relatorioCheckInFactory.relatorioIngressosCompradosEntradas(1,2);
+		RelatorioCheckInTO relatorio = relatorioCheckInFactory.relatorioIngressosCompradosEntradas(new LinkedHashMap<String, Map<Integer, Integer>>());
 		
-		assertEquals(true, relatorio.getQuantidadeIngressosComprados() == 1);
-		assertEquals(true, relatorio.getQuantidadeIngressosEntradas() == 2);
+		assertEquals(true, relatorio.getIngressosLoteFesta() != null);
 		
 	}
 	
@@ -70,6 +70,15 @@ class RelatorioCheckInFactoryTest {
 		RelatorioCheckInTO relatorio = relatorioCheckInFactory.relatorioEntradaHora(new LinkedHashMap<String, Integer>());
 		
 		assertEquals(true, relatorio.getQuantidadePessoasHora() != null);
+		
+	}
+	
+	@Test
+	void relatorioCheckedUncheckedTest() {
+		
+		RelatorioCheckInTO relatorio = relatorioCheckInFactory.relatorioCheckedUnchecked(new LinkedHashMap<String, Map<Integer, Integer>>());
+		
+		assertEquals(true, relatorio.getIngressoFestaCheckedUnchecked() != null);
 		
 	}
 

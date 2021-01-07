@@ -10,10 +10,10 @@ public class RelatorioCheckInTO {
 	
 	private Map<String, Integer> quantidadePessoasHora;//primeiro a hora e a quantidade de pessoas que entrou
 	
-	private int quantidadeIngressosComprados;
+	private Map<String, Map<Integer, Integer>> ingressosLoteFesta;// nomeLote, Quantidade total ingressos e quantidade total entrada
 	
-	private int quantidadeIngressosEntradas;
-
+	private Map<String, Map<Integer, Integer>> ingressoFestaCheckedUnchecked;// primeiro checked depois unchecked
+	
 	public Map<Integer, Integer> getQuantitadeFaixaEtaria() {
 		return quantitadeFaixaEtaria;
 	}
@@ -38,20 +38,19 @@ public class RelatorioCheckInTO {
 		this.quantidadePessoasHora = quantidadePessoasHora;
 	}
 
-	public int getQuantidadeIngressosComprados() {
-		return quantidadeIngressosComprados;
+	public Map<String, Map<Integer, Integer>> getIngressosLoteFesta() {
+		return ingressosLoteFesta;
 	}
 
-	public void setQuantidadeIngressosComprados(int quantidadeIngressosComprados) {
-		this.quantidadeIngressosComprados = quantidadeIngressosComprados;
+	public void setIngressosLoteFesta(Map<String, Map<Integer, Integer>> ingressosLoteFesta) {
+		this.ingressosLoteFesta = ingressosLoteFesta;
 	}
 
-	public int getQuantidadeIngressosEntradas() {
-		return quantidadeIngressosEntradas;
+	public Map<String, Map<Integer, Integer>> getIngressoFestaCheckedUnchecked() {
+		return ingressoFestaCheckedUnchecked;
 	}
 
-	public void setQuantidadeIngressosEntradas(int quantidadeIngressosEntradas) {
-		this.quantidadeIngressosEntradas = quantidadeIngressosEntradas;
+	public void setIngressoFestaCheckedUnchecked(Map<String, Map<Integer, Integer>> ingressoFestaCheckedUnchecked) {
+		this.ingressoFestaCheckedUnchecked = ingressoFestaCheckedUnchecked;
 	}
-
 }

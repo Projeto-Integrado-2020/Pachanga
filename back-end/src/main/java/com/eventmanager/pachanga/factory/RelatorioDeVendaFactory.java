@@ -18,4 +18,10 @@ public class RelatorioDeVendaFactory {
 				.ingressosVendidos(ingressos)
 				.build();
 	}
+	
+	public RelatorioDeVendaTO getIngressosPagosComprados(Map<String, Map<Integer, Integer>> ingressos) {	
+		return RelatorioDeVendaTOBuilder.getInstance()
+				.ingressosCompradosPagos(ingressos)
+				.build();
+	}
 }
