@@ -34,15 +34,15 @@ export class RelatoriosPainelComponent implements OnInit {
       name: 'Vodka',
       series: [
         {
-          name: '19h',
+          name: new Date('2021-01-06T15:39:39.563'),
           value: 10
         },
         {
-          name: '22h',
+          name: new Date('2021-01-06T15:40:39.563'),
           value: 5
         },
         {
-          name: '01h',
+          name: new Date('2021-01-06T15:40:55.563'),
           value: 12
         }
       ]
@@ -52,15 +52,15 @@ export class RelatoriosPainelComponent implements OnInit {
       name: 'Whisky',
       series: [
         {
-          name: '19h',
+          name: new Date('2021-01-06T11:39:39.563'),
           value: 2
         },
         {
-          name: '22h',
+          name: new Date('2021-01-06T12:39:39.563'),
           value: 8
         },
         {
-          name: '01h',
+          name: new Date('2021-01-06T13:39:39.563'),
           value: 4
         }
       ]
@@ -70,15 +70,15 @@ export class RelatoriosPainelComponent implements OnInit {
       name: 'Cerveja',
       series: [
         {
-          name: '19h',
+          name: new Date('2021-01-06T15:49:19.563'),
           value: 14
         },
         {
-          name: '22h',
+          name: new Date('2021-01-06T15:59:29.563'),
           value: 50
         },
         {
-          name: '01h',
+          name: new Date('2021-01-06T16:39:39.563'),
           value: 15
         }
       ]
@@ -87,15 +87,19 @@ export class RelatoriosPainelComponent implements OnInit {
       name: 'Agua',
       series: [
         {
-          name: '19h',
+          name: new Date('2021-01-06T15:19:39.563'),
           value: 6
         },
         {
-          name: '22h',
+          name: new Date('2021-01-06T16:29:39.563'),
           value: 14
         },
         {
-          name: '01h',
+          name: new Date('2021-01-06T17:29:39.563'),
+          value: 14
+        },
+        {
+          name: new Date('2021-01-06T18:49:39.563'),
           value: 14
         }
       ]
@@ -112,7 +116,6 @@ export class RelatoriosPainelComponent implements OnInit {
     private fb: FormBuilder,
     public getFestaService: GetFestaService,
     public router: Router,
-    public relEstoqueService: RelatorioEstoqueService,
     public relAreaSegService: RelatorioAreaSegService,
     public forms: GetFormsService,
     public getSheetsService: GetSheetsService
@@ -178,29 +181,6 @@ export class RelatoriosPainelComponent implements OnInit {
   usuarioSolucionador() {
     this.relAreaSegService.usuarioSolucionador().subscribe((resp: any) => {
       console.log('usuarioSolucionador');
-      console.log(resp);
-      this.consumoItemEstoque();
-    });
-  }
-
-  // relatorios estoque
-  consumoItemEstoque() {
-    this.relEstoqueService.consumoItemEstoque().subscribe((resp: any) => {
-      console.log('consumoItemEstoque');
-      console.log(resp);
-      this.perdaItemEstoque();
-    });
-  }
-  perdaItemEstoque() {
-    this.relEstoqueService.perdaItemEstoque().subscribe((resp: any) => {
-      console.log('perdaItemEstoque');
-      console.log(resp);
-      this.quantidadeItemEstoque();
-    });
-  }
-  quantidadeItemEstoque() {
-    this.relEstoqueService.quantidadeItemEstoque().subscribe((resp: any) => {
-      console.log('quantidadeItemEstoque');
       console.log(resp);
     });
   }

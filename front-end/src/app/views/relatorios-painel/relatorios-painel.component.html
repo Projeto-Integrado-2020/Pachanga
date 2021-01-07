@@ -14,6 +14,8 @@
         </mat-list-item>
     </mat-list>
 
+    <app-relatorios-estoque></app-relatorios-estoque>
+
     <mat-tab-group>
         <mat-tab label="Ex. Grafico Barra">
             <div class="relatorio-container">
@@ -27,6 +29,7 @@
                     [showYAxisLabel]="true"
                     [xAxis]="true"
                     [yAxis]="true"
+                    [xAxisTicks]="listaHoras"
                     [gradient]="false">
                 </ngx-charts-bar-vertical>
             </div>
@@ -46,7 +49,8 @@
                     [showYAxisLabel]="true"
                     [xAxis]="true"
                     [yAxis]="true"
-                    [gradient]="false">
+                    [gradient]="false"
+                    [timeline]="true"
                     >
                 </ngx-charts-line-chart>
                 </div>

@@ -18,8 +18,7 @@ export class RelatorioEstoqueService {
   constructor(
     private httpClient: HttpClient,
     private loginService: LoginService,
-    private logService: LogService,
-    private router: Router
+    private logService: LogService
     ) { }
 
   // consumoItemEstoque: get
@@ -29,10 +28,11 @@ export class RelatorioEstoqueService {
   // quantidadeItemEstoque: get
   //    param: codFesta (int), codUsuario (int)
 
-  consumoItemEstoque() {
+  consumoItemEstoque(codFesta) {
     if (!this.farol) {
     const httpParams = new HttpParams()
-      .append('idUser', this.loginService.getusuarioInfo().codUsuario);
+      .append('codFesta', codFesta)
+      .append('codUsuario', this.loginService.getusuarioInfo().codUsuario);
 
     let headers = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
@@ -47,10 +47,11 @@ export class RelatorioEstoqueService {
     }
   }
 
-  perdaItemEstoque() {
+  perdaItemEstoque(codFesta) {
     if (!this.farol) {
     const httpParams = new HttpParams()
-      .append('idUser', this.loginService.getusuarioInfo().codUsuario);
+      .append('codFesta', codFesta)
+      .append('codUsuario', this.loginService.getusuarioInfo().codUsuario);
 
     let headers = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
@@ -65,10 +66,11 @@ export class RelatorioEstoqueService {
     }
   }
 
-  quantidadeItemEstoque() {
+  quantidadeItemEstoque(codFesta) {
     if (!this.farol) {
     const httpParams = new HttpParams()
-      .append('idUser', this.loginService.getusuarioInfo().codUsuario);
+      .append('codFesta', codFesta)
+      .append('codUsuario', this.loginService.getusuarioInfo().codUsuario);
 
     let headers = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
@@ -88,7 +90,6 @@ export class RelatorioEstoqueService {
     logService.initialize();
     logService.logHttpInfo(JSON.stringify(error), 0, error.url);
     this.setFarol(false);
-    this.router.navigate(['404']);
     return throwError(error);
   }
 
