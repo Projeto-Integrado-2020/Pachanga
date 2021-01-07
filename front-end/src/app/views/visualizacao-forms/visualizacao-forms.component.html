@@ -1,0 +1,3 @@
+<div *ngFor="let sheet of sheets;">
+    <iframe width="1135px" height="500" [src]="this.sheet.feed.link[0].href | safe"></iframe>
+</div>

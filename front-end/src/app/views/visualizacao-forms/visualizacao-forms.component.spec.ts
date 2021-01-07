@@ -5,7 +5,6 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { of } from 'rxjs';
-import { RelatoriosPainelComponent } from './relatorios-painel.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -14,14 +13,16 @@ import { ControleSidenavComponent } from '../controle-sidenav/controle-sidenav.c
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { GetFestaService } from 'src/app/services/get-festa/get-festa.service';
 import { GetFormsService } from 'src/app/services/get-forms/get-forms.service';
+import { VisualizacaoFormsComponent } from './visualizacao-forms.component';
+import { SafePipe } from './safe-pipe'
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
 }
 
-describe('RelatoriosPainelComponent', () => {
-  let component: RelatoriosPainelComponent;
-  let fixture: ComponentFixture<RelatoriosPainelComponent>;
+describe('VisualizacaoFormsComponent', () => {
+  let component: VisualizacaoFormsComponent;
+  let fixture: ComponentFixture<VisualizacaoFormsComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -40,7 +41,8 @@ describe('RelatoriosPainelComponent', () => {
         RouterModule.forRoot([])
       ],
       declarations: [
-        RelatoriosPainelComponent,
+        VisualizacaoFormsComponent,
+        SafePipe,
         ControleSidenavComponent
        ],
        schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
@@ -77,7 +79,7 @@ describe('RelatoriosPainelComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(RelatoriosPainelComponent);
+    fixture = TestBed.createComponent(VisualizacaoFormsComponent);
     component = fixture.componentInstance;
     const service: LoginService = TestBed.get(LoginService);
     service.usuarioInfo = {codUsuario: '1'};
@@ -93,35 +95,28 @@ describe('RelatoriosPainelComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should getFesta', () => {
-    spyOn(component.getFestaService, 'acessarFesta')
+  it('should getQuestionarios', () => {
+    spyOn(component.forms, 'getQuestionarios')
     .and
     .callThrough();
 
-    spyOn(component.getFestaService, 'setFarol')
+    spyOn(component.forms, 'setFarol')
     .and
     .callThrough();
 
-    component.getFesta();
+    component.getQuestionarios();
 
-    const festaResult = {
-      nomeFesta: 'Teste',
-      descricaoFesta: 'Teste',
-      codEnderecoFesta: 'Teste',
-      organizador: 'Teste',
-      descOrganizador: 'Teste',
-      horarioInicioFesta: '2020-02-01 12:00:00',
-      horarioFimFesta: '2020-02-06 18:00:00',
-      categoriaPrimaria: {
-        codCategoria: 2,
-        nomeCategoria: 'RAVEAFIM'
-      },
-      categoriaSecundaria: null
-    };
-
-    expect(component.getFestaService.acessarFesta).toHaveBeenCalled();
-    expect(component.getFestaService.setFarol).toHaveBeenCalledWith(false);
-    expect(component.festa).toEqual(festaResult);
+    expect(component.forms.getQuestionarios).toHaveBeenCalled();
+    expect(component.forms.setFarol).toHaveBeenCalledWith(false);
   });
 
+  it('should getSheets', () => {
+    spyOn(component.getSheetsService, 'getSheets')
+    .and
+    .callThrough();
+
+    component.getSheets('1gSc_7WCmt-HuSLX01-Ev58VsiFuhbpYVo8krbPCvvqA');
+
+    expect(component.getSheetsService.getSheets).toHaveBeenCalled();
+  });
 });
