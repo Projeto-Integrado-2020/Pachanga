@@ -17,8 +17,11 @@ public interface IngressoRepository extends JpaRepository<Ingresso, Integer>{
 	@Query(value = "SELECT count(i) FROM Ingresso i JOIN i.lote l WHERE l.codLote = :codLote")
 	public int findQuantidadeIngressosLote(int codLote);
 	
-	@Query(value = "SELECT count(i) FROM Ingresso i JOIN i.lote l WHERE l.codLote = :codLote AND i.statusCompra = :statusCompra")
-	public int findQuantidadeIngressosLoteStatusCompra(int codLote, String statusCompra);
+	@Query(value = "SELECT count(i) FROM Ingresso i JOIN i.lote l WHERE l.codLote = :codLote AND i.statusCompra = 'C'")
+	public int findQuantidadeIngressosLoteComprado(int codLote);
+	
+	@Query(value = "SELECT count(i) FROM Ingresso i JOIN i.lote l WHERE l.codLote = :codLote AND i.statusCompra = 'P'")
+	public int findQuantidadeIngressosLotePago(int codLote);
 	
 	@Query(value = "SELECT count(i) FROM Ingresso i JOIN i.lote l WHERE l.codLote = :codLote AND i.statusIngresso = :statusIngresso")
 	public int findQuantidadeIngressosLoteStatusIngresso(int codLote, String statusIngresso);
@@ -51,6 +54,9 @@ public interface IngressoRepository extends JpaRepository<Ingresso, Integer>{
 	
 	@Query(value = "SELECT count(i) FROM Ingresso i JOIN i.lote lt JOIN lt.festa fe WHERE fe.codFesta = :codFesta AND lt.codLote = :codLote")
 	public int findIngressosLoteVendido(int codFesta, int codLote);
+	
+	@Query(value = "SELECT count(i) FROM Ingresso i JOIN i.lote lt JOIN lt.festa fe WHERE fe.codFesta = :codFesta AND i.statusIngresso = 'C' AND lt.codLote = :codLote")
+	public int findIngressosLoteChecked(int codFesta, int codLote);
 	
 	@Modifying(clearAutomatically = true)
 	@Query(value = "DELETE FROM ingresso WHERE cod_Festa = :idFesta", nativeQuery = true)

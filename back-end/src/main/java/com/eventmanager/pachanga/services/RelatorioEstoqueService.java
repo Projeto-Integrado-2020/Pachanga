@@ -11,14 +11,11 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.eventmanager.pachanga.domains.Estoque;
 import com.eventmanager.pachanga.domains.ItemEstoqueFluxo;
 import com.eventmanager.pachanga.dtos.RelatorioEstoqueTO;
 import com.eventmanager.pachanga.errors.ValidacaoException;
 import com.eventmanager.pachanga.factory.RelatorioEstoqueTOFactory;
-import com.eventmanager.pachanga.repositories.EstoqueRepository;
 import com.eventmanager.pachanga.repositories.ItemEstoqueFluxoRepository;
-import com.eventmanager.pachanga.tipo.TipoPermissao;
 
 @Service
 @Transactional
@@ -28,35 +25,21 @@ public class RelatorioEstoqueService {
 	private ItemEstoqueFluxoRepository itemEstoqueFluxoRepository;
 
 	@Autowired
-	private FestaService festaService;
-
-	@Autowired
-	private GrupoService grupoService;
-
-	@Autowired
-	private EstoqueRepository estoqueRepository;
+	private RelatorioAreaSegurancaService relatorioAreaSegurancaService;
 
 	@Autowired
 	private RelatorioEstoqueTOFactory relatorioEstoqueTOFactory;
 
 	public List<RelatorioEstoqueTO> relatoriosEstoque(int codFesta, int codUsuario, int codRelatorio) {
-		festaService.validarFestaExistente(codFesta);
-		festaService.validarUsuarioFesta(codUsuario, codFesta);
-		grupoService.validarPermissaoUsuarioGrupo(codFesta, codUsuario, TipoPermissao.VISURELA.getCodigo());// trocar a
-																											// permissao
+		relatorioAreaSegurancaService.validacaoUsuarioFestaRelatorio(codFesta, codUsuario);
 
 		List<RelatorioEstoqueTO> relatoriosEstoques = new ArrayList<>();
 
-		List<Estoque> estoques = estoqueRepository.findEstoqueByCodFestaJoinProduto(codFesta);
-
-		estoques.stream().forEach(e ->
-
-		e.getItemEstoque().stream().forEach(ie -> {
+		itemEstoqueFluxoRepository.getEstoqueProdutoFluxoFesta(codFesta).stream().forEach(i -> {
+			List<ItemEstoqueFluxo> itensEstoque = itemEstoqueFluxoRepository.getFluxoEstoqueProduto(i[0], i[1]);
 
 			Map<LocalDateTime, Integer> quantidadeHora = new LinkedHashMap<>();
 
-			List<ItemEstoqueFluxo> itensEstoque = itemEstoqueFluxoRepository.getFluxoEstoqueProduto(e.getCodEstoque(),
-					ie.getProduto().getCodProduto());
 			if (codRelatorio == 1) {
 				this.relatorioConsumoItemEstoque(itensEstoque, quantidadeHora);
 			} else if (codRelatorio == 2) {
@@ -67,12 +50,9 @@ public class RelatorioEstoqueService {
 				throw new ValidacaoException("CODRELIN");
 			}
 
-			relatoriosEstoques.add(relatorioEstoqueTOFactory.getRelatorioEstoque(e.getNomeEstoque(),
-					ie.getProduto().getMarca(), quantidadeHora));
-
-		})
-
-		);
+			relatoriosEstoques.add(relatorioEstoqueTOFactory.getRelatorioEstoque(itensEstoque.get(0).getNomeEstoque(),
+					itensEstoque.get(0).getNomeProduto(), quantidadeHora));
+		});
 
 		return relatoriosEstoques;
 	}

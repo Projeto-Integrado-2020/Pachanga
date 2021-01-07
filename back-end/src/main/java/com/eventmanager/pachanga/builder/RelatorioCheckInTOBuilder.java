@@ -12,11 +12,11 @@ public class RelatorioCheckInTOBuilder {
 	private Map<String, Integer> quantidadeGenero;// o genero da pessoa seguido da quantidade de pessoas daquele genero
 
 	private Map<String, Integer> quantidadePessoasHora;// primeiro a hora e a quantidade de pessoas que entrou
-
-	private int quantidadeIngressosComprados;
-
-	private int quantidadeIngressosEntradas;
 	
+	private Map<String, Map<Integer, Integer>> ingressosLoteFesta;// nomeLote, Quantidade total ingressos e quantidade total entrada
+	
+	private Map<String, Map<Integer, Integer>> ingressoFestaCheckedUnchecked;
+
 	public static RelatorioCheckInTOBuilder getInstance() {
 		return new RelatorioCheckInTOBuilder();
 	}
@@ -36,23 +36,23 @@ public class RelatorioCheckInTOBuilder {
 		return this;
 	}
 	
-	public RelatorioCheckInTOBuilder quantidadeIngressosComprados(int quantidadeIngressosComprados) {
-		this.quantidadeIngressosComprados = quantidadeIngressosComprados;
+	public RelatorioCheckInTOBuilder ingressosLoteFesta(Map<String, Map<Integer, Integer>> ingressosLoteFesta) {
+		this.ingressosLoteFesta = ingressosLoteFesta;
 		return this;
 	}
 	
-	public RelatorioCheckInTOBuilder quantidadeIngressosEntradas(int quantidadeIngressosEntradas) {
-		this.quantidadeIngressosEntradas = quantidadeIngressosEntradas;
+	public RelatorioCheckInTOBuilder ingressoFestaCheckedUnchecked(Map<String, Map<Integer, Integer>> ingressoFestaCheckedUnchecked) {
+		this.ingressoFestaCheckedUnchecked = ingressoFestaCheckedUnchecked;
 		return this;
 	}
 	
 	public RelatorioCheckInTO build() {
 		RelatorioCheckInTO relatorio = new RelatorioCheckInTO();
 		relatorio.setQuantidadeGenero(quantidadeGenero);
-		relatorio.setQuantidadeIngressosComprados(quantidadeIngressosComprados);
-		relatorio.setQuantidadeIngressosEntradas(quantidadeIngressosEntradas);
 		relatorio.setQuantidadePessoasHora(quantidadePessoasHora);
+		relatorio.setIngressosLoteFesta(ingressosLoteFesta);
 		relatorio.setQuantitadeFaixaEtaria(quantitadeFaixaEtaria);
+		relatorio.setIngressoFestaCheckedUnchecked(ingressoFestaCheckedUnchecked);
 		return relatorio;
 	}
 

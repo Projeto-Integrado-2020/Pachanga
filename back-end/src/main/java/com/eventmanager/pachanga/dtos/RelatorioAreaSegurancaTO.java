@@ -6,7 +6,7 @@ public class RelatorioAreaSegurancaTO {
 	
 	private Map<String, Integer> problemasArea;
 	
-	private Map<String, Map<Integer, Integer>> chamadasEmitidasFuncionario;
+	private Map<String, Map<Integer, Integer>> chamadasEmitidasFuncionario; // int primeiro é o finalizado depois o engano
 	
 	private Map<String, Integer> solucionadorAlertasSeguranca;
 

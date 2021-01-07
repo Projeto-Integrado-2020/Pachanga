@@ -112,7 +112,6 @@ class NotificacaoAreaSegurancaTOFactoryTest {
 		
 		Festa festa = festaTest();
 		Problema problema = problemaTest();
-		AreaSeguranca area = areaTest();
 		
 		NotificacaoAreaSegurancaTO notificacaoArea = notificacaoAreaSegurancaTOFactory.getNotificacaoArea(festaTest(),criacaoAreaSegurancaProblema());
 		

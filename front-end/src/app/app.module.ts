@@ -143,6 +143,7 @@ import { ImagemAreaProblemaDialogComponent } from './views/imagem-area-problema-
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { SafePipe } from './views/visualizacao-forms/safe-pipe';
 import { VisualizacaoFormsComponent } from './views/visualizacao-forms/visualizacao-forms.component'
+import { RelatoriosSegurancaComponent } from './views/relatorios-seguranca/relatorios-seguranca.component';
 PdfMakeWrapper.setFonts(pdfFonts);
 
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
@@ -249,7 +250,8 @@ export function provideConfig() {
     DialogIngressosMesmaFestaComponent,
     ImagemAreaProblemaDialogComponent,
     SafePipe,
-    VisualizacaoFormsComponent
+    VisualizacaoFormsComponent,
+    RelatoriosSegurancaComponent
   ],
   entryComponents: [
     LoginComponent,

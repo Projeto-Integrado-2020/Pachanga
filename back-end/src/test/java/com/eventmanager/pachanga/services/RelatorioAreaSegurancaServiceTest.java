@@ -3,7 +3,6 @@ package com.eventmanager.pachanga.services;
 import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,17 +16,12 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.oauth2.provider.token.AuthorizationServerTokenServices;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.eventmanager.pachanga.domains.AreaSeguranca;
-import com.eventmanager.pachanga.domains.Usuario;
 import com.eventmanager.pachanga.dtos.RelatorioAreaSegurancaTO;
 import com.eventmanager.pachanga.factory.RelatorioAreaSegurancaTOFactory;
-import com.eventmanager.pachanga.repositories.AreaSegurancaProblemaRepository;
-import com.eventmanager.pachanga.repositories.AreaSegurancaRepository;
-import com.eventmanager.pachanga.repositories.UsuarioRepository;
+import com.eventmanager.pachanga.repositories.AreaSegurancaProblemaFluxoRepository;
 import com.eventmanager.pachanga.securingweb.JwtAuthenticationEntryPoint;
 import com.eventmanager.pachanga.securingweb.JwtTokenUtil;
 import com.eventmanager.pachanga.securingweb.JwtUserDetailsService;
-import com.eventmanager.pachanga.tipo.TipoAreaSeguranca;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(value = RelatorioAreaSegurancaService.class)
@@ -43,16 +37,10 @@ class RelatorioAreaSegurancaServiceTest {
 	private GrupoService grupoService;
 
 	@MockBean
-	private AreaSegurancaProblemaRepository areaSegurancaProblemaRepository;
-
-	@MockBean
-	private AreaSegurancaRepository areaSegurancaRepository;
-
-	@MockBean
 	private RelatorioAreaSegurancaTOFactory relatorioAreaSegurancaTOFactory;
 
 	@MockBean
-	private UsuarioRepository usuarioRepository;
+	private AreaSegurancaProblemaFluxoRepository areaSegurancaProblemaFluxoRepository;
 
 	@MockBean
 	private AuthorizationServerTokenServices defaultAuthorizationServerTokenServices;
@@ -66,15 +54,6 @@ class RelatorioAreaSegurancaServiceTest {
 	@MockBean
 	private JwtAuthenticationEntryPoint defaultJwtAuthenticationEntryPoint;
 
-	private AreaSeguranca areaTest() {
-		AreaSeguranca area = new AreaSeguranca();
-		area.setCodArea(1);
-		area.setCodFesta(3);
-		area.setNomeArea("teste123");
-		area.setStatusSeguranca(TipoAreaSeguranca.SEGURO.getDescricao());
-		return area;
-	}
-
 	private RelatorioAreaSegurancaTO relatorioAreaTest() {
 		RelatorioAreaSegurancaTO relatorioArea = new RelatorioAreaSegurancaTO();
 		relatorioArea.setProblemasArea(new LinkedHashMap<String, Integer>());
@@ -83,28 +62,16 @@ class RelatorioAreaSegurancaServiceTest {
 		return relatorioArea;
 	}
 
-	@SuppressWarnings("deprecation")
-	private Usuario usuarioTest() {
-		Usuario usuarioTest = new Usuario();
-
-		usuarioTest.setCodUsuario(100);
-		usuarioTest.setEmail("gustavinhoTPD@fodasse.com.br");
-		usuarioTest.setSenha("1234");
-		usuarioTest.setDtNasc(new Date(2000, 8, 27));
-		usuarioTest.setGenero("M");
-		usuarioTest.setNomeUser("Gustavo Barbosa");
-
-		return usuarioTest;
-	}
-
 	@Test
 	void relatorioProblemasAreaSucesso() throws Exception {
 
-		List<AreaSeguranca> areas = new ArrayList<>();
-		areas.add(areaTest());
+		List<Object[]> informacoesAreaProblema = new ArrayList<>();
+		informacoesAreaProblema.add(new Object[] { 1, "teste" });
 
-		Mockito.when(areaSegurancaRepository.findAllAreasByCodFesta(Mockito.anyInt())).thenReturn(areas);
-		Mockito.when(areaSegurancaProblemaRepository.findQuantidadeProblemasByCodArea(Mockito.anyInt())).thenReturn(1);
+		Mockito.when(areaSegurancaProblemaFluxoRepository.findAreasByIdFesta(Mockito.anyInt()))
+				.thenReturn(informacoesAreaProblema);
+		Mockito.when(areaSegurancaProblemaFluxoRepository.findQuantidadeProblemasByCodArea(Mockito.anyInt()))
+				.thenReturn(1);
 		Mockito.when(relatorioAreaSegurancaTOFactory.getProblemasArea(Mockito.anyMap()))
 				.thenReturn(relatorioAreaTest());
 
@@ -117,11 +84,12 @@ class RelatorioAreaSegurancaServiceTest {
 	@Test
 	void relatorioChamadasUsuarioSucesso() throws Exception {
 
-		List<Usuario> usuarios = new ArrayList<>();
-		usuarios.add(usuarioTest());
+		List<Object[]> informacoesUsuario = new ArrayList<>();
+		informacoesUsuario.add(new Object[] { 1, "teste" });
 
-		Mockito.when(usuarioRepository.findByIdFesta(Mockito.anyInt())).thenReturn(usuarios);
-		Mockito.when(areaSegurancaProblemaRepository.findQuantidadeProblemasEmitidosByUsuario(Mockito.anyInt(),
+		Mockito.when(areaSegurancaProblemaFluxoRepository.findUsuariosByIdFesta(Mockito.anyInt()))
+				.thenReturn(informacoesUsuario);
+		Mockito.when(areaSegurancaProblemaFluxoRepository.findQuantidadeProblemasEmitidosByUsuario(Mockito.anyInt(),
 				Mockito.anyString(), Mockito.anyInt())).thenReturn(1, 2);
 		Mockito.when(relatorioAreaSegurancaTOFactory.getChamadasProblema(Mockito.anyMap()))
 				.thenReturn(relatorioAreaTest());
@@ -135,15 +103,16 @@ class RelatorioAreaSegurancaServiceTest {
 	@Test
 	void relatorioUsuarioSolucionadorSucesso() throws Exception {
 
-		List<Usuario> usuarios = new ArrayList<>();
-		usuarios.add(usuarioTest());
+		List<Object[]> informacoesUsuario = new ArrayList<>();
+		informacoesUsuario.add(new Object[] { 1, "teste" });
 
-		Mockito.when(usuarioRepository.findByIdFesta(Mockito.anyInt())).thenReturn(usuarios);
-		Mockito.when(areaSegurancaProblemaRepository.countProblemasFesta(Mockito.anyInt())).thenReturn(10);
-		Mockito.when(areaSegurancaProblemaRepository.findQuantidadeChamadasResolvidasByUsuario(Mockito.anyInt()))
-				.thenReturn(1);
+		Mockito.when(areaSegurancaProblemaFluxoRepository.findUsuariosByIdFesta(Mockito.anyInt()))
+				.thenReturn(informacoesUsuario);
+		Mockito.when(areaSegurancaProblemaFluxoRepository.countProblemasFesta(Mockito.anyInt())).thenReturn(10f);
+		Mockito.when(areaSegurancaProblemaFluxoRepository.findQuantidadeChamadasResolvidasByUsuario(Mockito.anyInt(),
+				Mockito.anyInt())).thenReturn(1);
 		Mockito.when(relatorioAreaSegurancaTOFactory.getUsuarioSolucionador(Mockito.anyMap()))
-		.thenReturn(relatorioAreaTest());
+				.thenReturn(relatorioAreaTest());
 
 		RelatorioAreaSegurancaTO relatorioArea = relatorioAreaSegurancaService.relatorioUsuarioSolucionador(1, 2);
 
