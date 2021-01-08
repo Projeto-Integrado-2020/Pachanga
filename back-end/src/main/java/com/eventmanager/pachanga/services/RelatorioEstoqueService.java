@@ -115,21 +115,24 @@ public class RelatorioEstoqueService {
 		LocalDateTime hora = LocalDateTime.of(1, 1, 1, 1, 1);
 		for (int i = 0; i < itensEstoque.size(); i++) {
 
+			int diferenciaQuantidade = i == 0 ? 0
+					: itensEstoque.get(i - 1).getQuantidadeEstoque() - itensEstoque.get(i).getQuantidadeEstoque();
+
 			if (i == 0) {
 				hora = itensEstoque.get(i).getDataHorario();
 				quantidadeHora.put(hora, 0);
 			}
 
 			if (i > 0 && hora != itensEstoque.get(i).getDataHorario()
-					&& itensEstoque.get(i - 1).getQuantidadeEstoque() > itensEstoque.get(i).getQuantidadeEstoque()) {
+					&& itensEstoque.get(i - 1).getQuantidadeEstoque() > itensEstoque.get(i).getQuantidadeEstoque()
+					&& (diferenciaQuantidade != itensEstoque.get(i).getQuantPerda())) {
 				hora = itensEstoque.get(i).getDataHorario();
-				quantidadeHora.put(hora,
-						itensEstoque.get(i - 1).getQuantidadeEstoque() - itensEstoque.get(i).getQuantidadeEstoque());
+				quantidadeHora.put(hora, diferenciaQuantidade);
 			}
 
-			if (i == itensEstoque.size() - 1 && i != 0) {
-				quantidadeHora.put(itensEstoque.get(i).getDataHorario(),
-						itensEstoque.get(i - 1).getQuantidadeEstoque() - itensEstoque.get(i).getQuantidadeEstoque());
+			if (i == itensEstoque.size() - 1 && i != 0
+					&& (diferenciaQuantidade != itensEstoque.get(i).getQuantPerda())) {
+				quantidadeHora.put(itensEstoque.get(i).getDataHorario(), diferenciaQuantidade);
 			}
 		}
 	}
