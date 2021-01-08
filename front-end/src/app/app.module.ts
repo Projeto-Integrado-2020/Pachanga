@@ -147,6 +147,8 @@ PdfMakeWrapper.setFonts(pdfFonts);
 import { RelatoriosEstoqueComponent } from './views/relatorios-estoque/relatorios-estoque.component';
 import { RelatoriosSegurancaComponent } from './views/relatorios-seguranca/relatorios-seguranca.component';
 
+import { OwlModule } from 'ngx-owl-carousel';
+
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
 
 const config = new AuthServiceConfig([
@@ -334,7 +336,8 @@ export function provideConfig() {
     NgxPayPalModule,
     NgxQRCodeModule,
     NgxMaskModule.forRoot(),
-    NgxChartsModule
+    NgxChartsModule,
+    OwlModule
   ],
   providers: [
     {
