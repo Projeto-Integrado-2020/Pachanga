@@ -29,7 +29,7 @@ public interface ItemEstoqueFluxoRepository extends JpaRepository<ItemEstoqueFlu
 	@Query(value = "SELECT DISTINCT i.codProduto, i.nomeProduto FROM ItemEstoqueFluxo i WHERE i.codFesta = :codFesta")
 	public List<Object[]> getProdutoEstoqueFesta(int codFesta);
 
-	@Query(value = "SELECT i.quantidadeEstoque, i.codEstoque FROM ItemEstoqueFluxo i WHERE i.codFesta = :codFesta AND i.codProduto = :codProduto ORDER BY i.codEstoque, i.dataHorario")
+	@Query(value = "SELECT i.quantidadeEstoque, i.codEstoque, i.quantPerda FROM ItemEstoqueFluxo i WHERE i.codFesta = :codFesta AND i.codProduto = :codProduto ORDER BY i.codEstoque, i.dataHorario")
 	public List<Integer[]> getQuantidadeProdutoConsumidoFesta(int codProduto, int codFesta);
 
 }

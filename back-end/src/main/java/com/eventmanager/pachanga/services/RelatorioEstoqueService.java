@@ -71,7 +71,7 @@ public class RelatorioEstoqueService {
 		return relatoriosEstoques;
 	}
 
-	public Object relatorioQuantidadeConsumoProduto(int codFesta, int codUsuario) {
+	public List<InformacoesRelatorioEstoqueTO> relatorioQuantidadeConsumoProduto(int codFesta, int codUsuario) {
 		relatorioAreaSegurancaService.validacaoUsuarioFestaRelatorio(codFesta, codUsuario);
 		List<InformacoesRelatorioEstoqueTO> informacoesProduto = new ArrayList<>();
 		itemEstoqueFluxoRepository.getProdutoEstoqueFesta(codFesta).stream().forEach(p -> {
@@ -80,16 +80,29 @@ public class RelatorioEstoqueService {
 			int quantidadeConsumida = 0;
 			int quantidadeDescontoAnterior = 0;
 			int codEstoque = 0;
+			int quantidadeQuebraAnterior = 0;
+			int quantidadePerdaTotal = 0;
 			for (int i = 0; i < quantidadeProdutoConsumido.size(); i++) {
-				if(i == 0 || codEstoque != quantidadeProdutoConsumido.get(i)[1]) {
+				if (i == 0 || codEstoque != quantidadeProdutoConsumido.get(i)[1]) {
+					if (codEstoque != quantidadeProdutoConsumido.get(i)[1]) {
+						quantidadePerdaTotal += quantidadeProdutoConsumido.get(i)[2];
+					}
+					quantidadeQuebraAnterior = quantidadeProdutoConsumido.get(i)[2];
 					quantidadeDescontoAnterior = quantidadeProdutoConsumido.get(i)[0];
 					codEstoque = quantidadeProdutoConsumido.get(i)[1];
 				}
 				if (i != 0 && quantidadeDescontoAnterior > quantidadeProdutoConsumido.get(i)[0]) {
 					quantidadeConsumida += quantidadeDescontoAnterior - quantidadeProdutoConsumido.get(i)[0];
 					quantidadeDescontoAnterior = quantidadeProdutoConsumido.get(i)[0];
+					if (quantidadeQuebraAnterior != quantidadeProdutoConsumido.get(i)[2]) {
+						quantidadePerdaTotal += quantidadeProdutoConsumido.get(i)[2];
+						quantidadeQuebraAnterior = quantidadeProdutoConsumido.get(i)[2];
+					}
 				}
 			}
+
+			quantidadeConsumida -= quantidadePerdaTotal;
+
 			informacoesProduto
 					.add(relatorioEstoqueTOFactory.getInformacaoRelatorioConsumo((String) p[1], quantidadeConsumida));
 		});
