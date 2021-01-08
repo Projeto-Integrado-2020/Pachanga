@@ -54,5 +54,16 @@ public class RelatorioEstoqueController {
 		}
 
 	}
+	
+	@ResponseBody
+	@GetMapping(path = "/quantidadeConsumoProduto")
+	public ResponseEntity<Object> relatorioQuantidadeConsumoProduto(@RequestParam(required = true) int codFesta,
+			@RequestParam(required = true) int codUsuario) {
+		try {
+			return ResponseEntity.ok(relatorioEstoqueService.relatorioQuantidadeConsumoProduto(codFesta, codUsuario));
+		} catch (ValidacaoException e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+	}
 
 }
