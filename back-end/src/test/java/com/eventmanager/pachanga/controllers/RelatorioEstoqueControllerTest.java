@@ -20,6 +20,7 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import com.eventmanager.pachanga.dtos.InformacoesRelatorioEstoqueTO;
 import com.eventmanager.pachanga.dtos.RelatorioEstoqueTO;
 import com.eventmanager.pachanga.errors.ValidacaoException;
 import com.eventmanager.pachanga.securingweb.JwtAuthenticationEntryPoint;
@@ -157,6 +158,48 @@ class RelatorioEstoqueControllerTest {
 		String expected = "teste";
 
 		Mockito.when(relatorioEstoqueService.relatoriosEstoque(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt()))
+				.thenThrow(new ValidacaoException("teste"));
+
+		RequestBuilder requestBuilder = MockMvcRequestBuilders.get(uri).accept(MediaType.APPLICATION_JSON)
+				.param("codFesta", "1").param("codUsuario", "1").contentType(MediaType.APPLICATION_JSON);
+
+		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+
+		MockHttpServletResponse response = result.getResponse();
+
+		assertEquals(HttpStatus.BAD_REQUEST.value(), response.getStatus());
+
+		assertEquals(expected, result.getResponse().getContentAsString());
+
+	}
+	
+	@Test
+	@WithMockUser
+	void relatorioQuantidadeConsumoProdutoSucesso() throws Exception {
+		String uri = "/relatorioEstoque/quantidadeConsumoProduto";
+
+		Mockito.when(relatorioEstoqueService.relatorioQuantidadeConsumoProduto(Mockito.anyInt(), Mockito.anyInt()))
+				.thenReturn(new ArrayList<InformacoesRelatorioEstoqueTO>());
+
+		RequestBuilder requestBuilder = MockMvcRequestBuilders.get(uri).accept(MediaType.APPLICATION_JSON)
+				.param("codFesta", "1").param("codUsuario", "1").contentType(MediaType.APPLICATION_JSON);
+
+		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+
+		MockHttpServletResponse response = result.getResponse();
+
+		assertEquals(HttpStatus.OK.value(), response.getStatus());
+
+	}
+	
+	@Test
+	@WithMockUser
+	void relatorioQuantidadeConsumoProdutoErro() throws Exception {
+		String uri = "/relatorioEstoque/quantidadeConsumoProduto";
+		
+		String expected = "teste";
+
+		Mockito.when(relatorioEstoqueService.relatorioQuantidadeConsumoProduto(Mockito.anyInt(), Mockito.anyInt()))
 				.thenThrow(new ValidacaoException("teste"));
 
 		RequestBuilder requestBuilder = MockMvcRequestBuilders.get(uri).accept(MediaType.APPLICATION_JSON)

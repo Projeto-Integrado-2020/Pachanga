@@ -58,5 +58,15 @@ class RelatorioEstoqueTOFactoryTest {
 		assertEquals(true, "teste123".equals(infoRelatorio.getNomeProduto() ));
 		
 	}
+	
+	@Test
+	void getInformacaoRelatorioConsumoTest() {
+		
+		InformacoesRelatorioEstoqueTO infoRelatorio = relatorioEstoqueTOFactory.getInformacaoRelatorioConsumo("teste123", 1);
+		
+		assertEquals(true, infoRelatorio.getQuantidadeConsumo() == 1);
+		assertEquals(true, "teste123".equals(infoRelatorio.getNomeProduto() ));
+		
+	}
 
 }
