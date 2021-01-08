@@ -1,15 +1,13 @@
 package com.eventmanager.pachanga.dtos;
 
-import java.time.LocalDateTime;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 public class RelatorioEstoqueTO {
-	
+
 	private String nomeEstoque;
-	
-	private String nomeProduto;
-	
-	private Map<LocalDateTime, Integer> quantidadeHora;
+
+	private List<InformacoesRelatorioEstoqueTO> informacoesEstoque = new ArrayList<>();
 
 	public String getNomeEstoque() {
 		return nomeEstoque;
@@ -19,20 +17,11 @@ public class RelatorioEstoqueTO {
 		this.nomeEstoque = nomeEstoque;
 	}
 
-	public String getNomeProduto() {
-		return nomeProduto;
+	public List<InformacoesRelatorioEstoqueTO> getInformacoesEstoque() {
+		return informacoesEstoque;
 	}
-
-	public void setNomeProduto(String nomeProduto) {
-		this.nomeProduto = nomeProduto;
+	
+	public void setInformacoesEstoque(List<InformacoesRelatorioEstoqueTO> informacoesEstoque) {
+		this.informacoesEstoque.addAll(informacoesEstoque);
 	}
-
-	public Map<LocalDateTime, Integer> getQuantidadeHora() {
-		return quantidadeHora;
-	}
-
-	public void setQuantidadeHora(Map<LocalDateTime, Integer> quantidadeHora) {
-		this.quantidadeHora = quantidadeHora;
-	}
-
 }
