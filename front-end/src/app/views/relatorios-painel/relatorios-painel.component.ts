@@ -138,10 +138,10 @@ export class RelatoriosPainelComponent implements OnInit {
       this.getFestaService.setFarol(false);
       this.festa = resp;
       this.festaNome = resp.nomeFesta;
-      this.getQuestionarios(idFesta);
     });
   }
 
+<<<<<<< HEAD
   getQuestionarios(idFesta) {
     this.forms.getQuestionarios(idFesta).subscribe((resp: any) => {
       this.forms.setFarol(false);
@@ -162,4 +162,6 @@ export class RelatoriosPainelComponent implements OnInit {
       console.log(this.sheets);
     });
   }
+=======
+>>>>>>> dc159b3abe1f5564c9451af7e2e82f7a05ba5103
 }
