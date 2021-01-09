@@ -145,7 +145,7 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 PdfMakeWrapper.setFonts(pdfFonts);
 
 import { SafePipe } from './views/visualizacao-forms/safe-pipe';
-import { VisualizacaoFormsComponent } from './views/visualizacao-forms/visualizacao-forms.component'
+import { VisualizacaoFormsComponent } from './views/visualizacao-forms/visualizacao-forms.component';
 import { RelatoriosEstoqueComponent } from './views/relatorios-estoque/relatorios-estoque.component';
 import { RelatoriosSegurancaComponent } from './views/relatorios-seguranca/relatorios-seguranca.component';
 

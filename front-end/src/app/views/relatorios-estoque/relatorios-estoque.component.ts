@@ -15,8 +15,8 @@ export class RelatoriosEstoqueComponent implements OnInit {
   perdaItemValores = [];
   consumoProdutoValores = [];
 
-  mySlideOptions={items: 1, dots: true, nav: true};
-  myCarouselOptions={items: 80, dots: true, nav: true};
+  mySlideOptions = {items: 1, dots: true, nav: true};
+  myCarouselOptions = {items: 80, dots: true, nav: true};
 
   colorScheme = {
     domain: ['#5AA454', '#E44D25', '#CFC0BB', '#7aa3e5', '#a8385d', '#aae3f5']
@@ -25,7 +25,7 @@ export class RelatoriosEstoqueComponent implements OnInit {
   constructor(public relEstoqueService: RelatorioEstoqueService, public router: Router) { }
 
   ngOnInit() {
-    let idFesta = this.router.url;
+    const idFesta = this.router.url;
     this.codFesta = idFesta.substring(idFesta.indexOf('&') + 1, idFesta.indexOf('/', idFesta.indexOf('&')));
     this.consumoItemEstoque();
     this.quantidadeItemEstoque();
@@ -38,53 +38,53 @@ export class RelatoriosEstoqueComponent implements OnInit {
     this.relEstoqueService.consumoItemEstoque(this.codFesta).subscribe((resp: any) => {
       const mockResp = [
         {
-          "nomeEstoque": "Principal",
-          "informacoesEstoque": [
+          nomeEstoque: 'Principal',
+          informacoesEstoque: [
             {
-              "nomeProduto": "teste",
-              "quantidadeHora": {
-                "2021-01-07T14:11:15.998030": 5,
-                "2021-01-07T14:17:49.656018": 20
+              nomeProduto: 'teste',
+              quantidadeHora: {
+                '2021-01-07T14:11:15.998030': 5,
+                '2021-01-07T14:17:49.656018': 20
               }
             },
             {
-              "nomeProduto": "teste1",
-              "quantidadeHora": {
-                "2021-01-07T14:12:15.998030": 1,
-                "2021-01-07T14:13:49.656018": 2,
-                "2021-01-07T14:15:49.656018": 5
+              nomeProduto: 'teste1',
+              quantidadeHora: {
+                '2021-01-07T14:12:15.998030': 1,
+                '2021-01-07T14:13:49.656018': 2,
+                '2021-01-07T14:15:49.656018': 5
               }
             },
             {
-              "nomeProduto": "teste3",
-              "quantidadeHora": {
-                "2021-01-07T14:19:15.998030": 10,
-                "2021-01-07T14:25:49.656018": 25,
-                "2021-01-07T14:32:49.656018": 50,
-                "2021-01-07T15:19:49.656018": 78
+              nomeProduto: 'teste3',
+              quantidadeHora: {
+                '2021-01-07T14:19:15.998030': 10,
+                '2021-01-07T14:25:49.656018': 25,
+                '2021-01-07T14:32:49.656018': 50,
+                '2021-01-07T15:19:49.656018': 78
               }
             }
           ]
         },
         {
-          "nomeEstoque": "oi",
-          "informacoesEstoque": [
+          nomeEstoque: 'oi',
+          informacoesEstoque: [
             {
-              "nomeProduto": "teste",
-              "quantidadeHora": {
-                "2021-01-07T11:11:15.998030": 0,
-                "2021-01-07T12:17:49.656018": 1,
-                "2021-01-07T13:18:49.656018": 8,
-                "2021-01-07T14:19:49.656018": 14
+              nomeProduto: 'teste',
+              quantidadeHora: {
+                '2021-01-07T11:11:15.998030': 0,
+                '2021-01-07T12:17:49.656018': 1,
+                '2021-01-07T13:18:49.656018': 8,
+                '2021-01-07T14:19:49.656018': 14
               }
             },
             {
-              "nomeProduto": "teste1",
-              "quantidadeHora": {
-                "2021-01-07T14:11:15.998030": 50,
-                "2021-01-07T14:17:49.656018": 65,
-                "2021-01-08T14:18:49.656018": 78,
-                "2021-01-09T14:19:49.656018": 82
+              nomeProduto: 'teste1',
+              quantidadeHora: {
+                '2021-01-07T14:11:15.998030': 50,
+                '2021-01-07T14:17:49.656018': 65,
+                '2021-01-08T14:18:49.656018': 78,
+                '2021-01-09T14:19:49.656018': 82
               }
             }
           ]
@@ -128,50 +128,50 @@ export class RelatoriosEstoqueComponent implements OnInit {
     this.relEstoqueService.perdaItemEstoque(this.codFesta).subscribe((resp: any) => {
       const mockResp = [
         {
-          "nomeEstoque": "Principal",
-          "informacoesEstoque": [
+          nomeEstoque: 'Principal',
+          informacoesEstoque: [
             {
-              "nomeProduto": "teste",
-              "quantidadeHora": {
-                "2021-01-07T14:11:15.998030": 0,
-                "2021-01-07T14:17:49.656018": 10,
-                "2021-01-07T14:18:49.656018": 15,
-                "2021-01-07T14:19:49.656018": 20
+              nomeProduto: 'teste',
+              quantidadeHora: {
+                '2021-01-07T14:11:15.998030': 0,
+                '2021-01-07T14:17:49.656018': 10,
+                '2021-01-07T14:18:49.656018': 15,
+                '2021-01-07T14:19:49.656018': 20
               }
             },
             {
-              "nomeProduto": "teste1",
-              "quantidadeHora": {
-                "2021-01-07T14:12:15.998030": 0,
-                "2021-01-07T14:13:49.656018": 5,
-                "2021-01-07T14:15:49.656018": 6,
-                "2021-01-07T14:17:49.656018": 7
+              nomeProduto: 'teste1',
+              quantidadeHora: {
+                '2021-01-07T14:12:15.998030': 0,
+                '2021-01-07T14:13:49.656018': 5,
+                '2021-01-07T14:15:49.656018': 6,
+                '2021-01-07T14:17:49.656018': 7
               }
             },
             {
-              "nomeProduto": "teste3",
-              "quantidadeHora": {
-                "2021-01-07T14:19:15.998030": 0,
-                "2021-01-07T14:25:49.656018": 1
+              nomeProduto: 'teste3',
+              quantidadeHora: {
+                '2021-01-07T14:19:15.998030': 0,
+                '2021-01-07T14:25:49.656018': 1
               }
             }
           ]
         },
         {
-          "nomeEstoque": "oi",
-          "informacoesEstoque": [
+          nomeEstoque: 'oi',
+          informacoesEstoque: [
             {
-              "nomeProduto": "teste",
-              "quantidadeHora": {
-                "2021-01-07T11:11:15.998030": 0
+              nomeProduto: 'teste',
+              quantidadeHora: {
+                '2021-01-07T11:11:15.998030': 0
               }
             },
             {
-              "nomeProduto": "teste1",
-              "quantidadeHora": {
-                "2021-01-07T14:11:15.998030": 0,
-                "2021-01-07T14:17:49.656018": 5,
-                "2021-01-08T14:18:49.656018": 6
+              nomeProduto: 'teste1',
+              quantidadeHora: {
+                '2021-01-07T14:11:15.998030': 0,
+                '2021-01-07T14:17:49.656018': 5,
+                '2021-01-08T14:18:49.656018': 6
               }
             }
           ]
@@ -215,53 +215,53 @@ export class RelatoriosEstoqueComponent implements OnInit {
     this.relEstoqueService.quantidadeItemEstoque(this.codFesta).subscribe((resp: any) => {
       const mockResp = [
         {
-          "nomeEstoque": "Principal",
-          "informacoesEstoque": [
+          nomeEstoque: 'Principal',
+          informacoesEstoque: [
             {
-              "nomeProduto": "teste",
-              "quantidadeHora": {
-                "2021-01-07T14:11:15.998030": 100,
-                "2021-01-07T14:17:49.656018": 55
+              nomeProduto: 'teste',
+              quantidadeHora: {
+                '2021-01-07T14:11:15.998030': 100,
+                '2021-01-07T14:17:49.656018': 55
               }
             },
             {
-              "nomeProduto": "teste1",
-              "quantidadeHora": {
-                "2021-01-07T14:12:15.998030": 125,
-                "2021-01-07T14:13:49.656018": 120,
-                "2021-01-07T14:15:49.656018": 155
+              nomeProduto: 'teste1',
+              quantidadeHora: {
+                '2021-01-07T14:12:15.998030': 125,
+                '2021-01-07T14:13:49.656018': 120,
+                '2021-01-07T14:15:49.656018': 155
               }
             },
             {
-              "nomeProduto": "teste3",
-              "quantidadeHora": {
-                "2021-01-07T14:19:15.998030": 100,
-                "2021-01-07T14:25:49.656018": 95,
-                "2021-01-07T14:32:49.656018": 75,
-                "2021-01-07T15:19:49.656018": 68
+              nomeProduto: 'teste3',
+              quantidadeHora: {
+                '2021-01-07T14:19:15.998030': 100,
+                '2021-01-07T14:25:49.656018': 95,
+                '2021-01-07T14:32:49.656018': 75,
+                '2021-01-07T15:19:49.656018': 68
               }
             }
           ]
         },
         {
-          "nomeEstoque": "oi",
-          "informacoesEstoque": [
+          nomeEstoque: 'oi',
+          informacoesEstoque: [
             {
-              "nomeProduto": "teste",
-              "quantidadeHora": {
-                "2021-01-07T11:11:15.998030": 100,
-                "2021-01-07T12:17:49.656018": 55,
-                "2021-01-07T13:18:49.656018": 78,
-                "2021-01-07T14:19:49.656018": 76
+              nomeProduto: 'teste',
+              quantidadeHora: {
+                '2021-01-07T11:11:15.998030': 100,
+                '2021-01-07T12:17:49.656018': 55,
+                '2021-01-07T13:18:49.656018': 78,
+                '2021-01-07T14:19:49.656018': 76
               }
             },
             {
-              "nomeProduto": "teste1",
-              "quantidadeHora": {
-                "2021-01-07T14:11:15.998030": 100,
-                "2021-01-07T14:17:49.656018": 55,
-                "2021-01-08T14:18:49.656018": 78,
-                "2021-01-09T14:19:49.656018": 120
+              nomeProduto: 'teste1',
+              quantidadeHora: {
+                '2021-01-07T14:11:15.998030': 100,
+                '2021-01-07T14:17:49.656018': 55,
+                '2021-01-08T14:18:49.656018': 78,
+                '2021-01-09T14:19:49.656018': 120
               }
             }
           ]
@@ -336,7 +336,7 @@ export class RelatoriosEstoqueComponent implements OnInit {
     });
   }
 
-  formatDate(value) {
+  formatDate(value): any {
     let formatOptions;
     if (value.getSeconds() !== 0) {
       formatOptions = { second: '2-digit' };
@@ -354,7 +354,7 @@ export class RelatoriosEstoqueComponent implements OnInit {
     return new Intl.DateTimeFormat('pt-br', formatOptions).format(value);
   }
 
-  toolTipDate(value) {
+  toolTipDate(value): any {
     let formatOptions;
     if (value.getSeconds() !== 0) {
       formatOptions = { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' };

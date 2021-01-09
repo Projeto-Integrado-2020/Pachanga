@@ -12,6 +12,7 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { HttpLoaderFactory } from 'src/app/app.module';
 import { HttpClient } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
+import { LoginService } from 'src/app/services/loginService/login.service';
 
 describe('RelatoriosSegurancaComponent', () => {
   let component: RelatoriosSegurancaComponent;
@@ -42,6 +43,13 @@ describe('RelatoriosSegurancaComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(RelatoriosSegurancaComponent);
     component = fixture.componentInstance;
+    const service: LoginService = TestBed.get(LoginService);
+    service.usuarioInfo = {codUsuario: '1'};
+    const token = {
+      timeToken: '2020-09-21T01:14:04.028+0000',
+      token: 'teste'
+    };
+    localStorage.setItem('token', JSON.stringify(token));
     fixture.detectChanges();
   });
 

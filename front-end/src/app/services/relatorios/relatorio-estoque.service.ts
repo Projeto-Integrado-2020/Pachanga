@@ -17,7 +17,7 @@ export class RelatorioEstoqueService {
 
   constructor(
     private httpClient: HttpClient,
-    private loginService: LoginService,
+    public loginService: LoginService,
     private logService: LogService
     ) { }
 
@@ -113,5 +113,9 @@ export class RelatorioEstoqueService {
 
   setFarol(flag: boolean) {
     this.farol = flag;
+  }
+
+  getFarol() {
+    return this.farol;
   }
 }

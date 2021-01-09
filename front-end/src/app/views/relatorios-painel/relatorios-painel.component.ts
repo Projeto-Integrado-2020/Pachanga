@@ -141,27 +141,4 @@ export class RelatoriosPainelComponent implements OnInit {
     });
   }
 
-<<<<<<< HEAD
-  getQuestionarios(idFesta) {
-    this.forms.getQuestionarios(idFesta).subscribe((resp: any) => {
-      this.forms.setFarol(false);
-      this.formsResult = resp;
-      console.log(this.formsResult);
-      for (const questionario of this.formsResult) {
-        questionario.urlQuestionario = questionario.urlQuestionario.
-        substring(39, questionario.urlQuestionario.length - questionario.urlQuestionario.
-          substring(questionario.urlQuestionario.indexOf('', 83)).length);
-        this.getSheets(questionario.urlQuestionario);
-      }
-    });
-  }
-
-  getSheets(urlQuestionario) {
-    this.getSheetsService.getSheets(urlQuestionario).subscribe((resp: any) => {
-      this.sheets.push(resp);
-      console.log(this.sheets);
-    });
-  }
-=======
->>>>>>> dc159b3abe1f5564c9451af7e2e82f7a05ba5103
 }
