@@ -678,7 +678,8 @@
         "DELETE": "Delete form",
         "ADD": "Add Google Forms",
         "CONFIRM": "Confirm",
-        "CANCEL": "Cancel"
+        "CANCEL": "Cancel",
+        "SEMRESULTADO": "No Google Forms answer sheets were registered at this party."
     },
 
     "DELETEFORM": {

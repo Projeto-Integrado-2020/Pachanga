@@ -6,7 +6,7 @@
           </mat-panel-title>
         </mat-expansion-panel-header>
         <div *ngIf="consumoItemValores.length > 0">
-            <owl-carousel [options]="mySlideOptions" [items]="images" [carouselClasses]="['owl-theme', 'sliding']" >
+            <owl-carousel [options]="mySlideOptions" [carouselClasses]="['owl-theme', 'sliding']" >
                 <div *ngFor="let estoque of consumoItemValores;let i = index" class="relatorio-container">
                     <h1 class="title-estoque">
                         {{estoque.nomeEstoque}}
@@ -49,7 +49,7 @@
           </mat-panel-title>
         </mat-expansion-panel-header>
         <div *ngIf="perdaItemValores.length > 0">
-            <owl-carousel [options]="mySlideOptions" [items]="images" [carouselClasses]="['owl-theme', 'sliding']" >
+            <owl-carousel [options]="mySlideOptions" [carouselClasses]="['owl-theme', 'sliding']" >
                 <div *ngFor="let estoque of perdaItemValores;let i = index" class="relatorio-container">
                     <h1 class="title-estoque">
                         {{estoque.nomeEstoque}}
@@ -92,7 +92,7 @@
           </mat-panel-title>
         </mat-expansion-panel-header>
         <div *ngIf="quantidadeItemValores.length > 0">
-            <owl-carousel [options]="mySlideOptions" [items]="images" [carouselClasses]="['owl-theme', 'sliding']" >
+            <owl-carousel [options]="mySlideOptions" [carouselClasses]="['owl-theme', 'sliding']" >
                 <div *ngFor="let estoque of quantidadeItemValores;let i = index" class="relatorio-container">
                     <h1 class="title-estoque">
                         {{estoque.nomeEstoque}}

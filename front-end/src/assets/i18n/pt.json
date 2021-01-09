@@ -391,7 +391,8 @@
         "DELETE": "Deletar formulário",
         "ADD": "Adicionar Google Forms",
         "CONFIRM": "Confirmar",
-        "CANCEL": "Cancelar"
+        "CANCEL": "Cancelar",
+        "SEMRESULTADO": "Nenhuma planilha de respostas de Google Forms foi registrada nesta festa."
     },
 
     "FORMERRORS":{
