@@ -24,6 +24,7 @@ import com.eventmanager.pachanga.domains.Festa;
 import com.eventmanager.pachanga.domains.ItemEstoque;
 import com.eventmanager.pachanga.domains.ItemEstoqueFluxo;
 import com.eventmanager.pachanga.domains.Produto;
+import com.eventmanager.pachanga.dtos.InformacoesRelatorioEstoqueTO;
 import com.eventmanager.pachanga.dtos.RelatorioEstoqueTO;
 import com.eventmanager.pachanga.errors.ValidacaoException;
 import com.eventmanager.pachanga.factory.RelatorioEstoqueTOFactory;
@@ -45,7 +46,7 @@ class RelatorioEstoqueServiceTest {
 
 	@MockBean
 	private RelatorioEstoqueTOFactory relatorioEstoqueTOFactory;
-	
+
 	@MockBean
 	private RelatorioAreaSegurancaService relatorioAreaSegurancaService;
 
@@ -132,20 +133,21 @@ class RelatorioEstoqueServiceTest {
 		List<ItemEstoqueFluxo> itemFluxo = new ArrayList<>();
 		itemFluxo.add(itemEstoqueFluxoTest());
 		itemFluxo.add(fluxo);
-		
-		List<Integer[]> dadosItensFluxo = new ArrayList<>();
-		dadosItensFluxo.add(new Integer[]{ 1, 2});
 
-		Mockito.when(itemEstoqueFluxoRepository.getEstoqueProdutoFluxoFesta(Mockito.anyInt())).thenReturn(dadosItensFluxo);
+		List<Integer[]> dadosItensFluxo = new ArrayList<>();
+		dadosItensFluxo.add(new Integer[] { 1, 2 });
+
+		Mockito.when(itemEstoqueFluxoRepository.getEstoqueProdutoFluxoFesta(Mockito.anyInt()))
+				.thenReturn(dadosItensFluxo);
 		Mockito.when(itemEstoqueFluxoRepository.getFluxoEstoqueProduto(Mockito.anyInt(), Mockito.anyInt()))
 				.thenReturn(itemFluxo);
-		Mockito.when(relatorioEstoqueTOFactory.getRelatorioEstoque(Mockito.anyString(), Mockito.anyString(),
-				Mockito.anyMap())).thenReturn(new RelatorioEstoqueTO());
+		Mockito.when(relatorioEstoqueTOFactory.getRelatorioEstoque(Mockito.anyString(), Mockito.anyList()))
+				.thenReturn(new RelatorioEstoqueTO());
 		List<RelatorioEstoqueTO> relatorios = relatorioEstoqueService.relatoriosEstoque(1, 2, 1);
-		
+
 		assertEquals(true, !relatorios.isEmpty());
 	}
-	
+
 	@Test
 	void relatorioPerdaItemEstoqueSucesso() throws Exception {
 
@@ -159,20 +161,21 @@ class RelatorioEstoqueServiceTest {
 		List<ItemEstoqueFluxo> itemFluxo = new ArrayList<>();
 		itemFluxo.add(itemEstoqueFluxoTest());
 		itemFluxo.add(fluxo);
-		
-		List<Integer[]> dadosItensFluxo = new ArrayList<>();
-		dadosItensFluxo.add(new Integer[]{ 1, 2});
 
-		Mockito.when(itemEstoqueFluxoRepository.getEstoqueProdutoFluxoFesta(Mockito.anyInt())).thenReturn(dadosItensFluxo);
+		List<Integer[]> dadosItensFluxo = new ArrayList<>();
+		dadosItensFluxo.add(new Integer[] { 1, 2 });
+
+		Mockito.when(itemEstoqueFluxoRepository.getEstoqueProdutoFluxoFesta(Mockito.anyInt()))
+				.thenReturn(dadosItensFluxo);
 		Mockito.when(itemEstoqueFluxoRepository.getFluxoEstoqueProduto(Mockito.anyInt(), Mockito.anyInt()))
 				.thenReturn(itemFluxo);
-		Mockito.when(relatorioEstoqueTOFactory.getRelatorioEstoque(Mockito.anyString(), Mockito.anyString(),
-				Mockito.anyMap())).thenReturn(new RelatorioEstoqueTO());
+		Mockito.when(relatorioEstoqueTOFactory.getRelatorioEstoque(Mockito.anyString(), Mockito.anyList()))
+				.thenReturn(new RelatorioEstoqueTO());
 		List<RelatorioEstoqueTO> relatorios = relatorioEstoqueService.relatoriosEstoque(1, 2, 2);
-		
+
 		assertEquals(true, !relatorios.isEmpty());
 	}
-	
+
 	@Test
 	void relatorioQuantidadeItemEstoqueSucesso() throws Exception {
 
@@ -186,20 +189,21 @@ class RelatorioEstoqueServiceTest {
 		List<ItemEstoqueFluxo> itemFluxo = new ArrayList<>();
 		itemFluxo.add(itemEstoqueFluxoTest());
 		itemFluxo.add(fluxo);
-		
-		List<Integer[]> dadosItensFluxo = new ArrayList<>();
-		dadosItensFluxo.add(new Integer[]{ 1, 2});
 
-		Mockito.when(itemEstoqueFluxoRepository.getEstoqueProdutoFluxoFesta(Mockito.anyInt())).thenReturn(dadosItensFluxo);
+		List<Integer[]> dadosItensFluxo = new ArrayList<>();
+		dadosItensFluxo.add(new Integer[] { 1, 2 });
+
+		Mockito.when(itemEstoqueFluxoRepository.getEstoqueProdutoFluxoFesta(Mockito.anyInt()))
+				.thenReturn(dadosItensFluxo);
 		Mockito.when(itemEstoqueFluxoRepository.getFluxoEstoqueProduto(Mockito.anyInt(), Mockito.anyInt()))
 				.thenReturn(itemFluxo);
-		Mockito.when(relatorioEstoqueTOFactory.getRelatorioEstoque(Mockito.anyString(), Mockito.anyString(),
-				Mockito.anyMap())).thenReturn(new RelatorioEstoqueTO());
+		Mockito.when(relatorioEstoqueTOFactory.getRelatorioEstoque(Mockito.anyString(), Mockito.anyList()))
+				.thenReturn(new RelatorioEstoqueTO());
 		List<RelatorioEstoqueTO> relatorios = relatorioEstoqueService.relatoriosEstoque(1, 2, 3);
-		
+
 		assertEquals(true, !relatorios.isEmpty());
 	}
-	
+
 	@Test
 	void relatoriosEstoqueErro() throws Exception {
 
@@ -213,25 +217,60 @@ class RelatorioEstoqueServiceTest {
 		List<ItemEstoqueFluxo> itemFluxo = new ArrayList<>();
 		itemFluxo.add(itemEstoqueFluxoTest());
 		itemFluxo.add(fluxo);
-		
-		List<Integer[]> dadosItensFluxo = new ArrayList<>();
-		dadosItensFluxo.add(new Integer[]{ 1, 2});
 
-		Mockito.when(itemEstoqueFluxoRepository.getEstoqueProdutoFluxoFesta(Mockito.anyInt())).thenReturn(dadosItensFluxo);
+		List<Integer[]> dadosItensFluxo = new ArrayList<>();
+		dadosItensFluxo.add(new Integer[] { 1, 2 });
+
+		Mockito.when(itemEstoqueFluxoRepository.getEstoqueProdutoFluxoFesta(Mockito.anyInt()))
+				.thenReturn(dadosItensFluxo);
 		Mockito.when(itemEstoqueFluxoRepository.getFluxoEstoqueProduto(Mockito.anyInt(), Mockito.anyInt()))
 				.thenReturn(itemFluxo);
-		Mockito.when(relatorioEstoqueTOFactory.getRelatorioEstoque(Mockito.anyString(), Mockito.anyString(),
-				Mockito.anyMap())).thenReturn(new RelatorioEstoqueTO());
-		
+		Mockito.when(relatorioEstoqueTOFactory.getRelatorioEstoque(Mockito.anyString(), Mockito.anyList()))
+				.thenReturn(new RelatorioEstoqueTO());
+
 		String erro = "";
-		
+
 		try {
-			relatorioEstoqueService.relatoriosEstoque(1, 2, 4);			
+			relatorioEstoqueService.relatoriosEstoque(1, 2, 4);
 		} catch (ValidacaoException e) {
 			erro = e.getMessage();
 		}
-		
+
 		assertEquals(true, "CODRELIN".equals(erro));
+	}
+
+	@Test
+	void relatorioQuantidadeConsumoProdutoSucesso() throws Exception {
+
+		List<Estoque> estoques = new ArrayList<>();
+		estoques.add(estoqueTest());
+
+		ItemEstoqueFluxo fluxo = itemEstoqueFluxoTest();
+		fluxo.setDataHorario(LocalDateTime.of(2016, Month.JUNE, 23, 19, 10));
+		fluxo.setQuantidadeEstoque(10);
+
+		List<ItemEstoqueFluxo> itemFluxo = new ArrayList<>();
+		itemFluxo.add(itemEstoqueFluxoTest());
+		itemFluxo.add(fluxo);
+
+		List<Integer[]> quantidadeProdutoConsumido = new ArrayList<>();
+		quantidadeProdutoConsumido.add(new Integer[] { 4, 1, 2 });
+		quantidadeProdutoConsumido.add(new Integer[] { 2, 1, 4 });
+		quantidadeProdutoConsumido.add(new Integer[] { 2, 2, 4 });
+
+		List<Object[]> produtosEstoquesFluxo = new ArrayList<>();
+		produtosEstoquesFluxo.add(new Object[] { 1, "teste" });
+
+		Mockito.when(itemEstoqueFluxoRepository.getProdutoEstoqueFesta(Mockito.anyInt()))
+				.thenReturn(produtosEstoquesFluxo);
+
+		Mockito.when(itemEstoqueFluxoRepository.getQuantidadeProdutoConsumidoFesta(Mockito.anyInt(), Mockito.anyInt()))
+				.thenReturn(quantidadeProdutoConsumido);
+		Mockito.when(relatorioEstoqueTOFactory.getInformacaoRelatorioConsumo(Mockito.anyString(), Mockito.anyInt()))
+				.thenReturn(new InformacoesRelatorioEstoqueTO());
+		List<InformacoesRelatorioEstoqueTO> relatorios = relatorioEstoqueService.relatorioQuantidadeConsumoProduto(1, 2);
+
+		assertEquals(true, !relatorios.isEmpty());
 	}
 
 }
