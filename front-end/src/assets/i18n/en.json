@@ -844,5 +844,14 @@
         "CONSUMO": "Consumption",
         "PRODUTOS": "Products",
         "SEMRESULTADO": "The party does not have enough data for this report."
+    },
+    "RELATORIOSEGURANCA": {
+        "TITLE": "Security",
+        "PROBAREA":"Problems by Security Area",
+        "CONCSOL":"Problem conclusion by solver user",
+        "CONCXTOTAL":"Problem conclusions percentage by problems sum total"
+
     }
+
+
 }

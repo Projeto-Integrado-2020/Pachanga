@@ -747,6 +747,14 @@
         "SEMRESULTADO": "A festa não tem dados suficientes para este relatório."
     },
 
+    "RELATORIOSEGURANCA": {
+        "TITLE": "Segurança",
+        "PROBAREA":"Problemas por área de Segurança",
+        "CONCSOL":"Conclusões de alertas de problemas por solucionador",
+        "CONCXTOTAL":"Porcentagem de conclusões de usuários por total de problemas"
+
+    },
+
     "RELATARPROB": {
         "TITULO": "Relatar Problema em ",
         "F": "Finalizado",
