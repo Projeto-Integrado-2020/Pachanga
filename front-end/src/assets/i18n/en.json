@@ -678,7 +678,8 @@
         "DELETE": "Delete form",
         "ADD": "Add Google Forms",
         "CONFIRM": "Confirm",
-        "CANCEL": "Cancel"
+        "CANCEL": "Cancel",
+        "SEMRESULTADO": "No Google Forms answer sheets were registered at this party."
     },
 
     "DELETEFORM": {
@@ -829,5 +830,19 @@
         "RELATPROBLM": "Reporting problem. Please wait.",
         "CARREGIMAGEM": "Loading image. Please wait.",
         "CHECKIN": "Performing check-in. Por favor aguarde."
+    },
+
+    "RELATORIOESTOQUE": {
+        "TITLE": "Stock",
+        "CONSUMOESTOQUE": "Product consumption by stock",
+        "PERDAESTOQUE": "Loss of product by stock",
+        "QUANTIDADEESTOQUE": "Quantity of products per stock",
+        "CONSUMOPRODUTO": "Product consumption",
+        "HORARIO": "Hour",
+        "PERDA": "Loss",
+        "QUANTIDADE": "Quantity",
+        "CONSUMO": "Consumption",
+        "PRODUTOS": "Products",
+        "SEMRESULTADO": "The party does not have enough data for this report."
     }
 }

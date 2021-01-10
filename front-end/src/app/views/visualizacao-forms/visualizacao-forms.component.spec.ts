@@ -14,7 +14,7 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { GetFestaService } from 'src/app/services/get-festa/get-festa.service';
 import { GetFormsService } from 'src/app/services/get-forms/get-forms.service';
 import { VisualizacaoFormsComponent } from './visualizacao-forms.component';
-import { SafePipe } from './safe-pipe'
+import { SafePipe } from './safe-pipe';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);

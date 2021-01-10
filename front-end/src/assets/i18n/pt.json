@@ -391,7 +391,8 @@
         "DELETE": "Deletar formulário",
         "ADD": "Adicionar Google Forms",
         "CONFIRM": "Confirmar",
-        "CANCEL": "Cancelar"
+        "CANCEL": "Cancelar",
+        "SEMRESULTADO": "Nenhuma planilha de respostas de Google Forms foi registrada nesta festa."
     },
 
     "FORMERRORS":{
@@ -730,6 +731,20 @@
         "NONE": "Recarga direta",
         "CONFIRM": "Confirmar",
         "CANCEL": "Cancelar"
+    },
+
+    "RELATORIOESTOQUE": {
+        "TITLE": "Estoque",
+        "CONSUMOESTOQUE": "Consumo de produtos por estoque",
+        "PERDAESTOQUE": "Perda de produtos por estoque",
+        "QUANTIDADEESTOQUE": "Quantidade de produtos por estoque",
+        "CONSUMOPRODUTO": "Consumo de produtos",
+        "HORARIO": "Horário",
+        "PERDA": "Perda",
+        "QUANTIDADE": "Quantidade",
+        "CONSUMO": "Consumo",
+        "PRODUTOS": "Produtos",
+        "SEMRESULTADO": "A festa não tem dados suficientes para este relatório."
     },
 
     "RELATARPROB": {

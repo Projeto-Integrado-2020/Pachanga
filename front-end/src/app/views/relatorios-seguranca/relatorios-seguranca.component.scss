@@ -1,0 +1,18 @@
+.relatorio-container {
+    width: 45rem;
+    height: 30rem;
+  }
+
+.nenhum-resultado {
+  font-weight: 500;
+  text-align: center;
+  margin: 2rem 0 2rem 0;
+}
+
+.painel {
+  margin-bottom: 1rem;
+
+  &:first-child {
+    margin-top: 1rem;
+  }
+}

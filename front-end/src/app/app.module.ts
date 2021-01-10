@@ -141,10 +141,15 @@ import { PdfMakeWrapper } from 'pdfmake-wrapper';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
 import { ImagemAreaProblemaDialogComponent } from './views/imagem-area-problema-dialog/imagem-area-problema-dialog.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
-import { SafePipe } from './views/visualizacao-forms/safe-pipe';
-import { VisualizacaoFormsComponent } from './views/visualizacao-forms/visualizacao-forms.component'
-import { RelatoriosSegurancaComponent } from './views/relatorios-seguranca/relatorios-seguranca.component';
+
 PdfMakeWrapper.setFonts(pdfFonts);
+
+import { SafePipe } from './views/visualizacao-forms/safe-pipe';
+import { VisualizacaoFormsComponent } from './views/visualizacao-forms/visualizacao-forms.component';
+import { RelatoriosEstoqueComponent } from './views/relatorios-estoque/relatorios-estoque.component';
+import { RelatoriosSegurancaComponent } from './views/relatorios-seguranca/relatorios-seguranca.component';
+
+import { OwlModule } from 'ngx-owl-carousel';
 
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
 
@@ -249,6 +254,7 @@ export function provideConfig() {
     ControleSidenavComponent,
     DialogIngressosMesmaFestaComponent,
     ImagemAreaProblemaDialogComponent,
+    RelatoriosEstoqueComponent,
     SafePipe,
     VisualizacaoFormsComponent,
     RelatoriosSegurancaComponent
@@ -334,7 +340,8 @@ export function provideConfig() {
     NgxPayPalModule,
     NgxQRCodeModule,
     NgxMaskModule.forRoot(),
-    NgxChartsModule
+    NgxChartsModule,
+    OwlModule
   ],
   providers: [
     {

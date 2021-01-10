@@ -1,3 +1,68 @@
-<p>
-  relatorios-seguranca works!
-</p>
+<mat-expansion-panel hideToggle class="painel">
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      Problemas por área de Segurança
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+  <div class="relatorio-container">
+    <ngx-charts-pie-chart
+    [scheme]="colorScheme"
+    [results]="this.problemasPorArea"
+    [legend]="showLegend"
+    [legendPosition]="legendPosition"
+    [labels]="showLabels"
+    [doughnut]="isDoughnut"
+    >
+  </ngx-charts-pie-chart>
+  </div>
+  <div *ngIf="this.problemasPorArea.length === 0" class="nenhum-resultado">
+    <p>{{'RELATORIOESTOQUE.SEMRESULTADO' | translate}}</p>
+</div>
+</mat-expansion-panel>
+
+<mat-expansion-panel hideToggle class="painel">
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      Conclusões de alertas de problemas por solucionador
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+  <div class="relatorio-container">
+    <ngx-charts-bar-vertical-stacked
+      [scheme]="colorScheme"
+      [results]="this.resolucoesPorUsuario"
+      [xAxis]="true"
+      [yAxis]="true"
+      [legend]="true"
+      [showXAxisLabel]="true"
+      [showYAxisLabel]="true"
+      [xAxisLabel]="'Usuario'"
+      [yAxisLabel]="'Problemas'"
+      [animations]="true">
+    </ngx-charts-bar-vertical-stacked>
+  </div>
+  <div *ngIf="this.problemasPorArea.length === 0" class="nenhum-resultado">
+    <p>{{'RELATORIOESTOQUE.SEMRESULTADO' | translate}}</p>
+</div>
+</mat-expansion-panel>
+
+<mat-expansion-panel hideToggle class="painel">
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      Porcentagem de conclusões de usuários por total de problemas
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+  <div class="relatorio-container">
+    <ngx-charts-pie-chart
+    [scheme]="colorScheme"
+    [results]="this.emissoesChamadas"
+    [legend]="showLegend"
+    [legendPosition]="legendPosition"
+    [labels]="showLabels"
+    [doughnut]="isDoughnut"
+    >
+  </ngx-charts-pie-chart>
+  </div>
+  <div *ngIf="this.problemasPorArea.length === 0" class="nenhum-resultado">
+    <p>{{'RELATORIOESTOQUE.SEMRESULTADO' | translate}}</p>
+</div>
+</mat-expansion-panel>
