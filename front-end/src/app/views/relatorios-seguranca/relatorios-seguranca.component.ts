@@ -18,7 +18,7 @@ export class RelatoriosSegurancaComponent implements OnInit {
   showLegend = true;
   showLabels = true;
   isDoughnut = false;
-  legendPosition = 'below';
+  legendPosition = 'right';
   colorScheme = {
     domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA']
   };
@@ -94,6 +94,7 @@ export class RelatoriosSegurancaComponent implements OnInit {
         }
       }
       this.emissoesChamadas = dataset;
+      console.log(this.emissoesChamadas);
     });
   }
 }
