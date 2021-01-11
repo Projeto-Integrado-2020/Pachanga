@@ -851,7 +851,11 @@
         "CONCSOL":"Problem conclusion by solver user",
         "CONCXTOTAL":"Problem conclusions percentage by problems sum total"
 
-    }
+    },
 
+    "RELATORIOVENDA": {
+        "TITLE":"Sales"
+
+    }
 
 }

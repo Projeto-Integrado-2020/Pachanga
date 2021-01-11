@@ -747,6 +747,11 @@
         "SEMRESULTADO": "A festa não tem dados suficientes para este relatório."
     },
 
+    "RELATORIOVENDA": {
+        "TITLE":"Vendas"
+
+    },
+
     "RELATORIOSEGURANCA": {
         "TITLE": "Segurança",
         "PROBAREA":"Problemas por área de Segurança",

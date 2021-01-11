@@ -1,0 +1,156 @@
+<div class="main-conteiner">
+    <mat-expansion-panel hideToggle class="painel">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{'RELATORIOESTOQUE.CONSUMOESTOQUE' | translate}}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div *ngIf="consumoItemValores.length > 0">
+            <owl-carousel [options]="mySlideOptions" [carouselClasses]="['owl-theme', 'sliding']" >
+                <div *ngFor="let estoque of consumoItemValores;let i = index" class="relatorio-container">
+                    <h1 class="title-estoque">
+                        {{estoque.nomeEstoque}}
+                    </h1>
+                    <ngx-charts-line-chart #chart
+                        [results]="estoque.dataSet"
+                        [scheme]="colorScheme"
+                        [xAxisLabel]="'' | translate"
+                        [showXAxisLabel]="true"
+                        [showYAxisLabel]="true"
+                        [legendTitle]="'' | translate"
+                        [yAxisLabel]="'' | translate"
+                        [legend]="true"
+                        [showXAxisLabel]="true"
+                        [showYAxisLabel]="true"
+                        [xAxis]="true"
+                        [yAxis]="true"
+                        [gradient]="false"
+                        [timeline]="true"
+                        [xAxisTickFormatting]="formatDate"
+                        >
+                        <ng-template #tooltipTemplate let-model="model">
+                            <p class="toolTip-header">
+                                {{ model.series }} • {{ toolTipDate(model.name) }}
+                            </p>
+                            <p class="toolTip-body">{{ model.value }}</p>
+                        </ng-template>
+                    </ngx-charts-line-chart>
+                </div>
+            </owl-carousel>
+        </div>
+        <div *ngIf="consumoItemValores.length === 0" class="nenhum-resultado">
+            <p>{{'RELATORIOESTOQUE.SEMRESULTADO' | translate}}</p>
+        </div>
+    </mat-expansion-panel>
+    <mat-expansion-panel hideToggle class="painel">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{'RELATORIOESTOQUE.PERDAESTOQUE' | translate}}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div *ngIf="perdaItemValores.length > 0">
+            <owl-carousel [options]="mySlideOptions" [carouselClasses]="['owl-theme', 'sliding']" >
+                <div *ngFor="let estoque of perdaItemValores;let i = index" class="relatorio-container">
+                    <h1 class="title-estoque">
+                        {{estoque.nomeEstoque}}
+                    </h1>
+                    <ngx-charts-line-chart
+                        [results]="estoque.dataSet"
+                        [scheme]="colorScheme"
+                        [xAxisLabel]="'RELATORIOESTOQUE.HORARIO' | translate"
+                        [showXAxisLabel]="true"
+                        [showYAxisLabel]="true"
+                        [legendTitle]="'RELATORIOESTOQUE.PRODUTOS' | translate"
+                        [yAxisLabel]="'RELATORIOESTOQUE.PERDA' | translate"
+                        [legend]="true"
+                        [showXAxisLabel]="true"
+                        [showYAxisLabel]="true"
+                        [xAxis]="true"
+                        [yAxis]="true"
+                        [gradient]="false"
+                        [timeline]="true"
+                        [xAxisTickFormatting]="formatDate"
+                        >
+                        <ng-template #tooltipTemplate let-model="model">
+                            <p class="toolTip-header">
+                                {{ model.series }} • {{ toolTipDate(model.name) }}
+                            </p>
+                            <p class="toolTip-body">{{ model.value }}</p>
+                        </ng-template>
+                    </ngx-charts-line-chart>
+                </div>
+            </owl-carousel>
+        </div>
+        <div *ngIf="perdaItemValores.length === 0" class="nenhum-resultado">
+            <p>{{'RELATORIOESTOQUE.SEMRESULTADO' | translate}}</p>
+        </div>
+    </mat-expansion-panel>
+    <mat-expansion-panel hideToggle class="painel">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{'RELATORIOESTOQUE.QUANTIDADEESTOQUE' | translate}}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div *ngIf="quantidadeItemValores.length > 0">
+            <owl-carousel [options]="mySlideOptions" [carouselClasses]="['owl-theme', 'sliding']" >
+                <div *ngFor="let estoque of quantidadeItemValores;let i = index" class="relatorio-container">
+                    <h1 class="title-estoque">
+                        {{estoque.nomeEstoque}}
+                    </h1>
+                    <ngx-charts-line-chart
+                        [results]="estoque.dataSet"
+                        [scheme]="colorScheme"
+                        [xAxisLabel]="'RELATORIOESTOQUE.HORARIO' | translate"
+                        [showXAxisLabel]="true"
+                        [showYAxisLabel]="true"
+                        [legendTitle]="'RELATORIOESTOQUE.PRODUTOS' | translate"
+                        [yAxisLabel]="'RELATORIOESTOQUE.QUANTIDADE' | translate"
+                        [legend]="true"
+                        [showXAxisLabel]="true"
+                        [showYAxisLabel]="true"
+                        [xAxis]="true"
+                        [yAxis]="true"
+                        [gradient]="false"
+                        [timeline]="true"
+                        [xAxisTickFormatting]="formatDate"
+                        >
+                        <ng-template #tooltipTemplate let-model="model">
+                            <p class="toolTip-header">
+                                {{ model.series }} • {{ toolTipDate(model.name) }}
+                            </p>
+                            <p class="toolTip-body">{{ model.value }}</p>
+                        </ng-template>
+                    </ngx-charts-line-chart>
+                </div>
+            </owl-carousel>
+        </div>
+        <div *ngIf="quantidadeItemValores.length === 0" class="nenhum-resultado">
+            <p>{{'RELATORIOESTOQUE.SEMRESULTADO' | translate}}</p>
+        </div>
+    </mat-expansion-panel>
+    <mat-expansion-panel hideToggle class="painel">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{'RELATORIOESTOQUE.CONSUMOPRODUTO' | translate}}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="relatorio-container" *ngIf="consumoProdutoValores.length > 0">
+            <ngx-charts-bar-vertical 
+                [view]="[1000,400]"
+                [results]="consumoProdutoValores"
+                [xAxisLabel]="'RELATORIOESTOQUE.PRODUTOS' | translate"
+                [legendTitle]="'RELATORIOESTOQUE.PRODUTOS' | translate"
+                [yAxisLabel]="'RELATORIOESTOQUE.QUANTIDADE' | translate"
+                [legend]="true"
+                [showXAxisLabel]="true"
+                [showYAxisLabel]="true"
+                [xAxis]="true"
+                [yAxis]="true"
+                [gradient]="false">
+            </ngx-charts-bar-vertical>
+        </div>
+        <div *ngIf="consumoProdutoValores.length === 0" class="nenhum-resultado">
+            <p>{{'RELATORIOESTOQUE.SEMRESULTADO' | translate}}</p>
+        </div>
+    </mat-expansion-panel>
+</div>
