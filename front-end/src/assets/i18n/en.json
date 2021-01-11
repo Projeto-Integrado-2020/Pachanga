@@ -849,7 +849,9 @@
         "TITLE": "Security",
         "PROBAREA":"Problems by Security Area",
         "CONCSOL":"Problem conclusion by solver user",
-        "CONCXTOTAL":"Problem conclusions percentage by problems sum total"
+        "CONCXTOTAL":"Problem conclusions percentage by problems sum total",
+        "USUARIO":"User",
+        "PROBLEMA": "Problems"
 
     },
 

@@ -4,7 +4,7 @@
       {{'RELATORIOSEGURANCA.PROBAREA' | translate}}
     </mat-panel-title>
   </mat-expansion-panel-header>
-  <div class="relatorio-container">
+  <div class="relatorio-container" *ngIf="this.problemasPorArea.length > 0">
     <ngx-charts-pie-chart
     [scheme]="colorScheme"
     [results]="this.problemasPorArea"
@@ -26,7 +26,7 @@
       {{'RELATORIOSEGURANCA.CONCSOL' | translate}}
     </mat-panel-title>
   </mat-expansion-panel-header>
-  <div class="relatorio-container">
+  <div class="relatorio-container" *ngIf="this.resolucoesPorUsuario.length > 0">
     <ngx-charts-bar-vertical-stacked
       [scheme]="colorScheme"
       [results]="this.resolucoesPorUsuario"
@@ -35,12 +35,12 @@
       [legend]="true"
       [showXAxisLabel]="true"
       [showYAxisLabel]="true"
-      [xAxisLabel]="'Usuario'"
-      [yAxisLabel]="'Problemas'"
+      [xAxisLabel]="'RELATORIOSEGURANCA.USUARIO' | translate"
+      [yAxisLabel]="'RELATORIOSEGURANCA.PROBLEMA' | translate"
       [animations]="true">
     </ngx-charts-bar-vertical-stacked>
   </div>
-  <div *ngIf="this.problemasPorArea.length === 0" class="nenhum-resultado">
+  <div *ngIf="this.resolucoesPorUsuario.length === 0" class="nenhum-resultado">
     <p>{{'RELATORIOESTOQUE.SEMRESULTADO' | translate}}</p>
 </div>
 </mat-expansion-panel>
@@ -51,7 +51,7 @@
       {{'RELATORIOSEGURANCA.CONCXTOTAL' | translate}}
     </mat-panel-title>
   </mat-expansion-panel-header>
-  <div class="relatorio-container">
+  <div class="relatorio-container" *ngIf="this.emissoesChamadas.length === 0">
     <ngx-charts-pie-chart
     [scheme]="colorScheme"
     [results]="this.emissoesChamadas"
@@ -62,7 +62,7 @@
     >
   </ngx-charts-pie-chart>
   </div>
-  <div *ngIf="this.problemasPorArea.length === 0" class="nenhum-resultado">
+  <div *ngIf="this.emissoesChamadas.length === 0" class="nenhum-resultado">
     <p>{{'RELATORIOESTOQUE.SEMRESULTADO' | translate}}</p>
 </div>
 </mat-expansion-panel>
