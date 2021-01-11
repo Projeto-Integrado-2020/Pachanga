@@ -748,8 +748,16 @@
     },
 
     "RELATORIOVENDA": {
-        "TITLE":"Vendas"
-
+        "TITLE":"Vendas",
+        "INGRESSOS":"Quantidade de ingressos",
+        "SEMRESULTADO": "Nenhum resultado encontrado",
+        "INGRESSOPAGOCOMPRADO": "Ingressos pagos ou comprados",
+        "LOTE": "Lote",
+        "QUANTIDADE": "Quantidade",
+        "LEGENDA": "Ingressos",
+        "STATUS": "Status",
+        "PAGO": "Pago",
+        "COMPRADO": "Comprado"
     },
 
     "RELATORIOSEGURANCA": {
@@ -759,6 +767,7 @@
         "CONCXTOTAL":"Porcentagem de conclusões de usuários por total de problemas",
         "USUARIO": "Usuário",
         "PROBLEMA": "Problemas"
+        
 
     },
 

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-
+import { Router, RouterModule } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
+import { RelatorioVendaService } from 'src/app/services/relatorios/relatorio-venda.service';
 @Component({
   selector: 'app-relatorios-venda',
   templateUrl: './relatorios-venda.component.html',
@@ -8,46 +9,63 @@ import { Router } from '@angular/router';
 })
 export class RelatoriosVendaComponent implements OnInit {
 
-  mySlideOptions = {items: 1, dots: true, nav: true};
-  myCarouselOptions = {items: 80, dots: true, nav: true};
+  codFesta: string;
+  ingressosDataSet: any;
+  ingressosPagosDataSet: any;
+
+  mySlideOptions = { items: 1, dots: true, nav: true };
+  myCarouselOptions = { items: 80, dots: true, nav: true };
 
   colorScheme = {
     domain: ['#5AA454', '#E44D25', '#CFC0BB', '#7aa3e5', '#a8385d', '#aae3f5']
   };
 
-  constructor(public router: Router) {
-    
-
+  constructor(public relatorioVendaService: RelatorioVendaService, public router: Router, public translateService: TranslateService) {
   }
 
   ngOnInit() {
+    const idFesta = this.router.url;
+    this.codFesta = idFesta.substring(idFesta.indexOf('&') + 1, idFesta.indexOf('/', idFesta.indexOf('&')));
+    this.getRelatorioIngressos();
+    this.getRelatorioIngressosPagos();
   }
 
-  formatDate(value): any {
-    let formatOptions;
-    if (value.getSeconds() !== 0) {
-      formatOptions = { second: '2-digit' };
-    } else if (value.getMinutes() !== 0) {
-      formatOptions = { hour: '2-digit', minute: '2-digit' };
-    } else if (value.getHours() !== 0) {
-      formatOptions = { hour: '2-digit', minute: '2-digit' };
-    } else if (value.getDate() !== 1) {
-      formatOptions = value.getDay() === 0 ? { month: 'short', day: '2-digit' } : { weekday: 'short', day: '2-digit', month: '2-digit' };
-    } else if (value.getMonth() !== 0) {
-      formatOptions = { month: 'long' };
-    } else {
-      formatOptions = { year: 'numeric' };
-    }
-    return new Intl.DateTimeFormat('pt-br', formatOptions).format(value);
+  getRelatorioIngressos() {
+    this.relatorioVendaService.ingressosFesta(this.codFesta).subscribe((resp: any) => {
+      const dataSetTemp = [];
+      for (const ingresso of Object.keys(resp.ingressos)) {
+        dataSetTemp.push({
+          name: ingresso,
+          value: resp.ingressos[ingresso]
+        });
+      }
+      this.ingressosDataSet = dataSetTemp;
+    });
   }
 
-  toolTipDate(value): any {
-    let formatOptions;
-    if (value.getSeconds() !== 0) {
-      formatOptions = { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' };
-    }
-    return new Intl.DateTimeFormat('pt-br', formatOptions).format(value);
+  getRelatorioIngressosPagos() {
+    this.relatorioVendaService.ingressosFestaCompradosPagos(this.codFesta).subscribe((resp: any) => {
+      const dataSetTemp = [];
+      for (const ingresso of Object.keys(resp.ingressosCompradosPagos)) {
+        const serieTemp = [];
+        for (const data of Object.keys(resp.ingressosCompradosPagos[ingresso])) {
+          serieTemp.push(
+            {
+              name: this.translateService.instant('RELATORIOVENDA.PAGO'),
+              value: data
+            },
+            {
+              name: this.translateService.instant('RELATORIOVENDA.COMPRADO'),
+              value: resp.ingressosCompradosPagos[ingresso][data]
+            }
+          );
+        }
+        dataSetTemp.push({
+          name: ingresso,
+          series: serieTemp
+        });
+      }
+      this.ingressosPagosDataSet = dataSetTemp;
+    });
   }
-
-
 }

@@ -856,8 +856,16 @@
     },
 
     "RELATORIOVENDA": {
-        "TITLE":"Sales"
-
+        "TITLE":"Sales",
+        "INGRESSOS":"Tickets quantity",
+        "SEMRESULTADO": "No results found",
+        "INGRESSOPAGOCOMPRADO": "Tickets sold or payed",
+        "LOTE": "Batch",
+        "QUANTIDADE": "Quantity",
+        "LEGENDA": "Tickets",
+        "STATUS": "Status",
+        "PAGO": "Payed",
+        "COMPRADO": "Sold"
     }
 
 }

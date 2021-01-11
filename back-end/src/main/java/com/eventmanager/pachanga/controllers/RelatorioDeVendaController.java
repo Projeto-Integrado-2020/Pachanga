@@ -36,7 +36,7 @@ public class RelatorioDeVendaController {
 	public ResponseEntity<Object> relatorioIngressosFestaPagos(@RequestParam(required = true) int codFesta,
 			@RequestParam(required = true) int codUsuario) {
 		try {
-			return ResponseEntity.ok(relatorioDeVendaService.relatorioDeIngressos(codFesta, codUsuario));
+			return ResponseEntity.ok(relatorioDeVendaService.relatorioDeIngressosPagosComprados(codFesta, codUsuario));
 		} catch (ValidacaoException e) {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
