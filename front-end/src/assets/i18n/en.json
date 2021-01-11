@@ -852,8 +852,9 @@
         "CONCXTOTAL":"Problem conclusions percentage by problems sum total",
         "USUARIO":"User",
         "PROBLEMA": "Problems",
-        "LEGENDA": "Legend"
-
+        "LEGENDA": "Legend",
+        "AREA": "Security Areas",
+        "STATUS": "Status"
     }
 
 
