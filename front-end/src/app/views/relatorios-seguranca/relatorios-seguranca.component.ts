@@ -94,7 +94,6 @@ export class RelatoriosSegurancaComponent implements OnInit {
         }
       }
       this.emissoesChamadas = dataset;
-      console.log(this.emissoesChamadas);
     });
   }
 }
