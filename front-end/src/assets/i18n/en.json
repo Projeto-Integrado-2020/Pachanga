@@ -851,8 +851,10 @@
         "CONCSOL":"Problem conclusion by solver user",
         "CONCXTOTAL":"Problem conclusions percentage by problems sum total",
         "USUARIO":"User",
-        "PROBLEMA": "Problems"
-
+        "PROBLEMA": "Problems",
+        "LEGENDA": "Legend",
+        "AREA": "Security Areas",
+        "STATUS": "Status"
     },
 
     "RELATORIOVENDA": {

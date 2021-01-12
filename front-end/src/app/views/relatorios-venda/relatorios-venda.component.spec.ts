@@ -39,8 +39,8 @@ describe('RelatoriosVendaComponent', () => {
       ],
       providers: [
         {provide: RelatorioVendaService, useValue: {
-          ingressosFesta: () => of([]),
-          ingressosFestaCompradosPagos: () => of([])
+          ingressosFesta: () => of({ingressos: {test: 1}}),
+          ingressosFestaCompradosPagos: () => of({ingressosCompradosPagos: {loteteste: {1 : 2}}})
         }},
       ]
     })

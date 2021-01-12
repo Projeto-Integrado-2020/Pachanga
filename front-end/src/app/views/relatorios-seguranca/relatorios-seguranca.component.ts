@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 import { RelatorioAreaSegService } from 'src/app/services/relatorios/relatorio-area-seg.service';
 
 @Component({
@@ -18,14 +19,15 @@ export class RelatoriosSegurancaComponent implements OnInit {
   showLegend = true;
   showLabels = true;
   isDoughnut = false;
-  legendPosition = 'below';
+  legendPosition = 'right';
   colorScheme = {
     domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA']
   };
 
   constructor(
     private relAreaSegService: RelatorioAreaSegService,
-    private router: Router
+    private router: Router,
+    private translateService: TranslateService
   ) { }
 
   ngOnInit() {
@@ -61,11 +63,11 @@ export class RelatoriosSegurancaComponent implements OnInit {
             name: username,
             series: [
               {
-                name: 'Finalizado',
+                name: this.translateService.instant('RELATARPROB.F'),
                 value: parseInt(Object.keys(chamadasEmitidas[username])[0], 10)
               },
               {
-                name: 'Engano',
+                name: this.translateService.instant('RELATARPROB.E'),
                 value: Object.values(chamadasEmitidas[username])[0]
               }
             ]

@@ -766,9 +766,10 @@
         "CONCSOL":"Conclusões de alertas de problemas por solucionador",
         "CONCXTOTAL":"Porcentagem de conclusões de usuários por total de problemas",
         "USUARIO": "Usuário",
-        "PROBLEMA": "Problemas"
-        
-
+        "PROBLEMA": "Problemas",
+        "LEGENDA": "Legenda",
+        "AREA": "Áreas de Segurança",
+        "STATUS": "Status"
     },
 
     "RELATARPROB": {

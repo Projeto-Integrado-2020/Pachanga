@@ -10,6 +10,7 @@
     [results]="this.problemasPorArea"
     [legend]="showLegend"
     [legendPosition]="legendPosition"
+    [legendTitle]="'RELATORIOSEGURANCA.AREA' | translate"
     [labels]="showLabels"
     [doughnut]="isDoughnut"
     >
@@ -33,6 +34,7 @@
       [xAxis]="true"
       [yAxis]="true"
       [legend]="true"
+      [legendTitle]="'RELATORIOSEGURANCA.STATUS' | translate"
       [showXAxisLabel]="true"
       [showYAxisLabel]="true"
       [xAxisLabel]="'RELATORIOSEGURANCA.USUARIO' | translate"
@@ -51,12 +53,13 @@
       {{'RELATORIOSEGURANCA.CONCXTOTAL' | translate}}
     </mat-panel-title>
   </mat-expansion-panel-header>
-  <div class="relatorio-container" *ngIf="this.emissoesChamadas.length === 0">
+  <div class="relatorio-container" *ngIf="this.emissoesChamadas.length > 0">
     <ngx-charts-pie-chart
     [scheme]="colorScheme"
     [results]="this.emissoesChamadas"
     [legend]="showLegend"
     [legendPosition]="legendPosition"
+    [legendTitle]="'RELATORIOSEGURANCA.USUARIO' | translate"
     [labels]="showLabels"
     [doughnut]="isDoughnut"
     >
