@@ -81,7 +81,7 @@ public class RelatorioAreaSegurancaService {
 	public void validacaoUsuarioFestaRelatorio(int codFesta, int codUsuario) {
 		festaService.validarFestaExistente(codFesta);
 		festaService.validarUsuarioFesta(codUsuario, codFesta);
-		grupoService.validarPermissaoUsuarioGrupo(codFesta, codUsuario, TipoPermissao.VISURELA.getCodigo());
+//		grupoService.validarPermissaoUsuarioGrupo(codFesta, codUsuario, TipoPermissao.VISURELA.getCodigo());
 
 	}
 

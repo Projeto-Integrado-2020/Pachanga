@@ -42,4 +42,15 @@ public class RelatorioDeVendaController {
 		}
 	}
 
+	@ResponseBody
+	@GetMapping(path = "/lucroFesta")
+	public ResponseEntity<Object> relatorioLucroEsperadoFesta(@RequestParam(required = true) int codFesta,
+			@RequestParam(required = true) int codUsuario) {
+		try {
+			return ResponseEntity.ok(relatorioDeVendaService.relatorioLucroFesta(codFesta, codUsuario));
+		} catch (ValidacaoException e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+	}
+
 }
