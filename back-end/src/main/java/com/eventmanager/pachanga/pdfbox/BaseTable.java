@@ -17,7 +17,6 @@ public class BaseTable extends Table<PDPage> {
     
     @Override
     protected void loadFonts() {
-        // Do nothing as we don't have any fonts to load
     }
 
 }

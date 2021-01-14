@@ -852,9 +852,22 @@
         "CONCXTOTAL":"Problem conclusions percentage by problems sum total",
         "USUARIO":"User",
         "PROBLEMA": "Problems",
-        "LEGENDA": "Legend"
+        "LEGENDA": "Legend",
+        "AREA": "Security Areas",
+        "STATUS": "Status"
+    },
 
+    "RELATORIOVENDA": {
+        "TITLE":"Sales",
+        "INGRESSOS":"Tickets quantity",
+        "SEMRESULTADO": "No results found",
+        "INGRESSOPAGOCOMPRADO": "Tickets sold or payed",
+        "LOTE": "Batch",
+        "QUANTIDADE": "Quantity",
+        "LEGENDA": "Tickets",
+        "STATUS": "Status",
+        "PAGO": "Payed",
+        "COMPRADO": "Sold"
     }
-
 
 }

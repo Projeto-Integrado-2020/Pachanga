@@ -747,6 +747,19 @@
         "SEMRESULTADO": "A festa não tem dados suficientes para este relatório."
     },
 
+    "RELATORIOVENDA": {
+        "TITLE":"Vendas",
+        "INGRESSOS":"Quantidade de ingressos",
+        "SEMRESULTADO": "Nenhum resultado encontrado",
+        "INGRESSOPAGOCOMPRADO": "Ingressos pagos ou comprados",
+        "LOTE": "Lote",
+        "QUANTIDADE": "Quantidade",
+        "LEGENDA": "Ingressos",
+        "STATUS": "Status",
+        "PAGO": "Pago",
+        "COMPRADO": "Comprado"
+    },
+
     "RELATORIOSEGURANCA": {
         "TITLE": "Segurança",
         "PROBAREA":"Problemas por área de Segurança",
@@ -754,8 +767,9 @@
         "CONCXTOTAL":"Porcentagem de conclusões de usuários por total de problemas",
         "USUARIO": "Usuário",
         "PROBLEMA": "Problemas",
-        "LEGENDA": "Legenda"
-
+        "LEGENDA": "Legenda",
+        "AREA": "Áreas de Segurança",
+        "STATUS": "Status"
     },
 
     "RELATARPROB": {

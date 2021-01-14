@@ -106,13 +106,7 @@ public class Row<T extends PDPage> {
 	}
 
 
-	public Cell<T> createCell(String value) {
-		float headerCellWidth = table.getHeader().getCells().get(cells.size()).getWidth();
-		Cell<T> cell = new Cell<>(this, headerCellWidth, value, false);
-		setBorders(cell, cells.isEmpty());
-		cells.add(cell);
-		return cell;
-	}
+
 
 	private void setBorders(final Cell<T> cell, final boolean leftBorder) {
 		if (!leftBorder) {
