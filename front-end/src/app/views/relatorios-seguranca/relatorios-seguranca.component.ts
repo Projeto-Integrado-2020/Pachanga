@@ -20,7 +20,7 @@ export class RelatoriosSegurancaComponent implements OnInit {
   isDoughnut = false;
   legendPosition = 'right';
   colorScheme = {
-    domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA']
+    domain: ['#d63333', '#a833d6', '#d68f33', '#d63395', '#d6d333', '#4633d6', '#87d633', '#338dd6', '#33d659', '#33d6bb']
   };
 
   constructor(
