@@ -868,6 +868,12 @@
         "STATUS": "Status",
         "PAGO": "Payed",
         "COMPRADO": "Sold"
+    },
+
+    "RELATORIOEXPORT": {
+        "EXPORTAR": "Export reports",
+        "CONFIRMAR": "Confirm export",
+        "TITLE": "Export reports"
     }
 
 }

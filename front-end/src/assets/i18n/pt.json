@@ -885,6 +885,12 @@
         "RELATPROBLM": "Relatando problema. Por favor, aguarde.",
         "CARREGIMAGEM": "Carregando imagem. Por favor, aguarde.",
         "CHECKIN": "Realizando check-in. Por favor aguarde."
+    },
+
+    "RELATORIOEXPORT": {
+        "EXPORTAR": "Exportar relatórios",
+        "CONFIRMAR": "Confirmar exportação",
+        "TITLE": "Exportação de relatórios"
     }
 
 }

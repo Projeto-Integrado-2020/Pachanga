@@ -137,6 +137,7 @@
         <div class="relatorio-container" *ngIf="consumoProdutoValores.length > 0">
             <ngx-charts-bar-vertical 
                 [view]="[1000,400]"
+                [scheme]="colorScheme"
                 [results]="consumoProdutoValores"
                 [xAxisLabel]="'RELATORIOESTOQUE.PRODUTOS' | translate"
                 [legendTitle]="'RELATORIOESTOQUE.PRODUTOS' | translate"

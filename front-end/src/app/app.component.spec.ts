@@ -57,6 +57,7 @@ import { NgxPayPalModule } from 'ngx-paypal';
 import { GerenciadorCuponsComponent } from './views/gerenciador-cupons/gerenciador-cupons.component';
 import { ControleSidenavComponent } from './views/controle-sidenav/controle-sidenav.component';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { RelatoriosExportComponent } from './views/relatorios-export/relatorios-export.component';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -118,7 +119,8 @@ describe('AppComponent', () => {
         CheckInComponent,
         MeusIngressosComponent,
         GerenciadorCuponsComponent,
-        ControleSidenavComponent
+        ControleSidenavComponent,
+        RelatoriosExportComponent
       ],
       imports: [
         MomentModule,

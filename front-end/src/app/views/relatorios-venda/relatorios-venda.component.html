@@ -8,6 +8,7 @@
         <div *ngIf="ingressosDataSet.length > 0">
             <ngx-charts-bar-vertical 
             [view]="[1000,400]"
+            [scheme]="colorScheme"
             [results]="ingressosDataSet"
             [xAxisLabel]="'RELATORIOVENDA.LOTE' | translate"
             [legendTitle]="'RELATORIOVENDA.LEGENDA' | translate"
@@ -33,6 +34,7 @@
         <div *ngIf="ingressosPagosDataSet.length > 0">
             <ngx-charts-bar-vertical-2d 
             [view]="[1000,400]"
+            [scheme]="colorScheme"
             [results]="ingressosPagosDataSet"
             [xAxisLabel]="'RELATORIOVENDA.LOTE' | translate"
             [legendTitle]="'RELATORIOVENDA.STATUS' | translate"

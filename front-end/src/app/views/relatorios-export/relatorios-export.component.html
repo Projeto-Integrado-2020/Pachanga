@@ -1,0 +1,237 @@
+<div class="main-conteiner">
+    <mat-list>
+        <mat-list-item>
+            <div class="titulo2">
+                <h2>{{'RELATORIOEXPORT.TITLE' | translate}}</h2>
+            </div>
+        </mat-list-item>
+
+        <mat-list-item class="center-x botoes">
+            <button (click)="gerarPDFRelatorios()" mat-raised-button class="botao-confirmar">
+                {{'RELATORIOEXPORT.CONFIRMAR' | translate}}
+            </button>
+            <button routerLink="../" mat-button cdkFocusInitial class="button-return">
+                <mat-icon>keyboard_return</mat-icon> {{'UTILS.RETURN' | translate}}
+            </button>
+        </mat-list-item>
+    </mat-list>
+    <p class="titulo-relatorio" *ngIf="consumoItemValores.length > 0">
+        {{'RELATORIOESTOQUE.CONSUMOESTOQUE' | translate}}
+    </p>
+    <div *ngFor="let estoque of consumoItemValores;let i = index" class="relatorio-container">
+        <div class="timeline-wrapper" id="{{'consumoItem-' + estoque.nomeEstoque}}">
+            <h2 class="title-estoque">
+                {{estoque.nomeEstoque}}
+            </h2>
+            <ngx-charts-line-chart #chart
+                [results]="estoque.dataSet"
+                [scheme]="colorScheme"
+                [xAxisLabel]="'RELATORIOESTOQUE.HORARIO' | translate"
+                [showXAxisLabel]="true"
+                [showYAxisLabel]="true"
+                [legendTitle]="'RELATORIOESTOQUE.PRODUTOS' | translate"
+                [yAxisLabel]="'RELATORIOESTOQUE.CONSUMO' | translate"
+                [legend]="true"
+                [showXAxisLabel]="true"
+                [showYAxisLabel]="true"
+                [xAxis]="true"
+                [yAxis]="true"
+                [gradient]="false"
+                [timeline]="true"
+                [xAxisTickFormatting]="formatDate"
+                >
+                <ng-template #tooltipTemplate let-model="model">
+                    <p class="toolTip-header">
+                        {{ model.series }} • {{ toolTipDate(model.name) }}
+                    </p>
+                    <p class="toolTip-body">{{ model.value }}</p>
+                </ng-template>
+            </ngx-charts-line-chart>
+        </div>
+    </div>
+    <p class="titulo-relatorio" *ngIf="perdaItemValores.length > 0">
+        {{'RELATORIOESTOQUE.PERDAESTOQUE' | translate}}
+    </p>
+    <div *ngFor="let estoque of perdaItemValores;let i = index" class="relatorio-container">
+        <div class="timeline-wrapper" id="{{'perdaItem-' + estoque.nomeEstoque}}">
+            <h1 class="title-estoque">
+                {{estoque.nomeEstoque}}
+            </h1>
+            <ngx-charts-line-chart
+                [results]="estoque.dataSet"
+                [scheme]="colorScheme"
+                [xAxisLabel]="'RELATORIOESTOQUE.HORARIO' | translate"
+                [showXAxisLabel]="true"
+                [showYAxisLabel]="true"
+                [legendTitle]="'RELATORIOESTOQUE.PRODUTOS' | translate"
+                [yAxisLabel]="'RELATORIOESTOQUE.PERDA' | translate"
+                [legend]="true"
+                [showXAxisLabel]="true"
+                [showYAxisLabel]="true"
+                [xAxis]="true"
+                [yAxis]="true"
+                [gradient]="false"
+                [timeline]="true"
+                [xAxisTickFormatting]="formatDate"
+                >
+                <ng-template #tooltipTemplate let-model="model">
+                    <p class="toolTip-header">
+                        {{ model.series }} • {{ toolTipDate(model.name) }}
+                    </p>
+                    <p class="toolTip-body">{{ model.value }}</p>
+                </ng-template>
+            </ngx-charts-line-chart>
+        </div>
+    </div>
+    <p class="titulo-relatorio" *ngIf="quantidadeItemValores.length > 0">
+        {{'RELATORIOESTOQUE.QUANTIDADEESTOQUE' | translate}}
+    </p>
+    <div *ngFor="let estoque of quantidadeItemValores;let i = index" class="relatorio-container">
+        <div class="timeline-wrapper" id="{{'quantidadeItem-' + estoque.nomeEstoque}}">
+            <h1 class="title-estoque">
+                {{estoque.nomeEstoque}}
+            </h1>
+            <ngx-charts-line-chart
+                [results]="estoque.dataSet"
+                [scheme]="colorScheme"
+                [xAxisLabel]="'RELATORIOESTOQUE.HORARIO' | translate"
+                [showXAxisLabel]="true"
+                [showYAxisLabel]="true"
+                [legendTitle]="'RELATORIOESTOQUE.PRODUTOS' | translate"
+                [yAxisLabel]="'RELATORIOESTOQUE.QUANTIDADE' | translate"
+                [legend]="true"
+                [showXAxisLabel]="true"
+                [showYAxisLabel]="true"
+                [xAxis]="true"
+                [yAxis]="true"
+                [gradient]="false"
+                [timeline]="true"
+                [xAxisTickFormatting]="formatDate"
+                >
+                <ng-template #tooltipTemplate let-model="model">
+                    <p class="toolTip-header">
+                        {{ model.series }} • {{ toolTipDate(model.name) }}
+                    </p>
+                    <p class="toolTip-body">{{ model.value }}</p>
+                </ng-template>
+            </ngx-charts-line-chart>
+        </div>
+    </div>
+    <p class="titulo-relatorio" *ngIf="consumoProdutoValores.length > 0">
+        {{'RELATORIOESTOQUE.CONSUMOPRODUTO' | translate}}
+    </p>
+    <div class="relatorio-container" *ngIf="consumoProdutoValores.length > 0">
+        <div class="chart-wrapper" id="consumoProduto">
+            <ngx-charts-bar-vertical 
+                [scheme]="colorScheme"
+                [results]="consumoProdutoValores"
+                [xAxisLabel]="'RELATORIOESTOQUE.PRODUTOS' | translate"
+                [legendTitle]="'RELATORIOESTOQUE.PRODUTOS' | translate"
+                [yAxisLabel]="'RELATORIOESTOQUE.QUANTIDADE' | translate"
+                [legend]="true"
+                [showXAxisLabel]="true"
+                [showYAxisLabel]="true"
+                [xAxis]="true"
+                [yAxis]="true"
+                [gradient]="false">
+            </ngx-charts-bar-vertical>
+        </div>
+    </div>
+    <p class="titulo-relatorio" *ngIf="this.problemasPorArea.length > 0">
+        {{'RELATORIOSEGURANCA.PROBAREA' | translate}}
+    </p>
+    <div class="relatorio-container" *ngIf="this.problemasPorArea.length > 0">
+        <div class="chart-wrapper" id="problemasPorArea">
+            <ngx-charts-pie-chart
+                [scheme]="colorScheme"
+                [results]="this.problemasPorArea"
+                [legend]="showLegend"
+                [legendPosition]="legendPosition"
+                [legendTitle]="'RELATORIOSEGURANCA.AREA' | translate"
+                [labels]="showLabels"
+                [doughnut]="isDoughnut"
+                >
+            </ngx-charts-pie-chart>
+        </div>
+    </div>
+    <p class="titulo-relatorio" *ngIf="this.resolucoesPorUsuario.length > 0">
+        {{'RELATORIOSEGURANCA.CONCSOL' | translate}}
+    </p>
+    <div class="relatorio-container" *ngIf="this.resolucoesPorUsuario.length > 0">
+        <div class="chart-wrapper" id="resolucoesPorUsuario">
+            <ngx-charts-bar-vertical-stacked
+                [scheme]="colorScheme"
+                [results]="this.resolucoesPorUsuario"
+                [xAxis]="true"
+                [yAxis]="true"
+                [legend]="true"
+                [legendTitle]="'RELATORIOSEGURANCA.STATUS' | translate"
+                [showXAxisLabel]="true"
+                [showYAxisLabel]="true"
+                [xAxisLabel]="'RELATORIOSEGURANCA.USUARIO' | translate"
+                [yAxisLabel]="'RELATORIOSEGURANCA.PROBLEMA' | translate"
+                [animations]="true">
+            </ngx-charts-bar-vertical-stacked>
+        </div>
+    </div>
+    <p class="titulo-relatorio" *ngIf="this.emissoesChamadas.length > 0">
+        {{'RELATORIOSEGURANCA.CONCXTOTAL' | translate}}
+    </p>
+    <div class="relatorio-container" *ngIf="this.emissoesChamadas.length > 0">
+        <div class="chart-wrapper" id="emissoesChamadas">
+            <ngx-charts-pie-chart
+                [scheme]="colorScheme"
+                [results]="this.emissoesChamadas"
+                [legend]="showLegend"
+                [legendPosition]="legendPosition"
+                [legendTitle]="'RELATORIOSEGURANCA.USUARIO' | translate"
+                [labels]="showLabels"
+                [doughnut]="isDoughnut"
+                >
+            </ngx-charts-pie-chart>
+        </div>
+    </div>
+    <p class="titulo-relatorio" *ngIf="ingressosDataSet.length > 0">
+        {{'RELATORIOVENDA.INGRESSOS' | translate}}
+    </p>
+    <div class="relatorio-container" *ngIf="ingressosDataSet.length > 0">
+        <div class="chart-wrapper" id="ingressos">
+            <ngx-charts-bar-vertical 
+                [scheme]="colorScheme"
+                [results]="ingressosDataSet"
+                [xAxisLabel]="'RELATORIOVENDA.LOTE' | translate"
+                [legendTitle]="'RELATORIOVENDA.LEGENDA' | translate"
+                [yAxisLabel]="'RELATORIOVENDA.QUANTIDADE' | translate"
+                [legend]="true"
+                [showXAxisLabel]="true"
+                [showYAxisLabel]="true"
+                [xAxis]="true"
+                [yAxis]="true"
+                [gradient]="false">
+            </ngx-charts-bar-vertical>
+        </div>
+    </div>
+    <p class="titulo-relatorio" *ngIf="ingressosPagosDataSet.length > 0">
+        {{'RELATORIOVENDA.INGRESSOPAGOCOMPRADO' | translate}}
+    </p>
+    <div class="relatorio-container" *ngIf="ingressosPagosDataSet.length > 0">
+        <div class="chart-wrapper" id="ingressosPagos">
+            <ngx-charts-bar-vertical-2d 
+                [scheme]="colorScheme"
+                [results]="ingressosPagosDataSet"
+                [xAxisLabel]="'RELATORIOVENDA.LOTE' | translate"
+                [legendTitle]="'RELATORIOVENDA.STATUS' | translate"
+                [yAxisLabel]="'RELATORIOVENDA.QUANTIDADE' | translate"
+                [legend]="true"
+                [showXAxisLabel]="true"
+                [showYAxisLabel]="true"
+                [xAxis]="true"
+                [yAxis]="true"
+                [gradient]="false">
+            </ngx-charts-bar-vertical-2d>
+        </div>
+    </div>
+    <button routerLink="../" mat-button cdkFocusInitial class="button-return">
+        <mat-icon>keyboard_return</mat-icon> {{'UTILS.RETURN' | translate}}
+    </button>
+</div>

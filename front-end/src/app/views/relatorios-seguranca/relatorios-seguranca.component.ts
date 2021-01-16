@@ -25,7 +25,7 @@ export class RelatoriosSegurancaComponent implements OnInit {
   };
 
   constructor(
-    private relAreaSegService: RelatorioAreaSegService,
+    public relAreaSegService: RelatorioAreaSegService,
     private router: Router,
     private translateService: TranslateService
   ) { }
