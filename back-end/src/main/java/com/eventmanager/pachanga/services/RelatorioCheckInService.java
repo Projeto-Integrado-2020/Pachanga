@@ -104,7 +104,8 @@ public class RelatorioCheckInService {
 		Map<String, Integer> quantidadeEntradaHora = new LinkedHashMap<>();
 
 		ingressoRepository.findIngressoCheckedOrdenado(codFesta).stream().forEach(i -> {
-			String diaHora = i.getDataCheckin().getDayOfMonth() + "/" + i.getDataCheckin().getMonth() + " " + i.getDataCheckin().getHour();
+			String diaHora = i.getDataCheckin().getDayOfMonth() + "/" + i.getDataCheckin().getMonthValue() + " "
+					+ i.getDataCheckin().getHour() + ":00";
 			if (quantidadeEntradaHora.containsKey(diaHora)) {
 				Integer quantidade = quantidadeEntradaHora.get(diaHora);
 				quantidadeEntradaHora.put(diaHora, quantidade + 1);
@@ -120,13 +121,17 @@ public class RelatorioCheckInService {
 
 		Map<String, Map<Integer, Integer>> ingressoStatus = new LinkedHashMap<>();
 		loteRepository.listaLoteFesta(codFesta).stream().forEach(e -> {
-			
+
 			Map<Integer, Integer> ingressosChecadosUnchecked = new LinkedHashMap<>();
-			ingressosChecadosUnchecked.put(ingressoRepository.findQuantidadeIngressosLoteStatusIngresso(e.getCodLote(), TipoStatusIngresso.CHECKED.getDescricao()), ingressoRepository.findQuantidadeIngressosLoteStatusIngresso(e.getCodLote(), TipoStatusIngresso.UNCHECKED.getDescricao()));
+			ingressosChecadosUnchecked.put(
+					ingressoRepository.findQuantidadeIngressosLoteStatusIngresso(e.getCodLote(),
+							TipoStatusIngresso.CHECKED.getDescricao()),
+					ingressoRepository.findQuantidadeIngressosLoteStatusIngresso(e.getCodLote(),
+							TipoStatusIngresso.UNCHECKED.getDescricao()));
 			ingressoStatus.put(e.getNomeLote(), ingressosChecadosUnchecked);
-			
-			});
-		
+
+		});
+
 		return relatorioCheckInFactory.relatorioCheckedUnchecked(ingressoStatus);
 	}
 
