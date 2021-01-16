@@ -8,9 +8,9 @@
     <ngx-charts-pie-chart
     [scheme]="colorScheme"
     [results]="this.problemasPorArea"
-    [legend]="showLegend"
+    [legend]="false"
     [legendPosition]="legendPosition"
-    [legendTitle]="'RELATORIOSEGURANCA.AREA' | translate"
+    [legendTitle]=" ' ' "
     [labels]="showLabels"
     [doughnut]="isDoughnut"
     >
@@ -31,7 +31,7 @@
     <ngx-charts-bar-vertical-stacked
       [scheme]="colorScheme"
       [results]="this.resolucoesPorUsuario"
-      [xAxis]="true"
+      [xAxis]="false"
       [yAxis]="true"
       [legend]="true"
       [legendTitle]="'RELATORIOSEGURANCA.STATUS' | translate"
