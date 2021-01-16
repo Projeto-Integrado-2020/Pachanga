@@ -104,7 +104,7 @@ public class RelatorioCheckInService {
 		Map<String, Integer> quantidadeEntradaHora = new LinkedHashMap<>();
 
 		ingressoRepository.findIngressoCheckedOrdenado(codFesta).stream().forEach(i -> {
-			String diaHora = i.getDataCheckin().getDayOfMonth() + "d" + i.getDataCheckin().getHour();
+			String diaHora = i.getDataCheckin().getDayOfMonth() + "/" + i.getDataCheckin().getMonth() + " " + i.getDataCheckin().getHour();
 			if (quantidadeEntradaHora.containsKey(diaHora)) {
 				Integer quantidade = quantidadeEntradaHora.get(diaHora);
 				quantidadeEntradaHora.put(diaHora, quantidade + 1);

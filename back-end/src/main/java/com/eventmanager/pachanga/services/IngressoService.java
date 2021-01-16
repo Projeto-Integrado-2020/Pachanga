@@ -202,9 +202,8 @@ public class IngressoService {
 
 		});
 		
-		EnvioEmMassaDeConvite envioEmMassaDeConvite = new EnvioEmMassaDeConvite();
-		envioEmMassaDeConvite.upsertAll(ingressosPagos);
-		envioEmMassaDeConvite.enviarTudo();
+		EnvioEmMassaDeConvite.upsertAll(ingressosPagos);
+		EnvioEmMassaDeConvite.enviarTudo();
 
 	}
 
