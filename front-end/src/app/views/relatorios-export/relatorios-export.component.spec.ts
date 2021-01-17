@@ -17,7 +17,11 @@ import { RelatoriosExportComponent } from './relatorios-export.component';
 import { RelatorioVendaService } from 'src/app/services/relatorios/relatorio-venda.service';
 import { RelatorioAreaSegService } from 'src/app/services/relatorios/relatorio-area-seg.service';
 import { GetFestaService } from 'src/app/services/get-festa/get-festa.service';
+<<<<<<< HEAD
 import { MatDialog } from '@angular/material';
+=======
+import { RelatorioCheckinService } from 'src/app/services/relatorios/relatorio-checkin.service';
+>>>>>>> e22d4464edc4c4fd24821295521837c8cfe02eb0
 
 describe('RelatoriosExportComponent', () => {
   let component: RelatoriosExportComponent;
@@ -60,6 +64,12 @@ describe('RelatoriosExportComponent', () => {
           problemasArea: () => of({problemasArea: {}, chamadasEmitidasFuncionario: [], solucionadorAlertasSeguranca: []}),
           chamadasUsuario: () => of({problemasArea: {}, chamadasEmitidasFuncionario: [], solucionadorAlertasSeguranca: []}),
           usuarioSolucionador: () => of({problemasArea: {}, chamadasEmitidasFuncionario: [], solucionadorAlertasSeguranca: []})
+        }},
+        {provide: RelatorioCheckinService, useValue: {
+          faixaEtaria: () => of({quantitadeFaixaEtaria: {}}),
+          genero: () => of({quantidadeGenero: {}}),
+          checkedUnchecked: () => of({ingressoFestaCheckedUnchecked: {}}),
+          qtdEntradasHora: () => of({quantidadePessoasHora: {}})
         }},
         {provide: GetFestaService, useValue: {
           acessarFesta: () => of({
@@ -203,6 +213,42 @@ describe('RelatoriosExportComponent', () => {
 
     component.usuariosPorEmissao('teste');
     expect(component.relAreaSegService.usuarioSolucionador).toHaveBeenCalled();
+  });
+
+  it('should get faixaEtaria', () => {
+    spyOn(component.relatorioCheckin, 'faixaEtaria')
+    .and
+    .callThrough();
+
+    component.faixaEtaria();
+    expect(component.relatorioCheckin.faixaEtaria).toHaveBeenCalled();
+  });
+
+  it('should get generos', () => {
+    spyOn(component.relatorioCheckin, 'genero')
+    .and
+    .callThrough();
+
+    component.generos();
+    expect(component.relatorioCheckin.genero).toHaveBeenCalled();
+  });
+
+  it('should get ingressosFestaCheckedUnchecked', () => {
+    spyOn(component.relatorioCheckin, 'checkedUnchecked')
+    .and
+    .callThrough();
+
+    component.ingressosFestaCheckedUnchecked();
+    expect(component.relatorioCheckin.checkedUnchecked).toHaveBeenCalled();
+  });
+
+  it('should get quantidadeEntradasHora', () => {
+    spyOn(component.relatorioCheckin, 'qtdEntradasHora')
+    .and
+    .callThrough();
+
+    component.quantidadeEntradasHora();
+    expect(component.relatorioCheckin.qtdEntradasHora).toHaveBeenCalled();
   });
 
   it('should call criarPaginaPDF at gerarPDFRelatorios', () => {

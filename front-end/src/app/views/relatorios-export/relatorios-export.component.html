@@ -231,6 +231,98 @@
             </ngx-charts-bar-vertical-2d>
         </div>
     </div>
+    <p class="titulo-relatorio" *ngIf="faixaEtariaValores.length > 0">
+        {{'RELATORIOCHECKIN.FAIXAETARIA' | translate}}
+    </p>
+    <div class="relatorio-container" *ngIf="faixaEtariaValores.length > 0">
+        <div class="chart-wrapper" id="faixaEtaria">
+            <ngx-charts-bar-vertical
+            [results]="faixaEtariaValores"
+            [xAxisLabel]="'RELATORIOCHECKIN.IDADE' | translate"
+            [legendTitle]="'RELATORIOCHECKIN.IDADE' | translate"
+            [yAxisLabel]="'RELATORIOCHECKIN.QTD' | translate"
+            [legend]="true"
+            [showXAxisLabel]="true"
+            [showYAxisLabel]="true"
+            [xAxis]="true"
+            [yAxis]="true"
+            [gradient]="false"
+            [scheme]="colorScheme">
+            </ngx-charts-bar-vertical>
+        </div>
+    </div>
+    <p class="titulo-relatorio" *ngIf="generosValores.length > 0">
+        {{'RELATORIOCHECKIN.GENERO' | translate}}
+    </p>
+    <div class="relatorio-container" *ngIf="generosValores.length > 0">
+        <div class="chart-wrapper" id="generos">
+            <ngx-charts-bar-vertical
+            [results]="generosValores"
+            [xAxisLabel]="'RELATORIOCHECKIN.GENERO' | translate"
+            [legendTitle]="'RELATORIOCHECKIN.GENERO' | translate"
+            [yAxisLabel]="'RELATORIOCHECKIN.QTD' | translate"
+            [legend]="true"
+            [scheme]="colorScheme"
+            [showXAxisLabel]="true"
+            [showYAxisLabel]="true"
+            [xAxis]="true"
+            [yAxis]="true"
+            [gradient]="false">
+            </ngx-charts-bar-vertical>
+        </div>
+    </div>
+    <p class="titulo-relatorio" *ngIf="quantidadeEntradasHoraValores.length > 0">
+        {{'RELATORIOCHECKIN.DTHRCHECKIN' | translate}}
+    </p>
+    <div class="relatorio-container" *ngIf="quantidadeEntradasHoraValores.length > 0">
+        <div class="timeline-wrapper" id="quantidadeEntradasHora">
+            <ngx-charts-line-chart #chart
+            [results]="quantidadeEntradasHoraValores"
+            [scheme]="colorScheme"
+            [xAxisLabel]="'RELATORIOCHECKIN.HORARIO' | translate"
+            [showXAxisLabel]="true"
+            [showYAxisLabel]="true"
+            [legendTitle]="'RELATORIOCHECKIN.DTHORA' | translate"
+            [yAxisLabel]="'RELATORIOCHECKIN.CHECKIN' | translate"
+            [legend]="true"
+            [showXAxisLabel]="true"
+            [showYAxisLabel]="true"
+            [xAxis]="true"
+            [yAxis]="true"
+            [gradient]="false"
+            [timeline]="true"
+            [xAxisTickFormatting]="formatDate"
+            >
+            <ng-template #tooltipTemplate let-model="model">
+                <p class="toolTip-header">
+                    {{ model.series }} • {{ toolTipDate(model.name) }}
+                </p>
+                <p class="toolTip-body">{{ model.value }}</p>
+            </ng-template>
+            </ngx-charts-line-chart>
+        </div>
+    </div>
+    <p class="titulo-relatorio" *ngIf="ingressosFestaCheckedUncheckedValores.length > 0">
+        {{'RELATORIOCHECKIN.RELACAOCOMPRACHECKIN' | translate}}
+    </p>
+    <div class="relatorio-container" *ngIf="ingressosFestaCheckedUncheckedValores.length > 0">
+        <div class="chart-wrapper" id="checkedUnchecked">
+            <ngx-charts-bar-vertical-stacked
+            [results]="ingressosFestaCheckedUncheckedValores"
+            [xAxisLabel]="'RELATORIOCHECKIN.LOTE' | translate"
+            [legendTitle]="'Status'"
+            [yAxisLabel]="'RELATORIOCHECKIN.QTD' | translate"
+            [legend]="true"
+            [showXAxisLabel]="true"
+            [showYAxisLabel]="true"
+            [xAxis]="true"
+            [yAxis]="true"
+            [gradient]="false"
+            [scheme]="colorScheme"
+            [animations]="true">
+            </ngx-charts-bar-vertical-stacked>
+        </div>
+    </div>
     <button routerLink="../" mat-button cdkFocusInitial class="button-return">
         <mat-icon>keyboard_return</mat-icon> {{'UTILS.RETURN' | translate}}
     </button>

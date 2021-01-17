@@ -151,6 +151,7 @@ import { RelatoriosSegurancaComponent } from './views/relatorios-seguranca/relat
 
 import { OwlModule } from 'ngx-owl-carousel';
 import { RelatoriosVendaComponent } from './views/relatorios-venda/relatorios-venda.component';
+import { RelatoriosCheckinComponent } from './views/relatorios-checkin/relatorios-checkin.component';
 import { RelatoriosExportComponent } from './views/relatorios-export/relatorios-export.component';
 import { RelatoriosExportDialogComponent } from './views/relatorios-export-dialog/relatorios-export-dialog.component';
 
@@ -262,8 +263,9 @@ export function provideConfig() {
     VisualizacaoFormsComponent,
     RelatoriosSegurancaComponent,
     RelatoriosVendaComponent,
-    RelatoriosExportComponent,
-    RelatoriosExportDialogComponent
+    RelatoriosExportDialogComponent,
+    RelatoriosCheckinComponent,
+    RelatoriosExportComponent
   ],
   entryComponents: [
     LoginComponent,
