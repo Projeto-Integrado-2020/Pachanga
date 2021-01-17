@@ -38,7 +38,6 @@ export class VisualizacaoFormsComponent implements OnInit {
     this.forms.getQuestionarios(idFesta).subscribe((resp: any) => {
       this.forms.setFarol(false);
       this.formsResult = resp;
-      console.log(this.formsResult);
       for (const questionario of this.formsResult) {
         questionario.urlQuestionario = questionario.urlQuestionario.
         substring(39, questionario.urlQuestionario.length - questionario.urlQuestionario.
@@ -51,7 +50,6 @@ export class VisualizacaoFormsComponent implements OnInit {
   getSheets(urlQuestionario) {
     this.getSheetsService.getSheets(urlQuestionario).subscribe((resp: any) => {
       this.sheets.push(resp);
-      console.log(this.sheets);
     });
   }
 

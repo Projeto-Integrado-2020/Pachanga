@@ -747,6 +747,22 @@
         "SEMRESULTADO": "A festa não tem dados suficientes para este relatório."
     },
 
+    "RELATORIOCHECKIN": {
+        "FAIXAETARIA": "Faixa etária",
+        "IDADE": "Idade",
+        "GENERO": "Gênero",
+        "QTD": "Quantidade",
+        "DTHRCHECKIN": "Data e hora do check-in",
+        "DTHORA": "Data e hora",
+        "HORARIO": "Horário",
+        "CHECKIN": "Check-in",
+        "RELACAOCOMPRACHECKIN": "Relação entre ingressos comprados e check-in",
+        "COMPRADO": "Comprado",
+        "REALIZOUCHECKIN": "Realizou check-in",
+        "LOTE": "Lote",
+        "SEMRESULTADO": "A festa não tem dados suficientes para este relatório."
+    },
+
     "RELATORIOVENDA": {
         "TITLE":"Vendas",
         "INGRESSOS":"Quantidade de ingressos",
