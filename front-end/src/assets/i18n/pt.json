@@ -830,7 +830,8 @@
         "PACCHECK": "Check-in via Pachanga confirmado.",
         "CUPOMDEL": "Cupom deletado com sucesso.",
         "BOLEGERA": "Boleto gerado com sucesso. Aguardando pagamento para processar ingresso.",
-        "COMPAPRO": "Compra aprovada. Ingresso(s) gerado(s). Divirta-se!"
+        "COMPAPRO": "Compra aprovada. Ingresso(s) gerado(s). Divirta-se!",
+        "EXPORELA": "Relatórios exportados com sucesso."
     },
 
     "TERMOS": {
@@ -879,18 +880,21 @@
 
     "LOADING": {
         "PAYPAL": "Processando ingressos. Por favor aguarde.",
-        "CRIARFESTA": "Criando festa. Por favor, aguarde.",
-        "EDITFESTA": "Editando festa. Por favor, aguarde.",
+        "CRIARFESTA": "Criando festa. Por favor aguarde.",
+        "EDITFESTA": "Editando festa. Por favor aguarde.",
         "BOLETO": "Processando boleto. Por favor aguarde.",
-        "RELATPROBLM": "Relatando problema. Por favor, aguarde.",
-        "CARREGIMAGEM": "Carregando imagem. Por favor, aguarde.",
-        "CHECKIN": "Realizando check-in. Por favor aguarde."
+        "RELATPROBLM": "Relatando problema. Por favor aguarde.",
+        "CARREGIMAGEM": "Carregando imagem. Por favor aguarde.",
+        "CHECKIN": "Realizando check-in. Por favor aguarde.",
+        "EXPORTPDF": "Gerando PDF. O processo pode demorar alguns minutos, por favor aguarde.",
+        "EXPORTEMAIL": "Enviando e-mails. Por favor aguarde."
     },
 
     "RELATORIOEXPORT": {
         "EXPORTAR": "Exportar relatórios",
         "CONFIRMAR": "Confirmar exportação",
-        "TITLE": "Exportação de relatórios"
+        "TITLE": "Exportação de relatórios",
+        "ENVIAR": "Enviar relatórios"
     }
 
 }

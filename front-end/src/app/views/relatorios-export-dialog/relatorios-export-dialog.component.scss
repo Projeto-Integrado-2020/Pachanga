@@ -1,0 +1,25 @@
+@import "../material/paleta.scss";
+
+
+.prp-btn {
+  background-color: $color-primary;
+  color: #ffffff;
+}
+
+li {
+  list-style: none;
+}
+
+.example-chip-list {
+  width: 100%;
+}
+
+.dialog {
+  max-height: 10rem;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+input {
+  width: 100%!important;
+}

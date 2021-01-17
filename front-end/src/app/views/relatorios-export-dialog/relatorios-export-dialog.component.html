@@ -1,0 +1,21 @@
+<h1 mat-dialog-title>{{ 'RELATORIOEXPORT.TITLE' | translate }}</h1>
+<mat-form-field class="example-chip-list">
+  <div class="dialog">
+  <mat-chip-list #chipList aria-label="Email selection">
+    <mat-chip *ngFor="let email of maillist" [selectable]="selectable"
+              [removable]="removable" (removed)="remove(email)" 
+              [ngStyle]="{'backgroundColor': (!email.valid) ? 'red' : ''}">
+      {{email.address}}
+      <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+    </mat-chip>
+  </mat-chip-list>
+  </div>
+  <input placeholder="{{ 'CONVITE.LISTAEMAIL' | translate }}"
+            [matChipInputFor]="chipList"
+            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+            [matChipInputAddOnBlur]="addOnBlur"
+            (matChipInputTokenEnd)="add($event)">
+</mat-form-field>
+  <button (click)='exportarPDF()' [disabled]="errors > 0" *ngIf="maillist.length > 0" class="button-index prp-btn btn-navbar" mat-raised-button>
+    {{ 'RELATORIOEXPORT.ENVIAR' | translate }}
+  </button>

@@ -187,7 +187,8 @@
         "PACCHECK": "Check-in by Pachanga confirmed.",
         "CUPOMDEL": "Coupon deleted successfully.",
         "BOLEGERA": "Billet generated successfully. Waiting for payment to process ticket.",
-        "COMPAPRO": "Purchase approved. Ticket(s) generated. Have fun!"
+        "COMPAPRO": "Purchase approved. Ticket(s) generated. Have fun!",
+        "EXPORELA": "Reports exported successfully."
     },
 
     "PERFIL":{
@@ -829,7 +830,9 @@
         "BOLETO": "Processing bill. Please wait.",
         "RELATPROBLM": "Reporting problem. Please wait.",
         "CARREGIMAGEM": "Loading image. Please wait.",
-        "CHECKIN": "Performing check-in. Por favor aguarde."
+        "CHECKIN": "Performing check-in. Please wait.",
+        "EXPORTPDF": "Generating PDF. The process may take a few minutes, please wait.",
+        "EXPORTEMAIL": "Sending e-mails. Please wait."
     },
 
     "RELATORIOESTOQUE": {
@@ -873,7 +876,8 @@
     "RELATORIOEXPORT": {
         "EXPORTAR": "Export reports",
         "CONFIRMAR": "Confirm export",
-        "TITLE": "Export reports"
+        "TITLE": "Export reports",
+        "ENVIAR": "Send reports"
     }
 
 }

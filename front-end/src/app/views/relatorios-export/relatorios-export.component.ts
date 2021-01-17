@@ -7,6 +7,9 @@ import { RelatorioAreaSegService } from 'src/app/services/relatorios/relatorio-a
 import { GetFestaService } from 'src/app/services/get-festa/get-festa.service';
 import html2canvas from 'html2canvas';
 import { Img, PdfMakeWrapper, Table, Txt } from 'pdfmake-wrapper';
+import { MatDialog } from '@angular/material';
+import { RelatoriosExportDialogComponent } from '../relatorios-export-dialog/relatorios-export-dialog.component';
+import { ProcessingDialogComponent } from '../processing-dialog/processing-dialog.component';
 
 @Component({
   selector: 'app-relatorios-export',
@@ -38,7 +41,7 @@ export class RelatoriosExportComponent implements OnInit {
 
   constructor(public relEstoqueService: RelatorioEstoqueService, public relatorioVendaService: RelatorioVendaService,
               public relAreaSegService: RelatorioAreaSegService, public getFestaService: GetFestaService,
-              public router: Router, public translateService: TranslateService) { }
+              public router: Router, public translateService: TranslateService, public dialog: MatDialog) { }
 
   ngOnInit() {
     const idFesta = this.router.url;
@@ -317,6 +320,7 @@ export class RelatoriosExportComponent implements OnInit {
   }
 
   gerarPDFRelatorios() {
+    this.openDialogProcessing();
     const pdf = new PdfMakeWrapper();
     pdf.info({
       title: 'Relatórios Pachanga',
@@ -324,7 +328,30 @@ export class RelatoriosExportComponent implements OnInit {
       subject: 'Relatórios Pachanga'
     });
     this.criarPaginaPDF(pdf, this.festa).then(() => {
-      pdf.create().open();
+      pdf.create().getBase64((base64: any) => {
+        this.dialog.closeAll();
+        this.openDialogExport(base64);
+      });
+    });
+  }
+
+  openDialogExport(pdf) {
+    this.dialog.open(RelatoriosExportDialogComponent, {
+      width: '55rem',
+      data: {
+        pdf,
+        codFesta: this.codFesta
+      }
+    });
+  }
+
+  openDialogProcessing() {
+    this.dialog.open(ProcessingDialogComponent, {
+        width: '20rem',
+        disableClose: true,
+        data: {
+            tipo: 'EXPORTPDF'
+        }
     });
   }
 

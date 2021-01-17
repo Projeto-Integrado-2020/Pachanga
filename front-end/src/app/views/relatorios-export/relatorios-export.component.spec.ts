@@ -17,12 +17,16 @@ import { RelatoriosExportComponent } from './relatorios-export.component';
 import { RelatorioVendaService } from 'src/app/services/relatorios/relatorio-venda.service';
 import { RelatorioAreaSegService } from 'src/app/services/relatorios/relatorio-area-seg.service';
 import { GetFestaService } from 'src/app/services/get-festa/get-festa.service';
+import { MatDialog } from '@angular/material';
 
 describe('RelatoriosExportComponent', () => {
   let component: RelatoriosExportComponent;
   let fixture: ComponentFixture<RelatoriosExportComponent>;
+  let dialogSpy: MatDialog;
 
   beforeEach(async(() => {
+    dialogSpy = jasmine.createSpyObj('MatDialog', ['open', 'closeAll']);
+
     TestBed.configureTestingModule({
       declarations: [ RelatoriosExportComponent ],
       imports: [
@@ -41,6 +45,7 @@ describe('RelatoriosExportComponent', () => {
         NgxChartsModule
       ],
       providers: [
+        { provide: MatDialog, useValue: dialogSpy },
         {provide: RelatorioEstoqueService, useValue: {
           consumoItemEstoque: () => of([]),
           perdaItemEstoque: () => of([]),
@@ -207,5 +212,15 @@ describe('RelatoriosExportComponent', () => {
 
     component.gerarPDFRelatorios();
     expect(component.criarPaginaPDF).toHaveBeenCalled();
+  });
+
+  it('should openDialogProcessing', () => {
+    component.openDialogProcessing();
+    expect(dialogSpy.open).toHaveBeenCalled();
+  });
+
+  it('should openDialogExport', () => {
+    component.openDialogExport('teste');
+    expect(dialogSpy.open).toHaveBeenCalled();
   });
 });
