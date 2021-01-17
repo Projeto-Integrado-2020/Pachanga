@@ -152,6 +152,7 @@ import { RelatoriosSegurancaComponent } from './views/relatorios-seguranca/relat
 import { OwlModule } from 'ngx-owl-carousel';
 import { RelatoriosVendaComponent } from './views/relatorios-venda/relatorios-venda.component';
 import { RelatoriosCheckinComponent } from './views/relatorios-checkin/relatorios-checkin.component';
+import { RelatoriosExportComponent } from './views/relatorios-export/relatorios-export.component';
 
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
 
@@ -261,7 +262,8 @@ export function provideConfig() {
     VisualizacaoFormsComponent,
     RelatoriosSegurancaComponent,
     RelatoriosVendaComponent,
-    RelatoriosCheckinComponent
+    RelatoriosCheckinComponent,
+    RelatoriosExportComponent
   ],
   entryComponents: [
     LoginComponent,

@@ -32,7 +32,6 @@ describe('RelatorioCheckinService', () => {
   });
 
   it('should be created', () => {
-    const service: RelatorioCheckinService = TestBed.get(RelatorioCheckinService);
     expect(service).toBeTruthy();
   });
 

@@ -15,7 +15,7 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { RelatoriosCheckinComponent } from './relatorios-checkin.component';
 import { RelatorioCheckinService } from 'src/app/services/relatorios/relatorio-checkin.service';
 
-fdescribe('RelatoriosCheckinComponent', () => {
+describe('RelatoriosCheckinComponent', () => {
   let component: RelatoriosCheckinComponent;
   let fixture: ComponentFixture<RelatoriosCheckinComponent>;
 

@@ -71,4 +71,10 @@ public interface IngressoRepository extends JpaRepository<Ingresso, Integer>{
 	@Query(value = "SELECT i FROM Ingresso i JOIN i.festa f JOIN i.usuario u WHERE f.codFesta = :codFesta AND i.statusIngresso = 'C' ORDER BY i.dataCheckin")
 	public List<Ingresso> findIngressoCheckedOrdenado(int codFesta);
 
+	@Query(value = "SELECT SUM(i.preco) FROM Ingresso i JOIN i.festa f JOIN i.lote l WHERE f.codFesta = :codFesta AND l.codLote = :codLote")
+	public Float findLucroEsperadoLote(int codLote, int codFesta);
+	
+	@Query(value = "SELECT SUM(i.preco) FROM Ingresso i JOIN i.festa f JOIN i.lote l WHERE f.codFesta = :codFesta AND l.codLote = :codLote AND i.statusCompra = 'P'")
+	public Float findLucroRealizadoLote(int codLote, int codFesta);
+
 }

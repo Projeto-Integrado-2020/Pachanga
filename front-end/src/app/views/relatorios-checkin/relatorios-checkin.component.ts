@@ -40,7 +40,7 @@ export class RelatoriosCheckinComponent implements OnInit {
     this.generos();
     this.ingressosFestaCheckedUnchecked();
     this.quantidadeEntradasHora();
-    //this.updateRelatorios();
+    this.updateRelatorios();
   }
 
   faixaEtaria() {
@@ -77,12 +77,12 @@ export class RelatoriosCheckinComponent implements OnInit {
         for (const data of Object.keys(resp.ingressoFestaCheckedUnchecked[ingressosFestaCheckedUnchecked])) {
           seriesTemp.push(
             {
-              name: 'Não entrou',
-              value: parseInt(data)
+              name: this.translateService.instant('RELATORIOCHECKIN.NAOENTROU'),
+              value: parseInt(data, 10)
             },
             {
-              name: 'Entrou',
-              value: parseInt(resp.ingressoFestaCheckedUnchecked[ingressosFestaCheckedUnchecked][data])
+              name: this.translateService.instant('RELATORIOCHECKIN.ENTROU'),
+              value: parseInt(resp.ingressoFestaCheckedUnchecked[ingressosFestaCheckedUnchecked][data], 10)
             }
           );
         }
@@ -105,7 +105,7 @@ export class RelatoriosCheckinComponent implements OnInit {
         });
       }
       const dataSetTemp = [{
-        name: 'Quantidade check-in',
+        name: this.translateService.instant('RELATORIOCHECKIN.QTDCHECKIN'),
         series: seriesTemp
       }];
       this.quantidadeEntradasHoraValores = dataSetTemp;

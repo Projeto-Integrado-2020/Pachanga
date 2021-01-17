@@ -28,6 +28,7 @@ import { LeitorQrComponent } from './views/leitor-qr/leitor-qr.component';
 import { MeusIngressosComponent } from './views/meus-ingressos/meus-ingressos.component';
 import { GerenciadorCuponsComponent } from './views/gerenciador-cupons/gerenciador-cupons.component';
 import { CheckoutGuard } from './guard/checkout/checkout.guard';
+import { RelatoriosExportComponent } from './views/relatorios-export/relatorios-export.component';
 
 const routes: Routes = [
 
@@ -170,6 +171,12 @@ const routes: Routes = [
     {
       path: 'festas/:festa&:id/relatorios',
       component: RelatoriosPainelComponent,
+      canActivate: [AuthGuard]
+    },
+
+    {
+      path: 'festas/:festa&:id/relatorios/exportar',
+      component: RelatoriosExportComponent,
       canActivate: [AuthGuard]
     },
 

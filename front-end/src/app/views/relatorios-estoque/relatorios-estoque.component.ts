@@ -19,7 +19,7 @@ export class RelatoriosEstoqueComponent implements OnInit {
   myCarouselOptions = {items: 80, dots: true, nav: true};
 
   colorScheme = {
-    domain: ['#5AA454', '#E44D25', '#CFC0BB', '#7aa3e5', '#a8385d', '#aae3f5']
+    domain: ['#d63333', '#a833d6', '#d68f33', '#d63395', '#d6d333', '#4633d6', '#87d633', '#338dd6', '#33d659', '#33d6bb']
   };
 
   constructor(public relEstoqueService: RelatorioEstoqueService, public router: Router) { }
@@ -36,60 +36,7 @@ export class RelatoriosEstoqueComponent implements OnInit {
   // relatorios estoque
   consumoItemEstoque() {
     this.relEstoqueService.consumoItemEstoque(this.codFesta).subscribe((resp: any) => {
-      const mockResp = [
-        {
-          nomeEstoque: 'Principal',
-          informacoesEstoque: [
-            {
-              nomeProduto: 'teste',
-              quantidadeHora: {
-                '2021-01-07T14:11:15.998030': 5,
-                '2021-01-07T14:17:49.656018': 20
-              }
-            },
-            {
-              nomeProduto: 'teste1',
-              quantidadeHora: {
-                '2021-01-07T14:12:15.998030': 1,
-                '2021-01-07T14:13:49.656018': 2,
-                '2021-01-07T14:15:49.656018': 5
-              }
-            },
-            {
-              nomeProduto: 'teste3',
-              quantidadeHora: {
-                '2021-01-07T14:19:15.998030': 10,
-                '2021-01-07T14:25:49.656018': 25,
-                '2021-01-07T14:32:49.656018': 50,
-                '2021-01-07T15:19:49.656018': 78
-              }
-            }
-          ]
-        },
-        {
-          nomeEstoque: 'oi',
-          informacoesEstoque: [
-            {
-              nomeProduto: 'teste',
-              quantidadeHora: {
-                '2021-01-07T11:11:15.998030': 0,
-                '2021-01-07T12:17:49.656018': 1,
-                '2021-01-07T13:18:49.656018': 8,
-                '2021-01-07T14:19:49.656018': 14
-              }
-            },
-            {
-              nomeProduto: 'teste1',
-              quantidadeHora: {
-                '2021-01-07T14:11:15.998030': 50,
-                '2021-01-07T14:17:49.656018': 65,
-                '2021-01-08T14:18:49.656018': 78,
-                '2021-01-09T14:19:49.656018': 82
-              }
-            }
-          ]
-        }
-      ];
+      // const mockResp = MOCK_AQUI;
       const finalTemp = [];
       for (const estoque of resp) {
         const produtoList = [];
@@ -126,57 +73,7 @@ export class RelatoriosEstoqueComponent implements OnInit {
   }
   perdaItemEstoque() {
     this.relEstoqueService.perdaItemEstoque(this.codFesta).subscribe((resp: any) => {
-      const mockResp = [
-        {
-          nomeEstoque: 'Principal',
-          informacoesEstoque: [
-            {
-              nomeProduto: 'teste',
-              quantidadeHora: {
-                '2021-01-07T14:11:15.998030': 0,
-                '2021-01-07T14:17:49.656018': 10,
-                '2021-01-07T14:18:49.656018': 15,
-                '2021-01-07T14:19:49.656018': 20
-              }
-            },
-            {
-              nomeProduto: 'teste1',
-              quantidadeHora: {
-                '2021-01-07T14:12:15.998030': 0,
-                '2021-01-07T14:13:49.656018': 5,
-                '2021-01-07T14:15:49.656018': 6,
-                '2021-01-07T14:17:49.656018': 7
-              }
-            },
-            {
-              nomeProduto: 'teste3',
-              quantidadeHora: {
-                '2021-01-07T14:19:15.998030': 0,
-                '2021-01-07T14:25:49.656018': 1
-              }
-            }
-          ]
-        },
-        {
-          nomeEstoque: 'oi',
-          informacoesEstoque: [
-            {
-              nomeProduto: 'teste',
-              quantidadeHora: {
-                '2021-01-07T11:11:15.998030': 0
-              }
-            },
-            {
-              nomeProduto: 'teste1',
-              quantidadeHora: {
-                '2021-01-07T14:11:15.998030': 0,
-                '2021-01-07T14:17:49.656018': 5,
-                '2021-01-08T14:18:49.656018': 6
-              }
-            }
-          ]
-        }
-      ];
+      // const mockResp = MOCK_AQUI;
       const finalTemp = [];
       for (const estoque of resp) {
         const produtoList = [];
@@ -213,60 +110,7 @@ export class RelatoriosEstoqueComponent implements OnInit {
   }
   quantidadeItemEstoque() {
     this.relEstoqueService.quantidadeItemEstoque(this.codFesta).subscribe((resp: any) => {
-      const mockResp = [
-        {
-          nomeEstoque: 'Principal',
-          informacoesEstoque: [
-            {
-              nomeProduto: 'teste',
-              quantidadeHora: {
-                '2021-01-07T14:11:15.998030': 100,
-                '2021-01-07T14:17:49.656018': 55
-              }
-            },
-            {
-              nomeProduto: 'teste1',
-              quantidadeHora: {
-                '2021-01-07T14:12:15.998030': 125,
-                '2021-01-07T14:13:49.656018': 120,
-                '2021-01-07T14:15:49.656018': 155
-              }
-            },
-            {
-              nomeProduto: 'teste3',
-              quantidadeHora: {
-                '2021-01-07T14:19:15.998030': 100,
-                '2021-01-07T14:25:49.656018': 95,
-                '2021-01-07T14:32:49.656018': 75,
-                '2021-01-07T15:19:49.656018': 68
-              }
-            }
-          ]
-        },
-        {
-          nomeEstoque: 'oi',
-          informacoesEstoque: [
-            {
-              nomeProduto: 'teste',
-              quantidadeHora: {
-                '2021-01-07T11:11:15.998030': 100,
-                '2021-01-07T12:17:49.656018': 55,
-                '2021-01-07T13:18:49.656018': 78,
-                '2021-01-07T14:19:49.656018': 76
-              }
-            },
-            {
-              nomeProduto: 'teste1',
-              quantidadeHora: {
-                '2021-01-07T14:11:15.998030': 100,
-                '2021-01-07T14:17:49.656018': 55,
-                '2021-01-08T14:18:49.656018': 78,
-                '2021-01-09T14:19:49.656018': 120
-              }
-            }
-          ]
-        }
-      ];
+      // const mockResp = MOCK_AQUI;
       const finalTemp = [];
       for (const estoque of resp) {
         const produtoList = [];
@@ -305,24 +149,28 @@ export class RelatoriosEstoqueComponent implements OnInit {
     this.relEstoqueService.consumoProduto(this.codFesta).subscribe((resp: any) => {
       const mockResp = [
         {
-          nomeProduto: 'Produto 1',
-          quantidadeConsumo: 580
+          nomeProduto: 'Brahma',
+          quantidadeConsumo: 3486
         },
         {
-          nomeProduto: 'Produto 2',
-          quantidadeConsumo: 220
+          nomeProduto: 'Skol',
+          quantidadeConsumo: 4072
         },
         {
-          nomeProduto: 'Produto 3',
-          quantidadeConsumo: 137
+          nomeProduto: 'Itaipava',
+          quantidadeConsumo: 2991
         },
         {
-          nomeProduto: 'Produto 4',
-          quantidadeConsumo: 782
+          nomeProduto: 'Vodka',
+          quantidadeConsumo: 3030
         },
         {
-          nomeProduto: 'Produto 5',
-          quantidadeConsumo: 568
+          nomeProduto: 'Whiskey',
+          quantidadeConsumo: 1430
+        },
+        {
+          nomeProduto: 'Conhaque',
+          quantidadeConsumo: 2680
         }
       ];
       const finalTemp = [];

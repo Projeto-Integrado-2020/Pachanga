@@ -139,12 +139,12 @@ class CupomControllerTest {
 	void getCupomErro() throws Exception {
 		String uri = "/cupom/cupomUnico";
 	
-		Mockito.when(cupomService.getCupom("teste", 1)).thenThrow(new ValidacaoException("teste"));
+		Mockito.when(cupomService.getCupom(Mockito.anyString(), Mockito.anyInt())).thenThrow(new ValidacaoException("teste"));
 		Mockito.when(cupomFactory.getCupomTO(Mockito.any())).thenReturn(gerarCupomTO());
 		
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.get(uri)
-				.param("codCupom", "1")
+				.param("nomeCupom", "1")
 				.param("codFesta", "1")
 				.accept(MediaType.APPLICATION_JSON)
 				.contentType(MediaType.APPLICATION_JSON);

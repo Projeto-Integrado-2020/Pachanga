@@ -760,7 +760,10 @@
         "COMPRADO": "Comprado",
         "REALIZOUCHECKIN": "Realizou check-in",
         "LOTE": "Lote",
-        "SEMRESULTADO": "A festa não tem dados suficientes para este relatório."
+        "SEMRESULTADO": "A festa não tem dados suficientes para este relatório.",
+        "ENTROU": "Fez check-in",
+        "NAOENTROU": "Não fez check-in",
+        "QTDCHECKIN": "Quantidade de check-in"
     },
 
     "RELATORIOVENDA": {
@@ -901,6 +904,12 @@
         "RELATPROBLM": "Relatando problema. Por favor, aguarde.",
         "CARREGIMAGEM": "Carregando imagem. Por favor, aguarde.",
         "CHECKIN": "Realizando check-in. Por favor aguarde."
+    },
+
+    "RELATORIOEXPORT": {
+        "EXPORTAR": "Exportar relatórios",
+        "CONFIRMAR": "Confirmar exportação",
+        "TITLE": "Exportação de relatórios"
     }
 
 }

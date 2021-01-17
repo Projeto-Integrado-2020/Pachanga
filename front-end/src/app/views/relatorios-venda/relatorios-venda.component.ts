@@ -10,14 +10,14 @@ import { RelatorioVendaService } from 'src/app/services/relatorios/relatorio-ven
 export class RelatoriosVendaComponent implements OnInit {
 
   codFesta: string;
-  ingressosDataSet: any;
-  ingressosPagosDataSet: any;
+  ingressosDataSet = [];
+  ingressosPagosDataSet = [];
 
   mySlideOptions = { items: 1, dots: true, nav: true };
   myCarouselOptions = { items: 80, dots: true, nav: true };
 
   colorScheme = {
-    domain: ['#5AA454', '#E44D25', '#CFC0BB', '#7aa3e5', '#a8385d', '#aae3f5']
+    domain: ['#d63333', '#a833d6', '#d68f33', '#d63395', '#d6d333', '#4633d6', '#87d633', '#338dd6', '#33d659', '#33d6bb']
   };
 
   constructor(public relatorioVendaService: RelatorioVendaService, public router: Router, public translateService: TranslateService) {
