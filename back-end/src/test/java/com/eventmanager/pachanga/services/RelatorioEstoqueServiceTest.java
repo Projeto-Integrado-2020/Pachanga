@@ -192,6 +192,7 @@ class RelatorioEstoqueServiceTest {
 
 		List<Integer[]> dadosItensFluxo = new ArrayList<>();
 		dadosItensFluxo.add(new Integer[] { 1, 2 });
+		dadosItensFluxo.add(new Integer[] { 2, 3 });
 
 		Mockito.when(itemEstoqueFluxoRepository.getEstoqueProdutoFluxoFesta(Mockito.anyInt()))
 				.thenReturn(dadosItensFluxo);
@@ -257,6 +258,8 @@ class RelatorioEstoqueServiceTest {
 		quantidadeProdutoConsumido.add(new Integer[] { 4, 1, 2 });
 		quantidadeProdutoConsumido.add(new Integer[] { 2, 1, 4 });
 		quantidadeProdutoConsumido.add(new Integer[] { 2, 2, 4 });
+		quantidadeProdutoConsumido.add(new Integer[] { 3, 2, 5 });
+		quantidadeProdutoConsumido.add(new Integer[] { 1, 2, 5 });
 
 		List<Object[]> produtosEstoquesFluxo = new ArrayList<>();
 		produtosEstoquesFluxo.add(new Object[] { 1, "teste" });

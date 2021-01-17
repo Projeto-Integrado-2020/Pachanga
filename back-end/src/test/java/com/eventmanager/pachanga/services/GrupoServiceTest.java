@@ -1003,5 +1003,18 @@ import com.eventmanager.pachanga.securingweb.JwtUserDetailsService;
 		assertEquals(retorno.getNomeGrupo(), grupo.getNomeGrupo());
 		assertEquals(retorno.getOrganizador(), grupo.getOrganizador());
 	}
+	
+	@Test
+	 void pprocurarUsuariosPorGrupoSucessoTest() throws Exception {
+		List<Usuario> usuarios = new ArrayList<>();
+		usuarios.add(usuarioTest());
+		
+		Mockito.when(usuarioRepository.findUsuariosPorGrupo(Mockito.anyInt())).thenReturn(usuarios);
+		Mockito.when(grupoRepository.findById(Mockito.anyInt())).thenReturn(criacaoGrupo());
+		
+		List<Usuario> retorno = grupoService.procurarUsuariosPorGrupo(1);
+		
+		assertEquals(true, !retorno.isEmpty());
+	}
 
 }
