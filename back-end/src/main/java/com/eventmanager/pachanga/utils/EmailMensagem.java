@@ -26,7 +26,7 @@ import com.eventmanager.pachanga.errors.ValidacaoException;
 @Component(value = "emailMensagem")
 public class EmailMensagem {
 
-	public void enviarEmail(String email, String nomeGrupo, Festa festa) {
+	public static void enviarEmail(String email, String nomeGrupo, Festa festa) {
 		Properties props = new Properties();
 		props.put("mail.smtp.host", "smtp.gmail.com");
 		props.put("mail.smtp.auth", "true");

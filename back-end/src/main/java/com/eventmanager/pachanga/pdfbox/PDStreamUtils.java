@@ -4,9 +4,6 @@ import java.awt.Color;
 import java.io.IOException;
 
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
-import org.apache.pdfbox.pdmodel.font.PDFont;
-
-import be.quodlibet.boxable.line.LineStyle;
 
 /**
  * <p>
@@ -22,19 +19,6 @@ public final class PDStreamUtils {
 	private PDStreamUtils() {
 	}
 
-	public static void write(final PageContentStreamOptimized stream, final String text, final PDFont font,
-			final float fontSize, final float x, final float y, final Color color) {
-		try {
-			stream.setFont(font, fontSize);
-			// we want to position our text on his baseline
-			stream.newLineAt(x, y - FontUtils.getDescent(font, fontSize) - FontUtils.getHeight(font, fontSize));
-			stream.setNonStrokingColor(color);
-			stream.showText(text);
-		} catch (final IOException e) {
-			throw new IllegalStateException("Unable to write text", e);
-		}
-	}
-
 	public static void rect(final PageContentStreamOptimized stream, final float x, final float y, final float width,
 			final float height, final Color color) {
 		try {
@@ -45,17 +29,6 @@ public final class PDStreamUtils {
 		} catch (final IOException e) {
 			throw new IllegalStateException("Unable to draw rectangle", e);
 		}
-	}
-
-	public static void rectFontMetrics(final PageContentStreamOptimized stream, final float x, final float y,
-			final PDFont font, final float fontSize) {
-		// height
-		PDStreamUtils.rect(stream, x, y, 3, FontUtils.getHeight(font, fontSize), Color.BLUE);
-		// ascent
-		PDStreamUtils.rect(stream, x + 3, y, 3, FontUtils.getAscent(font, fontSize), Color.CYAN);
-		// descent
-		PDStreamUtils.rect(stream, x + 3, y - FontUtils.getHeight(font, fontSize), 3, FontUtils.getDescent(font, 14),
-				Color.GREEN);
 	}
 
 

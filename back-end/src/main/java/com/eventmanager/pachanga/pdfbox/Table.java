@@ -636,8 +636,14 @@ public abstract class Table<T extends PDPage> {
 	public float getMargin() {
 		return margin;
 	}
+	
 
-/*
+    public void setHeader(List<Row<T>> header) {
+		this.header = header;
+	}
+
+
+	/*
 	public boolean isDrawDebug() {
 		return drawDebug;
 	}

@@ -32,20 +32,6 @@ public class TableTest {
 
 	public static final String imagePath = "src/main/resources/arquivos/png/";	
 	
-	
-/**
- * <p>
- * Test for a  table using the following features : 
- * <ul>
- * <li> Header Row </li>
- * <li> Column spanning </li>
- * <li> Image in cell </li>
- * <li> Coloured Cells </li>
- * </ul>
- * </p>
- *
- * @throws IOException
- */
 	@Test
 	public void Sample1() throws IOException {
 
@@ -135,7 +121,261 @@ public class TableTest {
 	}
 	
 	@Test
-	public void Sample1p9() throws IOException {
+	public void Sample2() throws IOException {
+
+		// Set margins
+		float margin = 10;
+
+		List<String[]> facts = getFacts();
+
+		// Initialize Document
+		PDDocument doc = new PDDocument();
+		PDPage page = addNewPage(doc);
+		float yStartNewPage = page.getMediaBox().getHeight() - (2 * margin);
+
+		// Initialize table
+		float tableWidth = page.getMediaBox().getWidth() - (2 * margin);
+		boolean drawContent = true;
+		float yStart = yStartNewPage;
+		float bottomMargin = 70;
+		BaseTable table = new BaseTable(yStart, yStartNewPage, bottomMargin, tableWidth, margin, doc, page, true,
+				drawContent);
+
+		// Create Header row
+		Row<PDPage> headerRow = table.createRow(15f);
+		Cell<PDPage> cell = headerRow.createCell(100, "Awesome Facts About Belgium");
+		cell.setFont(PDType1Font.HELVETICA_BOLD);
+		cell.setFillColor(Color.BLACK);
+		cell.setTextColor(Color.WHITE);
+
+		table.addHeaderRow(headerRow);
+
+		// Create 2 column row
+		Row<PDPage> row = table.createRow(15f);
+		cell = row.createCell(30, "Source:");
+		cell.setFont(null);
+
+		cell = row.createCell(70, "http://www.factsofbelgium.com/");
+		cell.setFont(null);
+
+		// Create Fact header row
+		Row<PDPage> factHeaderrow = table.createRow(15f);
+
+		cell = factHeaderrow.createCell((100 / 3f) * 2, "Fact");
+		cell.setFont(null);
+		cell.setFontSize(6);
+		cell.setFillColor(Color.LIGHT_GRAY);
+
+		cell = factHeaderrow.createCell((100 / 3f), "Tags");
+		cell.setFillColor(Color.LIGHT_GRAY);
+		cell.setFont(null);
+		cell.setFontSize(6);
+
+		// Add multiple rows with random facts about Belgium
+		for (String[] fact : facts) {
+
+			row = table.createRow(10f);
+			cell = row.createCell((100 / 3f) * 2, fact[0]);
+			cell.setFont(null);
+			cell.setFontSize(6);
+
+			for (int i = 1; i < fact.length; i++) {
+				if (fact[i].startsWith("image:")) {
+					File imageFile = new File(imagePath + "150dpi.png");
+					Image imagem = new Image(ImageIO.read(imageFile));
+					cell = row.createImageCell((100 / 9f), imagem);
+				} else {
+					cell = row.createCell((100 / 9f), fact[i]);
+					cell.setFont(null);
+					cell.setFontSize(6);
+					// Set colors
+					if (fact[i].contains("beer"))
+						cell.setFillColor(Color.yellow);
+					if (fact[i].contains("champion"))
+						cell.setTextColor(Color.GREEN); 
+				}
+			}
+		}
+	
+		try {
+			table.draw();
+		} catch(Exception e) {
+			//sucesso
+		}finally {
+			doc.close();
+			doc.close();
+		}
+	}
+	
+	@Test
+	public void Sample3() throws IOException {
+
+		// Set margins
+		float margin = 10;
+
+		List<String[]> facts = getFacts();
+
+		// Initialize Document
+		PDDocument doc = new PDDocument();
+		PDPage page = addNewPage(doc);
+		float yStartNewPage = page.getMediaBox().getHeight() - (2 * margin);
+
+		// Initialize table
+		float tableWidth = page.getMediaBox().getWidth() - (2 * margin);
+		boolean drawContent = true;
+		float yStart = yStartNewPage;
+		float bottomMargin = 70;
+		BaseTable table = new BaseTable(yStart, yStartNewPage, bottomMargin, tableWidth, margin, doc, page, true,
+				drawContent);
+		
+		try {
+		table.setHeader(null);
+		table.getHeader();
+		} catch(Exception e) {
+			//sucesso
+		}finally {
+			doc.close();
+		}	
+
+	}
+	
+	@Test
+	public void Sample4() throws IOException {
+
+		// Set margins
+		float margin = 10;
+
+		List<String[]> facts = getFacts();
+
+		// Initialize Document
+		PDDocument doc = new PDDocument();
+		PDPage page = addNewPage(doc);
+		float yStartNewPage = page.getMediaBox().getHeight() - (2 * margin);
+
+		// Initialize table
+		float tableWidth = page.getMediaBox().getWidth() - (2 * margin);
+		boolean drawContent = true;
+		float yStart = yStartNewPage;
+		float bottomMargin = 70;
+		BaseTable table = new BaseTable(yStart, yStartNewPage, bottomMargin, tableWidth, margin, doc, page, true,
+				drawContent);
+
+		// Create Header row
+		Row<PDPage> headerRow = table.createRow(15f);
+		Cell<PDPage> cell = headerRow.createCell(100, "Awesome Facts About Belgium");
+		cell.setFont(PDType1Font.HELVETICA_BOLD);
+		cell.setFillColor(Color.BLACK);
+		cell.setTextColor(Color.WHITE);
+
+		table.addHeaderRow(headerRow);
+
+		// Create 2 column row
+		Row<PDPage> row = table.createRow(15f);
+		table.getHeader();
+		table.getMargin();
+		table.tableIsBroken();
+		cell = row.createCell(30, "Source:");
+		cell.setFont(PDType1Font.HELVETICA);
+
+		cell = row.createCell(70, "http://www.factsofbelgium.com/");
+		cell.setFont(PDType1Font.HELVETICA_OBLIQUE);
+
+		// Create Fact header row
+		Row<PDPage> factHeaderrow = table.createRow(15f);
+
+		cell = factHeaderrow.createCell((100 / 3f) * 2, "Fact");
+		cell.setFont(PDType1Font.HELVETICA);
+		cell.setFontSize(6);
+		cell.setFillColor(Color.LIGHT_GRAY);
+
+		cell = factHeaderrow.createCell((100 / 3f), "Tags");
+		cell.setFillColor(Color.LIGHT_GRAY);
+		cell.setFont(PDType1Font.HELVETICA_OBLIQUE);
+		cell.setFontSize(6);
+
+		// Add multiple rows with random facts about Belgium
+		for (String[] fact : facts) {
+
+			row = table.createRow(10f);
+			cell = row.createCell((100 / 3f) * 2, fact[0]);
+			cell.setFont(PDType1Font.HELVETICA);
+			cell.setFontSize(6);
+
+			for (int i = 1; i < fact.length; i++) {
+				if (fact[i].startsWith("image:")) {
+					File imageFile = new File(imagePath + "150dpi.png");
+					Image imagem = new Image(ImageIO.read(imageFile));
+					cell = row.createImageCell((100 / 9f), imagem);
+				} else {
+					cell = row.createCell((100 / 9f), fact[i]);
+					cell.setFont(PDType1Font.HELVETICA_OBLIQUE);
+					cell.setFontSize(6);
+					// Set colors
+					if (fact[i].contains("beer"))
+						cell.setFillColor(Color.yellow);
+					if (fact[i].contains("champion"))
+						cell.setTextColor(Color.GREEN); 
+				}
+			}
+		}
+
+		table.draw();
+
+		// Close Stream and save pdf
+		File file = new File("target/BoxableSample1.pdf");
+		System.out.println("Sample file saved at : " + file.getAbsolutePath());
+		Files.createParentDirs(file);
+		doc.save(file);
+		doc.close();
+
+	}
+	
+	
+	@Test
+	public void Sample5() throws IOException {
+
+		// Set margins
+		float margin = 10;
+
+		List<String[]> facts = getFacts();
+
+		// Initialize Document
+		PDDocument doc = new PDDocument();
+		PDPage page = addNewPage(doc);
+		float yStartNewPage = page.getMediaBox().getHeight() - (2 * margin);
+
+		// Initialize table
+		float tableWidth = page.getMediaBox().getWidth() - (2 * margin);
+		boolean drawContent = true;
+		float yStart = yStartNewPage;
+		float bottomMargin = 70;
+		BaseTable table = new BaseTable(yStart, yStartNewPage, bottomMargin, tableWidth, margin, doc, page, true,
+				drawContent);
+
+		// Create Header row
+		Row<PDPage> headerRow = table.createRow(15f);
+		Cell<PDPage> cell = headerRow.createCell(100, "Awesome Facts About Belgium");
+		cell.setFont(PDType1Font.HELVETICA_BOLD);
+		cell.setFillColor(Color.BLACK);
+		cell.setHeaderCell(true);
+		cell.isHeaderCell();
+		cell.setTextColor(Color.WHITE);
+
+		table.addHeaderRow(headerRow);
+
+		table.draw();
+
+		// Close Stream and save pdf
+		File file = new File("target/BoxableSample1.pdf");
+		System.out.println("Sample file saved at : " + file.getAbsolutePath());
+		Files.createParentDirs(file);
+		doc.save(file);
+		doc.close();
+
+	}
+	
+	@Test
+	public void Sample6() throws IOException {
 
 		// Set margins
 		float margin = 10;
@@ -238,7 +478,7 @@ public class TableTest {
 	}
 	
 	@Test
-	public void Sample1p10() throws IOException {
+	public void Sample7() throws IOException {
 
 		// Set margins
 		float margin = 10;
@@ -341,7 +581,7 @@ public class TableTest {
 	}
 
 	@Test
-	public void Sample1p8() throws IOException {
+	public void Sample8() throws IOException {
 
 		// Set margins
 		float margin = 10;
@@ -432,7 +672,7 @@ public class TableTest {
 	}
 	
 	@Test
-	public void Sample1p7() throws IOException {
+	public void Sample9() throws IOException {
 
 		// Set margins
 		float margin = 10;
@@ -521,97 +761,7 @@ public class TableTest {
 	}
 	
 	@Test
-	public void Sample1p5() throws IOException {
-
-		// Set margins
-		float margin = 10;
-
-		List<String[]> facts = getFacts();
-
-		// Initialize Document
-		PDDocument doc = new PDDocument();
-		PDPage page = addNewPage(doc);
-		float yStartNewPage = page.getMediaBox().getHeight() - (2 * margin);
-
-		// Initialize table
-		float tableWidth = page.getMediaBox().getWidth() - (2 * margin);
-		boolean drawContent = true;
-		float yStart = yStartNewPage;
-		float bottomMargin = 70;
-		BaseTable table = new BaseTable(yStart, yStartNewPage, bottomMargin, tableWidth, margin, doc, page, true,
-				drawContent);
-
-		// Create Header row
-		Row<PDPage> headerRow = table.createRow(15f);
-		Cell<PDPage> cell = headerRow.createCell(100, "Awesome Facts About Belgium");
-		cell.setFont(PDType1Font.HELVETICA_BOLD);
-		cell.setRightBorderStyle(null);
-		cell.setBottomBorderStyle(null);
-		cell.setFillColor(Color.BLACK);
-		cell.setTextColor(Color.WHITE);
-
-		table.addHeaderRow(headerRow);
-
-		// Create 2 column row
-		Row<PDPage> row = table.createRow(15f);
-		cell = row.createCell(30, "Source:");
-		cell.setFont(PDType1Font.HELVETICA);
-
-		cell = row.createCell(70, "http://www.factsofbelgium.com/");
-		cell.setFont(PDType1Font.HELVETICA_OBLIQUE);
-
-		// Create Fact header row
-		Row<PDPage> factHeaderrow = table.createRow(15f);
-
-		cell = factHeaderrow.createCell((100 / 3f) * 2, "Fact");
-		cell.setFont(PDType1Font.HELVETICA);
-		cell.setFontSize(6);
-		cell.setFillColor(Color.LIGHT_GRAY);
-
-		cell = factHeaderrow.createCell((100 / 3f), "Tags");
-		cell.setFillColor(Color.LIGHT_GRAY);
-		cell.setFont(PDType1Font.HELVETICA_OBLIQUE);
-		cell.setFontSize(6);
-
-		// Add multiple rows with random facts about Belgium
-		for (String[] fact : facts) {
-
-			row = table.createRow(10f);
-			cell = row.createCell((100 / 3f) * 2, fact[0]);
-			cell.setFont(PDType1Font.HELVETICA);
-			cell.setFontSize(6);
-
-			for (int i = 1; i < fact.length; i++) {
-				if (fact[i].startsWith("image:")) {
-					File imageFile = new File(imagePath + "150dpi.png");
-					Image imagem = new Image(ImageIO.read(imageFile));
-					cell = row.createImageCell((100 / 9f), imagem);
-				} else {
-					cell = row.createCell((100 / 9f), fact[i]);
-					cell.setFont(PDType1Font.HELVETICA_OBLIQUE);
-					cell.setFontSize(6);
-					// Set colors
-					if (fact[i].contains("beer"))
-						cell.setFillColor(Color.yellow);
-					if (fact[i].contains("champion"))
-						cell.setTextColor(Color.GREEN); 
-				}
-			}
-		}
-
-		table.draw();
-
-		// Close Stream and save pdf
-		File file = new File("target/BoxableSample1.pdf");
-		System.out.println("Sample file saved at : " + file.getAbsolutePath());
-		Files.createParentDirs(file);
-		doc.save(file);
-		doc.close();
-
-	}
-	
-	@Test
-	public void Sample1p6() throws IOException {
+	public void Sample10() throws IOException {
 
 		// Set margins
 		float margin = 10;
@@ -701,7 +851,97 @@ public class TableTest {
 	}
 	
 	@Test
-	public void Sample1p1() throws IOException {
+	public void Sample11() throws IOException {
+
+		// Set margins
+		float margin = 10;
+
+		List<String[]> facts = getFacts();
+
+		// Initialize Document
+		PDDocument doc = new PDDocument();
+		PDPage page = addNewPage(doc);
+		float yStartNewPage = page.getMediaBox().getHeight() - (2 * margin);
+
+		// Initialize table
+		float tableWidth = page.getMediaBox().getWidth() - (2 * margin);
+		boolean drawContent = true;
+		float yStart = yStartNewPage;
+		float bottomMargin = 70;
+		BaseTable table = new BaseTable(yStart, yStartNewPage, bottomMargin, tableWidth, margin, doc, page, true,
+				drawContent);
+
+		// Create Header row
+		Row<PDPage> headerRow = table.createRow(15f);
+		Cell<PDPage> cell = headerRow.createCell(100, "Awesome Facts About Belgium");
+		cell.setFont(PDType1Font.HELVETICA_BOLD);
+		cell.setRightBorderStyle(null);
+		cell.setBottomBorderStyle(null);
+		cell.setFillColor(Color.BLACK);
+		cell.setTextColor(Color.WHITE);
+
+		table.addHeaderRow(headerRow);
+
+		// Create 2 column row
+		Row<PDPage> row = table.createRow(15f);
+		cell = row.createCell(30, "Source:");
+		cell.setFont(PDType1Font.HELVETICA);
+
+		cell = row.createCell(70, "http://www.factsofbelgium.com/");
+		cell.setFont(PDType1Font.HELVETICA_OBLIQUE);
+
+		// Create Fact header row
+		Row<PDPage> factHeaderrow = table.createRow(15f);
+
+		cell = factHeaderrow.createCell((100 / 3f) * 2, "Fact");
+		cell.setFont(PDType1Font.HELVETICA);
+		cell.setFontSize(6);
+		cell.setFillColor(Color.LIGHT_GRAY);
+
+		cell = factHeaderrow.createCell((100 / 3f), "Tags");
+		cell.setFillColor(Color.LIGHT_GRAY);
+		cell.setFont(PDType1Font.HELVETICA_OBLIQUE);
+		cell.setFontSize(6);
+
+		// Add multiple rows with random facts about Belgium
+		for (String[] fact : facts) {
+
+			row = table.createRow(10f);
+			cell = row.createCell((100 / 3f) * 2, fact[0]);
+			cell.setFont(PDType1Font.HELVETICA);
+			cell.setFontSize(6);
+
+			for (int i = 1; i < fact.length; i++) {
+				if (fact[i].startsWith("image:")) {
+					File imageFile = new File(imagePath + "150dpi.png");
+					Image imagem = new Image(ImageIO.read(imageFile));
+					cell = row.createImageCell((100 / 9f), imagem);
+				} else {
+					cell = row.createCell((100 / 9f), fact[i]);
+					cell.setFont(PDType1Font.HELVETICA_OBLIQUE);
+					cell.setFontSize(6);
+					// Set colors
+					if (fact[i].contains("beer"))
+						cell.setFillColor(Color.yellow);
+					if (fact[i].contains("champion"))
+						cell.setTextColor(Color.GREEN); 
+				}
+			}
+		}
+
+		table.draw();
+
+		// Close Stream and save pdf
+		File file = new File("target/BoxableSample1.pdf");
+		System.out.println("Sample file saved at : " + file.getAbsolutePath());
+		Files.createParentDirs(file);
+		doc.save(file);
+		doc.close();
+
+	}
+	
+	@Test
+	public void Sample12() throws IOException {
 
 		// Set margins
 		float margin = 10;
@@ -789,7 +1029,7 @@ public class TableTest {
 	}
 	
 	@Test
-	public void Sample1p2() throws IOException {
+	public void Sample13() throws IOException {
 
 		// Set margins
 		float margin = 10;
@@ -877,7 +1117,7 @@ public class TableTest {
 	}
 	
 	@Test
-	public void Sample1p3() throws IOException {
+	public void Sample14() throws IOException {
 
 		// Set margins
 		float margin = 10;
@@ -965,7 +1205,7 @@ public class TableTest {
 	}
 
 	@Test
-	public void Sample1p4() throws IOException {
+	public void Sample15() throws IOException {
 
 		// Set margins
 		float margin = 10;
@@ -1117,7 +1357,7 @@ public class TableTest {
 	}
 
 	@Test
-	public void SampleTest2() throws IOException {
+	public void Sample16() throws IOException {
 
 		// Set margins
 		float margin = 10;
@@ -1227,18 +1467,9 @@ public class TableTest {
 
 	}
 
-/**
- * <p>
- * Test for a table using the following features : 
- * <ul>
- * <li> Text Rotation </li>
- * </ul>
- * </p>
- *
- * @throws IOException
- */
+
 	@Test
-	public void SampleTest3() throws IOException {
+	public void Sample17() throws IOException {
 		// Set margins
 		float margin = 10;
 
@@ -1304,7 +1535,7 @@ public class TableTest {
 	}
 	
 	@Test
-	public void SampleTest3p2() throws IOException {
+	public void Sample18() throws IOException {
 		// Set margins
 		float margin = 10;
 
@@ -1370,7 +1601,7 @@ public class TableTest {
 	}
 	
 	@Test
-	public void SampleTest3p1() throws IOException {
+	public void Sample19() throws IOException {
 		// Set margins
 		float margin = 10;
 
@@ -1447,7 +1678,7 @@ public class TableTest {
  */
 	
 	@Test
-	public void SampleTest4p1() throws IOException {
+	public void Sample20() throws IOException {
 
 		// Set margins
 		float margin = 10;
@@ -1569,7 +1800,7 @@ public class TableTest {
 
 	}
 	@Test
-	public void SampleTest4() throws IOException {
+	public void Sample21() throws IOException {
 
 		// Set margins
 		float margin = 10;
@@ -1684,7 +1915,7 @@ public class TableTest {
 	}
 
 	@Test
-	public void SampleTest5() throws IOException {
+	public void Sample22() throws IOException {
 
 		// Set margins
 		float margin = 10;
@@ -1741,18 +1972,9 @@ public class TableTest {
 		doc.save(file);
 		doc.close();
 	}
-/**
- * <p>
- * Test for a  table using the following features : 
- * <ul>
- * <li> text wrapping inside a cell </li>
- * </ul>
- * </p>
- *
- * @throws IOException
- */
+
 	@Test
-	public void SampleTest6() throws IOException {
+	public void Sample23() throws IOException {
 
 		// Set margins
 		float margin = 10;
@@ -1794,18 +2016,9 @@ public class TableTest {
 		doc.save(file);
 		doc.close();
 	}
-/**
- * <p>
- * Test for a  table using the following features : 
- * <ul>
- * <li> vertical alignment inside a cell </li>
- * </ul>
- * </p>
- *
- * @throws IOException
- */
+
 	@Test
-	public void SampleTest7() throws IOException {
+	public void Sample24() throws IOException {
 
 		// Set margins
 		float margin = 10;
@@ -1877,7 +2090,7 @@ public class TableTest {
  * @throws IOException
  */
 	@Test
-	public void SampleTest8() throws IOException {
+	public void Sample25() throws IOException {
 		// Set margins
 		float margin = 10;
 
@@ -1927,74 +2140,7 @@ public class TableTest {
 		doc.save(file);
 		doc.close();
 	}
-/**
- * <p>
- * Test for a  table using the following features : 
- * <ul>
- * <li> &lt; and &gt; and | rendering </li>
- * </ul>
- * </p>
- *
- * @throws IOException
- */
-	/*
-	@Test
-	public void SampleTest9() throws IOException {
-		List<List> table = new ArrayList<>();
 
-		List<String> tableHeader = new ArrayList<>();
-		tableHeader.add("Left Comparison");
-		tableHeader.add("  ");
-		tableHeader.add("Right Comparison");
-
-		table.add(tableHeader);
-
-		List<String> additionRow = new ArrayList<>();
-		additionRow.add("");
-		additionRow.add(">");
-		additionRow.add("Added Text To Document");
-		table.add(additionRow);
-
-		List<String> subtractionRow = new ArrayList<>();
-		subtractionRow.add("Removed Text From Document");
-		subtractionRow.add(" < ");
-		subtractionRow.add("center row just has < in it");
-		table.add(subtractionRow);
-
-		List<String> updateRow = new ArrayList<>();
-		updateRow.add("Original Text From Document");
-		updateRow.add(" | ");
-		updateRow.add("Changed Text From Document");
-		table.add(updateRow);
-
-		int startNewPageY = 700;
-		int bottomMargin = 100;
-		int tableWidth = 500;
-		int leftMargin = 25;
-
-		PDDocument document = new PDDocument();
-		PDPage currentPage = new PDPage();
-		document.addPage(currentPage);
-		PDPageContentStream contentStream = new PDPageContentStream(document, currentPage);
-
-		BaseTable dataTable = new BaseTable(700, startNewPageY, bottomMargin, tableWidth, leftMargin, document,
-				currentPage, true, true);
-		DataTable t = new DataTable(dataTable, currentPage);
-		t.addListToTable(table, DataTable.HASHEADER);
-		dataTable.draw();
-
-		contentStream.close();
-
-		try {
-			File file = new File("target/BoxableSample9.pdf");
-			System.out.println("Sample file saved at : " + file.getAbsolutePath());
-			Files.createParentDirs(file);
-			document.save(file);
-		} finally {
-			document.close();
-		}
-	}
-	*/
 	
 	@Test
 	public void lineSpacingTest() throws IOException {
@@ -2133,19 +2279,9 @@ public class TableTest {
         doc.save(file);
         doc.close();
     }
-/**
- * <p>
- * Test for a  table using the following features : 
- * <ul>
- * <li> html table rendering inside cell </li>
- * <li> vertical alignment inside a cell</li>
- * </ul>
- * </p>
- *
- * @throws IOException
- */
+
 	@Test
-	public void SampleTest10() throws IOException {
+	public void Sample26() throws IOException {
 
 		// Set margins
 		float margin = 10;
@@ -2254,7 +2390,116 @@ public class TableTest {
 	}
 	
 	@Test
-	public void SampleTest10p1() throws IOException {
+	public void Sample27() throws IOException {
+
+		// Set margins
+		float margin = 10;
+
+		// Initialize Document
+		PDDocument doc = new PDDocument();
+		PDPage page = addNewPage(doc);
+
+		// Initialize table
+		float tableWidth = page.getMediaBox().getWidth() - (2 * margin);
+		float yStartNewPage = page.getMediaBox().getHeight() - (2 * margin);
+		boolean drawContent = true;
+		boolean drawLines = true;
+		float yStart = yStartNewPage;
+		float pageBottomMargin = 70;
+		float pageTopMargin = 2*margin;
+		BaseTable table = new BaseTable(yStart, yStartNewPage, pageBottomMargin, tableWidth, margin, doc, page, drawLines,
+				drawContent);
+
+		// set default line spacing for entire table
+		table.setLineSpacing(1.5f);
+
+		// first row (header row)
+		Row<PDPage> row = table.createRow(10f);
+
+		Cell<PDPage> cell4 = row.createCell((100 / 3f),
+				"header cell I.",
+				HorizontalAlignment.get("center"), VerticalAlignment.get("top"));
+		cell4.setFontSize(6);
+		
+		Cell<PDPage> cell5 = row.createCell((100 / 3f),
+				"header cell II.",
+				HorizontalAlignment.get("center"), VerticalAlignment.get("middle"));
+		cell5.setFontSize(6);
+		
+		Cell<PDPage> cell6 = row.createCell((100 / 3f), "header cell III.", HorizontalAlignment.get("center"), VerticalAlignment.get("middle"));
+		cell6.setFontSize(6);
+		table.addHeaderRow(row);
+		
+		// keep track of y position
+		yStart -= row.getHeight();
+		
+		Row<PDPage> row2 = table.createRow(10f);
+
+		Cell<PDPage> cell = row2.createCell((100 / 3f),
+				"<p>SINGLE SPACING</p><p>Integer eget elit vitae est feugiat laoreet. <b>Nam vitae ex commodo, euismod risus in, sodales dolor. Mauris condimentum urna neque, non condimentum odio</b> posuere a. Aenean nisl ex, semper eu malesuada sit amet, luctus nec enim. <br>Pellentesque eu ultrices magna, non porta dolor. Fus<b><i>ce eu neque nulla. Curabitur eu eros tristique leo efficitur fringilla sit amet sed neque. Aliquam</i></b> a tempor enim. Praesent pellentesque volutpat dolor, non rhoncus est posuere id. Aenean nunc purus, gravida at mauris et, pretium volutpat nisl. Mauris lacus urna, sodales ac eros in, mollis scelerisque neque.</p> Unordered List <ul><li>Item 1</li><li>Item 2</li><li>Item 3</li></ul>",
+				HorizontalAlignment.get("center"), VerticalAlignment.get("top"));
+		cell.setFontSize(6);
+
+		Cell<PDPage> cell2 = row2.createCell((100 / 3f),
+				"<p>SINGLE SPACING</p><p>Proin dui dolor, lacinia at dui at, placerat ullamcorper arcu. Sed auctor sagittis elit, at eleifend ex aliquet ut. Duis lobortis est nec placerat condimentum. Aliquam erat volutpat. In a sem massa. Phasellus eget tortor iaculis, condimentum turpis a, sodales lorem. Aenean egestas congue ex<i> eu condimentum. Fusce sed</i> fringilla lorem. Vestibulum luctus ni<b>si ac turpis congue, vitae pharetra lorem suscipit.</b></p>Ordered List <ol><li>Item 1</li><li>Item 2</li><li>Item 3</li></ol>",
+				HorizontalAlignment.get("center"), VerticalAlignment.get("middle"));
+		cell2.setFontSize(6);
+
+		Cell<PDPage> cell3 = row2.createTableCell((100 / 3f),
+				"<table><tr><td>Hello Hello Hello Hello Hello Hello Hello it's me</td><td>b1</td></tr><tr><td>a1</td><td>b1</td></tr><tr><td>a1</td><td>b1 b1 b1 b1 b1 b1 b1 b1 </td></tr><tr><td>a1</td><td>b1</td></tr><tr><td>a1</td><td>b1</td></tr><tr><td>a1</td><td>b1</td></tr><tr><td>a1</td><td>b1</td></tr><tr><td>a1</td><td>b1</td></tr><tr><td>a1</td><td>b1</td></tr></table>",
+				doc, page, yStart, pageBottomMargin, margin);
+		cell3.setFontSize(6);
+
+		// keep track of y position
+		yStart -= row.getHeight();
+		
+		Row<PDPage> row3 = table.createRow(10f);
+
+		Cell<PDPage> cell7 = row3.createCell((100 / 3f),
+				"<p>SINGLE SPACING</p><p>Integer eget elit vitae est feugiat laoreet. <b>Nam vitae ex commodo, euismod risus in, sodales dolor. Mauris condimentum urna neque, non condimentum odio</b> posuere a. Aenean nisl ex, semper eu malesuada sit amet, luctus nec enim. <br>Pellentesque eu ultrices magna, non porta dolor. Fus<b><i>ce eu neque nulla. Curabitur eu eros tristique leo efficitur fringilla sit amet sed neque. Aliquam</i></b> a tempor enim. Praesent pellentesque volutpat dolor, non rhoncus est posuere id. Aenean nunc purus, gravida at mauris et, pretium volutpat nisl. Mauris lacus urna, sodales ac eros in, mollis scelerisque neque.</p> Unordered List <ul><li>Item 1</li><li>Item 2</li><li>Item 3</li></ul>",
+				HorizontalAlignment.get("center"), VerticalAlignment.get("top"));
+		cell7.setFontSize(6);
+		
+		Cell<PDPage> cell8 = row3.createCell((100 / 3f),
+				"<p>SINGLE SPACING</p><p>Integer eget elit vitae est feugiat laoreet. <b>Nam vitae ex commodo, euismod risus in, sodales dolor. Mauris condimentum urna neque, non condimentum odio</b> posuere a. Aenean nisl ex, semper eu malesuada sit amet, luctus nec enim. <br>Pellentesque eu ultrices magna, non porta dolor. Fus<b><i>ce eu neque nulla. Curabitur eu eros tristique leo efficitur fringilla sit amet sed neque. Aliquam</i></b> a tempor enim. Praesent pellentesque volutpat dolor, non rhoncus est posuere id. Aenean nunc purus, gravida at mauris et, pretium volutpat nisl. Mauris lacus urna, sodales ac eros in, mollis scelerisque neque.</p> Unordered List <ul><li>Item 1</li><li>Item 2</li><li>Item 3</li></ul>",
+				HorizontalAlignment.get("center"), VerticalAlignment.get("middle"));
+		cell8.setFontSize(6);
+		
+		Cell<PDPage> cell9 = row3.createCell((100 / 3f), "hello 3", HorizontalAlignment.get("center"), VerticalAlignment.get("middle"));
+		cell9.setFontSize(6);
+		
+		// keep track of y position
+		yStart -= row3.getHeight();
+		
+		// fourth row that actually breaks first page with big inner table 
+		Row<PDPage> row4 = table.createRow(10f);
+		Cell<PDPage> cell10 = row4.createCell((100 / 3f),
+				"<p>SINGLE SPACING</p><p>Integer eget elit vitae est feugiat laoreet. <b>Nam vitae ex commodo, euismod risus in, sodales dolor. Mauris condimentum urna neque, non condimentum odio</b> posuere a. Aenean nisl ex, semper eu malesuada sit amet, luctus nec enim. <br>Pellentesque eu ultrices magna, non porta dolor. Fus<b><i>ce eu neque nulla. Curabitur eu eros tristique leo efficitur fringilla sit amet sed neque. Aliquam</i></b> a tempor enim. Praesent pellentesque volutpat dolor, non rhoncus est posuere id. Aenean nunc purus, gravida at mauris et, pretium volutpat nisl. Mauris lacus urna, sodales ac eros in, mollis scelerisque neque.</p> Unordered List <ul><li>Item 1</li><li>Item 2</li><li>Item 3</li></ul>",
+				HorizontalAlignment.get("center"), VerticalAlignment.get("top"));
+		cell10.setFontSize(6);
+
+		Cell<PDPage> cell11 = row4.createCell((100 / 3f),
+				"<p>SINGLE SPACING</p><p>Proin dui dolor, lacinia at dui at, placerat ullamcorper arcu. Sed auctor sagittis elit, at eleifend ex aliquet ut. Duis lobortis est nec placerat condimentum. Aliquam erat volutpat. In a sem massa. Phasellus eget tortor iaculis, condimentum turpis a, sodales lorem. Aenean egestas congue ex<i> eu condimentum. Fusce sed</i> fringilla lorem. Vestibulum luctus ni<b>si ac turpis congue, vitae pharetra lorem suscipit.</b></p>Ordered List <ol><li>Item 1</li><li>Item 2</li><li>Item 3</li></ol>",
+				HorizontalAlignment.get("center"), VerticalAlignment.get("middle"));
+		cell11.setFontSize(6);
+
+		Cell<PDPage> cell12 = row4.createTableCell((100 / 3f),
+				"<table><tr><th colspan=\"5\">Header Colspan 5</th></tr><tr><td colspan=\"2\"><i>Italic Colspan 2</i></td><td>no colspan</td><td colspan=\"2\"><b>Bold Colspan 2</b></td></tr><tr><td>a1</td><td>a2</td><td>a3</td><td>a4</td><td>a5</td></tr></table>",
+				doc, page, yStart, pageBottomMargin, pageTopMargin);
+		cell12.setFontSize(6);
+		
+		table.draw();
+
+		// Save the document
+		File file = new File("target/BoxableSample10.pdf");
+		System.out.println("Sample file saved at : " + file.getAbsolutePath());
+		Files.createParentDirs(file);
+		doc.save(file);
+		doc.close();
+	}
+	
+	@Test
+	public void Sample28() throws IOException {
 
 		// Set margins
 		float margin = 10;
@@ -2399,7 +2644,7 @@ public class TableTest {
 	}
 	
 	@Test
-	public void SampleTest10p2() throws IOException {
+	public void Sample29() throws IOException {
 
 		// Set margins
 		float margin = 10;
@@ -2544,7 +2789,7 @@ public class TableTest {
 	}
 	
 	@Test
-	public void SampleTest10p3() throws IOException {
+	public void Sample30() throws IOException {
 
 		// Set margins
 		float margin = 10;
@@ -2719,7 +2964,7 @@ public class TableTest {
 
 	
 	@Test
-	public void SampleTest11() throws IOException {
+	public void Sample31() throws IOException {
 		// Set margins
 		float margin = 10;
 

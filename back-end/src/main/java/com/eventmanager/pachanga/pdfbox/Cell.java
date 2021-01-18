@@ -111,12 +111,7 @@ public class Cell<T extends PDPage> {
 		return text;
 	}
 
-	public void setText(String text) {
-		this.text = text;
 
-		// paragraph invalidated
-		paragraph = null;
-	}
 
 	public PDFont getFont() {
 		if (font == null) {
@@ -171,9 +166,6 @@ public class Cell<T extends PDPage> {
 		return paragraph;
 	}
 
-	public float getExtraWidth() {
-		return this.row.getLastCellExtraWidth() + getWidth();
-	}
 
 	public float getHeight() {
 		return row.getHeight();
@@ -199,53 +191,33 @@ public class Cell<T extends PDPage> {
 					+ (getBottomBorder() == null ? 0 : getBottomBorder().getWidth());
 		}
 	}
-	public void setHeight(final Float height) {
-		this.height = height;
-	}
+
 
 	public float getTextHeight() {
 		return getParagraph().getHeight();
 	}
 
-	public float getTextWidth() {
-		return getParagraph().getWidth();
-	}
+
 	public float getLeftPadding() {
 		return leftPadding;
 	}
 
-	public void setLeftPadding(float cellLeftPadding) {
-		this.leftPadding = cellLeftPadding;
 
-		// paragraph invalidated
-		paragraph = null;
-	}
 
 	public float getRightPadding() {
 		return rightPadding;
 	}
 
-	public void setRightPadding(float cellRightPadding) {
-		this.rightPadding = cellRightPadding;
 
-		// paragraph invalidated
-		paragraph = null;
-	}
 	
 	public float getTopPadding() {
 		return topPadding;
 	}
 
-	public void setTopPadding(float cellTopPadding) {
-		this.topPadding = cellTopPadding;
-	}
+
 	
 	public float getBottomPadding() {
 		return bottomPadding;
-	}
-
-	public void setBottomPadding(float cellBottomPadding) {
-		this.bottomPadding = cellBottomPadding;
 	}
 
 	public float getVerticalFreeSpace() {
@@ -282,15 +254,7 @@ public class Cell<T extends PDPage> {
 		this.isHeaderCell = isHeaderCell;
 	}
 
-	public WrappingFunction getWrappingFunction() {
-		return getParagraph().getWrappingFunction();
-	}
 
-	public void setWrappingFunction(WrappingFunction wrappingFunction) {
-		this.wrappingFunction = wrappingFunction;
-
-		paragraph = null;
-	}
 
 	public LineStyle getLeftBorder() {
 		return leftBorderStyle;
@@ -343,18 +307,6 @@ public class Cell<T extends PDPage> {
 		return fontBold;
 	}
 
-	public void setFontBold(final PDFont fontBold) {
-		this.fontBold = fontBold;
-	}
-
-	public boolean isColspanCell() {
-		return isColspanCell;
-	}
-
-	public void setColspanCell(boolean isColspanCell) {
-		this.isColspanCell = isColspanCell;
-	}
-
 	public void setAlign(HorizontalAlignment align) {
 		this.align = align;
 	}
@@ -363,50 +315,7 @@ public class Cell<T extends PDPage> {
 		this.valign = valign;
 	}
 
-	public void copyCellStyle(Cell<T> sourceCell) {
-		Boolean leftBorder = this.leftBorderStyle == null;
-		setBorderStyle(sourceCell.getTopBorder());
-		if (leftBorder.booleanValue()) {
-			this.leftBorderStyle = null;// if left border wasn't set, don't set
-										// it now
-		}
-		this.font = sourceCell.getFont();// otherwise paragraph gets invalidated
-		this.fontBold = sourceCell.getFontBold();
-		this.fontSize = sourceCell.getFontSize();
-		setFillColor(sourceCell.getFillColor());
-		setTextColor(sourceCell.getTextColor());
-		setAlign(sourceCell.getAlign());
-		setValign(sourceCell.getValign());
-	}
 
-	public Boolean hasSameStyle(Cell<T> sourceCell) {
-		if (!sourceCell.getTopBorder().equals(getTopBorder())) {
-			return false;
-		}
-		if (!sourceCell.getFont().equals(getFont())) {
-			return false;
-		}
-		if (!sourceCell.getFontBold().equals(getFontBold())) {
-			return false;
-		}
-		if (!sourceCell.getFillColor().equals(getFillColor())) {
-			return false;
-		}
-		if (!sourceCell.getTextColor().equals(getTextColor())) {
-			return false;
-		}
-		if (!sourceCell.getAlign().equals(getAlign())) {
-			return false;
-		}
-		if (!sourceCell.getValign().equals(getValign())) {
-			return false;
-		}
-		return true;
-	}
-
-	public void setWidth(float width) {
-		this.width = width;
-	}
 
 	public float getLineSpacing() {
 		return lineSpacing;
