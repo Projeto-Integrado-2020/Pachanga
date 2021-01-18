@@ -865,7 +865,7 @@
         "SEMRESULTADO": "The party does not have enough data for this report.",
         "ENTROU": "Chekced in",
         "NAOENTROU": "Didn't check in",
-        "QTDCHECKIN": "Check-in quantity"
+        "QTDCHECKIN": "Number of entrants"
     },
 
     "RELATORIOSEGURANCA": {

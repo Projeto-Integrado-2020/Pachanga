@@ -44,9 +44,7 @@ public class Paragraph {
 	private List<String> lines;
 	private Float spaceWidth;
 
-	public Paragraph(String text, PDFont font, float fontSize, float width, final HorizontalAlignment align) {
-		this(text, font, fontSize, width, align, null);
-	}
+
 
 	private static final WrappingFunction DEFAULT_WRAP_FUNC = new WrappingFunction() {
 		@Override
@@ -75,15 +73,15 @@ public class Paragraph {
 		this.text = text;
 		this.font = font;
 		// check if we have different default font for italic and bold text
-		if (FontUtils.getDefaultfonts().isEmpty()) {
+		//if (FontUtils.getDefaultfonts().isEmpty()) {
 			fontBold = PDType1Font.HELVETICA_BOLD;
 			fontItalic = PDType1Font.HELVETICA_OBLIQUE;
 			fontBoldItalic = PDType1Font.HELVETICA_BOLD_OBLIQUE;
-		} else {
-			fontBold = FontUtils.getDefaultfonts().get("fontBold");
-			fontBoldItalic = FontUtils.getDefaultfonts().get("fontBoldItalic");
-			fontItalic = FontUtils.getDefaultfonts().get("fontItalic");
-		}
+		//} else {
+		//	fontBold = FontUtils.getDefaultfonts().get("fontBold");
+		//	fontBoldItalic = FontUtils.getDefaultfonts().get("fontBoldItalic");
+		//	fontItalic = FontUtils.getDefaultfonts().get("fontItalic");
+		//}
 		this.fontSize = fontSize;
 		this.width = width;
 		this.textType = textType;
@@ -542,61 +540,6 @@ public class Paragraph {
 		} else {
 			return font;
 		}
-	}
-
-	public float write(final PageContentStreamOptimized stream, float cursorX, float cursorY) {
-		if (drawDebug) {
-			PDStreamUtils.rectFontMetrics(stream, cursorX, cursorY, font, fontSize);
-
-			// width
-			PDStreamUtils.rect(stream, cursorX, cursorY, width, 1, Color.RED);
-		}
-
-		for (String line : getLines()) {
-			line = line.trim();
-
-			float textX = cursorX;
-			switch (align) {
-			case CENTER:
-				textX += getHorizontalFreeSpace(line) / 2;
-				break;
-			case LEFT:
-				break;
-			case RIGHT:
-				textX += getHorizontalFreeSpace(line);
-				break;
-			}
-
-			PDStreamUtils.write(stream, line, font, fontSize, textX, cursorY, color);
-
-			if (textType != null) {
-				switch (textType) {
-				case HIGHLIGHT:
-				case SQUIGGLY:
-				case STRIKEOUT:
-					throw new UnsupportedOperationException("Not implemented.");
-				case UNDERLINE:
-					float y = (float) (cursorY - FontUtils.getHeight(font, fontSize)
-							- FontUtils.getDescent(font, fontSize) - 1.5);
-					try {
-						float titleWidth = font.getStringWidth(line) / 1000 * fontSize;
-						stream.moveTo(textX, y);
-						stream.lineTo(textX + titleWidth, y);
-						stream.stroke();
-					} catch (final IOException e) {
-						throw new IllegalStateException("Unable to underline text", e);
-					}
-					break;
-				default:
-					break;
-				}
-			}
-
-			// move one "line" down
-			cursorY -= getFontHeight();
-		}
-
-		return cursorY;
 	}
 
 	public float getHeight() {

@@ -27,7 +27,7 @@ public class Token {
 	public float getWidth(PDFont font) throws IOException {
 		return font.getStringWidth(getData());
 	}
-
+/*
 	@Override
 	public String toString() {
 		return getClass().getSimpleName() + "[" + type + "/" + data + "]";
@@ -46,7 +46,7 @@ public class Token {
 	public int hashCode() {
 		return Objects.hash(getType(), getData());
 	}
-
+*/
 	public static Token text(TokenType type, String data) {
 		return new TextToken(type, data);
 	}

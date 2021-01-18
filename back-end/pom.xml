@@ -204,7 +204,44 @@
 			<artifactId>checkout-sdk</artifactId>
 			<version>1.0.1</version>
 		</dependency>
+		<dependency>
+    		<groupId>commons-io</groupId>
+    		<artifactId>commons-io</artifactId>
+    		<version>2.6</version>
+		</dependency>
+		<!-- dps tirar
+		<dependency>
+    		<groupId>org.powermock</groupId>
+    		<artifactId>powermock-module-junit4</artifactId>
+    		<version>2.0.9</version>
+    		<scope>test</scope>
+		</dependency>
+		<dependency>
+    		<groupId>org.powermock</groupId>
+    		<artifactId>powermock-api-mockito</artifactId>
+    		<version>1.7.4</version>
+    		<scope>test</scope>
+		</dependency>
+        <dependency>
+            <groupId>org.powermock</groupId>
+            <artifactId>powermock-api-easymock</artifactId>
+            <version>2.0.9</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.easymock</groupId>
+            <artifactId>easymock</artifactId>
+            <version>3.1</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+    		<groupId>org.mockito</groupId>
+    		<artifactId>mockito-all</artifactId>
+    		<version>1.8.4</version>
+    		<scope>test</scope>
+		</dependency> -->
 	</dependencies>
+	
 
 	<build>
 		<plugins>
@@ -218,6 +255,4 @@
 			</plugin>
 		</plugins>
 	</build>
-
-
 </project>

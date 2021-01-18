@@ -10,17 +10,13 @@ public class HTMLListNode {
 		return orderingNumber;
 	}
 
-	public void setOrderingNumber(int orderingNumber) {
-		this.orderingNumber = orderingNumber;
-	}
+
 
 	public String getValue() {
 		return value;
 	}
 
-	public void setValue(String value) {
-		this.value = value;
-	}
+
 
 	public HTMLListNode(int orderingNumber, String value) {
 		this.orderingNumber = orderingNumber;

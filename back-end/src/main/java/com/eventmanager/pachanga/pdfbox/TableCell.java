@@ -103,7 +103,7 @@ public class TableCell<T extends PDPage> extends Cell<T> {
 							Element captionTag = document.select("caption").first();
 							Paragraph tableTitle = null;
 							if (captionTag != null) {
-								caption = captionTag.text();
+								caption = captionTag.text(); //
 								tableTitle = new Paragraph(caption, getFontBold(), tableTitleFontSize, tableWidth,
 										HorizontalAlignment.CENTER, null);
 								yStart -= tableTitle.getHeight() + marginBetweenElementsY;
@@ -368,11 +368,7 @@ public class TableCell<T extends PDPage> extends Cell<T> {
 							Element captionTag = document.select("caption").first();
 							Paragraph tableTitle = null;
 							if (captionTag != null) {
-								caption = captionTag.text();
-								tableTitle = new Paragraph(caption, getFontBold(), tableTitleFontSize, tableWidth,
-										HorizontalAlignment.CENTER, null);
-								yStart = tableTitle.write(tableCellContentStream, xStart, yStart)
-										- marginBetweenElementsY;
+								throw new IllegalStateException("Unable to write text");
 							}
 							height += (captionTag != null ? tableTitle.getHeight() + marginBetweenElementsY : 0);
 							createInnerTable(tableWidth, document, page, true);
@@ -406,11 +402,11 @@ public class TableCell<T extends PDPage> extends Cell<T> {
 	public void setXPosition(float xStart) {
 		this.xStart = xStart;
 	}
-
+/*
 	public float getYPosition() {
 		return yStart;
 	}
-
+*/
 	public void setYPosition(float yStart) {
 		this.yStart = yStart;
 	}
@@ -419,12 +415,12 @@ public class TableCell<T extends PDPage> extends Cell<T> {
 	public float getTextHeight() {
 		return height;
 	}
-
+/*
 	@Override
 	public float getHorizontalFreeSpace() {
 		return getInnerWidth() - width;
 	}
-
+*/
 	@Override
 	public float getVerticalFreeSpace() {
 		return getInnerHeight() - width;
