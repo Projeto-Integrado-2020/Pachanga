@@ -53,6 +53,23 @@ export class RelatorioVendaService {
     );
   }
 
+  lucroFesta(codFesta) {
+    const httpParams = new HttpParams()
+      .append('codFesta', codFesta)
+      .append('codUsuario', this.loginService.getusuarioInfo().codUsuario);
+
+    let headers = new HttpHeaders();
+    headers = headers.append('Content-Type', 'application/json');
+    headers = headers.append('Authorization', 'Bearer ' + JSON.parse(localStorage.getItem('token')).token);
+
+    return this.httpClient.get(this.baseUrl + '/lucroFesta', {params: httpParams, headers}).pipe(
+      take(1),
+      catchError(error => {
+        return this.handleError(error, this.logService);
+      })
+    );
+  }
+
   handleError = (error: HttpErrorResponse, logService: LogService) => {
     logService.initialize();
     logService.logHttpInfo(JSON.stringify(error), 0, error.url);

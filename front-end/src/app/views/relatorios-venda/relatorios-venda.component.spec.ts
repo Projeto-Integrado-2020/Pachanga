@@ -6,7 +6,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
-import { HttpLoaderFactory } from '../edit-dialog/edit-dialog.component.spec';
 import { HttpClient } from '@angular/common/http';
 import { LoginService } from 'src/app/services/loginService/login.service';
 import { of } from 'rxjs';
@@ -14,8 +13,13 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 import { RelatoriosVendaComponent } from './relatorios-venda.component';
 import { RelatorioVendaService } from 'src/app/services/relatorios/relatorio-venda.service';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
-describe('RelatoriosVendaComponent', () => {
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}
+
+fdescribe('RelatoriosVendaComponent', () => {
   let component: RelatoriosVendaComponent;
   let fixture: ComponentFixture<RelatoriosVendaComponent>;
 
@@ -40,7 +44,8 @@ describe('RelatoriosVendaComponent', () => {
       providers: [
         {provide: RelatorioVendaService, useValue: {
           ingressosFesta: () => of({ingressos: {test: 1}}),
-          ingressosFestaCompradosPagos: () => of({ingressosCompradosPagos: {loteteste: {1 : 2}}})
+          ingressosFestaCompradosPagos: () => of({ingressosCompradosPagos: {loteteste: {1 : 2}}}),
+          lucroFesta: () => of({infoLucroEsperado: {lucroLote: {1 : 2}, lucroTotal: 1}, infoLucroReal: {lucroLote: {1 : 2}, lucroTotal: 1}})
         }},
       ]
     })
@@ -81,4 +86,15 @@ describe('RelatoriosVendaComponent', () => {
     component.getRelatorioIngressosPagos();
     expect(component.relatorioVendaService.ingressosFestaCompradosPagos).toHaveBeenCalled();
   });
+
+  it('should get getRelatorioLucro', () => {
+    spyOn(component.relatorioVendaService, 'lucroFesta')
+    .and
+    .callThrough();
+
+    component.getRelatorioLucro();
+    expect(component.relatorioVendaService.lucroFesta).toHaveBeenCalled();
+  });
 });
+
+

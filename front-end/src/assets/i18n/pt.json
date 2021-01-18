@@ -776,7 +776,14 @@
         "LEGENDA": "Ingressos",
         "STATUS": "Status",
         "PAGO": "Pago",
-        "COMPRADO": "Comprado"
+        "COMPRADO": "Comprado",
+        "VENDAS": "Vendas",
+        "LUCRO": "Lucro",
+        "LUCROESP": "Lucro Esperado",
+        "LUCROREAL": "Lucro Real",
+        "LUCROTOTAL": "Lucro total",
+        "LUCROLOTE": "Lucro por lote",
+        "LUCROFESTA": "Lucro da festa"
     },
 
     "RELATORIOSEGURANCA": {

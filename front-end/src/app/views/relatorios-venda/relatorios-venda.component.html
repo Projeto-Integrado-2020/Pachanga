@@ -51,4 +51,54 @@
             <p>{{'RELATORIOVENDA.SEMRESULTADO' | translate}}</p>
         </div>
     </mat-expansion-panel>
+    <mat-expansion-panel hideToggle class="painel">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{'RELATORIOVENDA.LUCROLOTE' | translate}}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div *ngIf="lucroLotesDataSet.length > 0">
+            <ngx-charts-bar-vertical-2d 
+            [scheme]="colorScheme"
+            [results]="lucroLotesDataSet"
+            [xAxisLabel]="'RELATORIOVENDA.VENDAS' | translate"
+            [legendTitle]="'RELATORIOVENDA.LUCRO' | translate"
+            [yAxisLabel]="'RELATORIOVENDA.QUANTIDADE' | translate"
+            [legend]="true"
+            [showXAxisLabel]="true"
+            [showYAxisLabel]="true"
+            [xAxis]="true"
+            [yAxis]="true"
+            [gradient]="false">
+        </ngx-charts-bar-vertical-2d>
+        </div>
+        <div *ngIf="lucroLotesDataSet.length === 0" class="nenhum-resultado">
+            <p>{{'RELATORIOVENDA.SEMRESULTADO' | translate}}</p>
+        </div>
+    </mat-expansion-panel>
+    <mat-expansion-panel hideToggle class="painel">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{'RELATORIOVENDA.LUCROFESTA' | translate}}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div *ngIf="lucroFestaDataSet.length > 0">
+            <ngx-charts-bar-vertical-2d 
+            [scheme]="colorScheme"
+            [results]="lucroFestaDataSet"
+            [xAxisLabel]="'RELATORIOVENDA.VENDAS' | translate"
+            [legendTitle]="'RELATORIOVENDA.LUCRO' | translate"
+            [yAxisLabel]="'RELATORIOVENDA.QUANTIDADE' | translate"
+            [legend]="true"
+            [showXAxisLabel]="true"
+            [showYAxisLabel]="true"
+            [xAxis]="true"
+            [yAxis]="true"
+            [gradient]="false">
+        </ngx-charts-bar-vertical-2d>
+        </div>
+        <div *ngIf="lucroFestaDataSet.length === 0" class="nenhum-resultado">
+            <p>{{'RELATORIOVENDA.SEMRESULTADO' | translate}}</p>
+        </div>
+    </mat-expansion-panel>
 </div>
