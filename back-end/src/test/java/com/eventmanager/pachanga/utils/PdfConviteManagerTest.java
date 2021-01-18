@@ -123,12 +123,13 @@ public class PdfConviteManagerTest {
 	}
 	
 	@Test
-	public void gerarPDF() {
+	void gerarPDF() {
 		List<Ingresso> ingressos = listaIngressoTest();
 		File file = PdfConviteManager.gerarPDF(ingressos);
 		file.exists();
 		assertEquals(true, file.exists());
 		file.delete();
+
 	}
 
 }

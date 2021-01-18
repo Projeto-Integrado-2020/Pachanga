@@ -38,9 +38,6 @@ public class ConvidadoService {
 	private FestaRepository festaRepository;
 
 	@Autowired
-	private EmailMensagem emailMensagem;
-
-	@Autowired
 	private NotificacaoService notificacaoService;
 
 	public StringBuilder addUsuariosFesta(List<String> emails, int codFesta, int idUsuario, int idGrupo) {
@@ -53,7 +50,7 @@ public class ConvidadoService {
 			if (convidadoBanco == null) {
 				Usuario usuarioFesta = usuarioRepository.findBycodFestaAndEmail(codFesta, email);
 				if (usuarioFesta == null) {
-					emailMensagem.enviarEmail(email, grupo.getNomeGrupo(), festa);
+					EmailMensagem.enviarEmail(email, grupo.getNomeGrupo(), festa);
 					mensagemRetorno.append(email);
 					mensagemRetorno.append(" ");
 					Convidado convidado = new Convidado(convidadoRepository.getNextValMySequence(), email);
