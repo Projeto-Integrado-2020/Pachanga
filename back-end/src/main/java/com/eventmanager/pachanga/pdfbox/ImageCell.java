@@ -24,16 +24,7 @@ public class ImageCell<T extends PDPage> extends Cell<T> {
 		img = img.scale(getInnerWidth());
 	}
 
-	ImageCell(Row<T> row, float width, Image image, boolean isCalculated, HorizontalAlignment align,
-			VerticalAlignment valign) {
-		super(row, width, null, isCalculated, align, valign);
-		this.img = image;
-		if(image.getWidth() > getInnerWidth()){
-			scaleToFit();
-		}
-		this.align = align;
-		this.valign = valign;
-	}
+
 
 	@Override
 	public float getTextHeight() {

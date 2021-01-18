@@ -125,8 +125,5 @@ public class PipelineLayer {
 		return new ArrayList<>(tokens);
 	}
 
-	@Override
-	public String toString() {
-		return text.toString() + "(" + lastTextToken + ") [width: " + width() + ", trimmed: " + trimmedWidth() + "]";
-	}
+
 }

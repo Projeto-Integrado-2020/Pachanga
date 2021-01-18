@@ -18,11 +18,7 @@ public class Row<T extends PDPage> {
 	float height;
 	private float lineSpacing = 1;
 
-	Row(Table<T> table, List<Cell<T>> cells, float height) {
-		this.table = table;
-		this.cells = cells;
-		this.height = height;
-	}
+
 
 	Row(Table<T> table, float height) {
 		this.table = table;
@@ -77,12 +73,7 @@ public class Row<T extends PDPage> {
 		return cell;
 	}
 
-	public Cell<T> createImageCell(float width, Image img, HorizontalAlignment align, VerticalAlignment valign) {
-		Cell<T> cell = new ImageCell<>(this, width, img, true, align, valign);
-		setBorders(cell, cells.isEmpty());
-		cells.add(cell);
-		return cell;
-	}
+
 
 	public TableCell<T> createTableCell(float width, String tableData, PDDocument doc, PDPage page, float yStart,
 			float pageTopMargin, float pageBottomMargin) {
@@ -143,9 +134,6 @@ public class Row<T extends PDPage> {
 		return height;
 	}
 
-	public float getLineHeight() throws IOException {
-		return height;
-	}
 
 	public void setHeight(float height) {
 		this.height = height;
@@ -155,13 +143,7 @@ public class Row<T extends PDPage> {
 		return cells;
 	}
 
-	public int getColCount() {
-		return cells.size();
-	}
 
-	public void setCells(List<Cell<T>> cells) {
-		this.cells = cells;
-	}
 
 	public float getWidth() {
 		return table.getWidth();
@@ -175,30 +157,12 @@ public class Row<T extends PDPage> {
 		this.bookmark = bookmark;
 	}
 
-	protected float getLastCellExtraWidth() {
-		float cellWidth = 0;
-		for (Cell<T> cell : cells) {
-			cellWidth += cell.getWidth();
-		}
-
-		return this.getWidth() - cellWidth;
-	}
-
-	public float xEnd() {
-		return table.getMargin() + getWidth();
-	}
-
-	public boolean isHeaderRow() {
-		return headerRow;
-	}
 
 	public void setHeaderRow(boolean headerRow) {
 		this.headerRow = headerRow;
 	}
 
-	public float getLineSpacing() {
-		return lineSpacing;
-	}
+
 
 	public void setLineSpacing(float lineSpacing) {
 		this.lineSpacing = lineSpacing;
