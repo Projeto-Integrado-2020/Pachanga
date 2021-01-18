@@ -140,7 +140,7 @@ class RelatorioDeVendaServiceTest {
 
 		Mockito.when(loteRepository.listaLoteFesta(Mockito.anyInt())).thenReturn(lotes);
 		Mockito.when(ingressoRepository.findLucroEsperadoLote(Mockito.anyInt(), Mockito.anyInt())).thenReturn(1f);
-		Mockito.when(ingressoRepository.findLucroRealizadoLote(Mockito.anyInt(), Mockito.anyInt())).thenReturn(1f);
+		Mockito.when(ingressoRepository.findLucroRealizadoLote(Mockito.anyInt(), Mockito.anyInt())).thenReturn(1f, null);
 		Mockito.when(festaRepository.findByCodFesta(Mockito.anyInt())).thenReturn(festaTest());
 		Mockito.when(relatorioDeVendaFactory.getRelatorioLucroTotalFesta(Mockito.any(), Mockito.any(), Mockito.anyString())).thenReturn(new RelatorioDeVendaTO());
 		

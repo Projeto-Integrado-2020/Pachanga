@@ -105,12 +105,13 @@ class RelatorioAreaSegurancaServiceTest {
 
 		List<Object[]> informacoesUsuario = new ArrayList<>();
 		informacoesUsuario.add(new Object[] { 1, "teste" });
+		informacoesUsuario.add(new Object[] { 2, "teste1" });
 
 		Mockito.when(areaSegurancaProblemaFluxoRepository.findUsuariosByIdFesta(Mockito.anyInt()))
 				.thenReturn(informacoesUsuario);
 		Mockito.when(areaSegurancaProblemaFluxoRepository.countProblemasFesta(Mockito.anyInt())).thenReturn(10f);
 		Mockito.when(areaSegurancaProblemaFluxoRepository.findQuantidadeChamadasResolvidasByUsuario(Mockito.anyInt(),
-				Mockito.anyInt())).thenReturn(1);
+				Mockito.anyInt())).thenReturn(1,0);
 		Mockito.when(relatorioAreaSegurancaTOFactory.getUsuarioSolucionador(Mockito.anyMap()))
 				.thenReturn(relatorioAreaTest());
 
