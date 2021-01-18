@@ -92,11 +92,11 @@ public class EmailMensagemTest {
 	
 	@Test
 	public void enviarEmailQRCodeTest() throws Exception {
-		EmailMensagem.enviarEmailQRCode("teste@email.invalid", festaTest(), listaIngressoTest());
+		EmailMensagem.enviarEmailQRCode("eventmanager72@gmail.com", festaTest(), listaIngressoTest());
 	}
 	
 	@Test
 	public void enviarEmailTest() throws Exception {
-		EmailMensagem.enviarEmail("teste@email.invalid", "haha", festaTest());
+		EmailMensagem.enviarEmail("eventmanager72@gmail.com", "haha", festaTest());
 	}
 }
