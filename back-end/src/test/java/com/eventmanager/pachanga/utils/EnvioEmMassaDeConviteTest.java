@@ -107,8 +107,6 @@ public class EnvioEmMassaDeConviteTest {
 		List<Ingresso> list = new ArrayList<>();
 		list.add(ingressoTest("1", 1));
 		list.add(ingressoTest("2", 2));
-		list.add(ingressoTest("3", 2));
-		list.add(ingressoTest("4", 4));
 		return list;
 	}
 	

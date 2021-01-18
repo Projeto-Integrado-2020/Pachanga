@@ -12,7 +12,7 @@ import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.io.FileUtils;
+//import org.apache.commons.io.FileUtils;
 
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -125,49 +125,10 @@ public class PdfConviteManagerTest {
 	@Test
 	public void gerarPDF() {
 		List<Ingresso> ingressos = listaIngressoTest();
-		//File expected = new File("src/main/resources/arquivos/pdf/convite/exemplos/1236543.pdf");
 		File file = PdfConviteManager.gerarPDF(ingressos);
-		File expected = PdfConviteManager.gerarPDF(ingressos);
-		
-		try {
-			boolean result = FileUtils.contentEquals(file, expected);
-			//boolean result = verificaDuplicidade(file, expected);
-			assertEquals(true, result);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}finally{
-			file.delete();
-			//n deletar o expected	
-		}
+		file.exists();
+		assertEquals(true, file.exists());
+		file.delete();
 	}
-	/*
-	public static boolean verificaDuplicidade(File f1, File f2) {
-        //File f1 = new File(file1);
-        //File f2 = new File(file2);
-        int byte_f1;
-        int byte_f2;
-        if (f1.length() == f2.length()) {
-            try { 
-                InputStream isf1 = new FileInputStream(f1);
-                InputStream isf2 = new FileInputStream(f2);
-                for (long i = 0; i <= f1.length(); i++) {
-                    try {
-                        byte_f1 = isf1.read();
-                        byte_f2 = isf2.read();
-                        if (byte_f1 != byte_f2) {
-                            isf1.close();
-                            isf2.close();
-                            return false; // tamanhos iguais e conteudos diferentes
 
-                        }
-                    } catch (IOException ex) {
-                    }
-                }
-            } catch (FileNotFoundException ex) {
-            }
-        } else {
-            return false; // tamanho e conteudo diferente
-        }
-        return true; // arquivos iguais
-    }*/
 }
