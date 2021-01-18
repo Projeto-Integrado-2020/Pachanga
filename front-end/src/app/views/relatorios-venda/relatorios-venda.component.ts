@@ -12,9 +12,8 @@ export class RelatoriosVendaComponent implements OnInit {
   codFesta: string;
   ingressosDataSet = [];
   ingressosPagosDataSet = [];
-
-  mySlideOptions = { items: 1, dots: true, nav: true };
-  myCarouselOptions = { items: 80, dots: true, nav: true };
+  lucroLotesDataSet = [];
+  lucroFestaDataSet = [];
 
   colorScheme = {
     domain: ['#d63333', '#a833d6', '#d68f33', '#d63395', '#d6d333', '#4633d6', '#87d633', '#338dd6', '#33d659', '#33d6bb']
@@ -28,6 +27,7 @@ export class RelatoriosVendaComponent implements OnInit {
     this.codFesta = idFesta.substring(idFesta.indexOf('&') + 1, idFesta.indexOf('/', idFesta.indexOf('&')));
     this.getRelatorioIngressos();
     this.getRelatorioIngressosPagos();
+    this.getRelatorioLucro();
   }
 
   getRelatorioIngressos() {
@@ -66,6 +66,44 @@ export class RelatoriosVendaComponent implements OnInit {
         });
       }
       this.ingressosPagosDataSet = dataSetTemp;
+    });
+  }
+
+  getRelatorioLucro() {
+    this.relatorioVendaService.lucroFesta(this.codFesta).subscribe((resp: any) => {
+      let dataSetTemp = [];
+      for (const lucroLote of Object.keys(resp.infoLucroEsperado.lucroLote)) {
+        const serieTemp = [];
+        serieTemp.push(
+          {
+            name: this.translateService.instant('RELATORIOVENDA.LUCROESP'),
+            value: parseFloat(resp.infoLucroEsperado.lucroLote[lucroLote])
+          },
+          {
+            name: this.translateService.instant('RELATORIOVENDA.LUCROREAL'),
+            value: parseFloat(resp.infoLucroReal.lucroLote[lucroLote])
+          }
+        );
+        dataSetTemp.push({
+          name: lucroLote,
+          series: serieTemp
+        });
+      }
+      this.lucroLotesDataSet = dataSetTemp;
+      dataSetTemp = [{
+        name: resp.nomeFesta,
+        series: [
+          {
+            name: this.translateService.instant('RELATORIOVENDA.LUCROESP'),
+            value: parseFloat(resp.infoLucroEsperado.lucroTotal)
+          },
+          {
+            name: this.translateService.instant('RELATORIOVENDA.LUCROREAL'),
+            value: parseFloat(resp.infoLucroReal.lucroTotal)
+          }
+        ]
+      }];
+      this.lucroFestaDataSet = dataSetTemp;
     });
   }
 }

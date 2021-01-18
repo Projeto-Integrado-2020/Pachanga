@@ -887,7 +887,14 @@
         "LEGENDA": "Tickets",
         "STATUS": "Status",
         "PAGO": "Payed",
-        "COMPRADO": "Sold"
+        "COMPRADO": "Sold",
+        "VENDAS": "Sales",
+        "LUCRO": "Profit",
+        "LUCROESP": "Expected profit",
+        "LUCROREAL": "Real profit",
+        "LUCROTOTAL": "Total profit",
+        "LUCROLOTE": "Batch profit",
+        "LUCROFESTA": "Party profit"
     },
 
     "RELATORIOEXPORT": {

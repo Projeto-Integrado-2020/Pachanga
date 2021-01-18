@@ -109,7 +109,6 @@ export class RelatoriosCheckinComponent implements OnInit {
         series: seriesTemp
       }];
       this.quantidadeEntradasHoraValores = dataSetTemp;
-      console.log(this.quantidadeEntradasHoraValores);
     });
   }
 
