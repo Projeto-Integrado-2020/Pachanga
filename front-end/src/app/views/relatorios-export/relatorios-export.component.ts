@@ -7,6 +7,7 @@ import { RelatorioAreaSegService } from 'src/app/services/relatorios/relatorio-a
 import { GetFestaService } from 'src/app/services/get-festa/get-festa.service';
 import html2canvas from 'html2canvas';
 import { Img, PdfMakeWrapper, Table, Txt } from 'pdfmake-wrapper';
+import { RelatorioCheckinService } from 'src/app/services/relatorios/relatorio-checkin.service';
 
 @Component({
   selector: 'app-relatorios-export',
@@ -31,14 +32,20 @@ export class RelatoriosExportComponent implements OnInit {
   emissoesChamadas = [];
   ingressosDataSet = [];
   ingressosPagosDataSet = [];
+  ingressosCompradosEntradasValores = [];
+  faixaEtariaValores = [];
+  generosValores = [];
+  quantidadeEntradasHoraValores = [];
+  ingressosFestaCheckedUncheckedValores = [];
 
   colorScheme = {
     domain: ['#d63333', '#a833d6', '#d68f33', '#d63395', '#d6d333', '#4633d6', '#87d633', '#338dd6', '#33d659', '#33d6bb']
   };
 
   constructor(public relEstoqueService: RelatorioEstoqueService, public relatorioVendaService: RelatorioVendaService,
-              public relAreaSegService: RelatorioAreaSegService, public getFestaService: GetFestaService,
-              public router: Router, public translateService: TranslateService) { }
+              public relAreaSegService: RelatorioAreaSegService, public relatorioCheckin: RelatorioCheckinService,
+              public getFestaService: GetFestaService, public router: Router,
+              public translateService: TranslateService) { }
 
   ngOnInit() {
     const idFesta = this.router.url;
@@ -53,12 +60,86 @@ export class RelatoriosExportComponent implements OnInit {
     this.usuariosPorEmissao(this.codFesta);
     this.getRelatorioIngressos();
     this.getRelatorioIngressosPagos();
+    this.faixaEtaria();
+    this.generos();
+    this.ingressosFestaCheckedUnchecked();
+    this.quantidadeEntradasHora();
   }
 
   resgatarFesta(codFesta) {
     this.getFestaService.acessarFesta(codFesta).subscribe((resp: any) => {
       this.getFestaService.setFarol(false);
       this.festa = resp;
+    });
+  }
+
+  faixaEtaria() {
+    this.relatorioCheckin.faixaEtaria(this.codFesta).subscribe((resp: any) => {
+      const dataSetTemp = [];
+      for (const faixaEtaria of Object.keys(resp.quantitadeFaixaEtaria)) {
+        dataSetTemp.push({
+          name: faixaEtaria,
+          value: resp.quantitadeFaixaEtaria[faixaEtaria]
+        });
+      }
+      this.faixaEtariaValores = dataSetTemp;
+    });
+  }
+
+  generos() {
+    this.relatorioCheckin.genero(this.codFesta).subscribe((resp: any) => {
+      const dataSetTemp = [];
+      for (const genero of Object.keys(resp.quantidadeGenero)) {
+        dataSetTemp.push({
+          name: genero,
+          value: resp.quantidadeGenero[genero]
+        });
+      }
+      this.generosValores = dataSetTemp;
+    });
+  }
+
+  ingressosFestaCheckedUnchecked() {
+    this.relatorioCheckin.checkedUnchecked(this.codFesta).subscribe((resp: any) => {
+      const dataSetTemp = [];
+      for (const ingressosFestaCheckedUnchecked of Object.keys(resp.ingressoFestaCheckedUnchecked)) {
+        const seriesTemp = [];
+        for (const data of Object.keys(resp.ingressoFestaCheckedUnchecked[ingressosFestaCheckedUnchecked])) {
+          seriesTemp.push(
+            {
+              name: this.translateService.instant('RELATORIOCHECKIN.NAOENTROU'),
+              value: parseInt(data, 10)
+            },
+            {
+              name: this.translateService.instant('RELATORIOCHECKIN.ENTROU'),
+              value: parseInt(resp.ingressoFestaCheckedUnchecked[ingressosFestaCheckedUnchecked][data], 10)
+            }
+          );
+        }
+        dataSetTemp.push({
+          name: ingressosFestaCheckedUnchecked,
+          series: seriesTemp
+        });
+      }
+      this.ingressosFestaCheckedUncheckedValores = dataSetTemp;
+    });
+  }
+
+  quantidadeEntradasHora() {
+    this.relatorioCheckin.qtdEntradasHora(this.codFesta).subscribe((resp: any) => {
+      const seriesTemp = [];
+      for (const quantidadeEntradasHora of Object.keys(resp.quantidadePessoasHora)) {
+        seriesTemp.push({
+          name: new Date(quantidadeEntradasHora),
+          value: resp.quantidadePessoasHora[quantidadeEntradasHora]
+        });
+      }
+      const dataSetTemp = [{
+        name: this.translateService.instant('RELATORIOCHECKIN.QTDCHECKIN'),
+        series: seriesTemp
+      }];
+      this.quantidadeEntradasHoraValores = dataSetTemp;
+      console.log(this.quantidadeEntradasHoraValores);
     });
   }
 
@@ -375,6 +456,7 @@ export class RelatoriosExportComponent implements OnInit {
     await this.montarImagensEstoque(pdf);
     await this.montarImagensSeguranca(pdf);
     await this.montarImagensVenda(pdf);
+    await this.montarImagensCheckin(pdf);
   }
 
   async montarImagensEstoque(pdf) {
@@ -445,6 +527,37 @@ export class RelatoriosExportComponent implements OnInit {
         .alignment('center')
         .style('tituloRelatorio').end);
       const element = document.getElementById('ingressosPagos');
+      const url = await html2canvas(element);
+      pdf.add(await new Img(url.toDataURL('image/png')).width('515').style('imagem').build());
+    }
+  }
+
+  async montarImagensCheckin(pdf) {
+    if (this.faixaEtariaValores.length > 0) {
+      pdf.add(new Txt(this.translateService.instant('RELATORIOCHECKIN.FAIXAETARIA')).alignment('center').style('tituloRelatorio').end);
+      const element = document.getElementById('faixaEtaria');
+      const url = await html2canvas(element);
+      pdf.add(await new Img(url.toDataURL('image/png')).width('515').style('imagem').build());
+    }
+    if (this.generosValores.length > 0) {
+      pdf.add(new Txt(this.translateService.instant('RELATORIOCHECKIN.GENERO'))
+        .alignment('center')
+        .style('tituloRelatorio').end);
+      const element = document.getElementById('generos');
+      const url = await html2canvas(element);
+      pdf.add(await new Img(url.toDataURL('image/png')).width('515').style('imagem').build());
+    }
+    if (this.quantidadeEntradasHoraValores.length > 0) {
+      pdf.add(new Txt(this.translateService.instant('RELATORIOCHECKIN.DTHRCHECKIN')).alignment('center').style('tituloRelatorio').end);
+      const element = document.getElementById('quantidadeEntradasHora');
+      const url = await html2canvas(element);
+      pdf.add(await new Img(url.toDataURL('image/png')).width('515').style('imagem').build());
+    }
+    if (this.ingressosFestaCheckedUncheckedValores.length > 0) {
+      pdf.add(new Txt(this.translateService.instant('RELATORIOCHECKIN.RELACAOCOMPRACHECKIN'))
+        .alignment('center')
+        .style('tituloRelatorio').end);
+      const element = document.getElementById('checkedUnchecked');
       const url = await html2canvas(element);
       pdf.add(await new Img(url.toDataURL('image/png')).width('515').style('imagem').build());
     }

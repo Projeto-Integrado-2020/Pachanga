@@ -845,6 +845,26 @@
         "PRODUTOS": "Products",
         "SEMRESULTADO": "The party does not have enough data for this report."
     },
+
+    "RELATORIOCHECKIN": {
+        "FAIXAETARIA": "Age range",
+        "IDADE": "Age",
+        "GENERO": "Gender",
+        "QTD": "Amount",
+        "DTHRCHECKIN": "Check-in date and time",
+        "DTHORA": "Date and time",
+        "HORARIO": "Time",
+        "CHECKIN": "Check-in",
+        "RELACAOCOMPRACHECKIN": "Relationship between purchased tickets and check-in",
+        "COMPRADO": "Purchased",
+        "REALIZOUCHECKIN": "Checked in",
+        "LOTE": "Batch",
+        "SEMRESULTADO": "The party does not have enough data for this report.",
+        "ENTROU": "Chekced in",
+        "NAOENTROU": "Didn't check in",
+        "QTDCHECKIN": "Check-in quantity"
+    },
+
     "RELATORIOSEGURANCA": {
         "TITLE": "Security",
         "PROBAREA":"Problems by Security Area",

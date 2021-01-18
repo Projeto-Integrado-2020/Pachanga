@@ -134,7 +134,6 @@ class RelatorioCheckInServiceTest {
 
 	}
 
-	@SuppressWarnings("deprecation")
 	@Test
 	void faixaEtariaFestaSucesso() throws Exception {
 
@@ -142,9 +141,10 @@ class RelatorioCheckInServiceTest {
 		Ingresso ingressoSemDataNasc = ingressoTest();
 		ingressoSemDataNasc.getUsuario().setDtNasc(null);
 
-		Date dataAtual = Calendar.getInstance().getTime();
+		Calendar dataAtual = Calendar.getInstance();
+		dataAtual.add(Calendar.DAY_OF_MONTH, 1);
 
-		ingresso.getUsuario().setDtNasc(new Date(2000, dataAtual.getMonth(), dataAtual.getDay() + 1));
+		ingresso.getUsuario().setDtNasc(dataAtual.getTime());
 
 		List<Ingresso> ingressos = new ArrayList<>();
 		ingressos.add(ingressoTest());
@@ -207,6 +207,7 @@ class RelatorioCheckInServiceTest {
 	void relatorioDeIngressosCheckInSucesso() throws Exception {
 
 		List<Lote> lotes = new ArrayList<>();
+		lotes.add(loteTest());
 		lotes.add(loteTest());
 
 		Mockito.when(loteRepository.listaLoteFesta(Mockito.anyInt())).thenReturn(lotes);
