@@ -8,13 +8,9 @@ import com.eventmanager.pachanga.domains.Ingresso;
 import com.eventmanager.pachanga.domains.Usuario;
 
 public class EnvioEmMassaDeConvite {
-	private List<EnvioDeConvite> convites;
+	private static List<EnvioDeConvite> convites = new ArrayList<>();
 	
-	public EnvioEmMassaDeConvite() {
-		convites = new ArrayList<>();
-	}
-	
-	public void enviarTudo() {
+	public static void enviarTudo() {
 		for(EnvioDeConvite convite : convites) {
 			EmailMensagem.enviarEmailQRCode(convite.getUsuario().getEmail(),
 											convite.getFesta(),
@@ -23,13 +19,13 @@ public class EnvioEmMassaDeConvite {
 		convites = new ArrayList<>();
 	}
 	
-	public void upsertAll(List<Ingresso> ingressos) {
+	public static void upsertAll(List<Ingresso> ingressos) {
 		for(Ingresso ingresso : ingressos) {
 			upsertConvite(ingresso);
 		}
 	}
 	
-	public void upsertConvite(Ingresso ingresso) {
+	public static void upsertConvite(Ingresso ingresso) {
 		EnvioDeConvite convite = findConviteExistente(ingresso.getFesta(), ingresso.getUsuario());
 		if(convite == null) {
 			EnvioDeConvite novoConvite = new EnvioDeConvite();
@@ -42,7 +38,7 @@ public class EnvioEmMassaDeConvite {
 		}
 	}
 	
-	private EnvioDeConvite findConviteExistente(Festa festa, Usuario usuario) {
+	private static EnvioDeConvite findConviteExistente(Festa festa, Usuario usuario) {
 		for(EnvioDeConvite convite : convites) {
 			if(convite.getFesta().getCodFesta() == festa.getCodFesta()
 			&& convite.getUsuario().getCodUsuario() == usuario.getCodUsuario()) 

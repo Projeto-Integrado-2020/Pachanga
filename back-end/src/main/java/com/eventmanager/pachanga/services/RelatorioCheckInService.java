@@ -1,5 +1,6 @@
 package com.eventmanager.pachanga.services;
 
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedHashMap;
@@ -104,7 +105,8 @@ public class RelatorioCheckInService {
 		Map<String, Integer> quantidadeEntradaHora = new LinkedHashMap<>();
 
 		ingressoRepository.findIngressoCheckedOrdenado(codFesta).stream().forEach(i -> {
-			String diaHora = i.getDataCheckin().getDayOfMonth() + "d" + i.getDataCheckin().getHour();
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:00:00");
+			String diaHora = formatter.format(i.getDataCheckin());
 			if (quantidadeEntradaHora.containsKey(diaHora)) {
 				Integer quantidade = quantidadeEntradaHora.get(diaHora);
 				quantidadeEntradaHora.put(diaHora, quantidade + 1);
@@ -120,13 +122,28 @@ public class RelatorioCheckInService {
 
 		Map<String, Map<Integer, Integer>> ingressoStatus = new LinkedHashMap<>();
 		loteRepository.listaLoteFesta(codFesta).stream().forEach(e -> {
-			
+
 			Map<Integer, Integer> ingressosChecadosUnchecked = new LinkedHashMap<>();
-			ingressosChecadosUnchecked.put(ingressoRepository.findQuantidadeIngressosLoteStatusIngresso(e.getCodLote(), TipoStatusIngresso.CHECKED.getDescricao()), ingressoRepository.findQuantidadeIngressosLoteStatusIngresso(e.getCodLote(), TipoStatusIngresso.UNCHECKED.getDescricao()));
-			ingressoStatus.put(e.getNomeLote(), ingressosChecadosUnchecked);
-			
-			});
-		
+			ingressosChecadosUnchecked.put(
+					ingressoRepository.findQuantidadeIngressosLoteStatusIngresso(e.getCodLote(),
+							TipoStatusIngresso.CHECKED.getDescricao()),
+					ingressoRepository.findQuantidadeIngressosLoteStatusIngresso(e.getCodLote(),
+							TipoStatusIngresso.UNCHECKED.getDescricao()));
+			if (ingressoStatus.containsKey(e.getNomeLote())) {
+				Map<Integer, Integer> quantidade = ingressoStatus.get(e.getNomeLote());
+				quantidade.put(
+						ingressosChecadosUnchecked.keySet().stream().findFirst().get()
+								+ quantidade.keySet().stream().findFirst().get(),
+
+						ingressosChecadosUnchecked.values().stream().findFirst().get()
+								+ quantidade.values().stream().findFirst().get());
+				ingressoStatus.put(e.getNomeLote(), quantidade);
+			} else {
+				ingressoStatus.put(e.getNomeLote(), ingressosChecadosUnchecked);
+			}
+
+		});
+
 		return relatorioCheckInFactory.relatorioCheckedUnchecked(ingressoStatus);
 	}
 

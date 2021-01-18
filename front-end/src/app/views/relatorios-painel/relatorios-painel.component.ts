@@ -2,10 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { GetFestaService } from 'src/app/services/get-festa/get-festa.service';
-import { GetFormsService } from 'src/app/services/get-forms/get-forms.service';
-import { GetSheetsService } from 'src/app/services/get-sheets/get-sheets.service';
-import { RelatorioAreaSegService } from 'src/app/services/relatorios/relatorio-area-seg.service';
-import { RelatorioEstoqueService } from 'src/app/services/relatorios/relatorio-estoque.service';
 
 @Component({
   selector: 'app-relatorios-painel',
@@ -115,10 +111,7 @@ export class RelatoriosPainelComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     public getFestaService: GetFestaService,
-    public router: Router,
-    public relAreaSegService: RelatorioAreaSegService,
-    public forms: GetFormsService,
-    public getSheetsService: GetSheetsService
+    public router: Router
     ) {
     this.options = fb.group({
       bottom: 55,

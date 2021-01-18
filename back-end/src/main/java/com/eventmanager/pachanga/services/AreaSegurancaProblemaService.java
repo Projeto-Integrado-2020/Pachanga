@@ -133,6 +133,9 @@ public class AreaSegurancaProblemaService {
 		AreaSeguranca area = areaSegurancaRepository.findAreaByCodFestaAndCodArea(
 				areaSegurancaProblema.getFesta().getCodFesta(), areaSegurancaProblema.getArea().getCodArea());
 		if (finaliza.booleanValue()) {
+			if ((areaSegurancaProblemaRepository.quantidadeProblemasAreaFesta(area.getCodArea(),
+					areaSegurancaProblema.getFesta().getCodFesta()) - 1) == 0)
+				area.setStatusSeguranca(TipoAreaSeguranca.SEGURO.getDescricao());
 			areaSegurancaProblema.setStatusProblema(problemaSegurancaTO.getStatusProblema());
 			Usuario usuarioResolv = usuarioService.validarUsuario(problemaSegurancaTO.getCodUsuarioResolv());
 			areaSegurancaProblema.setCodUsuarioResolv(usuarioResolv);
@@ -140,7 +143,6 @@ public class AreaSegurancaProblemaService {
 			areaSegurancaProblema.setObservacaoSolucao(problemaSegurancaTO.getObservacaoSolucao());
 			this.validarAreaSegurancaProblema(areaSegurancaProblema);
 			this.deletarNotificacoes(areaSegurancaProblema);
-			area.setStatusSeguranca(TipoAreaSeguranca.SEGURO.getDescricao());
 		} else {
 			areaSegurancaProblema.setStatusProblema(TipoStatusProblema.ANDAMENTO.getValor());
 			areaSegurancaProblema.setCodUsuarioResolv(null);
@@ -153,7 +155,7 @@ public class AreaSegurancaProblemaService {
 		areaSegurancaRepository.save(area);
 		areaSegurancaProblemaRepository.save(areaSegurancaProblema);
 	}
-	
+
 	public void deleteByFesta(int idFesta) {
 		List<AreaSegurancaProblema> areas = areaSegurancaProblemaRepository.findAllAreaSegurancaProblemaFesta(idFesta);
 		areas.stream().forEach(asp -> {

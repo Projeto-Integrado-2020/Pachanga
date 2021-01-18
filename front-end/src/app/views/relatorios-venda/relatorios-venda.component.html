@@ -1,0 +1,54 @@
+<div class="main-conteiner">
+    <mat-expansion-panel hideToggle class="painel">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{'RELATORIOVENDA.INGRESSOS' | translate}}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div *ngIf="ingressosDataSet.length > 0">
+            <ngx-charts-bar-vertical 
+            [view]="[1000,400]"
+            [scheme]="colorScheme"
+            [results]="ingressosDataSet"
+            [xAxisLabel]="'RELATORIOVENDA.LOTE' | translate"
+            [legendTitle]="'RELATORIOVENDA.LEGENDA' | translate"
+            [yAxisLabel]="'RELATORIOVENDA.QUANTIDADE' | translate"
+            [legend]="true"
+            [showXAxisLabel]="true"
+            [showYAxisLabel]="true"
+            [xAxis]="true"
+            [yAxis]="true"
+            [gradient]="false">
+        </ngx-charts-bar-vertical>
+            </div>
+        <div *ngIf="ingressosDataSet.length === 0" class="nenhum-resultado">
+            <p>{{'RELATORIOVENDA.SEMRESULTADO' | translate}}</p>
+        </div>
+    </mat-expansion-panel>
+    <mat-expansion-panel hideToggle class="painel">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{'RELATORIOVENDA.INGRESSOPAGOCOMPRADO' | translate}}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div *ngIf="ingressosPagosDataSet.length > 0">
+            <ngx-charts-bar-vertical-2d 
+            [view]="[1000,400]"
+            [scheme]="colorScheme"
+            [results]="ingressosPagosDataSet"
+            [xAxisLabel]="'RELATORIOVENDA.LOTE' | translate"
+            [legendTitle]="'RELATORIOVENDA.STATUS' | translate"
+            [yAxisLabel]="'RELATORIOVENDA.QUANTIDADE' | translate"
+            [legend]="true"
+            [showXAxisLabel]="true"
+            [showYAxisLabel]="true"
+            [xAxis]="true"
+            [yAxis]="true"
+            [gradient]="false">
+        </ngx-charts-bar-vertical-2d>
+        </div>
+        <div *ngIf="ingressosPagosDataSet.length === 0" class="nenhum-resultado">
+            <p>{{'RELATORIOVENDA.SEMRESULTADO' | translate}}</p>
+        </div>
+    </mat-expansion-panel>
+</div>

@@ -1,0 +1,114 @@
+<div class="main-conteiner">
+    <mat-expansion-panel hideToggle class="painel">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{'RELATORIOCHECKIN.FAIXAETARIA' | translate}}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div *ngIf="faixaEtariaValores.length > 0" class="relatorio-container">
+            <ngx-charts-bar-vertical
+            [results]="faixaEtariaValores"
+            [xAxisLabel]="'RELATORIOCHECKIN.IDADE' | translate"
+            [legendTitle]="'RELATORIOCHECKIN.IDADE' | translate"
+            [yAxisLabel]="'RELATORIOCHECKIN.QTD' | translate"
+            [legend]="true"
+            [showXAxisLabel]="true"
+            [showYAxisLabel]="true"
+            [xAxis]="true"
+            [yAxis]="true"
+            [gradient]="false"
+            [scheme]="colorScheme">
+            </ngx-charts-bar-vertical>
+        </div>
+        <div *ngIf="faixaEtariaValores.length === 0" class="nenhum-resultado">
+            <p>{{'RELATORIOCHECKIN.SEMRESULTADO' | translate}}</p>
+        </div>
+    </mat-expansion-panel>
+    <mat-expansion-panel hideToggle class="painel">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{'RELATORIOCHECKIN.GENERO' | translate}}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div *ngIf="generosValores.length > 0" class="relatorio-container">
+            <ngx-charts-bar-vertical
+            [results]="generosValores"
+            [xAxisLabel]="'RELATORIOCHECKIN.GENERO' | translate"
+            [legendTitle]="'RELATORIOCHECKIN.GENERO' | translate"
+            [yAxisLabel]="'RELATORIOCHECKIN.QTD' | translate"
+            [legend]="true"
+            [scheme]="colorScheme"
+            [showXAxisLabel]="true"
+            [showYAxisLabel]="true"
+            [xAxis]="true"
+            [yAxis]="true"
+            [gradient]="false">
+            </ngx-charts-bar-vertical>
+        </div>
+        <div *ngIf="generosValores.length === 0" class="nenhum-resultado">
+            <p>{{'RELATORIOCHECKIN.SEMRESULTADO' | translate}}</p>
+        </div>
+    </mat-expansion-panel>
+    <mat-expansion-panel hideToggle class="painel">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{'RELATORIOCHECKIN.DTHRCHECKIN' | translate}}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div *ngIf="quantidadeEntradasHoraValores.length > 0" class="relatorio-container">
+          <ngx-charts-line-chart #chart
+          [results]="quantidadeEntradasHoraValores"
+          [scheme]="colorScheme"
+          [xAxisLabel]="'RELATORIOCHECKIN.HORARIO' | translate"
+          [showXAxisLabel]="true"
+          [showYAxisLabel]="true"
+          [legendTitle]="'RELATORIOCHECKIN.DTHORA' | translate"
+          [yAxisLabel]="'RELATORIOCHECKIN.CHECKIN' | translate"
+          [legend]="true"
+          [showXAxisLabel]="true"
+          [showYAxisLabel]="true"
+          [xAxis]="true"
+          [yAxis]="true"
+          [gradient]="false"
+          [timeline]="true"
+          [xAxisTickFormatting]="formatDate"
+          >
+          <ng-template #tooltipTemplate let-model="model">
+              <p class="toolTip-header">
+                  {{ model.series }} • {{ toolTipDate(model.name) }}
+              </p>
+              <p class="toolTip-body">{{ model.value }}</p>
+          </ng-template>
+          </ngx-charts-line-chart>
+        </div>
+        <div *ngIf="quantidadeEntradasHoraValores.length === 0" class="nenhum-resultado">
+            <p>{{'RELATORIOCHECKIN.SEMRESULTADO' | translate}}</p>
+        </div>
+    </mat-expansion-panel>
+    <mat-expansion-panel hideToggle class="painel">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{'RELATORIOCHECKIN.RELACAOCOMPRACHECKIN' | translate}}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div *ngIf="ingressosFestaCheckedUncheckedValores.length > 0" class="relatorio-container">
+          <ngx-charts-bar-vertical-stacked
+          [results]="ingressosFestaCheckedUncheckedValores"
+          [xAxisLabel]="'RELATORIOCHECKIN.LOTE' | translate"
+          [legendTitle]="'Status'"
+          [yAxisLabel]="'RELATORIOCHECKIN.QTD' | translate"
+          [legend]="true"
+          [showXAxisLabel]="true"
+          [showYAxisLabel]="true"
+          [xAxis]="true"
+          [yAxis]="true"
+          [gradient]="false"
+          [scheme]="colorScheme"
+          [animations]="true">
+          </ngx-charts-bar-vertical-stacked>
+        </div>
+        <div *ngIf="ingressosFestaCheckedUncheckedValores.length === 0" class="nenhum-resultado">
+            <p>{{'RELATORIOCHECKIN.SEMRESULTADO' | translate}}</p>
+        </div>
+    </mat-expansion-panel>
+</div>

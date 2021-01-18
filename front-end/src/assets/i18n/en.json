@@ -845,6 +845,26 @@
         "PRODUTOS": "Products",
         "SEMRESULTADO": "The party does not have enough data for this report."
     },
+
+    "RELATORIOCHECKIN": {
+        "FAIXAETARIA": "Age range",
+        "IDADE": "Age",
+        "GENERO": "Gender",
+        "QTD": "Amount",
+        "DTHRCHECKIN": "Check-in date and time",
+        "DTHORA": "Date and time",
+        "HORARIO": "Time",
+        "CHECKIN": "Check-in",
+        "RELACAOCOMPRACHECKIN": "Relationship between purchased tickets and check-in",
+        "COMPRADO": "Purchased",
+        "REALIZOUCHECKIN": "Checked in",
+        "LOTE": "Batch",
+        "SEMRESULTADO": "The party does not have enough data for this report.",
+        "ENTROU": "Chekced in",
+        "NAOENTROU": "Didn't check in",
+        "QTDCHECKIN": "Check-in quantity"
+    },
+
     "RELATORIOSEGURANCA": {
         "TITLE": "Security",
         "PROBAREA":"Problems by Security Area",
@@ -852,9 +872,28 @@
         "CONCXTOTAL":"Problem conclusions percentage by problems sum total",
         "USUARIO":"User",
         "PROBLEMA": "Problems",
-        "LEGENDA": "Legend"
+        "LEGENDA": "Legend",
+        "AREA": "Security Areas",
+        "STATUS": "Status"
+    },
 
+    "RELATORIOVENDA": {
+        "TITLE":"Sales",
+        "INGRESSOS":"Tickets quantity",
+        "SEMRESULTADO": "No results found",
+        "INGRESSOPAGOCOMPRADO": "Tickets sold or payed",
+        "LOTE": "Batch",
+        "QUANTIDADE": "Quantity",
+        "LEGENDA": "Tickets",
+        "STATUS": "Status",
+        "PAGO": "Payed",
+        "COMPRADO": "Sold"
+    },
+
+    "RELATORIOEXPORT": {
+        "EXPORTAR": "Export reports",
+        "CONFIRMAR": "Confirm export",
+        "TITLE": "Export reports"
     }
-
 
 }

@@ -515,6 +515,7 @@ class AreaSegurancaProblemaServiceTest {
 		Mockito.when(usuarioRepository.findUsuariosPorGrupo(Mockito.anyInt())).thenReturn(usuarios);
 		Mockito.doNothing().when(notificacaoService).deleteNotificacao(Mockito.anyInt(), Mockito.anyString());
 		Mockito.doNothing().when(notificacaoService).deletarNotificacaoGrupo(Mockito.anyInt(), Mockito.anyString());
+		Mockito.when(areaSegurancaProblemaRepository.quantidadeProblemasAreaFesta(Mockito.anyInt(), Mockito.anyInt())).thenReturn(1);
 		
 		
 		areaSegurancaProblemaService.alterarStatusProblema(areaSegurancaProblemaTO, 1, true);
@@ -538,6 +539,7 @@ class AreaSegurancaProblemaServiceTest {
 		Mockito.when(notificacaoService.verificarNotificacaoGrupo(Mockito.anyInt(), Mockito.anyString())).thenReturn(true);
 		Mockito.when(usuarioRepository.findUsuariosPorGrupo(Mockito.anyInt())).thenReturn(usuarios);
 		Mockito.doNothing().when(notificacaoService).inserirNotificacaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyString());
+		Mockito.when(areaSegurancaProblemaRepository.quantidadeProblemasAreaFesta(Mockito.anyInt(), Mockito.anyInt())).thenReturn(2);
 		
 		Mockito.when(areaSegurancaProblemaRepository.findByCodProblema(Mockito.anyInt())).thenReturn(areaSegurancaProblema);
 		
@@ -553,6 +555,8 @@ class AreaSegurancaProblemaServiceTest {
 		
 		Mockito.when(areaSegurancaProblemaRepository.findByCodProblema(Mockito.anyInt())).thenReturn(areaSegurancaProblema);
 		Mockito.when(usuarioService.validarUsuario(Mockito.anyInt())).thenReturn(null);
+		Mockito.when(areaSegurancaProblemaRepository.quantidadeProblemasAreaFesta(Mockito.anyInt(), Mockito.anyInt())).thenReturn(2);
+		Mockito.when(areaSegurancaRepository.findAreaByCodFestaAndCodArea(Mockito.anyInt(), Mockito.anyInt())).thenReturn(areaTest());
 		
 		boolean sucesso = true;
 		try {

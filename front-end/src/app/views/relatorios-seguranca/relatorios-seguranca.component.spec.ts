@@ -13,6 +13,8 @@ import { HttpLoaderFactory } from 'src/app/app.module';
 import { HttpClient } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { LoginService } from 'src/app/services/loginService/login.service';
+import { RelatorioAreaSegService } from 'src/app/services/relatorios/relatorio-area-seg.service';
+import { of } from 'rxjs';
 
 describe('RelatoriosSegurancaComponent', () => {
   let component: RelatoriosSegurancaComponent;
@@ -36,6 +38,13 @@ describe('RelatoriosSegurancaComponent', () => {
       ],
       declarations: [ RelatoriosSegurancaComponent ],
       schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
+      providers: [
+        {provide: RelatorioAreaSegService, useValue: {
+          problemasArea: () => of({problemasArea: {}, chamadasEmitidasFuncionario: [], solucionadorAlertasSeguranca: []}),
+          chamadasUsuario: () => of({problemasArea: {}, chamadasEmitidasFuncionario: [], solucionadorAlertasSeguranca: []}),
+          usuarioSolucionador: () => of({problemasArea: {}, chamadasEmitidasFuncionario: [], solucionadorAlertasSeguranca: []})
+        }},
+      ]
     })
     .compileComponents();
   }));
@@ -55,5 +64,32 @@ describe('RelatoriosSegurancaComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should get problemasArea', () => {
+    spyOn(component.relAreaSegService, 'problemasArea')
+    .and
+    .callThrough();
+
+    component.problemasArea('teste');
+    expect(component.relAreaSegService.problemasArea).toHaveBeenCalled();
+  });
+
+  it('should get chamadasUsuario', () => {
+    spyOn(component.relAreaSegService, 'chamadasUsuario')
+    .and
+    .callThrough();
+
+    component.chamadasUsuario('teste');
+    expect(component.relAreaSegService.chamadasUsuario).toHaveBeenCalled();
+  });
+
+  it('should get usuariosPorEmissao', () => {
+    spyOn(component.relAreaSegService, 'usuarioSolucionador')
+    .and
+    .callThrough();
+
+    component.usuariosPorEmissao('teste');
+    expect(component.relAreaSegService.usuarioSolucionador).toHaveBeenCalled();
   });
 });

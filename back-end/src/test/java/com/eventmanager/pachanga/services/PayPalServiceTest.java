@@ -31,7 +31,7 @@ import com.paypal.orders.PurchaseUnit;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(value = PayPalService.class)
-public class PayPalServiceTest {
+class PayPalServiceTest {
 	
 	@Autowired
 	private PayPalService paypalService;

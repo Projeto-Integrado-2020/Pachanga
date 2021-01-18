@@ -11,6 +11,9 @@
                 <button routerLink="./forms" mat-button class="botao-forms">
                     {{'FORMS.TITLE' | translate}} <mat-icon>pie_chart</mat-icon>
                 </button>
+                <button class="exportar-relatorio" routerLink="./exportar" mat-raised-button>
+                    {{ 'RELATORIOEXPORT.EXPORTAR' | translate }}
+                </button>
         </mat-list-item>
     </mat-list>
 
@@ -21,12 +24,16 @@
         <mat-tab label="{{'RELATORIOSEGURANCA.TITLE' | translate}}">
             <app-relatorios-seguranca></app-relatorios-seguranca>
         </mat-tab>
+        <!-- <mat-tab label="{{'RELATORIOVENDA.TITLE' | translate}}">
+            <app-relatorios-venda></app-relatorios-venda>
+        </mat-tab> -->
+        <mat-tab label="Check-in">
+            <app-relatorios-checkin></app-relatorios-checkin>
+        </mat-tab>
         <mat-tab label="Google Forms">
             <app-visualizacao-forms></app-visualizacao-forms>
         </mat-tab>
       </mat-tab-group>
-
-
 </div>
 
 

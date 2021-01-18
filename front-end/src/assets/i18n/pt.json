@@ -747,6 +747,38 @@
         "SEMRESULTADO": "A festa não tem dados suficientes para este relatório."
     },
 
+    "RELATORIOCHECKIN": {
+        "FAIXAETARIA": "Faixa etária",
+        "IDADE": "Idade",
+        "GENERO": "Gênero",
+        "QTD": "Quantidade",
+        "DTHRCHECKIN": "Data e hora do check-in",
+        "DTHORA": "Data e hora",
+        "HORARIO": "Horário",
+        "CHECKIN": "Check-in",
+        "RELACAOCOMPRACHECKIN": "Relação entre ingressos comprados e check-in",
+        "COMPRADO": "Comprado",
+        "REALIZOUCHECKIN": "Realizou check-in",
+        "LOTE": "Lote",
+        "SEMRESULTADO": "A festa não tem dados suficientes para este relatório.",
+        "ENTROU": "Fez check-in",
+        "NAOENTROU": "Não fez check-in",
+        "QTDCHECKIN": "Quantidade de check-in"
+    },
+
+    "RELATORIOVENDA": {
+        "TITLE":"Vendas",
+        "INGRESSOS":"Quantidade de ingressos",
+        "SEMRESULTADO": "Nenhum resultado encontrado",
+        "INGRESSOPAGOCOMPRADO": "Ingressos pagos ou comprados",
+        "LOTE": "Lote",
+        "QUANTIDADE": "Quantidade",
+        "LEGENDA": "Ingressos",
+        "STATUS": "Status",
+        "PAGO": "Pago",
+        "COMPRADO": "Comprado"
+    },
+
     "RELATORIOSEGURANCA": {
         "TITLE": "Segurança",
         "PROBAREA":"Problemas por área de Segurança",
@@ -754,8 +786,9 @@
         "CONCXTOTAL":"Porcentagem de conclusões de usuários por total de problemas",
         "USUARIO": "Usuário",
         "PROBLEMA": "Problemas",
-        "LEGENDA": "Legenda"
-
+        "LEGENDA": "Legenda",
+        "AREA": "Áreas de Segurança",
+        "STATUS": "Status"
     },
 
     "RELATARPROB": {
@@ -871,6 +904,12 @@
         "RELATPROBLM": "Relatando problema. Por favor, aguarde.",
         "CARREGIMAGEM": "Carregando imagem. Por favor, aguarde.",
         "CHECKIN": "Realizando check-in. Por favor aguarde."
+    },
+
+    "RELATORIOEXPORT": {
+        "EXPORTAR": "Exportar relatórios",
+        "CONFIRMAR": "Confirmar exportação",
+        "TITLE": "Exportação de relatórios"
     }
 
 }
