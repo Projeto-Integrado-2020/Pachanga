@@ -17,11 +17,8 @@ import { RelatoriosExportComponent } from './relatorios-export.component';
 import { RelatorioVendaService } from 'src/app/services/relatorios/relatorio-venda.service';
 import { RelatorioAreaSegService } from 'src/app/services/relatorios/relatorio-area-seg.service';
 import { GetFestaService } from 'src/app/services/get-festa/get-festa.service';
-<<<<<<< HEAD
 import { MatDialog } from '@angular/material';
-=======
 import { RelatorioCheckinService } from 'src/app/services/relatorios/relatorio-checkin.service';
->>>>>>> e22d4464edc4c4fd24821295521837c8cfe02eb0
 
 describe('RelatoriosExportComponent', () => {
   let component: RelatoriosExportComponent;

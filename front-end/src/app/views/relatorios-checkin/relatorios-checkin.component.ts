@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { RelatorioCheckinService } from 'src/app/services/relatorios/relatorio-checkin.service';
 import { interval, Observable, Subscription } from 'rxjs';
@@ -9,7 +9,7 @@ import { TranslateService } from '@ngx-translate/core';
   templateUrl: './relatorios-checkin.component.html',
   styleUrls: ['./relatorios-checkin.component.scss']
 })
-export class RelatoriosCheckinComponent implements OnInit {
+export class RelatoriosCheckinComponent implements OnInit, OnDestroy {
 
   codFesta: string;
   showLegend = true;
@@ -34,6 +34,10 @@ export class RelatoriosCheckinComponent implements OnInit {
   constructor(public relatorioCheckin: RelatorioCheckinService, public translateService: TranslateService, public router: Router) { }
 
   ngOnInit() {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
+    this.source = null;
     const idFesta = this.router.url;
     this.codFesta = idFesta.substring(idFesta.indexOf('&') + 1, idFesta.indexOf('/', idFesta.indexOf('&')));
     this.faixaEtaria();
@@ -148,6 +152,13 @@ export class RelatoriosCheckinComponent implements OnInit {
         this.quantidadeEntradasHora();
       }
     );
+  }
+
+  ngOnDestroy() {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
+    this.source = null;
   }
 
 }
