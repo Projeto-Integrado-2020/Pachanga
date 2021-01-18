@@ -48,7 +48,7 @@ export class RelatoriosCheckinComponent implements OnInit {
       const dataSetTemp = [];
       for (const faixaEtaria of Object.keys(resp.quantitadeFaixaEtaria)) {
         dataSetTemp.push({
-          name: faixaEtaria,
+          name: faixaEtaria === '0' ? this.translateService.instant('PERFIL.NOTINFORMED') : faixaEtaria,
           value: resp.quantitadeFaixaEtaria[faixaEtaria]
         });
       }
@@ -61,7 +61,7 @@ export class RelatoriosCheckinComponent implements OnInit {
       const dataSetTemp = [];
       for (const genero of Object.keys(resp.quantidadeGenero)) {
         dataSetTemp.push({
-          name: genero,
+          name: genero === 'NF' ? this.translateService.instant('PERFIL.NOTINFORMED') : genero,
           value: resp.quantidadeGenero[genero]
         });
       }
@@ -109,7 +109,6 @@ export class RelatoriosCheckinComponent implements OnInit {
         series: seriesTemp
       }];
       this.quantidadeEntradasHoraValores = dataSetTemp;
-      console.log(this.quantidadeEntradasHoraValores);
     });
   }
 
