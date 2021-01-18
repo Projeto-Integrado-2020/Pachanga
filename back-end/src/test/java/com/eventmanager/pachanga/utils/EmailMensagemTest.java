@@ -14,9 +14,9 @@ import org.junit.Before;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
-import org.powermock.api.mockito.PowerMockito;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
+//import org.powermock.api.mockito.PowerMockito;
+//import org.powermock.core.classloader.annotations.PrepareForTest;
+//import org.powermock.modules.junit4.PowerMockRunner;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.oauth2.provider.token.AuthorizationServerTokenServices;
@@ -36,7 +36,7 @@ import com.sun.mail.util.PropUtil;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(value=EmailMensagem.class)
-@PrepareForTest(javax.mail.Transport.class)
+//@PrepareForTest(javax.mail.Transport.class)
 //@PrepareForTest({Session.class, PropUtil.class})
 //@RunWith(PowerMockRunner.class)
 //@RunWith(MockitoJUnitRunner.class)
