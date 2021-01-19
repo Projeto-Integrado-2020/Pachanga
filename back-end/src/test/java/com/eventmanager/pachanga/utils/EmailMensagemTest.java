@@ -98,5 +98,6 @@ public class EmailMensagemTest {
 	@Test
 	void enviarEmailTest() throws Exception {
 //		EmailMensagem.enviarEmail("teste@email.invalid", "haha", festaTest());
+
 	}
 }
