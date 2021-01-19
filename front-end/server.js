@@ -44,7 +44,7 @@ app.use(helmet.frameguard());
 app.use(permissionsPolicy({
   features: {
     fullscreen: ['self'],
-    payment: ['https://pachanga.herokuapp.com/'],
+    payment: ['"https://pachanga.herokuapp.com/"'],
     syncXhr: ['"none"']
   }
 }));
