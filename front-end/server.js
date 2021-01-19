@@ -45,7 +45,7 @@ app.use(permissionsPolicy({
   features: {
     fullscreen: ['self'],
     payment: ['https://pachanga.herokuapp.com/'],
-    syncXhr: ['none']
+    syncXhr: ['"none"']
   }
 }));
 
