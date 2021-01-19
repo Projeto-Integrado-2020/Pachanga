@@ -1,5 +1,5 @@
-<div class="sidenav-container">
-  <div [@openClose]="isOpen ? 'aberto' : 'fechado'" class="sidenav">
+<div [@openClose]="isOpen ? 'aberto' : 'fechado'" class="sidenav-container">
+  <div class="sidenav">
     <button (click)="this.toggle()" routerLink="../painel" mat-button class="sidenav__botao">
       <span>{{'PAINELCONTROLE.GERAL' | translate}} </span>
       <mat-icon>tab</mat-icon>

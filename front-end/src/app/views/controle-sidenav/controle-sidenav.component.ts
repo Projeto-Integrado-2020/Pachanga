@@ -13,7 +13,8 @@ import { Component, OnInit } from '@angular/core';
       })),
 
       state('fechado', style({
-        left: '-100%'
+        left: '0',
+        transform: 'translateX(-100%)'
       })),
 
       transition('aberto => fechado', [
@@ -32,7 +33,8 @@ import { Component, OnInit } from '@angular/core';
       })),
 
       state('fechado', style({
-        left: '1rem'
+        right: '0',
+        transform: 'translateX(3rem)'
       })),
 
       transition('aberto => fechado', [
@@ -53,7 +55,8 @@ import { Component, OnInit } from '@angular/core';
       })),
 
       state('fechado', style({
-        left: '1rem'
+        right: '0',
+        transform: 'translateX(3rem)'
       })),
 
       transition('aberto => fechado', [
