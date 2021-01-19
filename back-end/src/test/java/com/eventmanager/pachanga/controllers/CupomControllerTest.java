@@ -136,6 +136,28 @@ class CupomControllerTest {
 	
 	@Test
 	@WithMockUser
+	void getCupomSucessoResultadoNullo() throws Exception {
+		String uri = "/cupom/cupomUnico";
+	
+		Mockito.when(cupomService.getCupom("teste", 1)).thenReturn(null);
+		
+		RequestBuilder requestBuilder = MockMvcRequestBuilders
+				.get(uri)
+				.param("nomeCupom", "teste")
+				.param("codFesta", "1")
+				.accept(MediaType.APPLICATION_JSON)
+				.contentType(MediaType.APPLICATION_JSON);
+		
+		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+		
+		MockHttpServletResponse response = result.getResponse();
+		
+		assertEquals(HttpStatus.OK.value(), response.getStatus());
+		
+	}
+	
+	@Test
+	@WithMockUser
 	void getCupomErro() throws Exception {
 		String uri = "/cupom/cupomUnico";
 	

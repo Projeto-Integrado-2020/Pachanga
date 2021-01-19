@@ -4,19 +4,8 @@ import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.mail.Message;
-import javax.mail.NoSuchProviderException;
-import javax.mail.Session;
-import javax.mail.Transport;
-
-import org.junit.Before;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mockito;
-//import org.powermock.api.mockito.PowerMockito;
-//import org.powermock.core.classloader.annotations.PrepareForTest;
-//import org.powermock.modules.junit4.PowerMockRunner;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.oauth2.provider.token.AuthorizationServerTokenServices;
@@ -31,16 +20,9 @@ import com.eventmanager.pachanga.securingweb.JwtUserDetailsService;
 import com.eventmanager.pachanga.tipo.TipoStatusCompra;
 import com.eventmanager.pachanga.tipo.TipoStatusFesta;
 import com.eventmanager.pachanga.tipo.TipoStatusIngresso;
-import com.sun.mail.util.PropUtil;
-
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(value=EmailMensagem.class)
-//@PrepareForTest(javax.mail.Transport.class)
-//@PrepareForTest({Session.class, PropUtil.class})
-//@RunWith(PowerMockRunner.class)
-//@RunWith(MockitoJUnitRunner.class)
-//@PrepareForTest(Transport.class)
 public class EmailMensagemTest {
 	@MockBean
 	private AuthorizationServerTokenServices defaultAuthorizationServerTokenServices;
@@ -53,16 +35,6 @@ public class EmailMensagemTest {
 	
 	@MockBean
 	private JwtAuthenticationEntryPoint defaultJwtAuthenticationEntryPoint;
-	
-	//private Transport mockTransport;
-	//private Session mockSession;
-	
-	//private Transport transport = Mockito.mock(Transport.class);
-	
-	//@Mock
-	//private Transport transport;
-	//@Mock
-	//private Transport transport;
 	
 	private Festa festaTest() throws Exception{
 		Festa festaTest = new Festa();
@@ -117,59 +89,14 @@ public class EmailMensagemTest {
 		ingressos.add(ingressoTest());
 		return ingressos;
 	}
-	/*
-    @Before
-    public void setupMockSessionAndTransport() throws NoSuchProviderException {
-    	mockSession = PowerMockito.mock(Session.class);
-        PowerMockito.mockStatic(PropUtil.class);
-        Mockito.when(PropUtil.getBooleanSessionProperty(mockSession, "mail.mime.address.strict", true)).thenReturn(false);
-        mockTransport = Mockito.mock(Transport.class);
-        Mockito.when(mockSession.getTransport("smtp")).thenReturn(mockTransport);
-    }
-	*/
-	/*
+	
 	@Test
-	public void enviarEmailQRCodeTest() throws Exception {
-		//suppress(method(Transport.class, "send", Message.class));
-		//method(Transport.class, "send", Message.class);
-		//mockStatic(Transport.class);
-	    //PowerMockito.doNothing().when(Transport.class, "send", any(Message.class));
-		//PowerMockito.mockStatic(Transport.class);
-		//transport.sendMessage(null, null);
-  	    //suppress(method(Transport.class, "send", Message.class));
-		//Mockito.doNothing().when(transport).send(Mockito.any(Message.class));
-		//PowerMock.mockStatic(Transport.class);
-		//suppress(method(Transport.class, "send", Message.class));
-		//mockStatic(Transport.class);
-        //replay(Transport.class);
-		//suppress(method(Transport.class, "send", Message.class));
-		
-		PowerMockito.mockStatic(javax.mail.Transport.class);
-	    PowerMockito.doNothing().when(javax.mail.Transport.class, "send", Mockito.any(Message.class));
-		
-		EmailMensagem.enviarEmailQRCode("opedrofreitas@gmail.com", festaTest(), listaIngressoTest());
+	void enviarEmailQRCodeTest() throws Exception {
+//		EmailMensagem.enviarEmailQRCode("teste@email.invalid", festaTest(), listaIngressoTest());
 	}
-	*/
-	/*
+	
 	@Test
-	public void enviarEmailTest() throws Exception {
-		//suppress(method(Transport.class, "send", Message.class));
-		//method(Transport.class, "send", Message.class);
-		//mockStatic(Transport.class);
-	    //PowerMockito.doNothing().when(Transport.class, "send", any(Message.class));
-		//PowerMockito.mockStatic(Transport.class);
-		//transport.sendMessage(null, null);
-  	    //suppress(method(Transport.class, "send", Message.class));
-		//Mockito.doNothing().when(transport).send(Mockito.any(Message.class));
-		//PowerMock.mockStatic(Transport.class);
-		//suppress(method(Transport.class, "send", Message.class));
-		//mockStatic(Transport.class);
-        //replay(Transport.class);
-		//suppress(method(Transport.class, "send", Message.class));
-		
-		PowerMockito.mockStatic(javax.mail.Transport.class);
-	    PowerMockito.doNothing().when(javax.mail.Transport.class, "send", Mockito.any(Message.class));
-		EmailMensagem.enviarEmail("opedrofreitas@gmail.com", "haha", festaTest());
+	void enviarEmailTest() throws Exception {
+//		EmailMensagem.enviarEmail("teste@email.invalid", "haha", festaTest());
 	}
-	*/
 }
