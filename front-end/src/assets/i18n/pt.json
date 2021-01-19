@@ -763,7 +763,7 @@
         "SEMRESULTADO": "A festa não tem dados suficientes para este relatório.",
         "ENTROU": "Fez check-in",
         "NAOENTROU": "Não fez check-in",
-        "QTDCHECKIN": "Quantidade de check-in"
+        "QTDCHECKIN": "Quantidade de entrantes"
     },
 
     "RELATORIOVENDA": {
@@ -776,7 +776,14 @@
         "LEGENDA": "Ingressos",
         "STATUS": "Status",
         "PAGO": "Pago",
-        "COMPRADO": "Comprado"
+        "COMPRADO": "Comprado",
+        "VENDAS": "Vendas",
+        "LUCRO": "Lucro",
+        "LUCROESP": "Lucro Esperado",
+        "LUCROREAL": "Lucro Real",
+        "LUCROTOTAL": "Lucro total",
+        "LUCROLOTE": "Lucro por lote",
+        "LUCROFESTA": "Lucro da festa"
     },
 
     "RELATORIOSEGURANCA": {

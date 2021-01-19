@@ -43,4 +43,9 @@ describe('RelatorioVendaService', () => {
     service.loginService.usuarioInfo = {codusuario: 'teste'};
     expect(service.ingressosFestaCompradosPagos('teste')).toBeTruthy();
   });
+
+  it('should get Info at lucroFesta', () => {
+    service.loginService.usuarioInfo = {codusuario: 'teste'};
+    expect(service.lucroFesta('teste')).toBeTruthy();
+  });
 });
