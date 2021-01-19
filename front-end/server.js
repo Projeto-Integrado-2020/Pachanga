@@ -4,7 +4,6 @@ const compression = require('compression');
 const sts = require('strict-transport-security');
 const csp = require('content-security-policy');
 const helmet = require('helmet');
-const featurePolicy = require('feature-policy');
 const referrerPolicy = require('referrer-policy');
 const permissionsPolicy = require('permissions-policy')
 const app = express();
@@ -42,20 +41,11 @@ app.use(globalSTS);
 app.use(globalCSP);
 app.use(helmet.noSniff());
 app.use(helmet.frameguard());
-app.use(featurePolicy({
+app.use(permissionsPolicy({
   features: {
     fullscreen: ["'self'"],
     payment: ['https://pachanga.herokuapp.com/'],
     syncXhr: ["'none'"]
-  }
-}));
-
-app.use(permissionsPolicy({
-  features: {
-    fullscreen: ['self'],
-    vibrate: ['none'],
-    payment: ['https://pachanga.herokuapp.com/'],
-    syncXhr: ['none']
   }
 }));
 
