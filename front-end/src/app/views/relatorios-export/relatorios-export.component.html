@@ -231,6 +231,46 @@
             </ngx-charts-bar-vertical-2d>
         </div>
     </div>
+    <p class="titulo-relatorio" *ngIf="lucroLotesDataSet.length > 0">
+        {{'RELATORIOVENDA.LUCROLOTE' | translate}}
+    </p>
+    <div class="relatorio-container" *ngIf="lucroLotesDataSet.length > 0">
+        <div class="chart-wrapper" id="lucroLotes">
+            <ngx-charts-bar-vertical-2d 
+                [scheme]="colorScheme"
+                [results]="lucroLotesDataSet"
+                [xAxisLabel]="'RELATORIOVENDA.VENDAS' | translate"
+                [legendTitle]="'RELATORIOVENDA.LUCRO' | translate"
+                [yAxisLabel]="'RELATORIOVENDA.QUANTIDADE' | translate"
+                [legend]="true"
+                [showXAxisLabel]="true"
+                [showYAxisLabel]="true"
+                [xAxis]="true"
+                [yAxis]="true"
+                [gradient]="false">
+            </ngx-charts-bar-vertical-2d>
+        </div>
+    </div>
+    <p class="titulo-relatorio" *ngIf="lucroFestaDataSet.length > 0">
+        {{'RELATORIOVENDA.LUCROFESTA' | translate}}
+    </p>
+    <div class="relatorio-container" *ngIf="lucroFestaDataSet.length > 0">
+        <div class="chart-wrapper" id="lucroFesta">
+            <ngx-charts-bar-vertical-2d 
+                [scheme]="colorScheme"
+                [results]="lucroFestaDataSet"
+                [xAxisLabel]="'RELATORIOVENDA.VENDAS' | translate"
+                [legendTitle]="'RELATORIOVENDA.LUCRO' | translate"
+                [yAxisLabel]="'RELATORIOVENDA.QUANTIDADE' | translate"
+                [legend]="true"
+                [showXAxisLabel]="true"
+                [showYAxisLabel]="true"
+                [xAxis]="true"
+                [yAxis]="true"
+                [gradient]="false">
+            </ngx-charts-bar-vertical-2d>
+        </div>
+    </div>
     <p class="titulo-relatorio" *ngIf="faixaEtariaValores.length > 0">
         {{'RELATORIOCHECKIN.FAIXAETARIA' | translate}}
     </p>

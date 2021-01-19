@@ -55,7 +55,12 @@ describe('RelatoriosExportComponent', () => {
         }},
         {provide: RelatorioVendaService, useValue: {
           ingressosFesta: () => of({ingressos: {test: 1}}),
-          ingressosFestaCompradosPagos: () => of({ingressosCompradosPagos: {loteteste: {1 : 2}}})
+          ingressosFestaCompradosPagos: () => of({ingressosCompradosPagos: {loteteste: {1 : 2}}}),
+          lucroFesta: () => of({
+            nomeFesta: 'teste',
+            infoLucroEsperado: {lucroLote: {}, lucroTotal: 1},
+            infoLucroReal: {lucroLote: {}, lucroTotal: 1}
+          })
         }},
         {provide: RelatorioAreaSegService, useValue: {
           problemasArea: () => of({problemasArea: {}, chamadasEmitidasFuncionario: [], solucionadorAlertasSeguranca: []}),
@@ -265,5 +270,14 @@ describe('RelatoriosExportComponent', () => {
   it('should openDialogExport', () => {
     component.openDialogExport('teste');
     expect(dialogSpy.open).toHaveBeenCalled();
+  });
+
+  it('should get getRelatorioLucro', () => {
+    spyOn(component.relatorioVendaService, 'lucroFesta')
+    .and
+    .callThrough();
+
+    component.getRelatorioLucro();
+    expect(component.relatorioVendaService.lucroFesta).toHaveBeenCalled();
   });
 });

@@ -19,7 +19,7 @@ export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
 }
 
-fdescribe('RelatoriosVendaComponent', () => {
+describe('RelatoriosVendaComponent', () => {
   let component: RelatoriosVendaComponent;
   let fixture: ComponentFixture<RelatoriosVendaComponent>;
 
@@ -43,9 +43,13 @@ fdescribe('RelatoriosVendaComponent', () => {
       ],
       providers: [
         {provide: RelatorioVendaService, useValue: {
-          ingressosFesta: () => of({ingressos: {test: 1}}),
-          ingressosFestaCompradosPagos: () => of({ingressosCompradosPagos: {loteteste: {1 : 2}}}),
-          lucroFesta: () => of({infoLucroEsperado: {lucroLote: {1 : 2}, lucroTotal: 1}, infoLucroReal: {lucroLote: {1 : 2}, lucroTotal: 1}})
+          ingressosFesta: () => of({ingressos: {}}),
+          ingressosFestaCompradosPagos: () => of({ingressosCompradosPagos: {loteteste: {}}}),
+          lucroFesta: () => of({
+            nomeFesta: 'teste',
+            infoLucroEsperado: {lucroLote: {}, lucroTotal: 1},
+            infoLucroReal: {lucroLote: {}, lucroTotal: 1}
+          })
         }},
       ]
     })

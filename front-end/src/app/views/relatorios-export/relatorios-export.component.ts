@@ -36,6 +36,8 @@ export class RelatoriosExportComponent implements OnInit {
   ingressosDataSet = [];
   ingressosPagosDataSet = [];
   ingressosCompradosEntradasValores = [];
+  lucroLotesDataSet = [];
+  lucroFestaDataSet = [];
   faixaEtariaValores = [];
   generosValores = [];
   quantidadeEntradasHoraValores = [];
@@ -63,6 +65,7 @@ export class RelatoriosExportComponent implements OnInit {
     this.usuariosPorEmissao(this.codFesta);
     this.getRelatorioIngressos();
     this.getRelatorioIngressosPagos();
+    this.getRelatorioLucro();
     this.faixaEtaria();
     this.generos();
     this.ingressosFestaCheckedUnchecked();
@@ -81,7 +84,7 @@ export class RelatoriosExportComponent implements OnInit {
       const dataSetTemp = [];
       for (const faixaEtaria of Object.keys(resp.quantitadeFaixaEtaria)) {
         dataSetTemp.push({
-          name: faixaEtaria,
+          name: faixaEtaria === '0' ? this.translateService.instant('PERFIL.NOTINFORMED') : faixaEtaria,
           value: resp.quantitadeFaixaEtaria[faixaEtaria]
         });
       }
@@ -94,7 +97,7 @@ export class RelatoriosExportComponent implements OnInit {
       const dataSetTemp = [];
       for (const genero of Object.keys(resp.quantidadeGenero)) {
         dataSetTemp.push({
-          name: genero,
+          name: genero === 'NF' ? this.translateService.instant('PERFIL.NOTINFORMED') : genero,
           value: resp.quantidadeGenero[genero]
         });
       }
@@ -142,7 +145,6 @@ export class RelatoriosExportComponent implements OnInit {
         series: seriesTemp
       }];
       this.quantidadeEntradasHoraValores = dataSetTemp;
-      console.log(this.quantidadeEntradasHoraValores);
     });
   }
 
@@ -400,6 +402,44 @@ export class RelatoriosExportComponent implements OnInit {
     });
   }
 
+  getRelatorioLucro() {
+    this.relatorioVendaService.lucroFesta(this.codFesta).subscribe((resp: any) => {
+      let dataSetTemp = [];
+      for (const lucroLote of Object.keys(resp.infoLucroEsperado.lucroLote)) {
+        const serieTemp = [];
+        serieTemp.push(
+          {
+            name: this.translateService.instant('RELATORIOVENDA.LUCROESP'),
+            value: parseFloat(resp.infoLucroEsperado.lucroLote[lucroLote])
+          },
+          {
+            name: this.translateService.instant('RELATORIOVENDA.LUCROREAL'),
+            value: parseFloat(resp.infoLucroReal.lucroLote[lucroLote])
+          }
+        );
+        dataSetTemp.push({
+          name: lucroLote,
+          series: serieTemp
+        });
+      }
+      this.lucroLotesDataSet = dataSetTemp;
+      dataSetTemp = [{
+        name: resp.nomeFesta,
+        series: [
+          {
+            name: this.translateService.instant('RELATORIOVENDA.LUCROESP'),
+            value: parseFloat(resp.infoLucroEsperado.lucroTotal)
+          },
+          {
+            name: this.translateService.instant('RELATORIOVENDA.LUCROREAL'),
+            value: parseFloat(resp.infoLucroReal.lucroTotal)
+          }
+        ]
+      }];
+      this.lucroFestaDataSet = dataSetTemp;
+    });
+  }
+
   gerarPDFRelatorios() {
     this.openDialogProcessing();
     const pdf = new PdfMakeWrapper();
@@ -585,6 +625,22 @@ export class RelatoriosExportComponent implements OnInit {
         .alignment('center')
         .style('tituloRelatorio').end);
       const element = document.getElementById('checkedUnchecked');
+      const url = await html2canvas(element);
+      pdf.add(await new Img(url.toDataURL('image/png')).width('515').style('imagem').build());
+    }
+    if (this.lucroLotesDataSet.length > 0) {
+      pdf.add(new Txt(this.translateService.instant('RELATORIOVENDA.LUCROLOTE'))
+        .alignment('center')
+        .style('tituloRelatorio').end);
+      const element = document.getElementById('lucroLotes');
+      const url = await html2canvas(element);
+      pdf.add(await new Img(url.toDataURL('image/png')).width('515').style('imagem').build());
+    }
+    if (this.lucroFestaDataSet.length > 0) {
+      pdf.add(new Txt(this.translateService.instant('RELATORIOVENDA.LUCROFESTA'))
+        .alignment('center')
+        .style('tituloRelatorio').end);
+      const element = document.getElementById('lucroFesta');
       const url = await html2canvas(element);
       pdf.add(await new Img(url.toDataURL('image/png')).width('515').style('imagem').build());
     }

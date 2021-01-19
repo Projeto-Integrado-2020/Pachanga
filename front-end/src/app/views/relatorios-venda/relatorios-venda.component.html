@@ -7,7 +7,6 @@
         </mat-expansion-panel-header>
         <div *ngIf="ingressosDataSet.length > 0">
             <ngx-charts-bar-vertical 
-            [view]="[1000,400]"
             [scheme]="colorScheme"
             [results]="ingressosDataSet"
             [xAxisLabel]="'RELATORIOVENDA.LOTE' | translate"
@@ -33,7 +32,6 @@
         </mat-expansion-panel-header>
         <div *ngIf="ingressosPagosDataSet.length > 0">
             <ngx-charts-bar-vertical-2d 
-            [view]="[1000,400]"
             [scheme]="colorScheme"
             [results]="ingressosPagosDataSet"
             [xAxisLabel]="'RELATORIOVENDA.LOTE' | translate"
