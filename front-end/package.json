@@ -63,6 +63,7 @@
     "path": "^0.12.7",
     "pdfmake": "^0.1.68",
     "pdfmake-wrapper": "^2.0.0",
+    "permissions-policy": "^0.3.0",
     "referrer-policy": "^1.2.0",
     "rxjs": "~6.4.0",
     "strict-transport-security": "^0.2.2",

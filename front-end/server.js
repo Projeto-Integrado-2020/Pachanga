@@ -6,6 +6,7 @@ const csp = require('content-security-policy');
 const helmet = require('helmet');
 const featurePolicy = require('feature-policy');
 const referrerPolicy = require('referrer-policy');
+const permissionsPolicy = require('permissions-policy')
 const app = express();
 
 const cspPolicy = {
@@ -46,6 +47,15 @@ app.use(featurePolicy({
     fullscreen: ["'self'"],
     payment: ['https://pachanga.herokuapp.com/'],
     syncXhr: ["'none'"]
+  }
+}));
+
+app.use(permissionsPolicy({
+  features: {
+    fullscreen: ['self'],
+    vibrate: ['none'],
+    payment: ['https://pachanga.herokuapp.com/'],
+    syncXhr: ['none']
   }
 }));
 
