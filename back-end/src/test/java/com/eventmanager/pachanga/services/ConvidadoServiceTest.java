@@ -12,6 +12,7 @@ import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
+import org.mockito.MockedStatic;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -52,10 +53,7 @@ class ConvidadoServiceTest {
 
 	@Autowired
 	private ConvidadoService convidadoService;
-
-	@MockBean
-	private EmailMensagem emailMensagem;
-
+	
 	@MockBean
 	private NotificacaoService notificacaoService;
 	
@@ -139,32 +137,41 @@ class ConvidadoServiceTest {
 	void addUserFestaTest() {
 		List<String> emails = new ArrayList<String>(); 
 		emails.add("guga.72@hotmail.com");
-
-		Mockito.when(usuarioRepository.findById(Mockito.anyInt())).thenReturn(criacaoUsuario());
-		Mockito.when(festaRepository.findById(Mockito.anyInt())).thenReturn(criacaoFesta());
-		Mockito.when(grupoRepository.findById(Mockito.anyInt())).thenReturn(criacaoGrupo());
-		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(criacaoGrupos());
-		Mockito.when(usuarioRepository.findByEmail("guga.72@hotmail.com")).thenReturn(criacaoUsuario());
-
-		StringBuilder retorno = convidadoService.addUsuariosFesta(emails, 14, 1, 13);
-
-		assertEquals(20, retorno.length());
+		try (MockedStatic<EmailMensagem> mockEnvioConvite = Mockito
+				.mockStatic(EmailMensagem.class)) {
+			
+			Mockito.when(usuarioRepository.findById(Mockito.anyInt())).thenReturn(criacaoUsuario());
+			Mockito.when(festaRepository.findById(Mockito.anyInt())).thenReturn(criacaoFesta());
+			Mockito.when(grupoRepository.findById(Mockito.anyInt())).thenReturn(criacaoGrupo());
+			Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(criacaoGrupos());
+			Mockito.when(usuarioRepository.findByEmail("guga.72@hotmail.com")).thenReturn(criacaoUsuario());
+			
+			StringBuilder retorno = convidadoService.addUsuariosFesta(emails, 14, 1, 13);
+			
+			assertEquals(20, retorno.length());
+			
+		}
 	}
 
 	@Test
 	void addUserFestaEmailTest() {
 		List<String> emails = new ArrayList<String>(); 
 		emails.add("guga.72@hotmail.com");
+		
+		try (MockedStatic<EmailMensagem> mockEnvioConvite = Mockito
+				.mockStatic(EmailMensagem.class)) {
+			
+			Mockito.when(usuarioRepository.findById(Mockito.anyInt())).thenReturn(criacaoUsuario());
+			Mockito.when(festaRepository.findById(Mockito.anyInt())).thenReturn(criacaoFesta());
+			Mockito.when(grupoRepository.findById(Mockito.anyInt())).thenReturn(criacaoGrupo());
+			Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(criacaoGrupos());
+			Mockito.when(usuarioRepository.findByEmail("guga.72@hotmail.com")).thenReturn(null);
+			
+			StringBuilder retorno = convidadoService.addUsuariosFesta(emails, 14, 1, 13);
+			
+			assertEquals("guga.72@hotmail.com ", retorno.toString());
+		}
 
-		Mockito.when(usuarioRepository.findById(Mockito.anyInt())).thenReturn(criacaoUsuario());
-		Mockito.when(festaRepository.findById(Mockito.anyInt())).thenReturn(criacaoFesta());
-		Mockito.when(grupoRepository.findById(Mockito.anyInt())).thenReturn(criacaoGrupo());
-		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(criacaoGrupos());
-		Mockito.when(usuarioRepository.findByEmail("guga.72@hotmail.com")).thenReturn(null);
-
-		StringBuilder retorno = convidadoService.addUsuariosFesta(emails, 14, 1, 13);
-
-		assertEquals("guga.72@hotmail.com ", retorno.toString());
 	}
 
 	@Test
@@ -174,25 +181,30 @@ class ConvidadoServiceTest {
 
 		Grupo grupo = criacaoGrupo();
 		grupo.setOrganizador(true);
-
-		Mockito.when(usuarioRepository.findById(Mockito.anyInt())).thenReturn(criacaoUsuario());
-		Mockito.when(festaRepository.findById(Mockito.anyInt())).thenReturn(criacaoFesta());
-		Mockito.when(grupoRepository.findById(Mockito.anyInt())).thenReturn(grupo);
-		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(criacaoGrupos());
-		Mockito.when(usuarioRepository.findByEmail("guga.72@hotmail.com")).thenReturn(null);
-
-		boolean erro = false;
-		String msgErro = "";
-		try {	
-			convidadoService.addUsuariosFesta(emails, 14, 1, 13);
-		} catch (ValidacaoException e) {
-			erro = true;
-			msgErro = e.getMessage();
-
+		
+		try (MockedStatic<EmailMensagem> mockEnvioConvite = Mockito
+				.mockStatic(EmailMensagem.class)) {
+			
+			Mockito.when(usuarioRepository.findById(Mockito.anyInt())).thenReturn(criacaoUsuario());
+			Mockito.when(festaRepository.findById(Mockito.anyInt())).thenReturn(criacaoFesta());
+			Mockito.when(grupoRepository.findById(Mockito.anyInt())).thenReturn(grupo);
+			Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(criacaoGrupos());
+			Mockito.when(usuarioRepository.findByEmail("guga.72@hotmail.com")).thenReturn(null);
+			
+			boolean erro = false;
+			String msgErro = "";
+			try {	
+				convidadoService.addUsuariosFesta(emails, 14, 1, 13);
+			} catch (ValidacaoException e) {
+				erro = true;
+				msgErro = e.getMessage();
+				
+			}
+			
+			assertEquals(true, erro);
+			assertEquals("GRUPORGN", msgErro);
 		}
 
-		assertEquals(true, erro);
-		assertEquals("GRUPORGN", msgErro);
 	}
 	
 	@Test
@@ -202,50 +214,61 @@ class ConvidadoServiceTest {
 
 		Festa festa = criacaoFesta();
 		festa.setStatusFesta(TipoStatusFesta.INICIADO.getValor());
-
-		Mockito.when(usuarioRepository.findById(Mockito.anyInt())).thenReturn(criacaoUsuario());
-		Mockito.when(festaRepository.findById(Mockito.anyInt())).thenReturn(festa);
-		Mockito.when(grupoRepository.findById(Mockito.anyInt())).thenReturn(criacaoGrupo());
-		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(criacaoGrupos());
-		Mockito.when(usuarioRepository.findByEmail("guga.72@hotmail.com")).thenReturn(null);
-
-		boolean erro = false;
-		String msgErro = "";
-		try {	
-			convidadoService.addUsuariosFesta(emails, 14, 1, 13);
-		} catch (ValidacaoException e) {
-			erro = true;
-			msgErro = e.getMessage();
-
+		
+		try (MockedStatic<EmailMensagem> mockEnvioConvite = Mockito
+				.mockStatic(EmailMensagem.class)) {
+			
+			Mockito.when(usuarioRepository.findById(Mockito.anyInt())).thenReturn(criacaoUsuario());
+			Mockito.when(festaRepository.findById(Mockito.anyInt())).thenReturn(festa);
+			Mockito.when(grupoRepository.findById(Mockito.anyInt())).thenReturn(criacaoGrupo());
+			Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(criacaoGrupos());
+			Mockito.when(usuarioRepository.findByEmail("guga.72@hotmail.com")).thenReturn(null);
+			
+			boolean erro = false;
+			String msgErro = "";
+			try {	
+				convidadoService.addUsuariosFesta(emails, 14, 1, 13);
+			} catch (ValidacaoException e) {
+				erro = true;
+				msgErro = e.getMessage();
+				
+			}
+			
+			assertEquals(true, erro);
+			assertEquals("FESTNPRE", msgErro);
 		}
 
-		assertEquals(true, erro);
-		assertEquals("FESTNPRE", msgErro);
 	}
 
 	@Test
 	void addUserFestaEmailGrupoNulloTest() { // para quando o id do grupo passado retorna null
 		List<String> emails = new ArrayList<String>(); 
 		emails.add("guga.72@hotmail.com");
-
-		Mockito.when(usuarioRepository.findById(Mockito.anyInt())).thenReturn(criacaoUsuario());
-		Mockito.when(festaRepository.findById(Mockito.anyInt())).thenReturn(criacaoFesta());
-		Mockito.when(grupoRepository.findById(Mockito.anyInt())).thenReturn(null);
-		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(criacaoGrupos());
-		Mockito.when(usuarioRepository.findByEmail("guga.72@hotmail.com")).thenReturn(null);
-
-		boolean erro = false;
-		String msgErro = "";
-		try {			
-			convidadoService.addUsuariosFesta(emails, 14, 1, 13);
-		} catch (ValidacaoException e) {
-			erro = true;
-			msgErro = e.getMessage();
-
+		
+		try (MockedStatic<EmailMensagem> mockEnvioConvite = Mockito
+				.mockStatic(EmailMensagem.class)) {
+			
+			Mockito.when(usuarioRepository.findById(Mockito.anyInt())).thenReturn(criacaoUsuario());
+			Mockito.when(festaRepository.findById(Mockito.anyInt())).thenReturn(criacaoFesta());
+			Mockito.when(grupoRepository.findById(Mockito.anyInt())).thenReturn(null);
+			Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(criacaoGrupos());
+			Mockito.when(usuarioRepository.findByEmail("guga.72@hotmail.com")).thenReturn(null);
+			
+			boolean erro = false;
+			String msgErro = "";
+			try {			
+				convidadoService.addUsuariosFesta(emails, 14, 1, 13);
+			} catch (ValidacaoException e) {
+				erro = true;
+				msgErro = e.getMessage();
+				
+			}
+			
+			assertEquals(true, erro);
+			assertEquals("GRUPNFOU", msgErro);
+			
 		}
 
-		assertEquals(true, erro);
-		assertEquals("GRUPNFOU", msgErro);
 	}
 
 	@Test
@@ -254,72 +277,90 @@ class ConvidadoServiceTest {
 		emails.add("guga.72@hotmail.com");
 		
 		List<Grupo> grupos = new ArrayList<>();
-
-		Mockito.when(usuarioRepository.findById(Mockito.anyInt())).thenReturn(criacaoUsuario());
-		Mockito.when(festaRepository.findById(Mockito.anyInt())).thenReturn(criacaoFesta());
-		Mockito.when(grupoRepository.findById(Mockito.anyInt())).thenReturn(criacaoGrupo());
-		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(grupos);
-		Mockito.when(usuarioRepository.findByEmail("guga.72@hotmail.com")).thenReturn(null);
-
-		boolean erro = false;
-		String msgErro = "";
-		try {			
-			convidadoService.addUsuariosFesta(emails, 14, 1, 13);
-		} catch (ValidacaoException e) {
-			erro = true;
-			msgErro = e.getMessage();
+		
+		try (MockedStatic<EmailMensagem> mockEnvioConvite = Mockito
+				.mockStatic(EmailMensagem.class)) {
+			
+			Mockito.when(usuarioRepository.findById(Mockito.anyInt())).thenReturn(criacaoUsuario());
+			Mockito.when(festaRepository.findById(Mockito.anyInt())).thenReturn(criacaoFesta());
+			Mockito.when(grupoRepository.findById(Mockito.anyInt())).thenReturn(criacaoGrupo());
+			Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(grupos);
+			Mockito.when(usuarioRepository.findByEmail("guga.72@hotmail.com")).thenReturn(null);
+			
+			boolean erro = false;
+			String msgErro = "";
+			try {			
+				convidadoService.addUsuariosFesta(emails, 14, 1, 13);
+			} catch (ValidacaoException e) {
+				erro = true;
+				msgErro = e.getMessage();
+			}
+			
+			assertEquals(true, erro);
+			assertEquals("USESPERM", msgErro);
+			
 		}
 
-		assertEquals(true, erro);
-		assertEquals("USESPERM", msgErro);
 	}
 
 	@Test
 	void addUserFestaEmailFestaNulloTest() { // para quando a festa não existir
 		List<String> emails = new ArrayList<String>(); 
 		emails.add("guga.72@hotmail.com");
-
-		Mockito.when(usuarioRepository.findById(Mockito.anyInt())).thenReturn(criacaoUsuario());
-		Mockito.when(festaRepository.findById(Mockito.anyInt())).thenReturn(null);
-		Mockito.when(grupoRepository.findById(Mockito.anyInt())).thenReturn(criacaoGrupo());
-		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(criacaoGrupos());
-		Mockito.when(usuarioRepository.findByEmail("guga.72@hotmail.com")).thenReturn(null);
-
-		boolean erro = false;
-		String msgErro = "";
-		try {			
-			convidadoService.addUsuariosFesta(emails, 14, 1, 13);
-		} catch (ValidacaoException e) {
-			erro = true;
-			msgErro = e.getMessage();
+		
+		try (MockedStatic<EmailMensagem> mockEnvioConvite = Mockito
+				.mockStatic(EmailMensagem.class)) {
+			
+			Mockito.when(usuarioRepository.findById(Mockito.anyInt())).thenReturn(criacaoUsuario());
+			Mockito.when(festaRepository.findById(Mockito.anyInt())).thenReturn(null);
+			Mockito.when(grupoRepository.findById(Mockito.anyInt())).thenReturn(criacaoGrupo());
+			Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(criacaoGrupos());
+			Mockito.when(usuarioRepository.findByEmail("guga.72@hotmail.com")).thenReturn(null);
+			
+			boolean erro = false;
+			String msgErro = "";
+			try {			
+				convidadoService.addUsuariosFesta(emails, 14, 1, 13);
+			} catch (ValidacaoException e) {
+				erro = true;
+				msgErro = e.getMessage();
+			}
+			
+			assertEquals(true, erro);
+			assertEquals("FESTNFOU", msgErro);
+			
 		}
 
-		assertEquals(true, erro);
-		assertEquals("FESTNFOU", msgErro);
 	}
 
 	@Test
 	void addUserFestaEmailUsuarioNulloTest() { // para quando o usuário não existir no banco de dados
 		List<String> emails = new ArrayList<String>(); 
 		emails.add("guga.72@hotmail.com");
-
-		Mockito.when(usuarioRepository.findById(Mockito.anyInt())).thenReturn(null);
-		Mockito.when(festaRepository.findById(Mockito.anyInt())).thenReturn(criacaoFesta());
-		Mockito.when(grupoRepository.findById(Mockito.anyInt())).thenReturn(criacaoGrupo());
-		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(criacaoGrupos());
-		Mockito.when(usuarioRepository.findByEmail("guga.72@hotmail.com")).thenReturn(null);
-
-		boolean erro = false;
-		String msgErro = "";
-		try {			
-			convidadoService.addUsuariosFesta(emails, 14, 1, 13);
-		} catch (ValidacaoException e) {
-			erro = true;
-			msgErro = e.getMessage();
+		
+		try (MockedStatic<EmailMensagem> mockEnvioConvite = Mockito
+				.mockStatic(EmailMensagem.class)) {
+			
+			Mockito.when(usuarioRepository.findById(Mockito.anyInt())).thenReturn(null);
+			Mockito.when(festaRepository.findById(Mockito.anyInt())).thenReturn(criacaoFesta());
+			Mockito.when(grupoRepository.findById(Mockito.anyInt())).thenReturn(criacaoGrupo());
+			Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(criacaoGrupos());
+			Mockito.when(usuarioRepository.findByEmail("guga.72@hotmail.com")).thenReturn(null);
+			
+			boolean erro = false;
+			String msgErro = "";
+			try {			
+				convidadoService.addUsuariosFesta(emails, 14, 1, 13);
+			} catch (ValidacaoException e) {
+				erro = true;
+				msgErro = e.getMessage();
+			}
+			
+			assertEquals(true, erro);
+			assertEquals("USERNFOU", msgErro);
+			
 		}
 
-		assertEquals(true, erro);
-		assertEquals("USERNFOU", msgErro);
 	}
 	
 	@Test
