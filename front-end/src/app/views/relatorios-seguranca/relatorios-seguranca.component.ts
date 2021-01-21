@@ -98,4 +98,8 @@ export class RelatoriosSegurancaComponent implements OnInit {
       this.emissoesChamadas = dataset;
     });
   }
+
+  onSelect(event) {
+    console.log(event);
+  }
 }
