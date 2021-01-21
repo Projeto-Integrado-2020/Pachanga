@@ -1,0 +1,71 @@
+<div class="minha-conta">
+    <h1 class="mat-title title">{{'PERFIL.MYACC' | translate}}</h1>
+</div>
+
+<div class="">
+    <form [formGroup]="form" class="form_edit">
+    <p>
+        <mat-form-field class="example-full-width">
+        <mat-label>{{'PERFIL.PRONOME' | translate}}</mat-label>
+        <input formControlName="pronome" *ngIf="!loginService.usuarioInfo.pronome || loginService.usuarioInfo.pronome == 'N'" required matInput value="{{'PERFIL.NOTINFORMED' | translate}}">
+        <input formControlName="pronome" *ngIf="loginService.usuarioInfo.pronome && loginService.usuarioInfo.pronome != 'N'" autocapitalize="word" required matInput value="{{ loginService.usuarioInfo.pronome.charAt(0).toUpperCase() + loginService.usuarioInfo.pronome.slice(1).toLowerCase() }}">
+        </mat-form-field>
+        <button (click)="openDialogEdit('pronome')" class="edit-button">
+            <mat-icon>edit</mat-icon>
+        </button>
+    </p>
+
+    <p>
+        <mat-form-field class="example-full-width">
+        <mat-label>{{'PERFIL.NAME' | translate}}</mat-label>
+        <input formControlName="nome" required matInput value="{{ loginService.usuarioInfo.nomeUser }}">
+        </mat-form-field>
+        <button (click)="openDialogEdit('nome')" class="edit-button">
+            <mat-icon>edit</mat-icon>
+        </button>
+    </p>
+
+    <p *ngIf="loginService.usuarioInfo.tipConta == 'P'">
+        <mat-form-field class="example-full-width">
+        <mat-label>{{'PERFIL.EMAIL' | translate}}</mat-label>
+        <input formControlName="email" required matInput value="{{ loginService.usuarioInfo.email }}">
+        </mat-form-field>
+        <button (click)="openDialogEdit('email')" class="edit-button">
+            <mat-icon>edit</mat-icon>
+        </button>
+    </p>
+
+    <p>
+        <mat-form-field class="example-full-width">
+        <mat-label>{{'PERFIL.BIRTHDAY' | translate}}</mat-label>
+        <input formControlName="dtNasc" *ngIf="!loginService.usuarioInfo.dtNasc" required matInput value="{{'PERFIL.NOTINFORMED' | translate}}">
+        <input formControlName="dtNasc" *ngIf="loginService.usuarioInfo.dtNasc" required matInput value="{{ loginService.usuarioInfo.dtNasc.slice(8, 10) + '/' + loginService.usuarioInfo.dtNasc.slice(5, 7) + '/' + loginService.usuarioInfo.dtNasc.slice(0, 4)}}">
+        </mat-form-field>
+        <button (click)="openDialogEdit('dtNasc')" class="edit-button">
+            <mat-icon>edit</mat-icon>
+        </button>
+    </p>
+
+    <p>
+        <mat-form-field class="example-full-width">
+        <mat-label>{{'PERFIL.GENERO' | translate}}</mat-label>
+        <input formControlName="sexo" *ngIf="!loginService.usuarioInfo.genero || loginService.usuarioInfo.genero == 'N'" required matInput value="{{'PERFIL.NOTINFORMED' | translate}}">
+        <input formControlName="sexo" *ngIf="loginService.usuarioInfo.genero && loginService.usuarioInfo.genero != 'N'" autocapitalize="word" required matInput value="{{ loginService.usuarioInfo.genero.charAt(0).toUpperCase() + loginService.usuarioInfo.genero.slice(1).toLowerCase() }}">
+        </mat-form-field>
+        <button (click)="openDialogEdit('sexo')" class="edit-button">
+            <mat-icon>edit</mat-icon>
+        </button>
+    </p>
+
+    <p *ngIf="loginService.usuarioInfo.tipConta == 'P'">
+        <mat-form-field class="example-full-width">
+        <mat-label>{{'PERFIL.PASSWORD' | translate}}</mat-label>
+        <input formControlName="senha" required matInput value="********">
+        </mat-form-field>
+        <button (click)="openDialogEdit('senha')" class="edit-button">
+            <mat-icon>edit</mat-icon>
+        </button>
+    </p>
+
+    </form>
+</div>

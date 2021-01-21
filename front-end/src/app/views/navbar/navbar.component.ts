@@ -7,6 +7,7 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable, interval, Subscription } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { LoginService } from 'src/app/services/loginService/login.service';
+import { PerfilDialogComponent } from '../perfil-dialog/perfil-dialog.component';
 
 export interface ConviteData {
   mensagem: string;
@@ -60,6 +61,12 @@ export class NavbarComponent implements OnInit {
   openDialogLogin(): void {
     this.dialog.open(LoginComponent, {
       width: '20rem',
+    });
+  }
+// acessar infoemações de perfil
+  openDialogPerfil(): void {
+    this.dialog.open(PerfilDialogComponent, {
+      width: '25rem',
     });
   }
  // método para abrir modal de cadastro

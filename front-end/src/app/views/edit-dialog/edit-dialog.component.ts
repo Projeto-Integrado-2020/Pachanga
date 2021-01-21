@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialog } from '@angular/material';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material';
 import { LoginService } from '../../services/loginService/login.service';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { MustMatch } from '../utils/matchPassword';
@@ -38,7 +38,7 @@ export class EditDialogComponent implements OnInit {
 
   constructor(@Inject(MAT_DIALOG_DATA) data, public loginService: LoginService,
               public formBuilder: FormBuilder, public editService: EditAccountService,
-              public modal: MatDialog, public translate: TranslateService) {
+              public modal: MatDialog, public translate: TranslateService, public dialog: MatDialogRef<EditDialogComponent>) {
     this.campo = data.campo;
   }
 
@@ -149,7 +149,7 @@ export class EditDialogComponent implements OnInit {
     this.editService.atualizar(this.modJson, this.loginService.usuarioInfo).subscribe(resp => {
       this.loginService.setusuarioInfo(resp);
       this.editService.setFarol(false);
-      this.modal.closeAll();
+      this.dialog.close();
       this.openDialogSuccess('ALTERSUC');
     });
   }

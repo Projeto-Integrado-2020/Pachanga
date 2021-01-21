@@ -5,9 +5,8 @@
                 <mat-card-title class="title">{{festaNome}}</mat-card-title>
             </mat-card-header>
             <mat-card-content class="card-content">
-                <div class="img">
-                    <img src="{{urlImagem}}">
-                </div>
+                <img *ngIf="urlImagem" class="img1" src="{{urlImagem}}">
+                <img *ngIf="!urlImagem" class="img1" src="https://res.cloudinary.com/htctb0zmi/image/upload/v1611182093/pachanga-logo.png">
             </mat-card-content>
         </mat-card>
     </div>

@@ -49,9 +49,9 @@ html {
 }
 
 .card-content {
-  padding: 0 0 0 0;
+  padding: 0 0 1rem 0;
   overflow: hidden;
-  word-wrap: break-word
+  word-wrap: break-word;
 }
 
 .textos {
@@ -72,6 +72,12 @@ html {
   height: 20rem;
   background-size: cover;
   overflow: hidden;
+}
+
+.img1 {
+  object-fit: fill;
+  height: 20rem;
+  width: 100%;
 }
 
 .card-content-inf {
