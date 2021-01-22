@@ -16,7 +16,7 @@ export class PerfilDialogComponent implements OnInit {
   public form: FormGroup;
 
   constructor(public loginService: LoginService, public formBuilder: FormBuilder,
-    public edit: MatDialog) {
+              public edit: MatDialog) {
   }
 
   get f() { return this.form.controls; }

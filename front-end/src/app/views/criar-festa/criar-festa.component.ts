@@ -18,7 +18,7 @@ export class CriarFestaComponent implements OnInit {
   public form: FormGroup;
   minDate = new Date();
   categorias = [];
-  urlNoImage = 'https://res.cloudinary.com/htctb0zmi/image/upload/v1611182093/pachanga-logo.png';
+  urlNoImage = 'https://res.cloudinary.com/htctb0zmi/image/upload/v1611352783/pachanga-logo_tikwrw.png';
   imagem = this.urlNoImage;
 
   constructor(
