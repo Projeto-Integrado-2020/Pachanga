@@ -2,8 +2,6 @@ package com.eventmanager.pachanga.controllers;
 
 import static org.junit.Assert.assertEquals;
 
-import java.io.IOException;
-
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
@@ -20,6 +18,7 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import com.eventmanager.pachanga.errors.ValidacaoException;
 import com.eventmanager.pachanga.securingweb.JwtAuthenticationEntryPoint;
 import com.eventmanager.pachanga.securingweb.JwtTokenUtil;
 import com.eventmanager.pachanga.securingweb.JwtUserDetailsService;
@@ -69,7 +68,7 @@ class ArquivosBancoControllerTest {
 		
 		String expected = "teste";
 
-		Mockito.doThrow(new IOException(expected)).when(arquivosBancoService).criacaoRemessa();
+		Mockito.doThrow(new ValidacaoException(expected)).when(arquivosBancoService).criacaoRemessa();
 
 		RequestBuilder requestBuilder = MockMvcRequestBuilders.get(uri).accept(MediaType.APPLICATION_JSON)
 				.contentType(MediaType.APPLICATION_JSON);

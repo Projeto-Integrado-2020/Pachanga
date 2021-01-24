@@ -1,5 +1,7 @@
 package com.eventmanager.pachanga.controllers;
 
+import java.io.IOException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -21,13 +23,9 @@ public class ArquivosBancoController {
 
 	@ResponseBody
 	@GetMapping(path = "/cria")
-	public ResponseEntity<Object> criaArquivoBanco() {
+	public ResponseEntity<Object> criaArquivoBanco() throws IOException {
 		try {
-			try {
 				arquivosBancoService.criacaoRemessa();
-			} catch (Exception e) {
-				throw new ValidacaoException(e.getMessage());
-			}
 			return ResponseEntity.ok().build();
 		} catch (ValidacaoException e) {
 			return ResponseEntity.badRequest().body(e.getMessage());

@@ -10,6 +10,9 @@ import java.util.stream.IntStream;
 import com.eventmanager.pachanga.domains.DadoBancario;
 
 public class GeracaoArquivoRemessa {
+	
+	private GeracaoArquivoRemessa() {
+	}
 
 	private static final String CODIGO_BANCO = "341";
 	private static final String NUMERO_INSCRICAO = "12345678901234";
@@ -25,6 +28,8 @@ public class GeracaoArquivoRemessa {
 	private static final String SUSEP_CEP = "123";
 	private static final String CIDADE = "SAO PAULO      ";
 	private static final String UF = "SP";
+	
+	private static final String VALOR_ZERADO = "000000000,00";
 
 	public static String criacaoHeaderLote() {
 		return criacaoHeaderArquivo();
@@ -118,9 +123,9 @@ public class GeracaoArquivoRemessa {
 		segmentoP.append("0000000000000,00");// código 13
 		segmentoP.append(adicionarMesmosCaracteres(1, "0"));
 		segmentoP.append(formatterData.format(dataLimite));
-		segmentoP.append("000000000,00");// código 14
-		segmentoP.append("000000000,00");// código 15
-		segmentoP.append("000000000,00");// código 16
+		segmentoP.append(VALOR_ZERADO);// código 14
+		segmentoP.append(VALOR_ZERADO);// código 15
+		segmentoP.append(VALOR_ZERADO);// código 16
 		segmentoP.append(adicionarMesmosCaracteres(25, "0"));// código 17
 		segmentoP.append("0");// códgio 18
 		segmentoP.append("00");// códgio 18
@@ -160,7 +165,7 @@ public class GeracaoArquivoRemessa {
 	}
 
 	public static String criacaoTrailerLote(int quantidadeTotal, float valorTotal) {
-		DecimalFormat formatter = new DecimalFormat("000000000,00");
+		DecimalFormat formatter = new DecimalFormat(VALOR_ZERADO);
 		
 		StringBuilder trailerLote = new StringBuilder();
 		trailerLote.append(CODIGO_BANCO);

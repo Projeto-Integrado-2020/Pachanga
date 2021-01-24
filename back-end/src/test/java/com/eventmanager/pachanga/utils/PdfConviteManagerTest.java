@@ -3,10 +3,6 @@ package com.eventmanager.pachanga.utils;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.ArrayList;
@@ -33,7 +29,7 @@ import com.eventmanager.pachanga.tipo.TipoStatusIngresso;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(value=PdfConviteManager.class)
-public class PdfConviteManagerTest {
+class PdfConviteManagerTest {
 	
 	@MockBean
 	private AuthorizationServerTokenServices defaultAuthorizationServerTokenServices;
