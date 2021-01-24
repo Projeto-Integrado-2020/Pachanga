@@ -23,7 +23,11 @@ public class ArquivosBancoController {
 	@GetMapping(path = "/cria")
 	public ResponseEntity<Object> criaArquivoBanco() {
 		try {
-			arquivosBancoService.criacaoRemessa();
+			try {
+				arquivosBancoService.criacaoRemessa();
+			} catch (Exception e) {
+				throw new ValidacaoException(e.getMessage());
+			}
 			return ResponseEntity.ok().build();
 		} catch (ValidacaoException e) {
 			return ResponseEntity.badRequest().body(e.getMessage());
