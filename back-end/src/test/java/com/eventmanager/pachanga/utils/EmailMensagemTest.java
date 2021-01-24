@@ -1,5 +1,6 @@
 package com.eventmanager.pachanga.utils;
 
+import java.io.File;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.ArrayList;
@@ -92,12 +93,26 @@ public class EmailMensagemTest {
 	
 	@Test
 	void enviarEmailQRCodeTest() throws Exception {
-//		EmailMensagem.enviarEmailQRCode("teste@email.invalid", festaTest(), listaIngressoTest());
+		EmailMensagem.enviarEmailQRCode("teste@email.invalid", festaTest(), listaIngressoTest());
 	}
 	
 	@Test
 	void enviarEmailTest() throws Exception {
-//		EmailMensagem.enviarEmail("teste@email.invalid", "haha", festaTest());
+		EmailMensagem.enviarEmail("teste@email.invalid", "haha", festaTest());
 
+	}
+	
+	@Test
+	void enviarPDFRelatorioTest() throws Exception {
+		
+		EmailMensagem.enviarEmailQRCode("teste@email.invalid", festaTest(), listaIngressoTest());
+		EmailMensagem emailMensagem = new EmailMensagem();
+		List<String> listaDeEmails = new ArrayList<>();
+		listaDeEmails.add("fernando@email.invalid");
+		//listaDeEmails.add("opedrofreitas@gmail.com");
+		listaDeEmails.add("eduardo@email.invalid");
+		File file = new File("target/Lorem_ipsum.pdf");
+		emailMensagem.enviarPDFRelatorio(listaDeEmails, file);
+		
 	}
 }

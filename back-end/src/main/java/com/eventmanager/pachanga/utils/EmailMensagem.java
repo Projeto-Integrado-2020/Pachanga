@@ -137,5 +137,66 @@ public class EmailMensagem {
 
 
 	}
+	public void enviarPDFRelatorio(List<String> emails, File pdf) {
+		Properties props = new Properties();
+		props.put("mail.smtp.host", "smtp.gmail.com");
+		props.put("mail.smtp.auth", "true");
+		props.put("mail.smtp.port", "587");
+		props.put("mail.smtp.starttls.enable", "true");
+
+		Session session = Session.getInstance(props, new javax.mail.Authenticator() {
+			@Override
+			protected PasswordAuthentication getPasswordAuthentication() {
+				return new PasswordAuthentication("eventmanager72@gmail.com", "11443322");
+			}
+		});
+
+		session.setDebug(true);
+
+		try {
+
+			Message message = new MimeMessage(session);
+			message.setFrom(new InternetAddress("eventmanager72@gmail.com"));
+			// Remetente
+
+			
+			for(String email : emails) {
+				message.addRecipients(Message.RecipientType.CC, InternetAddress.parse(email));
+			}
+			
+			//message.setRecipients(Message.RecipientType.TO, toUser);
+			message.setSubject("Novo convite para festa");// Assunto
+
+			// carrega html
+			MimeBodyPart messageBodyPart = new MimeBodyPart();
+			MimeBodyPart attachmentPart = new MimeBodyPart();
+			MimeMultipart multipart = new MimeMultipart("related");
+			
+			try {
+				attachmentPart = new MimeBodyPart();
+				attachmentPart.attachFile(pdf);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
+			String htmlMessage = "<h1><strong>Segue o PDF do seu relatório"
+					+ "</strong></h1>\r\n" + "\r\n" + "\r\n" + "<p><strong>Equipe Pachanga</strong></p>";
+
+			messageBodyPart.setContent(htmlMessage, "text/html");
+			multipart.addBodyPart(messageBodyPart);
+			multipart.addBodyPart(attachmentPart);
+
+			message.setContent(multipart);
+
+			Transport transport = session.getTransport("smtp");
+			transport.send(message);
+			//pdf.delete();
+
+		} catch (MessagingException e) {
+			throw new ValidacaoException(e.getMessage());
+		}
+
+
+	}
 
 }
