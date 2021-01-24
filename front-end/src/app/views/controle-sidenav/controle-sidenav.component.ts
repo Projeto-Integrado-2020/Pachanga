@@ -28,13 +28,14 @@ import { Component, OnInit } from '@angular/core';
     // botao desktop
     trigger('btn-desktop', [
       state('aberto', style({
-        left: '16rem',
-        transform: 'rotate(180deg)'
+        //right: '-40rem',
+        //transform: 'translateX(-2.8rem)'
+        left: '16rem'
       })),
 
       state('fechado', style({
-        right: '0',
-        transform: 'translateX(3rem)'
+        //right: '-2rem',
+        transform: 'rotate(180deg)'//transform: 'translateX(3rem)'
       })),
 
       transition('aberto => fechado', [
