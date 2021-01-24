@@ -6,16 +6,10 @@ package com.eventmanager.pachanga.pdfbox;
 import java.awt.Color;
 import java.io.File;
 import java.io.IOException;
-//import java.io.InputStream;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.imageio.ImageIO;
-
-//import be.quodlibet.boxable.utils.PageContentStreamOptimized;
-import org.junit.jupiter.api.Test;
-//import org.junit.runner.RunWith;
 
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
@@ -24,16 +18,18 @@ import org.apache.pdfbox.pdmodel.font.PDFont;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import org.apache.pdfbox.pdmodel.interactive.documentnavigation.outline.PDDocumentOutline;
 import org.apache.pdfbox.pdmodel.interactive.documentnavigation.outline.PDOutlineItem;
+//import be.quodlibet.boxable.utils.PageContentStreamOptimized;
+import org.junit.jupiter.api.Test;
+//import org.junit.runner.RunWith;
 
-import com.eventmanager.pachanga.errors.ValidacaoException;
 import com.google.common.io.Files;
 
-public class TableTest {
+class TableTest {
 
-	public static final String imagePath = "src/main/resources/arquivos/png/";	
-	
+	static final String imagePath = "src/main/resources/arquivos/png/";
+
 	@Test
-	public void Sample1() throws IOException {
+	void Sample1() throws IOException {
 
 		// Set margins
 		float margin = 10;
@@ -104,7 +100,7 @@ public class TableTest {
 					if (fact[i].contains("beer"))
 						cell.setFillColor(Color.yellow);
 					if (fact[i].contains("champion"))
-						cell.setTextColor(Color.GREEN); 
+						cell.setTextColor(Color.GREEN);
 				}
 			}
 		}
@@ -119,9 +115,9 @@ public class TableTest {
 		doc.close();
 
 	}
-	
+
 	@Test
-	public void Sample2() throws IOException {
+	void Sample2() throws IOException {
 
 		// Set margins
 		float margin = 10;
@@ -192,23 +188,23 @@ public class TableTest {
 					if (fact[i].contains("beer"))
 						cell.setFillColor(Color.yellow);
 					if (fact[i].contains("champion"))
-						cell.setTextColor(Color.GREEN); 
+						cell.setTextColor(Color.GREEN);
 				}
 			}
 		}
-	
+
 		try {
 			table.draw();
-		} catch(Exception e) {
-			//sucesso
-		}finally {
+		} catch (Exception e) {
+			// sucesso
+		} finally {
 			doc.close();
 			doc.close();
 		}
 	}
-	
+
 	@Test
-	public void Sample3() throws IOException {
+	void Sample3() throws IOException {
 
 		// Set margins
 		float margin = 10;
@@ -227,20 +223,20 @@ public class TableTest {
 		float bottomMargin = 70;
 		BaseTable table = new BaseTable(yStart, yStartNewPage, bottomMargin, tableWidth, margin, doc, page, true,
 				drawContent);
-		
+
 		try {
-		table.setHeader(null);
-		table.getHeader();
-		} catch(Exception e) {
-			//sucesso
-		}finally {
+			table.setHeader(null);
+			table.getHeader();
+		} catch (Exception e) {
+			// sucesso
+		} finally {
 			doc.close();
-		}	
+		}
 
 	}
-	
+
 	@Test
-	public void Sample4() throws IOException {
+	void Sample4() throws IOException {
 
 		// Set margins
 		float margin = 10;
@@ -314,7 +310,7 @@ public class TableTest {
 					if (fact[i].contains("beer"))
 						cell.setFillColor(Color.yellow);
 					if (fact[i].contains("champion"))
-						cell.setTextColor(Color.GREEN); 
+						cell.setTextColor(Color.GREEN);
 				}
 			}
 		}
@@ -329,10 +325,9 @@ public class TableTest {
 		doc.close();
 
 	}
-	
-	
+
 	@Test
-	public void Sample5() throws IOException {
+	void Sample5() throws IOException {
 
 		// Set margins
 		float margin = 10;
@@ -373,9 +368,9 @@ public class TableTest {
 		doc.close();
 
 	}
-	
+
 	@Test
-	public void Sample6() throws IOException {
+	void Sample6() throws IOException {
 
 		// Set margins
 		float margin = 10;
@@ -403,7 +398,7 @@ public class TableTest {
 		cell.setTextColor(Color.WHITE);
 		cell.setValign(VerticalAlignment.MIDDLE);
 		cell.setAlign(HorizontalAlignment.CENTER);
-		
+
 		table.addHeaderRow(headerRow);
 
 		// Create 2 column row
@@ -412,12 +407,12 @@ public class TableTest {
 		cell.setFont(PDType1Font.HELVETICA);
 		cell.setValign(VerticalAlignment.MIDDLE);
 		cell.setAlign(HorizontalAlignment.CENTER);
-		
+
 		cell = row.createCell(70, "http://www.factsofbelgium.com/");
 		cell.setFont(PDType1Font.HELVETICA_OBLIQUE);
 		cell.setValign(VerticalAlignment.MIDDLE);
 		cell.setAlign(HorizontalAlignment.CENTER);
-		
+
 		// Create Fact header row
 		Row<PDPage> factHeaderrow = table.createRow(15f);
 
@@ -443,7 +438,7 @@ public class TableTest {
 			cell.setFontSize(6);
 			cell.setValign(VerticalAlignment.MIDDLE);
 			cell.setAlign(HorizontalAlignment.CENTER);
-			
+
 			for (int i = 1; i < fact.length; i++) {
 				if (fact[i].startsWith("image:")) {
 					File imageFile = new File(imagePath + "150dpi.png");
@@ -461,7 +456,7 @@ public class TableTest {
 					if (fact[i].contains("beer"))
 						cell.setFillColor(Color.yellow);
 					if (fact[i].contains("champion"))
-						cell.setTextColor(Color.GREEN); 
+						cell.setTextColor(Color.GREEN);
 				}
 			}
 		}
@@ -476,9 +471,9 @@ public class TableTest {
 		doc.close();
 
 	}
-	
+
 	@Test
-	public void Sample7() throws IOException {
+	void Sample7() throws IOException {
 
 		// Set margins
 		float margin = 10;
@@ -506,7 +501,7 @@ public class TableTest {
 		cell.setTextColor(Color.WHITE);
 		cell.setValign(VerticalAlignment.BOTTOM);
 		cell.setAlign(HorizontalAlignment.RIGHT);
-		
+
 		table.addHeaderRow(headerRow);
 
 		// Create 2 column row
@@ -515,12 +510,12 @@ public class TableTest {
 		cell.setFont(PDType1Font.HELVETICA);
 		cell.setValign(VerticalAlignment.BOTTOM);
 		cell.setAlign(HorizontalAlignment.RIGHT);
-		
+
 		cell = row.createCell(70, "http://www.factsofbelgium.com/");
 		cell.setFont(PDType1Font.HELVETICA_OBLIQUE);
 		cell.setValign(VerticalAlignment.BOTTOM);
 		cell.setAlign(HorizontalAlignment.RIGHT);
-		
+
 		// Create Fact header row
 		Row<PDPage> factHeaderrow = table.createRow(15f);
 
@@ -546,7 +541,7 @@ public class TableTest {
 			cell.setFontSize(6);
 			cell.setValign(VerticalAlignment.BOTTOM);
 			cell.setAlign(HorizontalAlignment.RIGHT);
-			
+
 			for (int i = 1; i < fact.length; i++) {
 				if (fact[i].startsWith("image:")) {
 					File imageFile = new File(imagePath + "150dpi.png");
@@ -564,7 +559,7 @@ public class TableTest {
 					if (fact[i].contains("beer"))
 						cell.setFillColor(Color.yellow);
 					if (fact[i].contains("champion"))
-						cell.setTextColor(Color.GREEN); 
+						cell.setTextColor(Color.GREEN);
 				}
 			}
 		}
@@ -581,7 +576,7 @@ public class TableTest {
 	}
 
 	@Test
-	public void Sample8() throws IOException {
+	void Sample8() throws IOException {
 
 		// Set margins
 		float margin = 10;
@@ -652,7 +647,7 @@ public class TableTest {
 					if (fact[i].contains("beer"))
 						cell.setFillColor(Color.yellow);
 					if (fact[i].contains("champion"))
-						cell.setTextColor(Color.GREEN); 
+						cell.setTextColor(Color.GREEN);
 				}
 			}
 		}
@@ -665,14 +660,14 @@ public class TableTest {
 			doc.save(file);
 			doc.close();
 		} catch (Exception e) {
-		//do nothing
+			// do nothing
 		} finally {
 		}
 
 	}
-	
+
 	@Test
-	public void Sample9() throws IOException {
+	void Sample9() throws IOException {
 
 		// Set margins
 		float margin = 10;
@@ -744,7 +739,7 @@ public class TableTest {
 					if (fact[i].contains("beer"))
 						cell.setFillColor(Color.yellow);
 					if (fact[i].contains("champion"))
-						cell.setTextColor(Color.GREEN); 
+						cell.setTextColor(Color.GREEN);
 				}
 			}
 		}
@@ -759,99 +754,9 @@ public class TableTest {
 		doc.close();
 
 	}
-	
+
 	@Test
-	public void Sample10() throws IOException {
-
-		// Set margins
-		float margin = 10;
-
-		List<String[]> facts = getFacts();
-
-		// Initialize Document
-		PDDocument doc = new PDDocument();
-		PDPage page = addNewPage(doc);
-		float yStartNewPage = page.getMediaBox().getHeight() - (2 * margin);
-
-		// Initialize table
-		float tableWidth = page.getMediaBox().getWidth() - (2 * margin);
-		boolean drawContent = true;
-		float yStart = yStartNewPage;
-		float bottomMargin = 70;
-		BaseTable table = new BaseTable(yStart, yStartNewPage, bottomMargin, tableWidth, margin, doc, page, true,
-				drawContent);
-
-		// Create Header row
-		Row<PDPage> headerRow = table.createRow(15f);
-		Cell<PDPage> cell = headerRow.createCell(100, "Awesome Facts About Belgium");
-		cell.setFont(PDType1Font.HELVETICA_BOLD);
-		cell.setRightBorderStyle(null);
-		cell.setBottomBorderStyle(null);
-		cell.setFillColor(Color.BLACK);
-		cell.setTextColor(Color.WHITE);
-
-		table.addHeaderRow(headerRow);
-
-		// Create 2 column row
-		Row<PDPage> row = table.createRow(15f);
-		cell = row.createCell(30, "Source:");
-		cell.setFont(PDType1Font.HELVETICA);
-
-		cell = row.createCell(70, "http://www.factsofbelgium.com/");
-		cell.setFont(PDType1Font.HELVETICA_OBLIQUE);
-
-		// Create Fact header row
-		Row<PDPage> factHeaderrow = table.createRow(15f);
-
-		cell = factHeaderrow.createCell((100 / 3f) * 2, "Fact");
-		cell.setFont(PDType1Font.HELVETICA);
-		cell.setFontSize(6);
-		cell.setFillColor(Color.LIGHT_GRAY);
-
-		cell = factHeaderrow.createCell((100 / 3f), "Tags");
-		cell.setFillColor(Color.LIGHT_GRAY);
-		cell.setFont(PDType1Font.HELVETICA_OBLIQUE);
-		cell.setFontSize(6);
-
-		// Add multiple rows with random facts about Belgium
-		for (String[] fact : facts) {
-
-			row = table.createRow(10f);
-			cell = row.createCell((100 / 3f) * 2, fact[0]);
-			cell.setFont(PDType1Font.HELVETICA);
-			cell.setFontSize(6);
-
-			for (int i = 1; i < fact.length; i++) {
-				if (fact[i].startsWith("image:")) {
-					File imageFile = new File(imagePath + "150dpi.png");
-					Image imagem = new Image(ImageIO.read(imageFile));
-					cell = row.createImageCell((100 / 9f), imagem);
-				} else {
-					cell = row.createCell((100 / 9f), fact[i]);
-					cell.setFont(PDType1Font.HELVETICA_OBLIQUE);
-					cell.setFontSize(6);
-					// Set colors
-					if (fact[i].contains("beer"))
-						cell.setFillColor(Color.yellow);
-					if (fact[i].contains("champion"))
-						cell.setTextColor(Color.GREEN); 
-				}
-			}
-		}
-
-		table.draw();
-
-		// Close Stream and save pdf
-		File file = new File("target/BoxableSample1.pdf");
-		System.out.println("Sample file saved at : " + file.getAbsolutePath());
-		Files.createParentDirs(file);
-		doc.save(file);
-		doc.close();
-
-	}
-	
-	@Test
-	public void Sample11() throws IOException {
+	void Sample10() throws IOException {
 
 		// Set margins
 		float margin = 10;
@@ -924,7 +829,7 @@ public class TableTest {
 					if (fact[i].contains("beer"))
 						cell.setFillColor(Color.yellow);
 					if (fact[i].contains("champion"))
-						cell.setTextColor(Color.GREEN); 
+						cell.setTextColor(Color.GREEN);
 				}
 			}
 		}
@@ -939,9 +844,99 @@ public class TableTest {
 		doc.close();
 
 	}
-	
+
 	@Test
-	public void Sample12() throws IOException {
+	void Sample11() throws IOException {
+
+		// Set margins
+		float margin = 10;
+
+		List<String[]> facts = getFacts();
+
+		// Initialize Document
+		PDDocument doc = new PDDocument();
+		PDPage page = addNewPage(doc);
+		float yStartNewPage = page.getMediaBox().getHeight() - (2 * margin);
+
+		// Initialize table
+		float tableWidth = page.getMediaBox().getWidth() - (2 * margin);
+		boolean drawContent = true;
+		float yStart = yStartNewPage;
+		float bottomMargin = 70;
+		BaseTable table = new BaseTable(yStart, yStartNewPage, bottomMargin, tableWidth, margin, doc, page, true,
+				drawContent);
+
+		// Create Header row
+		Row<PDPage> headerRow = table.createRow(15f);
+		Cell<PDPage> cell = headerRow.createCell(100, "Awesome Facts About Belgium");
+		cell.setFont(PDType1Font.HELVETICA_BOLD);
+		cell.setRightBorderStyle(null);
+		cell.setBottomBorderStyle(null);
+		cell.setFillColor(Color.BLACK);
+		cell.setTextColor(Color.WHITE);
+
+		table.addHeaderRow(headerRow);
+
+		// Create 2 column row
+		Row<PDPage> row = table.createRow(15f);
+		cell = row.createCell(30, "Source:");
+		cell.setFont(PDType1Font.HELVETICA);
+
+		cell = row.createCell(70, "http://www.factsofbelgium.com/");
+		cell.setFont(PDType1Font.HELVETICA_OBLIQUE);
+
+		// Create Fact header row
+		Row<PDPage> factHeaderrow = table.createRow(15f);
+
+		cell = factHeaderrow.createCell((100 / 3f) * 2, "Fact");
+		cell.setFont(PDType1Font.HELVETICA);
+		cell.setFontSize(6);
+		cell.setFillColor(Color.LIGHT_GRAY);
+
+		cell = factHeaderrow.createCell((100 / 3f), "Tags");
+		cell.setFillColor(Color.LIGHT_GRAY);
+		cell.setFont(PDType1Font.HELVETICA_OBLIQUE);
+		cell.setFontSize(6);
+
+		// Add multiple rows with random facts about Belgium
+		for (String[] fact : facts) {
+
+			row = table.createRow(10f);
+			cell = row.createCell((100 / 3f) * 2, fact[0]);
+			cell.setFont(PDType1Font.HELVETICA);
+			cell.setFontSize(6);
+
+			for (int i = 1; i < fact.length; i++) {
+				if (fact[i].startsWith("image:")) {
+					File imageFile = new File(imagePath + "150dpi.png");
+					Image imagem = new Image(ImageIO.read(imageFile));
+					cell = row.createImageCell((100 / 9f), imagem);
+				} else {
+					cell = row.createCell((100 / 9f), fact[i]);
+					cell.setFont(PDType1Font.HELVETICA_OBLIQUE);
+					cell.setFontSize(6);
+					// Set colors
+					if (fact[i].contains("beer"))
+						cell.setFillColor(Color.yellow);
+					if (fact[i].contains("champion"))
+						cell.setTextColor(Color.GREEN);
+				}
+			}
+		}
+
+		table.draw();
+
+		// Close Stream and save pdf
+		File file = new File("target/BoxableSample1.pdf");
+		System.out.println("Sample file saved at : " + file.getAbsolutePath());
+		Files.createParentDirs(file);
+		doc.save(file);
+		doc.close();
+
+	}
+
+	@Test
+	void Sample12() throws IOException {
 
 		// Set margins
 		float margin = 10;
@@ -1012,7 +1007,7 @@ public class TableTest {
 					if (fact[i].contains("beer"))
 						cell.setFillColor(Color.yellow);
 					if (fact[i].contains("champion"))
-						cell.setTextColor(Color.GREEN); 
+						cell.setTextColor(Color.GREEN);
 				}
 			}
 		}
@@ -1027,9 +1022,9 @@ public class TableTest {
 		doc.close();
 
 	}
-	
+
 	@Test
-	public void Sample13() throws IOException {
+	void Sample13() throws IOException {
 
 		// Set margins
 		float margin = 10;
@@ -1100,7 +1095,7 @@ public class TableTest {
 					if (fact[i].contains("beer"))
 						cell.setFillColor(Color.yellow);
 					if (fact[i].contains("champion"))
-						cell.setTextColor(Color.GREEN); 
+						cell.setTextColor(Color.GREEN);
 				}
 			}
 		}
@@ -1115,9 +1110,9 @@ public class TableTest {
 		doc.close();
 
 	}
-	
+
 	@Test
-	public void Sample14() throws IOException {
+	void Sample14() throws IOException {
 
 		// Set margins
 		float margin = 10;
@@ -1188,7 +1183,7 @@ public class TableTest {
 					if (fact[i].contains("beer"))
 						cell.setFillColor(Color.yellow);
 					if (fact[i].contains("champion"))
-						cell.setTextColor(Color.GREEN); 
+						cell.setTextColor(Color.GREEN);
 				}
 			}
 		}
@@ -1205,7 +1200,7 @@ public class TableTest {
 	}
 
 	@Test
-	public void Sample15() throws IOException {
+	void Sample15() throws IOException {
 
 		// Set margins
 		float margin = 10;
@@ -1224,8 +1219,10 @@ public class TableTest {
 		float bottomMargin = 70;
 		BaseTable table = new BaseTable(yStart, yStartNewPage, bottomMargin, tableWidth, margin, doc, page, true,
 				drawContent);
-		//Table table = new Table(yStart, yStartNewPage, 0, bottomMargin, tableWidth, margin, doc, page, true, drawContent, new DefaultPageProvider(doc, page.getMediaBox()));
-	    
+		// Table table = new Table(yStart, yStartNewPage, 0, bottomMargin, tableWidth,
+		// margin, doc, page, true, drawContent, new DefaultPageProvider(doc,
+		// page.getMediaBox()));
+
 		table.setPageProvider(null);
 
 		// Create Header row
@@ -1279,14 +1276,14 @@ public class TableTest {
 					if (fact[i].contains("beer"))
 						cell.setFillColor(Color.yellow);
 					if (fact[i].contains("champion"))
-						cell.setTextColor(Color.GREEN); 
+						cell.setTextColor(Color.GREEN);
 				}
 			}
 		}
 		try {
 			table.draw();
 		} catch (Exception e) {
-			//deu certo
+			// deu certo
 		} finally {
 			File file = new File("target/BoxableSample1.pdf");
 			System.out.println("Sample file saved at : " + file.getAbsolutePath());
@@ -1357,7 +1354,7 @@ public class TableTest {
 	}
 
 	@Test
-	public void Sample16() throws IOException {
+	void Sample16() throws IOException {
 
 		// Set margins
 		float margin = 10;
@@ -1467,9 +1464,8 @@ public class TableTest {
 
 	}
 
-
 	@Test
-	public void Sample17() throws IOException {
+	void Sample17() throws IOException {
 		// Set margins
 		float margin = 10;
 
@@ -1533,9 +1529,9 @@ public class TableTest {
 		doc.save(file);
 		doc.close();
 	}
-	
+
 	@Test
-	public void Sample18() throws IOException {
+	void Sample18() throws IOException {
 		// Set margins
 		float margin = 10;
 
@@ -1599,9 +1595,9 @@ public class TableTest {
 		doc.save(file);
 		doc.close();
 	}
-	
+
 	@Test
-	public void Sample19() throws IOException {
+	void Sample19() throws IOException {
 		// Set margins
 		float margin = 10;
 
@@ -1666,19 +1662,19 @@ public class TableTest {
 		doc.close();
 	}
 
-/**
- * <p>
- * Test for a table using the following features : 
- * <ul>
- * <li> Multiple header rows in a table </li>
- * </ul>
- * </p>
- *
- * @throws IOException
- */
-	
+	/**
+	 * <p>
+	 * Test for a table using the following features :
+	 * <ul>
+	 * <li>Multiple header rows in a table</li>
+	 * </ul>
+	 * </p>
+	 *
+	 * @throws IOException
+	 */
+
 	@Test
-	public void Sample20() throws IOException {
+	void Sample20() throws IOException {
 
 		// Set margins
 		float margin = 10;
@@ -1706,11 +1702,11 @@ public class TableTest {
 		// Create header row
 		Row<PDPage> headerRow = table.createRow(15f);
 		Cell<PDPage> cell = headerRow.createCell(100, "Awesome Facts About Belgium");
-		
+
 		cell.setFont(PDType1Font.HELVETICA_BOLD);
 		cell.setFillColor(Color.BLACK);
 		cell.setTextColor(Color.WHITE);
-        cell.setTopBorderStyle(new LineStyle(Color.BLACK, 1));
+		cell.setTopBorderStyle(new LineStyle(Color.BLACK, 1));
 		table.addHeaderRow(headerRow);
 
 		// Create second header row
@@ -1718,7 +1714,7 @@ public class TableTest {
 		cell = secondHeaderRow.createCell(75, "Source:");
 		cell.setFont(PDType1Font.HELVETICA);
 		cell.setTopBorderStyle(new LineStyle(Color.BLACK, 1));
-		
+
 		cell = secondHeaderRow.createCell(25, "http://www.factsofbelgium.com/");
 		cell.setTopBorderStyle(new LineStyle(Color.BLACK, 1));
 		cell.setFont(PDType1Font.HELVETICA_OBLIQUE);
@@ -1799,8 +1795,9 @@ public class TableTest {
 		doc.close();
 
 	}
+
 	@Test
-	public void Sample21() throws IOException {
+	void Sample21() throws IOException {
 
 		// Set margins
 		float margin = 10;
@@ -1915,7 +1912,7 @@ public class TableTest {
 	}
 
 	@Test
-	public void Sample22() throws IOException {
+	void Sample22() throws IOException {
 
 		// Set margins
 		float margin = 10;
@@ -1974,7 +1971,7 @@ public class TableTest {
 	}
 
 	@Test
-	public void Sample23() throws IOException {
+	void Sample23() throws IOException {
 
 		// Set margins
 		float margin = 10;
@@ -1992,7 +1989,7 @@ public class TableTest {
 		float bottomMargin = 70;
 		BaseTable table = new BaseTable(yStart, yStartNewPage, bottomMargin, tableWidth, margin, doc, page, drawLines,
 				drawContent);
-		//table.setDrawDebug(true);
+		// table.setDrawDebug(true);
 		// Create Header row
 		Row<PDPage> row = table.createRow(15f);
 		Cell<PDPage> cell = row.createCell((100 / 3f),
@@ -2018,7 +2015,7 @@ public class TableTest {
 	}
 
 	@Test
-	public void Sample24() throws IOException {
+	void Sample24() throws IOException {
 
 		// Set margins
 		float margin = 10;
@@ -2078,19 +2075,20 @@ public class TableTest {
 		doc.save(file);
 		doc.close();
 	}
-/**
- * <p>
- * Test for a  table using the following features : 
- * <ul>
- * <li> &lt; and &gt; rendering </li>
- * <li> vertical alignment inside a cell</li>
- * </ul>
- * </p>
- *
- * @throws IOException
- */
+
+	/**
+	 * <p>
+	 * Test for a table using the following features :
+	 * <ul>
+	 * <li>&lt; and &gt; rendering</li>
+	 * <li>vertical alignment inside a cell</li>
+	 * </ul>
+	 * </p>
+	 *
+	 * @throws IOException
+	 */
 	@Test
-	public void Sample25() throws IOException {
+	void Sample25() throws IOException {
 		// Set margins
 		float margin = 10;
 
@@ -2141,9 +2139,8 @@ public class TableTest {
 		doc.close();
 	}
 
-	
 	@Test
-	public void lineSpacingTest() throws IOException {
+	void lineSpacingTest() throws IOException {
 
 		// Set margins
 		float margin = 10;
@@ -2234,54 +2231,59 @@ public class TableTest {
 		doc.save(file);
 		doc.close();
 	}
- /**
- * <p>
- * Test for a  table using the following features : 
- * <ul>
- * <li> Ordered Lists in Cells </li>
- * <li> Unordered Lists in Cells </li>
- * <li> Nested Lists in Cells </li>
- * </ul>
- * </p>
- *
- * @throws IOException
- */
-    @Test
-    public void IncorrectHTMLListNesting() throws IOException {
 
-        //Set margins
-        float margin = 10;
+	/**
+	 * <p>
+	 * Test for a table using the following features :
+	 * <ul>
+	 * <li>Ordered Lists in Cells</li>
+	 * <li>Unordered Lists in Cells</li>
+	 * <li>Nested Lists in Cells</li>
+	 * </ul>
+	 * </p>
+	 *
+	 * @throws IOException
+	 */
+	@Test
+	void IncorrectHTMLListNesting() throws IOException {
 
-        //Initialize Document
-        PDDocument doc = new PDDocument();
-        PDPage page = addNewPage(doc);
+		// Set margins
+		float margin = 10;
 
-        //Initialize table
-        float tableWidth = page.getMediaBox().getWidth() - (2 * margin);
-        float yStartNewPage = page.getMediaBox().getHeight() - (2 * margin);
-        boolean drawContent = true;
-        boolean drawLines = true;
-        float yStart = yStartNewPage;
-        float bottomMargin = 70;
-        BaseTable table = new BaseTable(yStart, yStartNewPage, bottomMargin, tableWidth, margin, doc, page, drawLines,
-                drawContent);
+		// Initialize Document
+		PDDocument doc = new PDDocument();
+		PDPage page = addNewPage(doc);
 
-        //Create Header row
-        Row<PDPage> row = table.createRow(15f);
-        Cell<PDPage> cell = row.createCell((100 / 3f), "<ol><li>a</li><ol><li>b1</li><li>b2</li><ol><li>c1</li><li>c2 hello hello hello hello hello hello hello hello hello hello hello </li><li>c3</li><li>c4 hello hello hello hello hello hello hello hello hello hello</li></ol><li>b3</li></ol><li>hello</li><li>hello</li><li>hello</li><li>hello</li><li>hello</li></ol>", HorizontalAlignment.get("left"), VerticalAlignment.get("top"));
-        Cell<PDPage> cell2 = row.createCell((100 / 3f), "<ul><li>a</li><ul><li>b1</li><li>b2</li><ul><li>c1</li><li>c2 hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello </li><li>c3</li><li>c4</li></ul><li>b3</li></ul><li>hello</li><li>hello</li><li>hello</li><li>hello</li></ul>", HorizontalAlignment.get("left"), VerticalAlignment.get("top"));
-        table.draw();
+		// Initialize table
+		float tableWidth = page.getMediaBox().getWidth() - (2 * margin);
+		float yStartNewPage = page.getMediaBox().getHeight() - (2 * margin);
+		boolean drawContent = true;
+		boolean drawLines = true;
+		float yStart = yStartNewPage;
+		float bottomMargin = 70;
+		BaseTable table = new BaseTable(yStart, yStartNewPage, bottomMargin, tableWidth, margin, doc, page, drawLines,
+				drawContent);
 
-        //Save the document
-        File file = new File("target/ListNesting.pdf");
-        System.out.println("Sample file saved at : " + file.getAbsolutePath());
-        Files.createParentDirs(file);
-        doc.save(file);
-        doc.close();
-    }
+		// Create Header row
+		Row<PDPage> row = table.createRow(15f);
+		Cell<PDPage> cell = row.createCell((100 / 3f),
+				"<ol><li>a</li><ol><li>b1</li><li>b2</li><ol><li>c1</li><li>c2 hello hello hello hello hello hello hello hello hello hello hello </li><li>c3</li><li>c4 hello hello hello hello hello hello hello hello hello hello</li></ol><li>b3</li></ol><li>hello</li><li>hello</li><li>hello</li><li>hello</li><li>hello</li></ol>",
+				HorizontalAlignment.get("left"), VerticalAlignment.get("top"));
+		Cell<PDPage> cell2 = row.createCell((100 / 3f),
+				"<ul><li>a</li><ul><li>b1</li><li>b2</li><ul><li>c1</li><li>c2 hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello </li><li>c3</li><li>c4</li></ul><li>b3</li></ul><li>hello</li><li>hello</li><li>hello</li><li>hello</li></ul>",
+				HorizontalAlignment.get("left"), VerticalAlignment.get("top"));
+		table.draw();
+
+		// Save the document
+		File file = new File("target/ListNesting.pdf");
+		System.out.println("Sample file saved at : " + file.getAbsolutePath());
+		Files.createParentDirs(file);
+		doc.save(file);
+		doc.close();
+	}
 
 	@Test
-	public void Sample26() throws IOException {
+	void Sample26() throws IOException {
 
 		// Set margins
 		float margin = 10;
@@ -2297,9 +2299,9 @@ public class TableTest {
 		boolean drawLines = true;
 		float yStart = yStartNewPage;
 		float pageBottomMargin = 70;
-		float pageTopMargin = 2*margin;
-		BaseTable table = new BaseTable(yStart, yStartNewPage, pageBottomMargin, tableWidth, margin, doc, page, drawLines,
-				drawContent);
+		float pageTopMargin = 2 * margin;
+		BaseTable table = new BaseTable(yStart, yStartNewPage, pageBottomMargin, tableWidth, margin, doc, page,
+				drawLines, drawContent);
 
 		// set default line spacing for entire table
 		table.setLineSpacing(1.5f);
@@ -2307,23 +2309,22 @@ public class TableTest {
 		// first row (header row)
 		Row<PDPage> row = table.createRow(10f);
 
-		Cell<PDPage> cell4 = row.createCell((100 / 3f),
-				"header cell I.",
-				HorizontalAlignment.get("center"), VerticalAlignment.get("top"));
+		Cell<PDPage> cell4 = row.createCell((100 / 3f), "header cell I.", HorizontalAlignment.get("center"),
+				VerticalAlignment.get("top"));
 		cell4.setFontSize(6);
-		
-		Cell<PDPage> cell5 = row.createCell((100 / 3f),
-				"header cell II.",
-				HorizontalAlignment.get("center"), VerticalAlignment.get("middle"));
+
+		Cell<PDPage> cell5 = row.createCell((100 / 3f), "header cell II.", HorizontalAlignment.get("center"),
+				VerticalAlignment.get("middle"));
 		cell5.setFontSize(6);
-		
-		Cell<PDPage> cell6 = row.createCell((100 / 3f), "header cell III.", HorizontalAlignment.get("center"), VerticalAlignment.get("middle"));
+
+		Cell<PDPage> cell6 = row.createCell((100 / 3f), "header cell III.", HorizontalAlignment.get("center"),
+				VerticalAlignment.get("middle"));
 		cell6.setFontSize(6);
 		table.addHeaderRow(row);
-		
+
 		// keep track of y position
 		yStart -= row.getHeight();
-		
+
 		Row<PDPage> row2 = table.createRow(10f);
 
 		Cell<PDPage> cell = row2.createCell((100 / 3f),
@@ -2343,26 +2344,27 @@ public class TableTest {
 
 		// keep track of y position
 		yStart -= row.getHeight();
-		
+
 		Row<PDPage> row3 = table.createRow(10f);
 
 		Cell<PDPage> cell7 = row3.createCell((100 / 3f),
 				"<p>SINGLE SPACING</p><p>Integer eget elit vitae est feugiat laoreet. <b>Nam vitae ex commodo, euismod risus in, sodales dolor. Mauris condimentum urna neque, non condimentum odio</b> posuere a. Aenean nisl ex, semper eu malesuada sit amet, luctus nec enim. <br>Pellentesque eu ultrices magna, non porta dolor. Fus<b><i>ce eu neque nulla. Curabitur eu eros tristique leo efficitur fringilla sit amet sed neque. Aliquam</i></b> a tempor enim. Praesent pellentesque volutpat dolor, non rhoncus est posuere id. Aenean nunc purus, gravida at mauris et, pretium volutpat nisl. Mauris lacus urna, sodales ac eros in, mollis scelerisque neque.</p> Unordered List <ul><li>Item 1</li><li>Item 2</li><li>Item 3</li></ul>",
 				HorizontalAlignment.get("center"), VerticalAlignment.get("top"));
 		cell7.setFontSize(6);
-		
+
 		Cell<PDPage> cell8 = row3.createCell((100 / 3f),
 				"<p>SINGLE SPACING</p><p>Integer eget elit vitae est feugiat laoreet. <b>Nam vitae ex commodo, euismod risus in, sodales dolor. Mauris condimentum urna neque, non condimentum odio</b> posuere a. Aenean nisl ex, semper eu malesuada sit amet, luctus nec enim. <br>Pellentesque eu ultrices magna, non porta dolor. Fus<b><i>ce eu neque nulla. Curabitur eu eros tristique leo efficitur fringilla sit amet sed neque. Aliquam</i></b> a tempor enim. Praesent pellentesque volutpat dolor, non rhoncus est posuere id. Aenean nunc purus, gravida at mauris et, pretium volutpat nisl. Mauris lacus urna, sodales ac eros in, mollis scelerisque neque.</p> Unordered List <ul><li>Item 1</li><li>Item 2</li><li>Item 3</li></ul>",
 				HorizontalAlignment.get("center"), VerticalAlignment.get("middle"));
 		cell8.setFontSize(6);
-		
-		Cell<PDPage> cell9 = row3.createCell((100 / 3f), "hello 3", HorizontalAlignment.get("center"), VerticalAlignment.get("middle"));
+
+		Cell<PDPage> cell9 = row3.createCell((100 / 3f), "hello 3", HorizontalAlignment.get("center"),
+				VerticalAlignment.get("middle"));
 		cell9.setFontSize(6);
-		
+
 		// keep track of y position
 		yStart -= row3.getHeight();
-		
-		// fourth row that actually breaks first page with big inner table 
+
+		// fourth row that actually breaks first page with big inner table
 		Row<PDPage> row4 = table.createRow(10f);
 		Cell<PDPage> cell10 = row4.createCell((100 / 3f),
 				"<p>SINGLE SPACING</p><p>Integer eget elit vitae est feugiat laoreet. <b>Nam vitae ex commodo, euismod risus in, sodales dolor. Mauris condimentum urna neque, non condimentum odio</b> posuere a. Aenean nisl ex, semper eu malesuada sit amet, luctus nec enim. <br>Pellentesque eu ultrices magna, non porta dolor. Fus<b><i>ce eu neque nulla. Curabitur eu eros tristique leo efficitur fringilla sit amet sed neque. Aliquam</i></b> a tempor enim. Praesent pellentesque volutpat dolor, non rhoncus est posuere id. Aenean nunc purus, gravida at mauris et, pretium volutpat nisl. Mauris lacus urna, sodales ac eros in, mollis scelerisque neque.</p> Unordered List <ul><li>Item 1</li><li>Item 2</li><li>Item 3</li></ul>",
@@ -2378,7 +2380,7 @@ public class TableTest {
 				"<table><tr><th colspan=\"5\">Header Colspan 5</th></tr><tr><td colspan=\"2\"><i>Italic Colspan 2</i></td><td>no colspan</td><td colspan=\"2\"><b>Bold Colspan 2</b></td></tr><tr><td>a1</td><td>a2</td><td>a3</td><td>a4</td><td>a5</td></tr></table>",
 				doc, page, yStart, pageBottomMargin, pageTopMargin);
 		cell12.setFontSize(6);
-		
+
 		table.draw();
 
 		// Save the document
@@ -2388,9 +2390,9 @@ public class TableTest {
 		doc.save(file);
 		doc.close();
 	}
-	
+
 	@Test
-	public void Sample27() throws IOException {
+	void Sample27() throws IOException {
 
 		// Set margins
 		float margin = 10;
@@ -2406,9 +2408,9 @@ public class TableTest {
 		boolean drawLines = true;
 		float yStart = yStartNewPage;
 		float pageBottomMargin = 70;
-		float pageTopMargin = 2*margin;
-		BaseTable table = new BaseTable(yStart, yStartNewPage, pageBottomMargin, tableWidth, margin, doc, page, drawLines,
-				drawContent);
+		float pageTopMargin = 2 * margin;
+		BaseTable table = new BaseTable(yStart, yStartNewPage, pageBottomMargin, tableWidth, margin, doc, page,
+				drawLines, drawContent);
 
 		// set default line spacing for entire table
 		table.setLineSpacing(1.5f);
@@ -2416,23 +2418,22 @@ public class TableTest {
 		// first row (header row)
 		Row<PDPage> row = table.createRow(10f);
 
-		Cell<PDPage> cell4 = row.createCell((100 / 3f),
-				"header cell I.",
-				HorizontalAlignment.get("center"), VerticalAlignment.get("top"));
+		Cell<PDPage> cell4 = row.createCell((100 / 3f), "header cell I.", HorizontalAlignment.get("center"),
+				VerticalAlignment.get("top"));
 		cell4.setFontSize(6);
-		
-		Cell<PDPage> cell5 = row.createCell((100 / 3f),
-				"header cell II.",
-				HorizontalAlignment.get("center"), VerticalAlignment.get("middle"));
+
+		Cell<PDPage> cell5 = row.createCell((100 / 3f), "header cell II.", HorizontalAlignment.get("center"),
+				VerticalAlignment.get("middle"));
 		cell5.setFontSize(6);
-		
-		Cell<PDPage> cell6 = row.createCell((100 / 3f), "header cell III.", HorizontalAlignment.get("center"), VerticalAlignment.get("middle"));
+
+		Cell<PDPage> cell6 = row.createCell((100 / 3f), "header cell III.", HorizontalAlignment.get("center"),
+				VerticalAlignment.get("middle"));
 		cell6.setFontSize(6);
 		table.addHeaderRow(row);
-		
+
 		// keep track of y position
 		yStart -= row.getHeight();
-		
+
 		Row<PDPage> row2 = table.createRow(10f);
 
 		Cell<PDPage> cell = row2.createCell((100 / 3f),
@@ -2452,26 +2453,27 @@ public class TableTest {
 
 		// keep track of y position
 		yStart -= row.getHeight();
-		
+
 		Row<PDPage> row3 = table.createRow(10f);
 
 		Cell<PDPage> cell7 = row3.createCell((100 / 3f),
 				"<p>SINGLE SPACING</p><p>Integer eget elit vitae est feugiat laoreet. <b>Nam vitae ex commodo, euismod risus in, sodales dolor. Mauris condimentum urna neque, non condimentum odio</b> posuere a. Aenean nisl ex, semper eu malesuada sit amet, luctus nec enim. <br>Pellentesque eu ultrices magna, non porta dolor. Fus<b><i>ce eu neque nulla. Curabitur eu eros tristique leo efficitur fringilla sit amet sed neque. Aliquam</i></b> a tempor enim. Praesent pellentesque volutpat dolor, non rhoncus est posuere id. Aenean nunc purus, gravida at mauris et, pretium volutpat nisl. Mauris lacus urna, sodales ac eros in, mollis scelerisque neque.</p> Unordered List <ul><li>Item 1</li><li>Item 2</li><li>Item 3</li></ul>",
 				HorizontalAlignment.get("center"), VerticalAlignment.get("top"));
 		cell7.setFontSize(6);
-		
+
 		Cell<PDPage> cell8 = row3.createCell((100 / 3f),
 				"<p>SINGLE SPACING</p><p>Integer eget elit vitae est feugiat laoreet. <b>Nam vitae ex commodo, euismod risus in, sodales dolor. Mauris condimentum urna neque, non condimentum odio</b> posuere a. Aenean nisl ex, semper eu malesuada sit amet, luctus nec enim. <br>Pellentesque eu ultrices magna, non porta dolor. Fus<b><i>ce eu neque nulla. Curabitur eu eros tristique leo efficitur fringilla sit amet sed neque. Aliquam</i></b> a tempor enim. Praesent pellentesque volutpat dolor, non rhoncus est posuere id. Aenean nunc purus, gravida at mauris et, pretium volutpat nisl. Mauris lacus urna, sodales ac eros in, mollis scelerisque neque.</p> Unordered List <ul><li>Item 1</li><li>Item 2</li><li>Item 3</li></ul>",
 				HorizontalAlignment.get("center"), VerticalAlignment.get("middle"));
 		cell8.setFontSize(6);
-		
-		Cell<PDPage> cell9 = row3.createCell((100 / 3f), "hello 3", HorizontalAlignment.get("center"), VerticalAlignment.get("middle"));
+
+		Cell<PDPage> cell9 = row3.createCell((100 / 3f), "hello 3", HorizontalAlignment.get("center"),
+				VerticalAlignment.get("middle"));
 		cell9.setFontSize(6);
-		
+
 		// keep track of y position
 		yStart -= row3.getHeight();
-		
-		// fourth row that actually breaks first page with big inner table 
+
+		// fourth row that actually breaks first page with big inner table
 		Row<PDPage> row4 = table.createRow(10f);
 		Cell<PDPage> cell10 = row4.createCell((100 / 3f),
 				"<p>SINGLE SPACING</p><p>Integer eget elit vitae est feugiat laoreet. <b>Nam vitae ex commodo, euismod risus in, sodales dolor. Mauris condimentum urna neque, non condimentum odio</b> posuere a. Aenean nisl ex, semper eu malesuada sit amet, luctus nec enim. <br>Pellentesque eu ultrices magna, non porta dolor. Fus<b><i>ce eu neque nulla. Curabitur eu eros tristique leo efficitur fringilla sit amet sed neque. Aliquam</i></b> a tempor enim. Praesent pellentesque volutpat dolor, non rhoncus est posuere id. Aenean nunc purus, gravida at mauris et, pretium volutpat nisl. Mauris lacus urna, sodales ac eros in, mollis scelerisque neque.</p> Unordered List <ul><li>Item 1</li><li>Item 2</li><li>Item 3</li></ul>",
@@ -2487,7 +2489,7 @@ public class TableTest {
 				"<table><tr><th colspan=\"5\">Header Colspan 5</th></tr><tr><td colspan=\"2\"><i>Italic Colspan 2</i></td><td>no colspan</td><td colspan=\"2\"><b>Bold Colspan 2</b></td></tr><tr><td>a1</td><td>a2</td><td>a3</td><td>a4</td><td>a5</td></tr></table>",
 				doc, page, yStart, pageBottomMargin, pageTopMargin);
 		cell12.setFontSize(6);
-		
+
 		table.draw();
 
 		// Save the document
@@ -2497,9 +2499,9 @@ public class TableTest {
 		doc.save(file);
 		doc.close();
 	}
-	
+
 	@Test
-	public void Sample28() throws IOException {
+	void Sample28() throws IOException {
 
 		// Set margins
 		float margin = 10;
@@ -2515,9 +2517,9 @@ public class TableTest {
 		boolean drawLines = true;
 		float yStart = yStartNewPage;
 		float pageBottomMargin = 70;
-		float pageTopMargin = 2*margin;
-		BaseTable table = new BaseTable(yStart, yStartNewPage, pageBottomMargin, tableWidth, margin, doc, page, drawLines,
-				drawContent);
+		float pageTopMargin = 2 * margin;
+		BaseTable table = new BaseTable(yStart, yStartNewPage, pageBottomMargin, tableWidth, margin, doc, page,
+				drawLines, drawContent);
 
 		// set default line spacing for entire table
 		table.setLineSpacing(1.5f);
@@ -2525,32 +2527,31 @@ public class TableTest {
 		// first row (header row)
 		Row<PDPage> row = table.createRow(10f);
 
-		Cell<PDPage> cell4 = row.createCell((100 / 3f),
-				"header cell I.",
-				HorizontalAlignment.get("center"), VerticalAlignment.get("top"));
+		Cell<PDPage> cell4 = row.createCell((100 / 3f), "header cell I.", HorizontalAlignment.get("center"),
+				VerticalAlignment.get("top"));
 		cell4.setFontSize(6);
 		cell4.setTextRotated(true);
 		cell4.setAlign(HorizontalAlignment.CENTER);
 		cell4.setValign(VerticalAlignment.MIDDLE);
-		
-		Cell<PDPage> cell5 = row.createCell((100 / 3f),
-				"header cell II.",
-				HorizontalAlignment.get("center"), VerticalAlignment.get("middle"));
+
+		Cell<PDPage> cell5 = row.createCell((100 / 3f), "header cell II.", HorizontalAlignment.get("center"),
+				VerticalAlignment.get("middle"));
 		cell5.setFontSize(6);
 		cell5.setTextRotated(true);
 		cell5.setAlign(HorizontalAlignment.CENTER);
 		cell5.setValign(VerticalAlignment.MIDDLE);
-		
-		Cell<PDPage> cell6 = row.createCell((100 / 3f), "header cell III.", HorizontalAlignment.get("center"), VerticalAlignment.get("middle"));
+
+		Cell<PDPage> cell6 = row.createCell((100 / 3f), "header cell III.", HorizontalAlignment.get("center"),
+				VerticalAlignment.get("middle"));
 		cell6.setFontSize(6);
 		cell6.setTextRotated(true);
 		cell6.setAlign(HorizontalAlignment.CENTER);
 		cell6.setValign(VerticalAlignment.MIDDLE);
 		table.addHeaderRow(row);
-		
+
 		// keep track of y position
 		yStart -= row.getHeight();
-		
+
 		Row<PDPage> row2 = table.createRow(10f);
 
 		Cell<PDPage> cell = row2.createCell((100 / 3f),
@@ -2576,10 +2577,10 @@ public class TableTest {
 		cell3.setTextRotated(true);
 		cell3.setAlign(HorizontalAlignment.CENTER);
 		cell3.setValign(VerticalAlignment.MIDDLE);
-		
+
 		// keep track of y position
 		yStart -= row.getHeight();
-		
+
 		Row<PDPage> row3 = table.createRow(10f);
 
 		Cell<PDPage> cell7 = row3.createCell((100 / 3f),
@@ -2589,7 +2590,7 @@ public class TableTest {
 		cell7.setTextRotated(true);
 		cell7.setAlign(HorizontalAlignment.CENTER);
 		cell7.setValign(VerticalAlignment.MIDDLE);
-		
+
 		Cell<PDPage> cell8 = row3.createCell((100 / 3f),
 				"<p>SINGLE SPACING</p><p>Integer eget elit vitae est feugiat laoreet. <b>Nam vitae ex commodo, euismod risus in, sodales dolor. Mauris condimentum urna neque, non condimentum odio</b> posuere a. Aenean nisl ex, semper eu malesuada sit amet, luctus nec enim. <br>Pellentesque eu ultrices magna, non porta dolor. Fus<b><i>ce eu neque nulla. Curabitur eu eros tristique leo efficitur fringilla sit amet sed neque. Aliquam</i></b> a tempor enim. Praesent pellentesque volutpat dolor, non rhoncus est posuere id. Aenean nunc purus, gravida at mauris et, pretium volutpat nisl. Mauris lacus urna, sodales ac eros in, mollis scelerisque neque.</p> Unordered List <ul><li>Item 1</li><li>Item 2</li><li>Item 3</li></ul>",
 				HorizontalAlignment.get("center"), VerticalAlignment.get("middle"));
@@ -2597,17 +2598,18 @@ public class TableTest {
 		cell8.setTextRotated(true);
 		cell8.setAlign(HorizontalAlignment.CENTER);
 		cell8.setValign(VerticalAlignment.MIDDLE);
-		
-		Cell<PDPage> cell9 = row3.createCell((100 / 3f), "hello 3", HorizontalAlignment.get("center"), VerticalAlignment.get("middle"));
+
+		Cell<PDPage> cell9 = row3.createCell((100 / 3f), "hello 3", HorizontalAlignment.get("center"),
+				VerticalAlignment.get("middle"));
 		cell9.setFontSize(6);
 		cell9.setTextRotated(true);
 		cell9.setAlign(HorizontalAlignment.CENTER);
 		cell9.setValign(VerticalAlignment.MIDDLE);
-		
+
 		// keep track of y position
 		yStart -= row3.getHeight();
-		
-		// fourth row that actually breaks first page with big inner table 
+
+		// fourth row that actually breaks first page with big inner table
 		Row<PDPage> row4 = table.createRow(10f);
 		Cell<PDPage> cell10 = row4.createCell((100 / 3f),
 				"<p>SINGLE SPACING</p><p>Integer eget elit vitae est feugiat laoreet. <b>Nam vitae ex commodo, euismod risus in, sodales dolor. Mauris condimentum urna neque, non condimentum odio</b> posuere a. Aenean nisl ex, semper eu malesuada sit amet, luctus nec enim. <br>Pellentesque eu ultrices magna, non porta dolor. Fus<b><i>ce eu neque nulla. Curabitur eu eros tristique leo efficitur fringilla sit amet sed neque. Aliquam</i></b> a tempor enim. Praesent pellentesque volutpat dolor, non rhoncus est posuere id. Aenean nunc purus, gravida at mauris et, pretium volutpat nisl. Mauris lacus urna, sodales ac eros in, mollis scelerisque neque.</p> Unordered List <ul><li>Item 1</li><li>Item 2</li><li>Item 3</li></ul>",
@@ -2632,7 +2634,7 @@ public class TableTest {
 		cell12.setTextRotated(true);
 		cell12.setAlign(HorizontalAlignment.CENTER);
 		cell12.setValign(VerticalAlignment.MIDDLE);
-		
+
 		table.draw();
 
 		// Save the document
@@ -2642,9 +2644,9 @@ public class TableTest {
 		doc.save(file);
 		doc.close();
 	}
-	
+
 	@Test
-	public void Sample29() throws IOException {
+	void Sample29() throws IOException {
 
 		// Set margins
 		float margin = 10;
@@ -2660,9 +2662,9 @@ public class TableTest {
 		boolean drawLines = true;
 		float yStart = yStartNewPage;
 		float pageBottomMargin = 70;
-		float pageTopMargin = 2*margin;
-		BaseTable table = new BaseTable(yStart, yStartNewPage, pageBottomMargin, tableWidth, margin, doc, page, drawLines,
-				drawContent);
+		float pageTopMargin = 2 * margin;
+		BaseTable table = new BaseTable(yStart, yStartNewPage, pageBottomMargin, tableWidth, margin, doc, page,
+				drawLines, drawContent);
 
 		// set default line spacing for entire table
 		table.setLineSpacing(1.5f);
@@ -2670,32 +2672,31 @@ public class TableTest {
 		// first row (header row)
 		Row<PDPage> row = table.createRow(10f);
 
-		Cell<PDPage> cell4 = row.createCell((100 / 3f),
-				"header cell I.",
-				HorizontalAlignment.get("center"), VerticalAlignment.get("top"));
+		Cell<PDPage> cell4 = row.createCell((100 / 3f), "header cell I.", HorizontalAlignment.get("center"),
+				VerticalAlignment.get("top"));
 		cell4.setFontSize(6);
 		cell4.setTextRotated(true);
 		cell4.setAlign(HorizontalAlignment.CENTER);
 		cell4.setValign(VerticalAlignment.BOTTOM);
-		
-		Cell<PDPage> cell5 = row.createCell((100 / 3f),
-				"header cell II.",
-				HorizontalAlignment.get("center"), VerticalAlignment.get("middle"));
+
+		Cell<PDPage> cell5 = row.createCell((100 / 3f), "header cell II.", HorizontalAlignment.get("center"),
+				VerticalAlignment.get("middle"));
 		cell5.setFontSize(6);
 		cell5.setTextRotated(true);
 		cell5.setAlign(HorizontalAlignment.CENTER);
 		cell5.setValign(VerticalAlignment.BOTTOM);
-		
-		Cell<PDPage> cell6 = row.createCell((100 / 3f), "header cell III.", HorizontalAlignment.get("center"), VerticalAlignment.get("middle"));
+
+		Cell<PDPage> cell6 = row.createCell((100 / 3f), "header cell III.", HorizontalAlignment.get("center"),
+				VerticalAlignment.get("middle"));
 		cell6.setFontSize(6);
 		cell6.setTextRotated(true);
 		cell6.setAlign(HorizontalAlignment.CENTER);
 		cell6.setValign(VerticalAlignment.BOTTOM);
 		table.addHeaderRow(row);
-		
+
 		// keep track of y position
 		yStart -= row.getHeight();
-		
+
 		Row<PDPage> row2 = table.createRow(10f);
 
 		Cell<PDPage> cell = row2.createCell((100 / 3f),
@@ -2721,10 +2722,10 @@ public class TableTest {
 		cell3.setTextRotated(true);
 		cell3.setAlign(HorizontalAlignment.CENTER);
 		cell3.setValign(VerticalAlignment.BOTTOM);
-		
+
 		// keep track of y position
 		yStart -= row.getHeight();
-		
+
 		Row<PDPage> row3 = table.createRow(10f);
 
 		Cell<PDPage> cell7 = row3.createCell((100 / 3f),
@@ -2734,7 +2735,7 @@ public class TableTest {
 		cell7.setTextRotated(true);
 		cell7.setAlign(HorizontalAlignment.CENTER);
 		cell7.setValign(VerticalAlignment.BOTTOM);
-		
+
 		Cell<PDPage> cell8 = row3.createCell((100 / 3f),
 				"<p>SINGLE SPACING</p><p>Integer eget elit vitae est feugiat laoreet. <b>Nam vitae ex commodo, euismod risus in, sodales dolor. Mauris condimentum urna neque, non condimentum odio</b> posuere a. Aenean nisl ex, semper eu malesuada sit amet, luctus nec enim. <br>Pellentesque eu ultrices magna, non porta dolor. Fus<b><i>ce eu neque nulla. Curabitur eu eros tristique leo efficitur fringilla sit amet sed neque. Aliquam</i></b> a tempor enim. Praesent pellentesque volutpat dolor, non rhoncus est posuere id. Aenean nunc purus, gravida at mauris et, pretium volutpat nisl. Mauris lacus urna, sodales ac eros in, mollis scelerisque neque.</p> Unordered List <ul><li>Item 1</li><li>Item 2</li><li>Item 3</li></ul>",
 				HorizontalAlignment.get("center"), VerticalAlignment.get("middle"));
@@ -2742,17 +2743,18 @@ public class TableTest {
 		cell8.setTextRotated(true);
 		cell8.setAlign(HorizontalAlignment.CENTER);
 		cell8.setValign(VerticalAlignment.BOTTOM);
-		
-		Cell<PDPage> cell9 = row3.createCell((100 / 3f), "hello 3", HorizontalAlignment.get("center"), VerticalAlignment.get("middle"));
+
+		Cell<PDPage> cell9 = row3.createCell((100 / 3f), "hello 3", HorizontalAlignment.get("center"),
+				VerticalAlignment.get("middle"));
 		cell9.setFontSize(6);
 		cell9.setTextRotated(true);
 		cell9.setAlign(HorizontalAlignment.CENTER);
 		cell9.setValign(VerticalAlignment.BOTTOM);
-		
+
 		// keep track of y position
 		yStart -= row3.getHeight();
-		
-		// fourth row that actually breaks first page with big inner table 
+
+		// fourth row that actually breaks first page with big inner table
 		Row<PDPage> row4 = table.createRow(10f);
 		Cell<PDPage> cell10 = row4.createCell((100 / 3f),
 				"<p>SINGLE SPACING</p><p>Integer eget elit vitae est feugiat laoreet. <b>Nam vitae ex commodo, euismod risus in, sodales dolor. Mauris condimentum urna neque, non condimentum odio</b> posuere a. Aenean nisl ex, semper eu malesuada sit amet, luctus nec enim. <br>Pellentesque eu ultrices magna, non porta dolor. Fus<b><i>ce eu neque nulla. Curabitur eu eros tristique leo efficitur fringilla sit amet sed neque. Aliquam</i></b> a tempor enim. Praesent pellentesque volutpat dolor, non rhoncus est posuere id. Aenean nunc purus, gravida at mauris et, pretium volutpat nisl. Mauris lacus urna, sodales ac eros in, mollis scelerisque neque.</p> Unordered List <ul><li>Item 1</li><li>Item 2</li><li>Item 3</li></ul>",
@@ -2777,7 +2779,7 @@ public class TableTest {
 		cell12.setTextRotated(true);
 		cell12.setAlign(HorizontalAlignment.CENTER);
 		cell12.setValign(VerticalAlignment.BOTTOM);
-		
+
 		table.draw();
 
 		// Save the document
@@ -2787,9 +2789,9 @@ public class TableTest {
 		doc.save(file);
 		doc.close();
 	}
-	
+
 	@Test
-	public void Sample30() throws IOException {
+	void Sample30() throws IOException {
 
 		// Set margins
 		float margin = 10;
@@ -2805,9 +2807,9 @@ public class TableTest {
 		boolean drawLines = true;
 		float yStart = yStartNewPage;
 		float pageBottomMargin = 70;
-		float pageTopMargin = 2*margin;
-		BaseTable table = new BaseTable(yStart, yStartNewPage, pageBottomMargin, tableWidth, margin, doc, page, drawLines,
-				drawContent);
+		float pageTopMargin = 2 * margin;
+		BaseTable table = new BaseTable(yStart, yStartNewPage, pageBottomMargin, tableWidth, margin, doc, page,
+				drawLines, drawContent);
 
 		// set default line spacing for entire table
 		table.setLineSpacing(1.5f);
@@ -2815,33 +2817,32 @@ public class TableTest {
 		// first row (header row)
 		Row<PDPage> row = table.createRow(10f);
 
-		Cell<PDPage> cell4 = row.createCell((100 / 3f),
-				"header cell I.",
-				HorizontalAlignment.get("center"), VerticalAlignment.get("top"));
+		Cell<PDPage> cell4 = row.createCell((100 / 3f), "header cell I.", HorizontalAlignment.get("center"),
+				VerticalAlignment.get("top"));
 		cell4.setFontSize(6);
 		cell4.setTextRotated(true);
 		cell4.setAlign(HorizontalAlignment.CENTER);
 		cell4.setValign(VerticalAlignment.BOTTOM);
-		
-		Cell<PDPage> cell5 = row.createCell((100 / 3f),
-				"header cell II.",
-				HorizontalAlignment.get("center"), VerticalAlignment.get("middle"));
+
+		Cell<PDPage> cell5 = row.createCell((100 / 3f), "header cell II.", HorizontalAlignment.get("center"),
+				VerticalAlignment.get("middle"));
 		cell5.setFontSize(6);
-		
+
 		cell5.setTextRotated(true);
 		cell5.setAlign(HorizontalAlignment.CENTER);
 		cell5.setValign(VerticalAlignment.BOTTOM);
-		
-		Cell<PDPage> cell6 = row.createCell((100 / 3f), "header cell III.", HorizontalAlignment.get("center"), VerticalAlignment.get("middle"));
+
+		Cell<PDPage> cell6 = row.createCell((100 / 3f), "header cell III.", HorizontalAlignment.get("center"),
+				VerticalAlignment.get("middle"));
 		cell6.setFontSize(6);
 		cell6.setTextRotated(true);
 		cell6.setAlign(HorizontalAlignment.CENTER);
 		cell6.setValign(VerticalAlignment.BOTTOM);
 		table.addHeaderRow(row);
-		
+
 		// keep track of y position
 		yStart -= row.getHeight();
-		
+
 		Row<PDPage> row2 = table.createRow(10f);
 
 		Cell<PDPage> cell = row2.createCell((100 / 3f),
@@ -2867,10 +2868,10 @@ public class TableTest {
 		cell3.setTextRotated(true);
 		cell3.setAlign(HorizontalAlignment.CENTER);
 		cell3.setValign(VerticalAlignment.BOTTOM);
-		
+
 		// keep track of y position
 		yStart -= row.getHeight();
-		
+
 		Row<PDPage> row3 = table.createRow(10f);
 
 		Cell<PDPage> cell7 = row3.createCell((100 / 3f),
@@ -2880,7 +2881,7 @@ public class TableTest {
 		cell7.setTextRotated(true);
 		cell7.setAlign(HorizontalAlignment.CENTER);
 		cell7.setValign(VerticalAlignment.BOTTOM);
-		
+
 		Cell<PDPage> cell8 = row3.createCell((100 / 3f),
 				"<p>SINGLE SPACING</p><p>Integer eget elit vitae est feugiat laoreet. <b>Nam vitae ex commodo, euismod risus in, sodales dolor. Mauris condimentum urna neque, non condimentum odio</b> posuere a. Aenean nisl ex, semper eu malesuada sit amet, luctus nec enim. <br>Pellentesque eu ultrices magna, non porta dolor. Fus<b><i>ce eu neque nulla. Curabitur eu eros tristique leo efficitur fringilla sit amet sed neque. Aliquam</i></b> a tempor enim. Praesent pellentesque volutpat dolor, non rhoncus est posuere id. Aenean nunc purus, gravida at mauris et, pretium volutpat nisl. Mauris lacus urna, sodales ac eros in, mollis scelerisque neque.</p> Unordered List <ul><li>Item 1</li><li>Item 2</li><li>Item 3</li></ul>",
 				HorizontalAlignment.get("center"), VerticalAlignment.get("middle"));
@@ -2888,17 +2889,18 @@ public class TableTest {
 		cell8.setTextRotated(true);
 		cell8.setAlign(HorizontalAlignment.CENTER);
 		cell8.setValign(VerticalAlignment.BOTTOM);
-		
-		Cell<PDPage> cell9 = row3.createCell((100 / 3f), "hello 3", HorizontalAlignment.get("center"), VerticalAlignment.get("middle"));
+
+		Cell<PDPage> cell9 = row3.createCell((100 / 3f), "hello 3", HorizontalAlignment.get("center"),
+				VerticalAlignment.get("middle"));
 		cell9.setFontSize(6);
 		cell9.setTextRotated(true);
 		cell9.setAlign(HorizontalAlignment.CENTER);
 		cell9.setValign(VerticalAlignment.BOTTOM);
-		
+
 		// keep track of y position
 		yStart -= row3.getHeight();
-		
-		// fourth row that actually breaks first page with big inner table 
+
+		// fourth row that actually breaks first page with big inner table
 		Row<PDPage> row4 = table.createRow(10f);
 		Cell<PDPage> cell10 = row4.createCell((100 / 3f),
 				"<p>SINGLE SPACING</p><p>Integer eget elit vitae est feugiat laoreet. <b>Nam vitae ex commodo, euismod risus in, sodales dolor. Mauris condimentum urna neque, non condimentum odio</b> posuere a. Aenean nisl ex, semper eu malesuada sit amet, luctus nec enim. <br>Pellentesque eu ultrices magna, non porta dolor. Fus<b><i>ce eu neque nulla. Curabitur eu eros tristique leo efficitur fringilla sit amet sed neque. Aliquam</i></b> a tempor enim. Praesent pellentesque volutpat dolor, non rhoncus est posuere id. Aenean nunc purus, gravida at mauris et, pretium volutpat nisl. Mauris lacus urna, sodales ac eros in, mollis scelerisque neque.</p> Unordered List <ul><li>Item 1</li><li>Item 2</li><li>Item 3</li></ul>",
@@ -2923,7 +2925,7 @@ public class TableTest {
 		cell12.setTextRotated(true);
 		cell12.setAlign(HorizontalAlignment.CENTER);
 		cell12.setValign(VerticalAlignment.BOTTOM);
-		
+
 		cell5.setFont(null);
 		File file = new File("target/BoxableSample10.pdf");
 		try {
@@ -2933,23 +2935,24 @@ public class TableTest {
 			doc.save(file);
 			doc.close();
 		} catch (Exception e) {
-		//do nothing
+			// do nothing
 		} finally {
 		}
 		// Save the document
 	}
-/**
- * <p>
- * Test for a  table using the following features : 
- * <ul>
- * <li> borderless table </li>
- * </ul>
- * </p>
- *
- * @throws IOException
- */	
-	
-	public static void PDStreamWrite(final PageContentStreamOptimized stream, final String text, final PDFont font,
+
+	/**
+	 * <p>
+	 * Test for a table using the following features :
+	 * <ul>
+	 * <li>borderless table</li>
+	 * </ul>
+	 * </p>
+	 *
+	 * @throws IOException
+	 */
+
+	static void PDStreamWrite(final PageContentStreamOptimized stream, final String text, final PDFont font,
 			final float fontSize, final float x, final float y, final Color color) {
 		try {
 			stream.setFont(font, fontSize);
@@ -2962,9 +2965,8 @@ public class TableTest {
 		}
 	}
 
-	
 	@Test
-	public void Sample31() throws IOException {
+	void Sample31() throws IOException {
 		// Set margins
 		float margin = 10;
 
@@ -2988,25 +2990,30 @@ public class TableTest {
 		cos.close();
 
 		yStart -= FontUtils.getHeight(PDType1Font.HELVETICA_BOLD, 14) + 15;
-		
+
 		BaseTable table = new BaseTable(yStart, yStartNewPage, bottomMargin, tableWidth, margin, doc, page, drawLines,
 				drawContent);
 
 		// Create Header row
 		Row<PDPage> row = table.createRow(15f);
-		Cell<PDPage> cell = row.createCell(40f, "It's amazing what you can do with a little love in your heart. Maybe we got a few little happy bushes here, just covered with snow. Look around, look at what we have. Beauty is everywhere, you only have to look to see it. Anything you want to do you can do here.",
+		Cell<PDPage> cell = row.createCell(40f,
+				"It's amazing what you can do with a little love in your heart. Maybe we got a few little happy bushes here, just covered with snow. Look around, look at what we have. Beauty is everywhere, you only have to look to see it. Anything you want to do you can do here.",
 				HorizontalAlignment.get("center"), VerticalAlignment.get("top"));
-		cell = row.createCell(20f, "Let your imagination be your guide. You could sit here for weeks with your one hair brush trying to do that - or you could do it with one stroke with an almighty brush. Let's get wild today. As trees get older they lose their chlorophyll.");
-		cell = row.createCell(40f, "Fluff it up a little and hypnotize it. Every highlight needs it's own personal shadow. If we're gonna walk though the woods, we need a little path. All kinds of happy little splashes. Of course he's a happy little stone, cause we don't have any other kind. In your world you have total and absolute power.");
+		cell = row.createCell(20f,
+				"Let your imagination be your guide. You could sit here for weeks with your one hair brush trying to do that - or you could do it with one stroke with an almighty brush. Let's get wild today. As trees get older they lose their chlorophyll.");
+		cell = row.createCell(40f,
+				"Fluff it up a little and hypnotize it. Every highlight needs it's own personal shadow. If we're gonna walk though the woods, we need a little path. All kinds of happy little splashes. Of course he's a happy little stone, cause we don't have any other kind. In your world you have total and absolute power.");
 
 		table.addHeaderRow(row);
 
-
 		Row<PDPage> additionArow = table.createRow(15f);
-		cell = additionArow.createCell(40f, "If it's not what you want - stop and change it. Don't just keep going and expect it will get better. Nothing wrong with washing your brush. Remember how free clouds are. They just lay around in the sky all day long", HorizontalAlignment.get("center"),
-				VerticalAlignment.get("top"));
-		cell = additionArow.createCell(20f, "You are only limited by your imagination. Son of a gun. Let's have a happy little tree in here. The secret to doing anything is believing that you can do it. Anything that you believe you can do strong enough, you can do. Anything. As long as you believe.");
-		cell = additionArow.createCell(40f, "Everybody's different. Trees are different. Let them all be individuals. That's crazy. Even trees need a friend. We all need friends. Just go back and put one little more happy tree in there.");
+		cell = additionArow.createCell(40f,
+				"If it's not what you want - stop and change it. Don't just keep going and expect it will get better. Nothing wrong with washing your brush. Remember how free clouds are. They just lay around in the sky all day long",
+				HorizontalAlignment.get("center"), VerticalAlignment.get("top"));
+		cell = additionArow.createCell(20f,
+				"You are only limited by your imagination. Son of a gun. Let's have a happy little tree in here. The secret to doing anything is believing that you can do it. Anything that you believe you can do strong enough, you can do. Anything. As long as you believe.");
+		cell = additionArow.createCell(40f,
+				"Everybody's different. Trees are different. Let them all be individuals. That's crazy. Even trees need a friend. We all need friends. Just go back and put one little more happy tree in there.");
 
 		table.removeAllBorders(true);
 		table.draw();

@@ -1,20 +1,25 @@
-package com.eventmanager.pachanga.utils;
+package com.eventmanager.pachanga.services;
 
-import java.io.File;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
+
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.oauth2.provider.token.AuthorizationServerTokenServices;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.eventmanager.pachanga.domains.DadoBancario;
 import com.eventmanager.pachanga.domains.Festa;
 import com.eventmanager.pachanga.domains.Ingresso;
-import com.eventmanager.pachanga.domains.Lote;
+import com.eventmanager.pachanga.repositories.DadoBancarioRepository;
+import com.eventmanager.pachanga.repositories.FestaRepository;
+import com.eventmanager.pachanga.repositories.IngressoRepository;
 import com.eventmanager.pachanga.securingweb.JwtAuthenticationEntryPoint;
 import com.eventmanager.pachanga.securingweb.JwtTokenUtil;
 import com.eventmanager.pachanga.securingweb.JwtUserDetailsService;
@@ -23,21 +28,34 @@ import com.eventmanager.pachanga.tipo.TipoStatusFesta;
 import com.eventmanager.pachanga.tipo.TipoStatusIngresso;
 
 @RunWith(SpringRunner.class)
-@WebMvcTest(value=EmailMensagem.class)
-class EmailMensagemTest {
+@WebMvcTest(value = ArquivosBancoService.class)
+class ArquivosBancoServiceTest {
+
 	@MockBean
 	private AuthorizationServerTokenServices defaultAuthorizationServerTokenServices;
-	
+
 	@MockBean
 	private JwtUserDetailsService defaultJwtUserDetailsService;
-	
+
 	@MockBean
 	private JwtTokenUtil defaultJwtTokenUtil;
-	
+
 	@MockBean
 	private JwtAuthenticationEntryPoint defaultJwtAuthenticationEntryPoint;
-	
-	private Festa festaTest() throws Exception{
+
+	@MockBean
+	private DadoBancarioRepository dadoBancarioRepository;
+
+	@MockBean
+	private FestaRepository festaRepository;
+
+	@MockBean
+	private IngressoRepository ingressoRepository;
+
+	@Autowired
+	private ArquivosBancoService arquivosBancoService;
+
+	private Festa criacaoFesta() throws Exception {
 		Festa festaTest = new Festa();
 		festaTest.setCodFesta(2);
 		festaTest.setCodEnderecoFesta("https//:minhacasa.org");
@@ -49,69 +67,56 @@ class EmailMensagemTest {
 		festaTest.setStatusFesta(TipoStatusFesta.PREPARACAO.getValor());
 		festaTest.setDescricaoFesta("Bugago");
 		festaTest.setHorarioFimFestaReal(LocalDateTime.of(2016, Month.JUNE, 23, 19, 10));
-
 		return festaTest;
 	}
-	
-	private Ingresso ingressoTest() throws Exception {
-		Lote lote = loteTest();
+
+	private DadoBancario dadoBancarioTest() {
+		DadoBancario dado = new DadoBancario();
+		dado.setCodAgencia(1);
+		dado.setCodBanco("abc");
+		dado.setCodConta(1);
+		dado.setCodDadosBancario(1);
+		dado.setFesta(new Festa());
+		return dado;
+	}
+
+	private Ingresso ingressoTest() {
 		Ingresso ingresso = new Ingresso();
 		ingresso.setCodBoleto("ABC");
 		ingresso.setCodIngresso("1");
 		ingresso.setDataCheckin(LocalDateTime.of(2016, Month.JUNE, 22, 19, 10));
 		ingresso.setDataCompra(LocalDateTime.of(2014, Month.JUNE, 22, 19, 10));
 		ingresso.setEmailTitular("teste@email.com.invalid");
-		ingresso.setFesta(lote.getFesta());
-		ingresso.setLote(lote);
 		ingresso.setNomeTitular("Fulano");
 		ingresso.setPreco((float) 2.30);
 		ingresso.setStatusCompra(TipoStatusCompra.PAGO.getDescricao());
-		ingresso.setStatusIngresso(TipoStatusIngresso.CHECKED.getDescricao());
+		ingresso.setStatusIngresso(TipoStatusIngresso.UNCHECKED.getDescricao());
 		ingresso.setUrlBoleto("https://teste.com");
 		return ingresso;
 	}
-	
-	private Lote loteTest() throws Exception {
-		Lote lote = new Lote();
-		lote.setFesta(festaTest());
-		lote.setCodLote(1);
-		lote.setDescLote("lote vip krl");
-		lote.setNomeLote("Teste");
-		lote.setHorarioInicio(LocalDateTime.of(2020, Month.SEPTEMBER, 23, 19, 10));
-		lote.setHorarioFim(LocalDateTime.of(2020, Month.SEPTEMBER, 24, 19, 10));
-		lote.setNumeroLote(1);
-		lote.setPreco(17.2f);
-		lote.setQuantidade(100);
-		return lote;
-	}
-	
-	private List<Ingresso> listaIngressoTest() throws Exception {
+
+	@Test
+	void criacaoRemessaSucesso() throws Exception {
+
+		List<Festa> festas = new ArrayList<>();
+		festas.add(criacaoFesta());
+
+		Ingresso ingresso = ingressoTest();
+		ingresso.setPreco(30f);
+
+		Ingresso ingressoGratis = ingressoTest();
+		ingressoGratis.setPreco(0f);
+
 		List<Ingresso> ingressos = new ArrayList<>();
 		ingressos.add(ingressoTest());
-		return ingressos;
-	}
-	
-	@Test
-	void enviarEmailQRCodeTest() throws Exception {
-		EmailMensagem.enviarEmailQRCode("teste@email.invalid", festaTest(), listaIngressoTest());
-	}
-	
-	@Test
-	void enviarEmailTest() throws Exception {
-		EmailMensagem.enviarEmail("teste@email.invalid", "haha", festaTest());
+		ingressos.add(ingresso);
+		ingressos.add(ingressoGratis);
 
-	}
-	
-	@Test
-	void enviarPDFRelatorioTest() throws Exception {
-		
-		EmailMensagem emailMensagem = new EmailMensagem();
-		List<String> listaDeEmails = new ArrayList<>();
-		listaDeEmails.add("fernando@email.invalid");
-		//listaDeEmails.add("opedrofreitas@gmail.com");
-		listaDeEmails.add("eduardo@email.invalid");
-		File file = new File("target/Lorem_ipsum.pdf");
-		emailMensagem.enviarPDFRelatorio(listaDeEmails, file);
-		
+		Mockito.when(festaRepository.findFestasAcabadas()).thenReturn(festas);
+		Mockito.when(dadoBancarioRepository.findDadosBancariosFesta(Mockito.anyInt())).thenReturn(dadoBancarioTest());
+		Mockito.when(ingressoRepository.findIngressosFesta(Mockito.anyInt())).thenReturn(ingressos);
+
+		arquivosBancoService.criacaoRemessa();
+
 	}
 }

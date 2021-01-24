@@ -9,7 +9,7 @@ import { HttpClient } from '@angular/common/http';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
-import {MAT_DIALOG_DATA, MatDialog} from '@angular/material';
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginService } from 'src/app/services/loginService/login.service';
@@ -26,9 +26,11 @@ describe('EditDialogComponent', () => {
   let component: EditDialogComponent;
   let fixture: ComponentFixture<EditDialogComponent>;
   let dialogSpy: MatDialog;
+  let dialogRef: MatDialogRef<EditDialogComponent>;
 
   beforeEach(async(() => {
     dialogSpy = jasmine.createSpyObj('MatDialog', ['open', 'closeAll']);
+    dialogRef = jasmine.createSpyObj('MatDialog', ['open', 'close']);
     TestBed.configureTestingModule({
       declarations: [ EditDialogComponent ],
       imports: [
@@ -47,6 +49,7 @@ describe('EditDialogComponent', () => {
       providers: [
         { provide: MAT_DIALOG_DATA, useValue: {campo: 'nome'} },
         { provide: MatDialog, useValue: dialogSpy },
+        { provide: MatDialogRef, useValue: dialogRef },
         {provide: EditAccountService, useValue: {
           atualizar: () => of({nomeUser: 'teste'}),
           setFarol: () => false,

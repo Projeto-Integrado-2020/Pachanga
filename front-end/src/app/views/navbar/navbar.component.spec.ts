@@ -177,4 +177,9 @@ describe('NavbarComponent', () => {
     expect(dialogSpy.open).toHaveBeenCalled();
   });
 
+  it('should open a dialog perfil through a method', () => {
+    component.openDialogPerfil();
+    expect(dialogSpy.open).toHaveBeenCalled();
+  });
+
 });

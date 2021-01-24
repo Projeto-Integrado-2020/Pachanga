@@ -256,7 +256,7 @@ describe('EditarFestaComponent', () => {
   it('should alterarPreview', () => {
     component.alterarPreview();
 
-    expect(component.urlNoImage).toBe('https://xtremebike.com.br/website/images/product/1.jpg');
+    expect(component.urlNoImage).toBe('https://res.cloudinary.com/htctb0zmi/image/upload/v1611352783/pachanga-logo_tikwrw.png');
   });
 
   it('should excluirInputImagem', () => {

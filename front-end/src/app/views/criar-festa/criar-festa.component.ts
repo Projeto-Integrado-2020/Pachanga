@@ -18,7 +18,7 @@ export class CriarFestaComponent implements OnInit {
   public form: FormGroup;
   minDate = new Date();
   categorias = [];
-  urlNoImage = 'https://xtremebike.com.br/website/images/product/1.jpg';
+  urlNoImage = 'https://res.cloudinary.com/htctb0zmi/image/upload/v1611352783/pachanga-logo_tikwrw.png';
   imagem = this.urlNoImage;
 
   constructor(

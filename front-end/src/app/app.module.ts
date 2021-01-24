@@ -154,6 +154,7 @@ import { RelatoriosVendaComponent } from './views/relatorios-venda/relatorios-ve
 import { RelatoriosCheckinComponent } from './views/relatorios-checkin/relatorios-checkin.component';
 import { RelatoriosExportComponent } from './views/relatorios-export/relatorios-export.component';
 import { RelatoriosExportDialogComponent } from './views/relatorios-export-dialog/relatorios-export-dialog.component';
+import { PerfilDialogComponent } from './views/perfil-dialog/perfil-dialog.component';
 
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
 
@@ -265,7 +266,8 @@ export function provideConfig() {
     RelatoriosVendaComponent,
     RelatoriosExportDialogComponent,
     RelatoriosCheckinComponent,
-    RelatoriosExportComponent
+    RelatoriosExportComponent,
+    PerfilDialogComponent
   ],
   entryComponents: [
     LoginComponent,
@@ -317,7 +319,8 @@ export function provideConfig() {
     ProcessingDialogComponent,
     DialogIngressosMesmaFestaComponent,
     ImagemAreaProblemaDialogComponent,
-    RelatoriosExportDialogComponent
+    RelatoriosExportDialogComponent,
+    PerfilDialogComponent
   ],
   imports: [
     BrowserModule,

@@ -344,6 +344,11 @@ public class FestaService {
 				&& TipoStatusFesta.FINALIZADO.getValor().equals(statusFestaMaiusculo)) {
 			throw new ValidacaoException("FSTANINI");// festa precisa estar iniciada para fazer essa ação
 		}
+		if(TipoStatusFesta.FINALIZADO.getValor().equals(statusFestaMaiusculo)) {
+			festa.setHorarioFimFestaReal(notificacaoService.getDataAtual());
+		}else {
+			festa.setHorarioFimFestaReal(null);
+		}
 		festa.setStatusFesta(statusFestaMaiusculo);
 		festaRepository.save(festa);
 		List<Usuario> usuarios = usuarioRepository.findByIdFesta(idFesta);

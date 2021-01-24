@@ -47,7 +47,8 @@ public enum TipoPermissao {
 	ADDCUPOM(43,"ADDCUPOM"),//inserir cupom
 	DELECUPM(44,"DELECUPM"),//deletar cupom
 	EDITCUPM(45,"EDITCUPM"),//editar cupom
-	RELCHECK(46,"RELCHECK");//realizar check-in da festa
+	RELCHECK(46,"RELCHECK"),//realizar check-in da festa
+	EXPOREPO(47,"EXPOREPO");//exportar relatório
 
 	private String valor;
 	private int codigo;
