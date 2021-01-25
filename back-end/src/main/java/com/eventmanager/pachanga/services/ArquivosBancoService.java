@@ -58,17 +58,21 @@ public class ArquivosBancoService {
 					valorTotal += preco;
 				}
 
-				valorTotal -= valorDesconto;
+				if (valorTotal != 0) {
 
-				arq.write(GeracaoArquivoRemessa.criacaoHeaderLote() + QUEBRA_LINHA);
+					valorTotal -= valorDesconto;
 
-				arq.write(GeracaoArquivoRemessa.criacaoSegmentoP(i + 1, valorTotal, dado) + QUEBRA_LINHA);
-				arq.write(GeracaoArquivoRemessa.criacaoSegmentoQ(i + 1, festas.get(i).getOrganizador().toUpperCase())
-						+ QUEBRA_LINHA);
+					arq.write(GeracaoArquivoRemessa.criacaoHeaderLote() + QUEBRA_LINHA);
 
-				arq.write(GeracaoArquivoRemessa.criacaoTrailerLote(quantidadeTotal, valorTotal) + QUEBRA_LINHA);
+					arq.write(GeracaoArquivoRemessa.criacaoSegmentoP(i + 1, valorTotal, dado) + QUEBRA_LINHA);
+					arq.write(
+							GeracaoArquivoRemessa.criacaoSegmentoQ(i + 1, festas.get(i).getOrganizador().toUpperCase())
+									+ QUEBRA_LINHA);
 
-				quantidadeTotal += 1;
+					arq.write(GeracaoArquivoRemessa.criacaoTrailerLote(quantidadeTotal, valorTotal) + QUEBRA_LINHA);
+
+					quantidadeTotal += 1;
+				}
 			}
 
 		}
