@@ -32,7 +32,7 @@ import com.eventmanager.pachanga.tipo.TipoStatusFesta;
 import com.eventmanager.pachanga.tipo.TipoStatusIngresso;
 
 @RunWith(MockitoJUnitRunner.class)
-@PrepareForTest({ ArquivosBancoService.class, FileWriter.class})
+@PrepareForTest({ ArquivosBancoService.class, FileWriter.class, LocalDateTime.class})
 class ArquivosBancoServiceTest {
 
 	@Mock
@@ -58,6 +58,9 @@ class ArquivosBancoServiceTest {
 
 	@InjectMocks
 	private ArquivosBancoService arquivosBancoService;
+	
+	@Mock
+	private NotificacaoService notificacaoService;
 	
 	@BeforeEach
     public void setUp() {
@@ -122,6 +125,10 @@ class ArquivosBancoServiceTest {
 		ingressos.add(ingressoGratis);
 		
 		FileWriter file = PowerMockito.mock(FileWriter.class);
+		
+		LocalDateTime dataCriacao = LocalDateTime.of(2014, Month.JUNE, 22, 19, 10);
+		
+		PowerMockito.when(notificacaoService.getDataAtual()).thenReturn(dataCriacao);
 		
 		PowerMockito.whenNew(FileWriter.class).withArguments("remessaItau.RRM").thenReturn(file);
 		

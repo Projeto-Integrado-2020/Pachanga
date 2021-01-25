@@ -2,7 +2,6 @@ package com.eventmanager.pachanga.utils;
 
 import java.text.DecimalFormat;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -31,14 +30,14 @@ public class GeracaoArquivoRemessa {
 	
 	private static final String VALOR_ZERADO = "000000000,00";
 
-	public static String criacaoHeaderLote() {
-		return criacaoHeaderArquivo();
+	public static String criacaoHeaderLote(LocalDateTime dataAtual) {
+		return criacaoHeaderArquivo(dataAtual);
 	}
 
-	public static String criacaoHeaderArquivo() {
-		DateTimeFormatter formatterData = DateTimeFormatter.ofPattern("DDMMAAAA");
-		LocalDateTime dataAtual = LocalDateTime.now(ZoneId.of("America/Sao_Paulo"));
-		String dataCriacao = formatterData.format(dataAtual);
+	public static String criacaoHeaderArquivo(LocalDateTime dataAtual) {
+		DateTimeFormatter formatterData = DateTimeFormatter.ofPattern("ddMMyyyy");
+		
+		String dataCriacao = dataAtual.format(formatterData);
 
 		DateTimeFormatter formatterHora = DateTimeFormatter.ofPattern("HHMMSS");
 		String horarioCriacao = formatterHora.format(dataAtual);
@@ -77,17 +76,15 @@ public class GeracaoArquivoRemessa {
 		return IntStream.range(0, contador).mapToObj(i -> letra).collect(Collectors.joining(""));
 	}
 
-	public static String criacaoSegmentoP(int contador, float valorBoleto, DadoBancario dadoBancario) {
-		DateTimeFormatter formatterData = DateTimeFormatter.ofPattern("DDMMAAAA");
-		DateTimeFormatter formatterDataComBarra = DateTimeFormatter.ofPattern("DD/MM/AAAA");
-
-		LocalDateTime dataAtual = LocalDateTime.now(ZoneId.of("America/Sao_Paulo"));
+	public static String criacaoSegmentoP(int contador, float valorBoleto, DadoBancario dadoBancario, LocalDateTime dataAtual) {
+		DateTimeFormatter formatterData = DateTimeFormatter.ofPattern("ddMMyyyy");
+		DateTimeFormatter formatterDataComBarra = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
 		LocalDateTime dataVencimento = dataAtual.plusDays(5l);
 		LocalDateTime dataLimite = dataAtual.plusDays(30l);
 
-		String dataCriacao = formatterData.format(dataAtual);
-		String dataCriacaoVencimento = formatterData.format(dataVencimento);
+		String dataCriacao = dataLimite.format(formatterData);
+		String dataCriacaoVencimento =  dataVencimento.format(formatterDataComBarra);
 
 		StringBuilder segmentoP = new StringBuilder();
 		segmentoP.append(dadoBancario.getCodBanco());// numero do banco do cliente
