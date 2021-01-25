@@ -107,9 +107,8 @@ class EmailMensagemTest {
 		/*
 		EmailMensagem emailMensagem = new EmailMensagem();
 		List<String> listaDeEmails = new ArrayList<>();
-		listaDeEmails.add("fernando@email.invalid");
-		//listaDeEmails.add("opedrofreitas@gmail.com");
-		listaDeEmails.add("eduardo@email.invalid");
+		//listaDeEmails.add("fernando@email.invalid");
+		//listaDeEmails.add("eduardo@email.invalid");
 		File file = new File("target/Lorem_ipsum.pdf");
 		emailMensagem.enviarPDFRelatorio(listaDeEmails, file);
 		*/

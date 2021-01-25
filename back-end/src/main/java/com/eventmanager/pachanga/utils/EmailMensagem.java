@@ -165,7 +165,7 @@ public class EmailMensagem {
 			}
 			
 			//message.setRecipients(Message.RecipientType.TO, toUser);
-			message.setSubject("Novo convite para festa");// Assunto
+			message.setSubject("Relatório Pachanga");// Assunto
 
 			// carrega html
 			MimeBodyPart messageBodyPart = new MimeBodyPart();
@@ -174,7 +174,7 @@ public class EmailMensagem {
 			
 			try {
 				attachmentPart = new MimeBodyPart();
-				attachmentPart.attachFile(pdf);
+				attachmentPart.attachFile(pdf); 
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -182,7 +182,8 @@ public class EmailMensagem {
 			String htmlMessage = "<h1><strong>Segue o PDF do seu relatório"
 					+ "</strong></h1>\r\n" + "\r\n" + "\r\n" + "<p><strong>Equipe Pachanga</strong></p>";
 
-			messageBodyPart.setContent(htmlMessage, "text/html");
+			//messageBodyPart.setContent(htmlMessage, "text/html");
+			messageBodyPart.setContent(htmlMessage, "text/html; charset=iso-8859-1");
 			multipart.addBodyPart(messageBodyPart);
 			multipart.addBodyPart(attachmentPart);
 
