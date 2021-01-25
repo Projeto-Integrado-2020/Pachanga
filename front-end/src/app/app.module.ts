@@ -53,7 +53,7 @@ import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 
 import { CadastrarFestaService } from './services/cadastro-festa/cadastrar-festa.service';
 import { EditarFestaComponent } from './views/editar-festa/editar-festa.component';
-import { MatPaginatorIntl } from '@angular/material';
+import { MatDialogRef, MatPaginatorIntl, MAT_DIALOG_DATA } from '@angular/material';
 import { MatPaginatorPtBr } from './views/menu-festas/mat-paginator-ptbr';
 import { NotFoundComponent } from './views/not-found/not-found.component';
 import { DeletarFestaComponent } from './views/deletar-festa/deletar-festa.component';
@@ -155,6 +155,7 @@ import { RelatoriosCheckinComponent } from './views/relatorios-checkin/relatorio
 import { RelatoriosExportComponent } from './views/relatorios-export/relatorios-export.component';
 import { RelatoriosExportDialogComponent } from './views/relatorios-export-dialog/relatorios-export-dialog.component';
 import { PerfilDialogComponent } from './views/perfil-dialog/perfil-dialog.component';
+import { ProblemaDialogComponent } from './views/problema-dialog/problema-dialog.component';
 
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
 
@@ -267,7 +268,8 @@ export function provideConfig() {
     RelatoriosExportDialogComponent,
     RelatoriosCheckinComponent,
     RelatoriosExportComponent,
-    PerfilDialogComponent
+    PerfilDialogComponent,
+    ProblemaDialogComponent,
   ],
   entryComponents: [
     LoginComponent,
@@ -320,7 +322,8 @@ export function provideConfig() {
     DialogIngressosMesmaFestaComponent,
     ImagemAreaProblemaDialogComponent,
     RelatoriosExportDialogComponent,
-    PerfilDialogComponent
+    PerfilDialogComponent,
+    ProblemaDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -367,6 +370,8 @@ export function provideConfig() {
     LogService,
     MenuFestasService,
     CadastrarFestaService,
+    { provide: MAT_DIALOG_DATA, useValue: {} },
+     { provide: MatDialogRef, useValue: {} },
     DatePipe,
     {
       provide: MatPaginatorIntl,

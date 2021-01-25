@@ -795,7 +795,8 @@
         "PROBLEMA": "Problemas",
         "LEGENDA": "Legenda",
         "AREA": "Áreas de Segurança",
-        "STATUS": "Status"
+        "STATUS": "Status",
+        "PROBLEMAAREA": "Problema(s)"
     },
 
     "RELATARPROB": {
