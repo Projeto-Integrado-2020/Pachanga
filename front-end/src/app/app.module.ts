@@ -155,7 +155,7 @@ import { RelatoriosCheckinComponent } from './views/relatorios-checkin/relatorio
 import { RelatoriosExportComponent } from './views/relatorios-export/relatorios-export.component';
 import { RelatoriosExportDialogComponent } from './views/relatorios-export-dialog/relatorios-export-dialog.component';
 import { PerfilDialogComponent } from './views/perfil-dialog/perfil-dialog.component';
-import { ProblemaDialogComponent } from './views/problema-dialog/problema-dialog.component';
+import { RelatorioDetalhesDialogComponent } from './views/relatorio-detalhes-dialog/relatorio-detalhes-dialog.component';
 
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
 
@@ -269,7 +269,7 @@ export function provideConfig() {
     RelatoriosCheckinComponent,
     RelatoriosExportComponent,
     PerfilDialogComponent,
-    ProblemaDialogComponent,
+    RelatorioDetalhesDialogComponent
   ],
   entryComponents: [
     LoginComponent,
@@ -323,7 +323,7 @@ export function provideConfig() {
     ImagemAreaProblemaDialogComponent,
     RelatoriosExportDialogComponent,
     PerfilDialogComponent,
-    ProblemaDialogComponent
+    RelatorioDetalhesDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -370,8 +370,6 @@ export function provideConfig() {
     LogService,
     MenuFestasService,
     CadastrarFestaService,
-    { provide: MAT_DIALOG_DATA, useValue: {} },
-     { provide: MatDialogRef, useValue: {} },
     DatePipe,
     {
       provide: MatPaginatorIntl,

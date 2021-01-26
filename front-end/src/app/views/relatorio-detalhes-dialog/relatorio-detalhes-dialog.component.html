@@ -1,0 +1,7 @@
+<div class="problemas">
+    <h3 class="nome-area">{{data.name}}</h3>
+    <div class="problema" *ngFor="let problema of areaProblema.problemasArea">
+        <span><b>{{'RELATARPROB.' + problema.descProblema | translate}}</b></span> - 
+        <span [ngClass]="(problema.statusProblema==='F')?'finalizado':'engano'">{{'RELATARPROB.' + problema.statusProblema | translate}}</span>
+    </div>
+</div>
