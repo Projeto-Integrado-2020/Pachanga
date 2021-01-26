@@ -1,13 +1,16 @@
 package com.eventmanager.pachanga.services;
 
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.eventmanager.pachanga.dtos.ChamadasEmitidasFuncionarioTO;
 import com.eventmanager.pachanga.dtos.RelatorioAreaSegurancaTO;
 import com.eventmanager.pachanga.factory.RelatorioAreaSegurancaTOFactory;
 import com.eventmanager.pachanga.repositories.AreaSegurancaProblemaFluxoRepository;
@@ -46,22 +49,25 @@ public class RelatorioAreaSegurancaService {
 	public RelatorioAreaSegurancaTO relatorioChamadasUsuario(int codFesta, int codUsuario) {
 		this.validacaoUsuarioFestaRelatorio(codFesta, codUsuario);
 
-		Map<String, Map<Integer, Integer>> chamadasEmitidasFuncionario = new LinkedHashMap<>();
-		Map<Integer, Integer> chamadasEnganoFinalizadas = new LinkedHashMap<>();
+		Map<Integer, Integer> chamadasFinalizadasEngano = new LinkedHashMap<>();
 
-		areaSegurancaProblemaFluxoRepository.findUsuariosByIdFesta(codFesta).stream().forEach(u -> {
+		List<ChamadasEmitidasFuncionarioTO> chamadas = areaSegurancaProblemaFluxoRepository
+				.findUsuariosByIdFesta(codFesta).stream().map(u -> {
 
-			int chamadasEmitidasFinalizadas = areaSegurancaProblemaFluxoRepository
-					.findQuantidadeProblemasEmitidosByUsuario((Integer) u[0], TipoStatusProblema.FINALIZADO.getValor(),
-							codFesta);
+					int chamadasEmitidasFinalizadas = areaSegurancaProblemaFluxoRepository
+							.findQuantidadeProblemasEmitidosByUsuario((Integer) u[0],
+									TipoStatusProblema.FINALIZADO.getValor(), codFesta);
 
-			int chamadasEmitidasEngano = areaSegurancaProblemaFluxoRepository.findQuantidadeProblemasEmitidosByUsuario(
-					(Integer) u[0], TipoStatusProblema.ENGANO.getValor(), codFesta);
+					int chamadasEmitidasEngano = areaSegurancaProblemaFluxoRepository
+							.findQuantidadeProblemasEmitidosByUsuario((Integer) u[0],
+									TipoStatusProblema.ENGANO.getValor(), codFesta);
 
-			chamadasEnganoFinalizadas.put(chamadasEmitidasFinalizadas, chamadasEmitidasEngano);
-			chamadasEmitidasFuncionario.put((String) u[1], chamadasEnganoFinalizadas);
-		});
-		return relatorioAreaSegurancaTOFactory.getChamadasProblema(chamadasEmitidasFuncionario);
+					chamadasFinalizadasEngano.put(chamadasEmitidasFinalizadas, chamadasEmitidasEngano);
+
+					return relatorioAreaSegurancaTOFactory.getChamadasEmitidas((String) u[1], chamadasFinalizadasEngano,
+							(int) u[0]);
+				}).collect(Collectors.toList());
+		return relatorioAreaSegurancaTOFactory.getChamadasProblema(chamadas);
 	}
 
 	public RelatorioAreaSegurancaTO relatorioUsuarioSolucionador(int codFesta, int codUsuario) {
