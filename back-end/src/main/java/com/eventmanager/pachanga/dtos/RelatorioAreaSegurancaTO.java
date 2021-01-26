@@ -1,12 +1,13 @@
 package com.eventmanager.pachanga.dtos;
 
+import java.util.List;
 import java.util.Map;
 
 public class RelatorioAreaSegurancaTO {
 	
 	private Map<String, Integer> problemasArea;
 	
-	private Map<String, Map<Integer, Integer>> chamadasEmitidasFuncionario; // int primeiro é o finalizado depois o engano
+	private List<ChamadasEmitidasFuncionarioTO> chamadasEmitidasFuncionario;
 	
 	private Map<String, Integer> solucionadorAlertasSeguranca;
 
@@ -18,14 +19,6 @@ public class RelatorioAreaSegurancaTO {
 		this.problemasArea = problemasArea;
 	}
 
-	public Map<String, Map<Integer, Integer>> getChamadasEmitidasFuncionario() {
-		return chamadasEmitidasFuncionario;
-	}
-
-	public void setChamadasEmitidasFuncionario(Map<String, Map<Integer, Integer>> chamadasEmitidasFuncionario) {
-		this.chamadasEmitidasFuncionario = chamadasEmitidasFuncionario;
-	}
-
 	public Map<String, Integer> getSolucionadorAlertasSeguranca() {
 		return solucionadorAlertasSeguranca;
 	}
@@ -34,4 +27,12 @@ public class RelatorioAreaSegurancaTO {
 		this.solucionadorAlertasSeguranca = solucionadorAlertasSeguranca;
 	}
 
+	public List<ChamadasEmitidasFuncionarioTO> getChamadasEmitidasFuncionario() {
+		return chamadasEmitidasFuncionario;
+	}
+
+	public void setChamadasEmitidasFuncionario(List<ChamadasEmitidasFuncionarioTO> chamadasEmitidasFuncionario) {
+		this.chamadasEmitidasFuncionario = chamadasEmitidasFuncionario;
+	}
+	
 }
