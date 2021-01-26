@@ -103,10 +103,6 @@ describe('DistribuicaoPermissoesComponent', () => {
     .and
     .callThrough();
 
-    spyOn(component.getFesta, 'setFarol')
-    .and
-    .callThrough();
-
     spyOn(component, 'resgatarGrupo')
     .and
     .callThrough();
@@ -115,7 +111,6 @@ describe('DistribuicaoPermissoesComponent', () => {
     idFesta = idFesta.slice(idFesta.indexOf('&') + 1, idFesta.indexOf('/', idFesta.indexOf('&')));
     component.resgatarFesta();
     expect(component.getFesta.acessarFesta).toHaveBeenCalledWith(idFesta);
-    expect(component.getFesta.setFarol).toHaveBeenCalledWith(false);
     expect(component.resgatarGrupo).toHaveBeenCalled();
     expect(component.festa).toEqual({usuarios: [{codUsuario: 'teste1'}, {codUsuario: 'teste2'}], codFesta: 'teste'});
   });

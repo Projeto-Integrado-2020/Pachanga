@@ -6,6 +6,8 @@ import { take, catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 import { Router } from '@angular/router';
 import { LoginService } from '../loginService/login.service';
+import { MatDialog } from '@angular/material';
+import { ErroDialogComponent } from 'src/app/views/erro-dialog/erro-dialog.component';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +17,7 @@ export class GetSegurancaService {
   private readonly urlAreaSergurancaGet = `${environment.URL_BACK}areaSeguranca/lista`;
 
   constructor(private http: HttpClient, public logService: LogService, public router: Router,
-              public loginService: LoginService) { }
+              public dialog: MatDialog, public loginService: LoginService) { }
 
   getAreaSeguranca(idFesta) {
     const httpParams = new HttpParams()
@@ -35,10 +37,20 @@ export class GetSegurancaService {
   }
 
   handleError = (error: HttpErrorResponse, logService: LogService) => {
+    this.openErrorDialog(error.error);
     logService.initialize();
     logService.logHttpInfo(JSON.stringify(error), 0, error.url);
-    this.router.navigate(['404']);
+    let painel = this.router.url;
+    painel = painel.slice(0, -10);
+    this.router.navigate([painel]);
     return throwError(error);
+  }
+
+  openErrorDialog(error) {
+    const dialogRef = this.dialog.open(ErroDialogComponent, {
+      width: '250px',
+      data: {erro: error}
+    });
   }
 
 }

@@ -125,10 +125,6 @@ describe('EditarGrupoComponent', () => {
     .and
     .callThrough();
 
-    spyOn(component.getFestaService, 'setFarol')
-    .and
-    .callThrough();
-
     spyOn(component, 'resgatarGrupo')
     .and
     .callThrough();
@@ -151,7 +147,6 @@ describe('EditarGrupoComponent', () => {
     };
 
     expect(component.getFestaService.acessarFesta).toHaveBeenCalled();
-    expect(component.getFestaService.setFarol).toHaveBeenCalledWith(false);
     expect(component.festa).toEqual(festaResult);
     expect(component.resgatarGrupo).toHaveBeenCalled();
   });

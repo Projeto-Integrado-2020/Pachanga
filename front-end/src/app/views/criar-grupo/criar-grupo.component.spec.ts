@@ -131,14 +131,9 @@ describe('CriarGrupoComponent', () => {
     .and
     .callThrough();
 
-    spyOn(component.getFestaService, 'setFarol')
-    .and
-    .callThrough();
-
     component.callServiceGet('teste');
 
     expect(component.getFestaService.acessarFesta).toHaveBeenCalledWith('teste');
-    expect(component.getFestaService.setFarol).toHaveBeenCalledWith(false);
     expect(component.festa).toEqual({nomeFesta: 'testeFesta'});
   });
 

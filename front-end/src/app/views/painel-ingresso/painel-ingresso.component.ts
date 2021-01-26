@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, NgForm } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -35,10 +35,17 @@ export class PainelIngressoComponent implements OnInit {
     private dadosBancariosService: DadosBancariosService
     ) {
     this.options = fb.group({
-    bottom: 55,
-    top: 0
+      bottom: 55,
+      top: 0
+    });
+    this.form = fb.group({
+      codBanco: new FormControl({value: '', disabled: true}, Validators.required),
+      codAgencia: new FormControl({value: '', disabled: true}, Validators.required),
+      codConta: new FormControl({value: '', disabled: true}, Validators.required)
     });
   }
+
+  get f() { return this.form.controls; }
 
   public festaNome: string;
   public lotes: any;
@@ -46,7 +53,7 @@ export class PainelIngressoComponent implements OnInit {
   public festa: any;
   public statusFesta: any;
   panelOpenState = false;
-  public forms = {};
+  public form: FormGroup;
   estoques: any;
   dataSources = [];
   subscription: Subscription;
@@ -66,7 +73,6 @@ export class PainelIngressoComponent implements OnInit {
     idFesta = idFesta.substring(idFesta.indexOf('&') + 1, idFesta.indexOf('/', idFesta.indexOf('&')));
 
     this.getFestaService.acessarFesta(idFesta).subscribe((resp: any) => {
-      this.getFestaService.setFarol(false);
       this.festa = resp;
       this.festaNome = resp.nomeFesta;
       this.statusFesta = resp.statusFesta;
@@ -117,22 +123,25 @@ export class PainelIngressoComponent implements OnInit {
 
   editarDadosBancarios() {
     this.dadosBancEditavel = true;
+    this.form.get('codBanco').enable();
+    this.form.get('codAgencia').enable();
+    this.form.get('codConta').enable();
   }
 
 
-  salvarDadosBancarios(model: NgForm) {
+  salvarDadosBancarios() {
 
-    this.dadosBancariosTO.codBanco = model.value.codBanco;
-    this.dadosBancariosTO.codAgencia = model.value.codAgencia;
-    this.dadosBancariosTO.codConta = model.value.codConta;
-
-    console.log(this.dadosBancariosTO);
-
+    this.dadosBancariosTO.codBanco = this.form.get('codBanco').value;
+    this.dadosBancariosTO.codAgencia = this.form.get('codAgencia').value;
+    this.dadosBancariosTO.codConta = this.form.get('codConta').value;
 
     this.dadosBancariosService.inserirDados(this.dadosBancariosTO).subscribe(
       (resp: any) => {
         this.dadosBancariosService.setFarol(false);
         this.dadosBancEditavel = false;
+        this.form.get('codBanco').disable();
+        this.form.get('codAgencia').disable();
+        this.form.get('codConta').disable();
       });
   }
 
@@ -149,9 +158,12 @@ export class PainelIngressoComponent implements OnInit {
             codAgencia: null,
             codConta: null
           };
+        } else {
+          this.form.get('codBanco').setValue(this.dadosBancariosTO.codBanco);
+          this.form.get('codAgencia').setValue(this.dadosBancariosTO.codAgencia);
+          this.form.get('codConta').setValue(this.dadosBancariosTO.codConta);
         }
         this.dadosBancariosService.setFarol(false);
-        console.log(this.dadosBancariosTO);
       });
   }
 

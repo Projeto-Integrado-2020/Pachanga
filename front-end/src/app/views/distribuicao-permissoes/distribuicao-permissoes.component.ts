@@ -33,7 +33,6 @@ export class DistribuicaoPermissoesComponent implements OnInit {
     let idFesta = this.router.url;
     idFesta = idFesta.slice(idFesta.indexOf('&') + 1, idFesta.indexOf('/', idFesta.indexOf('&')));
     this.getFesta.acessarFesta(idFesta).subscribe((resp: any) => {
-      this.getFesta.setFarol(false);
       this.festa = resp;
       this.resgatarGrupo();
     });

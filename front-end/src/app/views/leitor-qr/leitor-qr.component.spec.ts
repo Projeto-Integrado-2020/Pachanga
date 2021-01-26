@@ -139,13 +139,8 @@ describe('LeitorQrComponent', () => {
     .and
     .callThrough();
 
-    spyOn(component.getFestaService, 'setFarol')
-    .and
-    .callThrough();
-
     component.resgatarFesta();
     expect(component.getFestaService.acessarFesta).toHaveBeenCalled();
-    expect(component.getFestaService.setFarol).toHaveBeenCalledWith(false);
   });
 
   it('should resgatarIntegracoes', () => {

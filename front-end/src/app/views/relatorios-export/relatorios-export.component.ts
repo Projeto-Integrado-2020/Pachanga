@@ -74,7 +74,6 @@ export class RelatoriosExportComponent implements OnInit {
 
   resgatarFesta(codFesta) {
     this.getFestaService.acessarFesta(codFesta).subscribe((resp: any) => {
-      this.getFestaService.setFarol(false);
       this.festa = resp;
     });
   }

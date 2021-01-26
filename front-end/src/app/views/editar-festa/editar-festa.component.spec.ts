@@ -202,10 +202,6 @@ describe('EditarFestaComponent', () => {
     .and
     .callThrough();
 
-    spyOn(component.getFestaService, 'setFarol')
-    .and
-    .callThrough();
-
     spyOn(component, 'setFormValues')
     .and
     .callThrough();
@@ -228,7 +224,6 @@ describe('EditarFestaComponent', () => {
     };
 
     expect(component.getFestaService.acessarFesta).toHaveBeenCalled();
-    expect(component.getFestaService.setFarol).toHaveBeenCalledWith(false);
     expect(component.festa).toEqual(festaResult);
     expect(component.setFormValues).toHaveBeenCalled();
   });
