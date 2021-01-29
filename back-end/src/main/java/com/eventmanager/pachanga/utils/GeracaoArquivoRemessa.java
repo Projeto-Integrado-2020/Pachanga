@@ -2,7 +2,6 @@ package com.eventmanager.pachanga.utils;
 
 import java.text.DecimalFormat;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -10,6 +9,9 @@ import java.util.stream.IntStream;
 import com.eventmanager.pachanga.domains.DadoBancario;
 
 public class GeracaoArquivoRemessa {
+	
+	private GeracaoArquivoRemessa() {
+	}
 
 	private static final String CODIGO_BANCO = "341";
 	private static final String NUMERO_INSCRICAO = "12345678901234";
@@ -25,15 +27,17 @@ public class GeracaoArquivoRemessa {
 	private static final String SUSEP_CEP = "123";
 	private static final String CIDADE = "SAO PAULO      ";
 	private static final String UF = "SP";
+	
+	private static final String VALOR_ZERADO = "000000000,00";
 
-	public static String criacaoHeaderLote() {
-		return criacaoHeaderArquivo();
+	public static String criacaoHeaderLote(LocalDateTime dataAtual) {
+		return criacaoHeaderArquivo(dataAtual);
 	}
 
-	public static String criacaoHeaderArquivo() {
-		DateTimeFormatter formatterData = DateTimeFormatter.ofPattern("DDMMAAAA");
-		LocalDateTime dataAtual = LocalDateTime.now(ZoneId.of("America/Sao_Paulo"));
-		String dataCriacao = formatterData.format(dataAtual);
+	public static String criacaoHeaderArquivo(LocalDateTime dataAtual) {
+		DateTimeFormatter formatterData = DateTimeFormatter.ofPattern("ddMMyyyy");
+		
+		String dataCriacao = dataAtual.format(formatterData);
 
 		DateTimeFormatter formatterHora = DateTimeFormatter.ofPattern("HHMMSS");
 		String horarioCriacao = formatterHora.format(dataAtual);
@@ -72,17 +76,15 @@ public class GeracaoArquivoRemessa {
 		return IntStream.range(0, contador).mapToObj(i -> letra).collect(Collectors.joining(""));
 	}
 
-	public static String criacaoSegmentoP(int contador, float valorBoleto, DadoBancario dadoBancario) {
-		DateTimeFormatter formatterData = DateTimeFormatter.ofPattern("DDMMAAAA");
-		DateTimeFormatter formatterDataComBarra = DateTimeFormatter.ofPattern("DD/MM/AAAA");
-
-		LocalDateTime dataAtual = LocalDateTime.now(ZoneId.of("America/Sao_Paulo"));
+	public static String criacaoSegmentoP(int contador, float valorBoleto, DadoBancario dadoBancario, LocalDateTime dataAtual) {
+		DateTimeFormatter formatterData = DateTimeFormatter.ofPattern("ddMMyyyy");
+		DateTimeFormatter formatterDataComBarra = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
 		LocalDateTime dataVencimento = dataAtual.plusDays(5l);
 		LocalDateTime dataLimite = dataAtual.plusDays(30l);
 
-		String dataCriacao = formatterData.format(dataAtual);
-		String dataCriacaoVencimento = formatterData.format(dataVencimento);
+		String dataCriacao = dataLimite.format(formatterData);
+		String dataCriacaoVencimento =  dataVencimento.format(formatterDataComBarra);
 
 		StringBuilder segmentoP = new StringBuilder();
 		segmentoP.append(dadoBancario.getCodBanco());// numero do banco do cliente
@@ -118,9 +120,9 @@ public class GeracaoArquivoRemessa {
 		segmentoP.append("0000000000000,00");// código 13
 		segmentoP.append(adicionarMesmosCaracteres(1, "0"));
 		segmentoP.append(formatterData.format(dataLimite));
-		segmentoP.append("000000000,00");// código 14
-		segmentoP.append("000000000,00");// código 15
-		segmentoP.append("000000000,00");// código 16
+		segmentoP.append(VALOR_ZERADO);// código 14
+		segmentoP.append(VALOR_ZERADO);// código 15
+		segmentoP.append(VALOR_ZERADO);// código 16
 		segmentoP.append(adicionarMesmosCaracteres(25, "0"));// código 17
 		segmentoP.append("0");// códgio 18
 		segmentoP.append("00");// códgio 18
@@ -160,7 +162,7 @@ public class GeracaoArquivoRemessa {
 	}
 
 	public static String criacaoTrailerLote(int quantidadeTotal, float valorTotal) {
-		DecimalFormat formatter = new DecimalFormat("000000000,00");
+		DecimalFormat formatter = new DecimalFormat(VALOR_ZERADO);
 		
 		StringBuilder trailerLote = new StringBuilder();
 		trailerLote.append(CODIGO_BANCO);

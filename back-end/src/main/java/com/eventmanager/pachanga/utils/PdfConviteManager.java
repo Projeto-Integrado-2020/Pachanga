@@ -224,7 +224,6 @@ public class PdfConviteManager {
 	       
 	       //insere QRCode
 	       BufferedImage bufferedImage;
-	       //File file = new File(ingresso.getCodIngresso() + ".png");
 	       File file = new File(ingresso.getCodIngresso() + ".png");
 	       try {
 	    	   bufferedImage = QRCodeManager.generateQRCodeImage(ingresso.getCodIngresso());

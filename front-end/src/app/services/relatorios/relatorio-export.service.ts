@@ -14,7 +14,7 @@ import { LoginService } from '../loginService/login.service';
 export class RelatorioExportService {
 
   farol = false;
-  private readonly urlExport = `${environment.URL_BACK}relatorios/exportar`;
+  private readonly urlExport = `${environment.URL_BACK}envioDePDFPorEmail/enviarRelatorio`;
 
   constructor(private http: HttpClient, public logService: LogService, public dialog: MatDialog,
               public loginService: LoginService) { }
@@ -29,13 +29,12 @@ export class RelatorioExportService {
       let headers = new HttpHeaders();
       headers = headers.append('Authorization', 'Bearer ' + JSON.parse(localStorage.getItem('token')).token);
 
-      const formData = new FormData();
-      formData.append('emails', JSON.stringify(emails));
-      if (pdf) {
-        formData.append('pdf', pdf);
-      }
+      const body = {
+        listaDeEmails: emails,
+        base64Pdf: pdf
+      };
 
-      return this.http.post(this.urlExport, formData, {params: httpParams, headers}).pipe(
+      return this.http.post(this.urlExport, body, {params: httpParams, headers}).pipe(
         take(1),
         catchError(error => {
           return this.handleError(error, this.logService);

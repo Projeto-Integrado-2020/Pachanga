@@ -41,7 +41,7 @@ private readonly baseURL = `${environment.URL_BACK}dadoBancario`;
       return this.http.get(this.baseURL + '/dadoUnico', {params: httpParams, headers}).pipe(
         take(1),
         catchError(error => {
-          return this.handleError(error, this.logService);
+          return this.handleError(error, this.logService, true);
         })
       );
     }
@@ -60,7 +60,7 @@ private readonly baseURL = `${environment.URL_BACK}dadoBancario`;
     return this.http.post(this.baseURL + '/modificarDadoBancario', dadosTO, { params: httpParams, headers}).pipe(
       take(1),
       catchError(error => {
-        return this.handleError(error, this.logService);
+        return this.handleError(error, this.logService, false);
       })
     );
     }
@@ -74,10 +74,12 @@ private readonly baseURL = `${environment.URL_BACK}dadoBancario`;
     return this.farol;
   }
 
-  handleError = (error: HttpErrorResponse, logService: LogService) => {
+  handleError = (error: HttpErrorResponse, logService: LogService, get: boolean) => {
     this.setFarol(false);
     this.dialog.closeAll();
-    this.openErrorDialog(error.error);
+    if (!get) {
+      this.openErrorDialog(error.error);
+    }
     logService.initialize();
     logService.logHttpInfo(JSON.stringify(error), 0, error.url);
     return throwError(error);

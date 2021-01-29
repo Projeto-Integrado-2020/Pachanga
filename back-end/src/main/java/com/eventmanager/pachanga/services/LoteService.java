@@ -115,7 +115,7 @@ public class LoteService {
 	public void deleteCascade(Festa festa) {
 		List<Ingresso> ingressos = ingressoRepository.findIngressosFesta(festa.getCodFesta());
 		
-		if(!TipoStatusFesta.FINALIZADO.getValor().equals(festa.getStatusFesta()) && ingressos.size() > 0) {
+		if(!TipoStatusFesta.FINALIZADO.getValor().equals(festa.getStatusFesta()) && !ingressos.isEmpty()) {
 			throw new ValidacaoException("FESDEING");
 		}
 		ingressoRepository.deleteByCodFesta(festa.getCodFesta());

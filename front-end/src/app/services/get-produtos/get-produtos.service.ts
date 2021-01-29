@@ -60,9 +60,12 @@ export class GetProdutosService {
 
   handleError = (error: HttpErrorResponse, logService: LogService) => {
     this.openErrorDialog(error.error);
+    this.setFarol(false);
+    let painel = this.router.url;
+    painel = painel.slice(0, -16) + 'painel';
+    this.router.navigate([painel]);
     logService.initialize();
     logService.logHttpInfo(JSON.stringify(error), 0, error.url);
-    this.setFarol(false);
     return throwError(error);
   }
 

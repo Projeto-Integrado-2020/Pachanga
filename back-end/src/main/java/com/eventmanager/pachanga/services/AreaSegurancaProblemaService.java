@@ -158,9 +158,9 @@ public class AreaSegurancaProblemaService {
 
 	public void deleteByFesta(int idFesta) {
 		List<AreaSegurancaProblema> areas = areaSegurancaProblemaRepository.findAllAreaSegurancaProblemaFesta(idFesta);
-		areas.stream().forEach(asp -> {
-			this.deletarNotificacoes(asp);
-		});
+		areas.stream().forEach(asp -> 
+			this.deletarNotificacoes(asp)
+		);
 		areaSegurancaProblemaRepository.deleteByCodFesta(idFesta);
 	}
 

@@ -184,7 +184,7 @@ public class Paragraph {
 					if(listLevel == 0){
 						result.add(" ");
 						lineWidths.put(lineCounter, 0.0f);
-						mapLineTokens.put(lineCounter, new ArrayList<Token>());
+						mapLineTokens.put(lineCounter, new ArrayList<>());
 						lineCounter++;
 					}
 				} else if (isListElement(token)) {
@@ -256,7 +256,7 @@ public class Paragraph {
 					// extra spacing because it's a paragraph
 					result.add(" ");
 					lineWidths.put(lineCounter, 0.0f);
-					mapLineTokens.put(lineCounter, new ArrayList<Token>());
+					mapLineTokens.put(lineCounter, new ArrayList<>());
 					lineCounter++;
 				}
 				break;
@@ -342,7 +342,7 @@ public class Paragraph {
 						// extra spacing because it's a paragraph
 						result.add(" ");
 						lineWidths.put(lineCounter, 0.0f);
-						mapLineTokens.put(lineCounter, new ArrayList<Token>());
+						mapLineTokens.put(lineCounter, new ArrayList<>());
 						lineCounter++;
 					}
 				} else if (isListElement(token)) {

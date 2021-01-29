@@ -52,6 +52,13 @@ describe('MenuFestasComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(MenuFestasComponent);
     component = fixture.componentInstance;
+    const service: LoginService = TestBed.get(LoginService);
+    service.usuarioInfo = {codUsuario: '1'};
+    const token = {
+      timeToken: '2020-09-21T01:14:04.028+0000',
+      token: 'teste'
+    };
+    localStorage.setItem('token', JSON.stringify(token));
     fixture.detectChanges();
   });
 

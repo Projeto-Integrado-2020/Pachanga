@@ -42,7 +42,6 @@ export class FestaPainelControleComponent implements OnInit {
     let idFesta = this.router.url;
     idFesta = idFesta.substring(idFesta.indexOf('&') + 1, idFesta.indexOf('/', idFesta.indexOf('&')));
     this.getFestaService.acessarFesta(idFesta).subscribe((resp: any) => {
-      this.getFestaService.setFarol(false);
       this.festa = resp;
       this.festaNome = resp.nomeFesta;
       this.statusFesta = resp.statusFesta;

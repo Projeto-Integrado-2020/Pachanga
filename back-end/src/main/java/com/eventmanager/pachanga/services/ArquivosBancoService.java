@@ -2,6 +2,7 @@ package com.eventmanager.pachanga.services;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,9 @@ public class ArquivosBancoService {
 
 	@Autowired
 	private IngressoRepository ingressoRepository;
+	
+	@Autowired
+	private NotificacaoService notificacaoService;
 
 	private static final String QUEBRA_LINHA = "\r\n";
 
@@ -37,10 +41,13 @@ public class ArquivosBancoService {
 		float valorTotal = 0;
 		float valorDesconto = 0;
 		FileWriter arq = new FileWriter("remessaItau.RRM");
+		
+		LocalDateTime dataAtual = notificacaoService.getDataAtual();
 
-		arq.write(GeracaoArquivoRemessa.criacaoHeaderArquivo() + QUEBRA_LINHA);
+		arq.write(GeracaoArquivoRemessa.criacaoHeaderArquivo(dataAtual) + QUEBRA_LINHA);
 
 		List<Festa> festas = festaRepository.findFestasAcabadas();
+		
 
 		for (int i = 0; i < festas.size(); i++) {
 
@@ -58,17 +65,21 @@ public class ArquivosBancoService {
 					valorTotal += preco;
 				}
 
-				valorTotal -= valorDesconto;
+				if (valorTotal != 0) {
 
-				arq.write(GeracaoArquivoRemessa.criacaoHeaderLote() + QUEBRA_LINHA);
+					valorTotal -= valorDesconto;
 
-				arq.write(GeracaoArquivoRemessa.criacaoSegmentoP(i + 1, valorTotal, dado) + QUEBRA_LINHA);
-				arq.write(GeracaoArquivoRemessa.criacaoSegmentoQ(i + 1, festas.get(i).getOrganizador().toUpperCase())
-						+ QUEBRA_LINHA);
+					arq.write(GeracaoArquivoRemessa.criacaoHeaderLote(dataAtual) + QUEBRA_LINHA);
 
-				arq.write(GeracaoArquivoRemessa.criacaoTrailerLote(quantidadeTotal, valorTotal) + QUEBRA_LINHA);
+					arq.write(GeracaoArquivoRemessa.criacaoSegmentoP(i + 1, valorTotal, dado, dataAtual) + QUEBRA_LINHA);
+					arq.write(
+							GeracaoArquivoRemessa.criacaoSegmentoQ(i + 1, festas.get(i).getOrganizador().toUpperCase())
+									+ QUEBRA_LINHA);
 
-				quantidadeTotal += 1;
+					arq.write(GeracaoArquivoRemessa.criacaoTrailerLote(quantidadeTotal, valorTotal) + QUEBRA_LINHA);
+
+					quantidadeTotal += 1;
+				}
 			}
 
 		}

@@ -90,7 +90,6 @@ export class PainelSegurancaComponent implements OnInit, OnDestroy {
   resgatarDadosFesta() {
     this.getFestaService.acessarFesta(this.idFesta).subscribe((resp: any) => {
       this.festa = resp;
-      this.getFestaService.setFarol(false);
       this.festaNome = resp.nomeFesta;
       this.statusFesta = resp.statusFesta;
     });

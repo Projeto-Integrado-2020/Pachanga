@@ -5,7 +5,6 @@ import static org.junit.Assert.assertEquals;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -16,6 +15,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.oauth2.provider.token.AuthorizationServerTokenServices;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.eventmanager.pachanga.dtos.ChamadasEmitidasFuncionarioTO;
 import com.eventmanager.pachanga.dtos.RelatorioAreaSegurancaTO;
 import com.eventmanager.pachanga.factory.RelatorioAreaSegurancaTOFactory;
 import com.eventmanager.pachanga.repositories.AreaSegurancaProblemaFluxoRepository;
@@ -57,7 +57,7 @@ class RelatorioAreaSegurancaServiceTest {
 	private RelatorioAreaSegurancaTO relatorioAreaTest() {
 		RelatorioAreaSegurancaTO relatorioArea = new RelatorioAreaSegurancaTO();
 		relatorioArea.setProblemasArea(new LinkedHashMap<String, Integer>());
-		relatorioArea.setChamadasEmitidasFuncionario(new LinkedHashMap<String, Map<Integer, Integer>>());
+		relatorioArea.setChamadasEmitidasFuncionario(new ArrayList<ChamadasEmitidasFuncionarioTO>());
 		relatorioArea.setSolucionadorAlertasSeguranca(new LinkedHashMap<String, Integer>());
 		return relatorioArea;
 	}
@@ -91,7 +91,7 @@ class RelatorioAreaSegurancaServiceTest {
 				.thenReturn(informacoesUsuario);
 		Mockito.when(areaSegurancaProblemaFluxoRepository.findQuantidadeProblemasEmitidosByUsuario(Mockito.anyInt(),
 				Mockito.anyString(), Mockito.anyInt())).thenReturn(1, 2);
-		Mockito.when(relatorioAreaSegurancaTOFactory.getChamadasProblema(Mockito.anyMap()))
+		Mockito.when(relatorioAreaSegurancaTOFactory.getChamadasProblema(Mockito.any()))
 				.thenReturn(relatorioAreaTest());
 
 		RelatorioAreaSegurancaTO relatorioArea = relatorioAreaSegurancaService.relatorioChamadasUsuario(1, 2);

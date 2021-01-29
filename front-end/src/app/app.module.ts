@@ -53,7 +53,7 @@ import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 
 import { CadastrarFestaService } from './services/cadastro-festa/cadastrar-festa.service';
 import { EditarFestaComponent } from './views/editar-festa/editar-festa.component';
-import { MatPaginatorIntl } from '@angular/material';
+import { MatDialogRef, MatPaginatorIntl, MAT_DIALOG_DATA } from '@angular/material';
 import { MatPaginatorPtBr } from './views/menu-festas/mat-paginator-ptbr';
 import { NotFoundComponent } from './views/not-found/not-found.component';
 import { DeletarFestaComponent } from './views/deletar-festa/deletar-festa.component';
@@ -157,6 +157,7 @@ import { RelatoriosExportDialogComponent } from './views/relatorios-export-dialo
 import { PerfilDialogComponent } from './views/perfil-dialog/perfil-dialog.component';
 import { IndexCarrocelComponent } from './views/index-carrocel/index-carrocel.component';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { RelatorioDetalhesDialogComponent } from './views/relatorio-detalhes-dialog/relatorio-detalhes-dialog.component';
 
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
 
@@ -270,7 +271,8 @@ export function provideConfig() {
     RelatoriosCheckinComponent,
     RelatoriosExportComponent,
     PerfilDialogComponent,
-    IndexCarrocelComponent
+    IndexCarrocelComponent,
+    RelatorioDetalhesDialogComponent
   ],
   entryComponents: [
     LoginComponent,
@@ -323,7 +325,8 @@ export function provideConfig() {
     DialogIngressosMesmaFestaComponent,
     ImagemAreaProblemaDialogComponent,
     RelatoriosExportDialogComponent,
-    PerfilDialogComponent
+    PerfilDialogComponent,
+    RelatorioDetalhesDialogComponent
   ],
   imports: [
     BrowserModule,

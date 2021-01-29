@@ -2,8 +2,8 @@ package com.eventmanager.pachanga.factory;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
-import java.util.Map;
 
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -13,6 +13,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.oauth2.provider.token.AuthorizationServerTokenServices;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.eventmanager.pachanga.dtos.ChamadasEmitidasFuncionarioTO;
 import com.eventmanager.pachanga.dtos.RelatorioAreaSegurancaTO;
 import com.eventmanager.pachanga.securingweb.JwtAuthenticationEntryPoint;
 import com.eventmanager.pachanga.securingweb.JwtTokenUtil;
@@ -48,9 +49,17 @@ class RelatorioAreaSegurancaTOFactoryTest {
 	@Test
 	void getChamadasProblemaTest() {
 		
-		RelatorioAreaSegurancaTO relatorio = relatorioAreaSegurancaTOFactory.getChamadasProblema(new LinkedHashMap<String, Map<Integer, Integer>>());
+		RelatorioAreaSegurancaTO relatorio = relatorioAreaSegurancaTOFactory.getChamadasProblema(new ArrayList<ChamadasEmitidasFuncionarioTO>());
 		
 		assertEquals(true, relatorio.getChamadasEmitidasFuncionario() != null);
+	}
+	
+	@Test
+	void getChamadasEmitidasTest() {
+		
+		ChamadasEmitidasFuncionarioTO chamadas = relatorioAreaSegurancaTOFactory.getChamadasEmitidas("teste", new LinkedHashMap<Integer, Integer>(), 1);
+		
+		assertEquals(true, chamadas != null);
 	}
 	
 	@Test

@@ -43,6 +43,9 @@ export class GetLoteService {
     logService.initialize();
     logService.logHttpInfo(JSON.stringify(error), 0, error.url);
     this.setFarol(false);
+    let painel = this.router.url;
+    painel = painel.slice(0, -9) + 'painel';
+    this.router.navigate([painel]);
     return throwError(error);
   }
 

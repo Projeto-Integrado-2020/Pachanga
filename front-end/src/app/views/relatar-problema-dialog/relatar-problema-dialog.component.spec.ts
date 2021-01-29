@@ -10,7 +10,7 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { HttpClient } from '@angular/common/http';
 import { HttpLoaderFactory } from 'src/app/app.module';
 import { of } from 'rxjs';
-import { DatePipe } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
 import { LoginService } from 'src/app/services/loginService/login.service';
@@ -73,6 +73,7 @@ describe('RelatarProblemaDialogComponent', () => {
       token: 'teste'
     };
     component.date = new Date();
+    component.dialogRef = dialogRefSpy;
     localStorage.setItem('token', JSON.stringify(token));
     fixture.detectChanges();
   });

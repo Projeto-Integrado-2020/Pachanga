@@ -1,14 +1,16 @@
 package com.eventmanager.pachanga.builder;
 
+import java.util.List;
 import java.util.Map;
 
+import com.eventmanager.pachanga.dtos.ChamadasEmitidasFuncionarioTO;
 import com.eventmanager.pachanga.dtos.RelatorioAreaSegurancaTO;
 
 public class RelatorioAreaSegurancaTOBuilder {
 
 	private Map<String, Integer> problemasArea;
 
-	private Map<String, Map<Integer, Integer>>chamadasEmitidasFuncionario;
+	private List<ChamadasEmitidasFuncionarioTO> chamadasEmitidasFuncionario;
 
 	private Map<String, Integer> solucionadorAlertasSeguranca;
 	
@@ -21,7 +23,7 @@ public class RelatorioAreaSegurancaTOBuilder {
 		return this;
 	}
 
-	public RelatorioAreaSegurancaTOBuilder chamadasEmitidasFuncionario(Map<String, Map<Integer, Integer>> chamadasEmitidasFuncionario) {
+	public RelatorioAreaSegurancaTOBuilder chamadasEmitidasFuncionario(List<ChamadasEmitidasFuncionarioTO> chamadasEmitidasFuncionario) {
 		this.chamadasEmitidasFuncionario = chamadasEmitidasFuncionario;
 		return this;
 	}

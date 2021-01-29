@@ -98,10 +98,6 @@ describe('RelatoriosPainelComponent', () => {
     .and
     .callThrough();
 
-    spyOn(component.getFestaService, 'setFarol')
-    .and
-    .callThrough();
-
     component.getFesta();
 
     const festaResult = {
@@ -120,7 +116,6 @@ describe('RelatoriosPainelComponent', () => {
     };
 
     expect(component.getFestaService.acessarFesta).toHaveBeenCalled();
-    expect(component.getFestaService.setFarol).toHaveBeenCalledWith(false);
     expect(component.festa).toEqual(festaResult);
   });
 

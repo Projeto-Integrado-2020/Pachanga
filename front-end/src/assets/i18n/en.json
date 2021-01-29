@@ -877,7 +877,8 @@
         "PROBLEMA": "Problems",
         "LEGENDA": "Legend",
         "AREA": "Security Areas",
-        "STATUS": "Status"
+        "STATUS": "Status",
+        "PROBLEMAAREA": "Problem(s)"
     },
 
     "RELATORIOVENDA": {

@@ -15,12 +15,16 @@ import { RouterModule } from '@angular/router';
 import { LoginService } from 'src/app/services/loginService/login.service';
 import { RelatorioAreaSegService } from 'src/app/services/relatorios/relatorio-area-seg.service';
 import { of } from 'rxjs';
+import { MatDialog } from '@angular/material';
 
 describe('RelatoriosSegurancaComponent', () => {
   let component: RelatoriosSegurancaComponent;
   let fixture: ComponentFixture<RelatoriosSegurancaComponent>;
+  let dialogSpy: MatDialog;
 
   beforeEach(async(() => {
+    dialogSpy = jasmine.createSpyObj('MatDialog', ['open', 'closeAll']);
+
     TestBed.configureTestingModule({
       imports: [
         CustomMaterialModule,
@@ -44,6 +48,7 @@ describe('RelatoriosSegurancaComponent', () => {
           chamadasUsuario: () => of({problemasArea: {}, chamadasEmitidasFuncionario: [], solucionadorAlertasSeguranca: []}),
           usuarioSolucionador: () => of({problemasArea: {}, chamadasEmitidasFuncionario: [], solucionadorAlertasSeguranca: []})
         }},
+        { provide: MatDialog, useValue: dialogSpy },
       ]
     })
     .compileComponents();
@@ -91,5 +96,10 @@ describe('RelatoriosSegurancaComponent', () => {
 
     component.usuariosPorEmissao('teste');
     expect(component.relAreaSegService.usuarioSolucionador).toHaveBeenCalled();
+  });
+
+  it('should open dialog through a method', () => {
+    component.onSelect('teste');
+    expect(dialogSpy.open).toHaveBeenCalled();
   });
 });

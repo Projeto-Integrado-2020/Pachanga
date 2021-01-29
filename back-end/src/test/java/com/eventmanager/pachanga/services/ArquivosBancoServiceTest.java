@@ -1,18 +1,22 @@
 package com.eventmanager.pachanga.services;
 
+import java.io.FileWriter;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.mockito.MockitoAnnotations;
+import org.mockito.junit.MockitoJUnitRunner;
+import org.powermock.api.mockito.PowerMockito;
+import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.springframework.security.oauth2.provider.token.AuthorizationServerTokenServices;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import com.eventmanager.pachanga.domains.DadoBancario;
 import com.eventmanager.pachanga.domains.Festa;
@@ -27,33 +31,41 @@ import com.eventmanager.pachanga.tipo.TipoStatusCompra;
 import com.eventmanager.pachanga.tipo.TipoStatusFesta;
 import com.eventmanager.pachanga.tipo.TipoStatusIngresso;
 
-@RunWith(SpringRunner.class)
-@WebMvcTest(value = ArquivosBancoService.class)
+@RunWith(MockitoJUnitRunner.class)
+@PrepareForTest({ ArquivosBancoService.class, FileWriter.class, LocalDateTime.class})
 class ArquivosBancoServiceTest {
 
-	@MockBean
+	@Mock
 	private AuthorizationServerTokenServices defaultAuthorizationServerTokenServices;
 
-	@MockBean
+	@Mock
 	private JwtUserDetailsService defaultJwtUserDetailsService;
 
-	@MockBean
+	@Mock
 	private JwtTokenUtil defaultJwtTokenUtil;
 
-	@MockBean
+	@Mock
 	private JwtAuthenticationEntryPoint defaultJwtAuthenticationEntryPoint;
 
-	@MockBean
+	@Mock
 	private DadoBancarioRepository dadoBancarioRepository;
 
-	@MockBean
+	@Mock
 	private FestaRepository festaRepository;
 
-	@MockBean
+	@Mock
 	private IngressoRepository ingressoRepository;
 
-	@Autowired
+	@InjectMocks
 	private ArquivosBancoService arquivosBancoService;
+	
+	@Mock
+	private NotificacaoService notificacaoService;
+	
+	@BeforeEach
+    public void setUp() {
+        MockitoAnnotations.initMocks(this);
+    }
 
 	private Festa criacaoFesta() throws Exception {
 		Festa festaTest = new Festa();
@@ -111,12 +123,24 @@ class ArquivosBancoServiceTest {
 		ingressos.add(ingressoTest());
 		ingressos.add(ingresso);
 		ingressos.add(ingressoGratis);
-
-		Mockito.when(festaRepository.findFestasAcabadas()).thenReturn(festas);
-		Mockito.when(dadoBancarioRepository.findDadosBancariosFesta(Mockito.anyInt())).thenReturn(dadoBancarioTest());
-		Mockito.when(ingressoRepository.findIngressosFesta(Mockito.anyInt())).thenReturn(ingressos);
+		
+		FileWriter file = PowerMockito.mock(FileWriter.class);
+		
+		LocalDateTime dataCriacao = LocalDateTime.of(2014, Month.JUNE, 22, 19, 10);
+		
+		PowerMockito.when(notificacaoService.getDataAtual()).thenReturn(dataCriacao);
+		
+		PowerMockito.whenNew(FileWriter.class).withArguments("remessaItau.RRM").thenReturn(file);
+		
+		PowerMockito.doNothing().when(file).write(Mockito.anyString());
+		
+		PowerMockito.when(festaRepository.findFestasAcabadas()).thenReturn(festas);
+		PowerMockito.when(dadoBancarioRepository.findDadosBancariosFesta(Mockito.anyInt())).thenReturn(dadoBancarioTest());
+		PowerMockito.when(ingressoRepository.findIngressosFesta(Mockito.anyInt())).thenReturn(ingressos);
 
 		arquivosBancoService.criacaoRemessa();
-
+		
+		file.close();
+		
 	}
 }

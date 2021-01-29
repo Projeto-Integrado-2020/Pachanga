@@ -43,10 +43,15 @@ export class GetFormsService {
   }
 
   handleError = (error: HttpErrorResponse, logService: LogService) => {
-    this.openErrorDialog(error.error);
     logService.initialize();
     logService.logHttpInfo(JSON.stringify(error), 0, error.url);
     this.setFarol(false);
+    let painel = this.router.url;
+    if (painel.includes('relatorios/forms')) {
+      this.openErrorDialog(error.error);
+      painel = painel.slice(0, -16) + 'painel';
+      this.router.navigate([painel]);
+    }
     return throwError(error);
   }
 

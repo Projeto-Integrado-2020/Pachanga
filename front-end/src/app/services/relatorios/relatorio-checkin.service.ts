@@ -93,7 +93,6 @@ export class RelatorioCheckinService {
   handleError = (error: HttpErrorResponse, logService: LogService) => {
     logService.initialize();
     logService.logHttpInfo(JSON.stringify(error), 0, error.url);
-    this.router.navigate(['404']);
     return throwError(error);
   }
 

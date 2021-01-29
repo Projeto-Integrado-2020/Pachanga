@@ -94,7 +94,6 @@ export class EditarFestaComponent implements OnInit {
 
   callServiceGet(idFesta) {
     this.getFestaService.acessarFesta(idFesta).subscribe((resp: any) => {
-      this.getFestaService.setFarol(false);
       this.festa = resp;
       this.setFormValues();
     });

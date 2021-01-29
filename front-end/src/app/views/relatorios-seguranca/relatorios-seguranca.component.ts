@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { RelatorioAreaSegService } from 'src/app/services/relatorios/relatorio-area-seg.service';
+import { RelatorioDetalhesDialogComponent } from '../relatorio-detalhes-dialog/relatorio-detalhes-dialog.component';
 
 @Component({
   selector: 'app-relatorios-seguranca',
@@ -27,7 +29,8 @@ export class RelatoriosSegurancaComponent implements OnInit {
   constructor(
     public relAreaSegService: RelatorioAreaSegService,
     private router: Router,
-    private translateService: TranslateService
+    private translateService: TranslateService,
+    public dialog: MatDialog
   ) { }
 
   ngOnInit() {
@@ -100,6 +103,12 @@ export class RelatoriosSegurancaComponent implements OnInit {
   }
 
   onSelect(event) {
-    console.log(event);
+    this.dialog.open(RelatorioDetalhesDialogComponent, {
+      width: '20rem',
+      data: {
+        codFesta: this.codFesta,
+        data: event
+      }
+    });
   }
 }

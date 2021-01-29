@@ -17,7 +17,6 @@ public class ProblemaSevice {
 	ProblemaRepository problemaRepository;
 	
 	public List<Problema> listarProblemas() {
-		List<Problema> problemas = problemaRepository.findAllProblemas();
-		return problemas;
+		return problemaRepository.findAllProblemas();
 	}
 }
