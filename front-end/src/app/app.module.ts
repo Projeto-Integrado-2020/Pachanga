@@ -155,6 +155,8 @@ import { RelatoriosCheckinComponent } from './views/relatorios-checkin/relatorio
 import { RelatoriosExportComponent } from './views/relatorios-export/relatorios-export.component';
 import { RelatoriosExportDialogComponent } from './views/relatorios-export-dialog/relatorios-export-dialog.component';
 import { PerfilDialogComponent } from './views/perfil-dialog/perfil-dialog.component';
+import { IndexCarrocelComponent } from './views/index-carrocel/index-carrocel.component';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
 
@@ -267,7 +269,8 @@ export function provideConfig() {
     RelatoriosExportDialogComponent,
     RelatoriosCheckinComponent,
     RelatoriosExportComponent,
-    PerfilDialogComponent
+    PerfilDialogComponent,
+    IndexCarrocelComponent
   ],
   entryComponents: [
     LoginComponent,
@@ -373,6 +376,9 @@ export function provideConfig() {
       useClass: MatPaginatorPtBr
     }
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas: [
+    CUSTOM_ELEMENTS_SCHEMA
+  ]
 })
 export class AppModule { }

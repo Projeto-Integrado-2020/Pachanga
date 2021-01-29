@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+import { GetCategoriasService } from 'src/app/services/get-categorias/get-categorias.service';
 import { GetFestaIndexService } from 'src/app/services/get-festa-index/get-festa-index.service';
 
 export interface Tile {
@@ -16,14 +17,20 @@ export interface Tile {
 })
 export class IndexComponent implements OnInit {
 
+  eventos: any = ['evento 1', 'evento 2','evento 3', 'evento 4']
   title: string = this.translate.instant('INDEX.OLA');
   public festas: any;
   festasMostradas = [];
   length;
   rows: 2;
   nenhumaFesta = false;
+  categorias = [];
 
-  constructor(private translate: TranslateService, public getFestas: GetFestaIndexService) {
+  constructor(
+    private translate: TranslateService,
+    public getFestas: GetFestaIndexService,
+    public getCategorias: GetCategoriasService
+    ) {
   }
 
   tiles: Tile[] = [
@@ -43,6 +50,10 @@ export class IndexComponent implements OnInit {
       this.length = this.festas.length;
       this.festasMostradas = this.festas.slice(0, 5);
     });
+    this.getCategorias.getCategorias().subscribe((resp:any) => {
+      this.categorias = resp;
+      console.log(this.categorias)
+    })
   }
 
   getDateFromDTF(date) {

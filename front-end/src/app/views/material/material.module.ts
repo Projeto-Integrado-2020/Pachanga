@@ -37,6 +37,8 @@ import {
   MatBadgeModule,
   MatSidenavContainer
 } from '@angular/material';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { IndexCarrocelComponent } from '../index-carrocel/index-carrocel.component';
 
 
 @NgModule({
@@ -121,7 +123,7 @@ import {
   ],
   providers: [
     {provide: MAT_DATE_LOCALE, useValue: 'pt-br'}
-  ],
+  ]
 })
 
 export class CustomMaterialModule { }

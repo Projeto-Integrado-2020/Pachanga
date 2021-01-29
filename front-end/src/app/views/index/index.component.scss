@@ -46,11 +46,9 @@ html {
 }
 
 .main-container {
-  max-height: calc(100vh - 64px);
   overflow: hidden;
   top: 64px;
   max-width: 1140px;
-  height: calc(100vh - 64px);
   position: relative;
   left: 50%;
   transform: translateX(-50%);
@@ -89,4 +87,8 @@ html {
   max-width: 69rem;
   text-transform: capitalize;
   word-wrap: break-word;
+}
+
+.carrocel {
+
 }
