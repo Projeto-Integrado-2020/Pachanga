@@ -1,3 +1,5 @@
+@import "../material/paleta.scss";
+
 .secao-evento {
 
 
@@ -7,4 +9,8 @@
 
 .title {
     color: black;
+}
+
+.carousel-cell {
+    background-color: plum;
 }

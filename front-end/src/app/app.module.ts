@@ -158,6 +158,7 @@ import { PerfilDialogComponent } from './views/perfil-dialog/perfil-dialog.compo
 import { IndexCarrocelComponent } from './views/index-carrocel/index-carrocel.component';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RelatorioDetalhesDialogComponent } from './views/relatorio-detalhes-dialog/relatorio-detalhes-dialog.component';
+import { IvyCarouselModule } from 'angular-responsive-carousel';
 
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
 
@@ -359,7 +360,8 @@ export function provideConfig() {
     NgxQRCodeModule,
     NgxMaskModule.forRoot(),
     NgxChartsModule,
-    OwlModule
+    OwlModule,
+    IvyCarouselModule
   ],
   providers: [
     {

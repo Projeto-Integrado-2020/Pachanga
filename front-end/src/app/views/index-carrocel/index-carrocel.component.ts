@@ -16,8 +16,7 @@ export class IndexCarrocelComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    //console.log(this.titulo)
-    console.log(this.eventos)
+
   }
 
 }
