@@ -66,6 +66,10 @@ export class IndexComponent implements OnInit {
     return date.split(' ')[1];
   }
 
+  filtrarGenero(genero, eventos){
+    return eventos.filter(evento => evento.categoriaPrimaria.nomeCategoria == genero || evento.categoriaSecundaria.nomeCategoria == genero);
+  }
+
   createUrl(nomeFesta, codFesta) {
     nomeFesta = nomeFesta.toLowerCase().replace('-', '').replace('–', '')
                         .replace(/\s+/g, '-').replace('ç', 'c')
