@@ -1,9 +1,10 @@
 <div class="secao-evento">
   <h3 class="titulo">{{ this.titulo }}</h3>
-  <div class="carrocel">
-  <span>Carrocel:</span>
-  <span *ngFor="let nome of this.eventos">
-    {{ nome }}
-  </span>
-  </div>
+  <carousel>
+    <div  *ngFor="let nome of this.eventos" class="carousel-cell">
+      <span>
+        {{ nome }}
+      </span>
+    </div>
+  </carousel>
 </div>

@@ -17,7 +17,7 @@ export interface Tile {
 })
 export class IndexComponent implements OnInit {
 
-  eventos: any = ['evento 1', 'evento 2','evento 3', 'evento 4']
+  eventos: any = ['evento 1', 'evento 2','evento 3', 'evento 4', 'evento 5', 'evento 6', 'evento 7']
   title: string = this.translate.instant('INDEX.OLA');
   public festas: any;
   festasMostradas = [];
@@ -41,6 +41,7 @@ export class IndexComponent implements OnInit {
   ngOnInit() {
     this.getFestas.getFestasLista().subscribe((resp: any) => {
       this.getFestas.setFarol(false);
+      console.log(resp);
       this.festas = resp;
 
       if (this.festas.length === 0) {
@@ -52,7 +53,6 @@ export class IndexComponent implements OnInit {
     });
     this.getCategorias.getCategorias().subscribe((resp:any) => {
       this.categorias = resp;
-      console.log(this.categorias)
     })
   }
 
