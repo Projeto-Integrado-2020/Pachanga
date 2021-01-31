@@ -3,7 +3,9 @@
   <carousel>
     <div  *ngFor="let evento of this.eventos" class="carousel-cell">
       <div [style.backgroundImage]="'url(' + evento.urlImagem + ')'" class="carousel-cell__imagem">
-
+        <div class="carousel-cell__title">
+          <h3>{{ evento.nomeFesta }}</h3>
+        </div>
       </div>
     </div>
   </carousel>
