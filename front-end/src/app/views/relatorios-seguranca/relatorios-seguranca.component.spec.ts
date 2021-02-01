@@ -99,7 +99,7 @@ describe('RelatoriosSegurancaComponent', () => {
   });
 
   it('should open dialog through a method', () => {
-    component.onSelect('teste');
+    component.openDetalhes('teste', 'teste');
     expect(dialogSpy.open).toHaveBeenCalled();
   });
 });

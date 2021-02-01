@@ -32,6 +32,7 @@ export class RelatoriosExportComponent implements OnInit {
   consumoProdutoValores = [];
   problemasPorArea = [];
   resolucoesPorUsuario = [];
+  chamadasUsuarioResp: any;
   emissoesChamadas = [];
   ingressosDataSet = [];
   ingressosPagosDataSet = [];
@@ -318,28 +319,26 @@ export class RelatoriosExportComponent implements OnInit {
 
   chamadasUsuario(codFesta) {
     this.relAreaSegService.chamadasUsuario(codFesta).subscribe((resp: any) => {
-      const chamadasEmitidas = resp.chamadasEmitidasFuncionario;
       const dataset = [];
-
-      for (const username in chamadasEmitidas) {
-        if (chamadasEmitidas.hasOwnProperty(username)) {
+      this.chamadasUsuarioResp = resp.chamadasEmitidasFuncionario;
+      for (const usuario of this.chamadasUsuarioResp) {
+        for (const entry of Object.keys(usuario.chamadasFinalizadasEngano)) {
           const data = {
-            name: username,
+            name: usuario.nomeUsuario,
             series: [
               {
                 name: this.translateService.instant('RELATARPROB.F'),
-                value: parseInt(Object.keys(chamadasEmitidas[username])[0], 10)
+                value: parseInt(entry, 10)
               },
               {
                 name: this.translateService.instant('RELATARPROB.E'),
-                value: Object.values(chamadasEmitidas[username])[0]
+                value: usuario.chamadasFinalizadasEngano[entry]
               }
             ]
           };
           dataset.push(data);
-
-          this.resolucoesPorUsuario = dataset;
         }
+        this.resolucoesPorUsuario = dataset;
       }
     });
   }

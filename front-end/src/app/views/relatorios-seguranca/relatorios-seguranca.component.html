@@ -12,7 +12,7 @@
     [legendPosition]="legendPosition"
     [labels]="showLabels"
     [doughnut]="isDoughnut"
-    (select)="onSelect($event)"
+    (select)="openDetalhes($event, 'PROBAREA')"
     >
   </ngx-charts-pie-chart>
   </div>
@@ -40,7 +40,7 @@
       [xAxisLabel]="'RELATORIOSEGURANCA.USUARIO' | translate"
       [yAxisLabel]="'RELATORIOSEGURANCA.PROBLEMA' | translate"
       [animations]="true"
-      (select)="onSelect($event)"
+      (select)="openDetalhes($event, 'CONCSOL')"
       >
     </ngx-charts-bar-vertical-stacked>
   </div>
@@ -64,7 +64,6 @@
     [legendTitle]="'RELATORIOSEGURANCA.USUARIO' | translate"
     [labels]="showLabels"
     [doughnut]="isDoughnut"
-    (select)="onSelect($event)"
     >
   </ngx-charts-pie-chart>
   </div>

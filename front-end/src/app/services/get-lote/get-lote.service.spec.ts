@@ -39,4 +39,9 @@ describe('GetLoteService', () => {
     service.loginService.usuarioInfo = {codusuario: 'teste'};
     expect(service.getLote('teste')).toBeTruthy();
   });
+
+  it('should open a dialog through a method', () => {
+    service.openErrorDialog('teste');
+    expect(dialogSpy.open).toHaveBeenCalled();
+  });
 });

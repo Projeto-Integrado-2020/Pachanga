@@ -61,4 +61,21 @@ describe('RelatorioDetalhesDialogComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should generate relatorioProblemaArea', () => {
+    spyOn(component.segurancaService, 'getAreaSeguranca')
+    .and
+    .callThrough();
+    component.relatorioProblemaArea();
+    expect(component.segurancaService.getAreaSeguranca).toHaveBeenCalled();
+  });
+
+  it('should generate relatorioProblemaUsuario', () => {
+    spyOn(component.segurancaService, 'getAreaSeguranca')
+    .and
+    .callThrough();
+    component.chamadasUsuario = [];
+    component.relatorioProblemaUsuario();
+    expect(component.segurancaService.getAreaSeguranca).toHaveBeenCalled();
+  });
 });
