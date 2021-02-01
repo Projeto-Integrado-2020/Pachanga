@@ -16,9 +16,7 @@ export class IndexCarrocelComponent implements OnInit {
 
   constructor(private router: Router) { }
 
-  ngOnInit() {
-    
-  }
+  ngOnInit() {}
 
   redirectUrl(nome, id) {
     const nomeFesta = nome.toLowerCase().replace('-', '').replace('–', '')
