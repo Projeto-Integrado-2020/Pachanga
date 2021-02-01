@@ -19,9 +19,6 @@ export class GetCategoriasService {
   constructor(private http: HttpClient, public logService: LogService, public dialog: MatDialog) { }
 
   getCategorias() {
-    if (!this.farol) {
-      this.setFarol(true);
-
       let headers = new HttpHeaders();
       headers = headers.append('Content-Type', 'application/json');
       headers = headers.append('Authorization', 'Bearer ' + JSON.parse(localStorage.getItem('token')).token);
@@ -32,7 +29,6 @@ export class GetCategoriasService {
           return this.handleError(error, this.logService);
         })
       );
-    }
   }
 
   handleError = (error: HttpErrorResponse, logService: LogService) => {
