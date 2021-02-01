@@ -17,7 +17,7 @@ export interface Tile {
 })
 export class IndexComponent implements OnInit {
 
-  eventos: any = ['evento 1', 'evento 2','evento 3', 'evento 4', 'evento 5', 'evento 6', 'evento 7']
+  eventos: any = ['evento 1', 'evento 2', 'evento 3', 'evento 4', 'evento 5', 'evento 6', 'evento 7'];
   title: string = this.translate.instant('INDEX.OLA');
   public festas: any;
   festasMostradas = [];
@@ -50,15 +50,15 @@ export class IndexComponent implements OnInit {
 
       this.length = this.festas.length;
       this.festasMostradas = this.festas;
-      for(let festa of this.festasMostradas) {
-        if(!festa.urlImagem) {
-          festa.urlImagem = "https://res.cloudinary.com/htctb0zmi/image/upload/v1611352783/pachanga-logo_tikwrw.png"
+      for (const festa of this.festasMostradas) {
+        if (!festa.urlImagem) {
+          festa.urlImagem = 'https://res.cloudinary.com/htctb0zmi/image/upload/v1611352783/pachanga-logo_tikwrw.png';
         }
       }
     });
-    this.getCategorias.getCategorias().subscribe((resp:any) => {
+    this.getCategorias.getCategorias().subscribe((resp: any) => {
       this.categorias = resp;
-    })
+    });
   }
 
   getDateFromDTF(date) {
@@ -71,8 +71,8 @@ export class IndexComponent implements OnInit {
     return date.split(' ')[1];
   }
 
-  filtrarGenero(genero, eventos){
-    return eventos.filter(evento => evento.categoriaPrimaria.nomeCategoria == genero);
+  filtrarGenero(genero, eventos) {
+    return eventos.filter(evento => evento.categoriaPrimaria.nomeCategoria === genero);
   }
 
   createUrl(nomeFesta, codFesta) {

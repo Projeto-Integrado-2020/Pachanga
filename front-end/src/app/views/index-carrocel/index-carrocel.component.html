@@ -1,4 +1,4 @@
-<div  class="secao-evento">
+<div  class="secao-evento"> *ngIf="this.eventos.length > 0"
   <h3 class="titulo">{{ 'CATEGORIA.' + this.titulo | translate}}</h3>
   <carousel>
     <div  *ngFor="let evento of this.eventos" class="carousel-cell" (click)="this.redirectUrl(evento.nomeFesta, evento.codFesta)">
