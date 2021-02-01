@@ -15,8 +15,10 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.security.oauth2.provider.token.AuthorizationServerTokenServices;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.eventmanager.pachanga.domains.Festa;
 import com.eventmanager.pachanga.domains.Grupo;
@@ -153,10 +155,56 @@ class FestaFactoryTest {
 		assertEquals(festa.getOrganizador(), festaTO.getOrganizador());
 		assertEquals(festa.getStatusFesta(), festaTO.getStatusFesta());
 	}
+	
+	@Test
+	void getFestaSucessoTest2() throws Exception {
+		
+		MultipartFile imagem = new MockMultipartFile("teste", "Hello World".getBytes());
+		
+		FestaTO festaTO = festaTOTest();
+
+		Festa festa = festaFactory.getFesta(festaTO, imagem);
+
+		assertEquals(festa.getCodEnderecoFesta(), festaTO.getCodEnderecoFesta());
+		assertEquals(festa.getCodFesta(), festaTO.getCodFesta());
+		assertEquals(festa.getDescOrganizador(), festaTO.getDescOrganizador());
+		assertEquals(festa.getDescricaoFesta(), festaTO.getDescricaoFesta());
+		assertEquals(festa.getHorarioFimFesta(), festaTO.getHorarioFimFesta());
+		assertEquals(festa.getHorarioInicioFesta(), festaTO.getHorarioInicioFesta());
+		assertEquals(festa.getNomeFesta(), festaTO.getNomeFesta());
+		assertEquals(festa.getOrganizador(), festaTO.getOrganizador());
+		assertEquals(festa.getStatusFesta(), festaTO.getStatusFesta());
+	}
 
 	@Test
 	void getFestaTOSucessoTest() throws Exception {
 		Festa festa = festaTest();
+		List<UsuarioTO> usuariosTO = new ArrayList<>();
+		usuariosTO.add(usuarioTOTest());
+		CategoriaTO categoriaTO1 = categoriaTOTest();
+		CategoriaTO categoriaTO2 = categoriaTOTest();
+		categoriaTO2.setCodCategoria(2);
+		ConvidadoTO convidadoTO = convidadoTOTest();
+		List<ConvidadoTO> convidadosTO = new ArrayList<>();
+		convidadosTO.add(convidadoTO);
+
+		FestaTO festaTO = festaFactory.getFestaTO(festa, usuariosTO, false, categoriaTO1, categoriaTO2, convidadosTO);
+
+		assertEquals(festa.getCodEnderecoFesta(), festaTO.getCodEnderecoFesta());
+		assertEquals(festa.getCodFesta(), festaTO.getCodFesta());
+		assertEquals(festa.getDescOrganizador(), festaTO.getDescOrganizador());
+		assertEquals(festa.getDescricaoFesta(), festaTO.getDescricaoFesta());
+		assertEquals(festa.getHorarioFimFesta(), festaTO.getHorarioFimFesta());
+		assertEquals(festa.getHorarioInicioFesta(), festaTO.getHorarioInicioFesta());
+		assertEquals(festa.getNomeFesta(), festaTO.getNomeFesta());
+		assertEquals(festa.getOrganizador(), festaTO.getOrganizador());
+		assertEquals(festa.getStatusFesta(), festaTO.getStatusFesta());
+	}
+	
+	@Test
+	void getFestaTOSucessoTest2() throws Exception {
+		Festa festa = festaTest();
+		festa.setUrlImagem("teste");
 		List<UsuarioTO> usuariosTO = new ArrayList<>();
 		usuariosTO.add(usuarioTOTest());
 		CategoriaTO categoriaTO1 = categoriaTOTest();

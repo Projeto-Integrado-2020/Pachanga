@@ -279,6 +279,33 @@ class CupomServiceTest {
 	}
 	
 	@Test
+	void gerarCupomPorcentagemIncorreto2() throws Exception {
+		Festa festa = festaTest();
+		CupomTO cupomTO = gerarCupomTO();
+		Cupom cupom = gerarCupom();
+		cupomTO.setTipoDesconto(TipoDesconto.PORCENTAGEM.getDescricao());
+		cupomTO.setPorcentagemDesc(101);
+		
+		Mockito.when(festaService.procurarFesta(Mockito.anyInt(), Mockito.anyInt())).thenReturn(festa);
+		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(criarListaDeGrupo());
+		Mockito.when(cupomRepository.findCuponsByNomeAndFesta(Mockito.anyString(), Mockito.anyInt())).thenReturn(null);
+		Mockito.when(cupomRepository.getNextValMySequence()).thenReturn(cupom.getCodCupom());
+		Mockito.when(cupomFactory.getCupom(Mockito.any(), Mockito.any())).thenReturn(cupom);
+		
+		boolean erro = false;
+		Cupom retorno;
+		try {
+			retorno = cupomService.gerarCupom(cupomTO, 1);
+		}catch(ValidacaoException e){
+			erro = true;
+			retorno = null;
+		};
+
+		assertEquals(null, retorno);
+		assertEquals(true, erro);
+	}
+	
+	@Test
 	void gerarCupomSucessoSize() throws Exception {
 		Festa festa = festaTest();
 		CupomTO cupomTO = gerarCupomTO();
