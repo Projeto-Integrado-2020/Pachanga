@@ -1,7 +1,15 @@
-<div class="problemas">
+<div class="problemas" *ngIf="relatorio === 'PROBAREA'">
     <h3 class="nome-area">{{data.name}}</h3>
     <div class="problema" *ngFor="let problema of areaProblema.problemasArea">
         <span><b>{{'RELATARPROB.' + problema.descProblema | translate}}</b></span> - 
         <span [ngClass]="(problema.statusProblema==='F')?'finalizado':'engano'">{{'RELATARPROB.' + problema.statusProblema | translate}}</span>
+    </div>
+</div>
+
+<div class="problemas" *ngIf="relatorio === 'CONCSOL'">
+    <h3 class="nome-area">{{data.series}}</h3>
+    <div class="problema" *ngFor="let problema of usuarioProblemas">
+        <span><b>{{problema.nomeArea}}</b></span> - 
+        <span>{{'RELATARPROB.' + problema.problema | translate}}</span>
     </div>
 </div>

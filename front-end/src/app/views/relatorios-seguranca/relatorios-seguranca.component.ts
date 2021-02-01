@@ -18,6 +18,7 @@ export class RelatoriosSegurancaComponent implements OnInit {
   public problemasPorArea = [];
   public resolucoesPorUsuario = [];
   public emissoesChamadas = [];
+  chamadasUsuarioResp: any;
   showLegend = true;
   showLabels = true;
   isDoughnut = false;
@@ -35,6 +36,8 @@ export class RelatoriosSegurancaComponent implements OnInit {
 
   ngOnInit() {
     this.problemasArea(this.codFesta);
+    this.chamadasUsuario(this.codFesta);
+    this.usuariosPorEmissao(this.codFesta);
   }
 
   problemasArea(codFesta) {
@@ -50,36 +53,32 @@ export class RelatoriosSegurancaComponent implements OnInit {
           );
         }
         this.problemasPorArea = dataset;
-        this.chamadasUsuario(codFesta);
       });
   }
 
 
   chamadasUsuario(codFesta) {
     this.relAreaSegService.chamadasUsuario(codFesta).subscribe((resp: any) => {
-      const chamadasEmitidas = resp.chamadasEmitidasFuncionario;
       const dataset = [];
-
-      for (const username in chamadasEmitidas) {
-        if (chamadasEmitidas.hasOwnProperty(username)) {
+      this.chamadasUsuarioResp = resp.chamadasEmitidasFuncionario;
+      for (const usuario of this.chamadasUsuarioResp) {
+        for (const entry of Object.keys(usuario.chamadasFinalizadasEngano)) {
           const data = {
-            name: username,
+            name: usuario.nomeUsuario,
             series: [
               {
                 name: this.translateService.instant('RELATARPROB.F'),
-                value: parseInt(Object.keys(chamadasEmitidas[username])[0], 10)
+                value: parseInt(entry, 10)
               },
               {
                 name: this.translateService.instant('RELATARPROB.E'),
-                value: Object.values(chamadasEmitidas[username])[0]
+                value: usuario.chamadasFinalizadasEngano[entry]
               }
             ]
           };
           dataset.push(data);
-
-          this.resolucoesPorUsuario = dataset;
-          this.usuariosPorEmissao(codFesta);
         }
+        this.resolucoesPorUsuario = dataset;
       }
     });
   }
@@ -102,12 +101,14 @@ export class RelatoriosSegurancaComponent implements OnInit {
     });
   }
 
-  onSelect(event) {
+  openDetalhes(event, relatorio) {
     this.dialog.open(RelatorioDetalhesDialogComponent, {
       width: '20rem',
       data: {
         codFesta: this.codFesta,
-        data: event
+        data: event,
+        relatorio,
+        chamadasUsuario: relatorio === 'CONCSOL' ? this.chamadasUsuarioResp : null
       }
     });
   }
