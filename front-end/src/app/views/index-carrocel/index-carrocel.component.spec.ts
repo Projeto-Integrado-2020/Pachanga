@@ -9,8 +9,6 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { CustomMaterialModule } from '../material/material.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-
-
 import { IndexCarrocelComponent } from './index-carrocel.component';
 
 export function HttpLoaderFactory(http: HttpClient) {

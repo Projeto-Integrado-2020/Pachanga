@@ -86,13 +86,14 @@ public class CupomService {
 		Cupom cupomExistente = cupomRepository.findCuponsByNomeAndFesta(nomeCupom, cupom.getCodFesta());
 		if (cupomExistente != null && !trocaNome)
 			throw new ValidacaoException("CUPMDUPL");// cupom duplicado
-		
+
 		if (!cupom.getTipoDesconto().equals(TipoDesconto.PORCENTAGEM.getDescricao())
 				&& !cupom.getTipoDesconto().equals(TipoDesconto.VALOR.getDescricao()))
 			throw new ValidacaoException("TIPCUPIN");// tipo cupom incorreto
-		
-		if((cupom.getTipoDesconto().equals(TipoDesconto.VALOR.getDescricao()) && cupom.getPrecoDesconto() <= 0)
-				|| (cupom.getTipoDesconto().equals(TipoDesconto.PORCENTAGEM.getDescricao()) && cupom.getPorcentagemDesc() <= 0)) {
+
+		if ((cupom.getTipoDesconto().equals(TipoDesconto.VALOR.getDescricao()) && cupom.getPrecoDesconto() <= 0)
+				|| (cupom.getTipoDesconto().equals(TipoDesconto.PORCENTAGEM.getDescricao())
+						&& (cupom.getPorcentagemDesc() <= 0 || cupom.getPorcentagemDesc() > 100))) {
 			throw new ValidacaoException("PRECCUPI");// preço do cupom incorreto
 		}
 	}
