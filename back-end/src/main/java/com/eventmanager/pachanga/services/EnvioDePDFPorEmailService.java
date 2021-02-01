@@ -11,8 +11,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.eventmanager.pachanga.domains.Festa;
+import com.eventmanager.pachanga.domains.Usuario;
 import com.eventmanager.pachanga.dtos.PDFPorEmailTO;
 import com.eventmanager.pachanga.errors.ValidacaoException;
+import com.eventmanager.pachanga.repositories.FestaRepository;
+import com.eventmanager.pachanga.repositories.UsuarioRepository;
 import com.eventmanager.pachanga.tipo.TipoPermissao;
 import com.eventmanager.pachanga.utils.EmailMensagem;
 
@@ -27,10 +31,19 @@ public class EnvioDePDFPorEmailService {
 	@Autowired
 	private GrupoService grupoService;
 	
+	@Autowired
+	private FestaRepository festaRepository;
+	
+	@Autowired
+	private UsuarioRepository usuarioRepository;
+	
+	
 	public boolean enviarRelatorio(PDFPorEmailTO pdfPorEmailTO, int codUsuario,  int codFesta) {
 		grupoService.validarPermissaoUsuarioGrupo(codFesta, codUsuario, TipoPermissao.EXPOREPO.getCodigo());
+		Festa festa = festaRepository.findByCodFesta(codFesta);
+		Usuario usuario = usuarioRepository.findById(codUsuario);
 		File pdf = byteArrayToPDF(base64ToByteArray(pdfPorEmailTO.getBase64Pdf()));
-		emailMensagem.enviarPDFRelatorio(pdfPorEmailTO.getListaDeEmails(), pdf);
+		emailMensagem.enviarPDFRelatorio(pdfPorEmailTO.getListaDeEmails(), pdf, usuario, festa);
 		pdf.delete();
 		return true;
 	}

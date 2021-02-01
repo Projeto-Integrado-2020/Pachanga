@@ -21,6 +21,7 @@ import org.springframework.stereotype.Component;
 
 import com.eventmanager.pachanga.domains.Festa;
 import com.eventmanager.pachanga.domains.Ingresso;
+import com.eventmanager.pachanga.domains.Usuario;
 import com.eventmanager.pachanga.errors.ValidacaoException;
 
 @Component(value = "emailMensagem")
@@ -137,7 +138,7 @@ public class EmailMensagem {
 
 
 	}
-	public void enviarPDFRelatorio(List<String> emails, File pdf) {
+	public void enviarPDFRelatorio(List<String> emails, File pdf, Usuario usuario, Festa festa) {
 		Properties props = new Properties();
 		props.put("mail.smtp.host", "smtp.gmail.com");
 		props.put("mail.smtp.auth", "true");
@@ -165,7 +166,7 @@ public class EmailMensagem {
 			}
 			
 			//message.setRecipients(Message.RecipientType.TO, toUser);
-			message.setSubject("Relatório Pachanga");// Assunto
+			message.setSubject("Pachanga - Relatórios da Festa " + festa.getNomeFesta() + " Chegaram");// Assunto
 
 			// carrega html
 			MimeBodyPart messageBodyPart = new MimeBodyPart();
@@ -179,9 +180,31 @@ public class EmailMensagem {
 				e.printStackTrace();
 			}
 
-			String htmlMessage = "<h1><strong>Segue o PDF do seu relatório"
-					+ "</strong></h1>\r\n" + "\r\n" + "\r\n" + "<p><strong>Equipe Pachanga</strong></p>";
+			//String htmlMessage = "<h1><strong>Segue o PDF do seu relatório"
+			//		+ "</strong></h1>\r\n" + "\r\n" + "\r\n" + "<p><strong>Equipe Pachanga</strong></p>";
 
+			String htmlMessage = 
+					"<style>\r\n" + 
+					".city {\r\n" + 
+					"	text-align: center;\r\n" + 
+					"}\r\n" + 
+					".body {\r\n" + 
+					"  margin-top: 100px;\r\n" + 
+					"  margin-bottom: 100px;\r\n" + 
+					"  margin-right: 600px;\r\n" + 
+					"  margin-left: 600px;\r\n" + 
+					"}\r\n" + 
+					"</style>\r\n" + 
+					"<h1><strong><p class=\"city\" style=\"color:#663399\";>Segue o PDF do seu relatório</p></strong></h1>\r\n" + 
+					"<div class=\"body\">\r\n" + 
+					"<p>Olá "+ usuario.getNomeUser() + ",</p><br/>\r\n" + 
+					"<p>Seguem os relatórios da festa " + festa.getNomeFesta() + ", gerados pela Pachanga.<br/>\r\n" + 
+					"A ausência de um relatório pode significar que a festa não gerou dados suficientes para o mesmo.</p><br/>\r\n" + 
+					"<p>Atenciosamente,</p><br/>\r\n" + 
+					"<p class=\"city\" style=\"color:#FF0000\";>Equipe Pachanga/EventManager</p> \r\n" + 
+					"</div>";
+			
+			
 			//messageBodyPart.setContent(htmlMessage, "text/html");
 			messageBodyPart.setContent(htmlMessage, "text/html; charset=iso-8859-1");
 			multipart.addBodyPart(messageBodyPart);

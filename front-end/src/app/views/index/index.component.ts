@@ -49,9 +49,10 @@ export class IndexComponent implements OnInit {
       }
 
       this.length = this.festas.length;
+      this.festasMostradas = this.festas;
       for(let festa of this.festasMostradas) {
         if(!festa.urlImagem) {
-          festa.urlImagem = 'https://res.cloudinary.com/htctb0zmi/image/upload/v1611352783/pachanga-logo_tikwrw.png'
+          festa.urlImagem = "https://res.cloudinary.com/htctb0zmi/image/upload/v1611352783/pachanga-logo_tikwrw.png"
         }
       }
     });
@@ -71,7 +72,7 @@ export class IndexComponent implements OnInit {
   }
 
   filtrarGenero(genero, eventos){
-    return eventos.filter(evento => evento.categoriaPrimaria.nomeCategoria == genero || evento.categoriaSecundaria.nomeCategoria == genero);
+    return eventos.filter(evento => evento.categoriaPrimaria.nomeCategoria == genero);
   }
 
   createUrl(nomeFesta, codFesta) {
