@@ -142,6 +142,10 @@ public class EmailMensagem {
 		Properties props = new Properties();
 		props.put("mail.smtp.host", "smtp.gmail.com");
 		props.put("mail.smtp.auth", "true");
+		//props.put("mail.debug", "false");
+		//props.put("mail.smtp.ssl.enable", "true");
+		//props.put("mail.smtp.socketFactory.port", "588");
+		//props.put("mail.smtp.socketFactory.fallback", "false");
 		props.put("mail.smtp.port", "587");
 		props.put("mail.smtp.starttls.enable", "true");
 
@@ -180,30 +184,16 @@ public class EmailMensagem {
 				e.printStackTrace();
 			}
 
-			//String htmlMessage = "<h1><strong>Segue o PDF do seu relatório"
-			//		+ "</strong></h1>\r\n" + "\r\n" + "\r\n" + "<p><strong>Equipe Pachanga</strong></p>";
-
-			String htmlMessage = 
-					"<style>\r\n" + 
-					".city {\r\n" + 
-					"	text-align: center;\r\n" + 
-					"}\r\n" + 
-					".body {\r\n" + 
-					"  margin-top: 100px;\r\n" + 
-					"  margin-bottom: 100px;\r\n" + 
-					"  margin-right: 600px;\r\n" + 
-					"  margin-left: 600px;\r\n" + 
-					"}\r\n" + 
-					"</style>\r\n" + 
-					"<h1><strong><p class=\"city\" style=\"color:#663399\";>Segue o PDF do seu relatório</p></strong></h1>\r\n" + 
-					"<div class=\"body\">\r\n" + 
+		
+			
+			String htmlMessage = "<h1><strong><p style=\"color:#663399\";>Segue o PDF do seu relatório</p></strong></h1>\r\n" + 
+					"<div>\r\n" + 
 					"<p>Olá "+ usuario.getNomeUser() + ",</p><br/>\r\n" + 
-					"<p>Seguem os relatórios da festa " + festa.getNomeFesta() + ", gerados pela Pachanga.<br/>\r\n" + 
+					"<p>Segue relatório da festa " + festa.getNomeFesta() + ", gerados pela Pachanga.<br/>\r\n" + 
 					"A ausência de um relatório pode significar que a festa não gerou dados suficientes para o mesmo.</p><br/>\r\n" + 
 					"<p>Atenciosamente,</p><br/>\r\n" + 
-					"<p class=\"city\" style=\"color:#FF0000\";>Equipe Pachanga/EventManager</p> \r\n" + 
+					"<p style=\"color:#FF0000\";>Equipe Pachanga</p> \r\n" + 
 					"</div>";
-			
 			
 			//messageBodyPart.setContent(htmlMessage, "text/html");
 			messageBodyPart.setContent(htmlMessage, "text/html; charset=iso-8859-1");

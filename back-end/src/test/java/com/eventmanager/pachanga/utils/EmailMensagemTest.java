@@ -46,7 +46,7 @@ class EmailMensagemTest {
 		festaTest.setDescOrganizador("sou demente");
 		festaTest.setHorarioInicioFesta(LocalDateTime.of(2016, Month.JUNE, 22, 19, 10));
 		festaTest.setHorarioFimFesta(LocalDateTime.of(2016, Month.JUNE, 23, 19, 10));
-		festaTest.setNomeFesta("festao");
+		festaTest.setNomeFesta("A festa");
 		festaTest.setOrganizador("Joao Neves");
 		festaTest.setStatusFesta(TipoStatusFesta.PREPARACAO.getValor());
 		festaTest.setDescricaoFesta("Bugago");
@@ -118,17 +118,21 @@ class EmailMensagemTest {
 		//EmailMensagem.enviarEmail("teste@email.invalid", "haha", festaTest());
 
 	}
-	/*
+	
 	@Test
 	void enviarPDFRelatorioTest() throws Exception {
-		
+		/*
 		EmailMensagem emailMensagem = new EmailMensagem();
 		List<String> listaDeEmails = new ArrayList<>();
 		//listaDeEmails.add("opedrofreitas@gmail.com");
 		//listaDeEmails.add("eduardo@email.invalid");
+		//listaDeEmails.add("andrey-lacerda@hotmail.com");
+		//listaDeEmails.add("tiagostaurenghi@gmail.com");
+		//listaDeEmails.add("luis.antonio@aluno.ifsp.edu.br");
+		//listaDeEmails.add("guga.72@hotmail.com");
 		File file = new File("target/Lorem_ipsum.pdf");
 		emailMensagem.enviarPDFRelatorio(listaDeEmails, file, usuarioTest(), festaTest());
-		
+		*/
 	}
-	*/
+	
 }
