@@ -49,7 +49,11 @@ export class IndexComponent implements OnInit {
       }
 
       this.length = this.festas.length;
-      this.festasMostradas = this.festas.slice(0, 5);
+      for(let festa of this.festasMostradas) {
+        if(!festa.urlImagem) {
+          festa.urlImagem = 'https://res.cloudinary.com/htctb0zmi/image/upload/v1611352783/pachanga-logo_tikwrw.png'
+        }
+      }
     });
     this.getCategorias.getCategorias().subscribe((resp:any) => {
       this.categorias = resp;
