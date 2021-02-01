@@ -1,16 +1,22 @@
 package com.eventmanager.pachanga.utils;
 
-import java.io.File;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.internet.MimeMessage;
+
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.legacy.PowerMockRunner;
 import org.springframework.security.oauth2.provider.token.AuthorizationServerTokenServices;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import com.eventmanager.pachanga.domains.Festa;
 import com.eventmanager.pachanga.domains.Ingresso;
@@ -22,22 +28,28 @@ import com.eventmanager.pachanga.tipo.TipoStatusCompra;
 import com.eventmanager.pachanga.tipo.TipoStatusFesta;
 import com.eventmanager.pachanga.tipo.TipoStatusIngresso;
 
-@RunWith(SpringRunner.class)
-@WebMvcTest(value=EmailMensagem.class)
+@RunWith(PowerMockRunner.class)
+@PrepareForTest({ MimeMessage.class, Session.class, EmailMensagem.class, PasswordAuthentication.class})
 class EmailMensagemTest {
-	@MockBean
+
+	@Mock
 	private AuthorizationServerTokenServices defaultAuthorizationServerTokenServices;
-	
-	@MockBean
+
+	@Mock
 	private JwtUserDetailsService defaultJwtUserDetailsService;
-	
-	@MockBean
+
+	@Mock
 	private JwtTokenUtil defaultJwtTokenUtil;
-	
-	@MockBean
+
+	@Mock
 	private JwtAuthenticationEntryPoint defaultJwtAuthenticationEntryPoint;
 	
-	private Festa festaTest() throws Exception{
+	@BeforeEach
+	public void setUp() {
+		MockitoAnnotations.initMocks(this);
+	}
+
+	private Festa festaTest() throws Exception {
 		Festa festaTest = new Festa();
 		festaTest.setCodFesta(2);
 		festaTest.setCodEnderecoFesta("https//:minhacasa.org");
@@ -52,7 +64,7 @@ class EmailMensagemTest {
 
 		return festaTest;
 	}
-	
+
 	private Ingresso ingressoTest() throws Exception {
 		Lote lote = loteTest();
 		Ingresso ingresso = new Ingresso();
@@ -70,7 +82,7 @@ class EmailMensagemTest {
 		ingresso.setUrlBoleto("https://teste.com");
 		return ingresso;
 	}
-	
+
 	private Lote loteTest() throws Exception {
 		Lote lote = new Lote();
 		lote.setFesta(festaTest());
@@ -84,33 +96,64 @@ class EmailMensagemTest {
 		lote.setQuantidade(100);
 		return lote;
 	}
-	
+
 	private List<Ingresso> listaIngressoTest() throws Exception {
 		List<Ingresso> ingressos = new ArrayList<>();
 		ingressos.add(ingressoTest());
 		return ingressos;
 	}
-	
+
 	@Test
 	void enviarEmailQRCodeTest() throws Exception {
-		//EmailMensagem.enviarEmailQRCode("teste@email.invalid", festaTest(), listaIngressoTest());
-	}
-	
-	@Test
-	void enviarEmailTest() throws Exception {
-		//EmailMensagem.enviarEmail("teste@email.invalid", "haha", festaTest());
+
+//		try (MockedStatic<Session> mockSession = Mockito.mockStatic(Session.class)) {
+//			try (MockedStatic<Transport> mockTransport = Mockito.mockStatic(Transport.class)) {
+//				Properties props = PowerMockito.mock(Properties.class);
+//				
+//				Authenticator authenticator = PowerMockito.mock(Authenticator.class);
+//				
+//				Session session =  PowerMockito.mock(Session.class);
+//				
+//				mockSession.when(
+//						() -> Session.getInstance(Mockito.any(Properties.class), Mockito.any(Authenticator.class)))
+//						.thenReturn(session);
+//
+//				MimeMessage message = PowerMockito.mock(MimeMessage.class);
+//
+//
+//				PasswordAuthentication pass = PowerMockito.mock(PasswordAuthentication.class);
+//
+//				PowerMockito.whenNew(PasswordAuthentication.class)
+//						.withArguments(Mockito.anyString(), Mockito.anyString()).thenReturn(pass);
+//
+//				PowerMockito.whenNew(MimeMessage.class).withArguments(session)
+//						.thenReturn(message);
+//
+//				Transport transport = PowerMockito.mock(Transport.class);
+//				
+//				PowerMockito.when(session.getTransport(Mockito.anyString())).thenReturn(transport);
+//
+//				EmailMensagem.enviarEmailQRCode("teste@email.invalid", festaTest(), listaIngressoTest());
+//
+//			}
+//		}
 
 	}
-	
+
+	@Test
+	void enviarEmailTest() throws Exception {
+		// EmailMensagem.enviarEmail("teste@email.invalid", "haha", festaTest());
+
+	}
+
 	@Test
 	void enviarPDFRelatorioTest() throws Exception {
 		/*
-		EmailMensagem emailMensagem = new EmailMensagem();
-		List<String> listaDeEmails = new ArrayList<>();
-		//listaDeEmails.add("fernando@email.invalid");
-		//listaDeEmails.add("eduardo@email.invalid");
-		File file = new File("target/Lorem_ipsum.pdf");
-		emailMensagem.enviarPDFRelatorio(listaDeEmails, file);
-		*/
+		 * EmailMensagem emailMensagem = new EmailMensagem(); List<String> listaDeEmails
+		 * = new ArrayList<>(); //listaDeEmails.add("fernando@email.invalid");
+		 * //listaDeEmails.add("eduardo@email.invalid"); File file = new
+		 * File("target/Lorem_ipsum.pdf");
+		 * emailMensagem.enviarPDFRelatorio(listaDeEmails, file);
+		 */
 	}
 }

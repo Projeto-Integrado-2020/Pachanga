@@ -6,14 +6,20 @@ import static org.mockito.Mockito.doNothing;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.mockito.MockitoAnnotations;
+import org.powermock.api.mockito.PowerMockito;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.legacy.PowerMockRunner;
 import org.springframework.security.oauth2.provider.token.AuthorizationServerTokenServices;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import com.eventmanager.pachanga.dtos.PDFPorEmailTO;
 import com.eventmanager.pachanga.securingweb.JwtAuthenticationEntryPoint;
@@ -21,29 +27,35 @@ import com.eventmanager.pachanga.securingweb.JwtTokenUtil;
 import com.eventmanager.pachanga.securingweb.JwtUserDetailsService;
 import com.eventmanager.pachanga.utils.EmailMensagem;
 
-@RunWith(SpringRunner.class)
-@WebMvcTest(value=EnvioDePDFPorEmailService.class)
-public class EnvioDePDFPorEmailServiceTest {
-	@MockBean
+@RunWith(PowerMockRunner.class)
+@PrepareForTest({ EnvioDePDFPorEmailService.class, Session.class, EmailMensagem.class, PasswordAuthentication.class})
+class EnvioDePDFPorEmailServiceTest {
+	
+	@Mock
 	private AuthorizationServerTokenServices defaultAuthorizationServerTokenServices;
 	
-	@MockBean
+	@Mock
 	private JwtUserDetailsService defaultJwtUserDetailsService;
 	
-	@MockBean
+	@Mock
 	private JwtTokenUtil defaultJwtTokenUtil;
 	
-	@MockBean
+	@Mock
 	private JwtAuthenticationEntryPoint defaultJwtAuthenticationEntryPoint;
 	
-	@Autowired
+	@InjectMocks
 	private EnvioDePDFPorEmailService envioDePDFPorEmailService;
 	
-	@MockBean
+	@Mock
 	private EmailMensagem emailMensagem;
 	
-	@MockBean
+	@Mock
 	private GrupoService grupoService;
+	
+	@BeforeEach
+	public void setUp() {
+		MockitoAnnotations.initMocks(this);
+	}
 	
 	
 	private PDFPorEmailTO gerarPDFPorEmailTO() {
@@ -58,8 +70,8 @@ public class EnvioDePDFPorEmailServiceTest {
 	}
 	
 	@Test
-	public void enviarRelatorio() {
-		Mockito.when(grupoService.validarPermissaoUsuarioGrupo(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(true);
+	void enviarRelatorio() {
+		PowerMockito.when(grupoService.validarPermissaoUsuarioGrupo(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(true);
 		doNothing().when(emailMensagem).enviarPDFRelatorio( Mockito.anyList(), Mockito.any());
 		boolean retorno = envioDePDFPorEmailService.enviarRelatorio(gerarPDFPorEmailTO(), 1, 1);
 		assertEquals(true, retorno);
