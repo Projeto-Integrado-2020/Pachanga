@@ -1,29 +1,28 @@
 package com.eventmanager.pachanga.utils;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.powermock.api.mockito.PowerMockito;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.legacy.PowerMockRunner;
 import org.springframework.security.oauth2.provider.token.AuthorizationServerTokenServices;
 
 import com.eventmanager.pachanga.securingweb.JwtAuthenticationEntryPoint;
 import com.eventmanager.pachanga.securingweb.JwtTokenUtil;
 import com.eventmanager.pachanga.securingweb.JwtUserDetailsService;
 
+import kong.unirest.GetRequest;
 import kong.unirest.HttpResponse;
 import kong.unirest.Unirest;
 
-@RunWith(PowerMockRunner.class)
+@RunWith(MockitoJUnitRunner.class)
 @PrepareForTest({ Unirest.class, PagSeguroUtils.class, JSONObject.class })
-class PagSeguroUtilsTest {
+public class PagSeguroUtilsTest {
+
+	@Mock
+	private GetRequest getRequest;
 
 	@Mock
 	private HttpResponse<String> httpResponse;
