@@ -4,6 +4,7 @@ import java.io.File;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -15,6 +16,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import com.eventmanager.pachanga.domains.Festa;
 import com.eventmanager.pachanga.domains.Ingresso;
 import com.eventmanager.pachanga.domains.Lote;
+import com.eventmanager.pachanga.domains.Usuario;
 import com.eventmanager.pachanga.securingweb.JwtAuthenticationEntryPoint;
 import com.eventmanager.pachanga.securingweb.JwtTokenUtil;
 import com.eventmanager.pachanga.securingweb.JwtUserDetailsService;
@@ -91,6 +93,21 @@ class EmailMensagemTest {
 		return ingressos;
 	}
 	
+	@SuppressWarnings("deprecation")
+	public static Usuario usuarioTest() throws Exception{
+		Usuario usuarioTest = new Usuario();
+
+		usuarioTest.setCodUsuario(100);
+		usuarioTest.setEmail("gustavinhoTPD@fodasse.com.br");
+		usuarioTest.setSenha("fc68b677646b5f018d1762e9a19bf65180d9aab2794794340ade50e0d78a239affd43a613e7136a61b5d63b09f072c0c039dea4281873abe826d6e6285d9cefef0a0d868d3b0b0d4582ec787b473b4e0");
+		usuarioTest.setDtNasc(new Date(2000, 8, 27));
+		usuarioTest.setGenero("M");
+		usuarioTest.setNomeUser("Gustavo Barbosa");
+
+		return usuarioTest;
+	}
+	
+
 	@Test
 	void enviarEmailQRCodeTest() throws Exception {
 		//EmailMensagem.enviarEmailQRCode("teste@email.invalid", festaTest(), listaIngressoTest());
@@ -101,16 +118,17 @@ class EmailMensagemTest {
 		//EmailMensagem.enviarEmail("teste@email.invalid", "haha", festaTest());
 
 	}
-	
+	/*
 	@Test
 	void enviarPDFRelatorioTest() throws Exception {
-		/*
+		
 		EmailMensagem emailMensagem = new EmailMensagem();
 		List<String> listaDeEmails = new ArrayList<>();
-		//listaDeEmails.add("fernando@email.invalid");
+		//listaDeEmails.add("opedrofreitas@gmail.com");
 		//listaDeEmails.add("eduardo@email.invalid");
 		File file = new File("target/Lorem_ipsum.pdf");
-		emailMensagem.enviarPDFRelatorio(listaDeEmails, file);
-		*/
+		emailMensagem.enviarPDFRelatorio(listaDeEmails, file, usuarioTest(), festaTest());
+		
 	}
+	*/
 }
