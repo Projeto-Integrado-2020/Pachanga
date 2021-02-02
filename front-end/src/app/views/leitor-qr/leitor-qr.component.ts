@@ -29,6 +29,8 @@ export class LeitorQrComponent implements OnInit {
   tipoIngressoScanner = 'P';
   tipoIngressoForm = 'P';
   integracaoSympla: any;
+  hasDevices = true;
+  hasPermission: boolean;
 
   form: any;
   constructor(public getFestaService: GetFestaService, public router: Router,
@@ -213,6 +215,14 @@ export class LeitorQrComponent implements OnInit {
     logService.initialize();
     logService.logHttpInfo(JSON.stringify(error), 0, error.url);
     return throwError(error);
+  }
+
+  onHasPermission(has: boolean) {
+    this.hasPermission = has;
+  }
+
+  onCamerasNotFound(notFound: boolean): void {
+    this.hasDevices = !notFound;
   }
 
 }

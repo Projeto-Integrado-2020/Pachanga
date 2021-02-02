@@ -53,9 +53,5 @@ describe('GetCategoriasService', () => {
 
   it('should get Info at getCategorias', () => {
     expect(service.getCategorias()).toBeTruthy();
-
-    expect(service.getFarol()).toBeTruthy();
-
-    expect(service.getCategorias()).toBeFalsy();
   });
 });

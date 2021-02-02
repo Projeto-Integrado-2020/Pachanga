@@ -229,3 +229,14 @@ th, td {
     opacity: 0.7;
   }
 }
+
+.scanner-error-title {
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.scanner-error-message {
+  text-align: center;
+  word-wrap: break-word;
+  margin-bottom: 3rem;
+}

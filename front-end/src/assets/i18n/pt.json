@@ -318,7 +318,8 @@
         "payment_method.boleto.holder.address.region_code": "Código regional inválido.",
         "payment_method.boleto.holder.email": "E-mail inválido.",
         "BOLEREGI": "Estado/Cidade inválida.",
-        "FESDEING": "A festa já vendeu ingressos e ainda não aconteceu."
+        "FESDEING": "A festa já vendeu ingressos e ainda não aconteceu.",
+        "PRECCUPI": "Valor de desconto inválido."
     },
 
     "ESTOQUE": {
@@ -657,18 +658,18 @@
         "BAIMESTO": "Executa baixa em produto em estoque",
         "DELEFEST": "Deletar festa",
         "VISUESTO": "Visualizar estoque",
-        "VISUAREA": "Visualizar área de segurança.",
-        "ADDAREAS": "Adicionar áreas de segurança.",
-        "DELEAREA": "Deletar áreas de segurança.",
-        "EDITAREA": "Editar áreas de segurança.",
-        "VISULOTE": "Visualizar lotes e ingressos.",
-        "ADDLOTES": "Adicionar lotes e ingressos.",
-        "DELELOTE": "Remover lotes e ingressos.",
-        "EDITLOTE": "Editar lotes e ingressos.",
-        "VISUFORM": "Visualizar questionários Google Forms.",
-        "ADDFORMS": "Registrar questionários Google Forms.",
-        "DELEFORM": "Remover questionários Google Forms.",
-        "EDITFORM": "Editar questionários Google Forms.",
+        "VISUAREA": "Visualizar área de segurança",
+        "ADDAREAS": "Adicionar áreas de segurança",
+        "DELEAREA": "Deletar áreas de segurança",
+        "EDITAREA": "Editar áreas de segurança",
+        "VISULOTE": "Visualizar lotes e ingressos",
+        "ADDLOTES": "Adicionar lotes e ingressos",
+        "DELELOTE": "Remover lotes e ingressos",
+        "EDITLOTE": "Editar lotes e ingressos",
+        "VISUFORM": "Visualizar questionários Google Forms",
+        "ADDFORMS": "Registrar questionários Google Forms",
+        "DELEFORM": "Remover questionários Google Forms",
+        "EDITFORM": "Editar questionários Google Forms",
         "VISUPSEG": "Visualizar problema de segurança",
         "ADDPSEGU": "Adicionar problema de segurança",
         "DELEPSEG": "Remover problema de segurança",
@@ -686,7 +687,9 @@
         "ADDDADOB": "Adicionar dados bancários",
         "DELEDADO": "Deletar dados bancários",
         "EDITDADO": "Editar dados bancários",
-        "MODDABOB": "Modificar dados bancários"
+        "MODDADOB": "Modificar dados bancários",
+        "RELCHECK": "Realizar check-in",
+        "EXPOREPO": "Exportar relatórios"
     },
     
     "PRIVACIDADE": {
@@ -922,6 +925,15 @@
         "CONFIRMAR": "Confirmar exportação",
         "TITLE": "Exportação de relatórios",
         "ENVIAR": "Enviar relatórios"
+    },
+
+    "SCANNER": {
+        "WAITPERM": "Esperando permissão e carregamento.",
+        "WAITPERMMES": "Se o seu dispositivo não tiver câmeras, nenhuma permissão será solicitada.",
+        "PERMDENY": "Permissão negada.",
+        "PERMDENYMES": "Não é possível executar leitura. Utilize opção abaixo.",
+        "DEVNCHEC": "Não foi possível verificar os dispositivos.",
+        "DEVNCHECMES": "Um erro de leitura deve ter ocorrido ou este dispositivo não possui câmeras. Utilize opção abaixo."
     }
 
 }

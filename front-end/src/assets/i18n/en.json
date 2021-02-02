@@ -167,7 +167,8 @@
         "payment_method.boleto.holder.address.region_code": "Invalid region code.",
         "payment_method.boleto.holder.email": "Invalid e-mail.",
         "BOLEREGI": "Invalid State/City.",
-        "FESDEING": "The party has already sold tickets and has not happened yet."
+        "FESDEING": "The party has already sold tickets and has not happened yet.",
+        "PRECCUPI": "Invalid discount amount."
     },
 
     "SUCCESS": {
@@ -454,18 +455,18 @@
         "BAIMESTO": "Discharge product in stock",
         "DELEFEST": "Delete party",
         "VISUESTO": "Check stock",
-        "VISUAREA": "View security area.",
-        "ADDAREAS": "Add security areas.",
-        "DELEAREA": "Delete security areas.",
-        "EDITAREA": "Edit security areas.",
-        "VISULOTE": "View lots and tickets.",
-        "ADDLOTES": "Add lots and tickets.",
-        "DELELOTE": "Delete lots and tickets.",
-        "EDITLOTE": "Edit lots and tickets.",
-        "VISUFORM": "View Google Forms surveys.",
-        "ADDFORMS": "Add Google Forms surveys.",
-        "DELEFORM": "Delete Google Forms surveys.",
-        "EDITFORM": "Edit Google Forms surveys.",
+        "VISUAREA": "View security area",
+        "ADDAREAS": "Add security areas",
+        "DELEAREA": "Delete security areas",
+        "EDITAREA": "Edit security areas",
+        "VISULOTE": "View lots and tickets",
+        "ADDLOTES": "Add lots and tickets",
+        "DELELOTE": "Delete lots and tickets",
+        "EDITLOTE": "Edit lots and tickets",
+        "VISUFORM": "View Google Forms surveys",
+        "ADDFORMS": "Add Google Forms surveys",
+        "DELEFORM": "Delete Google Forms surveys",
+        "EDITFORM": "Edit Google Forms surveys",
         "VISUPSEG": "View security problem",
         "ADDPSEGU": "Add security problem",
         "DELEPSEG": "Delete security problem",
@@ -483,7 +484,9 @@
         "ADDDADOB": "Add bank data",
         "DELEDADO": "delete bank data",
         "EDITDADO": "Edit bank data",
-        "MODDABOB": "Modify bank info"
+        "MODDADOB": "Modify bank info",
+        "RELCHECK": "Execute check-in",
+        "EXPOREPO": "Export reports"
     },
 
     "ASSIGNDIALOG": {
@@ -906,6 +909,15 @@
         "CONFIRMAR": "Confirm export",
         "TITLE": "Export reports",
         "ENVIAR": "Send reports"
+    },
+
+    "SCANNER": {
+        "WAITPERM": "Waiting for permissions and loading.",
+        "WAITPERMMES": "If your device does not has cameras, no permissions will be asked.",
+        "PERMDENY": "Permission denied.",
+        "PERMDENYMES": "Cannot perform read. Use option below.",
+        "DEVNCHEC": "Couldn't check for devices.",
+        "DEVNCHECMES": "A reading error must have occurred or this device has no cameras. Use option below."
     }
 
 }

@@ -197,4 +197,16 @@ describe('LeitorQrComponent', () => {
     component.executarCheckInScanner('teste');
     expect(dialogSpy.open).toHaveBeenCalled();
   });
+
+  it('should change hasPermission at onHasPermission', () => {
+    expect(component.hasPermission).toBeFalsy();
+    component.onHasPermission(true);
+    expect(component.hasPermission).toBeTruthy();
+  });
+
+  it('should change hasDevices at onCamerasNotFound', () => {
+    expect(component.hasDevices).toBeTruthy();
+    component.onCamerasNotFound(true);
+    expect(component.hasDevices).toBeFalsy();
+  });
 });
