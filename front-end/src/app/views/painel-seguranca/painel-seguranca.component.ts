@@ -51,6 +51,7 @@ export class PainelSegurancaComponent implements OnInit, OnDestroy {
   dataSources = [];
   subscription: Subscription;
   source: any;
+  isChecked = false;
   public idFesta: string;
 
   displayedColumns: string[] = ['nome', 'status'];
