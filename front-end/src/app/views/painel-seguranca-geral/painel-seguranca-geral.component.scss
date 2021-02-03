@@ -1,0 +1,27 @@
+.header {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #9D9D9D;
+  }
+  
+  .header-container {
+    max-width: 1100px;
+  }
+  
+  .container {
+    display: flex;
+  }
+  
+  .itensGerais {
+    margin: 0;
+    word-wrap: break-word;
+    width: 200px;
+    flex-grow: 1;
+    display: table-cell;
+    vertical-align: middle;
+    padding: 1rem;
+  }
+  
+  .border-top {
+    border-top: 1px solid #E0E0E0;
+  }

@@ -4,14 +4,15 @@ import { PainelSegurancaComponent } from './painel-seguranca.component';
 import { CustomMaterialModule } from '../material/material.module';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { HttpLoaderFactory } from '../edit-dialog/edit-dialog.component.spec';
 import { HttpClient } from '@angular/common/http';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatSlideToggleModule } from '@angular/material';
 import { LoginService } from 'src/app/services/loginService/login.service';
 import { ControleSidenavComponent } from '../controle-sidenav/controle-sidenav.component';
+import { PainelSegurancaGeralComponent } from '../painel-seguranca-geral/painel-seguranca-geral.component';
 
 describe('PainelSegurancaComponent', () => {
   let component: PainelSegurancaComponent;
@@ -24,12 +25,15 @@ describe('PainelSegurancaComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         PainelSegurancaComponent,
-        ControleSidenavComponent
+        ControleSidenavComponent,
+        PainelSegurancaGeralComponent
       ],
       imports: [
+        MatSlideToggleModule,
         CustomMaterialModule,
         HttpClientTestingModule,
         BrowserAnimationsModule,
+        FormsModule,
         ReactiveFormsModule,
         RouterModule.forRoot([]),
         TranslateModule.forRoot({

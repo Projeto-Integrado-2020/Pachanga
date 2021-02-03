@@ -16,6 +16,7 @@ import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
 import { LoginService } from 'src/app/services/loginService/login.service';
 import { FileInput, MaterialFileInputModule } from 'ngx-material-file-input';
 import { SegurancaProblemasService } from 'src/app/services/seguranca-problemas/seguranca-problemas.service';
+import { PainelSegurancaComponent } from '../painel-seguranca/painel-seguranca.component';
 
 describe('RelatarProblemaDialogComponent', () => {
   let component: RelatarProblemaDialogComponent;
@@ -74,6 +75,9 @@ describe('RelatarProblemaDialogComponent', () => {
     };
     component.date = new Date();
     component.dialogRef = dialogRefSpy;
+    component.component = {
+      ngOnInit: () => true
+    };
     localStorage.setItem('token', JSON.stringify(token));
     fixture.detectChanges();
   });

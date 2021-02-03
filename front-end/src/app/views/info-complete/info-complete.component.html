@@ -1,7 +1,7 @@
 <div class="info-complete" *ngIf="mensagem && loginService.usuarioAutenticado && (loginService.usuarioInfo.genero == null || loginService.usuarioInfo.dtNasc == null)">
     <mat-card class="message">
         <div class="txt">
-            {{'INFOCOMPLETE.MESSAGE' | translate}}<a class="pefilLink" routerLink="../perfil">{{'INFOCOMPLETE.HERE' | translate}}</a>
+            {{'INFOCOMPLETE.MESSAGE' | translate}}<a class="pefilLink" (click)="openDialogPerfil()">{{'INFOCOMPLETE.HERE' | translate}}</a>
         </div>
         <div class="fechar">
             <a class="closeButton" (click)="fecharMensagem()"><mat-icon>close</mat-icon></a>

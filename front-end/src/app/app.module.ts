@@ -159,6 +159,7 @@ import { IndexCarrocelComponent } from './views/index-carrocel/index-carrocel.co
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RelatorioDetalhesDialogComponent } from './views/relatorio-detalhes-dialog/relatorio-detalhes-dialog.component';
 import { IvyCarouselModule } from 'angular-responsive-carousel';
+import { PainelSegurancaGeralComponent } from './views/painel-seguranca-geral/painel-seguranca-geral.component';
 
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
 
@@ -273,7 +274,8 @@ export function provideConfig() {
     RelatoriosExportComponent,
     PerfilDialogComponent,
     IndexCarrocelComponent,
-    RelatorioDetalhesDialogComponent
+    RelatorioDetalhesDialogComponent,
+    PainelSegurancaGeralComponent
   ],
   entryComponents: [
     LoginComponent,

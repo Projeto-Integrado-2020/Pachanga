@@ -670,7 +670,9 @@
         "MESSAGE": "Do you really want to delete this security area",
         "CANCEL": "Cancel",
         "I": "Unsecured",
-        "S": "Safe"
+        "S": "Safe",
+        "VISAOGERAL": "Security Alerts Overview",
+        "VISAOINICIAL": "Security Areas"
     },
     
     "FORMS": {

@@ -34,7 +34,9 @@
         "MESSAGE": "Você realmente deseja deletar esta área de segurança",
         "CANCEL": "Cancelar",
         "I": "Insegura",
-        "S": "Segura"
+        "S": "Segura",
+        "VISAOGERAL": "Visão Geral dos Alertas de Segurança",
+        "VISAOINICIAL": "Áreas de Segurança"
     },
 
     "ASSIGNDIALOG": {

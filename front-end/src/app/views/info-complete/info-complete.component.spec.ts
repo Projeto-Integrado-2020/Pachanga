@@ -8,6 +8,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient } from '@angular/common/http';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { LoginService } from 'src/app/services/loginService/login.service';
+import { MatDialog } from '@angular/material';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -16,8 +17,10 @@ export function HttpLoaderFactory(http: HttpClient) {
 describe('InfoCompleteComponent', () => {
   let component: InfoCompleteComponent;
   let fixture: ComponentFixture<InfoCompleteComponent>;
+  let dialogSpy: MatDialog;
 
   beforeEach(async(() => {
+    dialogSpy = jasmine.createSpyObj('MatDialog', ['open']);
     TestBed.configureTestingModule({
       declarations: [ InfoCompleteComponent ],
       imports: [
@@ -30,6 +33,9 @@ describe('InfoCompleteComponent', () => {
             deps: [HttpClient]
           }
         }),
+      ],
+      providers: [
+        { provide: MatDialog, useValue: dialogSpy },
       ]
     })
     .compileComponents();
@@ -53,5 +59,10 @@ describe('InfoCompleteComponent', () => {
     component.loginService.usuarioInfo = {sexo: null, dtNasc: null};
     component.fecharMensagem();
     expect(component.mensagem).toBeFalsy();
+  });
+
+  it('should open a dialog perfil through a method', () => {
+    component.openDialogPerfil();
+    expect(dialogSpy.open).toHaveBeenCalled();
   });
 });

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material';
 import { LoginService } from '../../services/loginService/login.service';
+import { PerfilDialogComponent } from '../perfil-dialog/perfil-dialog.component';
 
 @Component({
   selector: 'app-info-complete',
@@ -8,7 +10,7 @@ import { LoginService } from '../../services/loginService/login.service';
 })
 export class InfoCompleteComponent implements OnInit {
 
-  constructor(public loginService: LoginService) { }
+  constructor(public loginService: LoginService, public dialog: MatDialog) { }
 
   public mensagem: boolean;
 
@@ -18,6 +20,12 @@ export class InfoCompleteComponent implements OnInit {
 
   fecharMensagem() {
     this.mensagem = false;
+  }
+
+  openDialogPerfil(): void {
+    this.dialog.open(PerfilDialogComponent, {
+      width: '25rem',
+    });
   }
 
 }

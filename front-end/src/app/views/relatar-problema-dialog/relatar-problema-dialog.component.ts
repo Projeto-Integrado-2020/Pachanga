@@ -4,7 +4,6 @@ import { LoginService } from 'src/app/services/loginService/login.service';
 import { SegurancaProblemasService } from 'src/app/services/seguranca-problemas/seguranca-problemas.service';
 import { DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
-import { PainelSegurancaComponent } from '../painel-seguranca/painel-seguranca.component';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { FileValidator } from 'ngx-material-file-input';
 import { ProcessingDialogComponent } from '../processing-dialog/processing-dialog.component';
@@ -15,7 +14,7 @@ import { ProcessingDialogComponent } from '../processing-dialog/processing-dialo
   styleUrls: ['./relatar-problema-dialog.component.scss']
 })
 export class RelatarProblemaDialogComponent implements OnInit {
-  public component: PainelSegurancaComponent;
+  public component: any;
   public codFesta: any;
   public area: any;
   public problemaTO: any = {};

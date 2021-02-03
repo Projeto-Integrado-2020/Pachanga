@@ -22,6 +22,10 @@
     transform: translateX(-50%);
 }
 
+.pefilLink {
+    cursor: pointer;
+}
+
 .pefilLink:hover {
     text-decoration: underline;
 }

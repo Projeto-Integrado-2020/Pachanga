@@ -1,0 +1,17 @@
+<div class="container header-container">
+    <p class="itensGerais header">{{'AREASEGURANCA.PROBLEMA' | translate}}</p>
+    <p class="itensGerais header">{{'AREASEGURANCA.AREA' | translate}}</p>
+    <p class="itensGerais header">Status</p>
+    <p class="itensGerais header">{{'PROBLEMADETALHES.HORARIO' | translate}}</p>
+</div>
+<div *ngFor="let problema of visaoGeral">
+    <div class="container border-top">
+        <p class="itensGerais">{{'RELATARPROB.' + problema.descProblema | translate}}</p>
+        <p class="itensGerais">{{problema.nomeArea}}</p>
+        <p class="itensGerais">{{'RELATARPROB.' + problema.statusProblema | translate}}</p>
+        <p class="itensGerais">{{processarDataCompra(problema.horarioInicio)}}</p>
+        <button mat-icon-button (click)="verDetalhesProblema(problema.problemaCompleto)">
+            <mat-icon matTooltip="{{'AREASEGURANCA.DETALHES' | translate}}">search</mat-icon>
+        </button>
+    </div>
+</div>
