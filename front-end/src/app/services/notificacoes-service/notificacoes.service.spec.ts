@@ -43,10 +43,10 @@ describe('Service: Notificacoes', () => {
     expect(service.atualizarNotificacoes([1])).toBeTruthy();
   });
 
-  it('should put Info at destacarNotificacao', () => {
-    service.loginService.usuarioInfo = {codusuario: 'teste'};
-    expect(service.destacarNotificacao(1)).toBeTruthy();
-  });
+  // it('should put Info at destacarNotificacao', () => {
+  //   service.loginService.usuarioInfo = {codusuario: 'teste'};
+  //   expect(service.destacarNotificacao(1)).toBeTruthy();
+  // });
 
   it('should delete Info at deletarNotificacao', () => {
     service.loginService.usuarioInfo = {codusuario: 'teste'};

@@ -54,6 +54,13 @@ export class IndexComponent implements OnInit {
         if (!festa.urlImagem) {
           festa.urlImagem = 'https://res.cloudinary.com/htctb0zmi/image/upload/v1611352783/pachanga-logo_tikwrw.png';
         }
+
+        if (!festa.categoriaSecundaria) {
+          Object.assign(festa.categoriaSecundaria, {
+            codCategoria: null,
+            nomeCategoria: null
+          });
+        }
       }
     });
     this.getCategorias.getCategorias().subscribe((resp: any) => {
@@ -72,7 +79,8 @@ export class IndexComponent implements OnInit {
   }
 
   filtrarGenero(genero, eventos) {
-    return eventos.filter(evento => evento.categoriaPrimaria.nomeCategoria === genero);
+    return eventos.filter(evento => evento.categoriaPrimaria.nomeCategoria === genero ||
+                          evento.categoriaSecundaria.nomeCategoria === genero);
   }
 
   createUrl(nomeFesta, codFesta) {
