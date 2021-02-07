@@ -188,7 +188,7 @@ public class EmailMensagem {
 			
 			String htmlMessage = "<h1><strong><p style=\"color:#663399\";>Segue o PDF do seu relatório</p></strong></h1>\r\n" + 
 					"<div>\r\n" + 
-					"<p>Olá "+ usuario.getNomeUser() + ",</p><br/>\r\n" + 
+					"<p>Olá,</p><br/>\r\n" + 
 					"<p>Segue relatório da festa " + festa.getNomeFesta() + ", gerados pela Pachanga.<br/>\r\n" + 
 					"A ausência de um relatório pode significar que a festa não gerou dados suficientes para o mesmo.</p><br/>\r\n" + 
 					"<p>Atenciosamente,</p><br/>\r\n" + 
