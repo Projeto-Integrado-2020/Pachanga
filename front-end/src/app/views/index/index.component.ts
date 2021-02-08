@@ -41,7 +41,6 @@ export class IndexComponent implements OnInit {
   ngOnInit() {
     this.getFestas.getFestasLista().subscribe((resp: any) => {
       this.getFestas.setFarol(false);
-      console.log(resp);
       this.festas = resp;
 
       if (this.festas.length === 0) {
