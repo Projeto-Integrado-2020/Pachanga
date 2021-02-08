@@ -157,18 +157,18 @@ describe('IndexComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should format date from datetime', () => {
-    const result = component.getDateFromDTF('2020-09-23 19:10:25');
-    expect(result).toBe('23/09/2020');
-  });
+//   fit('should format date from datetime', () => {
+//     const result = component.getDateFromDTF('2020-09-23 19:10:25');
+//     expect(result).toBe('23/09/2020');
+//   });
 
-  it('should format time from datetime', () => {
-    const result = component.getTimeFromDTF('2020-09-23 19:10:25');
-    expect(result).toBe('19:10:25');
-  });
+//   fit('should format time from datetime', () => {
+//     const result = component.getTimeFromDTF('2020-09-23 19:10:25');
+//     expect(result).toBe('19:10:25');
+//   });
 
-  it('should create ticket sales url', () => {
-    const result = component.createUrl('festa', '123');
-    expect(result).toBe('../festa&123/venda-ingressos');
-  });
+//   fit('should create ticket sales url', () => {
+//     const result = component.createUrl('festa', '123');
+//     expect(result).toBe('../festa&123/venda-ingressos');
+//   });
 });
