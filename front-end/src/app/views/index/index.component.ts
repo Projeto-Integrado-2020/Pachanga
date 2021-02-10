@@ -17,9 +17,8 @@ export interface Tile {
 })
 export class IndexComponent implements OnInit {
 
-  eventos: any = ['evento 1', 'evento 2', 'evento 3', 'evento 4', 'evento 5', 'evento 6', 'evento 7'];
   title: string = this.translate.instant('INDEX.OLA');
-  public festas: any;
+  festas: any;
   festasMostradas = [];
   length;
   rows: 2;
@@ -40,27 +39,30 @@ export class IndexComponent implements OnInit {
 
   ngOnInit() {
     this.getFestas.getFestasLista().subscribe((resp: any) => {
+      console.log(resp)
       this.getFestas.setFarol(false);
       this.festas = resp;
+      console.log(this.festas)
 
       if (this.festas.length === 0) {
         this.nenhumaFesta = true;
       }
 
       this.length = this.festas.length;
-      this.festasMostradas = this.festas;
-      for (const festa of this.festasMostradas) {
+      for (const festa of this.festas) {
         if (!festa.urlImagem) {
           festa.urlImagem = 'https://res.cloudinary.com/htctb0zmi/image/upload/v1611352783/pachanga-logo_tikwrw.png';
         }
 
-        if (!festa.categoriaSecundaria) {
+        if (festa.categoriaSecundaria === null) {
           Object.assign(festa.categoriaSecundaria, {
             codCategoria: null,
             nomeCategoria: null
           });
         }
       }
+      console.log(this.festas)
+      this.festasMostradas = this.festas;
     });
     this.getCategorias.getCategorias().subscribe((resp: any) => {
       this.categorias = resp;
