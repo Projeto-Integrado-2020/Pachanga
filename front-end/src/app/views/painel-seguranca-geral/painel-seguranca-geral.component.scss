@@ -5,7 +5,7 @@
   }
   
   .header-container {
-    max-width: 1100px;
+    max-width: 110rem;
   }
   
   .container {
@@ -15,7 +15,7 @@
   .itensGerais {
     margin: 0;
     word-wrap: break-word;
-    width: 200px;
+    width: 20rem;
     flex-grow: 1;
     display: table-cell;
     vertical-align: middle;
@@ -24,4 +24,9 @@
   
   .border-top {
     border-top: 1px solid #E0E0E0;
+  }
+
+  @media (max-width: 748px){
+    
+
   }

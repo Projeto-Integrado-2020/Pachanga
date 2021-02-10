@@ -1,82 +1,11 @@
 @import '../material/paleta.scss';
 @import '~@angular/material/theming';
 
-@media (max-width: 748px) and (orientation: landscape){
-  .example-container {
-    width: 80%;
-  }
-
-  .example-sidenav {
-    width: 10rem;
-  }
-}
-
-@media (max-width: 748px){
-
-  .example-container {
-    width: 100%;
-  }
-
-  ::ng-deep .mat-row {
-    overflow-x: scroll !important;
-  }
-  .example-sidenav {
-    width: 100% !important;
-  }
-
-  .mat-button-toggle {
-    font-size: .9rem;
-
-    &-group {
-      margin: 0;
-    }
-  }
-
-  .sidenavFechar {
-    right: 0;
-  }
-
-  .sidenavAbrir {
-    background-color: rgba(0, 0, 0, .07);
-  }
-
-  .status-list {
-    right: 0;
-    left: 0;
-    width: 100%;
-
-  }
-
-  .mat-button-toggle {
-    font-size: .9rem;
-
-    &-group {
-      margin: 0;
-    }
-  }
-
 
   .mat-header-cell {
     padding: 5px;
   }
   
-  .painel{
-    width: 100%;
-    padding: .5rem 0 .5rem 0;
-  }
-
-  .example-sidenav {
-    width: 100%;
-  }
-
-  .botao-editar-desktop {
-    display: none;
-  }
-
-  .ultima-celula {
-    max-width: 2rem;
-    padding: .5rem;
-  }
 
   .botoes {
     flex-direction: column;
@@ -90,37 +19,11 @@
   }
 
 
-  .sidenavFechar {
-    transform: translateX(-3rem);
-  }
-
   .form_row {
     display: flex;
     flex-direction: column;
   }
 
-}
-
-
-@media (min-width: 749px){
-
-  .sidenavFechar {
-    display: none;
-  }
-  .example-sidenav {
-    width: 10rem;
-  }
-
-  .botoes {
-    justify-content: center;
-    gap: 2rem;
-  }
-
-  .painel {
-    max-width: 60%;
-    @include centralizar(true, false);
-  }
-}
 
 .mat-table {
   margin: 0 !important;
@@ -146,10 +49,6 @@
 
 }
 
-.painel {
-  margin-bottom: 2rem;
-}
-
   .titulo2 {
     @include centralizar(true, false);
     display: inline-block;
@@ -167,29 +66,10 @@
 
   .main-container {
     max-width: 1140px;
+    padding: 0 1rem 0 1rem;
   }
 
-  .example-container {
-    position: absolute;
-    top: 56px;
-    bottom: 0;
-    left: 0;
-    right: 0;
-  }
-  
-  .example-sidenav {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: #DADADA  ;
-  }
-  
-  .toggle{
-    top: 50%;
-    transform: translateY(-50%);
-    position: fixed;
-    padding: 0;
-  }
+
 //5.32
 //1.064
   .botao-sidenav{
@@ -330,12 +210,6 @@ tr.example-element-row:not(.example-expanded-row):active {
   flex-direction: column;
 }
 
-.icons-remove{
-  //transform: translate(4.5rem, -2.5rem);
-  background-color: $color-tertiary;
-  color: #ffffff;
-}
-
 .form_row {
   display: flex !important;
   flex-direction: column !important;
@@ -349,10 +223,6 @@ tr.example-element-row:not(.example-expanded-row):active {
 }
 ::ng-deep .mat-form-field-underline {
   position: static !important;
-}
-
-.info-lote {
-  display: inline;
 }
 
 .festa-tab {
@@ -373,13 +243,6 @@ tr.example-element-row:not(.example-expanded-row):active {
   margin-right: 2rem;
 }
 
-.lista-lote {
-  margin: 2rem 0 2rem 0;
-}
-
-.descricao {
-  display: block;
-}
 
 .subtitle {
   text-transform: capitalize;
@@ -425,4 +288,12 @@ tr.example-element-row:not(.example-expanded-row):active {
   flex-direction: row;
   gap: 1rem;
   justify-content: center;
+}
+
+
+@media (min-width: 749px){
+  .painel {
+    max-width: 40rem;
+    @include centralizar(true, false);
+  }
 }
