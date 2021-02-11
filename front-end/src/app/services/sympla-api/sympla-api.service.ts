@@ -13,7 +13,6 @@ import { ErroDialogComponent } from 'src/app/views/erro-dialog/erro-dialog.compo
 export class SymplaApiService {
 
   farol = false;
-  private readonly urlProxy = 'https://cors-anywhere.herokuapp.com/';
   private readonly urlBaseAPI = 'https://api.sympla.com.br/public/v3/events/';
   private readonly urlParticipants = '/participants';
   private readonly urlTicketNumber = '/ticketNumber/';
@@ -27,7 +26,7 @@ export class SymplaApiService {
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('S_TOKEN', S_TOKEN);
 
-    const url = this.urlProxy + this.urlBaseAPI + eventId;
+    const url = this.urlBaseAPI + eventId;
 
     return this.http.get(url, {headers}).pipe(
       take(1),
@@ -43,7 +42,7 @@ export class SymplaApiService {
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('S_TOKEN', S_TOKEN);
 
-    const url = this.urlProxy + this.urlBaseAPI + eventId + this.urlParticipants;
+    const url = this.urlBaseAPI + eventId + this.urlParticipants;
 
     return this.http.get(url, {headers}).pipe(
       take(1),
@@ -60,7 +59,7 @@ export class SymplaApiService {
       headers = headers.append('Content-Type', 'application/json');
       headers = headers.append('S_TOKEN', S_TOKEN);
 
-      const url = this.urlProxy + this.urlBaseAPI + eventId +
+      const url = this.urlBaseAPI + eventId +
                   this.urlParticipants + this.urlTicketNumber + ticketNumber + this.urlCheckIn;
 
       return this.http.post(url, null, {headers});
