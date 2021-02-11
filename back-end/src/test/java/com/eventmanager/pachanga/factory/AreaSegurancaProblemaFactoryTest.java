@@ -20,9 +20,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.eventmanager.pachanga.domains.AreaSeguranca;
 import com.eventmanager.pachanga.domains.AreaSegurancaProblema;
+import com.eventmanager.pachanga.domains.AreaSegurancaProblemaFluxo;
 import com.eventmanager.pachanga.domains.Festa;
 import com.eventmanager.pachanga.domains.Problema;
 import com.eventmanager.pachanga.domains.Usuario;
+import com.eventmanager.pachanga.dtos.AreaSegurancaProblemaHistorico;
 import com.eventmanager.pachanga.dtos.AreaSegurancaProblemaTO;
 import com.eventmanager.pachanga.securingweb.JwtAuthenticationEntryPoint;
 import com.eventmanager.pachanga.securingweb.JwtTokenUtil;
@@ -123,6 +125,20 @@ class AreaSegurancaProblemaFactoryTest {
 		usuarioTest.setNomeUser("Gustavo Barbosa");
 
 		return usuarioTest;
+	}
+	
+	private AreaSegurancaProblemaFluxo areaProblemaHistoricoTest() {
+		AreaSegurancaProblemaFluxo areaHist = new AreaSegurancaProblemaFluxo();
+		areaHist.setCodArea(1);
+		areaHist.setCodAreaProblema(2);
+		areaHist.setCodFesta(1);
+		areaHist.setCodHistorico(1);
+		areaHist.setCodProblema(2);
+		areaHist.setCodUsuarioEmissor(1);
+		areaHist.setCodUsuarioResolv(2);
+		areaHist.setDescProblema("teste");
+		areaHist.setHorarioInicio(LocalDateTime.of(2016, Month.JUNE, 23, 19, 10));
+		return areaHist;
 	}
 
 	@Test
@@ -255,5 +271,18 @@ class AreaSegurancaProblemaFactoryTest {
 		assertEquals(areaSegurancaProblemaTO.getHorarioInicio(), areaSegurancaProblema.getHorarioInicio());
 		assertEquals(areaSegurancaProblemaTO.getStatusProblema(), areaSegurancaProblema.getStatusProblema());
 
+	}
+	
+	@Test
+	void getProblemasHistoricoSucesso() throws Exception {
+		AreaSegurancaProblemaFluxo areaTest = areaProblemaHistoricoTest();
+		areaTest.setCodUsuarioResolv(null);
+		List<AreaSegurancaProblemaFluxo> areaFluxo = new ArrayList<>();
+		areaFluxo.add(areaProblemaHistoricoTest());
+		areaFluxo.add(areaTest);
+		
+		List<AreaSegurancaProblemaHistorico> retorno = areaSegurancaProblemaFactory.getProblemasHistorico(areaFluxo);
+		
+		assertEquals(true, !retorno.isEmpty());
 	}
 }

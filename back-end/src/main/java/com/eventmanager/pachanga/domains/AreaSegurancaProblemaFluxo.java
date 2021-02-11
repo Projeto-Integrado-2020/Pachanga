@@ -84,7 +84,7 @@ public class AreaSegurancaProblemaFluxo {
 		this.statusProblema = areaProblema.getStatusProblema();
 		this.nomeProblema = areaProblema.getProblema() == null ? null: areaProblema.getProblema().getDescProblema();
 	}
-	
+
 	public Integer getCodHistorico() {
 		return codHistorico;
 	}
@@ -101,12 +101,52 @@ public class AreaSegurancaProblemaFluxo {
 		this.dataHorario = dataHorario;
 	}
 
+	public Integer getCodUsuarioResolv() {
+		return codUsuarioResolv;
+	}
+
+	public void setCodUsuarioResolv(Integer codUsuarioResolv) {
+		this.codUsuarioResolv = codUsuarioResolv;
+	}
+
+	public Integer getCodFesta() {
+		return codFesta;
+	}
+
+	public void setCodFesta(Integer codFesta) {
+		this.codFesta = codFesta;
+	}
+
+	public String getNomeUsuarioResolv() {
+		return nomeUsuarioResolv;
+	}
+
+	public void setNomeUsuarioResolv(String nomeUsuarioResolv) {
+		this.nomeUsuarioResolv = nomeUsuarioResolv;
+	}
+
 	public LocalDateTime getHorarioInicio() {
 		return horarioInicio;
 	}
 
 	public void setHorarioInicio(LocalDateTime horarioInicio) {
 		this.horarioInicio = horarioInicio;
+	}
+
+	public Integer getCodUsuarioEmissor() {
+		return codUsuarioEmissor;
+	}
+
+	public void setCodUsuarioEmissor(Integer codUsuarioEmissor) {
+		this.codUsuarioEmissor = codUsuarioEmissor;
+	}
+
+	public String getNomeUsuarioEmissor() {
+		return nomeUsuarioEmissor;
+	}
+
+	public void setNomeUsuarioEmissor(String nomeUsuarioEmissor) {
+		this.nomeUsuarioEmissor = nomeUsuarioEmissor;
 	}
 
 	public String getDescProblema() {
@@ -133,52 +173,12 @@ public class AreaSegurancaProblemaFluxo {
 		this.horarioFim = horarioFim;
 	}
 
-	public int getCodArea() {
+	public Integer getCodArea() {
 		return codArea;
 	}
 
-	public void setCodArea(int codArea) {
+	public void setCodArea(Integer codArea) {
 		this.codArea = codArea;
-	}
-
-	public int getCodProblema() {
-		return codProblema;
-	}
-
-	public void setCodProblema(int codProblema) {
-		this.codProblema = codProblema;
-	}
-
-	public int getCodUsuarioResolv() {
-		return codUsuarioResolv;
-	}
-
-	public void setCodUsuarioResolv(int codUsuarioResolv) {
-		this.codUsuarioResolv = codUsuarioResolv;
-	}
-
-	public int getCodUsuarioEmissor() {
-		return codUsuarioEmissor;
-	}
-
-	public void setCodUsuarioEmissor(int codUsuarioEmissor) {
-		this.codUsuarioEmissor = codUsuarioEmissor;
-	}
-
-	public String getNomeUsuarioResolv() {
-		return nomeUsuarioResolv;
-	}
-
-	public void setNomeUsuarioResolv(String nomeUsuarioResolv) {
-		this.nomeUsuarioResolv = nomeUsuarioResolv;
-	}
-
-	public String getNomeUsuarioEmissor() {
-		return nomeUsuarioEmissor;
-	}
-
-	public void setNomeUsuarioEmissor(String nomeUsuarioEmissor) {
-		this.nomeUsuarioEmissor = nomeUsuarioEmissor;
 	}
 
 	public String getNomeArea() {
@@ -189,36 +189,12 @@ public class AreaSegurancaProblemaFluxo {
 		this.nomeArea = nomeArea;
 	}
 
-	public Integer getCodAreaProblema() {
-		return codAreaProblema;
-	}
-
-	public void setCodAreaProblema(Integer codAreaProblema) {
-		this.codAreaProblema = codAreaProblema;
-	}
-
-	public void setCodUsuarioResolv(Integer codUsuarioResolv) {
-		this.codUsuarioResolv = codUsuarioResolv;
-	}
-
-	public void setCodUsuarioEmissor(Integer codUsuarioEmissor) {
-		this.codUsuarioEmissor = codUsuarioEmissor;
-	}
-
-	public void setCodArea(Integer codArea) {
-		this.codArea = codArea;
+	public Integer getCodProblema() {
+		return codProblema;
 	}
 
 	public void setCodProblema(Integer codProblema) {
 		this.codProblema = codProblema;
-	}
-
-	public Integer getCodFesta() {
-		return codFesta;
-	}
-
-	public void setCodFesta(Integer codFesta) {
-		this.codFesta = codFesta;
 	}
 
 	public String getNomeProblema() {
@@ -229,6 +205,14 @@ public class AreaSegurancaProblemaFluxo {
 		this.nomeProblema = nomeProblema;
 	}
 
+	public Integer getCodAreaProblema() {
+		return codAreaProblema;
+	}
+
+	public void setCodAreaProblema(Integer codAreaProblema) {
+		this.codAreaProblema = codAreaProblema;
+	}
+
 	public String getStatusProblema() {
 		return statusProblema;
 	}
@@ -236,5 +220,5 @@ public class AreaSegurancaProblemaFluxo {
 	public void setStatusProblema(String statusProblema) {
 		this.statusProblema = statusProblema;
 	}
-
+	
 }

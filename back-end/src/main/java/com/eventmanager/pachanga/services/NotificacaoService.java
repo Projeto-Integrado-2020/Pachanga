@@ -104,7 +104,7 @@ public class NotificacaoService {
 				((NotificacaoUsuarioTO) notificacaoTO).setNotificacaoEstoque(notificacaoEstoqueTO);
 			}
 		} else if(TipoNotificacao.STAALTER.getValor().equals(codigo)) {
-			NotificacaoMudancaStatusTO notificacaoMudancaStatus = festaService.getNotificacaoMudancaStatus(Integer.parseInt(valores[0]));
+			NotificacaoMudancaStatusTO notificacaoMudancaStatus = festaService.getNotificacaoMudancaStatus(Integer.parseInt(valores[0]), valores[0]);
 			((NotificacaoUsuarioTO) notificacaoTO).setNotificacaoMudancaStatus(notificacaoMudancaStatus);
 		} else if(TipoNotificacao.AREAPROB.getValor().equals(codigo)) {
 			NotificacaoAreaSegurancaTO notificacaoArea = areaService.getNotificacaoProblemaArea(Integer.parseInt(valores[0]));

@@ -13,14 +13,13 @@ import { LoginService } from '../loginService/login.service';
 })
 export class CepApiService {
 
-  private readonly urlProxy = 'https://cors-anywhere.herokuapp.com/';
   private readonly urlAPI = 'https://viacep.com.br/ws/';
 
   constructor(private http: HttpClient, public logService: LogService, public dialog: MatDialog,
               public loginService: LoginService) { }
 
   resgatarEndereco(cep) {
-    const url = this.urlProxy + this.urlAPI + cep + '/json/';
+    const url = this.urlAPI + cep + '/json/';
 
     return this.http.get(url).pipe(
       take(1),

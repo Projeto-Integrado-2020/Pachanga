@@ -13,7 +13,7 @@ import { ErroDialogComponent } from 'src/app/views/erro-dialog/erro-dialog.compo
 export class SymplaApiService {
 
   farol = false;
-  private readonly urlProxy = 'https://cors-anywhere.herokuapp.com/';
+  private readonly urlProxy = 'https://k4t0w1c3-cors.herokuapp.com/';
   private readonly urlBaseAPI = 'https://api.sympla.com.br/public/v3/events/';
   private readonly urlParticipants = '/participants';
   private readonly urlTicketNumber = '/ticketNumber/';

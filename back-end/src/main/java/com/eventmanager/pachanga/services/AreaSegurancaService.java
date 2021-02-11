@@ -44,7 +44,7 @@ public class AreaSegurancaService {
 	
 	@Autowired
 	private AreaSegurancaProblemaService areaSegurancaProblemaService;
-
+	
 	public Map<AreaSeguranca, List<AreaSegurancaProblema>> listaAreaSegurancaFesta(int codFesta, int codUsuario) {
 		grupoService.validarPermissaoUsuarioGrupo(codFesta, codUsuario, TipoPermissao.VISUAREA.getCodigo());
 		List<AreaSeguranca> areas = areaSegurancaRepository.findAllAreasByCodFesta(codFesta);

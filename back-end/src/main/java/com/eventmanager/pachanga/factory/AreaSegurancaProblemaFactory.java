@@ -3,17 +3,21 @@ package com.eventmanager.pachanga.factory;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.eventmanager.pachanga.builder.AreaSegurancaProblemaBuilder;
+import com.eventmanager.pachanga.builder.AreaSegurancaProblemaHistoricoBuilder;
 import com.eventmanager.pachanga.builder.AreaSegurancaProblemaTOBuilder;
 import com.eventmanager.pachanga.domains.AreaSeguranca;
 import com.eventmanager.pachanga.domains.AreaSegurancaProblema;
+import com.eventmanager.pachanga.domains.AreaSegurancaProblemaFluxo;
 import com.eventmanager.pachanga.domains.Festa;
 import com.eventmanager.pachanga.domains.Problema;
 import com.eventmanager.pachanga.domains.Usuario;
+import com.eventmanager.pachanga.dtos.AreaSegurancaProblemaHistorico;
 import com.eventmanager.pachanga.dtos.AreaSegurancaProblemaTO;
 
 @Component(value = "areaSegurancaProblemaFactory")
@@ -38,8 +42,7 @@ public class AreaSegurancaProblemaFactory {
 				.observacaoSolucao(problemaSeguranca.getObservacaoSolucao())
 				.imagemProblema(problemaSeguranca.getImagemProblema() == null || !retornoImagem ? null
 						: problemaSeguranca.getImagemProblema())
-				.hasImagem(problemaSeguranca.getImagemProblema() != null)
-				.build();
+				.hasImagem(problemaSeguranca.getImagemProblema() != null).build();
 	}
 
 	public AreaSegurancaProblema getProblemaSeguranca(AreaSegurancaProblemaTO problemaSegurancaTO, MultipartFile imagem,
@@ -60,5 +63,17 @@ public class AreaSegurancaProblemaFactory {
 			retorno.add(getAreaSegurancaProblemaTO(problemaSeguranca, false));
 		}
 		return retorno;
+	}
+
+	public List<AreaSegurancaProblemaHistorico> getProblemasHistorico(List<AreaSegurancaProblemaFluxo> areaFluxo) {
+		return areaFluxo.stream()
+				.map(a -> this.getProblemaHistorico(a))
+				.collect(Collectors.toList());
+	}
+	
+	public AreaSegurancaProblemaHistorico getProblemaHistorico(AreaSegurancaProblemaFluxo areaFluxo) {
+		return AreaSegurancaProblemaHistoricoBuilder.getInstance().codArea(areaFluxo.getCodArea())
+				.codUsuarioResolv(areaFluxo.getCodUsuarioResolv() == null ? null : areaFluxo.getCodUsuarioResolv()).descProblema(areaFluxo.getDescProblema())
+				.nomeArea(areaFluxo.getNomeArea()).dataInicialProblema(areaFluxo.getHorarioInicio()).statusProblema(areaFluxo.getStatusProblema()).build();
 	}
 }

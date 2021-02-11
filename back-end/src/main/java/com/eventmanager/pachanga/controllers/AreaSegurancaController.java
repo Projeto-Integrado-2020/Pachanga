@@ -51,6 +51,7 @@ public class AreaSegurancaController {
 		}
 	}
 	
+	
 	@ResponseBody
 	@PostMapping(path = "/adicionar")
 	public ResponseEntity<Object> criarAreaSegurancaFesta(@RequestBody AreaSegurancaTO areaSegurancaTo,

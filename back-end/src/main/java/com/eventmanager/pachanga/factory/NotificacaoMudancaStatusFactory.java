@@ -9,9 +9,9 @@ import com.eventmanager.pachanga.dtos.NotificacaoMudancaStatusTO;
 @Component(value = "notificacaoMudancaStatusFactory")
 public class NotificacaoMudancaStatusFactory {
 
-	public NotificacaoMudancaStatusTO getNotificacaoMudancaStatus(Festa festa) {
+	public NotificacaoMudancaStatusTO getNotificacaoMudancaStatus(Festa festa, String StatusFestaNotificacao) {
 		return NotificacaoMudancaStatusTOBuilder.getInstance().nomeFesta(festa.getNomeFesta())
-				.codFesta(festa.getCodFesta()).tipoAlteracao(festa.getStatusFesta()).build();
+				.codFesta(festa.getCodFesta()).tipoAlteracao(StatusFestaNotificacao).build();
 	}
 
 }

@@ -12,7 +12,6 @@ import { ErroDialogComponent } from 'src/app/views/erro-dialog/erro-dialog.compo
 })
 export class EventbriteApiService {
 
-  private readonly urlProxy = 'https://cors-anywhere.herokuapp.com/';
   private readonly urlBaseAPI = 'https://www.eventbriteapi.com/v3/events/';
   private readonly urlParticipants = '/attendees/';
 
@@ -24,7 +23,7 @@ export class EventbriteApiService {
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('Authorization', 'Bearer ' + token);
 
-    const url = this.urlProxy + this.urlBaseAPI + eventId + '/';
+    const url = this.urlBaseAPI + eventId + '/';
 
     return this.http.get(url, {headers}).pipe(
       take(1),
@@ -40,7 +39,7 @@ export class EventbriteApiService {
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('Authorization', 'Bearer ' + token);
 
-    const url = this.urlProxy + this.urlBaseAPI + eventId + this.urlParticipants;
+    const url = this.urlBaseAPI + eventId + this.urlParticipants;
 
     return this.http.get(url, {headers}).pipe(
       take(1),
