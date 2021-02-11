@@ -58,7 +58,7 @@ class NotificacaoMudancaStatusFactoryTest {
 	@Test
 	void getNotificacaoMudancaStatusTest() throws Exception{
 		
-		NotificacaoMudancaStatusTO notificacaoMudancaStatusTO = notificacaoMudancaStatusFactory.getNotificacaoMudancaStatus(festaTest());
+		NotificacaoMudancaStatusTO notificacaoMudancaStatusTO = notificacaoMudancaStatusFactory.getNotificacaoMudancaStatus(festaTest(), TipoStatusFesta.PREPARACAO.getValor());
 		
 		assertEquals("festao", notificacaoMudancaStatusTO.getNomeFesta());
 		assertEquals(TipoStatusFesta.PREPARACAO.getValor(), notificacaoMudancaStatusTO.getTipoAlteracao());

@@ -15,6 +15,7 @@ import com.eventmanager.pachanga.domains.Festa;
 import com.eventmanager.pachanga.domains.Grupo;
 import com.eventmanager.pachanga.domains.Problema;
 import com.eventmanager.pachanga.domains.Usuario;
+import com.eventmanager.pachanga.dtos.AreaSegurancaProblemaHistorico;
 import com.eventmanager.pachanga.dtos.AreaSegurancaProblemaTO;
 import com.eventmanager.pachanga.errors.ValidacaoException;
 import com.eventmanager.pachanga.factory.AreaSegurancaProblemaFactory;
@@ -170,6 +171,10 @@ public class AreaSegurancaProblemaService {
 		areaFluxo.setDataHorario(notificacaoService.getDataAtual());
 		areaFluxo.setCodHistorico(areaSegurancaProblemaFluxoRepository.getNextValMySequence());
 		areaSegurancaProblemaFluxoRepository.save(areaFluxo);
+	}
+	
+	public List<AreaSegurancaProblemaHistorico> getHistoricosAreaFesta(int codFesta) {
+		return areaSegurancaProblemaFactory.getProblemasHistorico(areaSegurancaProblemaFluxoRepository.findAreaProblemaFesta(codFesta));
 	}
 
 //validadores______________________________________________________________________________________________________________

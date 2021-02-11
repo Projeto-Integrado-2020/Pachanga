@@ -29,6 +29,7 @@ import com.eventmanager.pachanga.domains.AreaSegurancaProblema;
 import com.eventmanager.pachanga.domains.Festa;
 import com.eventmanager.pachanga.domains.Problema;
 import com.eventmanager.pachanga.domains.Usuario;
+import com.eventmanager.pachanga.dtos.AreaSegurancaProblemaHistorico;
 import com.eventmanager.pachanga.dtos.AreaSegurancaProblemaTO;
 import com.eventmanager.pachanga.errors.ValidacaoException;
 import com.eventmanager.pachanga.factory.AreaSegurancaFactory;
@@ -420,6 +421,45 @@ class AreaSegurancaProblemaControllerTest {
 		assertEquals(HttpStatus.BAD_REQUEST.value(), response.getStatus());
 
 		assertEquals(expected, result.getResponse().getContentAsString());
+	}
+	
+	@Test
+	@WithMockUser
+	void listaHistorioAreaSegurancaFestaSucesso() throws Exception {
+		String uri = "/areaSegurancaProblema/listaHistorico";
+
+		Mockito.when(areaSegurancaProblemaService.getHistoricosAreaFesta(Mockito.anyInt()))
+				.thenReturn(new ArrayList<AreaSegurancaProblemaHistorico>());
+
+		RequestBuilder requestBuilder = MockMvcRequestBuilders.get(uri).accept(MediaType.APPLICATION_JSON)
+				.param("codUsuario", "1").param("codFesta", "1").contentType(MediaType.APPLICATION_JSON);
+
+		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+
+		MockHttpServletResponse response = result.getResponse();
+
+		assertEquals(HttpStatus.OK.value(), response.getStatus());
+
+	}
+
+	@Test
+	@WithMockUser
+	void listaHistorioAreaSegurancaFestaErro() throws Exception {
+		String uri = "/areaSegurancaProblema/listaHistorico";
+
+		Mockito.when(areaSegurancaProblemaService.getHistoricosAreaFesta(Mockito.anyInt()))
+				.thenThrow(new ValidacaoException("teste"));
+
+		RequestBuilder requestBuilder = MockMvcRequestBuilders.get(uri).accept(MediaType.APPLICATION_JSON)
+				.param("codUsuario", "1").param("codFesta", "1").contentType(MediaType.APPLICATION_JSON);
+
+		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+
+		MockHttpServletResponse response = result.getResponse();
+
+		assertEquals(HttpStatus.BAD_REQUEST.value(), response.getStatus());
+
+		assertEquals("teste", result.getResponse().getContentAsString());
 	}
 
 }

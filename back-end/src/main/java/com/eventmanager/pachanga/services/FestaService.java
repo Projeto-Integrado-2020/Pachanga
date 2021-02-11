@@ -422,9 +422,9 @@ public class FestaService {
 		return festa;
 	}
 
-	public NotificacaoMudancaStatusTO getNotificacaoMudancaStatus(int codFesta) {
+	public NotificacaoMudancaStatusTO getNotificacaoMudancaStatus(int codFesta, String StatusFestaNotificacao) {
 		Festa festa = validarFestaExistente(codFesta);
-		return notificacaoMudancaStatusFactory.getNotificacaoMudancaStatus(festa);
+		return notificacaoMudancaStatusFactory.getNotificacaoMudancaStatus(festa, StatusFestaNotificacao);
 	}
 
 	private void adicionarImagemCloudnary(MultipartFile imagem, Festa festa) throws IOException {

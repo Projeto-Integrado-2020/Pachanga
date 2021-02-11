@@ -36,4 +36,7 @@ public interface AreaSegurancaProblemaFluxoRepository extends JpaRepository<Area
 	
 	@Query(value = "SELECT COUNT(DISTINCT asp.codAreaProblema) from AreaSegurancaProblemaFluxo asp WHERE asp.codFesta = :codFesta")
 	public Float countProblemasFesta(int codFesta);
+	
+	@Query(value = "SELECT asp from AreaSegurancaProblemaFluxo asp WHERE asp.codFesta = :codFesta")
+	public List<AreaSegurancaProblemaFluxo> findAreaProblemaFesta(int codFesta);
 }
