@@ -12,40 +12,29 @@ html {
     color: #ffffff !important;
   }
   
-  .red-back {
-    background-color: $color-tertiary !important;
-    color: #ffffff !important;
-  }
+.red-back {
+  background-color: $color-tertiary !important;
+  color: #ffffff !important;
+}
 
-  @mixin centralizar($horizontal: true, $vertical: true) {
-    position: relative;
-    @if ($horizontal and $vertical) {
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-    } @else if ($horizontal) {
-      left: 50%;
-      transform: translate(-50%, 0);
-    } @else if ($vertical) {
-      top: 50%;
-      transform: translate(0, -50%);
-    }
+@mixin centralizar($horizontal: true, $vertical: true) {
+  position: relative;
+  @if ($horizontal and $vertical) {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  } @else if ($horizontal) {
+    left: 50%;
+    transform: translate(-50%, 0);
+  } @else if ($vertical) {
+    top: 50%;
+    transform: translate(0, -50%);
   }
+}
 
-  .main-container {
-    @include centralizar(true, false);
-    max-width: 1140px;
-    padding: 0 1rem 0 1rem;
-  }
+.main-container {
+  @include centralizar(true, false);
+  max-width: 1140px;
+  padding: calc(64px + .5rem) 1rem 0 1rem;
+}
 
-  @media(max-width: 748px){
-    .main-container {
-      margin-top: 56px;
-    }
-  }
-
-  @media(min-width: 749px){
-    .main-container {
-      margin-top: 64px;
-    }
-  }

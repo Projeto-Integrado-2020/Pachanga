@@ -55,10 +55,10 @@ export class IndexComponent implements OnInit {
         }
 
         if (festa.categoriaSecundaria === null) {
-          Object.assign(festa.categoriaSecundaria, {
+          Object.assign(festa, {categoriaSecundaria: {
             codCategoria: null,
             nomeCategoria: null
-          });
+          }});
         }
       }
       console.log(this.festas)
