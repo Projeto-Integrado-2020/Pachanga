@@ -2369,11 +2369,11 @@ class FestaServiceTest {
 		festa.setStatusFesta(TipoStatusFesta.INICIADO.getValor());
 
 		Mockito.when(festaRepository.findById(Mockito.anyInt())).thenReturn(festa);
-		Mockito.when(notificacaoMudancaStatusFactory.getNotificacaoMudancaStatus(Mockito.any()))
+		Mockito.when(notificacaoMudancaStatusFactory.getNotificacaoMudancaStatus(Mockito.any(), Mockito.anyString()))
 				.thenReturn(notificacaoMudancaoStatusTOTest());
 		Mockito.when(festaRepository.findByCodFesta(Mockito.anyInt())).thenReturn(festa);
 
-		NotificacaoMudancaStatusTO notificacaoMudancaoStatusTO = festaService.getNotificacaoMudancaStatus(2);
+		NotificacaoMudancaStatusTO notificacaoMudancaoStatusTO = festaService.getNotificacaoMudancaStatus(2, TipoStatusFesta.FINALIZADO.getValor());
 		assertEquals(true, notificacaoMudancaoStatusTO.getNomeFesta().equals("teste"));
 	}
 

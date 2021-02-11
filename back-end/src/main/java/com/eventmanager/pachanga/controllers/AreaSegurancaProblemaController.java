@@ -116,5 +116,16 @@ public class AreaSegurancaProblemaController {
 			return ResponseEntity.status(400).body(e.getMessage());
 		}
 	}
+	
+	@ResponseBody
+	@GetMapping(path = "/listaHistorico")
+	public ResponseEntity<Object> listaHistorioAreaSegurancaFesta(@RequestParam(required = true) int codFesta,
+			@RequestParam(required = true) int codUsuario) {
+		try {
+			return ResponseEntity.ok(areaSegurancaProblemaService.getHistoricosAreaFesta(codFesta));
+		} catch (ValidacaoException e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+	}
 
 }
