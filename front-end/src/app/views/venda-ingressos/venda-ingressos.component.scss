@@ -1,20 +1,23 @@
 @import "../material/paleta.scss";
 
-@media screen and (min-width: 601px) {
+@media screen and (min-width: 749px) {
     h1 {
       font-size: 5rem;
     }
+
+    .card-content-inf {
+      flex-direction: row;
+      justify-content: space-around;
+      align-items: center;
+    }
+
+    
   }
   
   /* If the screen size is 600px wide or less, set the font-size of <div> to 30px */
   @media screen and (max-width: 748px) {
-
-    h1 {
-      font-size: 3rem;
-    }
-
-    div.example {
-      font-size: 2rem;
+    .card-content-inf {
+      flex-direction: column;
     }
   }
 
@@ -22,22 +25,11 @@ html {
   background-color: black;
 }
 
-.main-container {
-  top: 64px;
-  max-width: 1140px;
-  height: calc(100vh - 64px);
-  position: relative;
-  left: 50%;
-  transform: translateX(-50%);
-  padding: 0 2rem 0 2rem;
-}
-
 .conteudo-festa {
   margin: 2rem 0 2rem 0;
 }
 
 .conteudo-lote {
-  margin: 2rem 0 2rem 0;
 }
 
 .festa {
@@ -45,7 +37,6 @@ html {
 }
 
 .lote-lista {
-  padding: 1rem 0 0 0;
 }
 
 .card-content {
@@ -55,15 +46,14 @@ html {
 }
 
 .textos {
-  margin-top: 1rem;
-  word-wrap: break-word
+  word-wrap: break-word;
+  display: flex;
+  flex-direction: column;
 }
 
 .texto {
   display: inline-block;
-  margin-right: 2rem;
   word-wrap: break-word;
-  max-width: 35rem;
 }
 
 .img {
@@ -73,16 +63,15 @@ html {
 }
 
 .card-content-inf {
-  padding: 0 3.3rem 0 3.3rem;
+  display: flex;
+  padding: 0 1rem 0 1rem;
+  align-items: center;
 }
 
 .lote {
-  padding: 0 3.3rem 3.3rem 40rem;
-  margin-top: -6.5rem;
 }
 
 .title {
-  padding: 0 0 0 30rem;
 }
 
 .subtitle {
@@ -95,7 +84,6 @@ html {
   gap: 1rem;
   justify-items: center;
   align-items: center;
-  padding: 0 0 1rem 3.5rem;
 }
 
 .botao {
@@ -114,7 +102,7 @@ html {
 }
 
 .ingressos-title{
-  padding-left: 7rem;
+
 }
 
 .success {

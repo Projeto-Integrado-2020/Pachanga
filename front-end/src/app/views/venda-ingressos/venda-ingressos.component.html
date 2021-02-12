@@ -22,10 +22,10 @@
                         <p><b>{{ 'FESTA.INICIOHORA' | translate }}:</b> {{getTimeFromDTF(festa.horarioInicioFesta)}}</p>
                         <p><b>{{ 'FESTA.FIMHORA' | translate }}:</b> {{getTimeFromDTF(festa.horarioFimFesta)}}</p>
                     </div>
-                </div>
-                <div class="texto">
-                    <p><b>{{ 'FESTA.ENDERECO' | translate }}:</b> {{festa.codEnderecoFesta}}</p>
-                    <p><b>{{ 'FESTA.DESCRIPTION' | translate }}:</b> {{festa.descricaoFesta}}</p>
+                    <div class="texto">
+                        <p><b>{{ 'FESTA.ENDERECO' | translate }}:</b> {{festa.codEnderecoFesta}}</p>
+                        <p><b>{{ 'FESTA.DESCRIPTION' | translate }}:</b> {{festa.descricaoFesta}}</p>
+                    </div>
                 </div>
                 <div class="lote">
                     <mat-card class="lote-lista">
@@ -53,11 +53,11 @@
                                                 <p><b>{{'VENDAINGRESSOS.QUANTIDADE' | translate }}:</b><input matInput formControlName="quantidade-{{lote.codLote}}" type="number" min="0" max="5"></p>
                                             </mat-form-field>
                                         </div>
+
+                                        <button class="botao prp-btn-comprar" [disabled]="validationFormButton()" mat-raised-button>{{'VENDAINGRESSOS.COMPRAR' | translate }}</button>
                                     </div>
                                 </div>
-                                <div class="botoes">
-                                    <button class="botao prp-btn-comprar" [disabled]="validationFormButton()" mat-raised-button>{{'VENDAINGRESSOS.COMPRAR' | translate }}</button>
-                                </div>
+                            
                             </mat-card-content>
                         </form>
                         <mat-divider class="divider"></mat-divider>
@@ -69,10 +69,11 @@
                                             <p><b>{{'VENDAINGRESSOS.CUPOM' | translate }}: </b><input matInput type="text" #cupom formControlName="cupom"></p>
                                         </mat-form-field>
                                     </div>
+                                    <button class="botao prp-btn-comprar" [disabled]="validationFormButton()" mat-raised-button>{{'VENDAINGRESSOS.COMPRAR' | translate }}</button>
                                 </div>
-                                <div class="botoes">
-                                    <button class="botao prp-btn-comprar" mat-raised-button [disabled]="!form2.valid">{{'VENDAINGRESSOS.APLICAR' | translate }}</button>
-                                </div>
+
+                                
+
                             </div>
                         </form>
                     </mat-card>
