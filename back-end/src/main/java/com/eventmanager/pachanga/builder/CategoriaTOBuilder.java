@@ -4,14 +4,14 @@ import com.eventmanager.pachanga.dtos.CategoriaTO;
 
 public class CategoriaTOBuilder {
 
-	private int codCategoria;
+	private Integer codCategoria;
 	private String nomeCategoria;
 	
 	public static CategoriaTOBuilder getInstance() {
 		return new CategoriaTOBuilder();
 	}
 
-	public CategoriaTOBuilder codCategoria(int codCategoria) {
+	public CategoriaTOBuilder codCategoria(Integer codCategoria) {
 		this.codCategoria = codCategoria;
 		return this;
 	}
