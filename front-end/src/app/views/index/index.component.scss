@@ -7,25 +7,13 @@ h1{
     left: 1rem;
     z-index: 1;
     user-select: none;
-
-    padding: 20px;
-    padding-left: 10rem;
 }
 
-h2{
-  color: $color-primary;
-    font-size: 2rem;
-    left: 1rem;
-    z-index: 1;
-    user-select: none;
-
-    padding: 20px;
-    padding-left: 1rem;
-}
 
 @media screen and (min-width: 601px) {
     h1 {
       font-size: 5rem;
+      padding-left: 10rem;
     }
   }
   
@@ -90,5 +78,8 @@ html {
 }
 
 .carrocel {
-
+  display: block;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
 }

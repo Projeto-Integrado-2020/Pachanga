@@ -11,15 +11,15 @@
 
 
 .carousel-cell {
-    z-index: 10;
-    height: 10rem !important;
-    width: 16rem !important;
+    height: 8rem !important;
+    width: 12rem !important;
 
     &__imagem {
         width: 100%;
         height: 100%;
         background-size: cover;
-        background-position: center;     
+        background-position: center;    
+         
     }
 
     &__title {
