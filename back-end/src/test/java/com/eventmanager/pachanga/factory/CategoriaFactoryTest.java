@@ -44,7 +44,7 @@ class CategoriaFactoryTest {
 		
 		CategoriaTO categoriaTO  = CategoriaFactory.getCategoriaTO(categoria);
 		
-		assertEquals( categoriaTO.getCodCategoria(), categoria.getCodCategoria());
+		assertEquals( categoriaTO.getCodCategoria().intValue(), categoria.getCodCategoria());
 		assertEquals( categoriaTO.getNomeCategoria(), categoria.getNomeCategoria());
 	}
 

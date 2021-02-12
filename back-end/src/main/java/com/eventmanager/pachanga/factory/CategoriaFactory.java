@@ -10,7 +10,7 @@ public class CategoriaFactory {
 	}
 
 	public static CategoriaTO getCategoriaTO(Categoria categoria) {
-		return CategoriaTOBuilder.getInstance().codCategoria(categoria.getCodCategoria())
-				.nomeCategoria(categoria.getNomeCategoria()).build();
+		return CategoriaTOBuilder.getInstance().codCategoria(categoria == null ? null : categoria.getCodCategoria())
+				.nomeCategoria(categoria == null ? null : categoria.getNomeCategoria()).build();
 	}
 }

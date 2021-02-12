@@ -2,13 +2,13 @@ package com.eventmanager.pachanga.dtos;
 
 public class CategoriaTO {
 	
-	private int codCategoria;
+	private Integer codCategoria;
 	private String nomeCategoria;
 	
-	public int getCodCategoria() {
+	public Integer getCodCategoria() {
 		return codCategoria;
 	}
-	public void setCodCategoria(int codCategoria) {
+	public void setCodCategoria(Integer codCategoria) {
 		this.codCategoria = codCategoria;
 	}
 	public String getNomeCategoria() {
