@@ -46,7 +46,7 @@ import com.eventmanager.pachanga.securingweb.JwtUserDetailsService;
 import com.eventmanager.pachanga.tipo.TipoPermissao;
 
 @RunWith(SpringRunner.class)
-@WebMvcTest(value=ProdutoService.class)
+@WebMvcTest(value = ProdutoService.class)
 class ProdutoServiceTest {
 
 	@Autowired
@@ -87,16 +87,16 @@ class ProdutoServiceTest {
 
 	@MockBean
 	private ItemEstoqueFluxoRepository itemEstoqueFluxoRepository;
-	
+
 	@MockBean
 	private AuthorizationServerTokenServices defaultAuthorizationServerTokenServices;
-	
+
 	@MockBean
 	private JwtUserDetailsService defaultJwtUserDetailsService;
-	
+
 	@MockBean
 	private JwtTokenUtil defaultJwtTokenUtil;
-	
+
 	@MockBean
 	private JwtAuthenticationEntryPoint defaultJwtAuthenticationEntryPoint;
 
@@ -1140,8 +1140,7 @@ class ProdutoServiceTest {
 				.thenReturn(true);
 		Mockito.when(notificacaoService.criarMensagemEstoqueBaixo(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt()))
 				.thenReturn("teste");
-		Mockito.when(
-				grupoRepository.findGrupoPermissaoUsuario(codFesta, codUsuario, TipoPermissao.EDIMESTO.getCodigo()))
+		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt()))
 				.thenReturn(criacaoGrupos());
 		Mockito.when(grupoRepository.findGruposPermissaoEstoque(Mockito.anyInt())).thenReturn(criacaoGrupos());
 
@@ -1149,7 +1148,7 @@ class ProdutoServiceTest {
 
 		assertEquals(retorno.getCodFesta(), codFesta);
 	}
-	
+
 	void baixaProdutoSucessoNotificacaoJaExistenteTest() throws Exception {
 		Usuario usuario = usuarioTest();
 		ItemEstoque itemEstoque = itemEstoqueTest();
@@ -1186,7 +1185,7 @@ class ProdutoServiceTest {
 
 		assertEquals(retorno.getCodFesta(), codFesta);
 	}
-	
+
 	void baixaProdutoSucessoSemNotificacaoTest() throws Exception {
 		Usuario usuario = usuarioTest();
 		ItemEstoque itemEstoque = itemEstoqueTest();
@@ -1377,8 +1376,7 @@ class ProdutoServiceTest {
 		Mockito.when(estoqueRepository.findByEstoqueCodEstoque(codEstoque)).thenReturn(estoque);
 		Mockito.when(itemEstoqueRepository.findItemEstoque(codEstoque, codProduto)).thenReturn(itemEstoque);
 		Mockito.when(itemEstoqueRepository.save(Mockito.any())).thenReturn(null);
-		Mockito.when(
-				grupoRepository.findGrupoPermissaoUsuario(codFesta, codUsuario, TipoPermissao.EDIMESTO.getCodigo()))
+		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt()))
 				.thenReturn(criacaoGrupos());
 		Mockito.when(grupoRepository.findGruposPermissaoEstoque(codFesta)).thenReturn(grupos);
 		Mockito.when(notificacaoService.verificarNotificacaoGrupo(Mockito.any(Integer.class), Mockito.anyString()))
@@ -1415,8 +1413,7 @@ class ProdutoServiceTest {
 		Mockito.when(estoqueRepository.findByEstoqueCodEstoque(codEstoque)).thenReturn(estoque);
 		Mockito.when(itemEstoqueRepository.findItemEstoque(codEstoque, codProduto)).thenReturn(itemEstoque);
 		Mockito.when(itemEstoqueRepository.save(Mockito.any())).thenReturn(null);
-		Mockito.when(
-				grupoRepository.findGrupoPermissaoUsuario(codFesta, codUsuario, TipoPermissao.EDIMESTO.getCodigo()))
+		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt()))
 				.thenReturn(criacaoGrupos());
 		Mockito.when(grupoRepository.findGruposPermissaoEstoque(codFesta)).thenReturn(grupos);
 		Mockito.when(notificacaoService.verificarNotificacaoGrupo(Mockito.any(Integer.class), Mockito.anyString()))
@@ -1453,8 +1450,7 @@ class ProdutoServiceTest {
 		Mockito.when(itemEstoqueRepository.findItemEstoque(codEstoque, codProduto)).thenReturn(itemEstoque);
 		Mockito.when(produtoRepository.save(Mockito.any())).thenReturn(null);
 		Mockito.when(grupoRepository.findGruposPermissaoEstoque(codFesta)).thenReturn(grupos);
-		Mockito.when(
-				grupoRepository.findGrupoPermissaoUsuario(codFesta, codUsuario, TipoPermissao.EDIMESTO.getCodigo()))
+		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt()))
 				.thenReturn(criacaoGrupos());
 		Mockito.when(notificacaoService.verificarNotificacaoGrupo(Mockito.any(Integer.class), Mockito.anyString()))
 				.thenReturn(false);
@@ -1463,7 +1459,7 @@ class ProdutoServiceTest {
 
 		assertEquals(retorno.getCodFesta(), codFesta);
 	}
-	
+
 	@Test
 	void recargaProdutoComOrigemTest() throws Exception {
 		Usuario usuario = usuarioTest();
@@ -1503,8 +1499,7 @@ class ProdutoServiceTest {
 				.thenReturn(true);
 		Mockito.when(notificacaoService.criarMensagemEstoqueBaixo(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt()))
 				.thenReturn("teste");
-		Mockito.when(
-				grupoRepository.findGrupoPermissaoUsuario(codFesta, codUsuario, TipoPermissao.EDIMESTO.getCodigo()))
+		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt()))
 				.thenReturn(criacaoGrupos());
 		Mockito.when(grupoRepository.findGruposPermissaoEstoque(Mockito.anyInt())).thenReturn(criacaoGrupos());
 

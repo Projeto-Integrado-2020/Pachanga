@@ -28,6 +28,7 @@ import com.eventmanager.pachanga.factory.PermissaoFactory;
 import com.eventmanager.pachanga.factory.UsuarioFactory;
 import com.eventmanager.pachanga.services.ConvidadoService;
 import com.eventmanager.pachanga.services.GrupoService;
+import com.eventmanager.pachanga.tipo.TipoPermissao;
 
 @Controller
 @RequestMapping("/grupo")
@@ -48,10 +49,7 @@ public class GrupoController {
 	@GetMapping(path = "/addPermissaoGrupo")
 	public ResponseEntity<Object> addPermissaoGrupo(@RequestParam(required = true)int idGrupo, @RequestParam(required = true)int idPermissao, @RequestParam(required = true) int idUsuario){
 		try {
-			Grupo grupo = grupoService.validarGrupo(idGrupo);
-			grupoService.validarPermissaoUsuario(grupo.getFesta().getCodFesta(), idUsuario);
-
-			grupoService.addPermissaoGrupo(idPermissao, idGrupo);
+			grupoService.addPermissaoGrupo(idPermissao, idGrupo, idUsuario);
 			return ResponseEntity.ok("SUCESSO");
 		} catch (ValidacaoException e) {
 			return ResponseEntity.status(400).body(e.getMessage());
@@ -62,10 +60,9 @@ public class GrupoController {
 	@DeleteMapping(path = "/removePermissaoGrupo")
 	public ResponseEntity<Object> removePermissaoGrupo(@RequestParam(required = true)int idGrupo, @RequestParam(required = true)int idPermissao, @RequestParam(required = true) int idUsuario){
 		try {
-			Grupo grupo = grupoService.validarGrupo(idGrupo);
-			grupoService.validarPermissaoUsuario(grupo.getFesta().getCodFesta(), idUsuario);
+			
 
-			grupoService.deletePermissaoGrupo(idPermissao, idGrupo);
+			grupoService.deletePermissaoGrupo(idPermissao, idGrupo, idUsuario);
 			return ResponseEntity.ok("SUCESSO");
 		} catch (ValidacaoException e) {
 			return ResponseEntity.status(400).body(e.getMessage());
@@ -173,7 +170,7 @@ public class GrupoController {
 		try {
 			GrupoTO grupoTO;
 			List<Usuario> usuarios = null;
-			List<Grupo> grupos = grupoService.procurarGruposPorFesta(codFesta);
+			List<Grupo> grupos = grupoService.procurarGruposPorFesta(codFesta, idUsuario);
 			List<GrupoTO> retorno = new ArrayList<>();
 			List<Convidado> convidados = null;
 
@@ -197,7 +194,7 @@ public class GrupoController {
 	public ResponseEntity<Object> getGrupoFesta(@RequestParam(required = true)int codGrupo,  @RequestParam(required = true) int idUsuario){
 		try {
 			Grupo grupo = grupoService.validarGrupo(codGrupo);
-			grupoService.validarPermissaoUsuario(grupo.getFesta().getCodFesta(), idUsuario);
+			grupoService.validarPermissaoUsuario(grupo.getFesta().getCodFesta(), idUsuario, TipoPermissao.VISGRPER.getCodigo());
 
 			GrupoTO grupoTO = null;
 			List<Permissao> permissoes = null;

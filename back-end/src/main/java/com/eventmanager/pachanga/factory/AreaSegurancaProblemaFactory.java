@@ -66,14 +66,14 @@ public class AreaSegurancaProblemaFactory {
 	}
 
 	public List<AreaSegurancaProblemaHistorico> getProblemasHistorico(List<AreaSegurancaProblemaFluxo> areaFluxo) {
-		return areaFluxo.stream()
-				.map(a -> this.getProblemaHistorico(a))
-				.collect(Collectors.toList());
+		return areaFluxo.stream().map(a -> this.getProblemaHistorico(a)).collect(Collectors.toList());
 	}
-	
+
 	public AreaSegurancaProblemaHistorico getProblemaHistorico(AreaSegurancaProblemaFluxo areaFluxo) {
 		return AreaSegurancaProblemaHistoricoBuilder.getInstance().codArea(areaFluxo.getCodArea())
-				.codUsuarioResolv(areaFluxo.getCodUsuarioResolv() == null ? null : areaFluxo.getCodUsuarioResolv()).descProblema(areaFluxo.getDescProblema())
-				.nomeArea(areaFluxo.getNomeArea()).dataInicialProblema(areaFluxo.getHorarioInicio()).statusProblema(areaFluxo.getStatusProblema()).build();
+				.codUsuarioResolv(areaFluxo.getCodUsuarioResolv() == null ? null : areaFluxo.getCodUsuarioResolv())
+				.descProblema(areaFluxo.getNomeProblema()).nomeArea(areaFluxo.getNomeArea())
+				.dataInicialProblema(areaFluxo.getHorarioInicio()).statusProblema(areaFluxo.getStatusProblema())
+				.build();
 	}
 }

@@ -217,7 +217,7 @@ public class ProdutoService {
 
 		festaService.validarFestaInicializadaFinal(festa.getCodFesta());
 
-		this.validarUsuarioPorEstoque(idUsuarioPermissao, codEstoque, TipoPermissao.EDIMESTO.getCodigo());
+		this.validarUsuarioPorEstoque(idUsuarioPermissao, codEstoque, TipoPermissao.BAIMESTO.getCodigo());
 
 		this.validarQuantInformada(quantidade);
 
@@ -261,7 +261,7 @@ public class ProdutoService {
 		festaService.validarFestaInicializadaFinal(festa.getCodFesta());
 
 		this.validarQuantInformada(quantidade);
-		this.validarUsuarioPorEstoque(idUsuarioPermissao, codEstoque, TipoPermissao.EDIMESTO.getCodigo());
+		this.validarUsuarioPorEstoque(idUsuarioPermissao, codEstoque, TipoPermissao.ADDMESTO.getCodigo());
 
 		ItemEstoque itemEstoque = this.validarProdutoEstoque(codEstoque, codProduto);
 		int quantidadeAtual = itemEstoque.getQuantidadeAtual() + quantidade;
