@@ -39,10 +39,8 @@ export class IndexComponent implements OnInit {
 
   ngOnInit() {
     this.getFestas.getFestasLista().subscribe((resp: any) => {
-      console.log(resp)
       this.getFestas.setFarol(false);
       this.festas = resp;
-      console.log(this.festas)
 
       if (this.festas.length === 0) {
         this.nenhumaFesta = true;
@@ -61,7 +59,6 @@ export class IndexComponent implements OnInit {
           }});
         }
       }
-      console.log(this.festas)
       this.festasMostradas = this.festas;
     });
     this.getCategorias.getCategorias().subscribe((resp: any) => {

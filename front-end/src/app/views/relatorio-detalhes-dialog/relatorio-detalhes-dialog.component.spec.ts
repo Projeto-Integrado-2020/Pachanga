@@ -10,7 +10,7 @@ import { of } from 'rxjs';
 import { LoginService } from 'src/app/services/loginService/login.service';
 
 import { RelatorioDetalhesDialogComponent } from './relatorio-detalhes-dialog.component';
-import { GetSegurancaService } from 'src/app/services/get-seguranca/get-seguranca.service';
+import { GetHistoricoSegurancaService } from 'src/app/services/get-historico-seguranca/get-historico-seguranca.service';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -37,8 +37,8 @@ describe('RelatorioDetalhesDialogComponent', () => {
       ],
       providers: [
         { provide: MAT_DIALOG_DATA, useValue: {data: {name: 'teste'}} },
-        {provide: GetSegurancaService, useValue: {
-          getAreaSeguranca: () => of([])
+        {provide: GetHistoricoSegurancaService, useValue: {
+          getHistorico: () => of([])
         }}
       ]
     })
@@ -63,19 +63,19 @@ describe('RelatorioDetalhesDialogComponent', () => {
   });
 
   it('should generate relatorioProblemaArea', () => {
-    spyOn(component.segurancaService, 'getAreaSeguranca')
+    spyOn(component.historicoSeguranca, 'getHistorico')
     .and
     .callThrough();
     component.relatorioProblemaArea();
-    expect(component.segurancaService.getAreaSeguranca).toHaveBeenCalled();
+    expect(component.historicoSeguranca.getHistorico).toHaveBeenCalled();
   });
 
   it('should generate relatorioProblemaUsuario', () => {
-    spyOn(component.segurancaService, 'getAreaSeguranca')
+    spyOn(component.historicoSeguranca, 'getHistorico')
     .and
     .callThrough();
     component.chamadasUsuario = [];
     component.relatorioProblemaUsuario();
-    expect(component.segurancaService.getAreaSeguranca).toHaveBeenCalled();
+    expect(component.historicoSeguranca.getHistorico).toHaveBeenCalled();
   });
 });

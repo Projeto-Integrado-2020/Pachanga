@@ -111,6 +111,8 @@ export class LeitorQrComponent implements OnInit {
         .subscribe(resp => {
           this.pachangaCheckIn.setFarol(false);
           this.dialog.closeAll();
+          this.scannerLoading = false;
+          this.scannerSucesso = true;
           this.openSuccessDialog('PACCHECK');
         });
       }

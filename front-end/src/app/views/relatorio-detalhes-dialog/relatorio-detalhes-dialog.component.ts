@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material';
-import { GetSegurancaService } from 'src/app/services/get-seguranca/get-seguranca.service';
+import { GetHistoricoSegurancaService } from 'src/app/services/get-historico-seguranca/get-historico-seguranca.service';
 
 @Component({
   selector: 'app-relatorio-detalhes-dialog',
@@ -16,7 +16,7 @@ export class RelatorioDetalhesDialogComponent implements OnInit {
   relatorio: string;
   chamadasUsuario: any;
 
-  constructor(@Inject(MAT_DIALOG_DATA) data, public segurancaService: GetSegurancaService) {
+  constructor(@Inject(MAT_DIALOG_DATA) data, public historicoSeguranca: GetHistoricoSegurancaService) {
     this.data = data.data;
     this.codFesta = data.codFesta;
     this.relatorio = data.relatorio;
@@ -32,18 +32,24 @@ export class RelatorioDetalhesDialogComponent implements OnInit {
   }
 
   relatorioProblemaArea() {
-    this.segurancaService.getAreaSeguranca(this.codFesta).subscribe((resp: any) => {
-      for (const area of resp) {
-        if (area.nomeArea === this.data.name) {
-          this.areaProblema = area;
-          break;
+    this.historicoSeguranca.getHistorico(this.codFesta).subscribe((resp: any) => {
+      const problemasArea = [];
+      for (const historico of resp) {
+        if (historico.nomeArea === this.data.name) {
+          problemasArea.push({
+            statusProblema: historico.statusProblema,
+            descProblema: historico.descProblema
+          });
         }
       }
+      this.areaProblema = {
+        problemasArea
+      };
     });
   }
 
   relatorioProblemaUsuario() {
-    this.segurancaService.getAreaSeguranca(this.codFesta).subscribe((resp: any) => {
+    this.historicoSeguranca.getHistorico(this.codFesta).subscribe((resp: any) => {
       let codUsuario;
       for (const entry of this.chamadasUsuario) {
         if (entry.nomeUsuario === this.data.series) {
@@ -51,14 +57,12 @@ export class RelatorioDetalhesDialogComponent implements OnInit {
           break;
         }
       }
-      for (const area of resp) {
-        for (const problema of area.problemasArea) {
-          if (problema.codUsuarioResolv === codUsuario && problema.statusProblema === this.data.name.charAt(0)) {
-            this.usuarioProblemas.push({
-              nomeArea: area.nomeArea,
-              problema: problema.descProblema
-            });
-          }
+      for (const historico of resp) {
+        if (historico.codUsuarioResolv === codUsuario && historico.statusProblema === this.data.name.charAt(0)) {
+          this.usuarioProblemas.push({
+            nomeArea: historico.nomeArea,
+            problema: historico.descProblema
+          });
         }
       }
     });

@@ -81,7 +81,7 @@ export class EstoquePainelComponent implements OnInit, OnDestroy {
   resgatarEstoquePanel() {
     this.getEstoque.getEstoque(this.festa.codFesta).subscribe((resp: any) => {
       this.estoques = resp;
-      for (const estoque of resp) {
+      for (const estoque of this.estoques.sort(this.codEstoqueSort)) {
         const produtos = [];
         if (estoque.itemEstoque) {
           for (const produtoEstoque of Object.keys(estoque.itemEstoque)) {
@@ -96,11 +96,28 @@ export class EstoquePainelComponent implements OnInit, OnDestroy {
             });
           }
         }
+        produtos.sort(this.marcaProdutoSort);
         this.quantidadesProdutos.push(produtos);
         this.dataSources.push(new MatTableDataSource<TabelaProdutos>(produtos));
       }
       this.gerarForm();
     });
+  }
+
+  codEstoqueSort(a, b) {
+    if (a.codEstoque > b.codEstoque) {
+      return 1;
+    } else {
+      return -1;
+    }
+  }
+
+  marcaProdutoSort(a, b) {
+    if (a.marca > b.marca) {
+      return 1;
+    } else {
+      return -1;
+    }
   }
 
   ngOnInit() {

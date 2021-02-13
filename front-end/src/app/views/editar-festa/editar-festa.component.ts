@@ -117,8 +117,8 @@ export class EditarFestaComponent implements OnInit {
     this.f.organizador.setValue(this.festa.organizador);
     this.f.descOrganizador.setValue(this.festa.descOrganizador);
     this.f.categoriaPrincipal.setValue(this.festa.categoriaPrimaria.codCategoria.toString());
-    this.f.categoriaSecundaria.setValue(this.festa.categoriaSecundaria === null ?
-                                        undefined : this.festa.categoriaSecundaria.codCategoria.toString());
+    this.f.categoriaSecundaria.setValue(this.festa.categoriaSecundaria.codCategoria ?
+                                        this.festa.categoriaSecundaria.codCategoria.toString() : undefined);
     this.f.inicioData.setValue(new Date(this.festa.horarioInicioFesta));
     this.f.fimData.setValue(new Date(this.festa.horarioFimFesta));
     this.f.inicioHora.setValue(this.getTimeFromDTF(this.festa.horarioInicioFesta));
