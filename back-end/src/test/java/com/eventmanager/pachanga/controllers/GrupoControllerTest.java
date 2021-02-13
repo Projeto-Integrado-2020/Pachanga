@@ -276,10 +276,7 @@ class GrupoControllerTest {
 		//Grupo grupo = grupoTest(2, "Banda", 4);
 		String expected = "erro";
 		
-		Mockito.when(grupoService.validarGrupo(Mockito.anyInt())).thenThrow(new ValidacaoException(expected));
-		Mockito.when(grupoService.validarPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(true);
-		Mockito.doNothing().when(grupoService).addPermissaoGrupo(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt());
-		
+		Mockito.doThrow(new ValidacaoException(expected)).when(grupoService).addPermissaoGrupo(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt());
 		
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.get(uri)
@@ -334,9 +331,7 @@ class GrupoControllerTest {
 		String uri = "/grupo/removePermissaoGrupo";  
 		String expected = "erro";
 		
-		Mockito.when(grupoService.validarGrupo(Mockito.anyInt())).thenThrow(new ValidacaoException(expected));
-		Mockito.when(grupoService.validarPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(true);
-		Mockito.doNothing().when(grupoService).deletePermissaoGrupo(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt());
+		Mockito.doThrow(new ValidacaoException(expected)).when(grupoService).deletePermissaoGrupo(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt());
 		
 		
 		RequestBuilder requestBuilder = MockMvcRequestBuilders

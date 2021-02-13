@@ -61,7 +61,6 @@ public class GrupoController {
 	public ResponseEntity<Object> removePermissaoGrupo(@RequestParam(required = true)int idGrupo, @RequestParam(required = true)int idPermissao, @RequestParam(required = true) int idUsuario){
 		try {
 			
-
 			grupoService.deletePermissaoGrupo(idPermissao, idGrupo, idUsuario);
 			return ResponseEntity.ok("SUCESSO");
 		} catch (ValidacaoException e) {
