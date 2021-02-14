@@ -44,8 +44,16 @@ export class FormsPainelComponent implements OnInit {
                             url: form.urlQuestionario
                           });
       }
-      this.dataSource.data = this.forms;
+      this.dataSource.data = this.forms.sort(this.nomeQuestionarioSort);
     });
+  }
+
+  nomeQuestionarioSort(a, b) {
+    if (a.nome > b.nome) {
+      return 1;
+    } else {
+      return -1;
+    }
   }
 
   openDialogDelete(form) {

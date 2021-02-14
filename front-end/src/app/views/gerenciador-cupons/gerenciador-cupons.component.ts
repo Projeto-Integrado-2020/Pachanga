@@ -48,8 +48,16 @@ export class GerenciadorCuponsComponent implements OnInit {
                           tipoDesconto: cupom.tipoDesconto
                         });
       }
-      this.dataSource.data = this.cupons;
+      this.dataSource.data = this.cupons.sort(this.nomeCupomSort);
     });
+  }
+
+  nomeCupomSort(a, b) {
+    if (a.nomeCupom > b.nomeCupom) {
+      return 1;
+    } else {
+      return -1;
+    }
   }
 
   openDialogDelete(cupom) {

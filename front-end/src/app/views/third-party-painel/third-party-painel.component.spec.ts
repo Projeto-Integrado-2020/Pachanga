@@ -115,4 +115,9 @@ describe('ThirdPartyPainelComponent', () => {
     expect(component.getIntegracoes.getIntegracoes).toHaveBeenCalled();
     expect(component.getIntegracoes.setFarol).toHaveBeenCalledWith(false);
   });
+
+  it('terceiroIntSort', () => {
+    expect(component.terceiroIntSort({terceiroInt: 'E'}, {terceiroInt: 'S'})).toBe(-1);
+    expect(component.terceiroIntSort({terceiroInt: 'S'}, {terceiroInt: 'E'})).toBe(1);
+  });
 });

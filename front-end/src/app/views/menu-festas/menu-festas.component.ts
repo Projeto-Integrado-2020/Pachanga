@@ -28,7 +28,7 @@ export class MenuFestasComponent implements OnInit {
   ngOnInit() {
     this.menuFestasService.getFestas(this.loginService.usuarioInfo.codUsuario).subscribe((resp: any) => {
       this.menuFestasService.setFarol(false);
-      this.festas = resp;
+      this.festas = resp.sort(this.nomeFestaSort);
 
       if (this.festas.length === 0) {
         this.nenhumaFesta = true;
@@ -37,6 +37,14 @@ export class MenuFestasComponent implements OnInit {
       this.festasMostradas = this.festas.slice(0, 5);
     });
 
+  }
+
+  nomeFestaSort(a, b) {
+    if (a.nomeFesta > b.nomeFesta) {
+      return 1;
+    } else {
+      return -1;
+    }
   }
 
   isAdmin(festa) {

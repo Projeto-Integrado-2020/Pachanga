@@ -197,14 +197,16 @@
 
     &__alertaOpcoes {
       width: auto;
-      position: absolute;
+      position: relative;
       display: inline-block;
       right: 0;
       padding: 0 16px 0 16px;
 
       z-index: 1;
 
-      transform: translateY(-5rem);
+      transform: translate(18rem, -2rem);
+      margin-top: -120px;
+      margin-bottom: -120px;
 
       & p {
         display: inline-block;

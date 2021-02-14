@@ -76,16 +76,34 @@ export class PainelSegurancaComponent implements OnInit, OnDestroy {
           if (areaResp.codArea === area.codArea) {
             flag = 1;
             area.nomeArea = areaResp.nomeArea;
-            area.problemasArea = areaResp.problemasArea;
+            area.problemasArea = areaResp.problemasArea.sort(this.descProblemaSort);
             area.statusSeguranca = areaResp.statusSeguranca;
             break;
           }
         }
         if (flag === 0) {
+          areaResp.problemasArea.sort(this.descProblemaSort);
           this.areas.push(areaResp);
         }
       }
+      this.areas.sort(this.nomeAreaSort);
     });
+  }
+
+  nomeAreaSort(a, b) {
+    if (a.nomeArea > b.nomeArea) {
+      return 1;
+    } else {
+      return -1;
+    }
+  }
+
+  descProblemaSort(a, b) {
+    if (a.descProblema > b.descProblema) {
+      return 1;
+    } else {
+      return -1;
+    }
   }
 
   resgatarDadosFesta() {

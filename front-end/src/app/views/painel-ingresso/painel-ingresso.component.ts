@@ -86,9 +86,17 @@ export class PainelIngressoComponent implements OnInit {
 
   resgatarLote() {
     this.getLote.getLote(this.festa.codFesta).subscribe((resp: any) => {
-      this.lotes = resp;
+      this.lotes = resp.sort(this.nomeLoteSort);
       this.getLote.setFarol(false);
     });
+  }
+
+  nomeLoteSort(a, b) {
+    if (a.nomeLote > b.nomeLote) {
+      return 1;
+    } else {
+      return -1;
+    }
   }
 
 
