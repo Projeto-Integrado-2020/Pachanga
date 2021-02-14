@@ -94,7 +94,7 @@
         "STATERRA": "This party status does not exist.",
         "STANMUDA": "The party is already in that phase.",
         "FSTANINI": "The party needs to be started to perform this action.",
-        "FESTINIC": "Party info can not be changed while the party is started.",
+        "FESTINIC": "Action blocked. The party is already started.",
         "FESTSCAT": "Party without category.",
         "CATNFOUN": "Category not found.",
         "FESTMCAT": "Identical principal and secondary category.",
@@ -122,7 +122,7 @@
         "ESTNPROD": "The stock do not contain this product.",
         "PRODEUSO": "Product in use.",
         "ESTONFOU": "Stock not found.",
-        "QMAXINV": "Invalid max quantity.",
+        "QMAXINV": "Invalid quantity.",
         "ESTOMNOM": "Another stock is already using this name.",
         "FESTFINA": "It is not possible to manage stock/product in finished parties.",
         "PRODDMEZ": "Shot quantity should be more than zero.",
@@ -168,7 +168,10 @@
         "payment_method.boleto.holder.email": "Invalid e-mail.",
         "BOLEREGI": "Invalid State/City.",
         "FESDEING": "The party has already sold tickets and has not happened yet.",
-        "PRECCUPI": "Invalid discount amount."
+        "PRECCUPI": "Invalid discount amount.",
+        "PASSINC1": "Incorrect e-mail or password.",
+        "PASSINC2": "Incorrect current password.",
+        "FORMSERROR": "Problem detected when integrating Google Forms answer sheet. Check the registered URL."
     },
 
     "SUCCESS": {
@@ -195,6 +198,7 @@
     "PERFIL":{
         "MYACC": "My Account",
         "ACCINFO": "Account Info",
+        "INGRESSOS": "Tickets",
         "NAME": "Name",
         "PASSWORD": "Password",
         "PLANNER": "Event Planner",
@@ -372,7 +376,7 @@
         "MESSAGE": "Outch, I think the party is over! This content is unavailable."
     },
 
-    "DELETDIALOG": {
+    "DELETEDIALOG": {
         "MESSAGEPARTY": "Do you really want to delete the party ",
         "MESSAGEROLE": "Do you really want to delete the role ",
         "CONFIRM": "Confirm",

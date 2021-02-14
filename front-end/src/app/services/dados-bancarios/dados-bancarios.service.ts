@@ -27,24 +27,22 @@ private readonly baseURL = `${environment.URL_BACK}dadoBancario`;
     ) { }
 
   receberDado(codFesta) {
-    if (!this.farol) {
-      this.setFarol(true);
+    this.setFarol(true);
 
-      const httpParams = new HttpParams()
-      .append('codFesta', codFesta)
-      .append('codUsuario', this.loginService.usuarioInfo.codUsuario);
+    const httpParams = new HttpParams()
+    .append('codFesta', codFesta)
+    .append('codUsuario', this.loginService.usuarioInfo.codUsuario);
 
-      let headers = new HttpHeaders();
-      headers = headers.append('Content-Type', 'application/json');
-      headers = headers.append('Authorization', 'Bearer ' + JSON.parse(localStorage.getItem('token')).token);
+    let headers = new HttpHeaders();
+    headers = headers.append('Content-Type', 'application/json');
+    headers = headers.append('Authorization', 'Bearer ' + JSON.parse(localStorage.getItem('token')).token);
 
-      return this.http.get(this.baseURL + '/dadoUnico', {params: httpParams, headers}).pipe(
-        take(1),
-        catchError(error => {
-          return this.handleError(error, this.logService, true);
-        })
-      );
-    }
+    return this.http.get(this.baseURL + '/dadoUnico', {params: httpParams, headers}).pipe(
+      take(1),
+      catchError(error => {
+        return this.handleErrorGet(error, this.logService, true);
+      })
+    );
   }
 
   inserirDados(dadosTO) {
@@ -60,7 +58,7 @@ private readonly baseURL = `${environment.URL_BACK}dadoBancario`;
     return this.http.post(this.baseURL + '/modificarDadoBancario', dadosTO, { params: httpParams, headers}).pipe(
       take(1),
       catchError(error => {
-        return this.handleError(error, this.logService, false);
+        return this.handleErrorEdit(error, this.logService, false);
       })
     );
     }
@@ -74,12 +72,16 @@ private readonly baseURL = `${environment.URL_BACK}dadoBancario`;
     return this.farol;
   }
 
-  handleError = (error: HttpErrorResponse, logService: LogService, get: boolean) => {
+  handleErrorGet = (error: HttpErrorResponse, logService: LogService, get: boolean) => {
+    logService.initialize();
+    logService.logHttpInfo(JSON.stringify(error), 0, error.url);
+    return throwError(error);
+  }
+
+  handleErrorEdit = (error: HttpErrorResponse, logService: LogService, get: boolean) => {
     this.setFarol(false);
     this.dialog.closeAll();
-    if (!get) {
-      this.openErrorDialog(error.error);
-    }
+    this.openErrorDialog(error.error);
     logService.initialize();
     logService.logHttpInfo(JSON.stringify(error), 0, error.url);
     return throwError(error);

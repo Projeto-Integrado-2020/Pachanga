@@ -38,11 +38,11 @@ export class GetSegurancaService {
 
   handleError = (error: HttpErrorResponse, logService: LogService) => {
     this.openErrorDialog(error.error);
-    logService.initialize();
-    logService.logHttpInfo(JSON.stringify(error), 0, error.url);
     let painel = this.router.url;
     painel = painel.slice(0, -10);
     this.router.navigate([painel]);
+    logService.initialize();
+    logService.logHttpInfo(JSON.stringify(error), 0, error.url);
     return throwError(error);
   }
 
