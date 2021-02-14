@@ -80,6 +80,11 @@ describe('InviteDialogComponent', () => {
     expect(dialogSpy.open).toHaveBeenCalled();
   });
 
+  it('should open loading dialog through a method', () => {
+    component.openDialogProcessing();
+    expect(dialogSpy.open).toHaveBeenCalled();
+  });
+
   it('should validate e-mail', () => {
     let result = component.validate('teste@teste.com');
     expect(result).toBeTruthy();

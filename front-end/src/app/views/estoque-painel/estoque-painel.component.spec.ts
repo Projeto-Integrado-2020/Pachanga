@@ -119,4 +119,14 @@ describe('EstoquePainelComponent', () => {
     expect(component.forms['778'].get('quantidade')).toBeTruthy();
   });
 
+  it('codEstoqueSort', () => {
+    expect(component.codEstoqueSort({codEstoque: 1}, {codEstoque: 2})).toBe(-1);
+    expect(component.codEstoqueSort({codEstoque: 2}, {codEstoque: 1})).toBe(1);
+  });
+
+  it('marcaProdutoSort', () => {
+    expect(component.marcaProdutoSort({marca: 'A'}, {marca: 'B'})).toBe(-1);
+    expect(component.marcaProdutoSort({marca: 'B'}, {marca: 'A'})).toBe(1);
+  });
+
 });

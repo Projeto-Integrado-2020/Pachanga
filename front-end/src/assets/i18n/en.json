@@ -841,7 +841,8 @@
         "CARREGIMAGEM": "Loading image. Please wait.",
         "CHECKIN": "Performing check-in. Please wait.",
         "EXPORTPDF": "Generating PDF. The process may take a few minutes, please wait.",
-        "EXPORTEMAIL": "Sending e-mails. Please wait."
+        "EXPORTEMAIL": "Sending e-mails. Please wait.",
+        "INVITE": "Sending invites. Please wait."
     },
 
     "RELATORIOESTOQUE": {

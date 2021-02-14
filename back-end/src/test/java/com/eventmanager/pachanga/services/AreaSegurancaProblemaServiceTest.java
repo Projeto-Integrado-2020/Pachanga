@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -188,6 +189,16 @@ class AreaSegurancaProblemaServiceTest {
 		usuarioTest.setNomeUser("Gustavo Barbosa");
 
 		return usuarioTest;
+	}
+	
+	private AreaSegurancaProblemaFluxo areaHistoricoTest() {
+		AreaSegurancaProblemaFluxo areaHistorico = new AreaSegurancaProblemaFluxo();
+		areaHistorico.setCodArea(1);
+		areaHistorico.setCodUsuarioResolv(2);
+		areaHistorico.setDescProblema("teste");
+		areaHistorico.setNomeArea("teste123");
+		areaHistorico.setStatusProblema(TipoAreaSeguranca.SEGURO.getDescricao());
+		return areaHistorico;
 	}
 
 	@Test
@@ -667,15 +678,19 @@ class AreaSegurancaProblemaServiceTest {
 
 	@Test
 	void getHistoricosAreaFestaTest() {
+		List<Integer> codigos = Arrays.asList(0, 1, 2, 3);
+		List<AreaSegurancaProblemaFluxo> areaHistorico = new ArrayList<>();
+		areaHistorico.add(areaHistoricoTest());
 
-		Mockito.when(areaSegurancaProblemaFluxoRepository.findAreaProblemaFesta(Mockito.anyInt()))
-				.thenReturn(new ArrayList<AreaSegurancaProblemaFluxo>());
-		Mockito.when(areaSegurancaProblemaFactory.getProblemasHistorico(Mockito.anyList())).thenReturn(new ArrayList<
-				AreaSegurancaProblemaHistorico>());
+		Mockito.when(areaSegurancaProblemaFluxoRepository.findAreaProblemaFesta(Mockito.anyInt())).thenReturn(codigos);
+		Mockito.when(areaSegurancaProblemaFluxoRepository.findProblemaAreaHistorico(Mockito.anyInt())).thenReturn(areaHistorico);
 		
+		Mockito.when(areaSegurancaProblemaFactory.getProblemaHistorico(Mockito.any()))
+				.thenReturn(new AreaSegurancaProblemaHistorico());
+
 		List<AreaSegurancaProblemaHistorico> areasProblemas = areaSegurancaProblemaService.getHistoricosAreaFesta(1);
-		
-		assertEquals(true, areasProblemas.isEmpty());
+
+		assertEquals(true, !areasProblemas.isEmpty());
 	}
 
 }

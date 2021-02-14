@@ -69,7 +69,7 @@
                                             <p><b>{{'VENDAINGRESSOS.CUPOM' | translate }}: </b><input matInput type="text" #cupom formControlName="cupom"></p>
                                         </mat-form-field>
                                     </div>
-                                    <button class="botao prp-btn-comprar" [disabled]="validationFormButton()" mat-raised-button>{{'VENDAINGRESSOS.COMPRAR' | translate }}</button>
+                                    <button class="botao prp-btn-comprar" mat-raised-button [disabled]="!form2.valid">{{'VENDAINGRESSOS.APLICAR' | translate }}</button>
                                 </div>
 
                                 

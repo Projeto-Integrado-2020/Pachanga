@@ -831,14 +831,19 @@ import com.eventmanager.pachanga.securingweb.JwtUserDetailsService;
 	@Test
 	 void addPermissaoGrupoSucessTest() throws Exception {
 		Grupo grupo = criacaoGrupo();
+		List<Grupo> grupos = new ArrayList<Grupo>();
+		grupos.add(grupo);
+		
 		Permissao permissao = PermissaoTest(21, "EDITDFE2", "G");
 		
 		Mockito.when(permissaoRepository.findById(Mockito.anyInt())).thenReturn(permissao);
 		Mockito.when(grupoRepository.findById(Mockito.anyInt())).thenReturn(grupo);
 		Mockito.when(grupoRepository.findPermissoesPorGrupo(grupo.getCodGrupo())).thenReturn(ColecaoDePermissaoTest());
 		Mockito.doNothing().when(grupoRepository).saveGrupoPermissao(Mockito.anyInt(), Mockito.anyInt());
-	
-		grupoService.addPermissaoGrupo(permissao.getCodPermissao(), grupo.getCodGrupo());
+		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(),
+				Mockito.anyInt())).thenReturn(grupos);
+		
+		grupoService.addPermissaoGrupo(permissao.getCodPermissao(), grupo.getCodGrupo(), 1);
 	}
 	
 	@Test
@@ -853,7 +858,7 @@ import com.eventmanager.pachanga.securingweb.JwtUserDetailsService;
 
 		boolean erro = false;
 		try {		
-			grupoService.addPermissaoGrupo(permissao.getCodPermissao(), grupo.getCodGrupo());
+			grupoService.addPermissaoGrupo(permissao.getCodPermissao(), grupo.getCodGrupo(), 2);
 		} catch (ValidacaoException e) {
 			erro = true;
 
@@ -873,7 +878,7 @@ import com.eventmanager.pachanga.securingweb.JwtUserDetailsService;
 		
 		boolean erro = false;
 		try {		
-			grupoService.addPermissaoGrupo(permissao.getCodPermissao(), grupo.getCodGrupo());
+			grupoService.addPermissaoGrupo(permissao.getCodPermissao(), grupo.getCodGrupo(), 3);
 		} catch (ValidacaoException e) {
 			erro = true;
 
@@ -886,14 +891,18 @@ import com.eventmanager.pachanga.securingweb.JwtUserDetailsService;
 	@Test
 	 void deletePermissaoGrupoSucessTest() throws Exception {
 		Grupo grupo = criacaoGrupo();
+		List<Grupo> grupos = new ArrayList<Grupo>();
+		grupos.add(grupo);
 		Permissao permissao = PermissaoTest(1, "EDITDFES", "G");
 		
 		Mockito.when(permissaoRepository.findById(Mockito.anyInt())).thenReturn(permissao);
 		Mockito.when(grupoRepository.findById(Mockito.anyInt())).thenReturn(grupo);
 		Mockito.when(grupoRepository.findPermissoesPorGrupo(grupo.getCodGrupo())).thenReturn(ColecaoDePermissaoTest());
 		Mockito.doNothing().when(grupoRepository).deleteGrupoPermissao(Mockito.anyInt(), Mockito.anyInt());
+		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(),
+				Mockito.anyInt())).thenReturn(grupos);
 		
-		grupoService.deletePermissaoGrupo(permissao.getCodPermissao(), grupo.getCodGrupo());
+		grupoService.deletePermissaoGrupo(permissao.getCodPermissao(), grupo.getCodGrupo(), 4);
 	}
 	
 	@Test
@@ -909,7 +918,7 @@ import com.eventmanager.pachanga.securingweb.JwtUserDetailsService;
 		
 		boolean erro = false;
 		try {		
-			grupoService.deletePermissaoGrupo(permissao.getCodPermissao(), grupo.getCodGrupo());
+			grupoService.deletePermissaoGrupo(permissao.getCodPermissao(), grupo.getCodGrupo(), 5);
 		} catch (ValidacaoException e) {
 			erro = true;
 
@@ -968,8 +977,10 @@ import com.eventmanager.pachanga.securingweb.JwtUserDetailsService;
 		
 		Mockito.when(festaRepository.findById(Mockito.anyInt())).thenReturn(criacaoFesta());
 		Mockito.when(grupoRepository.findGruposFesta(Mockito.anyInt())).thenReturn(grupos);
+		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(),
+				Mockito.anyInt())).thenReturn(grupos);
 		
-		List<Grupo> gruposRetorno = grupoService.procurarGruposPorFesta(criacaoFesta().getCodFesta());
+		List<Grupo> gruposRetorno = grupoService.procurarGruposPorFesta(criacaoFesta().getCodFesta(), 1);
 		
 		Grupo retorno = gruposRetorno.get(0);
 		

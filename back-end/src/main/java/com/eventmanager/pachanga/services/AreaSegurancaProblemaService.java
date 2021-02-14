@@ -1,6 +1,7 @@
 package com.eventmanager.pachanga.services;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -159,9 +160,7 @@ public class AreaSegurancaProblemaService {
 
 	public void deleteByFesta(int idFesta) {
 		List<AreaSegurancaProblema> areas = areaSegurancaProblemaRepository.findAllAreaSegurancaProblemaFesta(idFesta);
-		areas.stream().forEach(asp -> 
-			this.deletarNotificacoes(asp)
-		);
+		areas.stream().forEach(asp -> this.deletarNotificacoes(asp));
 		areaSegurancaProblemaRepository.deleteByCodFesta(idFesta);
 	}
 
@@ -172,9 +171,15 @@ public class AreaSegurancaProblemaService {
 		areaFluxo.setCodHistorico(areaSegurancaProblemaFluxoRepository.getNextValMySequence());
 		areaSegurancaProblemaFluxoRepository.save(areaFluxo);
 	}
-	
+
 	public List<AreaSegurancaProblemaHistorico> getHistoricosAreaFesta(int codFesta) {
-		return areaSegurancaProblemaFactory.getProblemasHistorico(areaSegurancaProblemaFluxoRepository.findAreaProblemaFesta(codFesta));
+		List<AreaSegurancaProblemaHistorico> areasHistorico = new ArrayList<>();
+		List<Integer> codAreaProblemas = areaSegurancaProblemaFluxoRepository.findAreaProblemaFesta(codFesta);
+		for (int contador : codAreaProblemas) {
+			areasHistorico.add(areaSegurancaProblemaFactory.getProblemaHistorico(
+					areaSegurancaProblemaFluxoRepository.findProblemaAreaHistorico(contador).get(0)));
+		}
+		return areasHistorico;
 	}
 
 //validadores______________________________________________________________________________________________________________

@@ -3,6 +3,9 @@
 .btn {
     background-color: $color-primary;
     color: #fff;
+    margin-top: 1rem;
+    width: 10rem;
+    @include centralizar(true, false);
 }
 
 .container {

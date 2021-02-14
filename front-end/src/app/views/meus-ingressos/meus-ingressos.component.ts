@@ -87,6 +87,7 @@ export class MeusIngressosComponent implements OnInit {
 
     if (boletosUnicos.length > 1) {
       this.dialog.open(DialogIngressosMesmaFestaComponent, {
+        width: '40rem',
         data: {
           ingressos: boletosUnicos
         }

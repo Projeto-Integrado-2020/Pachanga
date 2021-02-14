@@ -47,7 +47,7 @@ public class GrupoService {
 	// usuarios______**********************************____________________________________________________________________________________________________
 
 	public Grupo addGrupoFesta(GrupoTO grupoTO, int idUsuario) {
-		this.validarPermissaoUsuario(grupoTO.getCodFesta(), idUsuario);
+		this.validarPermissaoUsuario(grupoTO.getCodFesta(), idUsuario, TipoPermissao.CREGRPER.getCodigo());
 		List<Grupo> gruposPreExistentes = grupoRepository.findGruposDuplicados(grupoTO.getCodFesta(),
 				grupoTO.getNomeGrupo());
 
@@ -79,7 +79,7 @@ public class GrupoService {
 	public Grupo deleteGrupo(int idGrupo, int idUsuario) {
 
 		Grupo grupo = this.validarGrupo(idGrupo);
-		this.validarPermissaoUsuario(grupo.getFesta().getCodFesta(), idUsuario);
+		this.validarPermissaoUsuario(grupo.getFesta().getCodFesta(), idUsuario, TipoPermissao.DELGRPER.getCodigo());
 		this.validarFesta(grupo.getFesta().getCodFesta());
 		this.validarOrganizador(grupo);
 		this.validarGrupoVazio(grupo);
@@ -115,7 +115,7 @@ public class GrupoService {
 
 		Festa festa = this.validarFesta(grupoTO.getCodFesta());
 		Grupo grupo = validarGrupo(grupoTO.getCodGrupo());
-		this.validarPermissaoUsuario(festa.getCodFesta(), idUsuario);
+		this.validarPermissaoUsuario(festa.getCodFesta(), idUsuario, TipoPermissao.EDIGRPER.getCodigo());
 
 		if (grupo.getOrganizador()) {
 			throw new ValidacaoException("EDITORGN");
@@ -178,7 +178,9 @@ public class GrupoService {
 	}
 
 	// permissão__________________________________________________________________________________________________________
-	public void addPermissaoGrupo(int codPermissao, int codGrupo) {
+	public void addPermissaoGrupo(int codPermissao, int codGrupo, int idUsuario) {
+		Grupo grupo = this.validarGrupo(codGrupo);
+		this.validarPermissaoUsuario(grupo.getFesta().getCodFesta(), idUsuario, TipoPermissao.EDIGRPER.getCodigo());
 		this.validarPermissao(codPermissao);
 		this.validarGrupo(codGrupo);
 		if (this.grupoTemPermissao(codPermissao, codGrupo)) {
@@ -188,7 +190,9 @@ public class GrupoService {
 		}
 	}
 
-	public void deletePermissaoGrupo(int codPermissao, int codGrupo) {
+	public void deletePermissaoGrupo(int codPermissao, int codGrupo, int idUsuario) {
+		Grupo grupo = this.validarGrupo(codGrupo);
+		this.validarPermissaoUsuario(grupo.getFesta().getCodFesta(), idUsuario, TipoPermissao.EDIGRPER.getCodigo());
 		this.validarPermissao(codPermissao);
 		this.validarGrupo(codGrupo);
 
@@ -206,7 +210,8 @@ public class GrupoService {
 		return grupoRepository.findGruposUsuario(idUser);
 	}
 
-	public List<Grupo> procurarGruposPorFesta(int idFesta) {
+	public List<Grupo> procurarGruposPorFesta(int idFesta, int idUsuario) {
+		this.validarPermissaoUsuario(idFesta, idUsuario, TipoPermissao.VISGRPER.getCodigo());
 		this.validarFesta(idFesta);
 		return grupoRepository.findGruposFesta(idFesta);
 	}
@@ -227,9 +232,9 @@ public class GrupoService {
 
 	// validadores__________________________________________________________________________________________________________
 
-	public boolean validarPermissaoUsuario(int codFesta, int idUsuario) {
+	public boolean validarPermissaoUsuario(int codFesta, int idUsuario, int codPermissao) {
 		List<Grupo> grupos = grupoRepository.findGrupoPermissaoUsuario(codFesta, idUsuario,
-				TipoPermissao.ADDMEMBE.getCodigo());
+				codPermissao);
 		if (grupos.isEmpty()) {
 			throw new ValidacaoException("USESPERM");// usuário sem permissão
 		} else {

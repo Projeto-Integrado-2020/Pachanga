@@ -923,7 +923,8 @@
         "CARREGIMAGEM": "Carregando imagem. Por favor aguarde.",
         "CHECKIN": "Realizando check-in. Por favor aguarde.",
         "EXPORTPDF": "Gerando PDF. O processo pode demorar alguns minutos, por favor aguarde.",
-        "EXPORTEMAIL": "Enviando e-mails. Por favor aguarde."
+        "EXPORTEMAIL": "Enviando e-mails. Por favor aguarde.",
+        "INVITE": "Enviando convites. Por favor aguarde."
     },
 
     "RELATORIOEXPORT": {

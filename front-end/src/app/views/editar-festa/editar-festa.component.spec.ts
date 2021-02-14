@@ -71,7 +71,10 @@ describe('EditarFestaComponent', () => {
               codCategoria: 2,
               nomeCategoria: 'RAVEAFIM'
             },
-            categoriaSecundaria: null
+            categoriaSecundaria: {
+              codCategoria: null,
+              nomeCategoria: null
+            }
           }),
           setFarol: () => false,
         }},
@@ -164,7 +167,10 @@ describe('EditarFestaComponent', () => {
         codCategoria: 2,
         nomeCategoria: 'RAVEAFIM'
       },
-      categoriaSecundaria: null
+      categoriaSecundaria: {
+        codCategoria: null,
+        nomeCategoria: null
+      }
     };
 
     component.setFormValues();
@@ -220,7 +226,10 @@ describe('EditarFestaComponent', () => {
         codCategoria: 2,
         nomeCategoria: 'RAVEAFIM'
       },
-      categoriaSecundaria: null
+      categoriaSecundaria: {
+        codCategoria: null,
+        nomeCategoria: null
+      }
     };
 
     expect(component.getFestaService.acessarFesta).toHaveBeenCalled();

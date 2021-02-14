@@ -4,6 +4,7 @@ import { MatChipInputEvent } from '@angular/material/chips';
 import { ConviteMembroService } from 'src/app/services/convite-membro/convite-membro.service';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material';
 import { SuccessDialogComponent } from '../success-dialog/success-dialog.component';
+import { ProcessingDialogComponent } from '../processing-dialog/processing-dialog.component';
 
 export interface Email {
   address: string;
@@ -81,6 +82,7 @@ export class InviteDialogComponent implements OnInit {
   }
 
   adicionarMembros() {
+    this.openDialogProcessing();
     const emails = [];
     for (const email of this.maillist) {
       emails.push(email.address);
@@ -99,4 +101,14 @@ export class InviteDialogComponent implements OnInit {
       data: {message}
     });
   }
+
+  openDialogProcessing() {
+    this.modal.open(ProcessingDialogComponent, {
+        width: '20rem',
+        disableClose: true,
+        data: {
+            tipo: 'INVITE'
+        }
+    });
+}
 }
