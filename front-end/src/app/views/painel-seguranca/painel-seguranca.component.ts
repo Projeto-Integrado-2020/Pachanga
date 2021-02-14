@@ -58,7 +58,9 @@ export class PainelSegurancaComponent implements OnInit, OnDestroy {
 
 
   ngOnInit() {
-    this.ngOnDestroy();
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
     this.areas = [];
     const url = this.router.url;
     this.dataSources = [];

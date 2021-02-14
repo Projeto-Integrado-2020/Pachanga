@@ -245,7 +245,7 @@
         "STATERRA": "Esse status de festa não existe.",
         "STANMUDA": "A festa já se encontra nessa fase.",
         "FSTANINI": "A festa precisa estar iniciada para realizar esta ação.",
-        "FESTINIC": "Os dados da festa não podem ser editados enquanto ela está iniciada.",
+        "FESTINIC": "Ação bloqueada. A festa já está iniciada.",
         "FESTSCAT": "Festa sem categoria primária.",
         "CATNFOUN": "Categoria não encontrada.",
         "FESTMCAT": "Categoria principal e secundário identicas.",
@@ -275,7 +275,7 @@
         "ESTONFOU": "Estoque não encontrado.",
         "FESTNPRE": "A festa deve estar na fase de preparação para realizar esta ação.",
         "CONVNGRU": "Este convidado não esta no grupo.",
-        "QMAXINV": "Quantidade máxima inválida.",
+        "QMAXINV": "Quantidade inválida.",
         "ESTOMNOM": "Um estoque com este nome já foi cadastrado.",
         "FESTFINA": "Não é possível manipular estoque/produto em festas finalizadas.",
         "PRODDMEZ": "Quantidade de doses precisa ser maior que zero.",
@@ -321,7 +321,10 @@
         "payment_method.boleto.holder.email": "E-mail inválido.",
         "BOLEREGI": "Estado/Cidade inválida.",
         "FESDEING": "A festa já vendeu ingressos e ainda não aconteceu.",
-        "PRECCUPI": "Valor de desconto inválido."
+        "PRECCUPI": "Valor de desconto inválido.",
+        "PASSINC1": "Senha ou e-mail incorreto.",
+        "PASSINC2": "Senha atual incorreta.",
+        "FORMSERROR": "Problema detectado ao integrar planilha de respostas do Google Forms. Checar a URL cadastrada."
     },
 
     "ESTOQUE": {
@@ -604,6 +607,7 @@
     "PERFIL":{
         "MYACC": "Minha Conta",
         "ACCINFO": "Dados da Conta",
+        "INGRESSOS": "Ingressos",
         "NAME": "Nome",
         "PASSWORD": "Senha",
         "PLANNER": "Organizador",

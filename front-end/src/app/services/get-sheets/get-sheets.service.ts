@@ -22,9 +22,9 @@ export class GetSheetsService {
   }
 
   handleError = (error: HttpErrorResponse, logService: LogService) => {
-    this.openErrorDialog(error.error);
     logService.initialize();
     logService.logHttpInfo(JSON.stringify(error), 0, error.url);
+    this.openErrorDialog('FORMSERROR');
     return throwError(error);
   }
 
