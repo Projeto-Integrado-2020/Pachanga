@@ -3,6 +3,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { CustomMaterialModule } from '../../views/material/material.module';
 import { GetGruposService } from './get-grupos.service';
 import { MatDialog } from '@angular/material';
+import { RouterModule } from '@angular/router';
 
 describe('GetGruposService', () => {
   let dialogSpy: MatDialog;
@@ -14,7 +15,8 @@ describe('GetGruposService', () => {
     TestBed.configureTestingModule({
       imports: [
         HttpClientTestingModule,
-        CustomMaterialModule
+        CustomMaterialModule,
+        RouterModule.forRoot([])
       ],
       providers: [
         { provide: MatDialog, useValue: dialogSpy }
