@@ -19,21 +19,24 @@ class="fila_notificacoes"
 <mat-card-content>
   <!-- CONVITES -->
   <div class="fila_notificacoes__not-container" *ngFor="let alert of notificacaoConvidado">
-    <div class="fila_notificacoes__convite">
+    <div class="fila_notificacoes__flex">
+      <div class="fila_notificacoes__notificacao">
       <!-- <mat-divider></mat-divider> -->
-      <div>
-        <p class="mensagem">
-          {{'NOTIFICACAO.CONVITE' | translate}} "{{ alert.conviteFesta.nomeFesta }}".
-        </p>
-        <button (click)="openDialogConvite(alert)" mat-button class="btn btn--prp">
-          {{'NOTIFICACAO.VER' | translate}}
-        </button>
-        <p>
-          {{ alert.dataEmissao | amLocale:translate.currentLang | amTimeAgo }}
-        </p>
+        <div class="fila_notificacoes__notificacao__texto">
+          <p [ngStyle]="{'font-weight': 'bold'}">{{ 'NOTIFICACAO.CONVITETITLE' | translate }}</p>
+        </div>
+        <div class="fila_notificacoes__notificacao__horario">
+          <p class="mensagem">
+            {{'NOTIFICACAO.CONVITE' | translate}} "{{ alert.conviteFesta.nomeFesta }}".
+          </p>
+          <button (click)="openDialogConvite(alert)" mat-button class="btn btn--prp">
+            {{'NOTIFICACAO.VER' | translate}}
+          </button>
+          <p>
+            {{ alert.dataEmissao | amLocale:translate.currentLang | amTimeAgo }}
+          </p>
+        </div>
       </div>
-      <mat-card-actions class="fila_notificacoes__convite__btn--invite">
-      </mat-card-actions>
     </div>
   </div>
 

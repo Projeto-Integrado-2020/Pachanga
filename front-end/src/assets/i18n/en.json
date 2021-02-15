@@ -586,6 +586,7 @@
         "SETLIDO": "Mark as read",
         "SETNLIDO": "Mark as unread",
         "APAGAR": "Delete notification",
+        "CONVITETITLE": "Party member invitation",
         "CONVITE": "You were invited to be a member at the party",
         "VER": "See",
         "CONVITEACEITO": "Invite Accepted",
