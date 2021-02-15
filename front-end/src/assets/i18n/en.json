@@ -131,7 +131,7 @@
         "QNTATLDF": "Initial quantity can not be changed in initialized parties.",
         "NOMEAREA": "An area with this name is already in use.",
         "AREANFOU": "Area not found.",
-        "LOTEVING": "Tickets for this lot are sold out.",
+        "LOTEVING": "Tickets for this batch have already been sold.",
         "PREILOTE": "Invalid price.",
         "QUAILOTE": "Invalid lot quantity.",
         "NOMELOTE": "This name is already being used at this party.",
@@ -916,7 +916,7 @@
     "RELATORIOEXPORT": {
         "EXPORTAR": "Export reports",
         "CONFIRMAR": "Confirm export",
-        "TITLE": "Event reports",
+        "TITLE": "Export reports",
         "ENVIAR": "Send reports"
     },
 

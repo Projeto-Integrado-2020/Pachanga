@@ -284,7 +284,7 @@
         "QNTATLDF": "Quantidade inicial não pode ser alterada em festas iniciadas.",
         "NOMEAREA": "Uma área com este nome já está sendo usada.",
         "AREANFOU": "Área não encontrada.",
-        "LOTEVING": "Ingressos deste lote esgotados.",
+        "LOTEVING": "Ingressos deste lote já foram vendidos.",
         "PREILOTE": "Preço inválido.",
         "QUAILOTE": "Quantidade de lote inválida.",
         "NOMELOTE": "Este nome já está sendo utilizado nesta festa.",
@@ -932,7 +932,7 @@
     "RELATORIOEXPORT": {
         "EXPORTAR": "Exportar relatórios",
         "CONFIRMAR": "Confirmar exportação",
-        "TITLE": "Relatórios do evento",
+        "TITLE": "Exportação de relatórios",
         "ENVIAR": "Enviar relatórios"
     },
 
