@@ -49,7 +49,8 @@ public enum TipoPermissao {
 	EDITCUPM(45,"EDITCUPM"),//editar cupom
 	RELCHECK(46,"RELCHECK"),//realizar check-in da festa
 	EXPOREPO(47,"EXPOREPO"),//exportar relatório
-	VISGRPER(48,"VISGRPER");//visualizar grupos de permissão
+	VISGRPER(48,"VISGRPER"),//visualizar grupos de permissão
+	EDITSTAS(49,"EDITSTAS");//editar status festa
 
 	private String valor;
 	private int codigo;

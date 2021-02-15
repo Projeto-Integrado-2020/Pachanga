@@ -329,6 +329,8 @@ public class FestaService {
 	}
 
 	public Festa mudarStatusFesta(int idFesta, String statusFesta, int idUsuario) {
+		//validarPermissaoUsuario(idUsuario, idFesta, TipoPermissao.EDITSTAS.getCodigo());
+		validarPermissaoUsuarioGrupo(idUsuario, idFesta, TipoPermissao.EDITSTAS.getCodigo());
 		String statusFestaMaiusculo = statusFesta.toUpperCase();
 		if (!TipoStatusFesta.INICIADO.getValor().equals(statusFestaMaiusculo)
 				&& !TipoStatusFesta.FINALIZADO.getValor().equals(statusFestaMaiusculo)
@@ -444,6 +446,15 @@ public class FestaService {
 			
 			festa.setImagem(imagem.getBytes());
 			festa.setUrlImagem(uploadImagem.get("secure_url").toString());
+		}
+	}
+	
+	public boolean validarPermissaoUsuarioGrupo(int codFesta, int idUsuario, int tipoPermissao) {
+		List<Grupo> grupos = grupoRepository.findGrupoPermissaoUsuario(codFesta, idUsuario, tipoPermissao);
+		if (grupos.isEmpty()) {
+			throw new ValidacaoException("USESPERM");// usuário sem permissão
+		} else {
+			return true;
 		}
 	}
 

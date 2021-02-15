@@ -72,9 +72,10 @@ public class ProdutoService {
 
 	// add_____________________________________________________________________________________________________
 	public Produto addProduto(ProdutoTO produtoTO, Integer codFesta, Integer idUsuarioPermissao) {
+		//validarProduto(produtoTO.getMarca(), codFesta);
 		festaService.validarFestaFinalizada(codFesta);
 		this.validarUsuarioPorFesta(codFesta, idUsuarioPermissao, TipoPermissao.CADMESTO.getCodigo());
-		this.validarProduto(produtoTO.getMarca(), produtoTO.getCodFesta(), 0);
+		this.validarProduto(produtoTO.getMarca(), produtoTO.getCodFesta());
 		this.validarQuantidadeDoseProduto(produtoTO);
 		Produto produto = produtoFactory.getProduto(produtoTO);
 		produto.setCodProduto(produtoRepository.getNextValMySequence());
@@ -177,7 +178,7 @@ public class ProdutoService {
 			}
 		}
 
-		this.validarProduto(produtoTO.getMarca(), produtoTO.getCodFesta(), produtoTO.getCodProduto());
+		this.validarProduto(produtoTO.getMarca(), produtoTO.getCodFesta());
 		produto.setMarca(produtoTO.getMarca());
 		produtoRepository.save(produto);
 		return produto;
@@ -411,9 +412,9 @@ public class ProdutoService {
 			throw new ValidacaoException("QATUAINV"); // quantidadeAtual inválida
 	}
 
-	private void validarProduto(String marca, int codFesta, int codProduto) {
+	private void validarProduto(String marca, int codFesta) {
 		Produto produtoMarcaIgual = produtoRepository.findByMarca(marca, codFesta);
-		if (produtoMarcaIgual != null && produtoMarcaIgual.getCodProduto() != codProduto) {
+		if (produtoMarcaIgual != null) {
 			throw new ValidacaoException("PROMIGUA");// produto com a mesma marca cadastrado na festa
 		}
 	}

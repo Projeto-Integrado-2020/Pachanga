@@ -111,6 +111,7 @@ public class GrupoService {
 		Festa festa = this.validarFesta(grupoTO.getCodFesta());
 		Grupo grupo = validarGrupo(grupoTO.getCodGrupo());
 		this.validarPermissaoUsuario(festa.getCodFesta(), idUsuario, TipoPermissao.EDIGRPER.getCodigo());
+		this.verificarDuplicidadeGrupo(grupoTO.getCodFesta(), grupoTO.getNomeGrupo());
 
 		if (grupo.getOrganizador()) {
 			throw new ValidacaoException("EDITORGN");
