@@ -94,4 +94,9 @@ describe('GerenciadorCuponsComponent', () => {
     expect(component.getCupom.getCupons).toHaveBeenCalled();
     expect(component.getCupom.setFarol).toHaveBeenCalledWith(false);
   });
+
+  it('nomeCupomSort', () => {
+    expect(component.nomeCupomSort({nomeCupom: 'A'}, {nomeCupom: 'B'})).toBe(-1);
+    expect(component.nomeCupomSort({nomeCupom: 'B'}, {nomeCupom: 'A'})).toBe(1);
+  });
 });

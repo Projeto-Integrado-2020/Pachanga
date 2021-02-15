@@ -50,8 +50,16 @@ export class ThirdPartyPainelComponent implements OnInit {
 
     this.getIntegracoes.getIntegracoes(idFesta).subscribe((resp: any) => {
       this.getIntegracoes.setFarol(false);
-      this.integracoes = resp;
+      this.integracoes = resp.sort(this.terceiroIntSort);
     });
+  }
+
+  terceiroIntSort(a, b) {
+    if (a.terceiroInt > b.terceiroInt) {
+      return 1;
+    } else {
+      return -1;
+    }
   }
 
   openDialogDelete(integracao) {

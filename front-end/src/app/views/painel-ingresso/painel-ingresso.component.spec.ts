@@ -108,4 +108,8 @@ describe('PainelIngressoComponent', () => {
     expect(result).toBe('../ingressos/editar-lote/1');
   });
 
+  it('nomeLoteSort', () => {
+    expect(component.nomeLoteSort({nomeLote: 'A'}, {nomeLote: 'B'})).toBe(-1);
+    expect(component.nomeLoteSort({nomeLote: 'B'}, {nomeLote: 'A'})).toBe(1);
+  });
 });

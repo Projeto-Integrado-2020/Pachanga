@@ -3,6 +3,6 @@
     <p>{{'CUPOM.INFO' | translate}}"{{ cupom.nomeCupom }}"?</p>
 </div>
 <div mat-dialog-actions class="buttons">
-    <button class="red-back" mat-button (click)="deleteCupom()" cdkFocusInitial>{{'CUPOM.CONFIRM' | translate}}</button>
+    <button class="red-back" mat-raised-button (click)="deleteCupom()" cdkFocusInitial>{{'CUPOM.CONFIRM' | translate}}</button>
     <button  mat-button mat-dialog-close cdkFocusInitial>{{'CUPOM.CANCEL' | translate}}</button>
 </div>

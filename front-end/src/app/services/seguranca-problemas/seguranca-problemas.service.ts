@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material';
 import { Router } from '@angular/router';
 import { throwError } from 'rxjs';
 import { catchError, take } from 'rxjs/operators';
+import { ErroDialogComponent } from 'src/app/views/erro-dialog/erro-dialog.component';
 import { environment } from '../../../environments/environment';
 import { LogService } from '../logging/log.service';
 import { LoginService } from '../loginService/login.service';
@@ -27,19 +28,17 @@ export class SegurancaProblemasService {
     ) { }
 
   listarProblemas() {
-    if (!this.farol) {
-      this.setFarol(true);
-      let headers = new HttpHeaders();
-      headers = headers.append('Content-Type', 'application/json');
-      headers = headers.append('Authorization', 'Bearer ' + JSON.parse(localStorage.getItem('token')).token);
+    this.setFarol(true);
+    let headers = new HttpHeaders();
+    headers = headers.append('Content-Type', 'application/json');
+    headers = headers.append('Authorization', 'Bearer ' + JSON.parse(localStorage.getItem('token')).token);
 
-      return this.httpClient.get(this.listaProblemas, {headers}).pipe(
-        take(1),
-        catchError(error => {
-          return this.handleError(error, this.logService);
-        })
-      );
-    }
+    return this.httpClient.get(this.listaProblemas, {headers}).pipe(
+      take(1),
+      catchError(error => {
+        return this.handleError(error, this.logService);
+      })
+    );
   }
 
   adicionarProblema(problemaTO, imagem) {
@@ -113,64 +112,58 @@ export class SegurancaProblemasService {
 
   // /lista get
   getAllProblemasArea(codArea, codFesta) {
-    if (!this.farol) {
-      this.setFarol(true);
-      let headers = new HttpHeaders();
-      headers = headers.append('Content-Type', 'application/json');
-      headers = headers.append('Authorization', 'Bearer ' + JSON.parse(localStorage.getItem('token')).token);
+    this.setFarol(true);
+    let headers = new HttpHeaders();
+    headers = headers.append('Content-Type', 'application/json');
+    headers = headers.append('Authorization', 'Bearer ' + JSON.parse(localStorage.getItem('token')).token);
 
+    const httpParams = new HttpParams()
+      .append('codAreaSeguranca', codArea)
+      .append('codFesta', codFesta)
+      .append('idUsuario', this.loginService.getusuarioInfo().codUsuario);
+
+    return this.httpClient.get(this.baseUrl + '/findAllProblemasSegurancaArea', {headers, params: httpParams}).pipe(
+      take(1),
+      catchError(error => {
+        return this.handleError(error, this.logService);
+      })
+    );
+  }
+
+    // /lista get
+    getAllProblemasFesta(codFesta) {
+      this.setFarol(true);
       const httpParams = new HttpParams()
-        .append('codAreaSeguranca', codArea)
         .append('codFesta', codFesta)
         .append('idUsuario', this.loginService.getusuarioInfo().codUsuario);
 
-      return this.httpClient.get(this.baseUrl + '/findAllProblemasSegurancaArea', {headers, params: httpParams}).pipe(
+      return this.httpClient.get(this.baseUrl + '/lista', {params: httpParams}).pipe(
         take(1),
         catchError(error => {
           return this.handleError(error, this.logService);
         })
       );
     }
-  }
-
-    // /lista get
-    getAllProblemasFesta(codFesta) {
-      if (!this.farol) {
-        this.setFarol(true);
-        const httpParams = new HttpParams()
-          .append('codFesta', codFesta)
-          .append('idUsuario', this.loginService.getusuarioInfo().codUsuario);
-
-        return this.httpClient.get(this.baseUrl + '/lista', {params: httpParams}).pipe(
-          take(1),
-          catchError(error => {
-            return this.handleError(error, this.logService);
-          })
-        );
-      }
-    }
 
     getProblemaSeguranca(codAreaSegurancaProblema, codFesta) {
-      if (!this.farol) {
-        this.setFarol(true);
+      this.setFarol(true);
 
-        let headers = new HttpHeaders();
-        headers = headers.append('Content-Type', 'application/json');
-        headers = headers.append('Authorization', 'Bearer ' + JSON.parse(localStorage.getItem('token')).token);
+      let headers = new HttpHeaders();
+      headers = headers.append('Content-Type', 'application/json');
+      headers = headers.append('Authorization', 'Bearer ' + JSON.parse(localStorage.getItem('token')).token);
 
-        const httpParams = new HttpParams()
-          .append('codAreaSegurancaProblema', codAreaSegurancaProblema)
-          .append('idUsuario', this.loginService.getusuarioInfo().codUsuario)
-          .append('codFesta', codFesta)
-          .append('retornoImagem', 'true');
+      const httpParams = new HttpParams()
+        .append('codAreaSegurancaProblema', codAreaSegurancaProblema)
+        .append('idUsuario', this.loginService.getusuarioInfo().codUsuario)
+        .append('codFesta', codFesta)
+        .append('retornoImagem', 'true');
 
-        return this.httpClient.get(this.baseUrl + '/findProblemaSeguranca', {headers, params: httpParams}).pipe(
-          take(1),
-          catchError(error => {
-            return this.handleError(error, this.logService);
-          })
-        );
-      }
+      return this.httpClient.get(this.baseUrl + '/findProblemaSeguranca', {headers, params: httpParams}).pipe(
+        take(1),
+        catchError(error => {
+          return this.handleError(error, this.logService);
+        })
+      );
     }
 
     // updateProblemas() {
@@ -178,7 +171,7 @@ export class SegurancaProblemasService {
     //   this.updateProblemasEmitter.emit();
     //   }
     // }
-
+    /*
     handleError = (error: HttpErrorResponse, logService: LogService) => {
       this.dialog.closeAll();
       logService.initialize();
@@ -186,6 +179,25 @@ export class SegurancaProblemasService {
       this.setFarol(false);
       this.router.navigate(['404']);
       return throwError(error);
+    } */
+
+    handleError = (error: HttpErrorResponse, logService: LogService) => {
+      this.dialog.closeAll();
+      this.openErrorDialog(error.error);
+      let painel = this.router.url;
+      painel = painel.slice(0, -10);
+      // this.router.navigate([painel]);
+      logService.initialize();
+      logService.logHttpInfo(JSON.stringify(error), 0, error.url);
+      this.setFarol(false);
+      return throwError(error);
+    }
+
+    openErrorDialog(error) {
+      const dialogRef = this.dialog.open(ErroDialogComponent, {
+        width: '250px',
+        data: {erro: error}
+      });
     }
 
     setFarol(farol: boolean) {

@@ -85,4 +85,13 @@ describe('PainelSegurancaComponent', () => {
     expect(dialogSpy.open).toHaveBeenCalled();
   });
 
+  it('nomeAreaSort', () => {
+    expect(component.nomeAreaSort({nomeArea: 'A'}, {nomeArea: 'B'})).toBe(-1);
+    expect(component.nomeAreaSort({nomeArea: 'B'}, {nomeArea: 'A'})).toBe(1);
+  });
+
+  it('descProblemaSort', () => {
+    expect(component.descProblemaSort({descProblema: 'A'}, {descProblema: 'B'})).toBe(-1);
+    expect(component.descProblemaSort({descProblema: 'B'}, {descProblema: 'A'})).toBe(1);
+  });
 });

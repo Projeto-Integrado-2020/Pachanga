@@ -94,7 +94,7 @@
         "STATERRA": "This party status does not exist.",
         "STANMUDA": "The party is already in that phase.",
         "FSTANINI": "The party needs to be started to perform this action.",
-        "FESTINIC": "Party info can not be changed while the party is started.",
+        "FESTINIC": "Action blocked. The party is already started.",
         "FESTSCAT": "Party without category.",
         "CATNFOUN": "Category not found.",
         "FESTMCAT": "Identical principal and secondary category.",
@@ -122,7 +122,7 @@
         "ESTNPROD": "The stock do not contain this product.",
         "PRODEUSO": "Product in use.",
         "ESTONFOU": "Stock not found.",
-        "QMAXINV": "Invalid max quantity.",
+        "QMAXINV": "Invalid quantity.",
         "ESTOMNOM": "Another stock is already using this name.",
         "FESTFINA": "It is not possible to manage stock/product in finished parties.",
         "PRODDMEZ": "Shot quantity should be more than zero.",
@@ -131,7 +131,7 @@
         "QNTATLDF": "Initial quantity can not be changed in initialized parties.",
         "NOMEAREA": "An area with this name is already in use.",
         "AREANFOU": "Area not found.",
-        "LOTEVING": "Tickets for this lot have already been sold.",
+        "LOTEVING": "Tickets for this batch have already been sold.",
         "PREILOTE": "Invalid price.",
         "QUAILOTE": "Invalid lot quantity.",
         "NOMELOTE": "This name is already being used at this party.",
@@ -157,7 +157,7 @@
         "CUPMNFOU": "Coupon not found.",
         "CHECKERR": "This participant has already checked-in.",
         "INGRNFOU": "Ticket not found.",
-        "QINGRINV": "Number of tickets exceeds available number. Cancelled purchase.",
+        "QINGRINV": "Tickets sold-out. Purchase cancelled.",
         "NINVLOTE": "Invalid batch number.",
         "INGRNOTF": "This ticket does not belong to this party.",
         "INGRNOTP": "This ticket has not been paid.",
@@ -168,7 +168,10 @@
         "payment_method.boleto.holder.email": "Invalid e-mail.",
         "BOLEREGI": "Invalid State/City.",
         "FESDEING": "The party has already sold tickets and has not happened yet.",
-        "PRECCUPI": "Invalid discount amount."
+        "PRECCUPI": "Invalid discount amount.",
+        "PASSINC1": "Incorrect e-mail or password.",
+        "PASSINC2": "Incorrect current password.",
+        "FORMSERROR": "Problem detected when integrating Google Forms answer sheet. Check the registered URL."
     },
 
     "SUCCESS": {
@@ -195,6 +198,7 @@
     "PERFIL":{
         "MYACC": "My Account",
         "ACCINFO": "Account Info",
+        "INGRESSOS": "Tickets",
         "NAME": "Name",
         "PASSWORD": "Password",
         "PLANNER": "Event Planner",
@@ -372,7 +376,7 @@
         "MESSAGE": "Outch, I think the party is over! This content is unavailable."
     },
 
-    "DELETDIALOG": {
+    "DELETEDIALOG": {
         "MESSAGEPARTY": "Do you really want to delete the party ",
         "MESSAGEROLE": "Do you really want to delete the role ",
         "CONFIRM": "Confirm",
@@ -486,7 +490,8 @@
         "EDITDADO": "Edit bank data",
         "MODDADOB": "Modify bank info",
         "RELCHECK": "Execute check-in",
-        "EXPOREPO": "Export reports"
+        "EXPOREPO": "Export reports",
+        "VISGRPER": "View permission roles"
     },
 
     "ASSIGNDIALOG": {
@@ -581,11 +586,12 @@
         "SETLIDO": "Mark as read",
         "SETNLIDO": "Mark as unread",
         "APAGAR": "Delete notification",
+        "CONVITETITLE": "Party member invitation",
         "CONVITE": "You were invited to be a member at the party",
         "VER": "See",
         "CONVITEACEITO": "Invite Accepted",
         "CONVITEACEITO1": "accepted the invite to the party",
-        "CONVITEACEITO2": "as",
+        "CONVITEACEITO2": "The invite was accepted for the role",
         "ESTOQUEMIN1": "The product",
         "ESTOQUEMIN2": "quantity is below the minimum percentage at",
         "ESTOQUEMIN3": "Refill required!",

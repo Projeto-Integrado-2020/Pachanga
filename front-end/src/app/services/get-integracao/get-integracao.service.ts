@@ -47,8 +47,13 @@ export class GetIntegracaoService {
     logService.logHttpInfo(JSON.stringify(error), 0, error.url);
     this.setFarol(false);
     let painel = this.router.url;
-    painel = painel.slice(0, -21) + 'painel';
-    this.router.navigate([painel]);
+    if (painel.indexOf('check-in') !== -1) {
+      painel = painel.slice(0, -18) + 'painel';
+      this.router.navigate([painel]);
+    } else {
+      painel = painel.slice(0, -21) + 'painel';
+      this.router.navigate([painel]);
+    }
     return throwError(error);
   }
 

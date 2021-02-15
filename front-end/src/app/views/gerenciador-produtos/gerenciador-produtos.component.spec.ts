@@ -104,4 +104,9 @@ describe('GerenciadorProdutosComponent', () => {
     expect(component.getProdutos.getProdutos).toHaveBeenCalled();
     expect(component.getProdutos.setFarol).toHaveBeenCalledWith(false);
   });
+
+  it('marcaProdutoSort', () => {
+    expect(component.marcaProdutoSort({marca: 'A'}, {marca: 'B'})).toBe(-1);
+    expect(component.marcaProdutoSort({marca: 'B'}, {marca: 'A'})).toBe(1);
+  });
 });

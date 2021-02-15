@@ -245,7 +245,7 @@
         "STATERRA": "Esse status de festa não existe.",
         "STANMUDA": "A festa já se encontra nessa fase.",
         "FSTANINI": "A festa precisa estar iniciada para realizar esta ação.",
-        "FESTINIC": "Os dados da festa não podem ser editados enquanto ela está iniciada.",
+        "FESTINIC": "Ação bloqueada. A festa já está iniciada.",
         "FESTSCAT": "Festa sem categoria primária.",
         "CATNFOUN": "Categoria não encontrada.",
         "FESTMCAT": "Categoria principal e secundário identicas.",
@@ -275,7 +275,7 @@
         "ESTONFOU": "Estoque não encontrado.",
         "FESTNPRE": "A festa deve estar na fase de preparação para realizar esta ação.",
         "CONVNGRU": "Este convidado não esta no grupo.",
-        "QMAXINV": "Quantidade máxima inválida.",
+        "QMAXINV": "Quantidade inválida.",
         "ESTOMNOM": "Um estoque com este nome já foi cadastrado.",
         "FESTFINA": "Não é possível manipular estoque/produto em festas finalizadas.",
         "PRODDMEZ": "Quantidade de doses precisa ser maior que zero.",
@@ -310,7 +310,7 @@
         "CUPMNFOU": "Cupom não encontrado.",
         "CHECKERR": "Este participante já fez check-in.",
         "INGRNFOU": "Ingresso não encontrado.",
-        "QINGRINV": "Quantidade de ingressos ultrapassa número disponível. Compra cancelada.",
+        "QINGRINV": "Ingressos esgotados. Compra cancelada.",
         "NINVLOTE": "Número de lote inválido.",
         "INGRNOTF": "Este ingresso não pertence a esta festa.",
         "INGRNOTP": "Este ingresso não foi pago.",
@@ -321,7 +321,10 @@
         "payment_method.boleto.holder.email": "E-mail inválido.",
         "BOLEREGI": "Estado/Cidade inválida.",
         "FESDEING": "A festa já vendeu ingressos e ainda não aconteceu.",
-        "PRECCUPI": "Valor de desconto inválido."
+        "PRECCUPI": "Valor de desconto inválido.",
+        "PASSINC1": "Senha ou e-mail incorreto.",
+        "PASSINC2": "Senha atual incorreta.",
+        "FORMSERROR": "Problema detectado ao integrar planilha de respostas do Google Forms. Checar a URL cadastrada."
     },
 
     "ESTOQUE": {
@@ -533,11 +536,12 @@
         "SETLIDO": "Marcar como lido",
         "SETNLIDO": "Marcar como não lido",
         "APAGAR": "Apagar notificação",
+        "CONVITETITLE": "Convite para membro de festa",
         "CONVITE": "Você foi convidado para ser membro da festa",
         "VER": "Ver",
         "CONVITEACEITO": "Convite Aceito",
         "CONVITEACEITO1": "aceitou o convite de membro para a festa",
-        "CONVITEACEITO2": "com",
+        "CONVITEACEITO2": "O convite foi aceito para o grupo",
         "ESTOQUEMIN1": "O produto",
         "ESTOQUEMIN2": "está com a quantidade mais baixa que o percentual mínimo permitido no estoque",
         "ESTOQUEMIN3": "Recarga necessária!",
@@ -604,6 +608,7 @@
     "PERFIL":{
         "MYACC": "Minha Conta",
         "ACCINFO": "Dados da Conta",
+        "INGRESSOS": "Ingressos",
         "NAME": "Nome",
         "PASSWORD": "Senha",
         "PLANNER": "Organizador",
@@ -691,7 +696,8 @@
         "EDITDADO": "Editar dados bancários",
         "MODDADOB": "Modificar dados bancários",
         "RELCHECK": "Realizar check-in",
-        "EXPOREPO": "Exportar relatórios"
+        "EXPOREPO": "Exportar relatórios",
+        "VISGRPER": "Visualizar grupos de permissão"
     },
     
     "PRIVACIDADE": {

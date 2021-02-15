@@ -110,4 +110,8 @@ describe('MenuFestasComponent', () => {
                                               Object({nomeFesta: 'Teste6'})]);
   });
 
+  it('nomeFestaSort', () => {
+    expect(component.nomeFestaSort({nomeFesta: 'A'}, {nomeFesta: 'B'})).toBe(-1);
+    expect(component.nomeFestaSort({nomeFesta: 'B'}, {nomeFesta: 'A'})).toBe(1);
+  });
 });

@@ -49,7 +49,7 @@
 
           <mat-menu #myMenu="matMenu" class="my-menu">
             <button (click)="openDialogPerfil()" mat-menu-item class="botao-menu">{{'NAV.CONTA_L' | translate}}</button>
-            <button [routerLink]="'../meus-ingressos'" mat-menu-item class="botao-menu">Ingressos</button>
+            <button [routerLink]="'../meus-ingressos'" mat-menu-item class="botao-menu">{{'PERFIL.INGRESSOS' | translate}}</button>
             <button mat-menu-item (click)="loginComponent.signOut()" class="botao-menu">{{'NAV.SAIR' | translate}}</button>
           </mat-menu>
           

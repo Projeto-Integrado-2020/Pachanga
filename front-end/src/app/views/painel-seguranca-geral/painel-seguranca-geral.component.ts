@@ -24,7 +24,6 @@ export class PainelSegurancaGeralComponent implements OnInit, OnDestroy {
     this.ngOnDestroy();
     const url = this.router.url;
     this.idFesta = url.substring(url.indexOf('&') + 1, url.indexOf('/', url.indexOf('&')));
-    this.resgatarAreaSeguranca();
     this.updateSeguranca();
   }
 

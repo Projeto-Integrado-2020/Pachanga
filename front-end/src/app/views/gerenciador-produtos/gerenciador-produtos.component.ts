@@ -46,8 +46,16 @@ export class GerenciadorProdutosComponent implements OnInit {
                             preco: parseFloat(produto.precoMedio).toFixed(2)
                           });
       }
-      this.dataSource.data = this.produtos;
+      this.dataSource.data = this.produtos.sort(this.marcaProdutoSort);
     });
+  }
+
+  marcaProdutoSort(a, b) {
+    if (a.marca > b.marca) {
+      return 1;
+    } else {
+      return -1;
+    }
   }
 
   openDialogDelete(produto) {

@@ -22,7 +22,6 @@ export class GetLoteService {
               public loginService: LoginService, public dialog: MatDialog) { }
 
   getLote(idFesta) {
-    if (!this.farol) {
       this.setFarol(true);
       const httpParams = new HttpParams()
       .append('codFesta', idFesta)
@@ -38,7 +37,6 @@ export class GetLoteService {
           return this.handleError(error, this.logService);
         })
       );
-    }
   }
 
   handleError = (error: HttpErrorResponse, logService: LogService) => {

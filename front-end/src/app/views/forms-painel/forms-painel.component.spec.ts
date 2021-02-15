@@ -97,4 +97,9 @@ describe('FormsPainelComponent', () => {
     expect(component.getQuestionarios.getQuestionarios).toHaveBeenCalled();
     expect(component.getQuestionarios.setFarol).toHaveBeenCalledWith(false);
   });
+
+  it('nomeQuestionarioSort', () => {
+    expect(component.nomeQuestionarioSort({nome: 'A'}, {nome: 'B'})).toBe(-1);
+    expect(component.nomeQuestionarioSort({nome: 'B'}, {nome: 'A'})).toBe(1);
+  });
 });

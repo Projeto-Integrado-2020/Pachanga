@@ -3,6 +3,6 @@
     <p>{{'DELETEPRODUTO.MESSAGE' | translate}} "{{ produto.marca }}"?</p>
 </div>
 <div mat-dialog-actions class="buttons">
-    <button class="red-back" mat-button (click)="deletarProduto()" cdkFocusInitial>{{'DELETEPRODUTO.CONFIRM' | translate}}</button>
+    <button class="red-back" mat-raised-button (click)="deletarProduto()" cdkFocusInitial>{{'DELETEPRODUTO.CONFIRM' | translate}}</button>
     <button  mat-button mat-dialog-close cdkFocusInitial>{{'DELETEPRODUTO.CANCEL' | translate}}</button>
 </div>
