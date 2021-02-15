@@ -284,7 +284,7 @@
         "QNTATLDF": "Quantidade inicial não pode ser alterada em festas iniciadas.",
         "NOMEAREA": "Uma área com este nome já está sendo usada.",
         "AREANFOU": "Área não encontrada.",
-        "LOTEVING": "Ingressos deste lote esgotados.",
+        "LOTEVING": "Ingressos deste lote já foram vendidos.",
         "PREILOTE": "Preço inválido.",
         "QUAILOTE": "Quantidade de lote inválida.",
         "NOMELOTE": "Este nome já está sendo utilizado nesta festa.",
@@ -310,7 +310,7 @@
         "CUPMNFOU": "Cupom não encontrado.",
         "CHECKERR": "Este participante já fez check-in.",
         "INGRNFOU": "Ingresso não encontrado.",
-        "QINGRINV": "Número de ingressos maior que o disponível. Compra cancelada.",
+        "QINGRINV": "Ingressos esgotados. Compra cancelada.",
         "NINVLOTE": "Número de lote inválido.",
         "INGRNOTF": "Este ingresso não pertence a esta festa.",
         "INGRNOTP": "Este ingresso não foi pago.",
@@ -536,11 +536,12 @@
         "SETLIDO": "Marcar como lido",
         "SETNLIDO": "Marcar como não lido",
         "APAGAR": "Apagar notificação",
+        "CONVITETITLE": "Convite para membro de festa",
         "CONVITE": "Você foi convidado para ser membro da festa",
         "VER": "Ver",
         "CONVITEACEITO": "Convite Aceito",
-        "CONVITEACEITO1": "Aceitou o convite de membro para a festa",
-        "CONVITEACEITO2": "O convite foi aceito",
+        "CONVITEACEITO1": "aceitou o convite de membro para a festa",
+        "CONVITEACEITO2": "O convite foi aceito para o grupo",
         "ESTOQUEMIN1": "O produto",
         "ESTOQUEMIN2": "está com a quantidade mais baixa que o percentual mínimo permitido no estoque",
         "ESTOQUEMIN3": "Recarga necessária!",
@@ -695,7 +696,8 @@
         "EDITDADO": "Editar dados bancários",
         "MODDADOB": "Modificar dados bancários",
         "RELCHECK": "Realizar check-in",
-        "EXPOREPO": "Exportar relatórios"
+        "EXPOREPO": "Exportar relatórios",
+        "VISGRPER": "Visualizar grupos de permissão"
     },
     
     "PRIVACIDADE": {
@@ -930,7 +932,7 @@
     "RELATORIOEXPORT": {
         "EXPORTAR": "Exportar relatórios",
         "CONFIRMAR": "Confirmar exportação",
-        "TITLE": "Relatórios do evento",
+        "TITLE": "Exportação de relatórios",
         "ENVIAR": "Enviar relatórios"
     },
 
