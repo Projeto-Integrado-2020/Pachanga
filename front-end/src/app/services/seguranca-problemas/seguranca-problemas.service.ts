@@ -186,7 +186,7 @@ export class SegurancaProblemasService {
       this.openErrorDialog(error.error);
       let painel = this.router.url;
       painel = painel.slice(0, -10);
-      //this.router.navigate([painel]);
+      // this.router.navigate([painel]);
       logService.initialize();
       logService.logHttpInfo(JSON.stringify(error), 0, error.url);
       this.setFarol(false);

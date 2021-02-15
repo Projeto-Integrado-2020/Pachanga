@@ -75,7 +75,7 @@ const routes: Routes = [
     {
       path: ':festa&:id/venda-ingressos/venda-checkout',
       component: CheckoutComponent,
-      canActivate: [AuthGuard, CheckoutGuard]
+      canActivate: [CheckoutGuard]
     },
 
     {

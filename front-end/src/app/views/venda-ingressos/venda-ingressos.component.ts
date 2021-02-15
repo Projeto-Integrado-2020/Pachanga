@@ -166,7 +166,6 @@ export class VendaIngressosComponent implements OnInit {
                         .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
                         .replace(/[`~!@#$%^&*()_|+\=?;:'",.<>\{\}\[\]\\\/]/gi, '');
     const url = '../' + nomeFesta + '&' + this.festa.codFesta + '/venda-ingressos/venda-checkout';
-    console.log(url);
     this.router.navigate([url]);
   }
 
