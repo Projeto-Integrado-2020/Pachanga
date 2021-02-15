@@ -131,7 +131,7 @@
         "QNTATLDF": "Initial quantity can not be changed in initialized parties.",
         "NOMEAREA": "An area with this name is already in use.",
         "AREANFOU": "Area not found.",
-        "LOTEVING": "Tickets for this lot have already been sold.",
+        "LOTEVING": "Tickets for this lot are sold out.",
         "PREILOTE": "Invalid price.",
         "QUAILOTE": "Invalid lot quantity.",
         "NOMELOTE": "This name is already being used at this party.",
@@ -157,7 +157,7 @@
         "CUPMNFOU": "Coupon not found.",
         "CHECKERR": "This participant has already checked-in.",
         "INGRNFOU": "Ticket not found.",
-        "QINGRINV": "Number of tickets exceeds available number. Cancelled purchase.",
+        "QINGRINV": "Number of tickets selected exceeds available tickets. Purchase denied.",
         "NINVLOTE": "Invalid batch number.",
         "INGRNOTF": "This ticket does not belong to this party.",
         "INGRNOTP": "This ticket has not been paid.",
@@ -589,7 +589,7 @@
         "VER": "See",
         "CONVITEACEITO": "Invite Accepted",
         "CONVITEACEITO1": "accepted the invite to the party",
-        "CONVITEACEITO2": "as",
+        "CONVITEACEITO2": "The invite was accepted",
         "ESTOQUEMIN1": "The product",
         "ESTOQUEMIN2": "quantity is below the minimum percentage at",
         "ESTOQUEMIN3": "Refill required!",
@@ -914,7 +914,7 @@
     "RELATORIOEXPORT": {
         "EXPORTAR": "Export reports",
         "CONFIRMAR": "Confirm export",
-        "TITLE": "Export reports",
+        "TITLE": "Event reports",
         "ENVIAR": "Send reports"
     },
 

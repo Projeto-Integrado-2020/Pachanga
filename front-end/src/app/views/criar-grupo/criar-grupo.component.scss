@@ -69,12 +69,14 @@ header {
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
+    padding: 1px;
 }
 
 @media (min-width: 749px){
     .lista-permissoes {
         max-height: 15rem;
         overflow-y: scroll;
+        padding: 1px;
     }
 
     .card-content {
@@ -85,5 +87,6 @@ header {
     .lista-permissoes {
         flex-direction: column;
         position: relative;
+        padding: 1px;
     }
 }
