@@ -7,6 +7,7 @@ import { throwError } from 'rxjs';
 import { LoginService } from '../loginService/login.service';
 import { MatDialog } from '@angular/material';
 import { ErroDialogComponent } from 'src/app/views/erro-dialog/erro-dialog.component';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,7 @@ export class GetGruposService {
   public farol = false;
 
   constructor(private http: HttpClient, public logService: LogService,
-              public loginService: LoginService, public dialog: MatDialog) { }
+              public loginService: LoginService, public dialog: MatDialog, public router: Router) { }
 
   getGrupos(idFesta) {
     if (!this.farol) {
@@ -63,6 +64,9 @@ export class GetGruposService {
 
   handleError = (error: HttpErrorResponse, logService: LogService) => {
     this.openErrorDialog(error.error);
+    let painel = this.router.url;
+    painel = painel.slice(0, -7) + 'painel';
+    this.router.navigate([painel]);
     this.setFarol(false);
     logService.initialize();
     logService.logHttpInfo(JSON.stringify(error), 0, error.url);
