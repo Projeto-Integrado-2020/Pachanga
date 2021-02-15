@@ -48,14 +48,9 @@ public class GrupoService {
 
 	public Grupo addGrupoFesta(GrupoTO grupoTO, int idUsuario) {
 		this.validarPermissaoUsuario(grupoTO.getCodFesta(), idUsuario, TipoPermissao.CREGRPER.getCodigo());
-		List<Grupo> gruposPreExistentes = grupoRepository.findGruposDuplicados(grupoTO.getCodFesta(),
-				grupoTO.getNomeGrupo());
-
-		if (gruposPreExistentes.isEmpty()) {
-			return this.addGrupo(grupoTO.getCodFesta(), grupoTO.getNomeGrupo(), false, grupoTO.getPermissoes());
-		} else {
-			throw new ValidacaoException("GRPEXIST");
-		}
+		this.verificarDuplicidadeGrupo(grupoTO.getCodFesta(), grupoTO.getNomeGrupo());
+	
+		return this.addGrupo(grupoTO.getCodFesta(), grupoTO.getNomeGrupo(), false, grupoTO.getPermissoes());
 	}
 
 	public Grupo addGrupo(int codFesta, String nomeGrupo, boolean organizador, List<Integer> permissoes) {
@@ -265,6 +260,13 @@ public class GrupoService {
 			throw new ValidacaoException("GRUPNFOU");
 		}
 		return grupo;
+	}
+	
+	public void verificarDuplicidadeGrupo(int codFesta, String nomeGrupo) {
+		List<Grupo> gruposPreExistentes = grupoRepository.findGruposDuplicados(codFesta, nomeGrupo);
+		if (gruposPreExistentes != null && gruposPreExistentes.size() > 0) {
+			throw new ValidacaoException("GRPEXIST");
+		}
 	}
 
 	public Festa validarFesta(int idFesta) {

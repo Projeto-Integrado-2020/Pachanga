@@ -73,7 +73,7 @@ public class ProdutoService {
 	// add_____________________________________________________________________________________________________
 	public Produto addProduto(ProdutoTO produtoTO, Integer codFesta, Integer idUsuarioPermissao) {
 		festaService.validarFestaFinalizada(codFesta);
-		this.validarUsuarioPorFesta(codFesta, idUsuarioPermissao, TipoPermissao.CADAESTO.getCodigo());
+		this.validarUsuarioPorFesta(codFesta, idUsuarioPermissao, TipoPermissao.CADMESTO.getCodigo());
 		this.validarProduto(produtoTO.getMarca(), produtoTO.getCodFesta(), 0);
 		this.validarQuantidadeDoseProduto(produtoTO);
 		Produto produto = produtoFactory.getProduto(produtoTO);
@@ -90,7 +90,7 @@ public class ProdutoService {
 		int quantidadeAtual = itemEstoqueTO.getQuantidadeAtual();
 		int porcentagemMin = itemEstoqueTO.getPorcentagemMin();
 
-		this.validarUsuarioPorEstoque(idUsuarioPermissao, codEstoque, TipoPermissao.CADAESTO.getCodigo());
+		this.validarUsuarioPorEstoque(idUsuarioPermissao, codEstoque, TipoPermissao.CADMESTO.getCodigo());
 
 		ItemEstoque produtoEstoqueExistentes = this.validarEstoqueProduto(codEstoque, itemEstoqueTO.getCodProduto());
 
@@ -379,7 +379,7 @@ public class ProdutoService {
 		this.validarUsuarioPorFesta(estoque.getFesta().getCodFesta(), codUsuario, tipoPermissao);
 		return estoque;
 	}
-
+	
 	private ItemEstoque validarEstoqueProduto(int codEstoque, int codProduto) {
 		Estoque estoque = this.validarEstoque(codEstoque);
 		Produto produto = this.validarProduto(codProduto);
