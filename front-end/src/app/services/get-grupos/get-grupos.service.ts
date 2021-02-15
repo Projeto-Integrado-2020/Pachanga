@@ -65,7 +65,6 @@ export class GetGruposService {
   handleError = (error: HttpErrorResponse, logService: LogService) => {
     this.openErrorDialog(error.error);
     let painel = this.router.url;
-    alert(painel);
     painel = painel.slice(0, -7) + 'painel';
     this.router.navigate([painel]);
     this.setFarol(false);
