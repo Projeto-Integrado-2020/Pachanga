@@ -111,7 +111,7 @@ public class GrupoService {
 		Festa festa = this.validarFesta(grupoTO.getCodFesta());
 		Grupo grupo = validarGrupo(grupoTO.getCodGrupo());
 		this.validarPermissaoUsuario(festa.getCodFesta(), idUsuario, TipoPermissao.EDIGRPER.getCodigo());
-		this.verificarDuplicidadeGrupo(grupoTO.getCodFesta(), grupoTO.getNomeGrupo());
+		this.verificarDuplicidadeGrupo(grupoTO.getCodFesta(), grupoTO.getNomeGrupo(), grupo.getCodGrupo());
 
 		if (grupo.getOrganizador()) {
 			throw new ValidacaoException("EDITORGN");
@@ -267,6 +267,15 @@ public class GrupoService {
 		List<Grupo> gruposPreExistentes = grupoRepository.findGruposDuplicados(codFesta, nomeGrupo);
 		if (gruposPreExistentes != null && gruposPreExistentes.size() > 0) {
 			throw new ValidacaoException("GRPEXIST");
+		}
+	}
+	
+	public void verificarDuplicidadeGrupo(int codFesta, String nomeGrupo, int codGrupo) {
+		List<Grupo> gruposPreExistentes = grupoRepository.findGruposDuplicados(codFesta, nomeGrupo);
+		if (gruposPreExistentes != null && gruposPreExistentes.size() > 0) {
+			if(gruposPreExistentes.get(0).getCodGrupo() != codGrupo) {
+				throw new ValidacaoException("GRPEXIST");	
+			}
 		}
 	}
 
