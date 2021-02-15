@@ -42,7 +42,7 @@ public class EnvioDePDFPorEmailService {
 		grupoService.validarPermissaoUsuarioGrupo(codFesta, codUsuario, TipoPermissao.EXPOREPO.getCodigo());
 		Festa festa = festaRepository.findByCodFesta(codFesta);
 		Usuario usuario = usuarioRepository.findById(codUsuario);
-		File pdf = byteArrayToPDF(base64ToByteArray(pdfPorEmailTO.getBase64Pdf()));
+		File pdf = byteArrayToPDF(base64ToByteArray(pdfPorEmailTO.getBase64Pdf()), festa.getNomeFesta());
 		emailMensagem.enviarPDFRelatorio(pdfPorEmailTO.getListaDeEmails(), pdf, usuario, festa);
 		pdf.delete();
 		return true;
@@ -52,8 +52,8 @@ public class EnvioDePDFPorEmailService {
 		return Base64.getDecoder().decode(encode);
 	}
 	
-	private File byteArrayToPDF(byte[] byteArray) {
-		String filename = "relatorio.pdf";
+	private File byteArrayToPDF(byte[] byteArray, String nomeArquivo) {
+		String filename = "relatorios_Pachanga_" + nomeArquivo +".pdf";
 		File pdf = new File(filename);
 		OutputStream out;
 		
