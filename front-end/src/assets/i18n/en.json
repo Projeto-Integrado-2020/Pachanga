@@ -157,7 +157,7 @@
         "CUPMNFOU": "Coupon not found.",
         "CHECKERR": "This participant has already checked-in.",
         "INGRNFOU": "Ticket not found.",
-        "QINGRINV": "Number of tickets selected exceeds available tickets. Purchase denied.",
+        "QINGRINV": "Tickets sold-out. Purchase cancelled.",
         "NINVLOTE": "Invalid batch number.",
         "INGRNOTF": "This ticket does not belong to this party.",
         "INGRNOTP": "This ticket has not been paid.",
@@ -490,7 +490,8 @@
         "EDITDADO": "Edit bank data",
         "MODDADOB": "Modify bank info",
         "RELCHECK": "Execute check-in",
-        "EXPOREPO": "Export reports"
+        "EXPOREPO": "Export reports",
+        "VISGRPER": "View permission roles"
     },
 
     "ASSIGNDIALOG": {
@@ -589,7 +590,7 @@
         "VER": "See",
         "CONVITEACEITO": "Invite Accepted",
         "CONVITEACEITO1": "accepted the invite to the party",
-        "CONVITEACEITO2": "The invite was accepted",
+        "CONVITEACEITO2": "The invite was accepted for the role",
         "ESTOQUEMIN1": "The product",
         "ESTOQUEMIN2": "quantity is below the minimum percentage at",
         "ESTOQUEMIN3": "Refill required!",

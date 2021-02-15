@@ -72,7 +72,7 @@ class="fila_notificacoes"
                   <p [ngStyle]="{'font-weight': (alert.status == 'N' || alert.destaque == true) ? 'bold' : 'normal'}">{{'NOTIFICACAO.CONVITEACEITO' | translate}}</p>
               </div>
               <div class="fila_notificacoes__notificacao__horario">
-                  <p class="mensagem">{{ alert.usuarioFesta.nomeUsuario }} {{'NOTIFICACAO.CONVITEACEITO1' | translate}} "{{ alert.usuarioFesta.nomeFesta }}" {{'NOTIFICACAO.CONVITEACEITO2' | translate}} "{{ alert.usuarioFesta.nomeGrupo }}"</p>
+                  <p class="mensagem">"{{ alert.usuarioFesta.nomeUsuario }}" {{'NOTIFICACAO.CONVITEACEITO1' | translate}} "{{ alert.usuarioFesta.nomeFesta }}". {{'NOTIFICACAO.CONVITEACEITO2' | translate}} "{{ alert.usuarioFesta.nomeGrupo }}".</p>
                   <p>
                     {{ alert.dataEmissao | amLocale:translate.currentLang | amTimeAgo }}
                   </p>

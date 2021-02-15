@@ -310,7 +310,7 @@
         "CUPMNFOU": "Cupom não encontrado.",
         "CHECKERR": "Este participante já fez check-in.",
         "INGRNFOU": "Ingresso não encontrado.",
-        "QINGRINV": "Número de ingressos maior que o disponível. Compra cancelada.",
+        "QINGRINV": "Ingressos esgotados. Compra cancelada.",
         "NINVLOTE": "Número de lote inválido.",
         "INGRNOTF": "Este ingresso não pertence a esta festa.",
         "INGRNOTP": "Este ingresso não foi pago.",
@@ -539,8 +539,8 @@
         "CONVITE": "Você foi convidado para ser membro da festa",
         "VER": "Ver",
         "CONVITEACEITO": "Convite Aceito",
-        "CONVITEACEITO1": "Aceitou o convite de membro para a festa",
-        "CONVITEACEITO2": "O convite foi aceito",
+        "CONVITEACEITO1": "aceitou o convite de membro para a festa",
+        "CONVITEACEITO2": "O convite foi aceito para o grupo",
         "ESTOQUEMIN1": "O produto",
         "ESTOQUEMIN2": "está com a quantidade mais baixa que o percentual mínimo permitido no estoque",
         "ESTOQUEMIN3": "Recarga necessária!",
@@ -695,7 +695,8 @@
         "EDITDADO": "Editar dados bancários",
         "MODDADOB": "Modificar dados bancários",
         "RELCHECK": "Realizar check-in",
-        "EXPOREPO": "Exportar relatórios"
+        "EXPOREPO": "Exportar relatórios",
+        "VISGRPER": "Visualizar grupos de permissão"
     },
     
     "PRIVACIDADE": {
