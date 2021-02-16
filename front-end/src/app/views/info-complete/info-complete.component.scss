@@ -1,32 +1,46 @@
-.info-complete{
+@media (max-width: 748px){
+    .info-complete {
+        margin-top: 56px;
+    }
+
+    .message {
+        justify-content: space-between;
+    }
+}
+
+@media (min-width: 748px){
+    .info-complete {
+        margin-top: 64px;
+    }
+
+    .message {
+        justify-content: center;
+        gap: 4rem;
+    }
+}
+
+.info-complete {
     display: block;
-    margin-top: 64px;
+    
     position: fixed;
     width: 100%;
     z-index: 1;
-    height: auto;
 }
 
 .message {
-    display: block;
-    height: auto;
+    display: flex;
+    
+    align-items: center;
     background-color: rgba($color: #ff0000, $alpha: .75);
     color: #ffffff;
-    text-align: center;
-    padding-bottom: 5.7vh;
 }
 
 .txt {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
+    
 }
 
 .pefilLink {
     cursor: pointer;
-}
-
-.pefilLink:hover {
     text-decoration: underline;
 }
 
