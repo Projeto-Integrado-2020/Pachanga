@@ -26,9 +26,7 @@ export class NotificacoesComponent implements OnInit {
   selected: number;
   alertIds: number[] = [];
 
-  notificacoesUsuario: any[] = [];
-  notificacoesGrupo: any[] = [];
-  notificacaoConvidado: any[] = [];
+  notificacoes: any[] = [];
 
   convmsg: any;
 
@@ -45,12 +43,13 @@ export class NotificacoesComponent implements OnInit {
 
   contarAlertasNaoLidos(): void {
     let count = 0;
-    for (const i of this.notificacoesUsuario) {
-      if (!i.mensagem.includes('ESTBAIXO') && i.status === 'N' || i.destaque) {
+    for (const i of this.notificacoes) {
+      // if (!i.mensagem.includes('ESTBAIXO') && i.status === 'N' || i.destaque) {
+      if (i.status === 'N' || i.destaque || i.codConvidado || i.grupo) {
         count++;
       }
     }
-    this.alertNumbers = count + this.notificacoesGrupo.length + this.notificacaoConvidado.length;
+    this.alertNumbers = count;
   }
 
   alterarAlerta(alerta): void {
@@ -61,8 +60,8 @@ export class NotificacoesComponent implements OnInit {
   }
 
   deletarAlerta(alerta): void {
-    const index = this.notificacoesUsuario.indexOf(alerta);
-    this.notificacoesUsuario.splice(index, 1);
+    const index = this.notificacoes.indexOf(alerta);
+    this.notificacoes.splice(index, 1);
     this.notifService.deletarNotificacao(alerta).subscribe();
     // CHAMAR METODO DELETAR ALERTA DO NOTIFICACAO-SERVICE!
   }
@@ -71,9 +70,11 @@ export class NotificacoesComponent implements OnInit {
 
   fecharNotificacoes(): void {
     this.visibilidadeNotificacoes = false;
-    this.notificacoesUsuario.forEach(alert => {
-      alert.status = 'L';
-      this.alertIds.push(alert.notificacao);
+    this.notificacoes.forEach(alert => {
+      if (alert.status) {
+        alert.status = 'L';
+        this.alertIds.push(alert.notificacao);
+      }
     });
     this.contarAlertasNaoLidos();
     this.notifService.atualizarNotificacoes(this.alertIds).subscribe();
@@ -87,9 +88,7 @@ export class NotificacoesComponent implements OnInit {
     if (this.loginService.usuarioAutenticado) {
       this.carregarArray(this.notifService.getNotificacoes());
       this.contarAlertasNaoLidos();
-      this.visibilidadeAlerta = this.notificacoesUsuario.length +
-                              this.notificacoesGrupo.length +
-                              this.notificacaoConvidado.length === 0;
+      this.visibilidadeAlerta = this.notificacoes.length === 0;
     }
     const source = interval(5000);
     source.subscribe(
@@ -98,9 +97,7 @@ export class NotificacoesComponent implements OnInit {
           this.carregarArray(this.notifService.getNotificacoes());
           this.contarAlertasNaoLidos();
         } else {
-          this.notificacoesUsuario = [];
-          this.notificacoesGrupo = [];
-          this.notificacaoConvidado = [];
+          this.notificacoes = [];
         }
       }
     );
@@ -110,12 +107,21 @@ export class NotificacoesComponent implements OnInit {
     return observavel.subscribe(
       (response: any) => {
         if (!this.visibilidadeNotificacoes) {
-          this.notificacoesUsuario = this.procurarAlertas(response.notificacoesUsuario);
-          this.notificacoesGrupo = response.notificacoesGrupo;
-          this.notificacaoConvidado = response.notificacaoConvidado;
+          this.notificacoes = this.procurarAlertas(response.notificacoesUsuario)
+                              .concat(response.notificacoesGrupo)
+                              .concat(response.notificacaoConvidado)
+                              .sort(this.dataEmissaoSort);
         }
       }
     );
+  }
+
+  dataEmissaoSort(a, b) {
+    if (new Date(a.dataEmissao) > new Date(b.dataEmissao)) {
+      return -1;
+    } else {
+      return 1;
+    }
   }
 
   openDialogConvite(alerta): void {

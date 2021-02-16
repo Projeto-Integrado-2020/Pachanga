@@ -157,4 +157,9 @@ describe('NotificacoesComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should dataEmissaoSort', () => {
+    expect(component.dataEmissaoSort({dataEmissao: '2020-02-16T12:30:00'}, {dataEmissao: '2020-02-16T12:30:10'})).toBe(1);
+    expect(component.dataEmissaoSort({dataEmissao: '2020-02-16T12:30:10'}, {dataEmissao: '2020-02-16T12:30:00'})).toBe(-1);
+  });
 });

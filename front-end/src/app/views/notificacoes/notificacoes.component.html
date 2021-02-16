@@ -17,9 +17,10 @@ class="fila_notificacoes"
 </mat-card-header>
 
 <mat-card-content>
-  <!-- CONVITES -->
-  <div class="fila_notificacoes__not-container" *ngFor="let alert of notificacaoConvidado">
-    <div class="fila_notificacoes__flex">
+  <!-- NOTIFICACOES -->
+  <div class="fila_notificacoes__not-container" *ngFor="let alert of notificacoes">
+    <!-- CONVITES -->
+    <div *ngIf="alert.codConvidado" class="fila_notificacoes__flex">
       <div class="fila_notificacoes__notificacao">
       <!-- <mat-divider></mat-divider> -->
         <div class="fila_notificacoes__notificacao__texto">
@@ -38,11 +39,9 @@ class="fila_notificacoes"
         </div>
       </div>
     </div>
-  </div>
 
-  <!-- NOTIFICACOES DE Estoque Mínimo -->
-  <div class="fila_notificacoes__not-container" *ngFor="let alert of notificacoesGrupo">
-    <div *ngIf="alert.mensagem.includes('ESTBAIXO')">
+    <!-- NOTIFICACOES DE Estoque Mínimo -->
+    <div *ngIf="alert.mensagem.includes('ESTBAIXO') && !alert.status">
         <div class="fila_notificacoes__flex">
             <div class="fila_notificacoes__notificacao">
                 <!-- <mat-divider></mat-divider> -->
@@ -63,10 +62,8 @@ class="fila_notificacoes"
             </div>
         </div>
     </div>
-  </div>
 
-  <!-- NOTIFICACOES DE CONVITE ACEITO -->
-  <div class="fila_notificacoes__not-container" *ngFor="let alert of notificacoesUsuario">
+    <!-- NOTIFICACOES DE CONVITE ACEITO -->
       <div *ngIf="alert.mensagem.includes('CONVACEI')">
         <div class="fila_notificacoes__flex">
             <div class="fila_notificacoes__notificacao">
@@ -99,10 +96,8 @@ class="fila_notificacoes"
         </div>
         </mat-card>
       </div>
-    </div>
 
     <!-- NOTIFICACOES DE STATUS -->
-  <div class="fila_notificacoes__not-container" *ngFor="let alert of notificacoesUsuario">
     <div *ngIf="alert.mensagem.includes('STAALTER')">
       <div class="fila_notificacoes__flex">
           <div class="fila_notificacoes__notificacao">
@@ -145,11 +140,9 @@ class="fila_notificacoes"
       </div>
       </mat-card>
     </div>
-  </div>
 
   <!-- NOTIFICACOES DE PROBLEMA DE SEGURANÇA -->
-  <div class="fila_notificacoes__not-container" *ngFor="let alert of notificacoesGrupo">
-    <div *ngIf="alert.mensagem.includes('AREAPROB')">
+    <div *ngIf="alert.mensagem.includes('AREAPROB')  && !alert.status">
         <div class="fila_notificacoes__flex">
             <div class="fila_notificacoes__notificacao">
                 <!-- <mat-divider></mat-divider> -->
