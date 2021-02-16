@@ -18,6 +18,7 @@ export class RelatoriosSegurancaComponent implements OnInit {
   public problemasPorArea = [];
   public resolucoesPorUsuario = [];
   public emissoesChamadas = [];
+  view: any;
   chamadasUsuarioResp: any;
   showLegend = true;
   showLabels = true;
@@ -112,4 +113,8 @@ export class RelatoriosSegurancaComponent implements OnInit {
       }
     });
   }
+
+  onResize(event) {
+    this.view = [event.target.innerWidth / 1.35, 400];
+}
 }

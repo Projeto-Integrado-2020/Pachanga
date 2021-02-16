@@ -5,7 +5,7 @@
             {{'RELATORIOVENDA.INGRESSOS' | translate}}
           </mat-panel-title>
         </mat-expansion-panel-header>
-        <div *ngIf="ingressosDataSet.length > 0">
+        <div class="relatorio-container" *ngIf="ingressosDataSet.length > 0">
             <ngx-charts-bar-vertical 
             [scheme]="colorScheme"
             [results]="ingressosDataSet"
@@ -17,7 +17,9 @@
             [showYAxisLabel]="true"
             [xAxis]="true"
             [yAxis]="true"
-            [gradient]="false">
+            [gradient]="false"
+            [view]="">
+            
         </ngx-charts-bar-vertical>
             </div>
         <div *ngIf="ingressosDataSet.length === 0" class="nenhum-resultado">
@@ -30,7 +32,7 @@
             {{'RELATORIOVENDA.INGRESSOPAGOCOMPRADO' | translate}}
           </mat-panel-title>
         </mat-expansion-panel-header>
-        <div *ngIf="ingressosPagosDataSet.length > 0">
+        <div class="relatorio-container" *ngIf="ingressosPagosDataSet.length > 0">
             <ngx-charts-bar-vertical-2d 
             [scheme]="colorScheme"
             [results]="ingressosPagosDataSet"
@@ -42,7 +44,8 @@
             [showYAxisLabel]="true"
             [xAxis]="true"
             [yAxis]="true"
-            [gradient]="false">
+            [gradient]="false"
+            [view]="">
         </ngx-charts-bar-vertical-2d>
         </div>
         <div *ngIf="ingressosPagosDataSet.length === 0" class="nenhum-resultado">
@@ -55,7 +58,7 @@
             {{'RELATORIOVENDA.LUCROLOTE' | translate}}
           </mat-panel-title>
         </mat-expansion-panel-header>
-        <div *ngIf="lucroLotesDataSet.length > 0">
+        <div class="relatorio-container" *ngIf="lucroLotesDataSet.length > 0">
             <ngx-charts-bar-vertical-2d 
             [scheme]="colorScheme"
             [results]="lucroLotesDataSet"
@@ -67,7 +70,8 @@
             [showYAxisLabel]="true"
             [xAxis]="true"
             [yAxis]="true"
-            [gradient]="false">
+            [gradient]="false"
+            [view]="">
         </ngx-charts-bar-vertical-2d>
         </div>
         <div *ngIf="lucroLotesDataSet.length === 0" class="nenhum-resultado">
@@ -80,7 +84,7 @@
             {{'RELATORIOVENDA.LUCROFESTA' | translate}}
           </mat-panel-title>
         </mat-expansion-panel-header>
-        <div *ngIf="lucroFestaDataSet.length > 0">
+        <div class="relatorio-container" *ngIf="lucroFestaDataSet.length > 0">
             <ngx-charts-bar-vertical-2d 
             [scheme]="colorScheme"
             [results]="lucroFestaDataSet"
@@ -92,7 +96,8 @@
             [showYAxisLabel]="true"
             [xAxis]="true"
             [yAxis]="true"
-            [gradient]="false">
+            [gradient]="false"
+            [view]="">
         </ngx-charts-bar-vertical-2d>
         </div>
         <div *ngIf="lucroFestaDataSet.length === 0" class="nenhum-resultado">

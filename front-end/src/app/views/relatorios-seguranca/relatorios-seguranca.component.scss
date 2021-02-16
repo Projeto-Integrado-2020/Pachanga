@@ -1,6 +1,13 @@
+@import '../material/paleta.scss';
+
+@media (max-width: 748px){
+  .relatorio-container {
+  }
+}
+
 .relatorio-container {
-    width: 100%;
-    height: 25rem;
+    display: inline-block;
+    @include centralizar(true, false);
   }
 
 .nenhum-resultado {
