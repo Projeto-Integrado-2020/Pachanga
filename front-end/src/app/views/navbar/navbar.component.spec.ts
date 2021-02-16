@@ -56,6 +56,7 @@ import { GerenciadorCuponsComponent } from '../gerenciador-cupons/gerenciador-cu
 import { ControleSidenavComponent } from '../controle-sidenav/controle-sidenav.component';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RelatoriosExportComponent } from '../relatorios-export/relatorios-export.component';
+import { PermissionFilter } from '../utils/permission-filter.pipe';
 
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 100000;
 
@@ -121,7 +122,8 @@ describe('NavbarComponent', () => {
         MeusIngressosComponent,
         GerenciadorCuponsComponent,
         ControleSidenavComponent,
-        RelatoriosExportComponent
+        RelatoriosExportComponent,
+        PermissionFilter
        ],
       imports: [
         MomentModule,

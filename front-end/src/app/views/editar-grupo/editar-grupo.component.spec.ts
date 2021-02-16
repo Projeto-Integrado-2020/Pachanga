@@ -20,6 +20,7 @@ import { of } from 'rxjs';
 import { GetGruposService } from 'src/app/services/get-grupos/get-grupos.service';
 import { GetPermissoesService } from 'src/app/services/get-permissoes/get-permissoes.service';
 import { EditarGrupoService } from 'src/app/services/editar-grupo/editar-grupo.service';
+import { PermissionFilter } from '../utils/permission-filter.pipe';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -34,7 +35,7 @@ describe('EditarGrupoComponent', () => {
     dialogSpy = jasmine.createSpyObj('MatDialog', ['open']);
 
     TestBed.configureTestingModule({
-      declarations: [ EditarGrupoComponent ],
+      declarations: [ EditarGrupoComponent, PermissionFilter ],
       imports: [
         CustomMaterialModule,
         NgxMaterialTimepickerModule,
@@ -75,7 +76,10 @@ describe('EditarGrupoComponent', () => {
           setFarol: () => false,
         }},
         {provide: GetPermissoesService, useValue: {
-          getPermissoes: () => of([{descPermissao: 'Teste1'}, {descPermissao: 'Teste2'}]),
+          getPermissoes: () => of([
+            {descPermissao: 'Teste1', tipPermissao: 'GE'},
+            {descPermissao: 'Teste2', tipPermissao: 'GE'}
+          ]),
           setFarol: () => false,
         }},
         {provide: EditarGrupoService, useValue: {
@@ -193,7 +197,9 @@ describe('EditarGrupoComponent', () => {
 
     expect(component.getPermissaoService.getPermissoes).toHaveBeenCalled();
     expect(component.getPermissaoService.setFarol).toHaveBeenCalledWith(false);
-    expect(component.permissoes).toEqual([{descPermissao: 'Teste1'}, {descPermissao: 'Teste2'}]);
+    expect(component.permissoes).toEqual([
+      {descPermissao: 'Teste1', tipPermissao: 'GE'}, {descPermissao: 'Teste2', tipPermissao: 'GE'}
+    ]);
     expect(component.buildForm).toHaveBeenCalled();
   });
 

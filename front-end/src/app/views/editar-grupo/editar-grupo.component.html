@@ -14,14 +14,46 @@
                     <br>
                     <div class="lista-permissoes">
                         <div class="esq">
-                            <div *ngFor="let permissao of permissoes; let i = index;">
-                                <mat-checkbox *ngIf="permissoes?.length/2 > i" (click)='updateListaPermissao(permissao)' formControlName="{{permissao.descPermissao}}">
+                            <h3 class="tipo-permissao">{{'TIPOPERMISSAO.GERAL' | translate}}</h3>
+                            <div *ngFor="let permissao of permissoes | permissionFilter:'GE'">
+                                <mat-checkbox (click)='updateListaPermissao(permissao)' formControlName="{{permissao.descPermissao}}">
+                                    {{ 'PERMISSAO.' + permissao.descPermissao | translate }}
+                                </mat-checkbox>
+                            </div>
+                            <h3 class="tipo-permissao">{{'TIPOPERMISSAO.GRUPE' | translate}}</h3>
+                            <div *ngFor="let permissao of permissoes | permissionFilter:'GP'">
+                                <mat-checkbox (click)='updateListaPermissao(permissao)' formControlName="{{permissao.descPermissao}}">
+                                    {{ 'PERMISSAO.' + permissao.descPermissao | translate }}
+                                </mat-checkbox>
+                            </div>
+                            <h3 class="tipo-permissao">{{'TIPOPERMISSAO.ESTO' | translate}}</h3>
+                            <div *ngFor="let permissao of permissoes | permissionFilter:'ES'">
+                                <mat-checkbox (click)='updateListaPermissao(permissao)' formControlName="{{permissao.descPermissao}}">
+                                    {{ 'PERMISSAO.' + permissao.descPermissao | translate }}
+                                </mat-checkbox>
+                            </div>
+                            <h3 class="tipo-permissao">{{'TIPOPERMISSAO.SEGU' | translate}}</h3>
+                            <div *ngFor="let permissao of permissoes | permissionFilter:'SE'">
+                                <mat-checkbox (click)='updateListaPermissao(permissao)' formControlName="{{permissao.descPermissao}}">
                                     {{ 'PERMISSAO.' + permissao.descPermissao | translate }}
                                 </mat-checkbox>
                             </div>
                         </div>
-                        <div *ngFor="let permissao of permissoes; let i = index;">
-                            <mat-checkbox *ngIf="i >= permissoes?.length/2" (click)='updateListaPermissao(permissao)' formControlName="{{permissao.descPermissao}}">
+                        <h3 class="tipo-permissao">{{'TIPOPERMISSAO.LOTE' | translate}}</h3>
+                        <div *ngFor="let permissao of permissoes | permissionFilter:'LI'">
+                            <mat-checkbox (click)='updateListaPermissao(permissao)' formControlName="{{permissao.descPermissao}}">
+                                {{ 'PERMISSAO.' + permissao.descPermissao | translate }}
+                            </mat-checkbox>
+                        </div>
+                        <h3 class="tipo-permissao">{{'TIPOPERMISSAO.CHIN' | translate}}</h3>
+                        <div *ngFor="let permissao of permissoes | permissionFilter:'CH'">
+                            <mat-checkbox (click)='updateListaPermissao(permissao)' formControlName="{{permissao.descPermissao}}">
+                                {{ 'PERMISSAO.' + permissao.descPermissao | translate }}
+                            </mat-checkbox>
+                        </div>
+                        <h3 class="tipo-permissao">{{'TIPOPERMISSAO.RELA' | translate}}</h3>
+                        <div *ngFor="let permissao of permissoes | permissionFilter:'RE'">
+                            <mat-checkbox (click)='updateListaPermissao(permissao)' formControlName="{{permissao.descPermissao}}">
                                 {{ 'PERMISSAO.' + permissao.descPermissao | translate }}
                             </mat-checkbox>
                         </div>

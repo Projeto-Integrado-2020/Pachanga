@@ -160,6 +160,7 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RelatorioDetalhesDialogComponent } from './views/relatorio-detalhes-dialog/relatorio-detalhes-dialog.component';
 import { IvyCarouselModule } from 'angular-responsive-carousel';
 import { PainelSegurancaGeralComponent } from './views/painel-seguranca-geral/painel-seguranca-geral.component';
+import { PermissionFilter } from './views/utils/permission-filter.pipe';
 
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
 
@@ -275,7 +276,8 @@ export function provideConfig() {
     PerfilDialogComponent,
     IndexCarrocelComponent,
     RelatorioDetalhesDialogComponent,
-    PainelSegurancaGeralComponent
+    PainelSegurancaGeralComponent,
+    PermissionFilter
   ],
   entryComponents: [
     LoginComponent,

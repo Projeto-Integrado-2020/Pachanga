@@ -45,6 +45,7 @@ header {
 .texto-input {
     width: 100vh;
     margin-top: 1rem;
+    margin-bottom: 0;
 }
 
 .button-form {
@@ -54,6 +55,7 @@ header {
     padding-right: .3rem;
     margin-bottom: 3%;
     margin-left: 35%;
+    margin-top: 1rem;
 }
 
 .card-content {
@@ -71,4 +73,9 @@ header {
 
 .lista-permissoes {
     margin-left: 2rem;
+}
+
+.tipo-permissao {
+    margin-top: .5rem;
+    margin-bottom: .5rem;
 }

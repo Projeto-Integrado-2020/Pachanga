@@ -491,7 +491,18 @@
         "MODDADOB": "Modify bank info",
         "RELCHECK": "Execute check-in",
         "EXPOREPO": "Export reports",
-        "VISGRPER": "View permission roles"
+        "VISGRPER": "View permission roles",
+        "EDITSTAS": "Change party status"
+    },
+
+    "TIPOPERMISSAO": {
+        "GERAL": "General",
+        "GRUPE": "Roles and permissions",
+        "ESTO": "Stock",
+        "SEGU": "Security",
+        "LOTE": "Batch and tickets",
+        "CHIN": "Check-in",
+        "RELA": "Report"
     },
 
     "ASSIGNDIALOG": {
