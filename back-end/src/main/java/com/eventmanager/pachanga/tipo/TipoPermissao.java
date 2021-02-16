@@ -3,54 +3,54 @@ package com.eventmanager.pachanga.tipo;
 public enum TipoPermissao {
 	
 	EDITDFES(1,"EDITDFES"),//Editar dados da festa
-	CREGRPER(2,"CREGRPER"),//Criar grupo de permissão
-	DELGRPER(3,"DELGRPER"),//deletar grupo de permissão
-	EDIGRPER(4,"EDIGRPER"),//editar grupo de permissão
-	ADDMEMBE(5,"ADDMEMBE"),//adicionar membros
-	DELMEMBE(6,"DELMEMBE"),//expulsar membros
-	DISMEMBE(7,"DISMEMBE"),//distribuir os membros entre os grupos de permissão da festa
-	CADAESTO(8,"CADAESTO"),//permissão para cadastrar estoque
-	DELEESTO(9,"DELEESTO"),//permissão para remover estoque
-	EDITESTO(10,"EDITESTO"),//permissão para editar estoque
-	CADMESTO(11,"CADMESTO"),//permissão para cadastrar marca em estoque
-	DELMESTO(12,"DELMESTO"),//permissão para remover marca do estoque
-	EDIMESTO(13,"EDIMESTO"),//permissão para editar marca do estoque
-	ADDMESTO(14,"ADDMESTO"),//permissão para adicionar quantidade à marca
-	BAIMESTO(15,"BAIMESTO"),//permissão para dar baixa em produto no estoque
-	DELEFEST(16,"DELEFEST"),//deletar festa
-	VISUESTO(17,"VISUESTO"),//visualizar festa
-	VISUAREA(18,"VISUAREA"),//visualizar areas
-	ADDAREAS(19,"ADDAREAS"),//inserir areas
-	DELEAREA(20,"DELEAREA"),//deletar areas
-	EDITAREA(21,"EDITAREA"),//editar areas
-	VISUPSEG(22,"VISUPSEG"),//visualizar area seguranca problema / problema seguranca
-	ADDPSEGU(23,"ADDPSEGU"),//inserir area seguranca problema / problema seguranca
-	DELEPSEG(24,"DELEPSEG"),//deletar area seguranca problema / problema seguranca
-	EDITPSEG(25,"EDITPSEG"),//editar area seguranca problema / problema seguranca
-	VISULOTE(26,"VISULOTE"),//visualizar lote
-	ADDLOTES(27,"ADDLOTES"),//inserir lote
-	DELELOTE(28,"DELELOTE"),//deletar lote
-	EDITLOTE(29,"EDITLOTE"),//editar lote
-	VISUFORM(30,"VISUFORM"),//visualizar questionario
-	ADDFORMS(31,"ADDFORMS"),//inserir questionarios
-	DELEFORM(32,"DELEFORM"),//deletar questionario
-	EDITFORM(33,"EDITFORM"),//editar questionario
-	VISUINTE(34,"VISUINTE"),//visualizar integração
-	ADDINTEG(35,"ADDINTEG"),//inserir integração
-	DELEINTE(36,"DELEINTE"),//deletar integração
-	EDITINTE(37,"EDITINTE"),//editar integração
-	VISURELA(38,"VISURELA"),//visualizar relatório
-	VISUDADO(39,"VISUDADO"),//visualizar dados bancários
-	MODDADOB(40,"MODDADOB"),//modificar(inserir ou atualizar) dados bancários
-	DELEDADO(41,"DELEDADO"),//deletar dados bancários
-	VISUCUPM(42,"VISUCUPM"),//visualizar cupom
-	ADDCUPOM(43,"ADDCUPOM"),//inserir cupom
-	DELECUPM(44,"DELECUPM"),//deletar cupom
-	EDITCUPM(45,"EDITCUPM"),//editar cupom
-	RELCHECK(46,"RELCHECK"),//realizar check-in da festa
-	EXPOREPO(47,"EXPOREPO"),//exportar relatório
-	VISGRPER(48,"VISGRPER"),//visualizar grupos de permissão
-	EDITSTAS(49,"EDITSTAS");//editar status festa
+	CREGRPER(4,"CREGRPER"),//Criar grupo de permissão
+	DELGRPER(5,"DELGRPER"),//deletar grupo de permissão
+	EDIGRPER(6,"EDIGRPER"),//editar grupo de permissão
+	ADDMEMBE(7,"ADDMEMBE"),//adicionar membros
+	DELMEMBE(8,"DELMEMBE"),//expulsar membros
+	DISMEMBE(9,"DISMEMBE"),//distribuir os membros entre os grupos de permissão da festa
+	CADAESTO(11,"CADAESTO"),//permissão para cadastrar estoque
+	DELEESTO(12,"DELEESTO"),//permissão para remover estoque
+	EDITESTO(13,"EDITESTO"),//permissão para editar estoque
+	CADMESTO(14,"CADMESTO"),//permissão para cadastrar marca em estoque
+	DELMESTO(15,"DELMESTO"),//permissão para remover marca do estoque
+	EDIMESTO(16,"EDIMESTO"),//permissão para editar marca do estoque
+	ADDMESTO(17,"ADDMESTO"),//permissão para adicionar quantidade à marca
+	BAIMESTO(18,"BAIMESTO"),//permissão para dar baixa em produto no estoque
+	DELEFEST(2,"DELEFEST"),//deletar festa
+	VISUESTO(19,"VISUESTO"),//visualizar festa
+	VISUAREA(20,"VISUAREA"),//visualizar areas
+	ADDAREAS(21,"ADDAREAS"),//inserir areas
+	DELEAREA(22,"DELEAREA"),//deletar areas
+	EDITAREA(23,"EDITAREA"),//editar areas
+	VISUPSEG(24,"VISUPSEG"),//visualizar area seguranca problema / problema seguranca
+	ADDPSEGU(25,"ADDPSEGU"),//inserir area seguranca problema / problema seguranca
+	DELEPSEG(26,"DELEPSEG"),//deletar area seguranca problema / problema seguranca
+	EDITPSEG(27,"EDITPSEG"),//editar area seguranca problema / problema seguranca
+	VISULOTE(28,"VISULOTE"),//visualizar lote
+	ADDLOTES(29,"ADDLOTES"),//inserir lote
+	DELELOTE(30,"DELELOTE"),//deletar lote
+	EDITLOTE(31,"EDITLOTE"),//editar lote
+	VISUFORM(45,"VISUFORM"),//visualizar questionario
+	ADDFORMS(46,"ADDFORMS"),//inserir questionarios
+	DELEFORM(47,"DELEFORM"),//deletar questionario
+	EDITFORM(48,"EDITFORM"),//editar questionario
+	VISUINTE(32,"VISUINTE"),//visualizar integração
+	ADDINTEG(33,"ADDINTEG"),//inserir integração
+	DELEINTE(34,"DELEINTE"),//deletar integração
+	EDITINTE(35,"EDITINTE"),//editar integração
+	VISURELA(49,"VISURELA"),//visualizar relatório
+	VISUDADO(36,"VISUDADO"),//visualizar dados bancários
+	MODDADOB(37,"MODDADOB"),//modificar(inserir ou atualizar) dados bancários
+	DELEDADO(38,"DELEDADO"),//deletar dados bancários
+	VISUCUPM(39,"VISUCUPM"),//visualizar cupom
+	ADDCUPOM(40,"ADDCUPOM"),//inserir cupom
+	DELECUPM(41,"DELECUPM"),//deletar cupom
+	EDITCUPM(42,"EDITCUPM"),//editar cupom
+	RELCHECK(43,"RELCHECK"),//realizar check-in da festa
+	EXPOREPO(44,"EXPOREPO"),//exportar relatório
+	VISGRPER(10,"VISGRPER"),//visualizar grupos de permissão
+	EDITSTAS(3,"EDITSTAS");//editar status festa
 
 	private String valor;
 	private int codigo;
