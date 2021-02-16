@@ -900,6 +900,7 @@ class ProdutoServiceTest {
 		produtoTO.setPrecoMedio(new BigDecimal("73.90"));
 		Produto produto = produtoTest();
 		int codProduto = produtoTO.getCodProduto();
+		produto.setCodProduto(2);
 
 		Mockito.when(produtoRepository.findById(codProduto)).thenReturn(produto);
 		Mockito.when(produtoRepository.save(Mockito.any(Produto.class))).thenReturn(null);
@@ -922,7 +923,6 @@ class ProdutoServiceTest {
 		produtoTO.setMarca("ItubainexNotPlagio");
 		produtoTO.setPrecoMedio(new BigDecimal("73.90"));
 		Produto produto = produtoTest();
-		produto.setCodProduto(2);
 		int codProduto = produtoTO.getCodProduto();
 		produtoTO.setDose(false);
 		List<ItemEstoque> itensEstoque = new ArrayList<>();
@@ -937,7 +937,7 @@ class ProdutoServiceTest {
 
 		Produto retorno = produtoService.editarProduto(produtoTO, 1);
 
-		assertEquals(2, retorno.getCodProduto());
+		assertEquals(1, retorno.getCodProduto());
 		assertEquals(retorno.getCodFesta(), produtoTO.getCodFesta());
 		assertEquals(retorno.getMarca(), produtoTO.getMarca());
 		assertEquals(retorno.getPrecoMedio(), produtoTO.getPrecoMedio());
@@ -951,7 +951,6 @@ class ProdutoServiceTest {
 		Produto produto = produtoTest();
 		int codProduto = produtoTO.getCodProduto();
 		produto.setDose(false);
-		produto.setCodProduto(2);
 		produtoTO.setDose(true);
 		List<ItemEstoque> itensEstoque = new ArrayList<>();
 		itensEstoque.add(itemEstoqueTest());
@@ -965,7 +964,7 @@ class ProdutoServiceTest {
 
 		Produto retorno = produtoService.editarProduto(produtoTO, 1);
 
-		assertEquals(2, retorno.getCodProduto());
+		assertEquals(1, retorno.getCodProduto());
 		assertEquals(retorno.getCodFesta(), produtoTO.getCodFesta());
 		assertEquals(retorno.getMarca(), produtoTO.getMarca());
 		assertEquals(retorno.getPrecoMedio(), produtoTO.getPrecoMedio());

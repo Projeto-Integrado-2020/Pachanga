@@ -417,7 +417,7 @@ public class ProdutoService {
 			produtoMarcaIgual = produtoRepository.findByMarca(produtoTO.getMarca(), codFesta);
 		} else {
 			Produto produtoExistente = produtoRepository.findByMarca(produtoTO.getMarca(), codFesta);
-			if (codProduto == produtoExistente.getCodProduto()) {
+			if (codProduto != produtoExistente.getCodProduto()) {
 				produtoMarcaIgual = produtoExistente;
 			}
 		}
