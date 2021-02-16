@@ -7,14 +7,14 @@
             </div>
         </mat-list-item>
 
-        <mat-list-item class="center-x botoes">
+        <div class="botoes">
                 <button routerLink="./forms" mat-button class="botao-forms">
                     {{'FORMS.TITLE' | translate}} <mat-icon>pie_chart</mat-icon>
                 </button>
                 <button class="exportar-relatorio" routerLink="./exportar" mat-raised-button>
                     {{ 'RELATORIOEXPORT.EXPORTAR' | translate }}
                 </button>
-        </mat-list-item>
+        </div>
     </mat-list>
 
     <mat-tab-group mat-align-tabs="center">

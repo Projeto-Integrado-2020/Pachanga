@@ -1,43 +1,44 @@
 @import '../material/paleta.scss';
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  border: 0;
-}
 
 @media (max-width: 748px) {
-  table{
-    width: 100%;
+
+  // .mat-header-cell {
+  //   padding: 5px;
+  // }
+
+  // .mat-cell {
+  //   padding: 5px;
+  // }
+
+
+  .nome {
+    max-width: 7rem;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
 
-  .main-container {
+  .url {
+    max-width: 5rem;
   }
 
-  .mat-header-cell {
-    padding: 5px;
+  .table {
+    max-width: 100% !important;
   }
-
-  .mat-cell {
-    padding: 5px;
+  .icons-column {
+    flex-direction: column;
   }
 }
 
 @media (min-width: 749px) {
-  table{
-    width: 75%;
+  .url {
+    max-width: 10rem;
   }
-}
 
-.main-container {
-  top: 64px;
-  max-width: 1140px;
-  height: calc(100vh - 64px);
-  position: relative;
-  left: 50%;
-  transform: translateX(-50%);
-  padding: 0 2rem 0 2rem;
+  .icons-column {
+    flex-direction: row;
+  }
 }
 
 .header-flex {
@@ -64,19 +65,10 @@ header {
 
 table {
   @include centralizar(true, false);
-  margin: 0 0 1rem 0;
 }
 
 th {
   padding: auto;
-}
-
-.icon-delete{
-
-}
-
-.icon-edit {
-
 }
 
 .mat-header-cell {
@@ -84,8 +76,15 @@ th {
 }
 
 .icons-column {
-  display: flex;
-  flex-direction: column;
+  display: inline-flex;
+  position: relative;
+  right: 0;
+}
+
+.actions {
+  width: .5rem;
+  padding: 0;
+  min-width: 0 !important;
 }
 
 .btn-1 {
@@ -105,22 +104,16 @@ th, td {
   font-size: 1rem;
   word-wrap: break-word;
   overflow-wrap: break-word;
-  min-width: 255px;
-  max-width: 255px;
+  margin: 1rem;
 }
 
 .url {
-  min-width: 550px;
-  max-width: 550px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .nome {
-  min-width: 255px;
-  max-width: 255px;
-}
-
-.mat-row {
-  height: auto;
 }
 
 .mat-cell {

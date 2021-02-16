@@ -31,14 +31,6 @@
     }
   }
 
-  .sidenavFechar {
-    right: 0;
-  }
-
-  .sidenavAbrir {
-    background-color: rgba(0, 0, 0, .07);
-  }
-
   .status-list {
     right: 0;
     left: 0;
@@ -64,31 +56,19 @@
     padding: .5rem 0 .5rem 0;
   }
 
-  .example-sidenav {
-    width: 100%;
-  }
-
-  .botao-editar-desktop {
-    display: none;
-  }
-
   .ultima-celula {
     max-width: 2rem;
     padding: .5rem;
   }
 
   .botoes {
-    @include centralizar(true, false);
+    flex-direction: column;
   }
 
   td.mat-cell:first-of-type {
     padding-right: 1.5rem;
   }
 
-
-  .sidenavFechar {
-    transform: translateX(-3rem);
-  }
 
   .form_row {
     display: flex;
@@ -100,17 +80,11 @@
 
 @media (min-width: 749px){
 
-  .sidenavFechar {
-    display: none;
-  }
-  .example-sidenav {
-    width: 10rem;
-  }
 
   .botoes {
     justify-content: center;
-    gap: 2rem;
   }
+
 
   .painel {
     max-width: 60%;
@@ -118,14 +92,6 @@
   }
 }
 
-.mat-table {
-  margin: 0 !important;
-  width: 100% !important;
-}
-
-.center-X {
-  @include centralizar(true, false);
-}
 
 .botao {
   color: #ffffff;
@@ -133,8 +99,10 @@
 
 .botoes {
   display: flex;
+  align-items: center;
   margin-top: 1rem;
   margin-bottom: 1rem;
+  gap: 1rem;
 }
 
 .painel {
@@ -194,10 +162,6 @@
     position: relative
   }
 
-  table {
-    width: 75%;
-    margin-top: 3rem;
-  }
 
   .icon-edit{
     position: relative;
