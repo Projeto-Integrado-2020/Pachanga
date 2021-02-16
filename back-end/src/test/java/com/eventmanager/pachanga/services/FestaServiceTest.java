@@ -1979,6 +1979,9 @@ class FestaServiceTest {
 				.thenReturn(usuarioTest());
 
 		Mockito.when(usuarioRepository.findById(Mockito.anyInt())).thenReturn(usuarioTest());
+		
+		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt()))
+		.thenReturn(criacaoGrupos());
 
 		boolean erro = false;
 
@@ -2008,6 +2011,9 @@ class FestaServiceTest {
 		Mockito.when(usuarioRepository.findById(Mockito.anyInt())).thenReturn(usuarioTest());
 
 		Mockito.when(festaRepository.findByCodFesta(Mockito.anyInt())).thenReturn(festaTest);
+		
+		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt()))
+		.thenReturn(criacaoGrupos());
 
 		boolean erro = false;
 
@@ -2040,6 +2046,9 @@ class FestaServiceTest {
 
 		Mockito.when(festaRepository.findByCodFesta(Mockito.anyInt())).thenReturn(festaTest);
 
+		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt()))
+		.thenReturn(criacaoGrupos());
+		
 		boolean erro = false;
 
 		String mensagemErro = null;
@@ -2073,6 +2082,9 @@ class FestaServiceTest {
 		Mockito.when(festaRepository.findByCodFesta(Mockito.anyInt())).thenReturn(festaTest);
 
 		Mockito.when(usuarioRepository.findByIdFesta(Mockito.anyInt())).thenReturn(usuarios);
+		
+		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt()))
+		.thenReturn(criacaoGrupos());
 
 		boolean erro = false;
 
@@ -2099,6 +2111,9 @@ class FestaServiceTest {
 		Mockito.when(festaRepository.findByCodFesta(Mockito.anyInt())).thenReturn(festaTest);
 
 		Mockito.when(usuarioRepository.findByIdFesta(Mockito.anyInt())).thenReturn(usuarios);
+		
+		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt()))
+		.thenReturn(criacaoGrupos());
 
 		Mockito.doNothing().when(notificacaoService).deleteNotificacao(Mockito.anyInt(), Mockito.anyString());
 
@@ -2122,6 +2137,9 @@ class FestaServiceTest {
 				.thenReturn(usuarioTest());
 
 		Mockito.when(usuarioRepository.findById(Mockito.anyInt())).thenReturn(usuarioTest());
+		
+		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt()))
+		.thenReturn(criacaoGrupos());
 
 		Mockito.when(festaRepository.findByCodFesta(Mockito.anyInt())).thenReturn(festaTest);
 

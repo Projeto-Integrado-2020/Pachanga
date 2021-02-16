@@ -48,14 +48,9 @@ public class GrupoService {
 
 	public Grupo addGrupoFesta(GrupoTO grupoTO, int idUsuario) {
 		this.validarPermissaoUsuario(grupoTO.getCodFesta(), idUsuario, TipoPermissao.CREGRPER.getCodigo());
-		List<Grupo> gruposPreExistentes = grupoRepository.findGruposDuplicados(grupoTO.getCodFesta(),
-				grupoTO.getNomeGrupo());
-
-		if (gruposPreExistentes.isEmpty()) {
-			return this.addGrupo(grupoTO.getCodFesta(), grupoTO.getNomeGrupo(), false, grupoTO.getPermissoes());
-		} else {
-			throw new ValidacaoException("GRPEXIST");
-		}
+		this.verificarDuplicidadeGrupo(grupoTO.getCodFesta(), grupoTO.getNomeGrupo());
+	
+		return this.addGrupo(grupoTO.getCodFesta(), grupoTO.getNomeGrupo(), false, grupoTO.getPermissoes());
 	}
 
 	public Grupo addGrupo(int codFesta, String nomeGrupo, boolean organizador, List<Integer> permissoes) {
@@ -116,6 +111,7 @@ public class GrupoService {
 		Festa festa = this.validarFesta(grupoTO.getCodFesta());
 		Grupo grupo = validarGrupo(grupoTO.getCodGrupo());
 		this.validarPermissaoUsuario(festa.getCodFesta(), idUsuario, TipoPermissao.EDIGRPER.getCodigo());
+		this.verificarDuplicidadeGrupo(grupoTO.getCodFesta(), grupoTO.getNomeGrupo(), grupo.getCodGrupo());
 
 		if (grupo.getOrganizador()) {
 			throw new ValidacaoException("EDITORGN");
@@ -265,6 +261,22 @@ public class GrupoService {
 			throw new ValidacaoException("GRUPNFOU");
 		}
 		return grupo;
+	}
+	
+	public void verificarDuplicidadeGrupo(int codFesta, String nomeGrupo) {
+		List<Grupo> gruposPreExistentes = grupoRepository.findGruposDuplicados(codFesta, nomeGrupo);
+		if (gruposPreExistentes != null && gruposPreExistentes.size() > 0) {
+			throw new ValidacaoException("GRPEXIST");
+		}
+	}
+	
+	public void verificarDuplicidadeGrupo(int codFesta, String nomeGrupo, int codGrupo) {
+		List<Grupo> gruposPreExistentes = grupoRepository.findGruposDuplicados(codFesta, nomeGrupo);
+		if (gruposPreExistentes != null && gruposPreExistentes.size() > 0) {
+			if(gruposPreExistentes.get(0).getCodGrupo() != codGrupo) {
+				throw new ValidacaoException("GRPEXIST");	
+			}
+		}
 	}
 
 	public Festa validarFesta(int idFesta) {

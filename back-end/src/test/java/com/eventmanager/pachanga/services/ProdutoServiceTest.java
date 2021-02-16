@@ -894,24 +894,27 @@ class ProdutoServiceTest {
 
 	// editarProduto_______________________________________________________________________________________________
 	@Test
-	void editarProdutoSucessoTest() throws Exception {
+	void editarProdutoNomeExistenteTest() throws Exception {
 		ProdutoTO produtoTO = produtoTOTest();
 		produtoTO.setMarca("ItubainexNotPlagio");
 		produtoTO.setPrecoMedio(new BigDecimal("73.90"));
 		Produto produto = produtoTest();
 		int codProduto = produtoTO.getCodProduto();
+		produto.setCodProduto(2);
 
 		Mockito.when(produtoRepository.findById(codProduto)).thenReturn(produto);
 		Mockito.when(produtoRepository.save(Mockito.any(Produto.class))).thenReturn(null);
 		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt()))
 				.thenReturn(criacaoGrupos());
+		Mockito.when(produtoRepository.findByMarca(Mockito.anyString(), Mockito.anyInt())).thenReturn(produto);
 
-		Produto retorno = produtoService.editarProduto(produtoTO, 1);
-
-		assertEquals(retorno.getCodProduto(), produtoTO.getCodProduto());
-		assertEquals(retorno.getCodFesta(), produtoTO.getCodFesta());
-		assertEquals(retorno.getMarca(), produtoTO.getMarca());
-		assertEquals(retorno.getPrecoMedio(), produtoTO.getPrecoMedio());
+		boolean erro = false;
+		try {
+			produtoService.editarProduto(produtoTO, 1);
+		} catch (Exception e) {
+			erro = true;
+		}
+		assertEquals(true, erro);
 	}
 
 	@Test
@@ -930,10 +933,11 @@ class ProdutoServiceTest {
 		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt()))
 				.thenReturn(criacaoGrupos());
 		Mockito.when(itemEstoqueRepository.findItensEstoqueByCodProduto(Mockito.anyInt())).thenReturn(itensEstoque);
+		Mockito.when(produtoRepository.findByMarca(Mockito.anyString(), Mockito.anyInt())).thenReturn(produto);
 
 		Produto retorno = produtoService.editarProduto(produtoTO, 1);
 
-		assertEquals(retorno.getCodProduto(), produtoTO.getCodProduto());
+		assertEquals(1, retorno.getCodProduto());
 		assertEquals(retorno.getCodFesta(), produtoTO.getCodFesta());
 		assertEquals(retorno.getMarca(), produtoTO.getMarca());
 		assertEquals(retorno.getPrecoMedio(), produtoTO.getPrecoMedio());
@@ -956,10 +960,11 @@ class ProdutoServiceTest {
 		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt()))
 				.thenReturn(criacaoGrupos());
 		Mockito.when(itemEstoqueRepository.findItensEstoqueByCodProduto(Mockito.anyInt())).thenReturn(itensEstoque);
+		Mockito.when(produtoRepository.findByMarca(Mockito.anyString(), Mockito.anyInt())).thenReturn(produto);
 
 		Produto retorno = produtoService.editarProduto(produtoTO, 1);
 
-		assertEquals(retorno.getCodProduto(), produtoTO.getCodProduto());
+		assertEquals(1, retorno.getCodProduto());
 		assertEquals(retorno.getCodFesta(), produtoTO.getCodFesta());
 		assertEquals(retorno.getMarca(), produtoTO.getMarca());
 		assertEquals(retorno.getPrecoMedio(), produtoTO.getPrecoMedio());

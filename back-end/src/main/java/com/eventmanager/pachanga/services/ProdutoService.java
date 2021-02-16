@@ -73,8 +73,8 @@ public class ProdutoService {
 	// add_____________________________________________________________________________________________________
 	public Produto addProduto(ProdutoTO produtoTO, Integer codFesta, Integer idUsuarioPermissao) {
 		festaService.validarFestaFinalizada(codFesta);
-		this.validarUsuarioPorFesta(codFesta, idUsuarioPermissao, TipoPermissao.CADAESTO.getCodigo());
-		this.validarProduto(produtoTO.getMarca(), produtoTO.getCodFesta(), 0);
+		this.validarUsuarioPorFesta(codFesta, idUsuarioPermissao, TipoPermissao.CADMESTO.getCodigo());
+		this.validarProduto(produtoTO, codFesta, 0);
 		this.validarQuantidadeDoseProduto(produtoTO);
 		Produto produto = produtoFactory.getProduto(produtoTO);
 		produto.setCodProduto(produtoRepository.getNextValMySequence());
@@ -90,7 +90,7 @@ public class ProdutoService {
 		int quantidadeAtual = itemEstoqueTO.getQuantidadeAtual();
 		int porcentagemMin = itemEstoqueTO.getPorcentagemMin();
 
-		this.validarUsuarioPorEstoque(idUsuarioPermissao, codEstoque, TipoPermissao.CADAESTO.getCodigo());
+		this.validarUsuarioPorEstoque(idUsuarioPermissao, codEstoque, TipoPermissao.CADMESTO.getCodigo());
 
 		ItemEstoque produtoEstoqueExistentes = this.validarEstoqueProduto(codEstoque, itemEstoqueTO.getCodProduto());
 
@@ -104,7 +104,7 @@ public class ProdutoService {
 				produtoEstoqueExistentes.getProduto(), produtoEstoqueExistentes.getEstoque());
 
 		itemEstoqueRepository.save(itemEstoque);
-		
+
 		this.inserirItemEstoqueFluxo(itemEstoque);
 
 		return itemEstoque;
@@ -166,7 +166,7 @@ public class ProdutoService {
 			for (ItemEstoque itemEstoque : itensEstoque) {
 				if (produto.getDose().booleanValue() && mudancaDose) {
 					itemEstoque
-					.setQuantidadeAtual(Math.multiplyExact(quantidadeDoses, itemEstoque.getQuantidadeAtual()));
+							.setQuantidadeAtual(Math.multiplyExact(quantidadeDoses, itemEstoque.getQuantidadeAtual()));
 					itemEstoque.setQuantidadeMax(Math.multiplyExact(quantidadeDoses, itemEstoque.getQuantidadeMax()));
 					itemEstoque.setQuantPerda(Math.multiplyExact(quantidadeDoses, itemEstoque.getQuantPerda()));
 				} else if (!produto.getDose().booleanValue() && mudancaDose) {
@@ -177,7 +177,7 @@ public class ProdutoService {
 			}
 		}
 
-		this.validarProduto(produtoTO.getMarca(), produtoTO.getCodFesta(), produtoTO.getCodProduto());
+		this.validarProduto(produtoTO, produtoTO.getCodFesta(), produtoTO.getCodProduto());
 		produto.setMarca(produtoTO.getMarca());
 		produtoRepository.save(produto);
 		return produto;
@@ -241,7 +241,7 @@ public class ProdutoService {
 
 		return itemEstoque;
 	}
-	
+
 	public ItemEstoque recargaProdutoComOrigem(Integer codProduto, Integer codEstoque, Integer quantidade,
 			Integer idUsuarioPermissao, Integer codEstoqueOrigem) {
 		if (codEstoqueOrigem != null) {
@@ -411,15 +411,20 @@ public class ProdutoService {
 			throw new ValidacaoException("QATUAINV"); // quantidadeAtual inválida
 	}
 
-	private void validarProduto(String marca, int codFesta, int codProduto) {
-		Produto produtoMarcaIgual = produtoRepository.findByMarca(marca, codFesta);
-		if (produtoMarcaIgual != null && produtoMarcaIgual.getCodProduto() != codProduto) {
+	private void validarProduto(ProdutoTO produtoTO, int codFesta, int codProduto) {
+		Produto produtoMarcaIgual = null;
+		if (codProduto == 0) {
+			produtoMarcaIgual = produtoRepository.findByMarca(produtoTO.getMarca(), codFesta);
+		} else {
+			Produto produtoExistente = produtoRepository.findByMarca(produtoTO.getMarca(), codFesta);
+			if (codProduto != produtoExistente.getCodProduto()) {
+				produtoMarcaIgual = produtoExistente;
+			}
+		}
+		if (produtoMarcaIgual != null) {
 			throw new ValidacaoException("PROMIGUA");// produto com a mesma marca cadastrado na festa
 		}
 	}
-	
-
-
 
 	private void disparaNotificacaoCasoEstoqueEscasso(ItemEstoque itemEstoque) {
 		if (itemEstoque.quantidadeAtualAbaixoMin()) {
