@@ -66,7 +66,6 @@ export class NavbarComponent implements OnInit {
 // acessar infoemações de perfil
   openDialogPerfil(): void {
     this.dialog.open(PerfilDialogComponent, {
-      width: '25rem',
     });
   }
  // método para abrir modal de cadastro
