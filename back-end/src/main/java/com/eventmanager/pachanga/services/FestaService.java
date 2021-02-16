@@ -329,8 +329,7 @@ public class FestaService {
 	}
 
 	public Festa mudarStatusFesta(int idFesta, String statusFesta, int idUsuario) {
-		//validarPermissaoUsuario(idUsuario, idFesta, TipoPermissao.EDITSTAS.getCodigo());
-		validarPermissaoUsuarioGrupo(idUsuario, idFesta, TipoPermissao.EDITSTAS.getCodigo());
+		this.validarPermissaoUsuarioGrupo(idFesta, idUsuario, TipoPermissao.EDITSTAS.getCodigo());
 		String statusFestaMaiusculo = statusFesta.toUpperCase();
 		if (!TipoStatusFesta.INICIADO.getValor().equals(statusFestaMaiusculo)
 				&& !TipoStatusFesta.FINALIZADO.getValor().equals(statusFestaMaiusculo)
