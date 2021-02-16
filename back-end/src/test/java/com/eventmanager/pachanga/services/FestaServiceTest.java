@@ -2093,44 +2093,6 @@ class FestaServiceTest {
 		assertEquals(false, erro);
 
 	}
-	
-	@Test
-	void mudarStatusFestaSucessoUsuarioSemPermissao() throws Exception {
-
-		List<Usuario> usuarios = new ArrayList<>();
-		usuarios.add(usuarioTest());
-
-		Festa festaTest = festaTest();
-
-		Mockito.when(usuarioRepository.findBycodFestaAndUsuario(Mockito.any(Integer.class), Mockito.any(Integer.class)))
-				.thenReturn(usuarioTest());
-
-		Mockito.when(usuarioRepository.findById(Mockito.anyInt())).thenReturn(usuarioTest());
-
-		Mockito.when(festaRepository.findByCodFesta(Mockito.anyInt())).thenReturn(festaTest);
-
-		Mockito.when(usuarioRepository.findByIdFesta(Mockito.anyInt())).thenReturn(usuarios);
-		
-		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt()))
-		.thenReturn(new ArrayList<Grupo>());
-
-		
-		boolean erro = false;
-
-		String mensagemErro = null;
-
-		try {
-		festaService.mudarStatusFesta(1, "I", 2);
-		} catch (ValidacaoException e) {
-			erro = true;
-			mensagemErro = e.getMessage();
-		}
-
-		assertEquals("USESPERM", mensagemErro);
-
-		assertEquals(false, erro);
-
-	}
 
 	@Test
 	void mudarStatusFestaFinalizadaSucesso() throws Exception {
