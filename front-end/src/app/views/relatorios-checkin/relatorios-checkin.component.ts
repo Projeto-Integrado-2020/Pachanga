@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { RelatorioCheckinService } from 'src/app/services/relatorios/relatorio-checkin.service';
 import { interval, Observable, Subscription } from 'rxjs';
@@ -9,7 +9,7 @@ import { TranslateService } from '@ngx-translate/core';
   templateUrl: './relatorios-checkin.component.html',
   styleUrls: ['./relatorios-checkin.component.scss']
 })
-export class RelatoriosCheckinComponent implements OnInit, OnDestroy {
+export class RelatoriosCheckinComponent implements OnInit {
 
   codFesta: string;
   showLegend = true;
@@ -34,10 +34,6 @@ export class RelatoriosCheckinComponent implements OnInit, OnDestroy {
   constructor(public relatorioCheckin: RelatorioCheckinService, public translateService: TranslateService, public router: Router) { }
 
   ngOnInit() {
-    if (this.subscription) {
-      this.subscription.unsubscribe();
-    }
-    this.source = null;
     const idFesta = this.router.url;
     this.codFesta = idFesta.substring(idFesta.indexOf('&') + 1, idFesta.indexOf('/', idFesta.indexOf('&')));
     this.faixaEtaria();
@@ -49,6 +45,39 @@ export class RelatoriosCheckinComponent implements OnInit, OnDestroy {
 
   faixaEtaria() {
     this.relatorioCheckin.faixaEtaria(this.codFesta).subscribe((resp: any) => {
+      const mockResp = {
+        quantitadeFaixaEtaria: {
+          0: 15,
+          18: 246,
+          19: 345,
+          20: 164,
+          23: 76,
+          25: 9,
+          47: 5
+        },
+        quantidadeGenero: {
+          'Não-binário': 1,
+          'Homem cisgênero': 153,
+          'Mulher cisgênero': 370,
+          'Homem transgênero': 123,
+          'Mulher transgênero': 218,
+          'NF': 15
+        },
+        ingressoFestaCheckedUnchecked: {
+          'Pista Inteira': {216: 356},
+          'Pista Meia': {128: 374},
+          'Camarote GOLD': {46: 100},
+          'Camarote BLACK': {31: 50}
+        },
+        quantidadePessoasHora: {
+          '2021-01-21T23:00:00': 287,
+          '2021-01-22T00:00:00': 357,
+          '2021-01-22T01:00:00': 112,
+          '2021-01-22T02:00:00': 112,
+          '2021-01-22T04:00:00': 12
+        }
+      };
+      resp = mockResp;
       const dataSetTemp = [];
       for (const faixaEtaria of Object.keys(resp.quantitadeFaixaEtaria)) {
         dataSetTemp.push({
@@ -62,6 +91,39 @@ export class RelatoriosCheckinComponent implements OnInit, OnDestroy {
 
   generos() {
     this.relatorioCheckin.genero(this.codFesta).subscribe((resp: any) => {
+      const mockResp = {
+        quantitadeFaixaEtaria: {
+          0: 15,
+          18: 246,
+          19: 345,
+          20: 164,
+          23: 76,
+          25: 9,
+          47: 5
+        },
+        quantidadeGenero: {
+          'Não-binário': 1,
+          'Homem cisgênero': 153,
+          'Mulher cisgênero': 370,
+          'Homem transgênero': 123,
+          'Mulher transgênero': 218,
+          'NF': 15
+        },
+        ingressoFestaCheckedUnchecked: {
+          'Pista Inteira': {216: 356},
+          'Pista Meia': {128: 374},
+          'Camarote GOLD': {46: 100},
+          'Camarote BLACK': {31: 50}
+        },
+        quantidadePessoasHora: {
+          '2021-01-21T23:00:00': 287,
+          '2021-01-22T00:00:00': 357,
+          '2021-01-22T01:00:00': 112,
+          '2021-01-22T02:00:00': 112,
+          '2021-01-22T04:00:00': 12
+        }
+      };
+      resp = mockResp;
       const dataSetTemp = [];
       for (const genero of Object.keys(resp.quantidadeGenero)) {
         dataSetTemp.push({
@@ -75,6 +137,39 @@ export class RelatoriosCheckinComponent implements OnInit, OnDestroy {
 
   ingressosFestaCheckedUnchecked() {
     this.relatorioCheckin.checkedUnchecked(this.codFesta).subscribe((resp: any) => {
+      const mockResp = {
+        quantitadeFaixaEtaria: {
+          0: 15,
+          18: 246,
+          19: 345,
+          20: 164,
+          23: 76,
+          25: 9,
+          47: 5
+        },
+        quantidadeGenero: {
+          'Não-binário': 1,
+          'Homem cisgênero': 153,
+          'Mulher cisgênero': 370,
+          'Homem transgênero': 123,
+          'Mulher transgênero': 218,
+          'NF': 15
+        },
+        ingressoFestaCheckedUnchecked: {
+          'Pista Inteira': {216: 356},
+          'Pista Meia': {128: 374},
+          'Camarote GOLD': {46: 100},
+          'Camarote BLACK': {31: 50}
+        },
+        quantidadePessoasHora: {
+          '2021-01-21T23:00:00': 287,
+          '2021-01-22T00:00:00': 357,
+          '2021-01-22T01:00:00': 112,
+          '2021-01-22T02:00:00': 112,
+          '2021-01-22T04:00:00': 12
+        }
+      };
+      resp = mockResp;
       const dataSetTemp = [];
       for (const ingressosFestaCheckedUnchecked of Object.keys(resp.ingressoFestaCheckedUnchecked)) {
         const seriesTemp = [];
@@ -101,6 +196,39 @@ export class RelatoriosCheckinComponent implements OnInit, OnDestroy {
 
   quantidadeEntradasHora() {
     this.relatorioCheckin.qtdEntradasHora(this.codFesta).subscribe((resp: any) => {
+      const mockResp = {
+        quantitadeFaixaEtaria: {
+          0: 15,
+          18: 246,
+          19: 345,
+          20: 164,
+          23: 76,
+          25: 9,
+          47: 5
+        },
+        quantidadeGenero: {
+          'Não-binário': 1,
+          'Homem cisgênero': 153,
+          'Mulher cisgênero': 370,
+          'Homem transgênero': 123,
+          'Mulher transgênero': 218,
+          'NF': 15
+        },
+        ingressoFestaCheckedUnchecked: {
+          'Pista Inteira': {216: 356},
+          'Pista Meia': {128: 374},
+          'Camarote GOLD': {46: 100},
+          'Camarote BLACK': {31: 50}
+        },
+        quantidadePessoasHora: {
+          '2021-01-21T23:00:00': 287,
+          '2021-01-22T00:00:00': 357,
+          '2021-01-22T01:00:00': 112,
+          '2021-01-22T02:00:00': 112,
+          '2021-01-22T04:00:00': 12
+        }
+      };
+      resp = mockResp;
       const seriesTemp = [];
       for (const quantidadeEntradasHora of Object.keys(resp.quantidadePessoasHora)) {
         seriesTemp.push({
@@ -151,13 +279,6 @@ export class RelatoriosCheckinComponent implements OnInit, OnDestroy {
         this.quantidadeEntradasHora();
       }
     );
-  }
-
-  ngOnDestroy() {
-    if (this.subscription) {
-      this.subscription.unsubscribe();
-    }
-    this.source = null;
   }
 
 }
