@@ -15,6 +15,7 @@ import { GetPermissoesService } from 'src/app/services/get-permissoes/get-permis
 import { of } from 'rxjs';
 import { GetFestaService } from 'src/app/services/get-festa/get-festa.service';
 import { CriarGrupoService } from 'src/app/services/criar-grupo/criar-grupo.service';
+import { PermissionFilter } from '../utils/permission-filter.pipe';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -26,7 +27,7 @@ describe('CriarGrupoComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CriarGrupoComponent ],
+      declarations: [ CriarGrupoComponent, PermissionFilter ],
       imports: [
         HttpClientTestingModule,
         CustomMaterialModule,
@@ -44,7 +45,10 @@ describe('CriarGrupoComponent', () => {
       ],
       providers: [
         {provide: GetPermissoesService, useValue: {
-          getPermissoes: () => of([{descPermissao: 'Teste1'}, {descPermissao: 'Teste2'}]),
+          getPermissoes: () => of([
+            {descPermissao: 'Teste1', tipPermissao: 'GE'},
+            {descPermissao: 'Teste2', tipPermissao: 'GE'}
+          ]),
           setFarol: () => false,
         }},
         {provide: GetFestaService, useValue: {
@@ -122,7 +126,9 @@ describe('CriarGrupoComponent', () => {
 
     expect(component.getPermissaoService.getPermissoes).toHaveBeenCalled();
     expect(component.getPermissaoService.setFarol).toHaveBeenCalledWith(false);
-    expect(component.permissoes).toEqual([{descPermissao: 'Teste1'}, {descPermissao: 'Teste2'}]);
+    expect(component.permissoes).toEqual([
+      {descPermissao: 'Teste1', tipPermissao: 'GE'}, {descPermissao: 'Teste2', tipPermissao: 'GE'}
+    ]);
     expect(component.buildForm).toHaveBeenCalled();
   });
 
