@@ -697,7 +697,18 @@
         "MODDADOB": "Modificar dados bancários",
         "RELCHECK": "Realizar check-in",
         "EXPOREPO": "Exportar relatórios",
-        "VISGRPER": "Visualizar grupos de permissão"
+        "VISGRPER": "Visualizar grupos de permissão",
+        "EDITSTAS": "Alterar status da festa"
+    },
+
+    "TIPOPERMISSAO": {
+        "GERAL": "Geral",
+        "GRUPE": "Grupos e permissões",
+        "ESTO": "Estoque",
+        "SEGU": "Segurança",
+        "LOTE": "Lote e ingressos",
+        "CHIN": "Check-in",
+        "RELA": "Relatório"
     },
     
     "PRIVACIDADE": {

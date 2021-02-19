@@ -58,6 +58,7 @@ import { GerenciadorCuponsComponent } from './views/gerenciador-cupons/gerenciad
 import { ControleSidenavComponent } from './views/controle-sidenav/controle-sidenav.component';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RelatoriosExportComponent } from './views/relatorios-export/relatorios-export.component';
+import { PermissionFilter } from './views/utils/permission-filter.pipe';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -120,7 +121,8 @@ describe('AppComponent', () => {
         MeusIngressosComponent,
         GerenciadorCuponsComponent,
         ControleSidenavComponent,
-        RelatoriosExportComponent
+        RelatoriosExportComponent,
+        PermissionFilter
       ],
       imports: [
         MomentModule,
