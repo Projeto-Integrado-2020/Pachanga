@@ -42,8 +42,8 @@ export class CriarGrupoComponent implements OnInit {
 
   resgatarPermissoes() {
     this.getPermissaoService.getPermissoes().subscribe((resp: any) => {
-      this.getPermissaoService.setFarol(false);
       this.permissoes = resp;
+      console.log(this.permissoes);
       this.buildForm();
     });
   }

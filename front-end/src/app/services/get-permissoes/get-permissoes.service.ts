@@ -20,8 +20,6 @@ export class GetPermissoesService {
               public loginService: LoginService) { }
 
   getPermissoes() {
-    if (!this.farol) {
-      this.setFarol(true);
 
       let headers = new HttpHeaders();
       headers = headers.append('Content-Type', 'application/json');
@@ -33,7 +31,6 @@ export class GetPermissoesService {
           return this.handleError(error, this.logService);
         })
       );
-    }
   }
 
   handleError = (error: HttpErrorResponse, logService: LogService) => {

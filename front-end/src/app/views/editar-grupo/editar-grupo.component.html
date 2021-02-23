@@ -13,32 +13,34 @@
                     </mat-form-field>
                     <br>
                     <div class="lista-permissoes">
-                        <div class="esq">
-                            <h3 class="tipo-permissao">{{'TIPOPERMISSAO.GERAL' | translate}}</h3>
-                            <div *ngFor="let permissao of permissoes | permissionFilter:'GE'">
-                                <mat-checkbox (click)='updateListaPermissao(permissao)' formControlName="{{permissao.descPermissao}}">
-                                    {{ 'PERMISSAO.' + permissao.descPermissao | translate }}
-                                </mat-checkbox>
-                            </div>
-                            <h3 class="tipo-permissao">{{'TIPOPERMISSAO.GRUPE' | translate}}</h3>
-                            <div *ngFor="let permissao of permissoes | permissionFilter:'GP'">
-                                <mat-checkbox (click)='updateListaPermissao(permissao)' formControlName="{{permissao.descPermissao}}">
-                                    {{ 'PERMISSAO.' + permissao.descPermissao | translate }}
-                                </mat-checkbox>
-                            </div>
-                            <h3 class="tipo-permissao">{{'TIPOPERMISSAO.ESTO' | translate}}</h3>
-                            <div *ngFor="let permissao of permissoes | permissionFilter:'ES'">
-                                <mat-checkbox (click)='updateListaPermissao(permissao)' formControlName="{{permissao.descPermissao}}">
-                                    {{ 'PERMISSAO.' + permissao.descPermissao | translate }}
-                                </mat-checkbox>
-                            </div>
-                            <h3 class="tipo-permissao">{{'TIPOPERMISSAO.SEGU' | translate}}</h3>
-                            <div *ngFor="let permissao of permissoes | permissionFilter:'SE'">
-                                <mat-checkbox (click)='updateListaPermissao(permissao)' formControlName="{{permissao.descPermissao}}">
-                                    {{ 'PERMISSAO.' + permissao.descPermissao | translate }}
-                                </mat-checkbox>
-                            </div>
+                        <h3 class="tipo-permissao">{{'TIPOPERMISSAO.GERAL' | translate}}</h3>
+                        <div *ngFor="let permissao of permissoes | permissionFilter:'GE'">
+                            <mat-checkbox (click)='updateListaPermissao(permissao)' formControlName="{{permissao.descPermissao}}">
+                                {{ 'PERMISSAO.' + permissao.descPermissao | translate }}
+                            </mat-checkbox>
                         </div>
+
+                        <h3 class="tipo-permissao">{{'TIPOPERMISSAO.GRUPE' | translate}}</h3>
+                        <div *ngFor="let permissao of permissoes | permissionFilter:'GP'">
+                            <mat-checkbox (click)='updateListaPermissao(permissao)' formControlName="{{permissao.descPermissao}}">
+                                {{ 'PERMISSAO.' + permissao.descPermissao | translate }}
+                            </mat-checkbox>
+                        </div>
+
+                        <h3 class="tipo-permissao">{{'TIPOPERMISSAO.ESTO' | translate}}</h3>
+                        <div *ngFor="let permissao of permissoes | permissionFilter:'ES'">
+                            <mat-checkbox (click)='updateListaPermissao(permissao)' formControlName="{{permissao.descPermissao}}">
+                                {{ 'PERMISSAO.' + permissao.descPermissao | translate }}
+                            </mat-checkbox>
+                        </div>
+
+                        <h3 class="tipo-permissao">{{'TIPOPERMISSAO.SEGU' | translate}}</h3>
+                        <div *ngFor="let permissao of permissoes | permissionFilter:'SE'">
+                            <mat-checkbox (click)='updateListaPermissao(permissao)' formControlName="{{permissao.descPermissao}}">
+                                {{ 'PERMISSAO.' + permissao.descPermissao | translate }}
+                            </mat-checkbox>
+                        </div>
+
                         <h3 class="tipo-permissao">{{'TIPOPERMISSAO.LOTE' | translate}}</h3>
                         <div *ngFor="let permissao of permissoes | permissionFilter:'LI'">
                             <mat-checkbox (click)='updateListaPermissao(permissao)' formControlName="{{permissao.descPermissao}}">
@@ -57,6 +59,7 @@
                                 {{ 'PERMISSAO.' + permissao.descPermissao | translate }}
                             </mat-checkbox>
                         </div>
+                    
                     </div>
                     <br>
                     <button [disabled]="!form.valid" class="button-form" mat-raised-button>

@@ -1,26 +1,10 @@
 @import '../material/paleta.scss';
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  border: 0;
-}
-
-.main-container {
-    top: 64px;
-    max-width: 1140px;
-    height: calc(100vh - 64px);
-    position: relative;
-    left: 50%;
-    transform: translateX(-50%);
-    padding: 0 2rem 0 2rem;
-}
-
 header {
     display: flex;
     margin-top: 2rem;
 }
+
 
 .title {
     font-size: 1.8rem;
@@ -29,21 +13,8 @@ header {
     color: $color-primary;
 }
 
-.form-div {
-    margin: 2rem 0 0 0;
-}
-
-.form-tab {
-    margin-top: 1%;
-    width: 100%;
-    padding-bottom: 0!important;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
 .texto-input {
-    width: 100vh;
+    width: 100%;
     margin-top: 1rem;
     margin-bottom: 0;
 }
@@ -51,31 +22,26 @@ header {
 .button-form {
     background-color: $color-primary;
     color: #ffffff;
-    padding: .2rem;
-    padding-right: .3rem;
-    margin-bottom: 3%;
-    margin-left: 35%;
-    margin-top: 1rem;
-}
-
-.card-content {
-    padding: 0 3.3rem 0 3.3rem;
+    @include centralizar(true, false);
 }
 
 .button-return {
     margin-bottom: 2%;
 }
 
-.esq {
-    float: left;
-    margin-right: 2rem;
-}
-
 .lista-permissoes {
-    margin-left: 2rem;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
 }
 
 .tipo-permissao {
     margin-top: .5rem;
     margin-bottom: .5rem;
+}
+
+@media screen and (min-width: 749px) {
+    .lista-permissoes {
+        max-height: 30rem;
+    }
 }
