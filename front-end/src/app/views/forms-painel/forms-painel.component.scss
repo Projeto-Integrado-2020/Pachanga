@@ -25,6 +25,7 @@
 
   .table {
     max-width: 100% !important;
+    
   }
   .icons-column {
     flex-direction: column;
@@ -65,14 +66,13 @@ header {
 
 table {
   @include centralizar(true, false);
+  border-collapse: separate;
+  border-spacing: 1rem 0;
 }
 
-th {
-  padding: auto;
-}
 
 .mat-header-cell {
-  margin-right: 5px !important;
+  padding: 1rem;
 }
 
 .icons-column {
@@ -114,8 +114,4 @@ th, td {
 }
 
 .nome {
-}
-
-.mat-cell {
-  padding: 10px 10px 10px 0;
 }
