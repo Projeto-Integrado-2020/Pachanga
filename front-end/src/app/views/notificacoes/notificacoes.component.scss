@@ -3,6 +3,14 @@
 //CORES DA NAVBAR!
 
 @media (max-width: 748px){
+
+  .mat-badge-content {
+    height: 2.2rem;
+    width: 2.2rem;
+    line-height: 2.2rem;
+    font-size: 1rem;
+    transform: translate(.8rem, -.8rem);
+  }
   .mat-card-content {
     min-width: 100%
   }

@@ -4,7 +4,7 @@ mat-mini-fab
 (click)="visibilidadeNotificacoes = !visibilidadeNotificacoes"
 *ngIf="loginService.usuarioAutenticado"
 >
-<mat-icon matBadge={{alertNumbers}} matBadgeColor="warn" [matBadgeHidden]="alertNumbers == 0">notifications</mat-icon>
+<mat-icon  matBadge={{alertNumbers}} matBadgeColor="warn" [matBadgeHidden]="alertNumbers == 0">notifications</mat-icon>
 </button>
 <!-- JANELINHA DE NOTIFICACOES -->
 <mat-card
