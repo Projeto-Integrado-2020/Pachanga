@@ -31,9 +31,11 @@
     width: 12rem;
 
     &__imagem {
+        background-size: cover;
+        background-position: center; 
         height: 10rem;
-        background-color:$color-primary-light;
-        margin: -16px -16px 1rem -16px;
+        width: 100%;
+        margin-bottom: 1rem;
         cursor: pointer;
     }
 

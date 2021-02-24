@@ -36,8 +36,10 @@ export class MeusIngressosComponent implements OnInit {
 
         this.listaIngressos = res;
         const listaIngressosUnicos = this.getArrayUnica(this.listaIngressos);
-
         for (const ingresso of listaIngressosUnicos) {
+          if (!ingresso.festa.urlImagem) {
+            ingresso.festa.urlImagem = 'https://res.cloudinary.com/htctb0zmi/image/upload/v1611352783/pachanga-logo_tikwrw.png';
+          }
           Object.assign(ingresso, {Qtde: 0});
           Object.assign(ingresso, {listaUnidades: []});
           ingresso.listaUnidades = this.listaIngressos
