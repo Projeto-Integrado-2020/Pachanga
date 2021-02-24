@@ -53,9 +53,5 @@ describe('GetPermissoesService', () => {
 
   it('should get Info at getPermissoes', () => {
     expect(service.getPermissoes()).toBeTruthy();
-
-    expect(service.getFarol()).toBeTruthy();
-
-    expect(service.getPermissoes()).toBeFalsy();
   });
 });
