@@ -888,8 +888,9 @@
         "IMPRIMIR": "Print Ticket",
         "BOLETO": "Print Boleto",
         "ABQRCODE": "Open QR Code",
-        "QTDE": "Quantity"
-
+        "QTDE": "Quantity",
+        "ATIVO": "Actives",
+        "ENCERRADO": "Closed"
     },
     
     "CUPOM": {

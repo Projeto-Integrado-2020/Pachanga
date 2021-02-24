@@ -230,7 +230,7 @@
     "ERRO": {
         "TITULO": "Erro",
         "SERVERRO": "Ops! Algo estranho aconteceu. Por favor tente mais tarde.",
-        "USERMAIL": "Outra conta está utlizando este e-mail.",
+        "USERMAIL": "Outra conta está utilizando este e-mail.",
         "UORPINCO": "Usuário ou senha incorretos.",
         "EMALINCO": "Usuário ou senha incorretos.",
         "PASSDIFF": "Senha nova precisa ser diferente da atual.",
@@ -515,7 +515,9 @@
         "IMPRIMIR": "Imprimir Ingresso",
         "BOLETO": "Imprimir Boleto",
         "ABQRCODE": "Abrir QR Code",
-        "QTDE": "Quantidade"
+        "QTDE": "Quantidade",
+        "ATIVO": "Ativos",
+        "ENCERRADO": "Encerrados"
     },
 
     "NAV": {
