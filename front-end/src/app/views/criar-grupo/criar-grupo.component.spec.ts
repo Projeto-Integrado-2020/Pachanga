@@ -114,10 +114,6 @@ describe('CriarGrupoComponent', () => {
     .and
     .callThrough();
 
-    spyOn(component.getPermissaoService, 'setFarol')
-    .and
-    .callThrough();
-
     spyOn(component, 'buildForm')
     .and
     .callThrough();
@@ -125,7 +121,6 @@ describe('CriarGrupoComponent', () => {
     component.resgatarPermissoes();
 
     expect(component.getPermissaoService.getPermissoes).toHaveBeenCalled();
-    expect(component.getPermissaoService.setFarol).toHaveBeenCalledWith(false);
     expect(component.permissoes).toEqual([
       {descPermissao: 'Teste1', tipPermissao: 'GE'}, {descPermissao: 'Teste2', tipPermissao: 'GE'}
     ]);
