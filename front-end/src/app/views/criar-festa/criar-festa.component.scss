@@ -1,29 +1,10 @@
 @import '../material/paleta.scss';
 
 //CSS RESET
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  border: 0;
-}
 
-.title {
-    margin: 6rem 0 0 2rem;
-}
-
-.main-container {
-    max-width: 1140px;
-    position: relative;
-    left: 50%;
-    transform: translateX(-50%);
-}
 
 form {
     margin-right: 0 !important;
-}
-
-.criar-festa {
 }
 
 .texto-input {
