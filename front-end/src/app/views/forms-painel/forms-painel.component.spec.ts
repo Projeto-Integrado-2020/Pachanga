@@ -89,13 +89,8 @@ describe('FormsPainelComponent', () => {
     .and
     .callThrough();
 
-    spyOn(component.getQuestionarios, 'setFarol')
-    .and
-    .callThrough();
-
     component.resgatarQuestionarios();
     expect(component.getQuestionarios.getQuestionarios).toHaveBeenCalled();
-    expect(component.getQuestionarios.setFarol).toHaveBeenCalledWith(false);
   });
 
   it('nomeQuestionarioSort', () => {

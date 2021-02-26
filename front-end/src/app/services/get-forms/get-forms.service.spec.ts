@@ -35,19 +35,6 @@ describe('GetFormsService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should set farol', () => {
-    service.setFarol(true);
-    expect(service.getFarol()).toBeTruthy();
-    service.setFarol(false);
-    expect(service.getFarol()).toBeFalsy();
-  });
-
-  it('should get farol', () => {
-    expect(service.getFarol()).toBeFalsy();
-    service.setFarol(true);
-    expect(service.getFarol()).toBeTruthy();
-  });
-
   it('should open a dialog through a method', () => {
     service.openErrorDialog('teste');
     expect(dialogSpy.open).toHaveBeenCalled();
@@ -56,10 +43,6 @@ describe('GetFormsService', () => {
   it('should get Info at getQuestionarios', () => {
     service.loginService.usuarioInfo = {codusuario: 'teste'};
     expect(service.getQuestionarios('teste')).toBeTruthy();
-
-    expect(service.getFarol()).toBeTruthy();
-
-    expect(service.getQuestionarios('teste')).toBeFalsy();
   });
 });
 

@@ -114,7 +114,6 @@ describe('CriarLoteComponent', () => {
 
     expect(component.loteAdd.novoLote).toHaveBeenCalled();
     expect(component.loteAdd.setFarol).toHaveBeenCalledWith(false);
-    expect(component.router.navigate).toHaveBeenCalledWith(['festas/teste&teste/ingressos/']);
   });
 
 });

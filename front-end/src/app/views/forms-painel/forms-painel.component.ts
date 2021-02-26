@@ -36,7 +36,6 @@ export class FormsPainelComponent implements OnInit {
     const idFesta = this.router.url;
     this.codFesta = idFesta.substring(idFesta.indexOf('&') + 1, idFesta.indexOf('/', idFesta.indexOf('&')));
     this.getQuestionarios.getQuestionarios(this.codFesta).subscribe((resp: any) => {
-      this.getQuestionarios.setFarol(false);
       for (const form of resp) {
         this.forms.push({
                             codQuestionario: form.codQuestionario,
