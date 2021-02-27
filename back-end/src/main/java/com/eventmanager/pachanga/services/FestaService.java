@@ -430,7 +430,7 @@ public class FestaService {
 
 	private void adicionarImagemCloudnary(MultipartFile imagem, Festa festa) throws IOException {
 		if (imagem == null) {
-			CloudinaryUtils.getCloudinaryCredentials().uploader().destroy(env.getProperty(AMBIENTE) + "/" + festa.getNomeFesta(), ObjectUtils.emptyMap());
+			CloudinaryUtils.getCloudinaryCredentials().uploader().destroy(env.getProperty(AMBIENTE) + "/" + festa.getCodFesta(), ObjectUtils.emptyMap());
 			festa.setImagem(null);
 			festa.setUrlImagem(null);
 		} else {
@@ -441,7 +441,7 @@ public class FestaService {
 			fos.close();
 
 			Map<?,?> uploadImagem = CloudinaryUtils.getCloudinaryCredentials().uploader().upload(imagemUpload,
-					ObjectUtils.asMap("public_id", env.getProperty(AMBIENTE) + "/" + festa.nomeFestaSemCaracterEspecial()));// quando for feito os testes em desenvolvimento trocar para dev o prod
+					ObjectUtils.asMap("resource_type", "image", "public_id", env.getProperty(AMBIENTE) + "/" + festa.getCodFesta()));// quando for feito os testes em desenvolvimento trocar para dev o prod
 			
 			festa.setImagem(imagem.getBytes());
 			festa.setUrlImagem(uploadImagem.get("secure_url").toString());
