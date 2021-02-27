@@ -20,14 +20,13 @@ export class IndexCarrocelComponent implements OnInit {
 
   }
 
-  redirectUrl(nome, id) {
-    const nomeFesta = nome.toLowerCase().replace('-', '').replace('–', '')
+  redirectUrl(nomeFesta, codFesta) {
+    nomeFesta = nomeFesta.toLowerCase().replace('-', '').replace('–', '')
                         .replace(/\s+/g, '-').replace('ç', 'c')
                         .replace('º', '').replace('ª', '')
                         .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
-                        .replace(/[`~!@#$%^&*()_|+=?;:'",.<>{}[]\/]/gi, '');
-    const url = '../' + nomeFesta + '&' + id + '/venda-ingressos/';
-    console.log(url);
+                        .replace(/[`~!@#$%^&*()_|+\=?;:'",.<>\{\}\[\]\\\/]/gi, '');
+    const url = '../' + nomeFesta + '&' + codFesta + '/venda-ingressos/';
     this.router.navigate([url]);
   }
 

@@ -171,7 +171,8 @@
         "PRECCUPI": "Invalid discount amount.",
         "PASSINC1": "Incorrect e-mail or password.",
         "PASSINC2": "Incorrect current password.",
-        "FORMSERROR": "Problem detected when integrating Google Forms answer sheet. Check the registered URL."
+        "FORMSERROR": "Problem detected when integrating Google Forms answer sheet. Check the registered URL.",
+        "DADNLOTE": "For paid tickets, bank details must have been registered for the party."
     },
 
     "SUCCESS": {
