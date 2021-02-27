@@ -62,7 +62,7 @@ export class CriarLoteComponent implements OnInit {
 
     this.loteAdd.novoLote(loteTO).subscribe((resp: any) => {
       this.loteAdd.setFarol(false);
-      this.router.navigate(['festas/' + this.festa.nomeFesta   + '&' + this.festa.codFesta + '/ingressos/']);
+      this.router.navigate([this.router.url.slice(0, -11)]);
     });
   }
 

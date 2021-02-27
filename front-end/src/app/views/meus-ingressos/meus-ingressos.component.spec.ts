@@ -127,12 +127,12 @@ describe('MeusIngressosComponent', () => {
     expect(result).toEqual('10/11/2020, 12:00');
   });
 
-  it('should navegarURL', () => {
-    spyOn(component.router, 'navigateByUrl')
+  it('should redirectUrl', () => {
+    spyOn(component.router, 'navigate')
     .and
     .callThrough();
-    component.navegarURL('teste.com');
-    expect(component.router.navigateByUrl).toHaveBeenCalledWith('teste.com');
+    component.redirectUrl('festa', 50);
+    expect(component.router.navigate).toHaveBeenCalledWith(['../festa&50/venda-ingressos/']);
   });
 
   it('should listarIngressos', () => {

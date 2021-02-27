@@ -18,6 +18,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.oauth2.provider.token.AuthorizationServerTokenServices;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.eventmanager.pachanga.domains.DadoBancario;
 import com.eventmanager.pachanga.domains.Festa;
 import com.eventmanager.pachanga.domains.Ingresso;
 import com.eventmanager.pachanga.domains.Lote;
@@ -25,6 +26,7 @@ import com.eventmanager.pachanga.domains.Usuario;
 import com.eventmanager.pachanga.dtos.LoteTO;
 import com.eventmanager.pachanga.errors.ValidacaoException;
 import com.eventmanager.pachanga.factory.LoteFactory;
+import com.eventmanager.pachanga.repositories.DadoBancarioRepository;
 import com.eventmanager.pachanga.repositories.IngressoRepository;
 import com.eventmanager.pachanga.repositories.LoteRepository;
 import com.eventmanager.pachanga.securingweb.JwtAuthenticationEntryPoint;
@@ -65,6 +67,9 @@ class LoteServiceTest {
 
 	@MockBean
 	private IngressoRepository ingressoRepository;
+	
+	@MockBean
+	private DadoBancarioRepository dadoBancarioRepository;
 
 	private Lote loteTest() {
 		Lote lote = new Lote();
@@ -166,6 +171,7 @@ class LoteServiceTest {
 				.thenReturn(new ArrayList<Lote>());
 		Mockito.when(loteFactory.getLote(Mockito.any(), Mockito.any())).thenReturn(loteTest());
 		Mockito.when(loteRepository.getNextValMySequence()).thenReturn(1);
+		Mockito.when(dadoBancarioRepository.findDadosBancariosFesta(Mockito.anyInt())).thenReturn(new DadoBancario());
 
 		Lote lote = loteService.adicionarLote(loteToTest(), 1);
 
@@ -185,6 +191,7 @@ class LoteServiceTest {
 				.thenReturn(new ArrayList<Lote>());
 		Mockito.when(loteFactory.getLote(Mockito.any(), Mockito.any())).thenReturn(loteTest());
 		Mockito.when(loteRepository.getNextValMySequence()).thenReturn(1);
+		Mockito.when(dadoBancarioRepository.findDadosBancariosFesta(Mockito.anyInt())).thenReturn(new DadoBancario());
 
 		String erro = "";
 		try {
@@ -212,6 +219,7 @@ class LoteServiceTest {
 				.thenReturn(new ArrayList<Lote>());
 		Mockito.when(loteFactory.getLote(Mockito.any(), Mockito.any())).thenReturn(loteTest());
 		Mockito.when(loteRepository.getNextValMySequence()).thenReturn(1);
+		Mockito.when(dadoBancarioRepository.findDadosBancariosFesta(Mockito.anyInt())).thenReturn(new DadoBancario());
 
 		String erro = "";
 		try {
@@ -239,6 +247,7 @@ class LoteServiceTest {
 		Mockito.when(loteRepository.findByNomeLote(Mockito.anyString(), Mockito.anyInt()))
 				.thenReturn(new ArrayList<Lote>());
 		Mockito.when(loteRepository.getNextValMySequence()).thenReturn(1);
+		Mockito.when(dadoBancarioRepository.findDadosBancariosFesta(Mockito.anyInt())).thenReturn(new DadoBancario());
 
 		String erro = "";
 		try {
@@ -266,6 +275,7 @@ class LoteServiceTest {
 		Mockito.when(loteRepository.findByNomeLote(Mockito.anyString(), Mockito.anyInt()))
 				.thenReturn(new ArrayList<Lote>());
 		Mockito.when(loteRepository.getNextValMySequence()).thenReturn(1);
+		Mockito.when(dadoBancarioRepository.findDadosBancariosFesta(Mockito.anyInt())).thenReturn(new DadoBancario());
 
 		String erro = "";
 		try {
@@ -275,6 +285,34 @@ class LoteServiceTest {
 		}
 
 		assertEquals("DATEINFE", erro);
+
+	}
+	
+	@Test
+	void adicionarLoteErroSemDadoBancario() {
+
+		LoteTO loteTo = loteToTest();
+		loteTo.setHorarioFim(LocalDateTime.of(2020, Month.SEPTEMBER, 23, 19, 10));
+
+		Mockito.when(festaService.validarFestaExistente(Mockito.anyInt())).thenReturn(festaTest());
+		Mockito.when(festaService.validarUsuarioFesta(Mockito.anyInt(), Mockito.anyInt())).thenReturn(usuarioTest());
+		Mockito.when(grupoService.validarPermissaoUsuarioGrupo(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt()))
+				.thenReturn(true);
+		Mockito.when(loteRepository.findByNomeLote(Mockito.anyString(), Mockito.anyInt())).thenReturn(null);
+		Mockito.when(loteFactory.getLote(Mockito.any(), Mockito.any())).thenReturn(loteTest());
+		Mockito.when(loteRepository.findByNomeLote(Mockito.anyString(), Mockito.anyInt()))
+				.thenReturn(new ArrayList<Lote>());
+		Mockito.when(loteRepository.getNextValMySequence()).thenReturn(1);
+		Mockito.when(dadoBancarioRepository.findDadosBancariosFesta(Mockito.anyInt())).thenReturn(null);
+
+		String erro = "";
+		try {
+			loteService.adicionarLote(loteTo, 1);
+		} catch (ValidacaoException e) {
+			erro = e.getMessage();
+		}
+
+		assertEquals("DADNLOTE", erro);
 
 	}
 
@@ -291,6 +329,7 @@ class LoteServiceTest {
 		Mockito.when(loteRepository.findByNomeLote(Mockito.anyString(), Mockito.anyInt()))
 				.thenReturn(new ArrayList<Lote>());
 		Mockito.when(loteFactory.getLote(Mockito.any(), Mockito.any())).thenReturn(loteTest());
+		Mockito.when(dadoBancarioRepository.findDadosBancariosFesta(Mockito.anyInt())).thenReturn(new DadoBancario());
 
 		Lote lote = loteService.atualizarLote(loteToTest(), 1);
 
@@ -310,6 +349,7 @@ class LoteServiceTest {
 		Mockito.when(loteRepository.findByNomeLote(Mockito.anyString(), Mockito.anyInt()))
 				.thenReturn(new ArrayList<Lote>());
 		Mockito.when(loteFactory.getLote(Mockito.any(), Mockito.any())).thenReturn(loteTest());
+		Mockito.when(dadoBancarioRepository.findDadosBancariosFesta(Mockito.anyInt())).thenReturn(new DadoBancario());
 
 		String erro = "";
 		try {
@@ -331,6 +371,7 @@ class LoteServiceTest {
 				.thenReturn(true);
 		Mockito.when(loteRepository.findByNomeLote(Mockito.anyString(), Mockito.anyInt())).thenReturn(null);
 		Mockito.when(loteFactory.getLote(Mockito.any(), Mockito.any())).thenReturn(loteTest());
+		Mockito.when(dadoBancarioRepository.findDadosBancariosFesta(Mockito.anyInt())).thenReturn(new DadoBancario());
 
 		String erro = "";
 		try {

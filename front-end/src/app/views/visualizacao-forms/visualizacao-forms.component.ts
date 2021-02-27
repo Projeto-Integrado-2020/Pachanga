@@ -36,7 +36,6 @@ export class VisualizacaoFormsComponent implements OnInit {
     let idFesta = this.router.url;
     idFesta = idFesta.substring(idFesta.indexOf('&') + 1, idFesta.indexOf('/', idFesta.indexOf('&')));
     this.forms.getQuestionarios(idFesta).subscribe((resp: any) => {
-      this.forms.setFarol(false);
       this.formsResult = resp;
       for (const questionario of this.formsResult) {
         questionario.urlQuestionario = questionario.urlQuestionario.

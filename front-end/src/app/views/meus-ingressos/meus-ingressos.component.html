@@ -5,7 +5,8 @@
     <mat-tab label="{{'MEUSINGRESSOS.ATIVO' | translate}}">
       <div class="ingressos">
         <mat-card class="ingresso" *ngFor="let ingresso of this.ingressosAtivos">
-          <div (click)="this.navegarURL('/festa&'+ ingresso.festa.codFesta +'/venda-ingressos')" class="ingresso__imagem">
+          <div (click)="this.redirectUrl(ingresso.festa.nomeFesta, ingresso.festa.codFesta)" class="ingresso__imagem"
+          [style.backgroundImage]="'url(' + ingresso.festa.urlImagem + ')'" >
           </div>
           <mat-card-header>
             <mat-card-title>{{ingresso.festa.nomeFesta}}</mat-card-title>
@@ -29,7 +30,7 @@
     <mat-tab label="{{'MEUSINGRESSOS.ENCERRADO' | translate}}">
       <div class="ingressos">
         <mat-card class="ingresso" *ngFor="let ingresso of this.ingressosEncerrados">
-          <div (click)="this.navegarURL('/festa&'+ ingresso.festa.codFesta +'/venda-ingressos')" class="ingresso__imagem">
+          <div (click)="this.redirectUrl(ingresso.festa.nomeFesta, ingresso.festa.codFesta)" class="ingresso__imagem">
           </div>
           <mat-card-header>
             <mat-card-title>{{ingresso.festa.nomeFesta}}</mat-card-title>

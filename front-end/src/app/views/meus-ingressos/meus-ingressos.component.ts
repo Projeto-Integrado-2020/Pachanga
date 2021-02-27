@@ -36,8 +36,10 @@ export class MeusIngressosComponent implements OnInit {
 
         this.listaIngressos = res;
         const listaIngressosUnicos = this.getArrayUnica(this.listaIngressos);
-
         for (const ingresso of listaIngressosUnicos) {
+          if (!ingresso.festa.urlImagem) {
+            ingresso.festa.urlImagem = 'https://res.cloudinary.com/htctb0zmi/image/upload/v1611352783/pachanga-logo_tikwrw.png';
+          }
           Object.assign(ingresso, {Qtde: 0});
           Object.assign(ingresso, {listaUnidades: []});
           ingresso.listaUnidades = this.listaIngressos
@@ -115,8 +117,14 @@ export class MeusIngressosComponent implements OnInit {
     return data + ', ' + datetimeSplit[1].slice(0, 5);
   }
 
-  navegarURL(rota) {
-    this.router.navigateByUrl(rota);
+  redirectUrl(nomeFesta, codFesta) {
+    nomeFesta = nomeFesta.toLowerCase().replace('-', '').replace('–', '')
+                        .replace(/\s+/g, '-').replace('ç', 'c')
+                        .replace('º', '').replace('ª', '')
+                        .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+                        .replace(/[`~!@#$%^&*()_|+\=?;:'",.<>\{\}\[\]\\\/]/gi, '');
+    const url = '../' + nomeFesta + '&' + codFesta + '/venda-ingressos/';
+    this.router.navigate([url]);
   }
 
   gerarIngressoPDF(ingressos) {

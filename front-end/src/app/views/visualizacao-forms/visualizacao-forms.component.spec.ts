@@ -100,14 +100,9 @@ describe('VisualizacaoFormsComponent', () => {
     .and
     .callThrough();
 
-    spyOn(component.forms, 'setFarol')
-    .and
-    .callThrough();
-
     component.getQuestionarios();
 
     expect(component.forms.getQuestionarios).toHaveBeenCalled();
-    expect(component.forms.setFarol).toHaveBeenCalledWith(false);
   });
 
   it('should getSheets', () => {
