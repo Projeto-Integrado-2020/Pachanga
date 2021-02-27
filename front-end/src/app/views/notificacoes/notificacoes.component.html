@@ -1,7 +1,7 @@
 <!-- BOTAO ALERT -->
 <button class="btn btn--prp btnAlertas" 
 mat-mini-fab
-(click)="visibilidadeNotificacoes = !visibilidadeNotificacoes"
+(click)="visibilidadeNotificacoes === true ? fecharNotificacoes(): visibilidadeNotificacoes = true"
 *ngIf="loginService.usuarioAutenticado"
 >
 <mat-icon  matBadge={{alertNumbers}} matBadgeColor="warn" [matBadgeHidden]="alertNumbers == 0">notifications</mat-icon>

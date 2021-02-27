@@ -25,7 +25,6 @@ export class NotificacoesComponent implements OnInit {
   alertaOpcoes: boolean;
   selected: number;
   alertIds: number[] = [];
-
   notificacoes: any[] = [];
 
   convmsg: any;
@@ -124,32 +123,8 @@ export class NotificacoesComponent implements OnInit {
     }
   }
 
-  openDialogConvite(alerta): void {
-    this.dialog.open(FestaDetalhesDialogComponent, {
-      width: '23rem',
-      data: {
-        alerta
-      }
-    });
-  }
 
-  openDialogEstoqueAlert(alerta): void {
-    this.dialog.open(AlertaEstoqueComponent, {
-      width: '23rem',
-      data: {
-        alerta
-      }
-    });
-  }
 
-  openDialogSegurancaAlert(alerta): void {
-    this.dialog.open(AlertaSegurancaComponent, {
-      width: '23rem',
-      data: {
-        alerta
-      }
-    });
-  }
 
   procurarAlertas(resp) {
     const notificacoes = [];
@@ -198,5 +173,33 @@ export class NotificacoesComponent implements OnInit {
                         .replace(/[`~!@#$%^&*()_|+\=?;:'",.<>\{\}\[\]\\\/]/gi, '');
     const url = '../festas/' + nomeFesta + '&' + codFesta;
     return url;
+  }
+
+  
+  openDialogEstoqueAlert(alerta): void {
+    this.dialog.open(AlertaEstoqueComponent, {
+      width: '23rem',
+      data: {
+        alerta
+      }
+    });
+  }
+
+  openDialogSegurancaAlert(alerta): void {
+    this.dialog.open(AlertaSegurancaComponent, {
+      width: '23rem',
+      data: {
+        alerta
+      }
+    });
+  }
+
+  openDialogConvite(alerta): void {
+    this.dialog.open(FestaDetalhesDialogComponent, {
+      width: '23rem',
+      data: {
+        alerta
+      }
+    });
   }
 }
