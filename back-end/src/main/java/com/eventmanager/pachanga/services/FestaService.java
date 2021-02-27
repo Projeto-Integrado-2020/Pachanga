@@ -441,7 +441,7 @@ public class FestaService {
 			fos.close();
 
 			Map<?,?> uploadImagem = CloudinaryUtils.getCloudinaryCredentials().uploader().upload(imagemUpload,
-					ObjectUtils.asMap("public_id", env.getProperty(AMBIENTE) + "/" + festa.getNomeFesta()));// quando for feito os testes em desenvolvimento trocar para dev o prod
+					ObjectUtils.asMap("public_id", env.getProperty(AMBIENTE) + "/" + festa.nomeFestaSemCaracterEspecial()));// quando for feito os testes em desenvolvimento trocar para dev o prod
 			
 			festa.setImagem(imagem.getBytes());
 			festa.setUrlImagem(uploadImagem.get("secure_url").toString());

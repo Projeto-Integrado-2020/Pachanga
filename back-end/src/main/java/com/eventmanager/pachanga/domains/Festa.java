@@ -213,6 +213,10 @@ public class Festa {
 		this.urlImagem = urlImagem;
 	}
 	
+	public String nomeFestaSemCaracterEspecial() {
+		return this.nomeFesta.replaceAll("[^a-zZ-Z1-9+]", "");
+	}
+	
 	public Boolean isOrganizador(int codUsuario) {
 		for(Grupo grupo: this.grupos) {
 			if(grupo.getOrganizador()) {

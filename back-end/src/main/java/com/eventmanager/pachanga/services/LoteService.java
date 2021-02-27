@@ -7,12 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.eventmanager.pachanga.domains.DadoBancario;
 import com.eventmanager.pachanga.domains.Festa;
 import com.eventmanager.pachanga.domains.Ingresso;
 import com.eventmanager.pachanga.domains.Lote;
 import com.eventmanager.pachanga.dtos.LoteTO;
 import com.eventmanager.pachanga.errors.ValidacaoException;
 import com.eventmanager.pachanga.factory.LoteFactory;
+import com.eventmanager.pachanga.repositories.DadoBancarioRepository;
 import com.eventmanager.pachanga.repositories.IngressoRepository;
 import com.eventmanager.pachanga.repositories.LoteRepository;
 import com.eventmanager.pachanga.tipo.TipoPermissao;
@@ -36,6 +38,9 @@ public class LoteService {
 
 	@Autowired
 	private IngressoRepository ingressoRepository;
+
+	@Autowired
+	private DadoBancarioRepository dadoBancarioRepository;
 
 	public List<Lote> listaLoteFesta(int codFesta, int codUsuario) {
 		festaService.validarFestaExistente(codFesta);
@@ -85,7 +90,7 @@ public class LoteService {
 		Lote lote = this.validarLoteExistente(loteTo.getCodLote());
 		if (!lote.getNomeLote().equals(loteTo.getNomeLote())) {
 			this.validarNumeroLote(loteTo);
-		}else if(lote.getNumeroLote() != loteTo.getNumeroLote()) {
+		} else if (lote.getNumeroLote() != loteTo.getNumeroLote()) {
 			throw new ValidacaoException("NINVLOTE");
 		}
 		this.validarLote(loteTo);
@@ -111,11 +116,11 @@ public class LoteService {
 		}
 		loteRepository.delete(lote);
 	}
-	
+
 	public void deleteCascade(Festa festa) {
 		List<Ingresso> ingressos = ingressoRepository.findIngressosFesta(festa.getCodFesta());
-		
-		if(!TipoStatusFesta.FINALIZADO.getValor().equals(festa.getStatusFesta()) && !ingressos.isEmpty()) {
+
+		if (!TipoStatusFesta.FINALIZADO.getValor().equals(festa.getStatusFesta()) && !ingressos.isEmpty()) {
 			throw new ValidacaoException("FESDEING");
 		}
 		ingressoRepository.deleteByCodFesta(festa.getCodFesta());
@@ -127,6 +132,11 @@ public class LoteService {
 			throw new ValidacaoException("PREILOTE");// preço incorreto
 		} else if (loteTo.getQuantidade() <= 0) {
 			throw new ValidacaoException("QUAILOTE");// quantidade do lote incorreta
+		} else if (loteTo.getPreco() > 0) {
+			DadoBancario dadoBancario = dadoBancarioRepository.findDadosBancariosFesta(loteTo.getCodFesta());
+			if (dadoBancario == null) {
+				throw new ValidacaoException("DADNLOTE");// dado não cadastrado para criação do lote
+			}
 		}
 
 		if (loteTo.getHorarioFim().isBefore(loteTo.getHorarioInicio())
