@@ -24,7 +24,6 @@ export class InfoCompleteComponent implements OnInit {
 
   openDialogPerfil(): void {
     this.dialog.open(PerfilDialogComponent, {
-      width: '25rem',
     });
   }
 
