@@ -32,40 +32,6 @@ export class RelatoriosVendaComponent implements OnInit {
 
   getRelatorioIngressos() {
     this.relatorioVendaService.ingressosFesta(this.codFesta).subscribe((resp: any) => {
-      const mockResp = {
-        ingressos: {
-          'Pista Inteira': 587,
-          'Pista Meia': 312,
-          'Camarote Gold': 132,
-          'Camarote Black': 25  
-        },
-        ingressosCompradosPagos: {
-          'Pista Inteira': {374: 587},
-          'Pista Meia': {254: 312},
-          'Camarote Gold': {100: 132},
-          'Camarote Black': {25: 25} 
-        },
-        infoLucroEsperado: {  
-          lucroLote: {
-            'Pista Inteira': 70440,
-            'Pista Meia': 18720,
-            'Camarote Gold': 33000,
-            'Camarote Black': 12500 
-          },
-          lucroTotal: 134660
-        },
-        infoLucroReal: {  
-          lucroLote: {
-            'Pista Inteira': 44880,
-            'Pista Meia': 15240,
-            'Camarote Gold': 25000,
-            'Camarote Black': 12500 
-          },
-          lucroTotal: 97620
-        },
-        nomeFesta: 'Circuto Brahma'
-      };
-      resp = mockResp;
       const dataSetTemp = [];
       for (const ingresso of Object.keys(resp.ingressos)) {
         dataSetTemp.push({
@@ -79,40 +45,6 @@ export class RelatoriosVendaComponent implements OnInit {
 
   getRelatorioIngressosPagos() {
     this.relatorioVendaService.ingressosFestaCompradosPagos(this.codFesta).subscribe((resp: any) => {
-      const mockResp = {
-        ingressos: {
-          'Pista Inteira': 587,
-          'Pista Meia': 312,
-          'Camarote Gold': 132,
-          'Camarote Black': 25  
-        },
-        ingressosCompradosPagos: {
-          'Pista Inteira': {374: 587},
-          'Pista Meia': {254: 312},
-          'Camarote Gold': {100: 132},
-          'Camarote Black': {25: 25} 
-        },
-        infoLucroEsperado: {  
-          lucroLote: {
-            'Pista Inteira': 70440,
-            'Pista Meia': 18720,
-            'Camarote Gold': 33000,
-            'Camarote Black': 12500 
-          },
-          lucroTotal: 134660
-        },
-        infoLucroReal: {  
-          lucroLote: {
-            'Pista Inteira': 44880,
-            'Pista Meia': 15240,
-            'Camarote Gold': 25000,
-            'Camarote Black': 12500 
-          },
-          lucroTotal: 97620
-        },
-        nomeFesta: 'Circuto Brahma'
-      };
-      resp = mockResp;
       const dataSetTemp = [];
       for (const ingresso of Object.keys(resp.ingressosCompradosPagos)) {
         const serieTemp = [];
@@ -139,53 +71,19 @@ export class RelatoriosVendaComponent implements OnInit {
 
   getRelatorioLucro() {
     this.relatorioVendaService.lucroFesta(this.codFesta).subscribe((resp: any) => {
-      const mockResp = {
-        ingressos: {
-          'Pista Inteira': 587,
-          'Pista Meia': 312,
-          'Camarote Gold': 132,
-          'Camarote Black': 25  
-        },
-        ingressosCompradosPagos: {
-          'Pista Inteira': {374: 587},
-          'Pista Meia': {254: 312},
-          'Camarote Gold': {100: 132},
-          'Camarote Black': {25: 25} 
-        },
-        infoLucroEsperado: {  
-          lucroLote: {
-            'Pista Inteira': 70440,
-            'Pista Meia': 18720,
-            'Camarote Gold': 33000,
-            'Camarote Black': 12500 
-          },
-          lucroTotal: 134660
-        },
-        infoLucroReal: {  
-          lucroLote: {
-            'Pista Inteira': 44880,
-            'Pista Meia': 15240,
-            'Camarote Gold': 25000,
-            'Camarote Black': 12500 
-          },
-          lucroTotal: 97620
-        },
-        nomeFesta: 'Circuto Brahma'
-      };
-      resp = mockResp;
       let dataSetTemp = [];
       for (const lucroLote of Object.keys(resp.infoLucroEsperado.lucroLote)) {
         const serieTemp = [];
-          serieTemp.push(
-            {
-              name: this.translateService.instant('RELATORIOVENDA.LUCROESP'),
-              value: parseFloat(resp.infoLucroEsperado.lucroLote[lucroLote])
-            },
-            {
-              name: this.translateService.instant('RELATORIOVENDA.LUCROREAL'),
-              value: parseFloat(resp.infoLucroReal.lucroLote[lucroLote])
-            }
-          );
+        serieTemp.push(
+          {
+            name: this.translateService.instant('RELATORIOVENDA.LUCROESP'),
+            value: parseFloat(resp.infoLucroEsperado.lucroLote[lucroLote])
+          },
+          {
+            name: this.translateService.instant('RELATORIOVENDA.LUCROREAL'),
+            value: parseFloat(resp.infoLucroReal.lucroLote[lucroLote])
+          }
+        );
         dataSetTemp.push({
           name: lucroLote,
           series: serieTemp

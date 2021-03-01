@@ -175,7 +175,7 @@ export class NotificacoesComponent implements OnInit {
     return url;
   }
 
-  
+
   openDialogEstoqueAlert(alerta): void {
     this.dialog.open(AlertaEstoqueComponent, {
       width: '23rem',

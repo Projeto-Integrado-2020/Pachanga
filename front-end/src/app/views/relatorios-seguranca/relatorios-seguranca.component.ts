@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { RelatorioAreaSegService } from 'src/app/services/relatorios/relatorio-area-seg.service';
+import { RelatorioDetalhesDialogComponent } from '../relatorio-detalhes-dialog/relatorio-detalhes-dialog.component';
 
 @Component({
   selector: 'app-relatorios-seguranca',
@@ -13,141 +15,11 @@ export class RelatoriosSegurancaComponent implements OnInit {
 
 
   codFesta = this.router.url.substring(this.router.url.indexOf('&') + 1, this.router.url.indexOf('/', this.router.url.indexOf('&')));
-  public problemasPorArea = [
-    {
-    name: 'Camarotes A',
-    value:1
-    },
-    {
-    name: 'Camarotes B',
-    value:3
-    },
-    {
-    name: 'Camarotes C',
-    value:2
-    },
-    {
-    name: 'Pista Centro',
-    value:4
-    },
-    {
-    name: 'Pista e Bar A',
-    value:1
-    },
-    {
-    name: 'Pista e Bar B',
-    value:2
-    }
-  ];
-  public resolucoesPorUsuario = [
-
-    {
-      name: 'Fernando D.',
-      series: [
-        {
-          name: this.translateService.instant('RELATARPROB.F'),
-          value: 1
-        },
-        {
-          name: this.translateService.instant('RELATARPROB.E'),
-          value: 0
-        }
-      ]
-    },
-    {
-      name: 'Luciano',
-      series: [
-        {
-          name: this.translateService.instant('RELATARPROB.F'),
-          value: 1
-        },
-        {
-          name: this.translateService.instant('RELATARPROB.E'),
-          value: 2
-        }
-      ]
-    },
-    {
-      name: 'Hernanes',
-      series: [
-        {
-          name: this.translateService.instant('RELATARPROB.F'),
-          value: 1
-        },
-        {
-          name: this.translateService.instant('RELATARPROB.E'),
-          value: 1
-        }
-      ]
-    },
-    {
-      name: 'Simão',
-      series: [
-        {
-          name: this.translateService.instant('RELATARPROB.F'),
-          value: 3
-        },
-        {
-          name: this.translateService.instant('RELATARPROB.E'),
-          value: 1
-        }
-      ]
-    },
-    {
-      name:  'Sandra',
-      series: [
-        {
-          name: this.translateService.instant('RELATARPROB.F'),
-          value: 0
-        },
-        {
-          name: this.translateService.instant('RELATARPROB.E'),
-          value: 1
-        }
-      ]
-    },
-    {
-      name:  'Camilla Sotero',
-      series: [
-        {
-          name: this.translateService.instant('RELATARPROB.F'),
-          value: 2
-        },
-        {
-          name: this.translateService.instant('RELATARPROB.E'),
-          value: 0
-        }
-      ]
-    },
-    
-  ];
-  public emissoesChamadas = [
-    {
-      name: 'Fernando D.',
-      value: 7.69
-    },
-    {
-      name: 'Luciano',
-      value: 23.07
-    },
-    {
-      name: 'Hernanes',
-      value: 15.38
-    },
-    {
-      name: 'Simão',
-      value: 30.76
-    },
-    {
-      name: 'Sandra',
-      value: 7.69
-    },
-    {
-      name: 'Camilla Sotero',
-      value: 15.38
-    },
-    
-  ];
+  public problemasPorArea = [];
+  public resolucoesPorUsuario = [];
+  public emissoesChamadas = [];
+  view: any;
+  chamadasUsuarioResp: any;
   showLegend = true;
   showLabels = true;
   isDoughnut = false;
@@ -157,13 +29,16 @@ export class RelatoriosSegurancaComponent implements OnInit {
   };
 
   constructor(
-    private relAreaSegService: RelatorioAreaSegService,
+    public relAreaSegService: RelatorioAreaSegService,
     private router: Router,
-    private translateService: TranslateService
+    private translateService: TranslateService,
+    public dialog: MatDialog
   ) { }
 
   ngOnInit() {
-    //this.problemasArea(this.codFesta);
+    this.problemasArea(this.codFesta);
+    this.chamadasUsuario(this.codFesta);
+    this.usuariosPorEmissao(this.codFesta);
   }
 
   problemasArea(codFesta) {
@@ -179,36 +54,32 @@ export class RelatoriosSegurancaComponent implements OnInit {
           );
         }
         this.problemasPorArea = dataset;
-        this.chamadasUsuario(codFesta);
       });
   }
 
 
   chamadasUsuario(codFesta) {
     this.relAreaSegService.chamadasUsuario(codFesta).subscribe((resp: any) => {
-      const chamadasEmitidas = resp.chamadasEmitidasFuncionario;
       const dataset = [];
-
-      for (const username in chamadasEmitidas) {
-        if (chamadasEmitidas.hasOwnProperty(username)) {
+      this.chamadasUsuarioResp = resp.chamadasEmitidasFuncionario;
+      for (const usuario of this.chamadasUsuarioResp) {
+        for (const entry of Object.keys(usuario.chamadasFinalizadasEngano)) {
           const data = {
-            name: username,
+            name: usuario.nomeUsuario,
             series: [
               {
                 name: this.translateService.instant('RELATARPROB.F'),
-                value: parseInt(Object.keys(chamadasEmitidas[username])[0], 10)
+                value: parseInt(entry, 10)
               },
               {
                 name: this.translateService.instant('RELATARPROB.E'),
-                value: Object.values(chamadasEmitidas[username])[0]
+                value: usuario.chamadasFinalizadasEngano[entry]
               }
             ]
           };
           dataset.push(data);
-
-          this.resolucoesPorUsuario = dataset;
-          this.usuariosPorEmissao(codFesta);
         }
+        this.resolucoesPorUsuario = dataset;
       }
     });
   }
@@ -229,5 +100,21 @@ export class RelatoriosSegurancaComponent implements OnInit {
       }
       this.emissoesChamadas = dataset;
     });
+  }
+
+  openDetalhes(event, relatorio) {
+    this.dialog.open(RelatorioDetalhesDialogComponent, {
+      width: '20rem',
+      data: {
+        codFesta: this.codFesta,
+        data: event,
+        relatorio,
+        chamadasUsuario: relatorio === 'CONCSOL' ? this.chamadasUsuarioResp : null
+      }
+    });
+  }
+
+  onResize(event) {
+    this.view = [event.target.innerWidth / 1.35, 400];
   }
 }
