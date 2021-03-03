@@ -315,7 +315,11 @@ public class FestaService {
 	}
 
 	public Festa procurarDadosPublicosFesta(int idFesta) {
-		return festaRepository.findByCodFesta(idFesta);
+		Festa festa = festaRepository.findByCodFesta(idFesta);
+		if (TipoStatusFesta.FINALIZADO.getValor().equals(festa.getStatusFesta())) {
+			throw new ValidacaoException("FESTFINI");// festa finalizada
+		}
+		return festa;
 	}
 
 	public String funcionalidadeFesta(int codFesta, int codUsuario) {
