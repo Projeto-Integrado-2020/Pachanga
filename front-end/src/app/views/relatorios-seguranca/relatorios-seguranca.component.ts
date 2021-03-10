@@ -3,6 +3,7 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { RelatorioAreaSegService } from 'src/app/services/relatorios/relatorio-area-seg.service';
+import { ControleSidenavComponent } from '../controle-sidenav/controle-sidenav.component';
 import { RelatorioDetalhesDialogComponent } from '../relatorio-detalhes-dialog/relatorio-detalhes-dialog.component';
 
 @Component({
@@ -63,24 +64,22 @@ export class RelatoriosSegurancaComponent implements OnInit {
       const dataset = [];
       this.chamadasUsuarioResp = resp.chamadasEmitidasFuncionario;
       for (const usuario of this.chamadasUsuarioResp) {
-        for (const entry of Object.keys(usuario.chamadasFinalizadasEngano)) {
-          const data = {
-            name: usuario.nomeUsuario,
-            series: [
-              {
-                name: this.translateService.instant('RELATARPROB.F'),
-                value: parseInt(entry, 10)
-              },
-              {
-                name: this.translateService.instant('RELATARPROB.E'),
-                value: usuario.chamadasFinalizadasEngano[entry]
-              }
-            ]
-          };
-          dataset.push(data);
-        }
-        this.resolucoesPorUsuario = dataset;
+        const data = {
+          name: usuario.nomeUsuario,
+          series: [
+            {
+              name: this.translateService.instant('RELATARPROB.F'),
+              value: parseInt(usuario.chamadasFinalizadasEngano['1'], 10)
+            },
+            {
+              name: this.translateService.instant('RELATARPROB.E'),
+              value: parseInt(usuario.chamadasFinalizadasEngano['2'], 10)
+            }
+          ]
+        };
+        dataset.push(data);
       }
+      this.resolucoesPorUsuario = dataset;
     });
   }
 
