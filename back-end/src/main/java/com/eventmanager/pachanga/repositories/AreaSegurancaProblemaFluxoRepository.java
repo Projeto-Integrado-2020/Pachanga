@@ -19,8 +19,8 @@ public interface AreaSegurancaProblemaFluxoRepository extends JpaRepository<Area
 	@Query(value = "DELETE FROM area_seguranca_x_problema_fluxo WHERE cod_Festa = :idFesta", nativeQuery = true)
 	public void deleteByCodFesta(int idFesta);
 	
-	@Query(value = "SELECT COUNT(DISTINCT asp.codAreaProblema) FROM AreaSegurancaProblemaFluxo asp WHERE asp.codUsuarioEmissor = :codUsuario AND asp.statusProblema = :statusProblema AND asp.codFesta = :codFesta")
-	public int findQuantidadeProblemasEmitidosByUsuario(Integer codUsuario, String statusProblema, int codFesta);
+	@Query(value = "SELECT COUNT(DISTINCT asp.codAreaProblema) FROM AreaSegurancaProblemaFluxo asp WHERE asp.codUsuarioResolv = :codUsuario AND asp.statusProblema = :statusProblema AND asp.codFesta = :codFesta")
+	public int findQuantidadeProblemasResolvidosByUsuario(Integer codUsuario, String statusProblema, int codFesta);
 	
 	@Query(value = "SELECT COUNT(DISTINCT asp.codAreaProblema) FROM AreaSegurancaProblemaFluxo asp WHERE asp.codArea = :codArea")
 	public int findQuantidadeProblemasByCodArea(Integer codArea);

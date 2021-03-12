@@ -89,7 +89,7 @@ class RelatorioAreaSegurancaServiceTest {
 
 		Mockito.when(areaSegurancaProblemaFluxoRepository.findUsuariosByIdFesta(Mockito.anyInt()))
 				.thenReturn(informacoesUsuario);
-		Mockito.when(areaSegurancaProblemaFluxoRepository.findQuantidadeProblemasEmitidosByUsuario(Mockito.anyInt(),
+		Mockito.when(areaSegurancaProblemaFluxoRepository.findQuantidadeProblemasResolvidosByUsuario(Mockito.anyInt(),
 				Mockito.anyString(), Mockito.anyInt())).thenReturn(1, 2);
 		Mockito.when(relatorioAreaSegurancaTOFactory.getChamadasProblema(Mockito.any()))
 				.thenReturn(relatorioAreaTest());

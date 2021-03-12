@@ -53,11 +53,11 @@ public class RelatorioAreaSegurancaService {
 				.findUsuariosByIdFesta(codFesta).stream().map(u -> {
 
 					int chamadasEmitidasFinalizadas = areaSegurancaProblemaFluxoRepository
-							.findQuantidadeProblemasEmitidosByUsuario((Integer) u[0],
+							.findQuantidadeProblemasResolvidosByUsuario((Integer) u[0],
 									TipoStatusProblema.FINALIZADO.getValor(), codFesta);
 
 					int chamadasEmitidasEngano = areaSegurancaProblemaFluxoRepository
-							.findQuantidadeProblemasEmitidosByUsuario((Integer) u[0],
+							.findQuantidadeProblemasResolvidosByUsuario((Integer) u[0],
 									TipoStatusProblema.ENGANO.getValor(), codFesta);
 
 					return relatorioAreaSegurancaTOFactory.getChamadasEmitidas((String) u[1],
