@@ -3,7 +3,6 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { RelatorioAreaSegService } from 'src/app/services/relatorios/relatorio-area-seg.service';
-import { ControleSidenavComponent } from '../controle-sidenav/controle-sidenav.component';
 import { RelatorioDetalhesDialogComponent } from '../relatorio-detalhes-dialog/relatorio-detalhes-dialog.component';
 
 @Component({
@@ -69,11 +68,11 @@ export class RelatoriosSegurancaComponent implements OnInit {
           series: [
             {
               name: this.translateService.instant('RELATARPROB.F'),
-              value: parseInt(usuario.chamadasFinalizadasEngano['1'], 10)
+              value: parseInt(usuario.chamadasFinalizadas, 10)
             },
             {
               name: this.translateService.instant('RELATARPROB.E'),
-              value: parseInt(usuario.chamadasFinalizadasEngano['2'], 10)
+              value: parseInt(usuario.chamadasEngano, 10)
             }
           ]
         };

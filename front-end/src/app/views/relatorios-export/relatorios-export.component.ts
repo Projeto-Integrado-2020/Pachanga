@@ -322,24 +322,22 @@ export class RelatoriosExportComponent implements OnInit {
       const dataset = [];
       this.chamadasUsuarioResp = resp.chamadasEmitidasFuncionario;
       for (const usuario of this.chamadasUsuarioResp) {
-        for (const entry of Object.keys(usuario.chamadasFinalizadasEngano)) {
-          const data = {
-            name: usuario.nomeUsuario,
-            series: [
-              {
-                name: this.translateService.instant('RELATARPROB.F'),
-                value: parseInt(entry, 10)
-              },
-              {
-                name: this.translateService.instant('RELATARPROB.E'),
-                value: usuario.chamadasFinalizadasEngano[entry]
-              }
-            ]
-          };
-          dataset.push(data);
-        }
-        this.resolucoesPorUsuario = dataset;
+        const data = {
+          name: usuario.nomeUsuario,
+          series: [
+            {
+              name: this.translateService.instant('RELATARPROB.F'),
+              value: parseInt(usuario.chamadasFinalizadas, 10)
+            },
+            {
+              name: this.translateService.instant('RELATARPROB.E'),
+              value: parseInt(usuario.chamadasEngano, 10)
+            }
+          ]
+        };
+        dataset.push(data);
       }
+      this.resolucoesPorUsuario = dataset;
     });
   }
 
