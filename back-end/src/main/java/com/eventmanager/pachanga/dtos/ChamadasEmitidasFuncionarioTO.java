@@ -1,14 +1,14 @@
 package com.eventmanager.pachanga.dtos;
 
-import java.util.Map;
-
 public class ChamadasEmitidasFuncionarioTO {
 	
 	private String nomeUsuario;
 	
 	private int codUsuario;
 	
-	private Map<Integer, Integer> chamadasFinalizadasEngano; // int primeiro é o finalizado depois o engano
+	private Integer chamadasFinalizadas;
+	
+	private Integer chamadasEngano;
 
 	public String getNomeUsuario() {
 		return nomeUsuario;
@@ -26,12 +26,20 @@ public class ChamadasEmitidasFuncionarioTO {
 		this.codUsuario = codUsuario;
 	}
 
-	public Map<Integer, Integer> getChamadasFinalizadasEngano() {
-		return chamadasFinalizadasEngano;
+	public Integer getChamadasFinalizadas() {
+		return chamadasFinalizadas;
 	}
 
-	public void setChamadasFinalizadasEngano(Map<Integer, Integer> chamadasFinalizadasEngano) {
-		this.chamadasFinalizadasEngano = chamadasFinalizadasEngano;
+	public void setChamadasFinalizadas(Integer chamadasFinalizadas) {
+		this.chamadasFinalizadas = chamadasFinalizadas;
+	}
+
+	public Integer getChamadasEngano() {
+		return chamadasEngano;
+	}
+
+	public void setChamadasEngano(Integer chamadasEngano) {
+		this.chamadasEngano = chamadasEngano;
 	}
 	
 }

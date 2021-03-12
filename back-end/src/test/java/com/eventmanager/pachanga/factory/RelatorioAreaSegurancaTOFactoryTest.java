@@ -57,7 +57,7 @@ class RelatorioAreaSegurancaTOFactoryTest {
 	@Test
 	void getChamadasEmitidasTest() {
 		
-		ChamadasEmitidasFuncionarioTO chamadas = relatorioAreaSegurancaTOFactory.getChamadasEmitidas("teste", new LinkedHashMap<Integer, Integer>(), 1);
+		ChamadasEmitidasFuncionarioTO chamadas = relatorioAreaSegurancaTOFactory.getChamadasEmitidas("teste", 1, 2, 1);
 		
 		assertEquals(true, chamadas != null);
 	}

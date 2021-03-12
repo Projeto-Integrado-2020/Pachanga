@@ -26,10 +26,10 @@ public class RelatorioAreaSegurancaTOFactory {
 				.build();
 	}
 
-	public ChamadasEmitidasFuncionarioTO getChamadasEmitidas(String nomeUsuario,
-			Map<Integer, Integer> chamadasEmitidasFuncionario, int codFuncionario) {
-		return ChamadasEmitidasFuncionarioTOBuilder.getInstance().chamadasFinalizadasEngano(chamadasEmitidasFuncionario)
-				.codUsuario(codFuncionario).nomeUsuario(nomeUsuario).build();
+	public ChamadasEmitidasFuncionarioTO getChamadasEmitidas(String nomeUsuario, Integer chamadasFinalizadas,
+			Integer chamadasEngano, int codFuncionario) {
+		return ChamadasEmitidasFuncionarioTOBuilder.getInstance().chamadasEngano(chamadasEngano)
+				.codUsuario(codFuncionario).nomeUsuario(nomeUsuario).chamadasFinalizadas(chamadasFinalizadas).build();
 	}
 
 }

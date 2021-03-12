@@ -49,8 +49,6 @@ public class RelatorioAreaSegurancaService {
 	public RelatorioAreaSegurancaTO relatorioChamadasUsuario(int codFesta, int codUsuario) {
 		this.validacaoUsuarioFestaRelatorio(codFesta, codUsuario);
 
-		Map<Integer, Integer> chamadasFinalizadasEngano = new LinkedHashMap<>();
-
 		List<ChamadasEmitidasFuncionarioTO> chamadas = areaSegurancaProblemaFluxoRepository
 				.findUsuariosByIdFesta(codFesta).stream().map(u -> {
 
@@ -62,10 +60,8 @@ public class RelatorioAreaSegurancaService {
 							.findQuantidadeProblemasEmitidosByUsuario((Integer) u[0],
 									TipoStatusProblema.ENGANO.getValor(), codFesta);
 
-					chamadasFinalizadasEngano.put(chamadasEmitidasFinalizadas, chamadasEmitidasEngano);
-
-					return relatorioAreaSegurancaTOFactory.getChamadasEmitidas((String) u[1], chamadasFinalizadasEngano,
-							(int) u[0]);
+					return relatorioAreaSegurancaTOFactory.getChamadasEmitidas((String) u[1],
+							chamadasEmitidasFinalizadas, chamadasEmitidasEngano, (int) u[0]);
 				}).collect(Collectors.toList());
 		return relatorioAreaSegurancaTOFactory.getChamadasProblema(chamadas);
 	}
