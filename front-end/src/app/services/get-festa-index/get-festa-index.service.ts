@@ -38,7 +38,6 @@ export class GetFestaIndexService {
     logService.initialize();
     logService.logHttpInfo(JSON.stringify(error), 0, error.url);
     this.setFarol(false);
-    this.router.navigate(['404']);
     return throwError(error);
   }
 

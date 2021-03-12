@@ -12,7 +12,7 @@
     [legendPosition]="legendPosition"
     [labels]="showLabels"
     [doughnut]="isDoughnut"
-    [view]="view"
+    [view]="[1000,400]"
     (select)="openDetalhes($event, 'PROBAREA')"
     >
   </ngx-charts-pie-chart>
@@ -41,7 +41,7 @@
       [xAxisLabel]="'RELATORIOSEGURANCA.USUARIO' | translate"
       [yAxisLabel]="'RELATORIOSEGURANCA.PROBLEMA' | translate"
       [animations]="true"
-      [view]="view"
+      [view]="[1000,400]"
       (select)="openDetalhes($event, 'CONCSOL')"
       >
     </ngx-charts-bar-vertical-stacked>
