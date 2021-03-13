@@ -174,10 +174,13 @@ public class AreaSegurancaProblemaService {
 
 	public List<AreaSegurancaProblemaHistorico> getHistoricosAreaFesta(int codFesta) {
 		List<AreaSegurancaProblemaHistorico> areasHistorico = new ArrayList<>();
-		List<Integer> codAreaProblemas = areaSegurancaProblemaFluxoRepository.findAreaProblemaFesta(codFesta);
-		for (int contador : codAreaProblemas) {
-			areasHistorico.add(areaSegurancaProblemaFactory.getProblemaHistorico(
-					areaSegurancaProblemaFluxoRepository.findProblemaAreaHistorico(contador).get(0)));
+		List<Object[]> problemasFestaUsuario = areaSegurancaProblemaFluxoRepository
+				.findAreaProblemaFestaPorUsuarioStatus(codFesta);
+		for (int contador = 0; contador < problemasFestaUsuario.size(); contador++) {
+			areasHistorico.add(areaSegurancaProblemaFactory
+					.getProblemaHistorico(areaSegurancaProblemaFluxoRepository.findProblemaAreaHistorico(
+							(int) problemasFestaUsuario.get(contador)[0], (int) problemasFestaUsuario.get(contador)[1],
+							(String) problemasFestaUsuario.get(contador)[2])));
 		}
 		return areasHistorico;
 	}

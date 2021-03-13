@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -678,12 +677,13 @@ class AreaSegurancaProblemaServiceTest {
 
 	@Test
 	void getHistoricosAreaFestaTest() {
-		List<Integer> codigos = Arrays.asList(0, 1, 2, 3);
+		List<Object[]> codigos = new ArrayList<>();
+		codigos.add(new Object[]{ 0, 1,"teste"});
 		List<AreaSegurancaProblemaFluxo> areaHistorico = new ArrayList<>();
 		areaHistorico.add(areaHistoricoTest());
 
-		Mockito.when(areaSegurancaProblemaFluxoRepository.findAreaProblemaFesta(Mockito.anyInt())).thenReturn(codigos);
-		Mockito.when(areaSegurancaProblemaFluxoRepository.findProblemaAreaHistorico(Mockito.anyInt())).thenReturn(areaHistorico);
+		Mockito.when(areaSegurancaProblemaFluxoRepository.findAreaProblemaFestaPorUsuarioStatus(Mockito.anyInt())).thenReturn(codigos);
+		Mockito.when(areaSegurancaProblemaFluxoRepository.findProblemaAreaHistorico(Mockito.anyInt(),Mockito.anyInt(), Mockito.anyString())).thenReturn(areaHistoricoTest());
 		
 		Mockito.when(areaSegurancaProblemaFactory.getProblemaHistorico(Mockito.any()))
 				.thenReturn(new AreaSegurancaProblemaHistorico());
