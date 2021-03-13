@@ -41,6 +41,7 @@
       [xAxisLabel]="'RELATORIOSEGURANCA.USUARIO' | translate"
       [yAxisLabel]="'RELATORIOSEGURANCA.PROBLEMA' | translate"
       [animations]="true"
+      [view]="[1000,400]"
       (select)="openDetalhes($event, 'CONCSOL')"
       >
     </ngx-charts-bar-vertical-stacked>
@@ -65,6 +66,7 @@
     [legendTitle]="'RELATORIOSEGURANCA.USUARIO' | translate"
     [labels]="showLabels"
     [doughnut]="isDoughnut"
+    [view]="[1000,400]"
     >
   </ngx-charts-pie-chart>
   </div>
