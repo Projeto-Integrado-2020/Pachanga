@@ -37,7 +37,7 @@ public interface AreaSegurancaProblemaFluxoRepository extends JpaRepository<Area
 	@Query(value = "SELECT COUNT(DISTINCT asp.codAreaProblema) from AreaSegurancaProblemaFluxo asp WHERE asp.codFesta = :codFesta")
 	public Float countProblemasFesta(int codFesta);
 	
-	@Query(value = "SELECT DISTINCT asp.codAreaProblema, asp.codUsuarioResolv, asp.statusProblema from AreaSegurancaProblemaFluxo asp WHERE asp.codFesta = :codFesta")
+	@Query(value = "SELECT DISTINCT asp.codAreaProblema, asp.codUsuarioResolv, asp.statusProblema from AreaSegurancaProblemaFluxo asp WHERE asp.codFesta = :codFesta AND codUsuarioResolv IS NOT NULL")
 	public List<Object[]> findAreaProblemaFestaPorUsuarioStatus(int codFesta);
 	
 	@Query(value = "SELECT asp from AreaSegurancaProblemaFluxo asp WHERE asp.codAreaProblema = :codAreaProblema AND  asp.codUsuarioResolv = :codUsuarioResolv AND asp.statusProblema = :statusProblema")
