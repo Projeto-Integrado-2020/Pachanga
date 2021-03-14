@@ -1,7 +1,8 @@
 @import '../material/paleta.scss';
 
-@media (max-width: 748px){
+@media (min-width: 749px){
   .relatorio-container {
+    width: 80%;
   }
 }
 

@@ -176,3 +176,13 @@ mat-toolbar{
 .botao-menu {
   padding-left: 10%!important;
 }
+
+.selectLinguagem {
+  color: #FFF;
+  font-size: .8rem;
+  width: 6rem;
+
+  &__option {
+    color: #000;
+  }
+}

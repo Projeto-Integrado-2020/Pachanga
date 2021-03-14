@@ -27,6 +27,8 @@ export class NavbarComponent implements OnInit {
       shareReplay()
     );
 
+  selectedLang = 'pt';
+
   constructor(
     public translate: TranslateService,
     public dialog: MatDialog,
@@ -55,6 +57,11 @@ export class NavbarComponent implements OnInit {
     } else {
       this.translate.use('pt');
     }
+  }
+
+  selectLang(event: Event) {
+    this.translate.use((event.target as HTMLSelectElement).value);
+    this.selectedLang = (event.target as HTMLSelectElement).value;
   }
 
  // método para abrir modal de login

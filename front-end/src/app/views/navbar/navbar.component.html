@@ -57,8 +57,13 @@
           <!-- Notificações -->
           <app-notificacoes></app-notificacoes>
 
-            <button class="btn btn--lang btn--lang--pt" mat-mini-fab color="accent" (click)="langPt()" [value]="'pt'"></button>
-            <button class="btn btn--lang btn--lang--en" mat-mini-fab color="warn" (click)="langEn()" [value]="'en'"></button>
+          <mat-form-field class="selectLinguagem" appearance="fill">
+            <select matNativeControl (change)="selectLang($event)">
+              <option class="selectLinguagem__option" [value]="'pt'">PT-BR</option>
+              <option class="selectLinguagem__option" [value]="'en'">EN-US</option>
+            </select>
+          </mat-form-field>
+            
         </div>
       </mat-toolbar-row>
     </mat-toolbar>
