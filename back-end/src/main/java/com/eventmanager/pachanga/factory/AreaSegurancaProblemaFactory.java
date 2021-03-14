@@ -42,9 +42,9 @@ public class AreaSegurancaProblemaFactory {
 				.observacaoSolucao(problemaSeguranca.getObservacaoSolucao())
 				.imagemProblema(problemaSeguranca.getImagemProblema() == null || !retornoImagem ? null
 						: problemaSeguranca.getImagemProblema())
-				.nomeUsuarioEmissor(problemaSeguranca.getCodUsuarioResolv() == null ? null
+				.nomeUsuarioResolv(problemaSeguranca.getCodUsuarioResolv() == null ? null
 						: problemaSeguranca.getCodUsuarioResolv().getNomeUser())
-				.nomeUsuarioResolv(problemaSeguranca.getCodUsuarioEmissor().getNomeUser())
+				.nomeUsuarioEmissor(problemaSeguranca.getCodUsuarioEmissor().getNomeUser())
 				.hasImagem(problemaSeguranca.getImagemProblema() != null).build();
 	}
 
