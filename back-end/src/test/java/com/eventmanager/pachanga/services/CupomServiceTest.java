@@ -63,6 +63,9 @@ class CupomServiceTest {
 	
 	@MockBean
 	private CupomFactory cupomFactory;
+	
+	@MockBean
+	private NotificacaoService notificacaoService; 
 
 	private Cupom gerarCupom() throws Exception {
 		Cupom cupom = new Cupom();
@@ -71,6 +74,8 @@ class CupomServiceTest {
 		cupom.setFesta(festaTest());
 		cupom.setPrecoDesconto(1.75f);
 		cupom.setTipoDesconto(TipoDesconto.VALOR.getDescricao());
+		cupom.setDataFimDesconto(LocalDateTime.of(2016, Month.JUNE, 24, 19, 10));
+		cupom.setDataIniDesconto(LocalDateTime.of(2016, Month.JUNE, 22, 19, 10));
 		return cupom;
 	}
 	
@@ -109,6 +114,8 @@ class CupomServiceTest {
 		cupomTO.setCodFesta(festaTest().getCodFesta());
 		cupomTO.setPrecoDesconto(1.75f);
 		cupomTO.setTipoDesconto(TipoDesconto.VALOR.getDescricao());
+		cupomTO.setDataFimDesconto(LocalDateTime.of(2016, Month.JUNE, 24, 19, 10));
+		cupomTO.setDataIniDesconto(LocalDateTime.of(2016, Month.JUNE, 22, 19, 10));
 		return cupomTO;
 	}
 	
@@ -128,6 +135,7 @@ class CupomServiceTest {
 		
 		Mockito.when(cupomRepository.findCuponsByNomeAndFesta(Mockito.anyString(), Mockito.anyInt())).thenReturn(cupom);
 		Mockito.when(grupoRepository.findGrupoPermissaoUsuario(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(criarListaDeGrupo());
+		Mockito.when(notificacaoService.getDataAtual()).thenReturn(LocalDateTime.of(2016, Month.JUNE, 23, 19, 10));
 
 		Cupom retorno = cupomService.getCupom("teste", 1);
 		

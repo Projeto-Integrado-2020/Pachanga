@@ -631,6 +631,7 @@ class AreaSegurancaProblemaServiceTest {
 		AreaSegurancaProblemaTO areaSegurancaProblemaTO = criacaoAreaSegurancaProblemaTO();
 		areaSegurancaProblemaTO.setStatusProblema(TipoStatusProblema.FINALIZADO.getValor());
 		AreaSegurancaProblema areaSegurancaProblema = criacaoAreaSegurancaProblema();
+		areaSegurancaProblema.setStatusProblema(TipoStatusProblema.ANDAMENTO.getValor());
 
 		Mockito.when(areaSegurancaProblemaRepository.findByCodProblema(Mockito.anyInt()))
 				.thenReturn(areaSegurancaProblema);

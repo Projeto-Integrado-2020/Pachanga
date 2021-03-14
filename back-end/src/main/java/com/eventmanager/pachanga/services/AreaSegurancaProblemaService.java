@@ -134,7 +134,7 @@ public class AreaSegurancaProblemaService {
 				.validarProblemaSeguranca(problemaSegurancaTO.getCodAreaProblema());
 		AreaSeguranca area = areaSegurancaRepository.findAreaByCodFestaAndCodArea(
 				areaSegurancaProblema.getFesta().getCodFesta(), areaSegurancaProblema.getArea().getCodArea());
-		if (finaliza.booleanValue()) {
+		if (finaliza.booleanValue() && areaSegurancaProblema.getStatusProblema().equals(TipoStatusProblema.ANDAMENTO.getValor())) {
 			if ((areaSegurancaProblemaRepository.quantidadeProblemasAreaFesta(area.getCodArea(),
 					areaSegurancaProblema.getFesta().getCodFesta()) - 1) == 0)
 				area.setStatusSeguranca(TipoAreaSeguranca.SEGURO.getDescricao());
@@ -145,15 +145,17 @@ public class AreaSegurancaProblemaService {
 			areaSegurancaProblema.setObservacaoSolucao(problemaSegurancaTO.getObservacaoSolucao());
 			this.validarAreaSegurancaProblema(areaSegurancaProblema);
 			this.deletarNotificacoes(areaSegurancaProblema);
-		} else {
+			this.salvarAreaProblemaHistorico(areaSegurancaProblema);
+		} else if (!finaliza.booleanValue()
+				&& !area.getStatusSeguranca().equals(TipoStatusProblema.ANDAMENTO.getValor())) {
 			areaSegurancaProblema.setStatusProblema(TipoStatusProblema.ANDAMENTO.getValor());
 			areaSegurancaProblema.setCodUsuarioResolv(null);
 			areaSegurancaProblema.setHorarioFim(null);
 			areaSegurancaProblema.setObservacaoSolucao(null);
 			this.disparaNotificacao(areaSegurancaProblema);
 			area.setStatusSeguranca(TipoAreaSeguranca.INSEGURO.getDescricao());
+			this.salvarAreaProblemaHistorico(areaSegurancaProblema);
 		}
-		this.salvarAreaProblemaHistorico(areaSegurancaProblema);
 		areaSegurancaRepository.save(area);
 		areaSegurancaProblemaRepository.save(areaSegurancaProblema);
 	}

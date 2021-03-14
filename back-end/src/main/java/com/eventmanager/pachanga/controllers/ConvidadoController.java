@@ -55,6 +55,17 @@ public class ConvidadoController {
 			return ResponseEntity.status(400).body(e.getMessage());
 		}
 	}
+	
+	@ResponseBody
+	@PostMapping(path = "/reenvConvite")
+	public ResponseEntity<Object> reenvConvite(@RequestParam(required = true)int codFesta, @RequestParam(required = true)Integer codConvidado, @RequestParam(required = true)Integer idGrupo, @RequestParam(required = true)int idUsuario){
+		try {
+			convidadoService.reenvConvite(codConvidado,idGrupo, idUsuario, codFesta);
+			return ResponseEntity.ok().build();
+		} catch (ValidacaoException e) {
+			return ResponseEntity.status(400).body(e.getMessage());
+		}
+	}
 
 	
 }

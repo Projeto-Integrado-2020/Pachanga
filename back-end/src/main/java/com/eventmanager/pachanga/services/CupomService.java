@@ -2,7 +2,6 @@ package com.eventmanager.pachanga.services;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,10 +32,13 @@ public class CupomService {
 
 	@Autowired
 	private CupomFactory cupomFactory;
+	
+	@Autowired
+	private NotificacaoService notificacaoService; 
 
 	public Cupom getCupom(String nomeCupom, int codFesta) {
 		Cupom cupom = this.cupomRepository.findCuponsByNomeAndFesta(nomeCupom, codFesta);
-		LocalDateTime dataAtual = LocalDateTime.now(ZoneId.of("America/Sao_Paulo"));
+		LocalDateTime dataAtual = notificacaoService.getDataAtual();
 		return dataAtual.isAfter(cupom.getDataIniDesconto()) && dataAtual.isBefore(cupom.getDataFimDesconto()) ? cupom
 				: null;
 	}

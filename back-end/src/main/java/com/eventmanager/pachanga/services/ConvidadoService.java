@@ -98,6 +98,19 @@ public class ConvidadoService {
 		convidado.setStatusConvite(TipoStatusConvite.RECUSADO.getDescricao());
 		convidadoRepository.save(convidado);
 	}
+	
+	public void reenvConvite(Integer codConvidado, Integer idGrupo, int idUsuario, int codFesta) {
+		Convidado convidado = this.validarGrupoConvidado(codConvidado, idGrupo);
+		Grupo grupo = this.validarGrupoFesta(idGrupo, codFesta, idUsuario);
+		Festa festa = this.validarFesta(codFesta);
+		if(TipoStatusConvite.RECUSADO.getDescricao().equals(convidado.getStatusConvite())) {
+			EmailMensagem.enviarEmail(convidado.getEmail(), grupo.getNomeGrupo(), festa);
+		}
+		notificacaoService.inserirNotificacaoConvidado(convidado.getCodConvidado(),
+				TipoNotificacao.CONVFEST.getCodigo(),
+				notificacaoService.criacaoMensagemNotificacaoUsuarioConvidado(idGrupo,
+						convidado.getCodConvidado(), TipoNotificacao.CONVFEST.getValor()));
+	}
 
 	private Convidado validarGrupoConvidado(int codConvidado, int idGrupo) {
 		Convidado convidado = convidadoRepository.findConvidadoGrupo(codConvidado, idGrupo);
