@@ -18,6 +18,7 @@ import com.eventmanager.pachanga.repositories.GrupoRepository;
 import com.eventmanager.pachanga.repositories.UsuarioRepository;
 import com.eventmanager.pachanga.tipo.TipoNotificacao;
 import com.eventmanager.pachanga.tipo.TipoPermissao;
+import com.eventmanager.pachanga.tipo.TipoStatusConvite;
 import com.eventmanager.pachanga.tipo.TipoStatusFesta;
 import com.eventmanager.pachanga.utils.EmailMensagem;
 
@@ -94,7 +95,8 @@ public class ConvidadoService {
 		notificacaoService.deletarNotificacaoConvidado(codConvidado, TipoNotificacao.CONVFEST.getCodigo(),
 				notificacaoService.criacaoMensagemNotificacaoUsuarioConvidado(idGrupo, convidado.getCodConvidado(),
 						TipoNotificacao.CONVFEST.getValor()));
-		convidadoRepository.deleteConvidado(convidado.getCodConvidado());
+		convidado.setStatusConvite(TipoStatusConvite.RECUSADO.getDescricao());
+		convidadoRepository.save(convidado);
 	}
 
 	private Convidado validarGrupoConvidado(int codConvidado, int idGrupo) {

@@ -8,13 +8,15 @@ public class AreaSegurancaProblemaTO {
 	private int codFesta;
 	private int codProblema;
 	private int codUsuarioResolv;
+	private String nomeUsuarioResolv;
     private String statusProblema ;
 	private LocalDateTime horarioInicio;
 	private LocalDateTime horarioFim;
 	private int codUsuarioEmissor;
-    private String descProblemaEmissor;
-    private String observacaoSolucao;
+	private String nomeUsuarioEmissor;
     private String descProblema;
+    private String observacaoSolucao;
+    private String descProblemaEmissor;
     private byte[] imagemProblema;
     private boolean hasImagem;
     
@@ -102,5 +104,17 @@ public class AreaSegurancaProblemaTO {
 	public void setHasImagem(boolean hasImagem) {
 		this.hasImagem = hasImagem;
 	}
-    
+	public String getNomeUsuarioResolv() {
+		return nomeUsuarioResolv;
+	}
+	public void setNomeUsuarioResolv(String nomeUsuarioResolv) {
+		this.nomeUsuarioResolv = nomeUsuarioResolv;
+	}
+	public String getNomeUsuarioEmissor() {
+		return nomeUsuarioEmissor;
+	}
+	public void setNomeUsuarioEmissor(String nomeUsuarioEmissor) {
+		this.nomeUsuarioEmissor = nomeUsuarioEmissor;
+	}
+	
 }

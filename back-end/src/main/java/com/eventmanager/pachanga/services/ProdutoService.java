@@ -105,7 +105,7 @@ public class ProdutoService {
 
 		itemEstoqueRepository.save(itemEstoque);
 
-		this.inserirItemEstoqueFluxo(itemEstoque);
+		this.inserirItemEstoqueFluxo(itemEstoque, idUsuarioPermissao);
 
 		return itemEstoque;
 	}
@@ -235,7 +235,7 @@ public class ProdutoService {
 
 		itemEstoqueRepository.save(itemEstoque);
 
-		this.inserirItemEstoqueFluxo(itemEstoque);
+		this.inserirItemEstoqueFluxo(itemEstoque, idUsuarioPermissao);
 
 		this.disparaNotificacaoCasoEstoqueEscasso(itemEstoque);
 
@@ -278,14 +278,28 @@ public class ProdutoService {
 			this.deleteNotificacoesItemEstoque(grupos, itemEstoque);
 		}
 
-		this.inserirItemEstoqueFluxo(itemEstoque);
+		this.inserirItemEstoqueFluxo(itemEstoque, idUsuarioPermissao);
 
 		return itemEstoque;
 	}
 
-	private void inserirItemEstoqueFluxo(ItemEstoque itemEstoque) {
+	private void inserirItemEstoqueFluxo(ItemEstoque itemEstoque, Integer codUsuario) {
+		List<ItemEstoqueFluxo> itensEstoqueFluxoSalvo = itemEstoqueFluxoRepository
+				.getItemEstoqueFluxoByCodFestaCodProdutoCodEstoque(itemEstoque.getProduto().getCodProduto(),
+						itemEstoque.getCodFesta(), itemEstoque.getEstoque().getCodEstoque());
+		
+		ItemEstoqueFluxo itemEstoqueFluxoSalvo = itensEstoqueFluxoSalvo.isEmpty() ? null
+				: itensEstoqueFluxoSalvo.get(0);
+		Integer codReponsavelPerda = null;
+		if (itemEstoqueFluxoSalvo == null) {
+			codReponsavelPerda = itemEstoque.getQuantPerda() > 0 ? codUsuario : null;
+		} else {
+			codReponsavelPerda = itemEstoqueFluxoSalvo.getQuantPerda() == itemEstoque.getQuantPerda() ? null
+					: codUsuario;
+		}
 		ItemEstoqueFluxo itemEstoqueFluxo = new ItemEstoqueFluxo(itemEstoque, notificacaoService.getDataAtual(),
-				itemEstoqueFluxoRepository.getNextValMySequence(), itemEstoque.getProduto().getDose());
+				itemEstoqueFluxoRepository.getNextValMySequence(), itemEstoque.getProduto().getDose(),
+				codReponsavelPerda);
 		itemEstoqueFluxoRepository.save(itemEstoqueFluxo);
 	}
 
