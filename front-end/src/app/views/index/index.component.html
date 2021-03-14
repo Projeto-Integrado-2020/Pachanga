@@ -3,6 +3,11 @@
 <div class="main-container">
     <h1>{{'INDEX.OLA' | translate}}</h1>
 
+    <div *ngIf="this.loading" class="loading">
+        <span class="loading__text">{{'INDEX.CARREGANDO' | translate}}...</span>
+        <img src="./../../../assets/tenor.gif" alt="">
+    </div>
+
     <app-index-carrocel
         *ngFor="let categoria of this.categorias" class="carrocel"
         [titulo]="categoria.nomeCategoria"

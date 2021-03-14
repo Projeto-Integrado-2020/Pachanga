@@ -12,7 +12,8 @@
 
     "INDEX": {
         "OLA": "Welcome to Pachanga",
-        "FESTAS": "All parties: "
+        "FESTAS": "All parties: ",
+        "CARREGANDO": "Loading"
     },
 
     "LOGIN": {
