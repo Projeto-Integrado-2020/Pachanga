@@ -1,5 +1,7 @@
 package com.eventmanager.pachanga.dtos;
 
+import java.time.LocalDateTime;
+
 public class CupomTO {
 
 	private int codCupom;
@@ -8,6 +10,8 @@ public class CupomTO {
 	private float precoDesconto;
 	private int porcentagemDesc;
 	private String tipoDesconto;
+	private LocalDateTime dataIniDesconto;
+	private LocalDateTime dataFimDesconto;
 
 	public int getCodCupom() {
 		return codCupom;
@@ -57,4 +61,20 @@ public class CupomTO {
 		this.tipoDesconto = tipoDesconto;
 	}
 
+	public LocalDateTime getDataIniDesconto() {
+		return dataIniDesconto;
+	}
+
+	public void setDataIniDesconto(LocalDateTime dataIniDesconto) {
+		this.dataIniDesconto = dataIniDesconto;
+	}
+
+	public LocalDateTime getDataFimDesconto() {
+		return dataFimDesconto;
+	}
+
+	public void setDataFimDesconto(LocalDateTime dataFimDesconto) {
+		this.dataFimDesconto = dataFimDesconto;
+	}
+	
 }

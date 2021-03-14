@@ -1,5 +1,8 @@
 package com.eventmanager.pachanga.services;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +35,10 @@ public class CupomService {
 	private CupomFactory cupomFactory;
 
 	public Cupom getCupom(String nomeCupom, int codFesta) {
-		return this.cupomRepository.findCuponsByNomeAndFesta(nomeCupom, codFesta);
+		Cupom cupom = this.cupomRepository.findCuponsByNomeAndFesta(nomeCupom, codFesta);
+		LocalDateTime dataAtual = LocalDateTime.now(ZoneId.of("America/Sao_Paulo"));
+		return dataAtual.isAfter(cupom.getDataIniDesconto()) && dataAtual.isBefore(cupom.getDataFimDesconto()) ? cupom
+				: null;
 	}
 
 	public List<Cupom> getCuponsFesta(int codFesta, int idUser) {
@@ -86,6 +92,11 @@ public class CupomService {
 		Cupom cupomExistente = cupomRepository.findCuponsByNomeAndFesta(nomeCupom, cupom.getCodFesta());
 		if (cupomExistente != null && !trocaNome)
 			throw new ValidacaoException("CUPMDUPL");// cupom duplicado
+		
+		if((cupom.getDataFimDesconto().isBefore(cupom.getDataIniDesconto())
+				|| Duration.between(cupom.getDataIniDesconto(), cupom.getDataFimDesconto()).isZero())) {
+			throw new ValidacaoException("DCUPINCO");// data inicial ou final incorreta
+		}
 
 		if (!cupom.getTipoDesconto().equals(TipoDesconto.PORCENTAGEM.getDescricao())
 				&& !cupom.getTipoDesconto().equals(TipoDesconto.VALOR.getDescricao()))

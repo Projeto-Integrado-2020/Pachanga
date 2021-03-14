@@ -65,25 +65,25 @@ public class FestaService {
 
 	@Autowired
 	private CategoriaRepository categoriaRepository;
-	
+
 	@Autowired
 	private AreaSegurancaProblemaFluxoRepository areaProblemaFluxoRepository;
-	
+
 	@Autowired
 	private AreaSegurancaProblemaService areaSegurancaProblemaService;
-	
+
 	@Autowired
 	private AreaSegurancaRepository areaRepository;
-	
+
 	@Autowired
 	private CupomRepository cupomRepository;
-	
+
 	@Autowired
 	private DadoBancarioRepository dadoBancarioRepository;
-	
+
 	@Autowired
 	private InfoIntegracaoRepository infoIntegracaoRepository;
-	
+
 	@Autowired
 	private QuestionarioFormsRepository questionarioFormsRepository;
 
@@ -95,7 +95,7 @@ public class FestaService {
 
 	@Autowired
 	private EstoqueService estoqueService;
-	
+
 	@Autowired
 	private LoteService loteService;
 
@@ -110,10 +110,10 @@ public class FestaService {
 
 	@Autowired
 	private NotificacaoService notificacaoService;
-	
+
 	@Autowired
 	private Environment env;
-	
+
 	private static final String AMBIENTE = "spring.profiles.active";
 
 	public List<Festa> procurarFestas() {
@@ -135,7 +135,7 @@ public class FestaService {
 		Usuario usuario = usuarioRepository.findById(idUser);
 		festaTo.setCodFesta(festaRepository.getNextValMySequence());
 		festaTo.setStatusFesta(TipoStatusFesta.PREPARACAO.getValor());
-		this.validarFesta(festaTo);
+		this.validarFesta(festaTo, true);
 		this.validacaoCategorias(festaTo.getCodPrimaria(), festaTo.getCodSecundaria());
 
 		Festa festa = festaFactory.getFesta(festaTo, imagem);
@@ -193,23 +193,22 @@ public class FestaService {
 		cupomRepository.deleteByCodFesta(idFesta);
 		dadoBancarioRepository.deleteByCodFesta(idFesta);
 		festaRepository.deleteById(idFesta);
-		CloudinaryUtils.getCloudinaryCredentials().uploader().destroy(env.getProperty(AMBIENTE) + "/" + festa.getNomeFesta(), ObjectUtils.emptyMap());
+		CloudinaryUtils.getCloudinaryCredentials().uploader()
+				.destroy(env.getProperty(AMBIENTE) + "/" + festa.getNomeFesta(), ObjectUtils.emptyMap());
 	}
 
 	public Festa updateFesta(FestaTO festaTo, int idUser, MultipartFile imagem) throws IOException {
 		Festa festa = validarFestaExistente(festaTo.getCodFesta());
 
-		this.adicionarImagemCloudnary(imagem, festa);
-
 		this.validarPermissaoUsuario(idUser, festaTo.getCodFesta(), TipoPermissao.EDITDFES.getCodigo());
-		this.validarFesta(festaTo);
-		Festa festaMudanca = validarMudancas(festaTo, festa);
+		Festa festaMudanca = validarMudancas(festaTo, festa, imagem);
 		festaRepository.save(festaMudanca);
 		return festaMudanca;
 	}
 
-	private Festa validarMudancas(FestaTO festaTo, Festa festa) {
+	private Festa validarMudancas(FestaTO festaTo, Festa festa, MultipartFile imagem) throws IOException {
 		mudarCategoriaFesta(festa, festaTo);
+		boolean validarHorarioFesta = false;
 		if (!festa.getNomeFesta().equals(festaTo.getNomeFesta())) {
 			festa.setNomeFesta(festaTo.getNomeFesta());
 		}
@@ -220,9 +219,11 @@ public class FestaService {
 			festa.setCodEnderecoFesta(festaTo.getCodEnderecoFesta());
 		}
 		if (festa.getHorarioInicioFesta().compareTo(festaTo.getHorarioInicioFesta()) != 0) {
+			validarHorarioFesta = true;
 			festa.setHorarioInicioFesta(festaTo.getHorarioInicioFesta());
 		}
 		if (festa.getHorarioFimFesta().compareTo(festaTo.getHorarioFimFesta()) != 0) {
+			validarHorarioFesta = true;
 			festa.setHorarioFimFesta(festaTo.getHorarioFimFesta());
 		}
 		if (!festa.getOrganizador().equals(festaTo.getOrganizador())) {
@@ -231,6 +232,11 @@ public class FestaService {
 		if (!festa.getDescOrganizador().equals(festaTo.getDescOrganizador())) {
 			festa.setDescOrganizador(festaTo.getDescOrganizador());
 		}
+		if (imagem == null || (festa.getUrlImagem() == null
+				|| !festa.getUrlImagem().equals(festaTo.getUrlImagem()))) {
+			this.adicionarImagemCloudnary(imagem, festa);
+		}
+		this.validarFesta(festaTo, validarHorarioFesta);
 		return festa;
 	}
 
@@ -290,10 +296,10 @@ public class FestaService {
 		}
 	}
 
-	private void validarFesta(FestaTO festaTo) {
-		if (festaTo.getHorarioFimFesta().isBefore(festaTo.getHorarioInicioFesta())
+	private void validarFesta(FestaTO festaTo, boolean validarHorario) {
+		if (validarHorario && (festaTo.getHorarioFimFesta().isBefore(festaTo.getHorarioInicioFesta())
 				|| Duration.between(festaTo.getHorarioInicioFesta(), festaTo.getHorarioFimFesta()).isZero()
-				|| !notificacaoService.getDataAtual().isBefore(festaTo.getHorarioInicioFesta())) {
+				|| !notificacaoService.getDataAtual().isBefore(festaTo.getHorarioInicioFesta()))) {
 			throw new ValidacaoException("DATEINFE");// data inicial ou final incorreta
 		}
 		Festa festa = festaRepository.findByNomeFesta(festaTo.getNomeFesta());
@@ -349,9 +355,9 @@ public class FestaService {
 				&& TipoStatusFesta.FINALIZADO.getValor().equals(statusFestaMaiusculo)) {
 			throw new ValidacaoException("FSTANINI");// festa precisa estar iniciada para fazer essa ação
 		}
-		if(TipoStatusFesta.FINALIZADO.getValor().equals(statusFestaMaiusculo)) {
+		if (TipoStatusFesta.FINALIZADO.getValor().equals(statusFestaMaiusculo)) {
 			festa.setHorarioFimFestaReal(notificacaoService.getDataAtual());
-		}else {
+		} else {
 			festa.setHorarioFimFestaReal(null);
 		}
 		festa.setStatusFesta(statusFestaMaiusculo);
@@ -434,7 +440,8 @@ public class FestaService {
 
 	private void adicionarImagemCloudnary(MultipartFile imagem, Festa festa) throws IOException {
 		if (imagem == null) {
-			CloudinaryUtils.getCloudinaryCredentials().uploader().destroy(env.getProperty(AMBIENTE) + "/" + festa.getCodFesta(), ObjectUtils.emptyMap());
+			CloudinaryUtils.getCloudinaryCredentials().uploader()
+					.destroy(env.getProperty(AMBIENTE) + "/" + festa.getCodFesta(), ObjectUtils.emptyMap());
 			festa.setImagem(null);
 			festa.setUrlImagem(null);
 		} else {
@@ -444,14 +451,17 @@ public class FestaService {
 			fos.write(imagem.getBytes());
 			fos.close();
 
-			Map<?,?> uploadImagem = CloudinaryUtils.getCloudinaryCredentials().uploader().upload(imagemUpload,
-					ObjectUtils.asMap("resource_type", "image", "public_id", env.getProperty(AMBIENTE) + "/" + festa.getCodFesta()));// quando for feito os testes em desenvolvimento trocar para dev o prod
-			
+			Map<?, ?> uploadImagem = CloudinaryUtils.getCloudinaryCredentials().uploader().upload(imagemUpload,
+					ObjectUtils.asMap("resource_type", "image", "public_id",
+							env.getProperty(AMBIENTE) + "/" + festa.getCodFesta()));// quando for feito os testes em
+																					// desenvolvimento trocar para dev o
+																					// prod
+
 			festa.setImagem(imagem.getBytes());
 			festa.setUrlImagem(uploadImagem.get("secure_url").toString());
 		}
 	}
-	
+
 	public boolean validarPermissaoUsuarioGrupo(int codFesta, int idUsuario, int tipoPermissao) {
 		List<Grupo> grupos = grupoRepository.findGrupoPermissaoUsuario(codFesta, idUsuario, tipoPermissao);
 		if (grupos.isEmpty()) {

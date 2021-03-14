@@ -1,5 +1,7 @@
 package com.eventmanager.pachanga.domains;
 
+import java.time.LocalDateTime;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -30,6 +32,12 @@ public class Cupom {
 	
 	@Column(name = "tip_desconto")
 	private String tipoDesconto;
+	
+	@Column(name = "data_ini_desconto")
+	private LocalDateTime dataIniDesconto;
+	
+	@Column(name = "data_fim_desconto")
+	private LocalDateTime dataFimDesconto;
 
 	public int getCodCupom() {
 		return codCupom;
@@ -77,5 +85,21 @@ public class Cupom {
 
 	public void setTipoDesconto(String tipoDesconto) {
 		this.tipoDesconto = tipoDesconto;
+	}
+
+	public LocalDateTime getDataIniDesconto() {
+		return dataIniDesconto;
+	}
+
+	public void setDataIniDesconto(LocalDateTime dataIniDesconto) {
+		this.dataIniDesconto = dataIniDesconto;
+	}
+
+	public LocalDateTime getDataFimDesconto() {
+		return dataFimDesconto;
+	}
+
+	public void setDataFimDesconto(LocalDateTime dataFimDesconto) {
+		this.dataFimDesconto = dataFimDesconto;
 	}
 }

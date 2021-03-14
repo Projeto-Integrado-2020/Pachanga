@@ -1,5 +1,7 @@
 package com.eventmanager.pachanga.builder;
 
+import java.time.LocalDateTime;
+
 import com.eventmanager.pachanga.domains.Cupom;
 import com.eventmanager.pachanga.domains.Festa;
 
@@ -11,6 +13,8 @@ public class CupomBuilder {
 	private float precoDesconto;
 	private int porcentagemDesc;
 	private String tipoDesconto;
+	private LocalDateTime dataIniDesconto;
+	private LocalDateTime dataFimDesconto;
 	
 	public static CupomBuilder getInstance() {
 		return new CupomBuilder();
@@ -46,6 +50,16 @@ public class CupomBuilder {
 		return this;
 	}
 	
+	public CupomBuilder dataIniDesconto(LocalDateTime dataIniDesconto) {
+		this.dataIniDesconto = dataIniDesconto;
+		return this;
+	}
+	
+	public CupomBuilder dataFimDesconto(LocalDateTime dataFimDesconto) {
+		this.dataFimDesconto = dataFimDesconto;
+		return this;
+	}
+	
 	public Cupom build() {
 		Cupom cupom = new Cupom();
 		cupom.setCodCupom(codCupom);
@@ -54,6 +68,8 @@ public class CupomBuilder {
 		cupom.setPrecoDesconto(precoDesconto);
 		cupom.setPorcentagemDesc(porcentagemDesc);
 		cupom.setTipoDesconto(tipoDesconto);
+		cupom.setDataFimDesconto(dataFimDesconto);
+		cupom.setDataIniDesconto(dataIniDesconto);
 		return cupom;
 	}
 }
