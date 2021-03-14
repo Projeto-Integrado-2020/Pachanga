@@ -835,7 +835,9 @@
         "MARCARCOMO":"Set as ",
         "OBSERVACOES": "Note about solution",
         "DETALHES": "Details about solution",
-        "VISUIMAGEM": "View image"
+        "VISUIMAGEM": "View image",
+        "USUEMISSOR": "User who is issuing the problem",
+        "USUSOLUCIONADOR": "Problem solver user"
     },
 
     "CHECKIN": {

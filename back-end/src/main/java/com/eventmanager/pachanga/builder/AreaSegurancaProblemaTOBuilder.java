@@ -10,10 +10,12 @@ public class AreaSegurancaProblemaTOBuilder {
 	private int codFesta;
 	private int codProblema;
 	private int codUsuarioResolv;
+	private String nomeUsuarioResolv;
     private String statusProblema ;
 	private LocalDateTime horarioInicio;
 	private LocalDateTime horarioFim;
 	private int codUsuarioEmissor;
+	private String nomeUsuarioEmissor;
     private String descProblema;
     private String observacaoSolucao;
     private String descProblemaEmissor;
@@ -93,6 +95,17 @@ public class AreaSegurancaProblemaTOBuilder {
 		this.hasImagem = hasImagem;
 		return this;
 	}
+	
+	public AreaSegurancaProblemaTOBuilder nomeUsuarioEmissor(String nomeUsuarioEmissor) {
+		this.nomeUsuarioEmissor = nomeUsuarioEmissor;
+		return this;
+	}
+
+	public AreaSegurancaProblemaTOBuilder nomeUsuarioResolv(String nomeUsuarioResolv) {
+		this.nomeUsuarioResolv = nomeUsuarioResolv;
+		return this;
+	}
+
 
 	public  AreaSegurancaProblemaTO build() {
 		AreaSegurancaProblemaTO problemaSegurancaTO = new  AreaSegurancaProblemaTO();
@@ -110,6 +123,8 @@ public class AreaSegurancaProblemaTOBuilder {
 		problemaSegurancaTO.setDescProblemaEmissor(descProblemaEmissor);
 		problemaSegurancaTO.setImagemProblema(imagemProblema);
 		problemaSegurancaTO.setHasImagem(hasImagem);
+		problemaSegurancaTO.setNomeUsuarioEmissor(nomeUsuarioEmissor);
+		problemaSegurancaTO.setNomeUsuarioResolv(nomeUsuarioResolv);
 		return problemaSegurancaTO;
 	}
 	

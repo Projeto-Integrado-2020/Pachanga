@@ -770,7 +770,9 @@
         "MARCARCOMO": "Marcar Como ",
         "OBSERVACOES": "Observações sobre solução",
         "DETALHES": "Detalhes da solução",
-        "VISUIMAGEM": "Visualizar imagem"
+        "VISUIMAGEM": "Visualizar imagem",
+        "USUEMISSOR": "Usuário emissor do problema",
+        "USUSOLUCIONADOR": "Usuário solucionador do problema"
     },
 
     "PRODUTO": {
