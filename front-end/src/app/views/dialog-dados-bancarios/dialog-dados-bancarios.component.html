@@ -19,12 +19,12 @@
                 <div class="agenciaconta">
                     <mat-form-field class="form__agencia">
                         <mat-label>{{'INGRESSO.AGENCIA' | translate}}</mat-label>
-                        <input formControlName="codAgencia" matInput required #codAgencia name="codAgencia" class="form__agencia" mask="0000">
+                        <input formControlName="codAgencia" matInput required #codAgencia name="codAgencia" class="form__agencia" mask="9999">
                         <mat-error *ngIf="f.codAgencia.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
                     </mat-form-field>
                     <mat-form-field class="form__conta">
                         <mat-label>{{'INGRESSO.CONTA' | translate}}</mat-label>
-                        <input formControlName="codConta" matInput required class="form__conta" mask="00000-0">
+                        <input formControlName="codConta" matInput required class="form__conta" mask="999999">
                         <mat-error *ngIf="f.codConta.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
                     </mat-form-field>
                 </div>

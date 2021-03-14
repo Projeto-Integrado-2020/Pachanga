@@ -41,7 +41,6 @@ export class CriarLoteService {
 
   handleError = (error: HttpErrorResponse, logService: LogService) => {
     this.dialog.closeAll();
-    alert(error.error);
     if (error.error === 'DADNLOTE') {
       this.openDialogDadosBancarios();
       this.openErrorDialog(error.error);
