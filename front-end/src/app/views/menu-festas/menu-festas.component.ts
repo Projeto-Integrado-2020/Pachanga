@@ -27,8 +27,8 @@ export class MenuFestasComponent implements OnInit {
   constructor(public menuFestasService: MenuFestasService, public loginService: LoginService) { }
 
   ngOnInit() {
+    this.loading = true;
     this.menuFestasService.getFestas(this.loginService.usuarioInfo.codUsuario).subscribe((resp: any) => {
-      this.loading = true;
       this.menuFestasService.setFarol(false);
       this.festas = resp.sort(this.nomeFestaSort);
 
@@ -39,7 +39,6 @@ export class MenuFestasComponent implements OnInit {
       this.festasMostradas = this.festas.slice(0, 5);
     });
     this.loading = false;
-
   }
 
   nomeFestaSort(a, b) {
