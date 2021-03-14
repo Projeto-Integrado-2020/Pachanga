@@ -23,16 +23,10 @@ export class GerarIngressoService {
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('Authorization', 'Bearer ' + JSON.parse(localStorage.getItem('token')).token);
 
-    return this.http.post(this.urlIngressosAdd, body, {headers}).pipe(
-      take(1),
-      catchError(error => {
-        return this.handleError(error, this.logService);
-      })
-    );
+    return this.http.post(this.urlIngressosAdd, body, {headers});
   }
 
-  handleError = (error: HttpErrorResponse, logService: LogService) => {
-    this.dialog.closeAll();
+  handleError = (error: HttpErrorResponse) => {
     let mensagemError;
     if (error.error) {
       if (error.error.error_messages) {
@@ -47,8 +41,8 @@ export class GerarIngressoService {
       mensagemError = 'BOLEREGI';
     }
     this.openErrorDialog(mensagemError);
-    logService.initialize();
-    logService.logHttpInfo(JSON.stringify(error), 0, error.url);
+    this.logService.initialize();
+    this.logService.logHttpInfo(JSON.stringify(error), 0, error.url);
     return throwError(error);
   }
 

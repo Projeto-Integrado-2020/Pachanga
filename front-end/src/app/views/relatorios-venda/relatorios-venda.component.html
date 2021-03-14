@@ -59,7 +59,7 @@
           </mat-panel-title>
         </mat-expansion-panel-header>
         <div class="relatorio-container" *ngIf="lucroLotesDataSet.length > 0">
-            <ngx-charts-bar-vertical-2d 
+            <ngx-charts-bar-vertical-stacked 
             [scheme]="colorScheme"
             [results]="lucroLotesDataSet"
             [xAxisLabel]="'RELATORIOVENDA.VENDAS' | translate"
@@ -72,7 +72,7 @@
             [yAxis]="true"
             [gradient]="false"
             [view]="">
-        </ngx-charts-bar-vertical-2d>
+        </ngx-charts-bar-vertical-stacked>
         </div>
         <div *ngIf="lucroLotesDataSet.length === 0" class="nenhum-resultado">
             <p>{{'RELATORIOVENDA.SEMRESULTADO' | translate}}</p>
@@ -85,7 +85,7 @@
           </mat-panel-title>
         </mat-expansion-panel-header>
         <div class="relatorio-container" *ngIf="lucroFestaDataSet.length > 0">
-            <ngx-charts-bar-vertical-2d 
+            <ngx-charts-bar-vertical-stacked
             [scheme]="colorScheme"
             [results]="lucroFestaDataSet"
             [xAxisLabel]="'RELATORIOVENDA.VENDAS' | translate"
@@ -98,7 +98,7 @@
             [yAxis]="true"
             [gradient]="false"
             [view]="">
-        </ngx-charts-bar-vertical-2d>
+        </ngx-charts-bar-vertical-stacked>
         </div>
         <div *ngIf="lucroFestaDataSet.length === 0" class="nenhum-resultado">
             <p>{{'RELATORIOVENDA.SEMRESULTADO' | translate}}</p>

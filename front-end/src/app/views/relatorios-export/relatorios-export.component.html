@@ -236,7 +236,7 @@
     </p>
     <div class="relatorio-container" *ngIf="lucroLotesDataSet.length > 0">
         <div class="chart-wrapper" id="lucroLotes">
-            <ngx-charts-bar-vertical-2d 
+            <ngx-charts-bar-vertical-stacked
                 [scheme]="colorScheme"
                 [results]="lucroLotesDataSet"
                 [xAxisLabel]="'RELATORIOVENDA.VENDAS' | translate"
@@ -248,7 +248,7 @@
                 [xAxis]="true"
                 [yAxis]="true"
                 [gradient]="false">
-            </ngx-charts-bar-vertical-2d>
+            </ngx-charts-bar-vertical-stacked>
         </div>
     </div>
     <p class="titulo-relatorio" *ngIf="lucroFestaDataSet.length > 0">
@@ -256,7 +256,7 @@
     </p>
     <div class="relatorio-container" *ngIf="lucroFestaDataSet.length > 0">
         <div class="chart-wrapper" id="lucroFesta">
-            <ngx-charts-bar-vertical-2d 
+            <ngx-charts-bar-vertical-stacked
                 [scheme]="colorScheme"
                 [results]="lucroFestaDataSet"
                 [xAxisLabel]="'RELATORIOVENDA.VENDAS' | translate"
@@ -268,7 +268,7 @@
                 [xAxis]="true"
                 [yAxis]="true"
                 [gradient]="false">
-            </ngx-charts-bar-vertical-2d>
+            </ngx-charts-bar-vertical-stacked>
         </div>
     </div>
     <p class="titulo-relatorio" *ngIf="faixaEtariaValores.length > 0">

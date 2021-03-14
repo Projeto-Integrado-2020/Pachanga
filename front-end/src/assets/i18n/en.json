@@ -89,7 +89,7 @@
         "NOTMODIF": "Nothing to modify.",
         "FESTNFOU": "Party not found.",
         "USERSPER": "User without permission for this action.",
-        "DATEINFE": "Invalid dates/time.",
+        "DATEINFE": "Retroactive dates/times are not allowed.",
         "FESTNEND": "Party without address.",
         "FESTNOME": "Another party is using this name.",
         "STATERRA": "This party status does not exist.",
@@ -982,12 +982,12 @@
         "PAGO": "Payed",
         "COMPRADO": "Sold",
         "VENDAS": "Sales",
-        "LUCRO": "Profit",
-        "LUCROESP": "Expected profit",
-        "LUCROREAL": "Real profit",
-        "LUCROTOTAL": "Total profit",
-        "LUCROLOTE": "Batch profit",
-        "LUCROFESTA": "Party profit"
+        "LUCRO": "Revenues",
+        "LUCROESP": "Remaining Revenues",
+        "LUCROREAL": "Real Revenues",
+        "LUCROTOTAL": "Total Revenues",
+        "LUCROLOTE": "Batch revenues",
+        "LUCROFESTA": "Party revenues"
     },
 
     "RELATORIOEXPORT": {
