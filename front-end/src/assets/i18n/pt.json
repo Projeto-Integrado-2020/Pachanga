@@ -845,12 +845,12 @@
         "PAGO": "Pago",
         "COMPRADO": "Comprado",
         "VENDAS": "Vendas",
-        "LUCRO": "Lucro",
-        "LUCROESP": "Lucro Esperado",
-        "LUCROREAL": "Lucro Real",
-        "LUCROTOTAL": "Lucro total",
-        "LUCROLOTE": "Lucro por lote",
-        "LUCROFESTA": "Lucro da festa"
+        "LUCRO": "Faturamento",
+        "LUCROESP": "Faturamento Esperado",
+        "LUCROREAL": "Faturamento Real",
+        "LUCROTOTAL": "Faturamento total",
+        "LUCROLOTE": "Faturamento por lote",
+        "LUCROFESTA": "Faturamento da festa"
     },
 
     "RELATORIOSEGURANCA": {
