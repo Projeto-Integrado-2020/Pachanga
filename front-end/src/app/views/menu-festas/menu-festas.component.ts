@@ -19,6 +19,7 @@ export class MenuFestasComponent implements OnInit {
   nenhumaFesta = false;
   buscaPorNome: any;
   buscaPorAdmin = false;
+  loading = false;
 
   // MatPaginator Output
   pageEvent: PageEvent;
@@ -27,6 +28,7 @@ export class MenuFestasComponent implements OnInit {
 
   ngOnInit() {
     this.menuFestasService.getFestas(this.loginService.usuarioInfo.codUsuario).subscribe((resp: any) => {
+      this.loading = true;
       this.menuFestasService.setFarol(false);
       this.festas = resp.sort(this.nomeFestaSort);
 
@@ -36,6 +38,7 @@ export class MenuFestasComponent implements OnInit {
       this.length = this.festas.length;
       this.festasMostradas = this.festas.slice(0, 5);
     });
+    this.loading = false;
 
   }
 

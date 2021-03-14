@@ -153,9 +153,13 @@ header {
     top: 50%;
 }
 
-.paginator {
-}
 
 .checkb {
     white-space: normal;
 }
+
+.loading {
+    @include centralizar(true, false);
+    width: 5rem;
+  
+  }
