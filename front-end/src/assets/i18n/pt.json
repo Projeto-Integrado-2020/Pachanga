@@ -239,7 +239,7 @@
         "NOTMODIF": "Nada a se alterar.",
         "FESTNFOU": "Festa não encontrada.",
         "USERSPER": "Usuário sem permissão para executar esta ação.",
-        "DATEINFE": "Datas/Horários inválidos.",
+        "DATEINFE": "Datas/Horários retroativos não são permitidos.",
         "FESTNEND": "Festa sem endereço.",
         "FESTNOME": "Outra festa já está usando este nome.",
         "STATERRA": "Esse status de festa não existe.",
@@ -770,7 +770,9 @@
         "MARCARCOMO": "Marcar Como ",
         "OBSERVACOES": "Observações sobre solução",
         "DETALHES": "Detalhes da solução",
-        "VISUIMAGEM": "Visualizar imagem"
+        "VISUIMAGEM": "Visualizar imagem",
+        "USUEMISSOR": "Usuário emissor do problema",
+        "USUSOLUCIONADOR": "Usuário solucionador do problema"
     },
 
     "PRODUTO": {
@@ -847,7 +849,7 @@
         "COMPRADO": "Comprado",
         "VENDAS": "Vendas",
         "LUCRO": "Faturamento",
-        "LUCROESP": "Faturamento Esperado",
+        "LUCROESP": "Faturamento Restante",
         "LUCROREAL": "Faturamento Real",
         "LUCROTOTAL": "Faturamento total",
         "LUCROLOTE": "Faturamento por lote",

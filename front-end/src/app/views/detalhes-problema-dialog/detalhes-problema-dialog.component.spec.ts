@@ -46,7 +46,9 @@ describe('DetalhesProblemaDialogComponent', () => {
               descProblema: 'Briga',
               horarioFim: null,
               horarioInicio: '2020-11-05T13:36:29.126907',
-              statusProblema: 'A'
+              statusProblema: 'A',
+              nomeUsuarioResolv: 'Luis Antonio Gonçalves',
+              observacaoSolucao: 'João Roberto'
             }
           }
         },

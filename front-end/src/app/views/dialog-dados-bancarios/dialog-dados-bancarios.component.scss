@@ -1,0 +1,296 @@
+@import '../material/paleta.scss';
+@import '~@angular/material/theming';
+
+
+  .mat-header-cell {
+    padding: 5px;
+  }
+  
+
+  .botoes {
+    flex-direction: column;
+    gap: 1rem;
+    justify-items: center;
+    align-items: center;
+  }
+
+  td.mat-cell:first-of-type {
+    padding-right: 1.5rem;
+  }
+
+
+  .form_row {
+    display: flex;
+    flex-direction: column;
+  }
+
+
+.mat-table {
+  margin: 0 !important;
+  width: 100% !important;
+}
+
+.center-X {
+  @include centralizar(true, false);
+}
+
+.botao {
+  color: #ffffff;
+  width: 15rem;
+}
+
+.botoes {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+  margin: 2rem 0 2rem 0;
+
+}
+
+  .titulo2 {
+    @include centralizar(true, false);
+    display: inline-block;
+  }
+  
+  .botao {
+    background-color: $color-primary;
+    color: #ffffff;
+  }
+
+  .bot-head-add {
+    margin-left: 25%;
+    margin-right: 16%;
+  }
+
+
+
+//5.32
+//1.064
+  .botao-sidenav{
+    padding-top: 5.32vh;
+    padding-bottom: 5.32vh;
+    width: 100%;
+    padding-right: 1.064vh;
+    text-align: center;
+    position: relative
+  }
+
+  table {
+    width: 75%;
+    margin-top: 3rem;
+  }
+
+  .icon-edit{
+    position: relative;
+    //transform: translateX(-50%);
+    float: right;
+  }
+
+  th{
+    padding: auto;
+  }
+
+  a{
+    text-decoration: underline;
+  }
+
+  .card-title {
+    font-size: 1.2rem;
+    font-weight: 500;
+    width: 88%;
+    color: $color-tertiary;
+    float: right;
+    padding-left: 3%;
+}
+
+.card-content {
+    padding: 0 3.3rem 0 3.3rem;
+}
+
+
+.botao-editar {
+  float: right;
+  padding: 0;
+  padding-left: .5rem;
+}
+
+mat-button-toggle-group {
+  margin-right: 12px;
+}
+
+::ng-deep mat-button-toggle :disabled{
+  opacity: 1!important;
+  font-weight: 500;
+  cursor: pointer!important;
+}
+
+
+tr.example-detail-row {
+  height: 0;
+}
+
+tr.example-element-row:not(.example-expanded-row):hover {
+  background: whitesmoke;
+}
+
+tr.example-element-row:not(.example-expanded-row):active {
+  background: #efefef;
+}
+
+.example-element-row td {
+  border-bottom-width: 0;
+}
+
+.example-element-detail {
+  overflow: hidden;
+  display: flex;
+}
+
+.example-element-diagram {
+  border: 2px solid black;
+  padding: 8px;
+  font-weight: lighter;
+  margin: 8px 0;
+  height: 104px;
+}
+
+.example-element-symbol {
+  font-weight: bold;
+  font-size: 40px;
+  line-height: normal;
+}
+
+.example-element-description {
+  padding: 16px;
+}
+
+.example-element-description-attribution {
+  opacity: 0.5;
+}
+
+.remove{
+  width: 4rem;
+  position: relative;
+  margin-top: 1rem;
+  margin: 1rem 1rem 0 0;
+}
+
+.red-back{
+  margin-left: 4rem;
+  margin-top: 1.25rem;
+}
+
+.prp-btn-delete {
+  background-color: $color-primary;
+  width: 200px;
+  float: left;
+  margin-right: 1rem;
+}
+
+.prp-btn-edit {
+  width: 200px;
+  float: left;
+  margin-right: 1rem;
+}
+
+
+
+.header-mat-list {
+  margin-bottom: 1rem;
+}
+
+.icons-actions{
+  display: flex;
+  flex-direction: column;
+}
+
+.form_row {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-items: center;
+  align-items: center;
+  padding: 0 0 2rem 0;
+}
+
+::ng-deep .mat-form-field-subscript-wrapper {
+  position: static !important;
+}
+::ng-deep .mat-form-field-underline {
+  position: static !important;
+}
+
+.festa-tab {
+  padding: 1rem;
+  margin-bottom: 1rem;
+
+  &:hover {
+      background-color: #f2f2f2;
+      transition: background-color 0.3s ease-in-out;
+  }
+}
+
+.textos {
+  margin-top: 1rem;
+}
+
+.texto {
+  display: inline-block;
+  margin-right: 2rem;
+}
+
+
+.subtitle {
+  text-transform: capitalize;
+}
+
+.btn-1 {
+  background-color: $color-primary;
+  color: #ffffff;
+  padding: .2rem;
+  padding-right: .3rem;
+}
+
+.botao-integracao, .botao-checkin {
+  background-color: $color-tertiary;
+  color: #ffffff;
+}
+
+.info-box {
+  background-color: $color-primary-light;
+  padding: 1rem;
+  display: inline-block;
+  border-radius: 5px;
+  @include centralizar(true, false);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  &__agencia {
+    width:8ch;
+  }
+
+  &__conta {
+    width: 7ch;
+  }
+}
+
+.agenciaconta {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  justify-content: center;
+}
+
+
+@media (min-width: 749px){
+  .painel {
+    max-width: 40rem;
+    @include centralizar(true, false);
+  }
+}

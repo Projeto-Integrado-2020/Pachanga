@@ -1,6 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PainelIngressoComponent } from './painel-ingresso.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -16,22 +15,21 @@ import { of } from 'rxjs';
 import { GetLoteService } from 'src/app/services/get-lote/get-lote.service';
 import { ControleSidenavComponent } from '../controle-sidenav/controle-sidenav.component';
 import { DadosBancariosService } from 'src/app/services/dados-bancarios/dados-bancarios.service';
-import { DialogDadosBancariosComponent } from '../dialog-dados-bancarios/dialog-dados-bancarios.component'
+import { DialogDadosBancariosComponent } from './dialog-dados-bancarios.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
 }
 
-describe('PainelIngressoComponent', () => {
-  let component: PainelIngressoComponent;
-  let fixture: ComponentFixture<PainelIngressoComponent>;
+describe('DialogDadosBancariosComponent', () => {
+  let component: DialogDadosBancariosComponent;
+  let fixture: ComponentFixture<DialogDadosBancariosComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        PainelIngressoComponent,
-        ControleSidenavComponent,
-        DialogDadosBancariosComponent
+        DialogDadosBancariosComponent,
+        ControleSidenavComponent
       ],
       imports: [
         CustomMaterialModule,
@@ -75,7 +73,7 @@ describe('PainelIngressoComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PainelIngressoComponent);
+    fixture = TestBed.createComponent(DialogDadosBancariosComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
     component = fixture.componentInstance;
@@ -93,25 +91,5 @@ describe('PainelIngressoComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
-  });
-
-  it('should format date from datetime', () => {
-    const result = component.getDateFromDTF('2020-09-23T19:10:25');
-    expect(result).toBe('23/09/2020');
-  });
-
-  it('should formar time from datetime', () => {
-    const result = component.getTimeFromDTF('2020-09-23T19:10:25');
-    expect(result).toBe('19:10:25');
-  });
-
-  it('should create url with batch id', () => {
-    const result = component.createUrlEditLote('1');
-    expect(result).toBe('../ingressos/editar-lote/1');
-  });
-
-  it('nomeLoteSort', () => {
-    expect(component.nomeLoteSort({nomeLote: 'A'}, {nomeLote: 'B'})).toBe(-1);
-    expect(component.nomeLoteSort({nomeLote: 'B'}, {nomeLote: 'A'})).toBe(1);
   });
 });

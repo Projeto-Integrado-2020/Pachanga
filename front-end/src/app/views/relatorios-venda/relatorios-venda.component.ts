@@ -76,12 +76,12 @@ export class RelatoriosVendaComponent implements OnInit {
         const serieTemp = [];
         serieTemp.push(
           {
-            name: this.translateService.instant('RELATORIOVENDA.LUCROESP'),
-            value: parseFloat(resp.infoLucroEsperado.lucroLote[lucroLote])
-          },
-          {
             name: this.translateService.instant('RELATORIOVENDA.LUCROREAL'),
             value: parseFloat(resp.infoLucroReal.lucroLote[lucroLote])
+          },
+          {
+            name: this.translateService.instant('RELATORIOVENDA.LUCROESP'),
+            value: parseFloat(resp.infoLucroEsperado.lucroLote[lucroLote]) - parseFloat(resp.infoLucroReal.lucroLote[lucroLote])
           }
         );
         dataSetTemp.push({
@@ -94,12 +94,12 @@ export class RelatoriosVendaComponent implements OnInit {
         name: resp.nomeFesta,
         series: [
           {
-            name: this.translateService.instant('RELATORIOVENDA.LUCROESP'),
-            value: parseFloat(resp.infoLucroEsperado.lucroTotal)
-          },
-          {
             name: this.translateService.instant('RELATORIOVENDA.LUCROREAL'),
             value: parseFloat(resp.infoLucroReal.lucroTotal)
+          },
+          {
+            name: this.translateService.instant('RELATORIOVENDA.LUCROESP'),
+            value: parseFloat(resp.infoLucroEsperado.lucroTotal) - parseFloat(resp.infoLucroReal.lucroTotal)
           }
         ]
       }];

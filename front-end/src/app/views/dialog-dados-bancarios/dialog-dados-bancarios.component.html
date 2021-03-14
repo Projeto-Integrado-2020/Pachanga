@@ -1,0 +1,44 @@
+
+    <div *ngIf="dadosBancariosTO">
+        <h2 class="titulo2">{{'INGRESSO.DADOSBANC' | translate}}</h2>
+        <div class="info">
+            <p 
+                
+                class="info-box">{{'INGRESSO.DADOSBANCINFO' | translate}}</p>
+        </div>
+        <mat-card class="painel">
+            <form class="form" [formGroup]="form" (submit)="salvarDadosBancarios()">
+                <mat-form-field appearance="fill">
+                    <mat-label>{{'INGRESSO.BANCO' | translate}}</mat-label>
+                    <mat-select formControlName="codBanco" required matInput #codBanco>
+                    <mat-option *ngFor="let banco of this.listaBancos" [value]="banco.value">
+                        {{banco.value}} - {{banco.label}}
+                    </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <div class="agenciaconta">
+                    <mat-form-field class="form__agencia">
+                        <mat-label>{{'INGRESSO.AGENCIA' | translate}}</mat-label>
+                        <input formControlName="codAgencia" matInput required #codAgencia name="codAgencia" class="form__agencia" mask="0000">
+                        <mat-error *ngIf="f.codAgencia.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="form__conta">
+                        <mat-label>{{'INGRESSO.CONTA' | translate}}</mat-label>
+                        <input formControlName="codConta" matInput required class="form__conta" mask="00000-0">
+                        <mat-error *ngIf="f.codConta.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
+                    </mat-form-field>
+                </div>
+                <button 
+                    mat-button
+                    class="botao"
+                    (click)="this.editarDadosBancarios()"
+                    *ngIf="!this.dadosBancEditavel">{{'INGRESSO.EDITAR' | translate}}</button>
+                <button
+                    mat-button 
+                    class="botao" 
+                    type="submit"
+                    [disabled]="!form.valid"
+                    *ngIf="this.dadosBancEditavel">{{'INGRESSO.SALVAR' | translate}}</button>
+            </form>
+        </mat-card>
+    </div>

@@ -51,6 +51,11 @@ describe('CriarLoteService', () => {
     expect(dialogSpy.open).toHaveBeenCalled();
   });
 
+  it('should open a dialog through another method', () => {
+    service.openDialogDadosBancarios();
+    expect(dialogSpy.open).toHaveBeenCalled();
+  });
+
   it('should post Info at cadastrarFesta', () => {
     service.loginService.usuarioInfo = {codusuario: 'teste'};
     expect(service.novoLote('teste')).toBeTruthy();

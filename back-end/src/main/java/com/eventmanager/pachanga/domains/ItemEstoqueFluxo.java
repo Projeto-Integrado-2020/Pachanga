@@ -42,10 +42,13 @@ public class ItemEstoqueFluxo {
 	@Column(name = "dt_horario")
 	private LocalDateTime dataHorario;
 	
+	@Column(name= "cod_usuario_resp_perda")
+	private Integer codUsuarioRespPerda;
+	
 	public ItemEstoqueFluxo() {
 	}
 	
-	public ItemEstoqueFluxo(ItemEstoque itemEstoque,LocalDateTime dataHorario, Integer codHistorico, boolean dose) {
+	public ItemEstoqueFluxo(ItemEstoque itemEstoque,LocalDateTime dataHorario, Integer codHistorico, boolean dose, Integer codUsuarioRespPerda) {
 		this.codHistorico = codHistorico;
 		this.codProduto = itemEstoque.getProduto().getCodProduto();
 		this.nomeProduto = itemEstoque.getProduto().getMarca();
@@ -56,6 +59,7 @@ public class ItemEstoqueFluxo {
 		this.dataHorario = dataHorario;
 		this.quantPerda = itemEstoque.getQuantPerda();
 		this.dose = dose;
+		this.codUsuarioRespPerda = codUsuarioRespPerda;
 	}
 
 	public Integer getCodHistorico() {
@@ -138,4 +142,12 @@ public class ItemEstoqueFluxo {
 		this.dose = dose;
 	}
 
+	public int getCodUsuarioRespPerda() {
+		return codUsuarioRespPerda;
+	}
+
+	public void setCodUsuarioRespPerda(int codUsuarioRespPerda) {
+		this.codUsuarioRespPerda = codUsuarioRespPerda;
+	}
+	
 }

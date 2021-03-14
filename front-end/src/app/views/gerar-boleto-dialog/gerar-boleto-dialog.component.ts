@@ -1,7 +1,8 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDialog, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Router } from '@angular/router';
+import { catchError, take } from 'rxjs/operators';
 import { CepApiService } from 'src/app/services/cep-api/cep-api.service';
 import { DadosCompraIngressoService } from 'src/app/services/dados-compra-ingresso/dados-compra-ingresso.service';
 import { GerarIngressoService } from 'src/app/services/gerar-ingresso/gerar-ingresso.service';
@@ -21,6 +22,7 @@ export class GerarBoletoDialogComponent implements OnInit {
   preco: any;
   ingressos: any;
   formCheckOut: FormGroup;
+  loadingDialog: any;
 
   constructor(@Inject(MAT_DIALOG_DATA) data, public formBuilder: FormBuilder,
               public dialog: MatDialog, public cepService: CepApiService, public router: Router,
@@ -88,7 +90,13 @@ export class GerarBoletoDialogComponent implements OnInit {
     };
 
     this.openDialogProcessing();
-    this.ingressosService.adicionarIngressos(body).subscribe((resp: any) => {
+    this.ingressosService.adicionarIngressos(body).pipe(
+      take(1),
+      catchError(error => {
+        this.loadingDialog.close();
+        return this.ingressosService.handleError(error);
+      })
+    ).subscribe((resp: any) => {
       window.open(resp[0].urlBoleto);
       this.router.navigate(['/meus-ingressos']);
       this.dadosService.cleanStorage();
@@ -150,7 +158,7 @@ export class GerarBoletoDialogComponent implements OnInit {
   }
 
   openDialogProcessing() {
-    this.dialog.open(ProcessingDialogComponent, {
+    this.loadingDialog = this.dialog.open(ProcessingDialogComponent, {
         width: '20rem',
         disableClose: true,
         data: {

@@ -13,6 +13,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.eventmanager.pachanga.tipo.TipoStatusConvite;
+
 @Entity
 @Table(name = "convidado")
 public class Convidado {
@@ -23,6 +25,9 @@ public class Convidado {
 	
 	@Column(name = "email")
 	private String email;
+	
+	@Column(name = "status_convite")
+	private String statusConvite;
 	
 	@OneToMany(fetch = FetchType.LAZY,
 			mappedBy = "convidado")
@@ -38,6 +43,7 @@ public class Convidado {
 	public Convidado(int codConvidado, String email) {
 		this.email = email;
 		this.codConvidado = codConvidado;
+		this.statusConvite = TipoStatusConvite.PENDENTE.getDescricao();
 	}
 	
 	public Convidado() {
@@ -65,6 +71,22 @@ public class Convidado {
 
 	public void setGrupos(Set<Grupo> grupos) {
 		this.grupos = grupos;
+	}
+
+	public String getStatusConvite() {
+		return statusConvite;
+	}
+
+	public void setStatusConvite(String statusConvite) {
+		this.statusConvite = statusConvite;
+	}
+
+	public Set<NotificacaoConvidado> getNotificacaoConvidado() {
+		return notificacaoConvidado;
+	}
+
+	public void setNotificacaoConvidado(Set<NotificacaoConvidado> notificacaoConvidado) {
+		this.notificacaoConvidado = notificacaoConvidado;
 	}
 	
 }

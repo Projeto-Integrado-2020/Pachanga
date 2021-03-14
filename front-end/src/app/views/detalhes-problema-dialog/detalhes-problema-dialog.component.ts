@@ -30,6 +30,7 @@ export class DetalhesProblemaDialogComponent implements OnInit {
 
   ngOnInit() {
     this.detalhes = this.data;
+    console.log(this.detalhes.problema);
     this.dataHorarioProblema();
   }
 

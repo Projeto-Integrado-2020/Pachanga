@@ -67,7 +67,7 @@ export class IndexComponent implements OnInit {
     this.getCategorias.getCategorias().subscribe((resp: any) => {
       this.categorias = resp;
     });
-    
+
   }
 
   getDateFromDTF(date) {

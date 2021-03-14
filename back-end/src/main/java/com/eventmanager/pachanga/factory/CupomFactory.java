@@ -22,6 +22,8 @@ public class CupomFactory {
 				             .precoDesconto(cupom.getPrecoDesconto())
 				             .porcentagemDesc(cupom.getPorcentagemDesc())
 				             .tipoDesconto(cupom.getTipoDesconto())
+				             .dataFimDesconto(cupom.getDataFimDesconto())
+				             .dataIniDesconto(cupom.getDataIniDesconto())
 				             .build();
 	}
 	
@@ -37,6 +39,8 @@ public class CupomFactory {
 				             .precoDesconto(cupomTO.getPrecoDesconto())
 				             .porcentagemDesc(cupomTO.getPorcentagemDesc())
 				             .tipoDesconto(cupomTO.getTipoDesconto())
+				             .dataFimDesconto(cupomTO.getDataFimDesconto())
+				             .dataIniDesconto(cupomTO.getDataIniDesconto())
 				             .build();
 	}
 }
