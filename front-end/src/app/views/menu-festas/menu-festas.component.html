@@ -34,10 +34,9 @@
     </div>
 
     <div *ngIf="this.loading" class="loading">
-        <!-- <span class="loading__text">{{'INDEX.CARREGANDO' | translate}}...</span> -->
         <img src="./../../../assets/Spinner-1s-200px.gif" alt="">
     </div>
-    
+
     <div *ngFor="let festa of festasMostradas | filtroFesta: buscaPorNome:buscaPorAdmin" class="lista-festas">
         <a routerLink="{{createUrl(festa.nomeFesta, festa.codFesta)}}">
             <mat-card class="festa-tab">
