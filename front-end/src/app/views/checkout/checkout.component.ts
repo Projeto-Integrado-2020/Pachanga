@@ -64,8 +64,14 @@ export class CheckoutComponent implements OnInit {
         const group = {};
         for (const lote of this.ingressos) {
             for (let i = 0; i < lote.quantidade.length; i++) {
-                group['nome' + lote.lote.codLote + '-' + i] = new FormControl('', Validators.required);
-                group['email' + lote.lote.codLote + '-' + i] = new FormControl('', [Validators.required, Validators.email]);
+                let valorNome = '';
+                let valorEmail = '';
+                if (this.ingressos.length === 1 && lote.quantidade.length === 1) {
+                    valorNome = this.loginService.getusuarioInfo().nomeUser;
+                    valorEmail = this.loginService.getusuarioInfo().email;
+                }
+                group['nome' + lote.lote.codLote + '-' + i] = new FormControl(valorNome, Validators.required);
+                group['email' + lote.lote.codLote + '-' + i] = new FormControl(valorEmail, [Validators.required, Validators.email]);
             }
         }
         this.form = this.formBuilder.group(group);

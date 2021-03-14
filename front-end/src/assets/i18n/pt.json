@@ -95,7 +95,7 @@
         "ELETRONC": "Festa Eletrônica",
         "PAGOSAMB": "Pagode/Samba",
         "SERTANEJ": "Sertanejo",
-        "FESTROCK": "Festa Rock",
+        "FESTAROC": "Festa Rock",
         "BAILFUNK": "Baile Funk",
         "CERVEJAD": "Cervejada",
         "FESTAUNI": "Festa Universitária",
@@ -103,7 +103,9 @@
         "NIGHTCLB": "Night Club",
         "CRMNFRML": "Encontro formal",
         "TRAP/RAP": "Trap/Rap",
-        "BAILEBRG": "Baile Brega"
+        "BAILEBRG": "Baile Brega",
+        "MPBFESTA": "MPB",
+        "FORROFES": "Forró"
     },
 
     "CHECKIN": {
