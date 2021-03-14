@@ -73,7 +73,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ControleSidenavComponent implements OnInit {
 
-  isOpen = false;
+  isOpen = window.innerWidth > 748;
 
   constructor() { }
 
