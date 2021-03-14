@@ -86,7 +86,7 @@ html {
 
 .loading {
   @include centralizar(true, false);
-  width: 10rem;
+  width: 5rem;
   display: flex;
   flex-direction: column;
   align-items: center;
