@@ -7,6 +7,7 @@ import { LogService } from '../logging/log.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ErroDialogComponent } from '../../views/erro-dialog/erro-dialog.component';
 import { LoginService } from '../loginService/login.service';
+import { DialogDadosBancariosComponent } from 'src/app/views/dialog-dados-bancarios/dialog-dados-bancarios.component';
 
 @Injectable({
   providedIn: 'root'
@@ -40,6 +41,15 @@ export class CriarLoteService {
 
   handleError = (error: HttpErrorResponse, logService: LogService) => {
     this.dialog.closeAll();
+    alert(error.error);
+    if (error.error === 'DADNLOTE') {
+      this.openDialogDadosBancarios();
+      this.openErrorDialog(error.error);
+      logService.initialize();
+      logService.logHttpInfo(JSON.stringify(error), 0, error.url);
+      this.setFarol(false);
+      return throwError(error);
+    }
     this.openErrorDialog(error.error);
     logService.initialize();
     logService.logHttpInfo(JSON.stringify(error), 0, error.url);
@@ -51,6 +61,12 @@ export class CriarLoteService {
     const dialogRef = this.dialog.open(ErroDialogComponent, {
       width: '250px',
       data: {erro: error}
+    });
+  }
+
+  openDialogDadosBancarios() {
+    const dialogRef = this.dialog.open(DialogDadosBancariosComponent, {
+      width: '500px'
     });
   }
 

@@ -161,6 +161,7 @@ import { RelatorioDetalhesDialogComponent } from './views/relatorio-detalhes-dia
 import { IvyCarouselModule } from 'angular-responsive-carousel';
 import { PainelSegurancaGeralComponent } from './views/painel-seguranca-geral/painel-seguranca-geral.component';
 import { PermissionFilter } from './views/utils/permission-filter.pipe';
+import { DialogDadosBancariosComponent } from './views/dialog-dados-bancarios/dialog-dados-bancarios.component';
 
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
 
@@ -277,7 +278,8 @@ export function provideConfig() {
     IndexCarrocelComponent,
     RelatorioDetalhesDialogComponent,
     PainelSegurancaGeralComponent,
-    PermissionFilter
+    PermissionFilter,
+    DialogDadosBancariosComponent
   ],
   entryComponents: [
     LoginComponent,
@@ -331,7 +333,8 @@ export function provideConfig() {
     ImagemAreaProblemaDialogComponent,
     RelatoriosExportDialogComponent,
     PerfilDialogComponent,
-    RelatorioDetalhesDialogComponent
+    RelatorioDetalhesDialogComponent,
+    DialogDadosBancariosComponent
   ],
   imports: [
     BrowserModule,
