@@ -838,8 +838,8 @@
         "OBSERVACOES": "Note about solution",
         "DETALHES": "Details about solution",
         "VISUIMAGEM": "View image",
-        "USUEMISSOR": "User who is issuing the problem",
-        "USUSOLUCIONADOR": "Problem solver user"
+        "USUEMISSOR": "Problem reporter",
+        "USUSOLUCIONADOR": "Troubleshooter"
     },
 
     "CHECKIN": {

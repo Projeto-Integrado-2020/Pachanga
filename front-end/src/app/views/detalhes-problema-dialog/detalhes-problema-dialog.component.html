@@ -7,7 +7,7 @@
     <span><strong>{{"PROBLEMADETALHES.HORARIO" | translate}}:</strong> {{this.hora}}</span>
     <span><strong>Status:</strong> {{"RELATARPROB." + this.detalhes.problema.statusProblema | translate}}</span>
     <span><strong>{{"PROBLEMADETALHES.USUEMISSOR" | translate}}:</strong> {{this.detalhes.problema.nomeUsuarioEmissor}} </span>
-    <span><strong>{{"PROBLEMADETALHES.USUSOLUCIONADOR" | translate}}:</strong> {{this.detalhes.problema.nomeUsuarioResolv}} </span>
+    <span *ngIf="detalhes.problema.nomeUsuarioResolv"><strong>{{"PROBLEMADETALHES.USUSOLUCIONADOR" | translate}}:</strong> {{this.detalhes.problema.nomeUsuarioResolv}} </span>
     <span 
       *ngIf="this.detalhes.problema.statusProblema == 'E' || this.detalhes.problema.statusProblema == 'F'"
       required

@@ -773,8 +773,8 @@
         "OBSERVACOES": "Observações sobre solução",
         "DETALHES": "Detalhes da solução",
         "VISUIMAGEM": "Visualizar imagem",
-        "USUEMISSOR": "Usuário emissor do problema",
-        "USUSOLUCIONADOR": "Usuário solucionador do problema"
+        "USUEMISSOR": "Relator do problema",
+        "USUSOLUCIONADOR": "Solucionador do problema"
     },
 
     "PRODUTO": {
