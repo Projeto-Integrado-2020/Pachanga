@@ -43,7 +43,11 @@ export class CriarProdutoEstoqueDialogComponent implements OnInit {
   resgatarProdutos() {
     this.getProdutosService.getProdutos(this.codFesta).subscribe((resp: any) => {
       this.getProdutosService.setFarol(false);
-      this.produtos = resp;
+      this.produtos = resp.sort((a, b) => {
+        if (a.marca < b.marca) { return -1; }
+        if (a.marca > b.marca) { return 1; }
+        return 0;
+      });
     });
   }
 

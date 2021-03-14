@@ -65,7 +65,11 @@ export class IndexComponent implements OnInit {
     });
     this.loading = false;
     this.getCategorias.getCategorias().subscribe((resp: any) => {
-      this.categorias = resp;
+      this.categorias = resp.sort((a, b) => {
+        if (a.nomeCategoria < b.nomeCategoria) { return -1; }
+        if (a.nomeCategoria > b.nomeCategoria) { return 1; }
+        return 0;
+      });
     });
 
   }

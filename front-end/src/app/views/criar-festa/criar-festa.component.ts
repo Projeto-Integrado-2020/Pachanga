@@ -55,7 +55,11 @@ export class CriarFestaComponent implements OnInit {
   resgatarCategorias() {
     this.getCategoria.getCategorias().subscribe((resp: any) => {
       this.getCategoria.setFarol(false);
-      this.categorias = resp;
+      this.categorias = resp.sort((a, b) => {
+        if (a.nomeCategoria < b.nomeCategoria) { return -1; }
+        if (a.nomeCategoria > b.nomeCategoria) { return 1; }
+        return 0;
+      });
     });
   }
 
