@@ -40,14 +40,22 @@ describe('GerenciadorCuponsComponent', () => {
         }),
       ],
       providers: [
-        { provide: MAT_DIALOG_DATA, useValue: {cupom: {nomeCupom: 'teste', codCupom: 'teste', precoDesconto: 'teste', codFesta: 'teste'}}},
+        { provide: MAT_DIALOG_DATA, useValue: {cupom: {
+                                                nomeCupom: 'teste',
+                                                codCupom: 'teste',
+                                                precoDesconto: 'teste',
+                                                codFesta: 'teste',
+                                                dataIniDesconto: '2021-03-15T00:00:00',
+                                                dataFimDesconto: '2021-03-15T00:00:00'}}},
         { provide: MatDialog, useValue: dialogSpy },
         { provide: GetCuponsService, useValue: {
           getCupons: () => of([{
             nomeCupom: 'teste',
             codCupom: 'teste',
             precoDesconto: 'teste',
-            codFesta: 'teste'
+            codFesta: 'teste',
+            dataIniDesconto: '2021-03-15T00:00:00',
+            dataFimDesconto: '2021-03-15T00:00:00'
           }]),
           setFarol: () => false,
         }}
@@ -98,5 +106,10 @@ describe('GerenciadorCuponsComponent', () => {
   it('nomeCupomSort', () => {
     expect(component.nomeCupomSort({nomeCupom: 'A'}, {nomeCupom: 'B'})).toBe(-1);
     expect(component.nomeCupomSort({nomeCupom: 'B'}, {nomeCupom: 'A'})).toBe(1);
+  });
+
+  it('should format date from datetime', () => {
+    const result = component.getDateFromDTF('2020-09-23 19:10:25');
+    expect(result).toBe('23/09/2020');
   });
 });

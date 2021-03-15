@@ -44,7 +44,9 @@ describe('EditarCupomDialogComponent', () => {
         { provide: MAT_DIALOG_DATA, useValue: {
           cupom: {
             nomeCupom: 'teste', codCupom: 'teste', precoDesconto: '', codFesta: '1', tipoDesconto: 'P',
-            porcentagemDesc: 1
+            porcentagemDesc: 1,
+            dataIniDesconto: '2021-03-15T00:00:00',
+            dataFimDesconto: '2021-03-31T00:00:00'
           },
           codFesta: 'teste'}},
         { provide: MatDialog, useValue: dialogSpy },
@@ -101,8 +103,10 @@ describe('EditarCupomDialogComponent', () => {
       tipoDesconto: 'V',
       precoDesconto: 1,
       porcentagemDesc: null,
+      dataIniDesconto: '2021-03-15T00:00:00',
+      dataFimDesconto: '2021-03-31T00:00:00'
     };
-    component.editarCupom();
+    component.editarCupom('15/03/2021', '31/03/2021');
 
     expect(component.editCupom.editarCupom).toHaveBeenCalledWith(cupom);
     expect(component.editCupom.setFarol).toHaveBeenCalledWith(false);

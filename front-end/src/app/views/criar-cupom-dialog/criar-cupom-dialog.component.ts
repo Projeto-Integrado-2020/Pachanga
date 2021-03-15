@@ -13,6 +13,7 @@ export class CriarCupomDialogComponent implements OnInit {
   component: any;
   codFesta: any;
   form: FormGroup;
+  minDate = new Date();
 
   constructor(@Inject(MAT_DIALOG_DATA) data, public dialog: MatDialog, public formBuilder: FormBuilder,
               public addCupom: CriarCupomService) {
@@ -25,7 +26,9 @@ export class CriarCupomDialogComponent implements OnInit {
       nomeCupom: new FormControl('', Validators.required),
       tipoDesconto: new FormControl('', Validators.required),
       porcentagemDesc: new FormControl(0, [Validators.max(100), Validators.min(1)]),
-      precoDesconto: new FormControl(0, [Validators.min(1)])
+      precoDesconto: new FormControl(0, [Validators.min(1)]),
+      inicioData: new FormControl('', Validators.required),
+      fimData: new FormControl('', Validators.required)
     }, {
         validator: this.tipoDescontoValidation('tipoDesconto', 'porcentagemDesc', 'precoDesconto')
       });
@@ -33,7 +36,7 @@ export class CriarCupomDialogComponent implements OnInit {
 
   get f() { return this.form.controls; }
 
-  criarCupom() {
+  criarCupom(dataInicio, dataFim) {
     const tipoDesconto = this.form.get('tipoDesconto').value;
     const precoDesconto = this.form.get('precoDesconto').value;
     const porcentagemDesc = this.form.get('porcentagemDesc').value;
@@ -43,7 +46,9 @@ export class CriarCupomDialogComponent implements OnInit {
       tipoDesconto,
       precoDesconto: tipoDesconto === 'V' ? precoDesconto : null,
       porcentagemDesc: tipoDesconto === 'P' ? porcentagemDesc : null,
-      codFesta: this.codFesta
+      codFesta: this.codFesta,
+      dataIniDesconto: dataInicio.slice(6, 10) + '-' + dataInicio.slice(3, 5) + '-' + dataInicio.slice(0, 2) + 'T00:00:00',
+      dataFimDesconto: dataFim.slice(6, 10) + '-' + dataFim.slice(3, 5) + '-' + dataFim.slice(0, 2) + 'T00:00:00'
     };
 
     this.addCupom.criarCupom(cupom).subscribe((resp: any) => {
