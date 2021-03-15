@@ -912,7 +912,9 @@
         "DELETE": "Delete coupon",
         "CONFIRM": "Confirm",
         "CANCEL": "Cancel",
-        "INFO": "Do you really want to delete the coupon "
+        "INFO": "Do you really want to delete the coupon ",
+        "DATAINI": "Coupon validity start date",
+        "DATAFIM": "Coupon expiration date"
     },
 
     "LOADING": {

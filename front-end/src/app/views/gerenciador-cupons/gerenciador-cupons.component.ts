@@ -12,6 +12,8 @@ export interface TabelaCupons {
   tipoDesconto: any;
   precoDesconto: any;
   porcentagemDesc: any;
+  dataIniDesconto: any;
+  dataFimDesconto: any;
 }
 
 @Component({
@@ -23,7 +25,7 @@ export class GerenciadorCuponsComponent implements OnInit {
 
   public codFesta: any;
   cupons: TabelaCupons[] = [];
-  displayedColumns: string[] = ['nomeCupom', 'precoDesconto', 'actions'];
+  displayedColumns: string[] = ['nomeCupom', 'precoDesconto', 'dataIniDesconto', 'dataFimDesconto', 'actions'];
   dataSource = new MatTableDataSource<TabelaCupons>(this.cupons);
 
   constructor(public dialog: MatDialog, public router: Router, public getCupom: GetCuponsService) { }
@@ -45,7 +47,9 @@ export class GerenciadorCuponsComponent implements OnInit {
                           precoDesconto: cupom.precoDesconto,
                           codCupom: cupom.codCupom,
                           porcentagemDesc: cupom.porcentagemDesc,
-                          tipoDesconto: cupom.tipoDesconto
+                          tipoDesconto: cupom.tipoDesconto,
+                          dataIniDesconto: cupom.dataIniDesconto,
+                          dataFimDesconto: cupom.dataFimDesconto
                         });
       }
       this.dataSource.data = this.cupons.sort(this.nomeCupomSort);
@@ -90,6 +94,13 @@ export class GerenciadorCuponsComponent implements OnInit {
         component: this
       }
     });
+  }
+
+  getDateFromDTF(date) {
+    let conversion = date.split(' ', 1);
+    conversion = conversion[0].split('-');
+    let day = conversion[2].split('T');
+    return day[0] + '/' + conversion[1] + '/' + conversion[0];
   }
 
 }

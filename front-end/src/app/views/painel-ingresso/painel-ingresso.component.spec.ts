@@ -16,7 +16,7 @@ import { of } from 'rxjs';
 import { GetLoteService } from 'src/app/services/get-lote/get-lote.service';
 import { ControleSidenavComponent } from '../controle-sidenav/controle-sidenav.component';
 import { DadosBancariosService } from 'src/app/services/dados-bancarios/dados-bancarios.service';
-import { DialogDadosBancariosComponent } from '../dialog-dados-bancarios/dialog-dados-bancarios.component'
+import { DialogDadosBancariosComponent } from '../dialog-dados-bancarios/dialog-dados-bancarios.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);

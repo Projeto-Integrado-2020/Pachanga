@@ -94,9 +94,11 @@ describe('CriarCupomDialogComponent', () => {
       tipoDesconto: 'V',
       precoDesconto: 1,
       porcentagemDesc: null,
-      codFesta: 'teste'
+      codFesta: 'teste',
+      dataIniDesconto: '2021-03-15T00:00:00',
+      dataFimDesconto: '2021-03-30T00:00:00'
     };
-    component.criarCupom();
+    component.criarCupom('15/03/2021', '30/03/2021');
 
     expect(component.addCupom.criarCupom).toHaveBeenCalledWith(cupom);
     expect(component.addCupom.setFarol).toHaveBeenCalledWith(false);
@@ -106,15 +108,17 @@ describe('CriarCupomDialogComponent', () => {
 
   it('should tipoDescontoValidation', () => {
     component.form.get('nomeCupom').setValue('Teste');
-
-    component.form.get('tipoDesconto').setValue('V');
-    expect(component.form.valid).toBeFalsy();
-    component.form.get('precoDesconto').setValue(1);
-    expect(component.form.valid).toBeTruthy();
+    component.form.get('inicioData').setValue('2021-03-15T00:00:00');
+    component.form.get('fimData').setValue('2021-03-30T00:00:00');
 
     component.form.get('tipoDesconto').setValue('P');
     expect(component.form.valid).toBeFalsy();
-    component.form.get('porcentagemDesc').setValue(1);
+    component.form.get('porcentagemDesc').setValue('1');
+    expect(component.form.valid).toBeTruthy();
+
+    component.form.get('tipoDesconto').setValue('V');
+    expect(component.form.valid).toBeFalsy();
+    component.form.get('precoDesconto').setValue('1');
     expect(component.form.valid).toBeTruthy();
   });
 });

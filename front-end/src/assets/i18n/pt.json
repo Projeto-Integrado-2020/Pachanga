@@ -997,7 +997,9 @@
         "DELETE": "Deletar cupom",
         "CONFIRM": "Confirmar",
         "CANCEL": "Cancelar",
-        "INFO": "Você realmente deseja deletar o cupom "
+        "INFO": "Você realmente deseja deletar o cupom ",
+        "DATAINI": "Data início da validade do cupom",
+        "DATAFIM": "Data final da validade do cupom"
     },
 
     "LOADING": {

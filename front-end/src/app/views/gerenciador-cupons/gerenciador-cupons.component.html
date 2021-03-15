@@ -26,6 +26,16 @@
             </td>
         </ng-container>
 
+        <ng-container matColumnDef="dataIniDesconto">
+            <th mat-header-cell *matHeaderCellDef>{{'CUPOM.DATAINI' | translate}}</th>
+            <td mat-cell *matCellDef="let element">{{getDateFromDTF(element.dataIniDesconto)}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="dataFimDesconto">
+            <th mat-header-cell *matHeaderCellDef>{{'CUPOM.DATAFIM' | translate}}</th>
+            <td mat-cell *matCellDef="let element">{{getDateFromDTF(element.dataFimDesconto)}}</td>
+        </ng-container>
+
         <ng-container matColumnDef="actions">
             <th mat-header-cell *matHeaderCellDef class="actions"></th>
             <td mat-cell *matCellDef="let element" class="actions">

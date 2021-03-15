@@ -1,11 +1,35 @@
 <h1 mat-dialog-title>{{'CUPOM.ADDCUPOM' | translate}}</h1>
 <div mat-dialog-content>
-    <form [formGroup]="form" (submit)="criarCupom()">
+    <form [formGroup]="form" (submit)="criarCupom(dataInicio.value, dataFim.value)">
         <mat-form-field>
             <mat-label>{{'CUPOM.CODCUPOM' | translate}}</mat-label>
             <input ng-class="{ f.nomeCupom.errors }" #nomeCupom formControlName="nomeCupom" matInput required>
             <mat-error *ngIf="f.nomeCupom.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
         </mat-form-field>
+
+
+
+
+        <mat-form-field>
+            <mat-label>{{'CUPOM.DATAINI' | translate}}</mat-label>
+            <input [min]="minDate" ng-class="{ f.inicioData.errors }" #dataInicio formControlName="inicioData" matInput required (click)="pickerInicioData.open()" [matDatepicker]="pickerInicioData">
+            <mat-datepicker-toggle matSuffix [for]="pickerInicioData" ></mat-datepicker-toggle>
+            <mat-datepicker #pickerInicioData ></mat-datepicker>
+            <mat-error *ngIf="f.inicioData.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>{{'CUPOM.DATAFIM' | translate}}</mat-label>
+            <input [min]="minDate" ng-class="{ f.fimData.errors }" #dataFim formControlName="fimData" matInput required (click)="pickerFimData.open()" [matDatepicker]="pickerFimData">
+            <mat-datepicker-toggle matSuffix [for]="pickerFimData" ></mat-datepicker-toggle>
+            <mat-datepicker #pickerFimData ></mat-datepicker>
+            <mat-error *ngIf="f.fimData.errors?.required">{{'FORMERRORS.REQUIRED' | translate}}</mat-error>
+        </mat-form-field>
+
+
+
+
+
         <mat-form-field>
             <mat-label>{{'CUPOM.TIPO' | translate}}</mat-label>
             <mat-select #tipoDesconto formControlName="tipoDesconto">
