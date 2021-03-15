@@ -77,6 +77,8 @@ public class CupomService {
 		cupom.setPrecoDesconto(cupomTO.getPrecoDesconto());
 		cupom.setPorcentagemDesc(cupomTO.getPorcentagemDesc());
 		cupom.setTipoDesconto(cupomTO.getTipoDesconto());
+		cupom.setDataFimDesconto(cupomTO.getDataFimDesconto());
+		cupom.setDataIniDesconto(cupomTO.getDataIniDesconto());
 		cupomRepository.save(cupom);
 		return cupom;
 	}
