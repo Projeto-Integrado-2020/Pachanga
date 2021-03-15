@@ -400,7 +400,8 @@
         "CONFIRM": "Confirm",
         "CANCEL": "Cancel",
         "ASSIGN": "Assign permission",
-        "DELETECONVIDADO": "Delete guest"
+        "DELETECONVIDADO": "Delete guest",
+        "CHECKALL": "Check all"
     },
 
     "CONVITE": {

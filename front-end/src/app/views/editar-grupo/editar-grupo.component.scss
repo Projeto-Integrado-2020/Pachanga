@@ -42,6 +42,14 @@ header {
 
 @media screen and (min-width: 749px) {
     .lista-permissoes {
-        max-height: 30rem;
+        max-height: 31rem;
     }
+}
+
+.botao-checker {
+    color: $color-tertiary;
+}
+
+.header-permissao-div {
+    display: flex;
 }

@@ -441,7 +441,8 @@
         "CANCEL": "Cancelar",
         "DELETE": "Excluir grupo",
         "ASSIGN": "Atribuir permissão",
-        "DELETECONVIDADO": "Deletar convidado"
+        "DELETECONVIDADO": "Deletar convidado",
+        "CHECKALL": "Selecionar todas"
     },
 
     "IMPRBOL": {

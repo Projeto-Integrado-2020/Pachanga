@@ -166,4 +166,22 @@ describe('CriarGrupoComponent', () => {
     expect(component.form.get('Teste1')).toBeTruthy();
     expect(component.form.get('Teste2')).toBeTruthy();
   });
+
+  it('should selecionarTudo', () => {
+    const group = {nomeGrupo: new FormControl('', Validators.required)};
+    component.permissoes = [
+      {descPermissao: 'teste1', codPermissao: 1, tipPermissao: 'GE'},
+      {descPermissao: 'teste2', codPermissao: 2, tipPermissao: 'GE'},
+      {descPermissao: 'teste3', codPermissao: 3, tipPermissao: 'GE'},
+      {descPermissao: 'teste4', codPermissao: 4, tipPermissao: 'GE'},
+      {descPermissao: 'teste5', codPermissao: 5, tipPermissao: 'GE'}
+    ];
+
+    for (const permissao of component.permissoes) {
+      group[permissao.descPermissao] = new FormControl(false);
+    }
+    component.form = component.formBuilder.group(group);
+    component.selecionarTudo('GE');
+    expect(component.permissoesGrupo).toEqual([1, 2, 3, 4, 5]);
+  });
 });

@@ -113,4 +113,16 @@ export class EditarGrupoComponent implements OnInit {
       }
     }
   }
+
+  selecionarTudo(tipo) {
+    for (const permissao of this.permissoes) {
+      if (permissao.tipPermissao === tipo) {
+        const field = this.form.get(permissao.descPermissao);
+        if (!field.value) {
+          field.setValue(true);
+          this.permissoesGrupo.push(permissao.codPermissao);
+        }
+      }
+    }
+  }
 }
