@@ -160,6 +160,6 @@ header {
 
 .loading {
     @include centralizar(true, false);
-    width: 5rem;
+    display: inline-block;
   
   }
