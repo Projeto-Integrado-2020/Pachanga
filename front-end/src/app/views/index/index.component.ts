@@ -18,7 +18,7 @@ export interface Tile {
 export class IndexComponent implements OnInit {
 
   title: string = this.translate.instant('INDEX.OLA');
-  loading = false;
+  loading = true;
   festas: any;
   festasMostradas = [];
   length;
@@ -39,9 +39,9 @@ export class IndexComponent implements OnInit {
   ];
 
   ngOnInit() {
-    this.loading = true;
     this.getFestas.getFestasLista().subscribe((resp: any) => {
       this.getFestas.setFarol(false);
+      this.loading = false;
       this.festas = resp;
 
       if (this.festas.length === 0) {
@@ -63,7 +63,6 @@ export class IndexComponent implements OnInit {
       }
       this.festasMostradas = this.festas;
     });
-    this.loading = false;
     this.getCategorias.getCategorias().subscribe((resp: any) => {
       this.categorias = resp.sort((a, b) => {
         if (a.nomeCategoria < b.nomeCategoria) { return -1; }

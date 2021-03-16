@@ -19,7 +19,7 @@ export class MenuFestasComponent implements OnInit {
   nenhumaFesta = false;
   buscaPorNome: any;
   buscaPorAdmin = false;
-  loading = false;
+  loading = true;
 
   // MatPaginator Output
   pageEvent: PageEvent;
@@ -27,7 +27,6 @@ export class MenuFestasComponent implements OnInit {
   constructor(public menuFestasService: MenuFestasService, public loginService: LoginService) { }
 
   ngOnInit() {
-    this.loading = true;
     this.menuFestasService.getFestas(this.loginService.usuarioInfo.codUsuario).subscribe((resp: any) => {
       this.menuFestasService.setFarol(false);
       this.festas = resp.sort(this.nomeFestaSort);
@@ -36,9 +35,9 @@ export class MenuFestasComponent implements OnInit {
         this.nenhumaFesta = true;
       }
       this.length = this.festas.length;
+      this.loading = false;
       this.festasMostradas = this.festas.slice(0, 5);
     });
-    this.loading = false;
   }
 
   nomeFestaSort(a, b) {
