@@ -162,6 +162,7 @@ import { IvyCarouselModule } from 'angular-responsive-carousel';
 import { PainelSegurancaGeralComponent } from './views/painel-seguranca-geral/painel-seguranca-geral.component';
 import { PermissionFilter } from './views/utils/permission-filter.pipe';
 import { DialogDadosBancariosComponent } from './views/dialog-dados-bancarios/dialog-dados-bancarios.component';
+import { MatSelectFilterModule } from 'mat-select-filter';
 
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
 
@@ -368,7 +369,8 @@ export function provideConfig() {
     NgxMaskModule.forRoot(),
     NgxChartsModule,
     OwlModule,
-    IvyCarouselModule
+    IvyCarouselModule,
+    MatSelectFilterModule
   ],
   providers: [
     {

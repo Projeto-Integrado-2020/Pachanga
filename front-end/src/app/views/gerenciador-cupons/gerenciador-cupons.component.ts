@@ -99,7 +99,7 @@ export class GerenciadorCuponsComponent implements OnInit {
   getDateFromDTF(date) {
     let conversion = date.split(' ', 1);
     conversion = conversion[0].split('-');
-    let day = conversion[2].split('T');
+    const day = conversion[2].split('T');
     return day[0] + '/' + conversion[1] + '/' + conversion[0];
   }
 

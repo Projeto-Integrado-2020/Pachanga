@@ -805,7 +805,9 @@
         "AGENCIA": "Agency",
         "CONTA": "Account",
         "EDITAR": "Edit",
-        "SALVAR": "Submit"
+        "SALVAR": "Submit",
+        "PESQUISABANCO": "Search bank name...",
+        "SEMRESULTADO": "No results"
     },
 
     "INTEGRACAO": {

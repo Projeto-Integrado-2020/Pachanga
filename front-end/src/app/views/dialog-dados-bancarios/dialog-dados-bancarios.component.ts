@@ -48,6 +48,7 @@ export class DialogDadosBancariosComponent implements OnInit {
   subscription: Subscription;
   source: any;
   listaBancos: any;
+  filteredList: any;
   contaMask: any;
   dadosBancEditavel: boolean;
   dadosBancariosTO: any;
@@ -67,6 +68,7 @@ export class DialogDadosBancariosComponent implements OnInit {
       this.statusFesta = resp.statusFesta;
       this.getDadosBancarios();
       this.listaBancos = bancos;
+      this.filteredList = bancos;
       this.dadosBancEditavel = false;
       // this.resgatarListaBancos();
     });

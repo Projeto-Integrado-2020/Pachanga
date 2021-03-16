@@ -15,6 +15,7 @@ export class ConviteMembroService {
 
   farol = false;
   private readonly urlAddMembro = `${environment.URL_BACK}convidado/addUserFesta`;
+  private readonly urlReenvioConvite = `${environment.URL_BACK}convidado/reenvConvite`;
 
   constructor(private http: HttpClient, public logService: LogService, public dialog: MatDialog,
               public loginService: LoginService) { }
@@ -32,6 +33,28 @@ export class ConviteMembroService {
       headers = headers.append('Authorization', 'Bearer ' + JSON.parse(localStorage.getItem('token')).token);
 
       return this.http.post(this.urlAddMembro, emails, {params: httpParams, responseType: 'text', headers}).pipe(
+        take(1),
+        catchError(error => {
+          return this.handleError(error, this.logService);
+        })
+      );
+    }
+  }
+
+  reenviarConvite(codFesta, grupo, codConvidado) {
+    if (!this.farol) {
+      this.setFarol(true);
+      const httpParams = new HttpParams()
+        .append('codFesta', codFesta)
+        .append('codConvidado', codConvidado)
+        .append('idGrupo', grupo)
+        .append('idUsuario', this.loginService.usuarioInfo.codUsuario);
+
+      let headers = new HttpHeaders();
+      headers = headers.append('Content-Type', 'application/json');
+      headers = headers.append('Authorization', 'Bearer ' + JSON.parse(localStorage.getItem('token')).token);
+
+      return this.http.post(this.urlReenvioConvite, null, {params: httpParams, responseType: 'text', headers}).pipe(
         take(1),
         catchError(error => {
           return this.handleError(error, this.logService);

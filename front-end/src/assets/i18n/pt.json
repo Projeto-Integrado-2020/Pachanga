@@ -488,7 +488,9 @@
         "AGENCIA": "Agência",
         "CONTA": "Conta",
         "EDITAR": "Editar",
-        "SALVAR": "Salvar"
+        "SALVAR": "Salvar",
+        "PESQUISABANCO": "Pesquisar nome do banco...",
+        "SEMRESULTADO": "Sem resultados"
     },
 
     "INTEGRACAO": {

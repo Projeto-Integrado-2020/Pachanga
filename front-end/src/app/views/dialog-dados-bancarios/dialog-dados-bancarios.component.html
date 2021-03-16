@@ -11,9 +11,11 @@
                 <mat-form-field appearance="fill">
                     <mat-label>{{'INGRESSO.BANCO' | translate}}</mat-label>
                     <mat-select formControlName="codBanco" required matInput #codBanco>
-                    <mat-option *ngFor="let banco of this.listaBancos" [value]="banco.value">
-                        {{banco.value}} - {{banco.label}}
-                    </mat-option>
+                        <mat-select-filter [placeholder]="'INGRESSO.PESQUISABANCO' | translate" [noResultsMessage]="'INGRESSO.SEMRESULTADO' | translate" [array]="this.listaBancos" [displayMember]="'label'" (filteredReturn)="filteredList =$event">
+                        </mat-select-filter>
+                        <mat-option *ngFor="let banco of filteredList" [value]="banco.value">
+                            {{banco.value}} - {{banco.label}}
+                        </mat-option>
                     </mat-select>
                 </mat-form-field>
                 <div class="agenciaconta">
