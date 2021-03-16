@@ -4,6 +4,8 @@ public class ConvidadoTO {
 	
 	private int codConvidado;
 	private String email;
+	private String statusConvite;
+	
 	public int getCodConvidado() {
 		return codConvidado;
 	}
@@ -16,5 +18,10 @@ public class ConvidadoTO {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
+	public String getStatusConvite() {
+		return statusConvite;
+	}
+	public void setStatusConvite(String statusConvite) {
+		this.statusConvite = statusConvite;
+	}
 }

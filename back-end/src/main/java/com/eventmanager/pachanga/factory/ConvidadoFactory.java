@@ -13,10 +13,13 @@ import com.eventmanager.pachanga.dtos.ConvidadoTO;
 @Component(value = "convidadoFactory")
 public class ConvidadoFactory {
 
-	public List<ConvidadoTO> getConvidadosTO(List<Convidado> convidados){
+	public List<ConvidadoTO> getConvidadosTO(List<Convidado> convidados) {
 		List<ConvidadoTO> convidadosTo = new ArrayList<>();
-		convidadosTo.addAll(convidados.stream().map(c-> ConvidadoTOBuilder.getInstance().email(c.getEmail()).codConvidado(c.getCodConvidado()).build()).collect(Collectors.toList()));
+		convidadosTo.addAll(convidados
+				.stream().map(c -> ConvidadoTOBuilder.getInstance().email(c.getEmail())
+						.codConvidado(c.getCodConvidado()).statusConvite(c.getStatusConvite()).build())
+				.collect(Collectors.toList()));
 		return convidadosTo;
 	}
-	
+
 }

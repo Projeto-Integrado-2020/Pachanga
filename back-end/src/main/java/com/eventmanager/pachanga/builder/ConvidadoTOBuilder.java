@@ -6,6 +6,7 @@ public class ConvidadoTOBuilder {
 
 	private int codConvidado;
 	private String email;
+	private String statusConvite;
 	
 	public static ConvidadoTOBuilder getInstance() {
 		return new ConvidadoTOBuilder();
@@ -19,11 +20,16 @@ public class ConvidadoTOBuilder {
 		this.email = email;
 		return this;
 	}
+	public ConvidadoTOBuilder statusConvite(String statusConvite) {
+		this.statusConvite = statusConvite;
+		return this;
+	}
 	
 	public ConvidadoTO build() {
 		ConvidadoTO convidadoTo = new ConvidadoTO();
 		convidadoTo.setCodConvidado(codConvidado);
 		convidadoTo.setEmail(email);
+		convidadoTo.setStatusConvite(statusConvite);
 		return convidadoTo;
 	}
 	
