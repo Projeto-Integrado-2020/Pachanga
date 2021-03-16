@@ -51,7 +51,7 @@ export class EditarCupomDialogComponent implements OnInit {
       porcentagemDesc: tipoDesconto === 'P' ? porcentagemDesc : null,
       codFesta: this.codFesta,
       dataIniDesconto: dataInicio.slice(6, 10) + '-' + dataInicio.slice(3, 5) + '-' + dataInicio.slice(0, 2) + 'T00:00:00',
-      dataFimDesconto: dataFim.slice(6, 10) + '-' + dataFim.slice(3, 5) + '-' + dataFim.slice(0, 2) + 'T00:00:00'
+      dataFimDesconto: dataFim.slice(6, 10) + '-' + dataFim.slice(3, 5) + '-' + dataFim.slice(0, 2) + 'T23:59:59'
     };
 
     console.log(cupom);

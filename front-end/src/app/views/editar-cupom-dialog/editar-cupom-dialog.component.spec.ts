@@ -46,7 +46,7 @@ describe('EditarCupomDialogComponent', () => {
             nomeCupom: 'teste', codCupom: 'teste', precoDesconto: '', codFesta: '1', tipoDesconto: 'P',
             porcentagemDesc: 1,
             dataIniDesconto: '2021-03-15T00:00:00',
-            dataFimDesconto: '2021-03-31T00:00:00'
+            dataFimDesconto: '2021-03-31T23:59:59'
           },
           codFesta: 'teste'}},
         { provide: MatDialog, useValue: dialogSpy },
@@ -104,7 +104,7 @@ describe('EditarCupomDialogComponent', () => {
       precoDesconto: 1,
       porcentagemDesc: null,
       dataIniDesconto: '2021-03-15T00:00:00',
-      dataFimDesconto: '2021-03-31T00:00:00'
+      dataFimDesconto: '2021-03-31T23:59:59'
     };
     component.editarCupom('15/03/2021', '31/03/2021');
 
@@ -117,7 +117,7 @@ describe('EditarCupomDialogComponent', () => {
   it('should tipoDescontoValidation', () => {
     component.form.get('nomeCupom').setValue('Teste');
     component.form.get('inicioData').setValue('3021-03-15T00:00:00');
-    component.form.get('fimData').setValue('3021-03-30T00:00:00');
+    component.form.get('fimData').setValue('2021-03-31T23:59:59');
     component.form.get('porcentagemDesc').setValue(null);
     component.form.get('precoDesconto').setValue(null);
 

@@ -96,7 +96,7 @@ describe('CriarCupomDialogComponent', () => {
       porcentagemDesc: null,
       codFesta: 'teste',
       dataIniDesconto: '2021-03-15T00:00:00',
-      dataFimDesconto: '2021-03-30T00:00:00'
+      dataFimDesconto: '2021-03-30T23:59:59'
     };
     component.criarCupom('15/03/2021', '30/03/2021');
 
@@ -109,7 +109,7 @@ describe('CriarCupomDialogComponent', () => {
   it('should tipoDescontoValidation', () => {
     component.form.get('nomeCupom').setValue('Teste');
     component.form.get('inicioData').setValue('3021-03-15T00:00:00');
-    component.form.get('fimData').setValue('3021-03-30T00:00:00');
+    component.form.get('fimData').setValue('3021-03-30T23:59:59');
     component.form.get('porcentagemDesc').setValue(null);
     component.form.get('precoDesconto').setValue(null);
 
