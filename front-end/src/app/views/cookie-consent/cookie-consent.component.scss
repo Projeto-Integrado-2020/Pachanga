@@ -7,8 +7,9 @@
     z-index: 2147483645;
     box-sizing: border-box;
     width: 100%;
+    padding: 2rem;
   
-    background-color: #F1F6F4;
+    background-color: rgba(241, 246, 244, .9);
   }
   
   .cookie-consent-banner__inner {     
@@ -36,7 +37,7 @@
   .cookie-consent-banner__description {
     font-family: "CeraPRO-Regular", sans-serif, arial;
     font-weight: normal;
-    color: #838F93;
+    color: #667073;
     font-size: 16px;
     line-height: 24px;
   }
