@@ -91,7 +91,6 @@ public class ConvidadoService {
 	public void recusarConvite(Integer codConvidado, Integer idGrupo) {
 		Convidado convidado = this.validarGrupoConvidado(codConvidado, idGrupo);
 		this.validarUsuario(0, convidado.getEmail());
-		convidadoRepository.deleteConvidadoGrupo(convidado.getCodConvidado(), idGrupo);
 		notificacaoService.deletarNotificacaoConvidado(codConvidado, TipoNotificacao.CONVFEST.getCodigo(),
 				notificacaoService.criacaoMensagemNotificacaoUsuarioConvidado(idGrupo, convidado.getCodConvidado(),
 						TipoNotificacao.CONVFEST.getValor()));

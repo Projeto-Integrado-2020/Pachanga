@@ -13,6 +13,7 @@ import { GerenciadorMembrosComponent } from './gerenciador-membros.component';
 import { GetGruposService } from 'src/app/services/get-grupos/get-grupos.service';
 import { of } from 'rxjs';
 import { GetFestaService } from 'src/app/services/get-festa/get-festa.service';
+import { ConviteMembroService } from 'src/app/services/convite-membro/convite-membro.service';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -24,7 +25,7 @@ describe('GerenciadorMembrosComponent', () => {
   let dialogSpy: MatDialog;
 
   beforeEach(async(() => {
-    dialogSpy = jasmine.createSpyObj('MatDialog', ['open']);
+    dialogSpy = jasmine.createSpyObj('MatDialog', ['open', 'closeAll']);
     TestBed.configureTestingModule({
       declarations: [ GerenciadorMembrosComponent ],
       imports: [
@@ -58,6 +59,10 @@ describe('GerenciadorMembrosComponent', () => {
             },
             categoriaSecundaria: null
           }),
+          setFarol: () => false,
+        }},
+        {provide: ConviteMembroService, useValue: {
+          reenviarConvite: () => of({}),
           setFarol: () => false,
         }},
         {provide: GetGruposService, useValue: {
@@ -167,6 +172,26 @@ describe('GerenciadorMembrosComponent', () => {
     expect(component.getGruposService.getGrupos).toHaveBeenCalledWith('teste');
     expect(component.getGruposService.setFarol).toHaveBeenCalledWith(false);
     expect(component.grupos).toEqual(grupos);
+  });
+
+  it('should reenviarConvite', () => {
+    spyOn(component.conviteService, 'reenviarConvite')
+    .and
+    .callThrough();
+
+    spyOn(component.conviteService, 'setFarol')
+    .and
+    .callThrough();
+
+    spyOn(component, 'openDialogSuccess')
+    .and
+    .callThrough();
+
+    component.reenviarConvite('codFesta', 'grupo', 'codConvidado');
+    expect(component.conviteService.reenviarConvite).toHaveBeenCalledWith('codConvidado', 'grupo', 'codFesta');
+    expect(component.conviteService.setFarol).toHaveBeenCalledWith(false);
+    expect(dialogSpy.closeAll).toHaveBeenCalled();
+    expect(component.openDialogSuccess).toHaveBeenCalledWith('CONVREEV');
   });
 
 });

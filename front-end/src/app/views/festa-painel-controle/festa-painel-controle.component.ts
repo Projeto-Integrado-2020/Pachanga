@@ -49,7 +49,11 @@ export class FestaPainelControleComponent implements OnInit {
         this.membros.push({membro: resp.usuarios[usuario].nomeUser, status: 'PAINELCONTROLE.ACEITO'});
       }
       for (const convidado of Object.keys(resp.convidados)) {
-        this.membros.push({membro: resp.convidados[convidado].email, status: 'PAINELCONTROLE.PENDENTE'});
+        if (resp.convidados[convidado].statusConvite === 'P') {
+          this.membros.push({membro: resp.convidados[convidado].email, status: 'PAINELCONTROLE.PENDENTE'});
+        } else {
+          this.membros.push({membro: resp.convidados[convidado].email, status: 'PAINELCONTROLE.RECUSADO'});
+        }
       }
       this.dataSource.data = this.membros;
     });

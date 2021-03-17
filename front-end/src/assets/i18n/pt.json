@@ -592,7 +592,8 @@
         "DELETE": "Deletar colaborador",
         "EDITFESTA": "Editar festa",
         "DELETEFESTA": "Apagar festa",
-        "CHANGESTATUS": "Alterar status da festa"
+        "CHANGESTATUS": "Alterar status da festa",
+        "REENVIARCONVITE": "Reenviar convite"
     },
 
     "PERDADOSEUNIDADE": {
@@ -921,6 +922,7 @@
         "FESTDELE": "Festa deletada com sucesso",
         "FESTAALT": "Os dados da festa foram alterados com sucesso.",
         "MEMBROAD": "Membros convidados.",
+        "CONVREEV": "Convite reenviado.",
         "GRUPDELE": "Grupo deletado com sucesso.",
         "GRUPOALT": "Grupo alterado com sucesso.",
         "ATRIBSUC": "Atribuição salva com sucesso.",
@@ -1015,7 +1017,8 @@
         "CHECKIN": "Realizando check-in. Por favor aguarde.",
         "EXPORTPDF": "Gerando PDF. O processo pode demorar alguns minutos, por favor aguarde.",
         "EXPORTEMAIL": "Enviando e-mails. Por favor aguarde.",
-        "INVITE": "Enviando convites. Por favor aguarde."
+        "INVITE": "Enviando convites. Por favor aguarde.",
+        "REINVITE": "Reenviando convite. Por favor aguarde."
     },
 
     "RELATORIOEXPORT": {

@@ -182,6 +182,7 @@
         "FESTDELE": "Party successfully deleted.",
         "FESTAALT": "The party data has been successfully changed.",
         "MEMBROAD": "Members invited.",
+        "CONVREEV": "Invitation resent.",
         "GRUPDELE": "Role deleted.",
         "GRUPOALT": "Role updated.",
         "ATRIBSUC": "Distribution successfully saved.",
@@ -344,7 +345,8 @@
         "DELETE": "Delete collaborator",
         "EDITFESTA": "Edit party",
         "DELETEFESTA": "Delete party",
-        "CHANGESTATUS": "Change status"
+        "CHANGESTATUS": "Change status",
+        "REENVIARCONVITE": "Resend invitation"
     },
 
     "RELATARPROB": {
@@ -930,7 +932,8 @@
         "CHECKIN": "Performing check-in. Please wait.",
         "EXPORTPDF": "Generating PDF. The process may take a few minutes, please wait.",
         "EXPORTEMAIL": "Sending e-mails. Please wait.",
-        "INVITE": "Sending invites. Please wait."
+        "INVITE": "Sending invites. Please wait.",
+        "REINVITE": "Resending invite. Please wait."
     },
 
     "RELATORIOESTOQUE": {

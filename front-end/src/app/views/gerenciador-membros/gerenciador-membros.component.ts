@@ -8,6 +8,9 @@ import { EditGrupoMembroComponent } from '../edit-grupo-membro/edit-grupo-membro
 import { InviteDialogComponent } from '../invite-dialog/invite-dialog.component';
 import { DeletarGrupoComponent } from '../deletar-grupo/deletar-grupo.component';
 import { DeletarConvidadoDialogComponent } from '../deletar-convidado-dialog/deletar-convidado-dialog.component';
+import { ConviteMembroService } from 'src/app/services/convite-membro/convite-membro.service';
+import { SuccessDialogComponent } from '../success-dialog/success-dialog.component';
+import { ProcessingDialogComponent } from '../processing-dialog/processing-dialog.component';
 
 export interface TabelaMembros {
   membro: string;
@@ -29,7 +32,8 @@ export class GerenciadorMembrosComponent implements OnInit {
   dataSources = [];
 
   constructor(public getFestaService: GetFestaService, public router: Router,
-              public getGruposService: GetGruposService, public dialog: MatDialog) {
+              public getGruposService: GetGruposService, public dialog: MatDialog,
+              public conviteService: ConviteMembroService) {
   }
 
   ngOnInit() {
@@ -63,7 +67,7 @@ export class GerenciadorMembrosComponent implements OnInit {
         for (const convidado of Object.keys(grupo.convidadosTO)) {
           membros.push({
             membro: grupo.convidadosTO[convidado].email,
-            status: 'PAINELCONTROLE.PENDENTE',
+            status: grupo.convidadosTO[convidado].statusConvite === 'P' ? 'PAINELCONTROLE.PENDENTE' : 'PAINELCONTROLE.RECUSADO',
             id: grupo.convidadosTO[convidado].codConvidado,
             convidado: true
           });
@@ -126,6 +130,33 @@ export class GerenciadorMembrosComponent implements OnInit {
         codFesta,
         component: this
       }
+    });
+  }
+
+  reenviarConvite(codConvidado, grupo, codFesta) {
+    this.openDialogProcessing();
+    this.conviteService.reenviarConvite(codFesta, grupo, codConvidado).subscribe((resp: any) => {
+      this.conviteService.setFarol(false);
+      this.ngOnInit();
+      this.dialog.closeAll();
+      this.openDialogSuccess('CONVREEV');
+    });
+  }
+
+  openDialogSuccess(message: string) {
+    this.dialog.open(SuccessDialogComponent, {
+      width: '20rem',
+      data: {message}
+    });
+  }
+
+  openDialogProcessing() {
+    this.dialog.open(ProcessingDialogComponent, {
+        width: '20rem',
+        disableClose: true,
+        data: {
+            tipo: 'REINVITE'
+        }
     });
   }
 
