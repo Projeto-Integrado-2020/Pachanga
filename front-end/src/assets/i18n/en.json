@@ -1020,9 +1020,10 @@
 
     "COOKIE": {
         "HEADER": "THIS WEBSITE USES COOKIES",
-        "DESCRIPTION": "We use cookies to personalise content and ads, to provide social media features and to analyse our traffic. We also share information about your use of our site with our social media, advertising and analytics partners who may combine it with other information that you’ve provided to them or that they’ve collected from your use of their services. You consent to our cookies if you continue to use our website.",
-        "ACCEPT": "Understood!",
-        "DECLINE": "Decline"
+        "DESCRIPTION": "We use cookies to personalise content and ads, to provide social media features and to analyse our traffic. We also share information about your use of our site with our social media, advertising and analytics partners who may combine it with other information that you’ve provided to them or that they’ve collected from your use of their services. By accessing the site, you agree to our",
+        "ACCEPT": "Ok, I understood",
+        "DECLINE": "Decline",
+        "POLITICA": "Privacy Policy"
     }
 
 }

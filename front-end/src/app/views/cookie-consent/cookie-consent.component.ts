@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material';
+import { TermosUsoDialogComponent } from '../termos-uso-dialog/termos-uso-dialog.component';
 
 @Component({
   selector: 'app-cookie-consent',
@@ -9,7 +11,7 @@ export class CookieConsentComponent implements OnInit {
 
   cookiesConsent = (localStorage.getItem('Cookie') === 'OK');
 
-  constructor() { }
+  constructor(public modal: MatDialog) { }
 
   ngOnInit() {
   }
@@ -17,6 +19,12 @@ export class CookieConsentComponent implements OnInit {
   confirmarCookies() {
     localStorage.setItem('Cookie', 'OK');
     this.cookiesConsent = true;
+  }
+
+  openTermosUso() {
+    this.modal.open(TermosUsoDialogComponent, {
+      width: '35rem'
+    });
   }
 
 }

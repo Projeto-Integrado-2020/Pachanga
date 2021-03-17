@@ -85,3 +85,13 @@
   .cookie-consent-banner__cta:last-child {
     margin-left: 16px;
   }
+
+  .termos-dialog {
+    cursor: pointer;
+    text-decoration: underline;
+    white-space: pre-wrap;
+  }
+  
+  .termos-dialog:hover {
+    color: blue;
+  }
