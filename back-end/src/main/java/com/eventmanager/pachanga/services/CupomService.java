@@ -32,15 +32,19 @@ public class CupomService {
 
 	@Autowired
 	private CupomFactory cupomFactory;
-	
+
 	@Autowired
-	private NotificacaoService notificacaoService; 
+	private NotificacaoService notificacaoService;
 
 	public Cupom getCupom(String nomeCupom, int codFesta) {
 		Cupom cupom = this.cupomRepository.findCuponsByNomeAndFesta(nomeCupom, codFesta);
-		LocalDateTime dataAtual = notificacaoService.getDataAtual();
-		return dataAtual.isAfter(cupom.getDataIniDesconto()) && dataAtual.isBefore(cupom.getDataFimDesconto()) ? cupom
-				: null;
+		if (cupom != null) {
+			LocalDateTime dataAtual = notificacaoService.getDataAtual();
+			return dataAtual.isAfter(cupom.getDataIniDesconto()) && dataAtual.isBefore(cupom.getDataFimDesconto())
+					? cupom
+					: null;
+		}
+		return null;
 	}
 
 	public List<Cupom> getCuponsFesta(int codFesta, int idUser) {
@@ -96,8 +100,8 @@ public class CupomService {
 		Cupom cupomExistente = cupomRepository.findCuponsByNomeAndFesta(nomeCupom, cupom.getCodFesta());
 		if (cupomExistente != null && !trocaNome)
 			throw new ValidacaoException("CUPMDUPL");// cupom duplicado
-		
-		if((cupom.getDataFimDesconto().isBefore(cupom.getDataIniDesconto())
+
+		if ((cupom.getDataFimDesconto().isBefore(cupom.getDataIniDesconto())
 				|| Duration.between(cupom.getDataIniDesconto(), cupom.getDataFimDesconto()).isZero())) {
 			throw new ValidacaoException("DCUPINCO");// data inicial ou final incorreta
 		}
