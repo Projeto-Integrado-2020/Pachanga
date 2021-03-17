@@ -68,5 +68,8 @@ public interface ConvidadoRepository extends CrudRepository<Convidado, Integer>{
 	@Modifying(clearAutomatically = true)
 	@Query(value = "DELETE FROM convidado_x_notificacao WHERE cod_convidado IN :codConvidados", nativeQuery = true)
 	public void deleteAllConvidadosNotificacao(List<Integer> codConvidados);
+
+	@Query(value = "SELECT c FROM Convidado c JOIN c.grupos g JOIN g.festa f WHERE c.email = :email AND f.codFesta = :codGrupo")
+	public Convidado findByEmailByFesta(String email, int codFesta);
 	
 }

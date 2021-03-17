@@ -47,8 +47,8 @@ public class ConvidadoService {
 		Grupo grupo = this.validarGrupoFesta(idGrupo, codFesta, idUsuario);
 		Festa festa = this.validarFesta(codFesta);
 		for (String email : emails) {
-			Convidado convidadoBanco = convidadoRepository.findByEmailByGrupo(email, idGrupo);
-			if (convidadoBanco == null) {
+			Convidado convidadoFesta = convidadoRepository.findByEmailByFesta(email, codFesta);
+			if (convidadoFesta == null) {
 				Usuario usuarioFesta = usuarioRepository.findBycodFestaAndEmail(codFesta, email);
 				if (usuarioFesta == null) {
 					EmailMensagem.enviarEmail(email, grupo.getNomeGrupo(), festa);
