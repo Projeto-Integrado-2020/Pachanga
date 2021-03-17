@@ -163,6 +163,7 @@ import { PainelSegurancaGeralComponent } from './views/painel-seguranca-geral/pa
 import { PermissionFilter } from './views/utils/permission-filter.pipe';
 import { DialogDadosBancariosComponent } from './views/dialog-dados-bancarios/dialog-dados-bancarios.component';
 import { MatSelectFilterModule } from 'mat-select-filter';
+import { CookieConsentComponent } from './views/cookie-consent/cookie-consent.component';
 
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
 
@@ -280,7 +281,8 @@ export function provideConfig() {
     RelatorioDetalhesDialogComponent,
     PainelSegurancaGeralComponent,
     PermissionFilter,
-    DialogDadosBancariosComponent
+    DialogDadosBancariosComponent,
+    CookieConsentComponent
   ],
   entryComponents: [
     LoginComponent,

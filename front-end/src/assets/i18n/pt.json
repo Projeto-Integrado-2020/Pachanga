@@ -1035,6 +1035,13 @@
         "PERMDENYMES": "Não é possível executar leitura. Utilize opção abaixo.",
         "DEVNCHEC": "Não foi possível verificar os dispositivos.",
         "DEVNCHECMES": "Um erro de leitura deve ter ocorrido ou este dispositivo não possui câmeras. Utilize opção abaixo."
+    },
+
+    "COOKIE": {
+        "HEADER": "ESTE SITE UTILIZA COOKIES",
+        "DESCRIPTION": "Usamos cookies para personalizar conteúdo e anúncios, fornecer recursos de mídia social e analisar nosso tráfego. Também compartilhamos informações sobre o uso de nosso site com nossos parceiros de mídia social, publicidade e análise, que podem combiná-las com outras informações que você forneceu a eles ou que coletaram do uso de seus serviços. Você concorda com nossos cookies se continuar a usar nosso site.",
+        "ACCEPT": "Entendido!",
+        "DECLINE": "Recusar"
     }
 
 }

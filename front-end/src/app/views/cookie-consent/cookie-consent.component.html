@@ -1,0 +1,20 @@
+<div *ngIf="!cookiesConsent" class="cookie-consent-banner">
+    <div class="cookie-consent-banner__inner">
+        <div class="cookie-consent-banner__copy">
+            <div class="cookie-consent-banner__header">
+                <b>{{'COOKIE.HEADER' | translate}}</b>
+            </div>
+            <div class="cookie-consent-banner__description">
+                {{'COOKIE.DESCRIPTION' | translate}}
+
+            </div>
+        </div>
+
+        <div class="cookie-consent-banner__actions">
+            <button mat-raised-button (click)="confirmarCookies()" class="cookie-consent-banner__cta">
+                {{'COOKIE.ACCEPT' | translate}}
+            </button>
+        </div>
+    </div>
+</div>
+  
