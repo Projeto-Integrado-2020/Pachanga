@@ -27,7 +27,21 @@ export class NavbarComponent implements OnInit {
       shareReplay()
     );
 
+    INGLES = 'EN-US';
+    PORTUGUES = 'PT-BR';
+
   selectedLang = 'pt';
+  selected = this.PORTUGUES;
+  linguas: any = [
+    {
+      classe: 'btn btn--lang btn--lang--pt',
+      lingua: 'PT-BR'
+    },
+    {
+      classe: 'btn btn--lang btn--lang--en',
+      lingua: 'EN-US'
+    }
+  ];
 
   constructor(
     public translate: TranslateService,
@@ -59,9 +73,10 @@ export class NavbarComponent implements OnInit {
     }
   }
 
-  selectLang(event: Event) {
-    this.translate.use((event.target as HTMLSelectElement).value);
-    this.selectedLang = (event.target as HTMLSelectElement).value;
+  selectLang(event: any) {
+    const lingua = event.value === this.INGLES ? 'en' : 'pt';
+    this.translate.use(lingua);
+    this.selectedLang = event.value;
   }
 
  // método para abrir modal de login
